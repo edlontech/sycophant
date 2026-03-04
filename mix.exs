@@ -35,7 +35,7 @@ defmodule Sycophant.MixProject do
       {:llm_db, "~> 2026.2"},
       {:mimic, "~> 2.0", only: :test},
       {:mix_audit, ">= 0.0.0", only: [:dev, :test], runtime: false},
-      {:quiver, github: "edlontech/quiver", only: [:dev, :test]},
+      {:quiver, "~> 0.1", only: [:dev, :test]},
       {:recode, "~> 0.8", only: [:dev], runtime: false},
       {:splode, "~> 0.3"},
       {:telemetry, "~> 1.3"},
