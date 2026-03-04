@@ -33,4 +33,23 @@ defmodule Sycophant.Recording.GenerateTextTest do
     assert is_binary(response.text)
     assert response.text =~ "4"
   end
+
+  @tag recording_prefix: true
+  test "continues a multi-turn conversation", %{model: model} do
+    messages = [Message.user("My name is Sycophant. Remember it.")]
+
+    {:ok, resp1} = Sycophant.generate_text(messages, recording_opts(model: model))
+    assert is_binary(resp1.text)
+
+    {:ok, resp2} = Sycophant.generate_text(resp1, Message.user("What is my name?"))
+    assert is_binary(resp2.text)
+    assert resp2.text =~ "Sycophant"
+
+    history = Sycophant.Response.messages(resp2)
+    assert length(history) == 4
+    assert Enum.at(history, 0).role == :user
+    assert Enum.at(history, 1).role == :assistant
+    assert Enum.at(history, 2).role == :user
+    assert Enum.at(history, 3).role == :assistant
+  end
 end

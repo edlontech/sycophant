@@ -5,8 +5,10 @@ defmodule Sycophant.Pipeline do
   wire decoding.
   """
 
+  alias Sycophant.Context
   alias Sycophant.Credentials
   alias Sycophant.Error
+  alias Sycophant.Message
   alias Sycophant.ModelResolver
   alias Sycophant.Telemetry
   alias Sycophant.Transport
@@ -54,9 +56,29 @@ defmodule Sycophant.Pipeline do
          {:ok, credentials} <- Credentials.resolve(model_info.provider, opts[:credentials]),
          {:ok, request} <- build_request(messages, params, opts, model_info),
          {:ok, payload} <- adapter.encode_request(request),
-         {:ok, body} <- Transport.call(payload, transport_opts(model_info, credentials)) do
-      adapter.decode_response(body)
+         {:ok, body} <- Transport.call(payload, transport_opts(model_info, credentials)),
+         {:ok, response} <- adapter.decode_response(body) do
+      {:ok, attach_context(response, messages, params, opts)}
     end
+  end
+
+  defp attach_context(response, messages, params, opts) do
+    assistant_msg = %Message{
+      role: :assistant,
+      content: response.text,
+      tool_calls: if(response.tool_calls in [nil, []], do: nil, else: response.tool_calls)
+    }
+
+    context = %Context{
+      messages: messages ++ [assistant_msg],
+      model: opts[:model],
+      params: params,
+      provider_params: opts[:provider_params] || %{},
+      tools: opts[:tools] || [],
+      stream: opts[:stream]
+    }
+
+    %{response | context: context}
   end
 
   defp validate_params(opts) do

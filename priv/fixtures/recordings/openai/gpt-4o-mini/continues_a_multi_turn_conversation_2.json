@@ -2,18 +2,30 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-04T16:00:57.139741Z",
+    "recorded_at": "2026-03-04T16:00:55.501303Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
     "body": {
       "input": [
         {
-          "content": "What is 2 + 2?",
+          "content": "My name is Sycophant. Remember it.",
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "Got it, Sycophant! How can I assist you today?",
+              "type": "output_text"
+            }
+          ],
+          "role": "assistant"
+        },
+        {
+          "content": "What is my name?",
           "role": "user"
         }
       ],
-      "instructions": "You are a calculator. Only respond with numbers.",
       "model": "gpt-4o-mini"
     },
     "headers": [
@@ -44,7 +56,7 @@
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_0a215043d3aa7b8c0069a85738a03481909d1b7e4664beb156",
+      "id": "resp_0fac191aff900b090069a85736d4e48196aadb0df8dd08a74a",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -52,15 +64,15 @@
       "error": null,
       "model": "gpt-4o-mini-2024-07-18",
       "usage": {
-        "input_tokens": 29,
+        "input_tokens": 46,
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 2,
+        "output_tokens": 9,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 31
+        "total_tokens": 55
       },
       "safety_identifier": null,
       "object": "response",
@@ -71,17 +83,17 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "4",
+              "text": "Your name is Sycophant.",
               "type": "output_text"
             }
           ],
-          "id": "msg_0a215043d3aa7b8c0069a85738f4848190a938142f2ab9cbce",
+          "id": "msg_0fac191aff900b090069a85737268081968377c4852bb83820",
           "role": "assistant",
           "status": "completed",
           "type": "message"
         }
       ],
-      "instructions": "You are a calculator. Only respond with numbers.",
+      "instructions": null,
       "store": true,
       "presence_penalty": 0.0,
       "incomplete_details": null,
@@ -89,7 +101,7 @@
         "effort": null,
         "summary": null
       },
-      "completed_at": 1772640056,
+      "completed_at": 1772640055,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -98,13 +110,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1772640056,
+      "created_at": 1772640054,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 04 Mar 2026 16:00:57 GMT"
+        "Wed, 04 Mar 2026 16:00:55 GMT"
       ],
       [
         "content-type",
@@ -112,7 +124,7 @@
       ],
       [
         "content-length",
-        "1574"
+        "1550"
       ],
       [
         "server",
@@ -132,7 +144,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "149999950"
+        "149999932"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -156,11 +168,11 @@
       ],
       [
         "x-request-id",
-        "req_55a3dda6ea054071a15be345a6b4f2b6"
+        "req_230d4436101d40c295bd4b293e0714c0"
       ],
       [
         "openai-processing-ms",
-        "437"
+        "589"
       ],
       [
         "cf-cache-status",
@@ -180,7 +192,7 @@
       ],
       [
         "cf-ray",
-        "9d7218c16e9e9d56-AMS"
+        "9d7218b4a8999d56-AMS"
       ],
       [
         "alt-svc",

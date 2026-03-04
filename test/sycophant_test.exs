@@ -59,4 +59,101 @@ defmodule SycophantTest do
                Sycophant.generate_text([Message.user("Hi")], model: "openai:gpt-4o")
     end
   end
+
+  describe "generate_text/2 continuation" do
+    test "accepts Response and Message, re-enters pipeline with accumulated messages" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      stub(Sycophant.Transport, :call, fn _payload, _opts ->
+        {:ok,
+         %{
+           "id" => "resp-1",
+           "output" => [
+             %{
+               "type" => "message",
+               "content" => [%{"type" => "output_text", "text" => "Hello!"}]
+             }
+           ],
+           "usage" => %{"input_tokens" => 10, "output_tokens" => 5}
+         }}
+      end)
+
+      {:ok, resp1} = Sycophant.generate_text([Message.user("Hi")], model: "openai:gpt-4o")
+
+      expect(Sycophant.Transport, :call, fn payload, _opts ->
+        input = payload["input"]
+        assert length(input) == 3
+
+        {:ok,
+         %{
+           "id" => "resp-2",
+           "output" => [
+             %{
+               "type" => "message",
+               "content" => [%{"type" => "output_text", "text" => "World!"}]
+             }
+           ],
+           "usage" => %{"input_tokens" => 20, "output_tokens" => 5}
+         }}
+      end)
+
+      {:ok, resp2} = Sycophant.generate_text(resp1, Message.user("Continue"))
+      assert resp2.text == "World!"
+      assert length(Response.messages(resp2)) == 4
+    end
+
+    test "carries params from original call through continuation" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      stub(Sycophant.Transport, :call, fn _payload, _opts ->
+        {:ok,
+         %{
+           "id" => "resp-1",
+           "output" => [
+             %{
+               "type" => "message",
+               "content" => [%{"type" => "output_text", "text" => "Ok"}]
+             }
+           ],
+           "usage" => %{"input_tokens" => 5, "output_tokens" => 2}
+         }}
+      end)
+
+      {:ok, resp} =
+        Sycophant.generate_text([Message.user("Hi")],
+          model: "openai:gpt-4o",
+          temperature: 0.7
+        )
+
+      assert resp.context.params.temperature == 0.7
+
+      expect(Sycophant.Transport, :call, fn payload, _opts ->
+        assert payload["temperature"] == 0.7
+
+        {:ok,
+         %{
+           "id" => "resp-2",
+           "output" => [
+             %{
+               "type" => "message",
+               "content" => [%{"type" => "output_text", "text" => "Ok"}]
+             }
+           ],
+           "usage" => %{"input_tokens" => 10, "output_tokens" => 2}
+         }}
+      end)
+
+      assert {:ok, _} = Sycophant.generate_text(resp, Message.user("More"))
+    end
+  end
 end

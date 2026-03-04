@@ -277,4 +277,87 @@ defmodule Sycophant.PipelineTest do
       assert {:ok, _} = Pipeline.call(default_messages(), opts)
     end
   end
+
+  describe "call/2 context population" do
+    test "response context contains input messages plus assistant message" do
+      stub_happy_path()
+
+      messages = [Message.system("Be brief"), Message.user("Hi")]
+      assert {:ok, %Response{context: context}} = Pipeline.call(messages, default_opts())
+
+      assert length(context.messages) == 3
+      assert Enum.at(context.messages, 0).role == :system
+      assert Enum.at(context.messages, 1).role == :user
+      assert Enum.at(context.messages, 2).role == :assistant
+      assert Enum.at(context.messages, 2).content == "Hello!"
+    end
+
+    test "response context carries model spec from opts" do
+      stub_happy_path()
+
+      assert {:ok, %Response{context: context}} =
+               Pipeline.call(default_messages(), default_opts())
+
+      assert context.model == "openai:gpt-4o"
+    end
+
+    test "response context carries validated params" do
+      stub_happy_path()
+
+      opts = default_opts() ++ [temperature: 0.5]
+      assert {:ok, %Response{context: context}} = Pipeline.call(default_messages(), opts)
+
+      assert context.params.temperature == 0.5
+    end
+
+    test "response context carries tools and provider_params" do
+      stub_happy_path()
+
+      tool = %Sycophant.Tool{
+        name: "weather",
+        description: "Get weather",
+        parameters: Zoi.map(%{})
+      }
+
+      opts = default_opts() ++ [tools: [tool], provider_params: %{"foo" => "bar"}]
+      assert {:ok, %Response{context: context}} = Pipeline.call(default_messages(), opts)
+
+      assert context.tools == [tool]
+      assert context.provider_params == %{"foo" => "bar"}
+    end
+
+    test "assistant message includes tool_calls when present" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      stub(Sycophant.Transport, :call, fn _payload, _opts ->
+        {:ok,
+         %{
+           "id" => "resp-123",
+           "output" => [
+             %{
+               "type" => "function_call",
+               "id" => "fc_1",
+               "name" => "weather",
+               "arguments" => ~s({"city":"Paris"}),
+               "call_id" => "call_1"
+             }
+           ],
+           "usage" => %{"input_tokens" => 10, "output_tokens" => 5}
+         }}
+      end)
+
+      assert {:ok, %Response{context: context}} =
+               Pipeline.call(default_messages(), default_opts())
+
+      assistant_msg = List.last(context.messages)
+      assert assistant_msg.role == :assistant
+      assert assistant_msg.content == nil
+      assert length(assistant_msg.tool_calls) == 1
+    end
+  end
 end

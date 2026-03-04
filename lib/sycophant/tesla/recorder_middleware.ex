@@ -34,9 +34,12 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
     end
   end
 
-  @doc "Sets the recording name in the process dictionary."
+  @doc "Sets the recording name in the process dictionary and resets the call counter."
   @spec set_recording(String.t()) :: term()
-  def set_recording(name), do: Process.put(:sycophant_recording, name)
+  def set_recording(name) do
+    Process.put(:sycophant_recording_seq, 0)
+    Process.put(:sycophant_recording, name)
+  end
 
   @doc "Gets the current recording name from the process dictionary."
   @spec get_recording() :: String.t() | nil
@@ -44,7 +47,10 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
 
   @doc "Clears the recording name from the process dictionary."
   @spec clear_recording() :: term()
-  def clear_recording, do: Process.delete(:sycophant_recording)
+  def clear_recording do
+    Process.delete(:sycophant_recording_seq)
+    Process.delete(:sycophant_recording)
+  end
 
   defp extract_model(body) when is_binary(body) do
     case JSON.decode(body) do
@@ -66,10 +72,22 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
   defp extract_provider(_), do: "unknown"
 
   defp handle_recording(env, next, name, opts) do
+    seq_name = sequenced_name(name)
+
     if record_mode?(opts) do
-      record(env, next, name, opts)
+      record(env, next, seq_name, opts)
     else
-      replay(env, name, opts)
+      replay(env, seq_name, opts)
+    end
+  end
+
+  defp sequenced_name(name) do
+    seq = Process.get(:sycophant_recording_seq, 0) + 1
+    Process.put(:sycophant_recording_seq, seq)
+
+    case seq do
+      1 -> name
+      n -> "#{name}_#{n}"
     end
   end
 
