@@ -10,11 +10,12 @@ defmodule Sycophant.Context do
   use TypedStruct
 
   typedstruct do
-    field(:messages, [Sycophant.Message.t()], enforce: true)
-    field(:model, String.t())
-    field(:params, Sycophant.Params.t())
-    field(:provider_params, map(), default: %{})
-    field(:tools, [Sycophant.Tool.t()], default: [])
-    field(:stream, (term() -> term()))
+    field :messages, [Sycophant.Message.t()], enforce: true
+    field :model, String.t()
+    field :params, Sycophant.Params.t()
+    field :provider_params, map(), default: %{}
+    field :tools, [Sycophant.Tool.t()], default: []
+    field :stream, (term() -> term())
+    field :response_schema, Zoi.schema()
   end
 end

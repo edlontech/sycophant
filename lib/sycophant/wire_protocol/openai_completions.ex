@@ -244,7 +244,10 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
 
     with {:ok, payload} <- maybe_put_tools(base, request.tools),
          {:ok, payload} <- maybe_put_response_format(payload, request.response_schema) do
-      {:ok, Map.merge(payload, translate_params(request.params))}
+      {:ok,
+       payload
+       |> Map.merge(translate_params(request.params))
+       |> Map.merge(request.provider_params || %{})}
     end
   end
 

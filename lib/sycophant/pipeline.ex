@@ -10,7 +10,9 @@ defmodule Sycophant.Pipeline do
   alias Sycophant.Error
   alias Sycophant.Message
   alias Sycophant.ModelResolver
+  alias Sycophant.ResponseValidator
   alias Sycophant.Telemetry
+  alias Sycophant.ToolExecutor
   alias Sycophant.Transport
 
   @param_keys [
@@ -54,11 +56,48 @@ defmodule Sycophant.Pipeline do
 
     with {:ok, params} <- validate_params(opts),
          {:ok, credentials} <- Credentials.resolve(model_info.provider, opts[:credentials]),
-         {:ok, request} <- build_request(messages, params, opts, model_info),
+         {:ok, response} <- single_call(messages, params, opts, model_info, adapter, credentials),
+         {:ok, response} <-
+           maybe_tool_loop(response, opts, params, model_info, adapter, credentials) do
+      maybe_validate_response(response, opts)
+    end
+  end
+
+  defp maybe_tool_loop(response, opts, params, model_info, adapter, credentials) do
+    tools = opts[:tools] || []
+
+    if has_executable_tools?(tools) and response.tool_calls != [] do
+      call_fn = fn msgs ->
+        single_call(msgs, params, opts, model_info, adapter, credentials)
+      end
+
+      ToolExecutor.run(response, tools, opts, call_fn)
+    else
+      {:ok, response}
+    end
+  end
+
+  defp single_call(messages, params, opts, model_info, adapter, credentials) do
+    with {:ok, request} <- build_request(messages, params, opts, model_info),
          {:ok, payload} <- adapter.encode_request(request),
          {:ok, body} <- Transport.call(payload, transport_opts(model_info, credentials)),
          {:ok, response} <- adapter.decode_response(body) do
       {:ok, attach_context(response, messages, params, opts)}
+    end
+  end
+
+  defp has_executable_tools?(tools) do
+    Enum.any?(tools, & &1.function)
+  end
+
+  defp maybe_validate_response(response, opts) do
+    case opts[:response_schema] do
+      nil ->
+        {:ok, response}
+
+      schema ->
+        validate? = Keyword.get(opts, :validate, true)
+        ResponseValidator.validate(response, schema, validate?)
     end
   end
 
@@ -75,7 +114,8 @@ defmodule Sycophant.Pipeline do
       params: params,
       provider_params: opts[:provider_params] || %{},
       tools: opts[:tools] || [],
-      stream: opts[:stream]
+      stream: opts[:stream],
+      response_schema: opts[:response_schema]
     }
 
     %{response | context: context}

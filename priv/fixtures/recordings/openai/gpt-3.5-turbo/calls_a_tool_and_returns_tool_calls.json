@@ -1,0 +1,192 @@
+{
+  "metadata": {
+    "model": "gpt-3.5-turbo",
+    "provider": "api.openai.com",
+    "recorded_at": "2026-03-04T17:53:17.983720Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "role": "user"
+        }
+      ],
+      "model": "gpt-3.5-turbo",
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather for a city",
+            "name": "get_weather",
+            "parameters": {
+              "additionalProperties": false,
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.openai.com/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "tool_calls",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "annotations": [],
+            "content": null,
+            "refusal": null,
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "function": {
+                  "arguments": "{\"city\":\"Paris\"}",
+                  "name": "get_weather"
+                },
+                "id": "call_ZHZoZQdH4olnGXgK03xg0VNW",
+                "type": "function"
+              }
+            ]
+          }
+        }
+      ],
+      "created": 1772646797,
+      "id": "chatcmpl-DFkhJbxxRUAlGBLgzBa46846Hf5E3",
+      "model": "gpt-3.5-turbo-0125",
+      "object": "chat.completion",
+      "service_tier": "default",
+      "system_fingerprint": null,
+      "usage": {
+        "completion_tokens": 14,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        },
+        "prompt_tokens": 58,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 0
+        },
+        "total_tokens": 72
+      }
+    },
+    "headers": [
+      [
+        "date",
+        "Wed, 04 Mar 2026 17:53:17 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Request-ID"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-processing-ms",
+        "565"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "x-ratelimit-limit-requests",
+        "9000"
+      ],
+      [
+        "x-ratelimit-limit-tokens",
+        "2000000"
+      ],
+      [
+        "x-ratelimit-remaining-requests",
+        "8998"
+      ],
+      [
+        "x-ratelimit-remaining-tokens",
+        "1999984"
+      ],
+      [
+        "x-ratelimit-reset-requests",
+        "6ms"
+      ],
+      [
+        "x-ratelimit-reset-tokens",
+        "0s"
+      ],
+      [
+        "x-request-id",
+        "req_c8a582210f0042d086526cf2c07c9646"
+      ],
+      [
+        "x-openai-proxy-wasm",
+        "v0.1"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "cf-ray",
+        "9d72bd52edaf9fa8-AMS"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}

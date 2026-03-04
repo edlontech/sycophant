@@ -1,0 +1,245 @@
+{
+  "metadata": {
+    "model": "gpt-4o-mini",
+    "provider": "api.openai.com",
+    "recorded_at": "2026-03-04T17:53:14.341327Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "role": "user"
+        },
+        {
+          "content": [],
+          "role": "assistant"
+        },
+        {
+          "arguments": "{\"city\":\"Paris\"}",
+          "call_id": "call_2nqLfqKqd1WhMebFp888zkwW",
+          "name": "get_weather",
+          "type": "function_call"
+        },
+        {
+          "call_id": "call_2nqLfqKqd1WhMebFp888zkwW",
+          "output": "Paris: 22C, sunny",
+          "type": "function_call_output"
+        }
+      ],
+      "model": "gpt-4o-mini",
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "top_logprobs": 0,
+      "previous_response_id": null,
+      "tool_choice": "auto",
+      "service_tier": "default",
+      "status": "completed",
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ],
+      "id": "resp_0b9aa307617868830069a871879d8c8196be66c9c0c00441b9",
+      "temperature": 1.0,
+      "max_output_tokens": null,
+      "user": null,
+      "frequency_penalty": 0.0,
+      "error": null,
+      "model": "gpt-4o-mini-2024-07-18",
+      "usage": {
+        "input_tokens": 82,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 14,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 96
+      },
+      "safety_identifier": null,
+      "object": "response",
+      "parallel_tool_calls": true,
+      "output": [
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "The weather in Paris is currently 22°C and sunny.",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_0b9aa307617868830069a8718817e48196a1495fa5462daa7b",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "instructions": null,
+      "store": true,
+      "presence_penalty": 0.0,
+      "incomplete_details": null,
+      "reasoning": {
+        "effort": null,
+        "summary": null
+      },
+      "completed_at": 1772646792,
+      "truncation": "disabled",
+      "top_p": 1.0,
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": null,
+      "metadata": {},
+      "prompt_cache_key": null,
+      "created_at": 1772646791,
+      "max_tool_calls": null
+    },
+    "headers": [
+      [
+        "date",
+        "Wed, 04 Mar 2026 17:53:12 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-length",
+        "2006"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "x-ratelimit-limit-requests",
+        "30000"
+      ],
+      [
+        "x-ratelimit-limit-tokens",
+        "150000000"
+      ],
+      [
+        "x-ratelimit-remaining-requests",
+        "29999"
+      ],
+      [
+        "x-ratelimit-remaining-tokens",
+        "149999700"
+      ],
+      [
+        "x-ratelimit-reset-requests",
+        "2ms"
+      ],
+      [
+        "x-ratelimit-reset-tokens",
+        "0s"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "x-request-id",
+        "req_a11d4fe011494a6a90ccdb1bcadf8b4a"
+      ],
+      [
+        "openai-processing-ms",
+        "1019"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "cf-ray",
+        "9d72bd2d0d6f9fa8-AMS"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}

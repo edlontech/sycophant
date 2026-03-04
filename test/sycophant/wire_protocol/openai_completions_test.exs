@@ -112,6 +112,43 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
     end
   end
 
+  describe "encode_request/1 - provider_params" do
+    test "merges provider_params into payload" do
+      request = %Request{
+        messages: [Message.user("hi")],
+        model: "gpt-4o",
+        provider_params: %{"logprobs" => true, "top_logprobs" => 5}
+      }
+
+      assert {:ok, payload} = OpenAICompletions.encode_request(request)
+      assert payload["logprobs"] == true
+      assert payload["top_logprobs"] == 5
+    end
+
+    test "provider_params override translated params" do
+      request = %Request{
+        messages: [Message.user("hi")],
+        model: "gpt-4o",
+        params: %Params{temperature: 0.5},
+        provider_params: %{"temperature" => 0.9}
+      }
+
+      assert {:ok, payload} = OpenAICompletions.encode_request(request)
+      assert payload["temperature"] == 0.9
+    end
+
+    test "handles nil provider_params" do
+      request = %Request{
+        messages: [Message.user("hi")],
+        model: "gpt-4o",
+        provider_params: nil
+      }
+
+      assert {:ok, payload} = OpenAICompletions.encode_request(request)
+      assert payload["model"] == "gpt-4o"
+    end
+  end
+
   describe "encode_request/1 - params" do
     test "translates canonical params to OpenAI names" do
       params = %Params{temperature: 0.7, max_tokens: 1000, top_p: 0.9}

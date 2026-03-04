@@ -156,4 +156,150 @@ defmodule SycophantTest do
       assert {:ok, _} = Sycophant.generate_text(resp, Message.user("More"))
     end
   end
+
+  describe "generate_object/3" do
+    test "returns validated object from JSON response" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      stub(Sycophant.Transport, :call, fn _payload, _opts ->
+        {:ok,
+         %{
+           "id" => "resp-123",
+           "output" => [
+             %{
+               "type" => "message",
+               "content" => [
+                 %{"type" => "output_text", "text" => ~s({"name": "Alice", "age": 30})}
+               ]
+             }
+           ],
+           "usage" => %{"input_tokens" => 10, "output_tokens" => 5}
+         }}
+      end)
+
+      schema = Zoi.map(%{name: Zoi.string(), age: Zoi.integer()}, coerce: true)
+
+      assert {:ok, %Response{object: %{name: "Alice", age: 30}}} =
+               Sycophant.generate_object([Message.user("Give me a person")], schema,
+                 model: "openai:gpt-4o"
+               )
+    end
+
+    test "returns error when response fails validation" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      stub(Sycophant.Transport, :call, fn _payload, _opts ->
+        {:ok,
+         %{
+           "id" => "resp-123",
+           "output" => [
+             %{
+               "type" => "message",
+               "content" => [
+                 %{"type" => "output_text", "text" => ~s({"name": 123})}
+               ]
+             }
+           ],
+           "usage" => %{"input_tokens" => 10, "output_tokens" => 5}
+         }}
+      end)
+
+      schema = Zoi.map(%{name: Zoi.string(), age: Zoi.integer()}, coerce: true)
+
+      assert {:error, %Sycophant.Error.Invalid.InvalidResponse{}} =
+               Sycophant.generate_object([Message.user("Give me a person")], schema,
+                 model: "openai:gpt-4o"
+               )
+    end
+
+    test "skips validation with validate: false" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      stub(Sycophant.Transport, :call, fn _payload, _opts ->
+        {:ok,
+         %{
+           "id" => "resp-123",
+           "output" => [
+             %{
+               "type" => "message",
+               "content" => [
+                 %{"type" => "output_text", "text" => ~s({"name": "Alice", "age": 30})}
+               ]
+             }
+           ],
+           "usage" => %{"input_tokens" => 10, "output_tokens" => 5}
+         }}
+      end)
+
+      schema = Zoi.map(%{name: Zoi.string(), age: Zoi.integer()}, coerce: true)
+
+      assert {:ok, %Response{object: %{"name" => "Alice", "age" => 30}}} =
+               Sycophant.generate_object([Message.user("Give me a person")], schema,
+                 model: "openai:gpt-4o",
+                 validate: false
+               )
+    end
+  end
+
+  describe "generate_object/2 continuation" do
+    test "carries response_schema through context" do
+      model = build_model()
+      provider = build_provider()
+      counter = :counters.new(1, [:atomics])
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      stub(Sycophant.Transport, :call, fn _payload, _opts ->
+        :counters.add(counter, 1, 1)
+        count = :counters.get(counter, 1)
+
+        json =
+          case count do
+            1 -> ~s({"name": "Alice", "age": 30})
+            2 -> ~s({"name": "Bob", "age": 25})
+          end
+
+        {:ok,
+         %{
+           "id" => "resp-#{count}",
+           "output" => [
+             %{
+               "type" => "message",
+               "content" => [%{"type" => "output_text", "text" => json}]
+             }
+           ],
+           "usage" => %{"input_tokens" => 10, "output_tokens" => 5}
+         }}
+      end)
+
+      schema = Zoi.map(%{name: Zoi.string(), age: Zoi.integer()}, coerce: true)
+
+      {:ok, resp1} =
+        Sycophant.generate_object([Message.user("Give me a person")], schema,
+          model: "openai:gpt-4o"
+        )
+
+      assert resp1.object == %{name: "Alice", age: 30}
+
+      {:ok, resp2} = Sycophant.generate_object(resp1, Message.user("Give me another"))
+      assert resp2.object == %{name: "Bob", age: 25}
+    end
+  end
 end

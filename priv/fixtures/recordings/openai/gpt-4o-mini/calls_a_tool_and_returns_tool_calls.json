@@ -1,0 +1,224 @@
+{
+  "metadata": {
+    "model": "gpt-4o-mini",
+    "provider": "api.openai.com",
+    "recorded_at": "2026-03-04T17:53:15.548819Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "role": "user"
+        }
+      ],
+      "model": "gpt-4o-mini",
+      "tools": [
+        {
+          "description": "Get current weather for a city",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "top_logprobs": 0,
+      "previous_response_id": null,
+      "tool_choice": "auto",
+      "service_tier": "default",
+      "status": "completed",
+      "tools": [
+        {
+          "description": "Get current weather for a city",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ],
+      "id": "resp_0d229c8c892211d10069a8718a719881938136c07766a8f13c",
+      "temperature": 1.0,
+      "max_output_tokens": null,
+      "user": null,
+      "frequency_penalty": 0.0,
+      "error": null,
+      "model": "gpt-4o-mini-2024-07-18",
+      "usage": {
+        "input_tokens": 50,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 15,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 65
+      },
+      "safety_identifier": null,
+      "object": "response",
+      "parallel_tool_calls": true,
+      "output": [
+        {
+          "arguments": "{\"city\":\"Paris\"}",
+          "call_id": "call_k1d4O6SgoQNOHB1ilFKcDcnI",
+          "id": "fc_0d229c8c892211d10069a8718b4e808193be1f5e769f512e31",
+          "name": "get_weather",
+          "status": "completed",
+          "type": "function_call"
+        }
+      ],
+      "instructions": null,
+      "store": true,
+      "presence_penalty": 0.0,
+      "incomplete_details": null,
+      "reasoning": {
+        "effort": null,
+        "summary": null
+      },
+      "completed_at": 1772646795,
+      "truncation": "disabled",
+      "top_p": 1.0,
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": null,
+      "metadata": {},
+      "prompt_cache_key": null,
+      "created_at": 1772646794,
+      "max_tool_calls": null
+    },
+    "headers": [
+      [
+        "date",
+        "Wed, 04 Mar 2026 17:53:15 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-length",
+        "1858"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "x-ratelimit-limit-requests",
+        "30000"
+      ],
+      [
+        "x-ratelimit-limit-tokens",
+        "150000000"
+      ],
+      [
+        "x-ratelimit-remaining-requests",
+        "29999"
+      ],
+      [
+        "x-ratelimit-remaining-tokens",
+        "149999732"
+      ],
+      [
+        "x-ratelimit-reset-requests",
+        "2ms"
+      ],
+      [
+        "x-ratelimit-reset-tokens",
+        "0s"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "x-request-id",
+        "req_5807f0229e46406ba061e04f28c5d03e"
+      ],
+      [
+        "openai-processing-ms",
+        "1062"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "cf-ray",
+        "9d72bd40cb4a9fa8-AMS"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}

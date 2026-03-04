@@ -360,4 +360,198 @@ defmodule Sycophant.PipelineTest do
       assert length(assistant_msg.tool_calls) == 1
     end
   end
+
+  describe "call/2 tool auto-execution" do
+    test "auto-executes tools with :function and loops until text response" do
+      model = build_model()
+      provider = build_provider()
+      counter = :counters.new(1, [:atomics])
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      stub(Sycophant.Transport, :call, fn _payload, _opts ->
+        :counters.add(counter, 1, 1)
+        count = :counters.get(counter, 1)
+
+        case count do
+          1 ->
+            {:ok,
+             %{
+               "id" => "resp-1",
+               "output" => [
+                 %{
+                   "type" => "function_call",
+                   "id" => "fc_1",
+                   "name" => "weather",
+                   "arguments" => ~s({"city":"Paris"}),
+                   "call_id" => "call_1"
+                 }
+               ],
+               "usage" => %{"input_tokens" => 10, "output_tokens" => 5}
+             }}
+
+          2 ->
+            {:ok,
+             %{
+               "id" => "resp-2",
+               "output" => [
+                 %{
+                   "type" => "message",
+                   "content" => [%{"type" => "output_text", "text" => "It's sunny in Paris!"}]
+                 }
+               ],
+               "usage" => %{"input_tokens" => 20, "output_tokens" => 10}
+             }}
+        end
+      end)
+
+      tool = %Sycophant.Tool{
+        name: "weather",
+        description: "Get weather",
+        parameters: Zoi.map(%{}),
+        function: fn %{"city" => city} -> "Sunny in #{city}" end
+      }
+
+      opts = default_opts() ++ [tools: [tool]]
+
+      assert {:ok, %Response{text: "It's sunny in Paris!"}} =
+               Pipeline.call(default_messages(), opts)
+
+      assert :counters.get(counter, 1) == 2
+    end
+
+    test "returns tool_calls when tools have no :function" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      stub(Sycophant.Transport, :call, fn _payload, _opts ->
+        {:ok,
+         %{
+           "id" => "resp-123",
+           "output" => [
+             %{
+               "type" => "function_call",
+               "id" => "fc_1",
+               "name" => "weather",
+               "arguments" => ~s({"city":"Paris"}),
+               "call_id" => "call_1"
+             }
+           ],
+           "usage" => %{"input_tokens" => 10, "output_tokens" => 5}
+         }}
+      end)
+
+      tool = %Sycophant.Tool{
+        name: "weather",
+        description: "Get weather",
+        parameters: Zoi.map(%{})
+      }
+
+      opts = default_opts() ++ [tools: [tool]]
+      assert {:ok, %Response{tool_calls: tool_calls}} = Pipeline.call(default_messages(), opts)
+      assert length(tool_calls) == 1
+      assert hd(tool_calls).name == "weather"
+    end
+  end
+
+  describe "call/2 response validation" do
+    test "validates response against schema and populates object" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      stub(Sycophant.Transport, :call, fn _payload, _opts ->
+        {:ok,
+         %{
+           "id" => "resp-123",
+           "output" => [
+             %{
+               "type" => "message",
+               "content" => [
+                 %{"type" => "output_text", "text" => ~s({"name": "Alice", "age": 30})}
+               ]
+             }
+           ],
+           "usage" => %{"input_tokens" => 10, "output_tokens" => 5}
+         }}
+      end)
+
+      schema = Zoi.map(%{name: Zoi.string(), age: Zoi.integer()}, coerce: true)
+      opts = default_opts() ++ [response_schema: schema]
+
+      assert {:ok, %Response{object: %{name: "Alice", age: 30}}} =
+               Pipeline.call(default_messages(), opts)
+    end
+
+    test "returns error when response fails schema validation" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      stub(Sycophant.Transport, :call, fn _payload, _opts ->
+        {:ok,
+         %{
+           "id" => "resp-123",
+           "output" => [
+             %{
+               "type" => "message",
+               "content" => [
+                 %{"type" => "output_text", "text" => ~s({"name": 123})}
+               ]
+             }
+           ],
+           "usage" => %{"input_tokens" => 10, "output_tokens" => 5}
+         }}
+      end)
+
+      schema = Zoi.map(%{name: Zoi.string(), age: Zoi.integer()}, coerce: true)
+      opts = default_opts() ++ [response_schema: schema]
+
+      assert {:error, %Error.Invalid.InvalidResponse{}} =
+               Pipeline.call(default_messages(), opts)
+    end
+
+    test "carries response_schema through context" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      stub(Sycophant.Transport, :call, fn _payload, _opts ->
+        {:ok,
+         %{
+           "id" => "resp-123",
+           "output" => [
+             %{
+               "type" => "message",
+               "content" => [
+                 %{"type" => "output_text", "text" => ~s({"name": "Alice"})}
+               ]
+             }
+           ],
+           "usage" => %{"input_tokens" => 10, "output_tokens" => 5}
+         }}
+      end)
+
+      schema = Zoi.map(%{name: Zoi.string()}, coerce: true)
+      opts = default_opts() ++ [response_schema: schema]
+
+      assert {:ok, %Response{context: context}} = Pipeline.call(default_messages(), opts)
+      assert context.response_schema == schema
+    end
+  end
 end
