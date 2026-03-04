@@ -727,4 +727,10 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
       "summary" => [%{"type" => "summary_text", "text" => summary_text}]
     }
   end
+
+  describe "request_path/0" do
+    test "returns /responses" do
+      assert OpenAIResponses.request_path() == "/responses"
+    end
+  end
 end

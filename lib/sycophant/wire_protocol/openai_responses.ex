@@ -10,6 +10,9 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
 
   @behaviour Sycophant.WireProtocol
 
+  @impl true
+  def request_path, do: "/responses"
+
   alias Sycophant.Context
   alias Sycophant.Error.Provider.ContentFiltered
   alias Sycophant.Error.Provider.RateLimited

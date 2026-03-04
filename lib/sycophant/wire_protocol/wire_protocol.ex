@@ -8,6 +8,8 @@ defmodule Sycophant.WireProtocol do
   provider identity.
   """
 
+  @callback request_path() :: String.t()
+
   @callback encode_request(Sycophant.Request.t()) ::
               {:ok, map()} | {:error, Splode.Error.t()}
 

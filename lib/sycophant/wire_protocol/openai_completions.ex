@@ -10,6 +10,9 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
 
   @behaviour Sycophant.WireProtocol
 
+  @impl true
+  def request_path, do: "/chat/completions"
+
   alias Sycophant.Context
   alias Sycophant.Error.Provider.ResponseInvalid
   alias Sycophant.Message

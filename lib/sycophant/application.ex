@@ -4,14 +4,18 @@ defmodule Sycophant.Application do
   use Application
 
   def start(_type, _args) do
-    children =
-      [
-        # Starts a worker by calling: Sycophant.Worker.start_link(arg)
-        # {Sycophant.Worker, arg}
-      ] ++ dev_children()
+    children = quiver_children() ++ dev_children()
 
     opts = [strategy: :one_for_one, name: Sycophant.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  defp quiver_children do
+    if Code.ensure_loaded?(Quiver.Supervisor) do
+      [{Quiver.Supervisor, name: Sycophant.Quiver, pools: %{default: [size: 10]}}]
+    else
+      []
+    end
   end
 
   defp dev_children do

@@ -428,4 +428,10 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
       }
     }
   end
+
+  describe "request_path/0" do
+    test "returns /chat/completions" do
+      assert OpenAICompletions.request_path() == "/chat/completions"
+    end
+  end
 end
