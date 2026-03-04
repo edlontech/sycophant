@@ -1,0 +1,16 @@
+defmodule Sycophant.Reasoning do
+  @moduledoc """
+  Reasoning output from an LLM response.
+
+  Contains the model's reasoning summary when available.
+  The `encrypted_content` field carries opaque data for
+  stateless multi-turn reasoning that can be passed back
+  via `provider_params`.
+  """
+  use TypedStruct
+
+  typedstruct do
+    field :summary, String.t()
+    field :encrypted_content, String.t()
+  end
+end

@@ -10,16 +10,20 @@ defmodule Sycophant.Response do
   """
   use TypedStruct
 
-  alias Sycophant.{Context, ToolCall, Usage}
+  alias Sycophant.Context
+  alias Sycophant.Reasoning
+  alias Sycophant.ToolCall
+  alias Sycophant.Usage
 
   typedstruct do
-    field(:text, String.t())
-    field(:object, map())
-    field(:tool_calls, [ToolCall.t()], default: [])
-    field(:usage, Usage.t())
-    field(:model, String.t())
-    field(:raw, map())
-    field(:context, Context.t(), enforce: true)
+    field :text, String.t()
+    field :object, map()
+    field :tool_calls, [ToolCall.t()], default: []
+    field :usage, Usage.t()
+    field :model, String.t()
+    field :raw, map()
+    field :reasoning, Reasoning.t()
+    field :context, Context.t(), enforce: true
   end
 
   @spec messages(t()) :: [Sycophant.Message.t()]
