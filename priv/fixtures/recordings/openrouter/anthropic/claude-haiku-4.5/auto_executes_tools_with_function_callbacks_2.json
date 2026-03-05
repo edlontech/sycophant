@@ -1,0 +1,198 @@
+{
+  "metadata": {
+    "model": "anthropic/claude-haiku-4.5",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-03-05T13:43:50.980418Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "role": "user"
+        },
+        {
+          "content": [],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "arguments": "{\"city\":\"Paris\"}",
+          "call_id": "toolu_vrtx_01XF9uJbvuqd9zZPHVN1znDB",
+          "name": "get_weather",
+          "type": "function_call"
+        },
+        {
+          "call_id": "toolu_vrtx_01XF9uJbvuqd9zZPHVN1znDB",
+          "output": "Paris: 22C, sunny",
+          "type": "function_call_output"
+        }
+      ],
+      "model": "anthropic/claude-haiku-4.5",
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "completed_at": 1772718230,
+      "created_at": 1772718229,
+      "error": null,
+      "frequency_penalty": 0,
+      "id": "gen-1772718229-u3j3l04nYA9lHJ5nEy8u",
+      "incomplete_details": null,
+      "instructions": null,
+      "max_output_tokens": null,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "anthropic/claude-4.5-haiku-20251001",
+      "object": "response",
+      "output": [
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "The weather in Paris is currently **22°C (about 72°F) and sunny**. It's a beautiful day in Paris!",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_tmp_lr380kigi5j",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": null,
+      "safety_identifier": null,
+      "service_tier": "auto",
+      "status": "completed",
+      "store": false,
+      "temperature": 1,
+      "text": {
+        "format": {
+          "type": "text"
+        }
+      },
+      "tool_choice": "auto",
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ],
+      "top_logprobs": 0,
+      "top_p": 1,
+      "truncation": "disabled",
+      "usage": {
+        "cost": 8.16e-4,
+        "cost_details": {
+          "upstream_inference_cost": 8.16e-4,
+          "upstream_inference_input_cost": 6.56e-4,
+          "upstream_inference_output_cost": 1.6e-4
+        },
+        "input_tokens": 656,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "is_byok": false,
+        "output_tokens": 32,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 688
+      },
+      "user": null
+    },
+    "headers": [
+      [
+        "date",
+        "Thu, 05 Mar 2026 13:43:50 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=958"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "9d798d480898910e-AMS"
+      ]
+    ],
+    "status": 200
+  }
+}

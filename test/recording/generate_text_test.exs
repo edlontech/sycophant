@@ -1,8 +1,5 @@
 defmodule Sycophant.Recording.GenerateTextTest do
-  @models (for model <- Application.compile_env(:sycophant, :test_models, []) do
-             %{model: model, fixture_prefix: String.replace(model, ":", "/")}
-           end)
-
+  @models Sycophant.RecordingCase.test_models()
   use Sycophant.RecordingCase, async: true, parameterize: @models
 
   alias Sycophant.Message

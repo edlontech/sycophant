@@ -5,6 +5,7 @@ defmodule Sycophant.Pipeline do
   wire decoding.
   """
 
+  alias Sycophant.Auth
   alias Sycophant.Context
   alias Sycophant.Credentials
   alias Sycophant.Error
@@ -30,7 +31,8 @@ defmodule Sycophant.Pipeline do
     :cache_key,
     :cache_retention,
     :safety_identifier,
-    :service_tier
+    :service_tier,
+    :tool_choice
   ]
 
   @spec call([Sycophant.Message.t()], keyword()) ::
@@ -103,10 +105,14 @@ defmodule Sycophant.Pipeline do
     with {:ok, request} <- build_request(messages, params, opts, model_info),
          {:ok, payload} <- adapter.encode_request(request),
          {:ok, result} <-
-           Transport.stream(payload, transport_opts(model_info, credentials), fn event_stream ->
-             initial_state = adapter.init_stream()
-             process_event_stream(event_stream, initial_state, adapter, callback)
-           end) do
+           Transport.stream(
+             payload,
+             transport_opts(model_info, credentials, request),
+             fn event_stream ->
+               initial_state = adapter.init_stream()
+               process_event_stream(event_stream, initial_state, adapter, callback)
+             end
+           ) do
       case result do
         {:done, response} ->
           {:ok, attach_context(response, messages, params, opts)}
@@ -133,6 +139,10 @@ defmodule Sycophant.Pipeline do
               {:cont, {:ok, new_state}}
 
             {:done, response} ->
+              {:halt, {:done, response}}
+
+            {:done, response, chunks} ->
+              fire_stream_events(chunks, callback)
               {:halt, {:done, response}}
 
             {:error, _} = error ->
@@ -170,7 +180,7 @@ defmodule Sycophant.Pipeline do
   defp single_call(messages, params, opts, model_info, adapter, credentials) do
     with {:ok, request} <- build_request(messages, params, opts, model_info),
          {:ok, payload} <- adapter.encode_request(request),
-         {:ok, body} <- Transport.call(payload, transport_opts(model_info, credentials)),
+         {:ok, body} <- Transport.call(payload, transport_opts(model_info, credentials, request)),
          {:ok, response} <- adapter.decode_response(body) do
       {:ok, attach_context(response, messages, params, opts)}
     end
@@ -239,17 +249,11 @@ defmodule Sycophant.Pipeline do
      }}
   end
 
-  defp transport_opts(model_info, credentials) do
+  defp transport_opts(model_info, credentials, request) do
     [
       base_url: model_info.base_url,
-      path: model_info.wire_adapter.request_path(),
-      auth_middlewares: build_auth_middlewares(credentials)
+      path: model_info.wire_adapter.request_path(request),
+      auth_middlewares: Auth.middlewares_for(model_info.provider, credentials)
     ]
   end
-
-  defp build_auth_middlewares(%{api_key: key}) do
-    [{Tesla.Middleware.Headers, [{"authorization", "Bearer #{key}"}]}]
-  end
-
-  defp build_auth_middlewares(_), do: []
 end

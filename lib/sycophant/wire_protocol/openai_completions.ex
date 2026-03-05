@@ -11,7 +11,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
   @behaviour Sycophant.WireProtocol
 
   @impl true
-  def request_path, do: "/chat/completions"
+  def request_path(_request), do: "/chat/completions"
 
   alias Sycophant.Context
   alias Sycophant.Error.Provider.ResponseInvalid
@@ -43,7 +43,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
     service_tier: "service_tier"
   }
 
-  @dropped_params [:top_k, :cache_key, :cache_retention, :safety_identifier]
+  @dropped_params [:top_k, :cache_key, :cache_retention, :safety_identifier, :tool_choice]
 
   @impl true
   def encode_request(%Request{} = request) do
@@ -253,8 +253,14 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
     {:error, ResponseInvalid.exception(errors: ["Malformed tool call: #{inspect(tc)}"])}
   end
 
-  defp decode_usage(%{"prompt_tokens" => input, "completion_tokens" => output}) do
-    %Usage{input_tokens: input, output_tokens: output}
+  defp decode_usage(%{"prompt_tokens" => input, "completion_tokens" => output} = usage) do
+    cached = get_in(usage, ["prompt_tokens_details", "cached_tokens"])
+
+    %Usage{
+      input_tokens: input,
+      output_tokens: output,
+      cache_read_input_tokens: cached
+    }
   end
 
   defp decode_usage(_), do: nil
@@ -362,6 +368,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
       {:ok,
        payload
        |> maybe_put_stream(request.stream)
+       |> maybe_put_tool_choice(request.params)
        |> Map.merge(translate_params(request.params))
        |> Map.merge(request.provider_params || %{})}
     end
@@ -382,6 +389,22 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
       {:ok, encoded} -> {:ok, Map.put(payload, "tools", encoded)}
       {:error, _} = err -> err
     end
+  end
+
+  defp maybe_put_tool_choice(payload, nil), do: payload
+  defp maybe_put_tool_choice(payload, %Params{tool_choice: nil}), do: payload
+
+  defp maybe_put_tool_choice(payload, %Params{tool_choice: :auto}),
+    do: Map.put(payload, "tool_choice", "auto")
+
+  defp maybe_put_tool_choice(payload, %Params{tool_choice: :none}),
+    do: Map.put(payload, "tool_choice", "none")
+
+  defp maybe_put_tool_choice(payload, %Params{tool_choice: :any}),
+    do: Map.put(payload, "tool_choice", "required")
+
+  defp maybe_put_tool_choice(payload, %Params{tool_choice: {:tool, name}}) do
+    Map.put(payload, "tool_choice", %{"type" => "function", "function" => %{"name" => name}})
   end
 
   defp maybe_put_response_format(payload, nil), do: {:ok, payload}

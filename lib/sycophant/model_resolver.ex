@@ -13,7 +13,9 @@ defmodule Sycophant.ModelResolver do
 
   @adapter_map %{
     "openai_chat" => Sycophant.WireProtocol.OpenAICompletions,
-    "openai_responses" => Sycophant.WireProtocol.OpenAIResponses
+    "openai_responses" => Sycophant.WireProtocol.OpenAIResponses,
+    "anthropic_messages" => Sycophant.WireProtocol.AnthropicMessages,
+    "google_gemini" => Sycophant.WireProtocol.GoogleGemini
   }
 
   @spec resolve(nil | binary() | LLMDB.Model.t() | term()) ::
@@ -46,7 +48,11 @@ defmodule Sycophant.ModelResolver do
   end
 
   defp resolve_adapter(model) do
-    case get_in(model.extra || %{}, [:wire, :protocol]) do
+    protocol =
+      get_in(model.extra || %{}, [:wire, :protocol]) ||
+        wire_protocol_default(model.provider)
+
+    case protocol do
       nil ->
         {:error, Error.Invalid.MissingModel.exception([])}
 
@@ -56,6 +62,12 @@ defmodule Sycophant.ModelResolver do
       unknown ->
         {:error, Error.Unknown.Unknown.exception(error: "Unsupported wire protocol: #{unknown}")}
     end
+  end
+
+  defp wire_protocol_default(provider) do
+    :sycophant
+    |> Application.get_env(:wire_protocol_defaults, %{})
+    |> Map.get(provider)
   end
 
   defp build_info(model, provider, adapter) do

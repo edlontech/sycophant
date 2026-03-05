@@ -1,0 +1,99 @@
+{
+  "metadata": {
+    "model": "openai/gpt-4o-mini",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-03-05T13:43:49.726599Z",
+    "streaming": true,
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "role": "user"
+        }
+      ],
+      "model": "openai/gpt-4o-mini",
+      "stream": true,
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": ": OPENROUTER PROCESSING\n\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"gen-1772718229-tvPWlPeJ58TRGbV61Epj\",\"object\":\"response\",\"created_at\":1772718229,\"model\":\"openai/gpt-4o-mini\",\"status\":\"in_progress\",\"completed_at\":null,\"output\":[],\"error\":null,\"incomplete_details\":null,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"strict\":true,\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"}}],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"auto\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":null,\"safety_identifier\":null,\"prompt_cache_key\":null,\"user\":null},\"sequence_number\":0}\n\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"gen-1772718229-tvPWlPeJ58TRGbV61Epj\",\"object\":\"response\",\"created_at\":1772718229,\"model\":\"openai/gpt-4o-mini\",\"status\":\"in_progress\",\"completed_at\":null,\"output\":[],\"error\":null,\"incomplete_details\":null,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"strict\":true,\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"}}],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"auto\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":null,\"safety_identifier\":null,\"prompt_cache_key\":null,\"user\":null},\"sequence_number\":1}\n\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"id\":\"fc_tmp_ywwln4vf0e\",\"type\":\"function_call\",\"status\":\"in_progress\",\"call_id\":\"call_xJU2QdIENNY2Z4TKvwRlj184\",\"name\":\"get_weather\",\"arguments\":\"\"},\"sequence_number\":2}\n\ndata: {\"type\":\"response.function_call_arguments.delta\",\"output_index\":0,\"item_id\":\"fc_tmp_ywwln4vf0e\",\"delta\":\"{\\\"\",\"sequence_number\":3}\n\ndata: {\"type\":\"response.function_call_arguments.delta\",\"output_index\":0,\"item_id\":\"fc_tmp_ywwln4vf0e\",\"delta\":\"city\",\"sequence_number\":4}\n\ndata: {\"type\":\"response.function_call_arguments.delta\",\"output_index\":0,\"item_id\":\"fc_tmp_ywwln4vf0e\",\"delta\":\"\\\":\\\"\",\"sequence_number\":5}\n\ndata: {\"type\":\"response.function_call_arguments.delta\",\"output_index\":0,\"item_id\":\"fc_tmp_ywwln4vf0e\",\"delta\":\"Paris\",\"sequence_number\":6}\n\ndata: {\"type\":\"response.function_call_arguments.delta\",\"output_index\":0,\"item_id\":\"fc_tmp_ywwln4vf0e\",\"delta\":\"\\\"}\",\"sequence_number\":7}\n\ndata: {\"type\":\"response.function_call_arguments.done\",\"output_index\":0,\"item_id\":\"fc_tmp_ywwln4vf0e\",\"name\":\"get_weather\",\"arguments\":\"{\\\"city\\\":\\\"Paris\\\"}\",\"sequence_number\":8}\n\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"id\":\"fc_tmp_ywwln4vf0e\",\"type\":\"function_call\",\"status\":\"completed\",\"call_id\":\"call_xJU2QdIENNY2Z4TKvwRlj184\",\"name\":\"get_weather\",\"arguments\":\"{\\\"city\\\":\\\"Paris\\\"}\"},\"sequence_number\":9}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"gen-1772718229-tvPWlPeJ58TRGbV61Epj\",\"object\":\"response\",\"created_at\":1772718229,\"model\":\"openai/gpt-4o-mini\",\"status\":\"completed\",\"completed_at\":1772718229,\"output\":[{\"id\":\"fc_tmp_ywwln4vf0e\",\"type\":\"function_call\",\"status\":\"completed\",\"call_id\":\"call_xJU2QdIENNY2Z4TKvwRlj184\",\"name\":\"get_weather\",\"arguments\":\"{\\\"city\\\":\\\"Paris\\\"}\"}],\"error\":null,\"incomplete_details\":null,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"strict\":true,\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"}}],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"auto\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":null,\"safety_identifier\":null,\"prompt_cache_key\":null,\"user\":null,\"usage\":{\"input_tokens\":61,\"input_tokens_details\":{\"cached_tokens\":0},\"output_tokens\":14,\"output_tokens_details\":{\"reasoning_tokens\":0},\"total_tokens\":75,\"cost\":0.00001755,\"is_byok\":false,\"cost_details\":{\"upstream_inference_cost\":0.00001755,\"upstream_inference_input_cost\":0.00000915,\"upstream_inference_output_cost\":0.0000084}}},\"sequence_number\":10}\n\ndata: [DONE]\n\n",
+    "headers": [
+      [
+        "date",
+        "Thu, 05 Mar 2026 13:43:49 GMT"
+      ],
+      [
+        "content-type",
+        "text/event-stream"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=804"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "cache-control",
+        "no-cache"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "9d798d422a00910e-AMS"
+      ]
+    ],
+    "status": 200
+  }
+}

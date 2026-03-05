@@ -8,7 +8,7 @@ defmodule Sycophant.WireProtocol do
   provider identity.
   """
 
-  @callback request_path() :: String.t()
+  @callback request_path(Sycophant.Request.t()) :: String.t()
 
   @callback encode_request(Sycophant.Request.t()) ::
               {:ok, map()} | {:error, Splode.Error.t()}
@@ -21,6 +21,7 @@ defmodule Sycophant.WireProtocol do
   @callback decode_stream_chunk(state :: term(), event :: map()) ::
               {:ok, term(), [Sycophant.StreamChunk.t()]}
               | {:done, Sycophant.Response.t()}
+              | {:done, Sycophant.Response.t(), [Sycophant.StreamChunk.t()]}
               | {:error, Splode.Error.t()}
 
   @callback encode_tools([Sycophant.Tool.t()]) ::

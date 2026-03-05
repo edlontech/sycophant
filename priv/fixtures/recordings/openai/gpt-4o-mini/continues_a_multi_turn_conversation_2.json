@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-04T16:00:55.501303Z",
+    "recorded_at": "2026-03-05T13:43:50.803954Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -19,7 +19,9 @@
               "type": "output_text"
             }
           ],
-          "role": "assistant"
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
         },
         {
           "content": "What is my name?",
@@ -56,7 +58,7 @@
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_0fac191aff900b090069a85736d4e48196aadb0df8dd08a74a",
+      "id": "resp_0bc1f7d0beebe4f20069a988961234819686708801c07df748",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -68,11 +70,11 @@
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 9,
+        "output_tokens": 16,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 55
+        "total_tokens": 62
       },
       "safety_identifier": null,
       "object": "response",
@@ -83,11 +85,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Your name is Sycophant.",
+              "text": "Your name is Sycophant. How can I help you today?",
               "type": "output_text"
             }
           ],
-          "id": "msg_0fac191aff900b090069a85737268081968377c4852bb83820",
+          "id": "msg_0bc1f7d0beebe4f20069a9889667dc819695b853385f5a72e1",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -101,7 +103,7 @@
         "effort": null,
         "summary": null
       },
-      "completed_at": 1772640055,
+      "completed_at": 1772718230,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -110,13 +112,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1772640054,
+      "created_at": 1772718230,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 04 Mar 2026 16:00:55 GMT"
+        "Thu, 05 Mar 2026 13:43:50 GMT"
       ],
       [
         "content-type",
@@ -124,7 +126,7 @@
       ],
       [
         "content-length",
-        "1550"
+        "1577"
       ],
       [
         "server",
@@ -168,11 +170,11 @@
       ],
       [
         "x-request-id",
-        "req_230d4436101d40c295bd4b293e0714c0"
+        "req_83e375385d0e4eaf9f973e3aa93ae475"
       ],
       [
         "openai-processing-ms",
-        "589"
+        "681"
       ],
       [
         "cf-cache-status",
@@ -192,7 +194,7 @@
       ],
       [
         "cf-ray",
-        "9d7218b4a8999d56-AMS"
+        "9d798d496ab1f5b4-AMS"
       ],
       [
         "alt-svc",

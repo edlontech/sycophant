@@ -330,6 +330,134 @@ defmodule Sycophant.Tesla.RecorderMiddlewareTest do
     end
   end
 
+  describe "record mode skips existing fixtures" do
+    @tag :tmp_dir
+    test "replays when fixture already exists and record mode is :record", %{tmp_dir: tmp_dir} do
+      name = "test/already_recorded"
+      fixture_path = Path.join([tmp_dir, "#{name}.json"])
+
+      fixture = %{
+        "metadata" => %{
+          "recorded_at" => "2026-03-04T12:00:00Z",
+          "sycophant_version" => "0.1.0",
+          "model" => "gpt-4o",
+          "provider" => "api.openai.com"
+        },
+        "request" => %{
+          "method" => "post",
+          "url" => "https://api.openai.com/v1/chat/completions",
+          "headers" => [],
+          "body" => %{"model" => "gpt-4o"}
+        },
+        "response" => %{
+          "status" => 200,
+          "headers" => [["content-type", "application/json"]],
+          "body" => %{"id" => "existing-fixture"}
+        }
+      }
+
+      File.mkdir_p!(Path.dirname(fixture_path))
+      File.write!(fixture_path, JSON.encode!(fixture))
+
+      RecorderMiddleware.set_recording(name)
+      on_exit(fn -> RecorderMiddleware.clear_recording() end)
+
+      env = %Tesla.Env{method: :post, url: "https://api.openai.com/v1/chat/completions"}
+
+      next = [
+        {:fn,
+         fn %Tesla.Env{} = env ->
+           {:ok, %{env | status: 200, body: JSON.encode!(%{"id" => "fresh-from-api"})}}
+         end}
+      ]
+
+      assert {:ok, %Tesla.Env{status: 200, body: body}} =
+               RecorderMiddleware.call(env, next, fixtures_path: tmp_dir, record: :record)
+
+      assert {:ok, %{"id" => "existing-fixture"}} = JSON.decode(body)
+    end
+
+    @tag :tmp_dir
+    test "records when fixture does not exist and record mode is :record", %{tmp_dir: tmp_dir} do
+      name = "test/new_recording"
+
+      RecorderMiddleware.set_recording(name)
+      on_exit(fn -> RecorderMiddleware.clear_recording() end)
+
+      env = %Tesla.Env{
+        method: :post,
+        url: "https://api.openai.com/v1/chat/completions",
+        headers: [{"content-type", "application/json"}],
+        body: JSON.encode!(%{"model" => "gpt-4o", "messages" => []})
+      }
+
+      next = [
+        {:fn,
+         fn %Tesla.Env{} = env ->
+           {:ok, %{env | status: 200, body: JSON.encode!(%{"id" => "newly-recorded"})}}
+         end}
+      ]
+
+      assert {:ok, %Tesla.Env{status: 200}} =
+               RecorderMiddleware.call(env, next, fixtures_path: tmp_dir, record: :record)
+
+      fixture_path = Path.join([tmp_dir, "#{name}.json"])
+      assert File.exists?(fixture_path)
+
+      {:ok, content} = File.read(fixture_path)
+      fixture = JSON.decode!(content)
+      assert fixture["response"]["body"]["id"] == "newly-recorded"
+    end
+
+    @tag :tmp_dir
+    test "force mode re-records even when fixture exists", %{tmp_dir: tmp_dir} do
+      name = "test/force_rerecord"
+      fixture_path = Path.join([tmp_dir, "#{name}.json"])
+
+      fixture = %{
+        "metadata" => %{},
+        "request" => %{
+          "method" => "post",
+          "url" => "https://example.com",
+          "headers" => [],
+          "body" => %{}
+        },
+        "response" => %{
+          "status" => 200,
+          "headers" => [["content-type", "application/json"]],
+          "body" => %{"id" => "old-fixture"}
+        }
+      }
+
+      File.mkdir_p!(Path.dirname(fixture_path))
+      File.write!(fixture_path, JSON.encode!(fixture))
+
+      RecorderMiddleware.set_recording(name)
+      on_exit(fn -> RecorderMiddleware.clear_recording() end)
+
+      env = %Tesla.Env{
+        method: :post,
+        url: "https://example.com",
+        headers: [{"content-type", "application/json"}],
+        body: JSON.encode!(%{"model" => "gpt-4o"})
+      }
+
+      next = [
+        {:fn,
+         fn %Tesla.Env{} = env ->
+           {:ok, %{env | status: 200, body: JSON.encode!(%{"id" => "re-recorded"})}}
+         end}
+      ]
+
+      assert {:ok, %Tesla.Env{status: 200}} =
+               RecorderMiddleware.call(env, next, fixtures_path: tmp_dir, record: :force)
+
+      {:ok, content} = File.read(fixture_path)
+      fixture = JSON.decode!(content)
+      assert fixture["response"]["body"]["id"] == "re-recorded"
+    end
+  end
+
   describe "replay streaming fixture" do
     @tag :tmp_dir
     test "returns raw body without JSON encoding", %{tmp_dir: tmp_dir} do

@@ -1,0 +1,162 @@
+{
+  "metadata": {
+    "model": "claude-haiku-4-5-20251001",
+    "provider": "api.anthropic.com",
+    "recorded_at": "2026-03-05T18:03:43.184090Z",
+    "streaming": true,
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "max_tokens": 4096,
+      "messages": [
+        {
+          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "role": "user"
+        }
+      ],
+      "model": "claude-haiku-4-5-20251001",
+      "stream": true,
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "input_schema": {
+            "additionalProperties": true,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "name": "get_weather"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "x-api-key",
+        "[REDACTED]"
+      ],
+      [
+        "anthropic-version",
+        "2023-06-01"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.anthropic.com/v1/messages"
+  },
+  "response": {
+    "body": "event: message_start\ndata: {\"type\":\"message_start\",\"message\":{\"model\":\"claude-haiku-4-5-20251001\",\"id\":\"msg_01RjUNqQ5N8CaTYNsNE5SSuU\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[],\"stop_reason\":null,\"stop_sequence\":null,\"usage\":{\"input_tokens\":583,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":26,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"}}         }\n\nevent: content_block_start\ndata: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"tool_use\",\"id\":\"toolu_01KWyiyCCTUruBZ48q6RvB1F\",\"name\":\"get_weather\",\"input\":{},\"caller\":{\"type\":\"direct\"}}}\n\nevent: ping\ndata: {\"type\": \"ping\"}\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"input_json_delta\",\"partial_json\":\"\"}             }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"input_json_delta\",\"partial_json\":\"{\\\"city\\\": \\\"\"} }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"input_json_delta\",\"partial_json\":\"Par\"}            }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"input_json_delta\",\"partial_json\":\"is\\\"}\"}           }\n\nevent: content_block_stop\ndata: {\"type\":\"content_block_stop\",\"index\":0         }\n\nevent: message_delta\ndata: {\"type\":\"message_delta\",\"delta\":{\"stop_reason\":\"tool_use\",\"stop_sequence\":null},\"usage\":{\"input_tokens\":583,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"output_tokens\":54}       }\n\nevent: message_stop\ndata: {\"type\":\"message_stop\"          }\n\n",
+    "headers": [
+      [
+        "date",
+        "Thu, 05 Mar 2026 18:03:43 GMT"
+      ],
+      [
+        "content-type",
+        "text/event-stream; charset=utf-8"
+      ],
+      [
+        "cache-control",
+        "no-cache"
+      ],
+      [
+        "anthropic-ratelimit-input-tokens-limit",
+        "1000000"
+      ],
+      [
+        "anthropic-ratelimit-input-tokens-remaining",
+        "999000"
+      ],
+      [
+        "anthropic-ratelimit-input-tokens-reset",
+        "2026-03-05T18:03:42Z"
+      ],
+      [
+        "anthropic-ratelimit-output-tokens-limit",
+        "200000"
+      ],
+      [
+        "anthropic-ratelimit-output-tokens-remaining",
+        "200000"
+      ],
+      [
+        "anthropic-ratelimit-output-tokens-reset",
+        "2026-03-05T18:03:42Z"
+      ],
+      [
+        "anthropic-ratelimit-requests-limit",
+        "2000"
+      ],
+      [
+        "anthropic-ratelimit-requests-remaining",
+        "1998"
+      ],
+      [
+        "anthropic-ratelimit-requests-reset",
+        "2026-03-05T18:03:42Z"
+      ],
+      [
+        "anthropic-ratelimit-tokens-limit",
+        "1200000"
+      ],
+      [
+        "anthropic-ratelimit-tokens-remaining",
+        "1199000"
+      ],
+      [
+        "anthropic-ratelimit-tokens-reset",
+        "2026-03-05T18:03:42Z"
+      ],
+      [
+        "request-id",
+        "req_011CYkNevUtQ9eVdcepwQoWd"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "anthropic-organization-id",
+        "8a3ada71-45d7-4ed6-aaaf-279ffd490a4a"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "x-envoy-upstream-service-time",
+        "505"
+      ],
+      [
+        "vary",
+        "Accept-Encoding"
+      ],
+      [
+        "x-robots-tag",
+        "none"
+      ],
+      [
+        "content-security-policy",
+        "default-src 'none'; frame-ancestors 'none'"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "cf-ray",
+        "9d7b09f66ef39f84-AMS"
+      ]
+    ],
+    "status": 200
+  }
+}

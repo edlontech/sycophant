@@ -1,0 +1,156 @@
+{
+  "metadata": {
+    "model": "deepseek/deepseek-r1",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-03-05T13:44:17.162044Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "What is 2 + 2?",
+          "role": "user"
+        }
+      ],
+      "instructions": "You are a calculator. Only respond with numbers.",
+      "model": "deepseek/deepseek-r1"
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "completed_at": 1772718257,
+      "created_at": 1772718253,
+      "error": null,
+      "frequency_penalty": 0,
+      "id": "gen-1772718253-jtgwFtGacdPhWdzf9Lbb",
+      "incomplete_details": null,
+      "instructions": "You are a calculator. Only respond with numbers.",
+      "max_output_tokens": null,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "deepseek/deepseek-r1",
+      "object": "response",
+      "output": [
+        {
+          "content": [
+            {
+              "text": "Okay, let me solve 2 plus 2. Hmm, adding two numbers together. So if I have 2 apples and someone gives me 2 more, that makes 4 apples. So 2 + 2 must equal 4. Let me check again. Yes, when you add 2 and 2, the sum is definitely 4. I think that's right.\n",
+              "type": "reasoning_text"
+            }
+          ],
+          "format": "unknown",
+          "id": "rs_tmp_atom38gnv",
+          "status": "completed",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "4",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_tmp_jw3vzris4fb",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": null,
+      "safety_identifier": null,
+      "service_tier": "auto",
+      "status": "completed",
+      "store": false,
+      "temperature": 1,
+      "text": {
+        "format": {
+          "type": "text"
+        }
+      },
+      "tool_choice": "auto",
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1,
+      "truncation": "disabled",
+      "usage": {
+        "cost": 2.211e-4,
+        "cost_details": {
+          "upstream_inference_cost": 2.211e-4,
+          "upstream_inference_input_cost": 1.61e-5,
+          "upstream_inference_output_cost": 2.05e-4
+        },
+        "input_tokens": 23,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "is_byok": false,
+        "output_tokens": 82,
+        "output_tokens_details": {
+          "reasoning_tokens": 81
+        },
+        "total_tokens": 105
+      },
+      "user": null
+    },
+    "headers": [
+      [
+        "date",
+        "Thu, 05 Mar 2026 13:44:14 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1093"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "9d798ddc6bd1910e-AMS"
+      ]
+    ],
+    "status": 200
+  }
+}

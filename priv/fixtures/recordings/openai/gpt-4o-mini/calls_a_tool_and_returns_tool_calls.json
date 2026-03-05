@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-04T17:53:15.548819Z",
+    "recorded_at": "2026-03-05T13:43:53.731569Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -82,7 +82,7 @@
           "type": "function"
         }
       ],
-      "id": "resp_0d229c8c892211d10069a8718a719881938136c07766a8f13c",
+      "id": "resp_025d334395fe2aa90069a98896bbfc81908d277ce819541070",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -106,8 +106,8 @@
       "output": [
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "call_k1d4O6SgoQNOHB1ilFKcDcnI",
-          "id": "fc_0d229c8c892211d10069a8718b4e808193be1f5e769f512e31",
+          "call_id": "call_pKmYX8aiM42tTsGTUEJVgFk6",
+          "id": "fc_025d334395fe2aa90069a988993ec88190b85e5c1b46597500",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -121,7 +121,7 @@
         "effort": null,
         "summary": null
       },
-      "completed_at": 1772646795,
+      "completed_at": 1772718233,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -130,13 +130,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1772646794,
+      "created_at": 1772718230,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 04 Mar 2026 17:53:15 GMT"
+        "Thu, 05 Mar 2026 13:43:53 GMT"
       ],
       [
         "content-type",
@@ -188,11 +188,11 @@
       ],
       [
         "x-request-id",
-        "req_5807f0229e46406ba061e04f28c5d03e"
+        "req_130bba141dbd4eecbed53e1c2183ecc0"
       ],
       [
         "openai-processing-ms",
-        "1062"
+        "2943"
       ],
       [
         "cf-cache-status",
@@ -212,7 +212,7 @@
       ],
       [
         "cf-ray",
-        "9d72bd40cb4a9fa8-AMS"
+        "9d798d4d8b6ef5b4-AMS"
       ],
       [
         "alt-svc",

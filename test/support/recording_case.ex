@@ -17,24 +17,82 @@ defmodule Sycophant.RecordingCase do
   the test with `recording_prefix: true` and the recording name
   is built from `fixture_prefix/slugified_test_name`.
 
-      use Sycophant.RecordingCase,
-        async: true,
-        parameterize: for model <- ["openai:gpt-4o-mini"] do
-          %{model: model, fixture_prefix: "openai/gpt-4o-mini"}
-        end
+      @models Sycophant.RecordingCase.test_models()
+      use Sycophant.RecordingCase, async: true, parameterize: @models
 
       @tag recording_prefix: true
       test "generates text", %{model: model} do
         ...
       end
+
+  ## Model Filtering
+
+  Set `RECORD_MODELS` to a comma-separated list of model specs to
+  only record fixtures for specific models:
+
+      RECORD=true RECORD_MODELS=anthropic:claude-haiku-4-5-20251001 mix test test/recording/
+
+  Supports prefix matching: `RECORD_MODELS=anthropic` matches all
+  anthropic models. When unset, all configured test models are used.
   """
 
   use ExUnit.CaseTemplate
 
+  @doc """
+  Returns the filtered list of test model parameterization maps.
+
+  Reads `:test_models` from app config (list of maps with `:model` key
+  and capability flags like `:structured_output`). Filters by:
+
+  - `RECORD_MODELS` env var (comma-separated, prefix matching)
+  - `require` option to filter by capability flags
+
+  ## Examples
+
+      Sycophant.RecordingCase.test_models()
+      Sycophant.RecordingCase.test_models(require: :structured_output)
+  """
+  def test_models(opts \\ []) do
+    all_entries = Application.get_env(:sycophant, :test_models, [])
+
+    entries =
+      all_entries
+      |> filter_by_capability(opts[:require])
+      |> filter_by_env()
+
+    for entry <- entries do
+      model = entry.model
+      %{model: model, fixture_prefix: String.replace(model, ":", "/")}
+    end
+  end
+
+  defp filter_by_capability(entries, nil), do: entries
+
+  defp filter_by_capability(entries, capability) do
+    Enum.filter(entries, &Map.get(&1, capability, false))
+  end
+
+  defp filter_by_env(entries) do
+    case System.get_env("RECORD_MODELS") do
+      nil ->
+        entries
+
+      "" ->
+        entries
+
+      filter_str ->
+        filters = filter_str |> String.split(",") |> Enum.map(&String.trim/1)
+
+        Enum.filter(entries, fn entry ->
+          Enum.any?(filters, &String.starts_with?(entry.model, &1))
+        end)
+    end
+  end
+
   using do
     quote do
       defp recording_opts(opts) do
-        if System.get_env("RECORD") == "true" do
+        if System.get_env("RECORD") in ["true", "force"] do
           opts
         else
           Keyword.put_new(opts, :credentials, %{api_key: "recorded"})

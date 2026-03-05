@@ -13,12 +13,12 @@ defmodule Sycophant.Message do
   @type content_part() :: Content.Text.t() | Content.Image.t()
 
   typedstruct do
-    field(:role, :user | :assistant | :system | :tool_result, enforce: true)
-    field(:content, String.t() | [content_part()])
-    field(:tool_call_id, String.t())
-    field(:tool_calls, [ToolCall.t()])
-    field(:metadata, map(), default: %{})
-    field(:wire_protocol, atom())
+    field :role, :user | :assistant | :system | :tool_result, enforce: true
+    field :content, String.t() | [content_part()]
+    field :tool_call_id, String.t()
+    field :tool_calls, [ToolCall.t()]
+    field :metadata, map(), default: %{}
+    field :wire_protocol, atom()
   end
 
   @spec user(String.t() | [content_part()]) :: t()
@@ -31,7 +31,12 @@ defmodule Sycophant.Message do
   def system(content), do: %__MODULE__{role: :system, content: content}
 
   @spec tool_result(ToolCall.t(), String.t()) :: t()
-  def tool_result(%ToolCall{id: id}, result) do
-    %__MODULE__{role: :tool_result, content: result, tool_call_id: id}
+  def tool_result(%ToolCall{id: id, name: name}, result) do
+    %__MODULE__{
+      role: :tool_result,
+      content: result,
+      tool_call_id: id,
+      metadata: %{tool_name: name}
+    }
   end
 end

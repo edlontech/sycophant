@@ -1,0 +1,191 @@
+{
+  "metadata": {
+    "model": "claude-haiku-4-5-20251001",
+    "provider": "api.anthropic.com",
+    "recorded_at": "2026-03-05T18:52:28.545894Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "max_tokens": 4096,
+      "messages": [
+        {
+          "content": "Generate a fictional person with name, age, and 2-3 hobbies. Return only JSON.",
+          "role": "user"
+        }
+      ],
+      "model": "claude-haiku-4-5-20251001",
+      "output_config": {
+        "format": {
+          "schema": {
+            "additionalProperties": false,
+            "properties": {
+              "age": {
+                "type": "integer"
+              },
+              "hobbies": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "age",
+              "hobbies"
+            ],
+            "type": "object"
+          },
+          "type": "json_schema"
+        }
+      }
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "x-api-key",
+        "[REDACTED]"
+      ],
+      [
+        "anthropic-version",
+        "2023-06-01"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.anthropic.com/v1/messages"
+  },
+  "response": {
+    "body": {
+      "content": [
+        {
+          "text": "{\"age\":28,\"hobbies\":[\"landscape painting\",\"rock climbing\",\"playing guitar\"],\"name\":\"Marcus Reid\"}",
+          "type": "text"
+        }
+      ],
+      "id": "msg_01Bfqnw8geXYoudTi5SAdq5c",
+      "model": "claude-haiku-4-5-20251001",
+      "role": "assistant",
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "type": "message",
+      "usage": {
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "inference_geo": "not_available",
+        "input_tokens": 236,
+        "output_tokens": 28,
+        "service_tier": "standard"
+      }
+    },
+    "headers": [
+      [
+        "date",
+        "Thu, 05 Mar 2026 18:52:28 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "anthropic-ratelimit-input-tokens-limit",
+        "1000000"
+      ],
+      [
+        "anthropic-ratelimit-input-tokens-remaining",
+        "1000000"
+      ],
+      [
+        "anthropic-ratelimit-input-tokens-reset",
+        "2026-03-05T18:52:28Z"
+      ],
+      [
+        "anthropic-ratelimit-output-tokens-limit",
+        "200000"
+      ],
+      [
+        "anthropic-ratelimit-output-tokens-remaining",
+        "200000"
+      ],
+      [
+        "anthropic-ratelimit-output-tokens-reset",
+        "2026-03-05T18:52:28Z"
+      ],
+      [
+        "anthropic-ratelimit-requests-limit",
+        "2000"
+      ],
+      [
+        "anthropic-ratelimit-requests-remaining",
+        "1999"
+      ],
+      [
+        "anthropic-ratelimit-requests-reset",
+        "2026-03-05T18:52:25Z"
+      ],
+      [
+        "anthropic-ratelimit-tokens-limit",
+        "1200000"
+      ],
+      [
+        "anthropic-ratelimit-tokens-remaining",
+        "1200000"
+      ],
+      [
+        "anthropic-ratelimit-tokens-reset",
+        "2026-03-05T18:52:28Z"
+      ],
+      [
+        "request-id",
+        "req_011CYkSNNVZdYjLchw83SS1h"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "anthropic-organization-id",
+        "8a3ada71-45d7-4ed6-aaaf-279ffd490a4a"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "x-envoy-upstream-service-time",
+        "3237"
+      ],
+      [
+        "vary",
+        "Accept-Encoding"
+      ],
+      [
+        "x-robots-tag",
+        "none"
+      ],
+      [
+        "content-security-policy",
+        "default-src 'none'; frame-ancestors 'none'"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "cf-ray",
+        "9d7b51519842c23f-AMS"
+      ]
+    ],
+    "status": 200
+  }
+}

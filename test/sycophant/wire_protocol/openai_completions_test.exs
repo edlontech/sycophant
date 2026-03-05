@@ -844,9 +844,70 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
     end
   end
 
-  describe "request_path/0" do
+  describe "encode_request/1 - tool_choice" do
+    test "encodes :auto as \"auto\"" do
+      request = build_request([Message.user("hi")], params: %Params{tool_choice: :auto})
+      assert {:ok, payload} = OpenAICompletions.encode_request(request)
+      assert payload["tool_choice"] == "auto"
+    end
+
+    test "encodes :none as \"none\"" do
+      request = build_request([Message.user("hi")], params: %Params{tool_choice: :none})
+      assert {:ok, payload} = OpenAICompletions.encode_request(request)
+      assert payload["tool_choice"] == "none"
+    end
+
+    test "encodes :any as \"required\"" do
+      request = build_request([Message.user("hi")], params: %Params{tool_choice: :any})
+      assert {:ok, payload} = OpenAICompletions.encode_request(request)
+      assert payload["tool_choice"] == "required"
+    end
+
+    test "encodes {:tool, name} as function object" do
+      request =
+        build_request([Message.user("hi")], params: %Params{tool_choice: {:tool, "get_weather"}})
+
+      assert {:ok, payload} = OpenAICompletions.encode_request(request)
+
+      assert payload["tool_choice"] == %{
+               "type" => "function",
+               "function" => %{"name" => "get_weather"}
+             }
+    end
+
+    test "omits tool_choice when nil" do
+      request = build_request([Message.user("hi")], params: %Params{tool_choice: nil})
+      assert {:ok, payload} = OpenAICompletions.encode_request(request)
+      refute Map.has_key?(payload, "tool_choice")
+    end
+  end
+
+  describe "decode_response/1 - cache usage" do
+    test "decodes cached_tokens from prompt_tokens_details" do
+      body =
+        openai_response(content: "hi")
+        |> put_in(
+          ["usage", "prompt_tokens_details"],
+          %{"cached_tokens" => 50}
+        )
+
+      assert {:ok, resp} = OpenAICompletions.decode_response(body)
+      assert resp.usage.cache_read_input_tokens == 50
+      assert resp.usage.cache_creation_input_tokens == nil
+    end
+
+    test "sets cache fields to nil when prompt_tokens_details is absent" do
+      body = openai_response(content: "hi")
+      assert {:ok, resp} = OpenAICompletions.decode_response(body)
+      assert resp.usage.cache_read_input_tokens == nil
+      assert resp.usage.cache_creation_input_tokens == nil
+    end
+  end
+
+  describe "request_path/1" do
     test "returns /chat/completions" do
-      assert OpenAICompletions.request_path() == "/chat/completions"
+      assert OpenAICompletions.request_path(%Sycophant.Request{messages: []}) ==
+               "/chat/completions"
     end
   end
 end

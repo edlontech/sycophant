@@ -18,8 +18,13 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
 
     * `:fixtures_path` - directory where fixture files are stored.
       Defaults to `"test/fixtures/recordings"`.
-    * `:record` - when `true`, records real API responses to disk.
-      Defaults to checking `System.get_env("RECORD") == "true"`.
+    * `:record` - when `true`, forces recording (same as `RECORD=force`).
+      Defaults to checking the `RECORD` env var.
+
+  ## Environment
+
+    * `RECORD=true`  - records only missing fixtures, replays existing ones
+    * `RECORD=force` - re-records all fixtures regardless of existence
   """
 
   @behaviour Tesla.Middleware
@@ -74,10 +79,19 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
   defp handle_recording(env, next, name, opts) do
     seq_name = sequenced_name(name)
 
-    if record_mode?(opts) do
-      record(env, next, seq_name, opts)
-    else
-      replay(env, seq_name, opts)
+    case record_mode?(opts) do
+      :record ->
+        if fixture_exists?(seq_name, opts) do
+          replay(env, seq_name, opts)
+        else
+          record(env, next, seq_name, opts)
+        end
+
+      :force ->
+        record(env, next, seq_name, opts)
+
+      :replay ->
+        replay(env, seq_name, opts)
     end
   end
 
@@ -92,14 +106,35 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
   end
 
   defp record_mode?(opts) do
-    Keyword.get(opts, :record, System.get_env("RECORD") == "true")
+    case Keyword.get(opts, :record) do
+      true -> :force
+      false -> :replay
+      mode when mode in [:record, :force, :replay] -> mode
+      nil -> record_mode_from_env()
+    end
+  end
+
+  defp record_mode_from_env do
+    case System.get_env("RECORD") do
+      "true" -> :record
+      "force" -> :force
+      _ -> :replay
+    end
+  end
+
+  defp fixture_exists?(name, opts) do
+    name |> fixture_path(opts) |> File.exists?()
   end
 
   defp record(env, next, name, opts) do
     case Tesla.run(env, next) do
       {:ok, response_env} ->
         {response_env, streaming?} = maybe_collect_stream(response_env)
-        write_fixture(name, env, response_env, streaming?, opts)
+
+        if response_env.status < 400 do
+          write_fixture(name, env, response_env, streaming?, opts)
+        end
+
         {:ok, response_env}
 
       {:error, _} = error ->
@@ -124,7 +159,7 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
 
       {:error, reason} ->
         {:error,
-         "Fixture not found for recording '#{name}': #{inspect(reason)}. Run with RECORD=true to create it."}
+         "Fixture not found for recording '#{name}': #{inspect(reason)}. Run with RECORD=true to record missing fixtures."}
     end
   end
 
@@ -199,6 +234,7 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
     "authorization",
     "x-api-key",
     "api-key",
+    "x-goog-api-key",
     "openai-organization",
     "openai-project",
     "set-cookie"

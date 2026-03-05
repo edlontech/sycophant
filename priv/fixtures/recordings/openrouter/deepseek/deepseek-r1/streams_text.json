@@ -1,0 +1,79 @@
+{
+  "metadata": {
+    "model": "deepseek/deepseek-r1",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-03-05T13:44:03.838783Z",
+    "streaming": true,
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "Say 'hello' and nothing else.",
+          "role": "user"
+        }
+      ],
+      "model": "deepseek/deepseek-r1",
+      "stream": true
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": ": OPENROUTER PROCESSING\n\n: OPENROUTER PROCESSING\n\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"gen-1772718241-tDbQtV2eLgxwStmndsel\",\"object\":\"response\",\"created_at\":1772718241,\"model\":\"deepseek/deepseek-r1\",\"status\":\"in_progress\",\"completed_at\":null,\"output\":[],\"error\":null,\"incomplete_details\":null,\"tools\":[],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"auto\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":null,\"safety_identifier\":null,\"prompt_cache_key\":null,\"user\":null},\"sequence_number\":0}\n\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"gen-1772718241-tDbQtV2eLgxwStmndsel\",\"object\":\"response\",\"created_at\":1772718241,\"model\":\"deepseek/deepseek-r1\",\"status\":\"in_progress\",\"completed_at\":null,\"output\":[],\"error\":null,\"incomplete_details\":null,\"tools\":[],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"auto\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":null,\"safety_identifier\":null,\"prompt_cache_key\":null,\"user\":null},\"sequence_number\":1}\n\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"id\":\"rs_tmp_m4ks2ay55h\",\"type\":\"reasoning\",\"status\":\"in_progress\",\"summary\":[]},\"sequence_number\":2}\n\ndata: {\"type\":\"response.content_part.added\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"part\":{\"type\":\"reasoning_text\",\"text\":\"\"},\"sequence_number\":3}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\"Okay\",\"sequence_number\":4}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\", the\",\"sequence_number\":5}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" user wants\",\"sequence_number\":6}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" me to\",\"sequence_number\":7}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" say \\\"\",\"sequence_number\":8}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\"hello\\\"\",\"sequence_number\":9}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" and nothing\",\"sequence_number\":10}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" else.\",\"sequence_number\":11}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" Let me\",\"sequence_number\":12}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" check\",\"sequence_number\":13}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" the instructions\",\"sequence_number\":14}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" again.\",\"sequence_number\":15}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" It\",\"sequence_number\":16}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" says to\",\"sequence_number\":17}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" respond with\",\"sequence_number\":18}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" \\\"hello\",\"sequence_number\":19}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\"\\\" and\",\"sequence_number\":20}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" no\",\"sequence_number\":21}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" other text\",\"sequence_number\":22}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\". I\",\"sequence_number\":23}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" need to\",\"sequence_number\":24}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" make sure\",\"sequence_number\":25}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" I don\",\"sequence_number\":26}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\"'t add\",\"sequence_number\":27}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" any extra\",\"sequence_number\":28}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" words or\",\"sequence_number\":29}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" explanations.\",\"sequence_number\":30}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" Just \\\"\",\"sequence_number\":31}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\"hello\\\".\",\"sequence_number\":32}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" Alright\",\"sequence_number\":33}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\", I\",\"sequence_number\":34}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\"'ll keep\",\"sequence_number\":35}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\" it simple\",\"sequence_number\":36}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"delta\":\".\\n\",\"sequence_number\":37}\n\ndata: {\"type\":\"response.output_item.added\",\"output_index\":1,\"item\":{\"id\":\"msg_tmp_h7gwg2cnfg7\",\"type\":\"message\",\"status\":\"in_progress\",\"role\":\"assistant\",\"content\":[]},\"sequence_number\":38}\n\ndata: {\"type\":\"response.content_part.added\",\"output_index\":1,\"item_id\":\"msg_tmp_h7gwg2cnfg7\",\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"\",\"annotations\":[],\"logprobs\":[]},\"sequence_number\":39}\n\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":1,\"item_id\":\"msg_tmp_h7gwg2cnfg7\",\"content_index\":0,\"delta\":\"hello\",\"logprobs\":[],\"sequence_number\":40}\n\ndata: {\"type\":\"response.output_text.done\",\"output_index\":1,\"item_id\":\"msg_tmp_h7gwg2cnfg7\",\"content_index\":0,\"text\":\"hello\",\"logprobs\":[],\"sequence_number\":41}\n\ndata: {\"type\":\"response.content_part.done\",\"output_index\":1,\"item_id\":\"msg_tmp_h7gwg2cnfg7\",\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"hello\",\"annotations\":[],\"logprobs\":[]},\"sequence_number\":42}\n\ndata: {\"type\":\"response.reasoning_text.done\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"text\":\"Okay, the user wants me to say \\\"hello\\\" and nothing else. Let me check the instructions again. It says to respond with \\\"hello\\\" and no other text. I need to make sure I don't add any extra words or explanations. Just \\\"hello\\\". Alright, I'll keep it simple.\\n\",\"sequence_number\":43}\n\ndata: {\"type\":\"response.content_part.done\",\"output_index\":0,\"item_id\":\"rs_tmp_m4ks2ay55h\",\"content_index\":0,\"part\":{\"type\":\"reasoning_text\",\"text\":\"Okay, the user wants me to say \\\"hello\\\" and nothing else. Let me check the instructions again. It says to respond with \\\"hello\\\" and no other text. I need to make sure I don't add any extra words or explanations. Just \\\"hello\\\". Alright, I'll keep it simple.\\n\"},\"sequence_number\":44}\n\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"id\":\"rs_tmp_m4ks2ay55h\",\"type\":\"reasoning\",\"status\":\"completed\",\"content\":[{\"type\":\"reasoning_text\",\"text\":\"Okay, the user wants me to say \\\"hello\\\" and nothing else. Let me check the instructions again. It says to respond with \\\"hello\\\" and no other text. I need to make sure I don't add any extra words or explanations. Just \\\"hello\\\". Alright, I'll keep it simple.\\n\"}],\"summary\":[],\"format\":\"unknown\"},\"sequence_number\":45}\n\ndata: {\"type\":\"response.output_item.done\",\"output_index\":1,\"item\":{\"id\":\"msg_tmp_h7gwg2cnfg7\",\"type\":\"message\",\"status\":\"completed\",\"role\":\"assistant\",\"content\":[{\"type\":\"output_text\",\"text\":\"hello\",\"annotations\":[],\"logprobs\":[]}]},\"sequence_number\":46}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"gen-1772718241-tDbQtV2eLgxwStmndsel\",\"object\":\"response\",\"created_at\":1772718241,\"model\":\"deepseek/deepseek-r1\",\"status\":\"completed\",\"completed_at\":1772718243,\"output\":[{\"id\":\"rs_tmp_m4ks2ay55h\",\"type\":\"reasoning\",\"status\":\"completed\",\"content\":[{\"type\":\"reasoning_text\",\"text\":\"Okay, the user wants me to say \\\"hello\\\" and nothing else. Let me check the instructions again. It says to respond with \\\"hello\\\" and no other text. I need to make sure I don't add any extra words or explanations. Just \\\"hello\\\". Alright, I'll keep it simple.\\n\"}],\"summary\":[],\"format\":\"unknown\"},{\"id\":\"msg_tmp_h7gwg2cnfg7\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"hello\",\"annotations\":[],\"logprobs\":[]}]}],\"error\":null,\"incomplete_details\":null,\"tools\":[],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"auto\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":null,\"safety_identifier\":null,\"prompt_cache_key\":null,\"user\":null,\"usage\":{\"input_tokens\":13,\"input_tokens_details\":{\"cached_tokens\":0},\"output_tokens\":67,\"output_tokens_details\":{\"reasoning_tokens\":65},\"total_tokens\":80,\"cost\":0.0001766,\"is_byok\":false,\"cost_details\":{\"upstream_inference_cost\":0.0001766,\"upstream_inference_input_cost\":0.0000091,\"upstream_inference_output_cost\":0.0001675}}},\"sequence_number\":47}\n\ndata: [DONE]\n\n",
+    "headers": [
+      [
+        "date",
+        "Thu, 05 Mar 2026 13:44:02 GMT"
+      ],
+      [
+        "content-type",
+        "text/event-stream"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=1072"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "cache-control",
+        "no-cache"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "9d798d8f4c3c910e-AMS"
+      ]
+    ],
+    "status": 200
+  }
+}

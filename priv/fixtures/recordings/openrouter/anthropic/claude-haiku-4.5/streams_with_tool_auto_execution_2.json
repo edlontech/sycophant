@@ -1,0 +1,116 @@
+{
+  "metadata": {
+    "model": "anthropic/claude-haiku-4.5",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-03-05T13:43:51.118829Z",
+    "streaming": true,
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "role": "user"
+        },
+        {
+          "content": [],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "arguments": "{\"city\":\"Paris\"}",
+          "call_id": "toolu_011iPniZkJphbmNyzeWkc5wY",
+          "name": "get_weather",
+          "type": "function_call"
+        },
+        {
+          "call_id": "toolu_011iPniZkJphbmNyzeWkc5wY",
+          "output": "Paris: 22C, sunny",
+          "type": "function_call_output"
+        }
+      ],
+      "model": "anthropic/claude-haiku-4.5",
+      "stream": true,
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": ": OPENROUTER PROCESSING\n\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"gen-1772718230-D6mJcjFHgPwNYx72wFcD\",\"object\":\"response\",\"created_at\":1772718230,\"model\":\"anthropic/claude-4.5-haiku-20251001\",\"status\":\"in_progress\",\"completed_at\":null,\"output\":[],\"error\":null,\"incomplete_details\":null,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"strict\":true,\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"}}],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"auto\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":null,\"safety_identifier\":null,\"prompt_cache_key\":null,\"user\":null},\"sequence_number\":0}\n\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"gen-1772718230-D6mJcjFHgPwNYx72wFcD\",\"object\":\"response\",\"created_at\":1772718230,\"model\":\"anthropic/claude-4.5-haiku-20251001\",\"status\":\"in_progress\",\"completed_at\":null,\"output\":[],\"error\":null,\"incomplete_details\":null,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"strict\":true,\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"}}],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"auto\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":null,\"safety_identifier\":null,\"prompt_cache_key\":null,\"user\":null},\"sequence_number\":1}\n\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"id\":\"msg_tmp_m8am5s6d13\",\"type\":\"message\",\"status\":\"in_progress\",\"role\":\"assistant\",\"content\":[]},\"sequence_number\":2}\n\ndata: {\"type\":\"response.content_part.added\",\"output_index\":0,\"item_id\":\"msg_tmp_m8am5s6d13\",\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"\",\"annotations\":[],\"logprobs\":[]},\"sequence_number\":3}\n\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"item_id\":\"msg_tmp_m8am5s6d13\",\"content_index\":0,\"delta\":\"The weather in Paris is currently\",\"logprobs\":[],\"sequence_number\":4}\n\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"item_id\":\"msg_tmp_m8am5s6d13\",\"content_index\":0,\"delta\":\" **\",\"logprobs\":[],\"sequence_number\":5}\n\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"item_id\":\"msg_tmp_m8am5s6d13\",\"content_index\":0,\"delta\":\"22°C (\",\"logprobs\":[],\"sequence_number\":6}\n\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"item_id\":\"msg_tmp_m8am5s6d13\",\"content_index\":0,\"delta\":\"72°F)\",\"logprobs\":[],\"sequence_number\":7}\n\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"item_id\":\"msg_tmp_m8am5s6d13\",\"content_index\":0,\"delta\":\" and\",\"logprobs\":[],\"sequence_number\":8}\n\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"item_id\":\"msg_tmp_m8am5s6d13\",\"content_index\":0,\"delta\":\" sunny**. It\",\"logprobs\":[],\"sequence_number\":9}\n\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"item_id\":\"msg_tmp_m8am5s6d13\",\"content_index\":0,\"delta\":\"'s\",\"logprobs\":[],\"sequence_number\":10}\n\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"item_id\":\"msg_tmp_m8am5s6d13\",\"content_index\":0,\"delta\":\" a nice\",\"logprobs\":[],\"sequence_number\":11}\n\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"item_id\":\"msg_tmp_m8am5s6d13\",\"content_index\":0,\"delta\":\" day!\",\"logprobs\":[],\"sequence_number\":12}\n\ndata: {\"type\":\"response.output_text.done\",\"output_index\":0,\"item_id\":\"msg_tmp_m8am5s6d13\",\"content_index\":0,\"text\":\"The weather in Paris is currently **22°C (72°F) and sunny**. It's a nice day!\",\"logprobs\":[],\"sequence_number\":13}\n\ndata: {\"type\":\"response.content_part.done\",\"output_index\":0,\"item_id\":\"msg_tmp_m8am5s6d13\",\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"The weather in Paris is currently **22°C (72°F) and sunny**. It's a nice day!\",\"annotations\":[],\"logprobs\":[]},\"sequence_number\":14}\n\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"id\":\"msg_tmp_m8am5s6d13\",\"type\":\"message\",\"status\":\"completed\",\"role\":\"assistant\",\"content\":[{\"type\":\"output_text\",\"text\":\"The weather in Paris is currently **22°C (72°F) and sunny**. It's a nice day!\",\"annotations\":[],\"logprobs\":[]}]},\"sequence_number\":15}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"gen-1772718230-D6mJcjFHgPwNYx72wFcD\",\"object\":\"response\",\"created_at\":1772718230,\"model\":\"anthropic/claude-4.5-haiku-20251001\",\"status\":\"completed\",\"completed_at\":1772718231,\"output\":[{\"id\":\"msg_tmp_m8am5s6d13\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"The weather in Paris is currently **22°C (72°F) and sunny**. It's a nice day!\",\"annotations\":[],\"logprobs\":[]}]}],\"error\":null,\"incomplete_details\":null,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"strict\":true,\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"}}],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"auto\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":null,\"safety_identifier\":null,\"prompt_cache_key\":null,\"user\":null,\"usage\":{\"input_tokens\":656,\"input_tokens_details\":{\"cached_tokens\":0},\"output_tokens\":28,\"output_tokens_details\":{\"reasoning_tokens\":0},\"total_tokens\":684,\"cost\":0.000796,\"is_byok\":false,\"cost_details\":{\"upstream_inference_cost\":0.000796,\"upstream_inference_input_cost\":0.000656,\"upstream_inference_output_cost\":0.00014}}},\"sequence_number\":16}\n\ndata: [DONE]\n\n",
+    "headers": [
+      [
+        "date",
+        "Thu, 05 Mar 2026 13:43:50 GMT"
+      ],
+      [
+        "content-type",
+        "text/event-stream"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=516"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "cache-control",
+        "no-cache"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "9d798d4bdaa3910e-AMS"
+      ]
+    ],
+    "status": 200
+  }
+}

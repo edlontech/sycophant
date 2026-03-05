@@ -1,0 +1,155 @@
+{
+  "metadata": {
+    "model": "deepseek/deepseek-r1",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-03-05T13:44:20.731782Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "Say 'hello' and nothing else.",
+          "role": "user"
+        }
+      ],
+      "model": "deepseek/deepseek-r1"
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "completed_at": 1772718260,
+      "created_at": 1772718257,
+      "error": null,
+      "frequency_penalty": 0,
+      "id": "gen-1772718257-jXHePmONqQLK9tDdRJ3k",
+      "incomplete_details": null,
+      "instructions": null,
+      "max_output_tokens": null,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "deepseek/deepseek-r1",
+      "object": "response",
+      "output": [
+        {
+          "content": [
+            {
+              "text": "Okay, the user asked me to say \"hello\" and nothing else. Let me start by confirming the request. They want a simple \"hello\" without any additional text. So I need to make sure I don't add anything else like explanations or follow-ups. Let me check the instructions again. Yep, just \"hello\". Alright, I'll respond with exactly that. No extra words. Just \"hello\". Got it.\n",
+              "type": "reasoning_text"
+            }
+          ],
+          "format": "unknown",
+          "id": "rs_tmp_jyf7shbn22",
+          "status": "completed",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Hello.",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_tmp_hcj4elhlvnh",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": null,
+      "safety_identifier": null,
+      "service_tier": "auto",
+      "status": "completed",
+      "store": false,
+      "temperature": 1,
+      "text": {
+        "format": {
+          "type": "text"
+        }
+      },
+      "tool_choice": "auto",
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1,
+      "truncation": "disabled",
+      "usage": {
+        "cost": 2.366e-4,
+        "cost_details": {
+          "upstream_inference_cost": 2.366e-4,
+          "upstream_inference_input_cost": 9.1e-6,
+          "upstream_inference_output_cost": 2.275e-4
+        },
+        "input_tokens": 13,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "is_byok": false,
+        "output_tokens": 91,
+        "output_tokens_details": {
+          "reasoning_tokens": 89
+        },
+        "total_tokens": 104
+      },
+      "user": null
+    },
+    "headers": [
+      [
+        "date",
+        "Thu, 05 Mar 2026 13:44:18 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1244"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "9d798df35cf0910e-AMS"
+      ]
+    ],
+    "status": 200
+  }
+}

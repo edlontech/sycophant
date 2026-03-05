@@ -1,0 +1,188 @@
+{
+  "metadata": {
+    "model": "deepseek/deepseek-r1",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-03-05T13:44:15.026509Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "role": "user"
+        }
+      ],
+      "model": "deepseek/deepseek-r1",
+      "tools": [
+        {
+          "description": "Get current weather for a city",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "completed_at": 1772718255,
+      "created_at": 1772718250,
+      "error": null,
+      "frequency_penalty": 0,
+      "id": "gen-1772718250-qOTtkwbH1AsNw4j7LZiU",
+      "incomplete_details": null,
+      "instructions": null,
+      "max_output_tokens": null,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "deepseek/deepseek-r1",
+      "object": "response",
+      "output": [
+        {
+          "content": [
+            {
+              "text": "好的，用户想知道巴黎的天气，需要使用get_weather工具。首先，我需要确认工具的参数和要求。根据工具列表，get_weather需要一个必填参数city，类型是字符串。用户已经明确提到了巴黎，所以参数没问题。接下来我要生成正确的调用格式。记得严格按照输出格式要求，用tool_call的标签包裹函数名和参数。参数部分要用JSON格式，确保city的值是字符串类型。检查一下有没有拼写错误或者格式问题，然后正确输出即可。不需要其他额外内容，直接调用工具。\n",
+              "type": "reasoning_text"
+            }
+          ],
+          "format": "unknown",
+          "id": "rs_tmp_ajbe8i4ceh",
+          "status": "completed",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "arguments": "{\"city\": \"Paris\"}",
+          "call_id": "1a97ad9b181744c1836c838076e17c5d",
+          "id": "fc_tmp_qw9hae0sth",
+          "name": "get_weather",
+          "status": "completed",
+          "type": "function_call"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": null,
+      "safety_identifier": null,
+      "service_tier": "auto",
+      "status": "completed",
+      "store": false,
+      "temperature": 1,
+      "text": {
+        "format": {
+          "type": "text"
+        }
+      },
+      "tool_choice": "auto",
+      "tools": [
+        {
+          "description": "Get current weather for a city",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ],
+      "top_logprobs": 0,
+      "top_p": 1,
+      "truncation": "disabled",
+      "usage": {
+        "cost": 6.426e-4,
+        "cost_details": {
+          "upstream_inference_cost": 6.426e-4,
+          "upstream_inference_input_cost": 2.576e-4,
+          "upstream_inference_output_cost": 3.85e-4
+        },
+        "input_tokens": 368,
+        "input_tokens_details": {
+          "cached_tokens": 320
+        },
+        "is_byok": false,
+        "output_tokens": 154,
+        "output_tokens_details": {
+          "reasoning_tokens": 111
+        },
+        "total_tokens": 522
+      },
+      "user": null
+    },
+    "headers": [
+      [
+        "date",
+        "Thu, 05 Mar 2026 13:44:11 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1100"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "9d798dc73d91910e-AMS"
+      ]
+    ],
+    "status": 200
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "metadata": {
+    "model": "deepseek/deepseek-r1",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-03-05T13:44:01.148714Z",
+    "streaming": true,
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "role": "user"
+        },
+        {
+          "content": [],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "arguments": "{\"city\":\"Paris\"}",
+          "call_id": "c6093f9e00fe4351b2387a0367862184",
+          "name": "get_weather",
+          "type": "function_call"
+        },
+        {
+          "call_id": "c6093f9e00fe4351b2387a0367862184",
+          "output": "Paris: 22C, sunny",
+          "type": "function_call_output"
+        }
+      ],
+      "model": "deepseek/deepseek-r1",
+      "stream": true,
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": ": OPENROUTER PROCESSING\n\n: OPENROUTER PROCESSING\n\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"gen-1772718236-O76AGlO9cm1LzyDMAwu8\",\"object\":\"response\",\"created_at\":1772718236,\"model\":\"deepseek/deepseek-r1\",\"status\":\"in_progress\",\"completed_at\":null,\"output\":[],\"error\":null,\"incomplete_details\":null,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"strict\":true,\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"}}],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"auto\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":null,\"safety_identifier\":null,\"prompt_cache_key\":null,\"user\":null},\"sequence_number\":0}\n\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"gen-1772718236-O76AGlO9cm1LzyDMAwu8\",\"object\":\"response\",\"created_at\":1772718236,\"model\":\"deepseek/deepseek-r1\",\"status\":\"in_progress\",\"completed_at\":null,\"output\":[],\"error\":null,\"incomplete_details\":null,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"strict\":true,\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"}}],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"auto\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":null,\"safety_identifier\":null,\"prompt_cache_key\":null,\"user\":null},\"sequence_number\":1}\n\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"id\":\"rs_tmp_6jonb7g4o1q\",\"type\":\"reasoning\",\"status\":\"in_progress\",\"summary\":[]},\"sequence_number\":2}\n\ndata: {\"type\":\"response.content_part.added\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"part\":{\"type\":\"reasoning_text\",\"text\":\"\"},\"sequence_number\":3}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"好\",\"sequence_number\":4}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"，用户\",\"sequence_number\":5}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"之前\",\"sequence_number\":6}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"询问\",\"sequence_number\":7}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"了巴黎\",\"sequence_number\":8}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"的天气\",\"sequence_number\":9}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"，我用\",\"sequence_number\":10}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"工具\",\"sequence_number\":11}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"获取\",\"sequence_number\":12}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"了信息\",\"sequence_number\":13}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"，现在\",\"sequence_number\":14}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"用户\",\"sequence_number\":15}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"给出了\",\"sequence_number\":16}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"结果\",\"sequence_number\":17}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"“Paris\",\"sequence_number\":18}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\": \",\"sequence_number\":19}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"22C\",\"sequence_number\":20}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\", sunny\",\"sequence_number\":21}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"”。我需要\",\"sequence_number\":22}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"确认是否需要\",\"sequence_number\":23}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"进一步\",\"sequence_number\":24}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"处理。\",\"sequence_number\":25}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"用户\",\"sequence_number\":26}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"可能只是\",\"sequence_number\":27}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"提供\",\"sequence_number\":28}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"数据\",\"sequence_number\":29}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"让我\",\"sequence_number\":30}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"总结\",\"sequence_number\":31}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"，或者\",\"sequence_number\":32}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"他们\",\"sequence_number\":33}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"可能有\",\"sequence_number\":34}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"后续\",\"sequence_number\":35}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"问题。\",\"sequence_number\":36}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"不过\",\"sequence_number\":37}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"根据当前\",\"sequence_number\":38}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"对话，\",\"sequence_number\":39}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"用户可能\",\"sequence_number\":40}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"希望\",\"sequence_number\":41}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"我确认\",\"sequence_number\":42}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"收到\",\"sequence_number\":43}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"天气\",\"sequence_number\":44}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"信息并\",\"sequence_number\":45}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"给出回复\",\"sequence_number\":46}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"。我应该\",\"sequence_number\":47}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"把\",\"sequence_number\":48}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"获取\",\"sequence_number\":49}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"的数据\",\"sequence_number\":50}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"转化为\",\"sequence_number\":51}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"友好的\",\"sequence_number\":52}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"回应\",\"sequence_number\":53}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"，比如\",\"sequence_number\":54}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"“巴黎\",\"sequence_number\":55}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"当前\",\"sequence_number\":56}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"天气晴朗\",\"sequence_number\":57}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"，气温\",\"sequence_number\":58}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"22摄氏度\",\"sequence_number\":59}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"。”确保\",\"sequence_number\":60}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"回答\",\"sequence_number\":61}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"准确\",\"sequence_number\":62}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"简洁\",\"sequence_number\":63}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"即可\",\"sequence_number\":64}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"delta\":\"。\\n\",\"sequence_number\":65}\n\ndata: {\"type\":\"response.output_item.added\",\"output_index\":1,\"item\":{\"id\":\"msg_tmp_1e8shwubu33\",\"type\":\"message\",\"status\":\"in_progress\",\"role\":\"assistant\",\"content\":[]},\"sequence_number\":66}\n\ndata: {\"type\":\"response.content_part.added\",\"output_index\":1,\"item_id\":\"msg_tmp_1e8shwubu33\",\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"\",\"annotations\":[],\"logprobs\":[]},\"sequence_number\":67}\n\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":1,\"item_id\":\"msg_tmp_1e8shwubu33\",\"content_index\":0,\"delta\":\"巴黎当前\",\"logprobs\":[],\"sequence_number\":68}\n\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":1,\"item_id\":\"msg_tmp_1e8shwubu33\",\"content_index\":0,\"delta\":\"天气晴朗\",\"logprobs\":[],\"sequence_number\":69}\n\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":1,\"item_id\":\"msg_tmp_1e8shwubu33\",\"content_index\":0,\"delta\":\"，气温\",\"logprobs\":[],\"sequence_number\":70}\n\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":1,\"item_id\":\"msg_tmp_1e8shwubu33\",\"content_index\":0,\"delta\":\"22摄氏度\",\"logprobs\":[],\"sequence_number\":71}\n\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":1,\"item_id\":\"msg_tmp_1e8shwubu33\",\"content_index\":0,\"delta\":\"。\",\"logprobs\":[],\"sequence_number\":72}\n\ndata: {\"type\":\"response.output_text.done\",\"output_index\":1,\"item_id\":\"msg_tmp_1e8shwubu33\",\"content_index\":0,\"text\":\"巴黎当前天气晴朗，气温22摄氏度。\",\"logprobs\":[],\"sequence_number\":73}\n\ndata: {\"type\":\"response.content_part.done\",\"output_index\":1,\"item_id\":\"msg_tmp_1e8shwubu33\",\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"巴黎当前天气晴朗，气温22摄氏度。\",\"annotations\":[],\"logprobs\":[]},\"sequence_number\":74}\n\ndata: {\"type\":\"response.reasoning_text.done\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"text\":\"好，用户之前询问了巴黎的天气，我用工具获取了信息，现在用户给出了结果“Paris: 22C, sunny”。我需要确认是否需要进一步处理。用户可能只是提供数据让我总结，或者他们可能有后续问题。不过根据当前对话，用户可能希望我确认收到天气信息并给出回复。我应该把获取的数据转化为友好的回应，比如“巴黎当前天气晴朗，气温22摄氏度。”确保回答准确简洁即可。\\n\",\"sequence_number\":75}\n\ndata: {\"type\":\"response.content_part.done\",\"output_index\":0,\"item_id\":\"rs_tmp_6jonb7g4o1q\",\"content_index\":0,\"part\":{\"type\":\"reasoning_text\",\"text\":\"好，用户之前询问了巴黎的天气，我用工具获取了信息，现在用户给出了结果“Paris: 22C, sunny”。我需要确认是否需要进一步处理。用户可能只是提供数据让我总结，或者他们可能有后续问题。不过根据当前对话，用户可能希望我确认收到天气信息并给出回复。我应该把获取的数据转化为友好的回应，比如“巴黎当前天气晴朗，气温22摄氏度。”确保回答准确简洁即可。\\n\"},\"sequence_number\":76}\n\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"id\":\"rs_tmp_6jonb7g4o1q\",\"type\":\"reasoning\",\"status\":\"completed\",\"content\":[{\"type\":\"reasoning_text\",\"text\":\"好，用户之前询问了巴黎的天气，我用工具获取了信息，现在用户给出了结果“Paris: 22C, sunny”。我需要确认是否需要进一步处理。用户可能只是提供数据让我总结，或者他们可能有后续问题。不过根据当前对话，用户可能希望我确认收到天气信息并给出回复。我应该把获取的数据转化为友好的回应，比如“巴黎当前天气晴朗，气温22摄氏度。”确保回答准确简洁即可。\\n\"}],\"summary\":[],\"format\":\"unknown\"},\"sequence_number\":77}\n\ndata: {\"type\":\"response.output_item.done\",\"output_index\":1,\"item\":{\"id\":\"msg_tmp_1e8shwubu33\",\"type\":\"message\",\"status\":\"completed\",\"role\":\"assistant\",\"content\":[{\"type\":\"output_text\",\"text\":\"巴黎当前天气晴朗，气温22摄氏度。\",\"annotations\":[],\"logprobs\":[]}]},\"sequence_number\":78}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"gen-1772718236-O76AGlO9cm1LzyDMAwu8\",\"object\":\"response\",\"created_at\":1772718236,\"model\":\"deepseek/deepseek-r1\",\"status\":\"completed\",\"completed_at\":1772718241,\"output\":[{\"id\":\"rs_tmp_6jonb7g4o1q\",\"type\":\"reasoning\",\"status\":\"completed\",\"content\":[{\"type\":\"reasoning_text\",\"text\":\"好，用户之前询问了巴黎的天气，我用工具获取了信息，现在用户给出了结果“Paris: 22C, sunny”。我需要确认是否需要进一步处理。用户可能只是提供数据让我总结，或者他们可能有后续问题。不过根据当前对话，用户可能希望我确认收到天气信息并给出回复。我应该把获取的数据转化为友好的回应，比如“巴黎当前天气晴朗，气温22摄氏度。”确保回答准确简洁即可。\\n\"}],\"summary\":[],\"format\":\"unknown\"},{\"id\":\"msg_tmp_1e8shwubu33\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"巴黎当前天气晴朗，气温22摄氏度。\",\"annotations\":[],\"logprobs\":[]}]}],\"error\":null,\"incomplete_details\":null,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"strict\":true,\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"}}],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"auto\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":null,\"safety_identifier\":null,\"prompt_cache_key\":null,\"user\":null,\"usage\":{\"input_tokens\":425,\"input_tokens_details\":{\"cached_tokens\":320},\"output_tokens\":102,\"output_tokens_details\":{\"reasoning_tokens\":92},\"total_tokens\":527,\"cost\":0.0005525,\"is_byok\":false,\"cost_details\":{\"upstream_inference_cost\":0.0005525,\"upstream_inference_input_cost\":0.0002975,\"upstream_inference_output_cost\":0.000255}}},\"sequence_number\":79}\n\ndata: [DONE]\n\n",
+    "headers": [
+      [
+        "date",
+        "Thu, 05 Mar 2026 13:43:58 GMT"
+      ],
+      [
+        "content-type",
+        "text/event-stream"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1150"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "cache-control",
+        "no-cache"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "9d798d7468a1910e-AMS"
+      ]
+    ],
+    "status": 200
+  }
+}

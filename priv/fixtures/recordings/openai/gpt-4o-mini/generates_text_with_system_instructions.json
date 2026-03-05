@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-04T16:00:57.139741Z",
+    "recorded_at": "2026-03-05T13:43:51.280043Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -44,7 +44,7 @@
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_0a215043d3aa7b8c0069a85738a03481909d1b7e4664beb156",
+      "id": "resp_0f1d148adf4604980069a98896e7e481909f6ea2bf556f116b",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -75,7 +75,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_0a215043d3aa7b8c0069a85738f4848190a938142f2ab9cbce",
+          "id": "msg_0f1d148adf4604980069a98897225081909db9cbf6b5506e31",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -89,7 +89,7 @@
         "effort": null,
         "summary": null
       },
-      "completed_at": 1772640056,
+      "completed_at": 1772718231,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -98,13 +98,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1772640056,
+      "created_at": 1772718230,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 04 Mar 2026 16:00:57 GMT"
+        "Thu, 05 Mar 2026 13:43:51 GMT"
       ],
       [
         "content-type",
@@ -132,7 +132,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "149999950"
+        "149999952"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -156,11 +156,11 @@
       ],
       [
         "x-request-id",
-        "req_55a3dda6ea054071a15be345a6b4f2b6"
+        "req_dff69ada8219437093a4d72b11a6b7bb"
       ],
       [
         "openai-processing-ms",
-        "437"
+        "322"
       ],
       [
         "cf-cache-status",
@@ -180,7 +180,7 @@
       ],
       [
         "cf-ray",
-        "9d7218c16e9e9d56-AMS"
+        "9d798d4e9e0ff5b4-AMS"
       ],
       [
         "alt-svc",

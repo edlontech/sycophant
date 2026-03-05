@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-04T16:01:00.476574Z",
+    "recorded_at": "2026-03-05T13:43:50.066789Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -47,8 +47,8 @@
           }
         }
       ],
-      "created": 1772640060,
-      "id": "chatcmpl-DFiweeYqfzJGHURCEzAVV3xoEDCwx",
+      "created": 1772718229,
+      "id": "chatcmpl-DG3HRyX59QNHlx6oEPBpre52AAvS2",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -72,7 +72,7 @@
     "headers": [
       [
         "date",
-        "Wed, 04 Mar 2026 16:01:00 GMT"
+        "Thu, 05 Mar 2026 13:43:50 GMT"
       ],
       [
         "content-type",
@@ -88,7 +88,7 @@
       ],
       [
         "openai-processing-ms",
-        "291"
+        "191"
       ],
       [
         "openai-project",
@@ -112,7 +112,7 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "8999"
+        "8998"
       ],
       [
         "x-ratelimit-remaining-tokens",
@@ -128,7 +128,7 @@
       ],
       [
         "x-request-id",
-        "req_6947395717cc41e69228dea02cb4b6d7"
+        "req_87a3d38ec10443ce81078da6460bcfc2"
       ],
       [
         "x-openai-proxy-wasm",
@@ -152,7 +152,7 @@
       ],
       [
         "cf-ray",
-        "9d7218d5a8ec9d56-AMS"
+        "9d798d47efb7f5b4-AMS"
       ],
       [
         "alt-svc",

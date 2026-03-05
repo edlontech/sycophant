@@ -141,10 +141,89 @@ defmodule Sycophant.ModelResolverTest do
     end
 
     test "returns error for unsupported wire protocol" do
-      model = build_model(%{extra: %{wire: %{protocol: "anthropic_messages"}}})
+      model = build_model(%{extra: %{wire: %{protocol: "totally_unknown_protocol"}}})
       provider = build_provider()
 
       expect(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+
+      assert {:error, %Sycophant.Error.Unknown.Unknown{}} =
+               ModelResolver.resolve(model)
+    end
+
+    test "falls back to app config when model has no wire protocol" do
+      model = build_model(%{extra: %{}, provider: :openrouter})
+      provider = build_provider(%{id: :openrouter, base_url: "https://openrouter.ai/api/v1"})
+
+      Application.put_env(:sycophant, :wire_protocol_defaults, %{
+        openrouter: "openai_responses"
+      })
+
+      on_exit(fn -> Application.delete_env(:sycophant, :wire_protocol_defaults) end)
+
+      expect(LLMDB, :provider, fn :openrouter -> {:ok, provider} end)
+
+      assert {:ok, info} = ModelResolver.resolve(model)
+      assert info.wire_adapter == Sycophant.WireProtocol.OpenAIResponses
+    end
+
+    test "falls back to app config when model extra is nil" do
+      model = build_model(%{extra: nil, provider: :openrouter})
+      provider = build_provider(%{id: :openrouter, base_url: "https://openrouter.ai/api/v1"})
+
+      Application.put_env(:sycophant, :wire_protocol_defaults, %{
+        openrouter: "openai_responses"
+      })
+
+      on_exit(fn -> Application.delete_env(:sycophant, :wire_protocol_defaults) end)
+
+      expect(LLMDB, :provider, fn :openrouter -> {:ok, provider} end)
+
+      assert {:ok, info} = ModelResolver.resolve(model)
+      assert info.wire_adapter == Sycophant.WireProtocol.OpenAIResponses
+    end
+
+    test "model-level protocol takes priority over config default" do
+      model =
+        build_model(%{
+          extra: %{wire: %{protocol: "openai_chat"}},
+          provider: :openrouter
+        })
+
+      provider = build_provider(%{id: :openrouter, base_url: "https://openrouter.ai/api/v1"})
+
+      Application.put_env(:sycophant, :wire_protocol_defaults, %{
+        openrouter: "openai_responses"
+      })
+
+      on_exit(fn -> Application.delete_env(:sycophant, :wire_protocol_defaults) end)
+
+      expect(LLMDB, :provider, fn :openrouter -> {:ok, provider} end)
+
+      assert {:ok, info} = ModelResolver.resolve(model)
+      assert info.wire_adapter == Sycophant.WireProtocol.OpenAICompletions
+    end
+
+    test "returns error when neither model nor config provides protocol" do
+      model = build_model(%{extra: %{}, provider: :unknown_provider})
+      provider = build_provider(%{id: :unknown_provider})
+
+      expect(LLMDB, :provider, fn :unknown_provider -> {:ok, provider} end)
+
+      assert {:error, %Sycophant.Error.Invalid.MissingModel{}} =
+               ModelResolver.resolve(model)
+    end
+
+    test "returns error when config provides unsupported protocol" do
+      model = build_model(%{extra: %{}, provider: :badprovider})
+      provider = build_provider(%{id: :badprovider})
+
+      Application.put_env(:sycophant, :wire_protocol_defaults, %{
+        badprovider: "unsupported_protocol"
+      })
+
+      on_exit(fn -> Application.delete_env(:sycophant, :wire_protocol_defaults) end)
+
+      expect(LLMDB, :provider, fn :badprovider -> {:ok, provider} end)
 
       assert {:error, %Sycophant.Error.Unknown.Unknown{}} =
                ModelResolver.resolve(model)

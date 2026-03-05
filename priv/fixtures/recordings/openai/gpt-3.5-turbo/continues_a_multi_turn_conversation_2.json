@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-04T16:00:58.772009Z",
+    "recorded_at": "2026-03-05T13:43:49.731080Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -13,7 +13,7 @@
           "role": "user"
         },
         {
-          "content": "Hello Sycophant, nice to meet you. How can I assist you today?",
+          "content": "Nice to meet you, Sycophant. How can I assist you today?",
           "role": "assistant"
         },
         {
@@ -51,8 +51,8 @@
           }
         }
       ],
-      "created": 1772640058,
-      "id": "chatcmpl-DFiwcWJeMVkG1nGSTXHigeDolGSd3",
+      "created": 1772718229,
+      "id": "chatcmpl-DG3HRoX4PeiWNDt9Mg6FKOvfjUvW5",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -65,26 +65,22 @@
           "reasoning_tokens": 0,
           "rejected_prediction_tokens": 0
         },
-        "prompt_tokens": 49,
+        "prompt_tokens": 48,
         "prompt_tokens_details": {
           "audio_tokens": 0,
           "cached_tokens": 0
         },
-        "total_tokens": 57
+        "total_tokens": 56
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 04 Mar 2026 16:00:58 GMT"
+        "Thu, 05 Mar 2026 13:43:49 GMT"
       ],
       [
         "content-type",
         "application/json"
-      ],
-      [
-        "content-length",
-        "814"
       ],
       [
         "access-control-expose-headers",
@@ -96,7 +92,7 @@
       ],
       [
         "openai-processing-ms",
-        "287"
+        "285"
       ],
       [
         "openai-project",
@@ -120,11 +116,11 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "8999"
+        "8998"
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "1999968"
+        "1999969"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -136,7 +132,7 @@
       ],
       [
         "x-request-id",
-        "req_ecb72526c3ed424ba98fc00a05bee705"
+        "req_65338a801932484eb574a6a18d98bc43"
       ],
       [
         "x-openai-proxy-wasm",
@@ -160,7 +156,7 @@
       ],
       [
         "cf-ray",
-        "9d7218ca9e2b9d56-AMS"
+        "9d798d4549aef5b4-AMS"
       ],
       [
         "alt-svc",

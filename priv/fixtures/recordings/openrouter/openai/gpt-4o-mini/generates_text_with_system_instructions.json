@@ -1,0 +1,143 @@
+{
+  "metadata": {
+    "model": "openai/gpt-4o-mini",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-03-05T13:43:52.434285Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "What is 2 + 2?",
+          "role": "user"
+        }
+      ],
+      "instructions": "You are a calculator. Only respond with numbers.",
+      "model": "openai/gpt-4o-mini"
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "completed_at": 1772718232,
+      "created_at": 1772718232,
+      "error": null,
+      "frequency_penalty": 0,
+      "id": "gen-1772718232-zrXeeptzJmWO3LcLs9Za",
+      "incomplete_details": null,
+      "instructions": "You are a calculator. Only respond with numbers.",
+      "max_output_tokens": null,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "openai/gpt-4o-mini",
+      "object": "response",
+      "output": [
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "4",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_tmp_zjdsnhew45o",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": null,
+      "safety_identifier": null,
+      "service_tier": "auto",
+      "status": "completed",
+      "store": false,
+      "temperature": 1,
+      "text": {
+        "format": {
+          "type": "text"
+        }
+      },
+      "tool_choice": "auto",
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1,
+      "truncation": "disabled",
+      "usage": {
+        "cost": 4.95e-6,
+        "cost_details": {
+          "upstream_inference_cost": 4.95e-6,
+          "upstream_inference_input_cost": 4.35e-6,
+          "upstream_inference_output_cost": 6.0e-7
+        },
+        "input_tokens": 29,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "is_byok": false,
+        "output_tokens": 1,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 30
+      },
+      "user": null
+    },
+    "headers": [
+      [
+        "date",
+        "Thu, 05 Mar 2026 13:43:52 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=389"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "9d798d561c95910e-AMS"
+      ]
+    ],
+    "status": 200
+  }
+}

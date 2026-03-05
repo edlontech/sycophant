@@ -1,0 +1,170 @@
+{
+  "metadata": {
+    "model": "deepseek/deepseek-r1",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-03-05T13:44:13.479500Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "My name is Sycophant. Remember it.",
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "Got it, Sycophant! I’ll remember your name for the duration of this conversation. How can I assist you today? Just a heads-up, though: my memory resets between chats, so feel free to reintroduce yourself anytime. 😊",
+              "type": "output_text"
+            }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "content": "What is my name?",
+          "role": "user"
+        }
+      ],
+      "model": "deepseek/deepseek-r1"
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "completed_at": 1772718253,
+      "created_at": 1772718241,
+      "error": null,
+      "frequency_penalty": 0,
+      "id": "gen-1772718241-3u1CWGJ4lGVkmIp4XSUK",
+      "incomplete_details": null,
+      "instructions": null,
+      "max_output_tokens": null,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "deepseek/deepseek-r1",
+      "object": "response",
+      "output": [
+        {
+          "content": [
+            {
+              "text": "Okay, the user's name is Sycophant. They told me that in the first message. Now they're asking, \"What is my name?\" because they want to confirm if I remembered.\n\nWait, let me check the history. The initial interaction was the user saying, \"My name is Sycophant. Remember it.\" And I responded that I'll remember it for the duration of the conversation. Then the user now asks again.\n\nBut according to the rules, I can remember information shared in the current conversation. So I should recall that their name is Sycophant. However, the user might be testing if I retained that information. But since it's within the same chat, I should answer correctly. \n\nWait, but the user's current question is \"What is my name?\" and my previous response said I'll remember it for the duration. So I need to answer with their name. But in the response template, it's supposed to be the answer. So the answer here is straightforward: \"Your name is Sycophant.\"\n\nBut wait, the user might expect a bit more. Maybe they want a friendly reminder. Also, I should mention that I remember from earlier in the chat. But the response needs to be concise. Let me structure it properly. No markdown, just plain text. So the correct answer is \"Your name is Sycophant! (And don’t worry—I’ll remember until this chat ends. 😊)\" which matches the example response. That's friendly and confirms the memory within the conversation.\n",
+              "type": "reasoning_text"
+            }
+          ],
+          "format": "unknown",
+          "id": "rs_tmp_vmmce7m3e28",
+          "status": "completed",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Your name is **Sycophant**! (And don’t worry—I’ll remember until this chat ends. 😊)",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_tmp_cd4njk5jqlu",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": null,
+      "safety_identifier": null,
+      "service_tier": "auto",
+      "status": "completed",
+      "store": false,
+      "temperature": 1,
+      "text": {
+        "format": {
+          "type": "text"
+        }
+      },
+      "tool_choice": "auto",
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1,
+      "truncation": "disabled",
+      "usage": {
+        "cost": 9.314e-4,
+        "cost_details": {
+          "upstream_inference_cost": 9.314e-4,
+          "upstream_inference_input_cost": 5.39e-5,
+          "upstream_inference_output_cost": 8.775e-4
+        },
+        "input_tokens": 77,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "is_byok": false,
+        "output_tokens": 351,
+        "output_tokens_details": {
+          "reasoning_tokens": 321
+        },
+        "total_tokens": 428
+      },
+      "user": null
+    },
+    "headers": [
+      [
+        "date",
+        "Thu, 05 Mar 2026 13:44:02 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1346"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "9d798d921b26910e-AMS"
+      ]
+    ],
+    "status": 200
+  }
+}

@@ -1,8 +1,5 @@
 defmodule Sycophant.Recording.GenerateObjectTest do
-  @models (for model <- Application.compile_env(:sycophant, :structured_output_models, []) do
-             %{model: model, fixture_prefix: String.replace(model, ":", "/")}
-           end)
-
+  @models Sycophant.RecordingCase.test_models(require: :structured_output)
   use Sycophant.RecordingCase, async: true, parameterize: @models
 
   alias Sycophant.Message

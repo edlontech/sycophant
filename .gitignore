@@ -115,5 +115,7 @@ tmp/*
 
 openai_completion.md
 openai_responses.md
+anthropic_messages.md
+gemini_api.md
 
 # End of https://www.toptal.com/developers/gitignore/api/elixir,erlang,macos,visualstudiocode,vim

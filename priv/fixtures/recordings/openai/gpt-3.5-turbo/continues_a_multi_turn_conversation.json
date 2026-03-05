@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-04T16:00:57.989923Z",
+    "recorded_at": "2026-03-05T13:43:49.306781Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -37,20 +37,20 @@
           "logprobs": null,
           "message": {
             "annotations": [],
-            "content": "Hello Sycophant, nice to meet you. How can I assist you today?",
+            "content": "Nice to meet you, Sycophant. How can I assist you today?",
             "refusal": null,
             "role": "assistant"
           }
         }
       ],
-      "created": 1772640057,
-      "id": "chatcmpl-DFiwbONjAr1y2D9WhB1AlfEv02xnA",
+      "created": 1772718228,
+      "id": "chatcmpl-DG3HQD1uRO1KnYPbqnEamLwj3CTRv",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
       "system_fingerprint": null,
       "usage": {
-        "completion_tokens": 18,
+        "completion_tokens": 17,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "audio_tokens": 0,
@@ -62,13 +62,13 @@
           "audio_tokens": 0,
           "cached_tokens": 0
         },
-        "total_tokens": 36
+        "total_tokens": 35
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 04 Mar 2026 16:00:57 GMT"
+        "Thu, 05 Mar 2026 13:43:49 GMT"
       ],
       [
         "content-type",
@@ -84,7 +84,7 @@
       ],
       [
         "openai-processing-ms",
-        "355"
+        "318"
       ],
       [
         "openai-project",
@@ -124,7 +124,7 @@
       ],
       [
         "x-request-id",
-        "req_e3b31110ebb643358ee497b1af097f17"
+        "req_c7bc1dc652ca498a9dede039fd2c8ddc"
       ],
       [
         "x-openai-proxy-wasm",
@@ -148,7 +148,7 @@
       ],
       [
         "cf-ray",
-        "9d7218c5495d9d56-AMS"
+        "9d798d423a56f5b4-AMS"
       ],
       [
         "alt-svc",

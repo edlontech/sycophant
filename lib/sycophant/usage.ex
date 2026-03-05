@@ -5,7 +5,9 @@ defmodule Sycophant.Usage do
   use TypedStruct
 
   typedstruct do
-    field(:input_tokens, non_neg_integer())
-    field(:output_tokens, non_neg_integer())
+    field :input_tokens, non_neg_integer()
+    field :output_tokens, non_neg_integer()
+    field :cache_creation_input_tokens, non_neg_integer()
+    field :cache_read_input_tokens, non_neg_integer()
   end
 end

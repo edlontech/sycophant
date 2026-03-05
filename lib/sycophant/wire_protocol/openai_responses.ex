@@ -11,7 +11,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   @behaviour Sycophant.WireProtocol
 
   @impl true
-  def request_path, do: "/responses"
+  def request_path(_request), do: "/responses"
 
   alias Sycophant.Context
   alias Sycophant.Error.Provider.ContentFiltered
@@ -41,7 +41,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     safety_identifier: "safety_identifier"
   }
 
-  @dropped_params [:top_k, :stop, :seed, :frequency_penalty, :presence_penalty]
+  @dropped_params [:top_k, :stop, :seed, :frequency_penalty, :presence_penalty, :tool_choice]
 
   @impl true
   def encode_request(%Request{} = request) do
@@ -138,6 +138,11 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     with {:ok, response} <- decode_response(response) do
       {:done, response}
     end
+  end
+
+  def decode_stream_chunk(state, %{data: %{"type" => type}} = event)
+      when not is_map_key(event, :event) do
+    decode_stream_chunk(state, Map.put(event, :event, type))
   end
 
   def decode_stream_chunk(state, _event) do
@@ -241,8 +246,14 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     :skip
   end
 
-  defp decode_usage(%{"input_tokens" => input, "output_tokens" => output}) do
-    %Usage{input_tokens: input, output_tokens: output}
+  defp decode_usage(%{"input_tokens" => input, "output_tokens" => output} = usage) do
+    cached = get_in(usage, ["prompt_tokens_details", "cached_tokens"])
+
+    %Usage{
+      input_tokens: input,
+      output_tokens: output,
+      cache_read_input_tokens: cached
+    }
   end
 
   defp decode_usage(_), do: nil
@@ -326,15 +337,25 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   end
 
   defp encode_assistant_item(nil) do
-    %{"role" => "assistant", "content" => []}
+    %{"type" => "message", "role" => "assistant", "status" => "completed", "content" => []}
   end
 
   defp encode_assistant_item(content) when is_binary(content) do
-    %{"role" => "assistant", "content" => [%{"type" => "output_text", "text" => content}]}
+    %{
+      "type" => "message",
+      "role" => "assistant",
+      "status" => "completed",
+      "content" => [%{"type" => "output_text", "text" => content}]
+    }
   end
 
   defp encode_assistant_item(parts) when is_list(parts) do
-    %{"role" => "assistant", "content" => Enum.map(parts, &encode_assistant_content_part/1)}
+    %{
+      "type" => "message",
+      "role" => "assistant",
+      "status" => "completed",
+      "content" => Enum.map(parts, &encode_assistant_content_part/1)
+    }
   end
 
   defp encode_user_content_part(%Content.Text{text: text}) do
@@ -418,6 +439,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
       payload =
         payload
         |> maybe_put_stream(request.stream)
+        |> maybe_put_tool_choice(request.params)
         |> Map.merge(translate_params(request.params))
         |> Map.merge(request.provider_params || %{})
 
@@ -430,6 +452,26 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
 
   defp maybe_put_field(payload, _key, nil), do: payload
   defp maybe_put_field(payload, key, value), do: Map.put(payload, key, value)
+
+  defp maybe_put_tool_choice(payload, nil), do: payload
+  defp maybe_put_tool_choice(payload, %Params{tool_choice: nil}), do: payload
+
+  defp maybe_put_tool_choice(payload, %Params{tool_choice: :auto}),
+    do: Map.put(payload, "tool_choice", "auto")
+
+  defp maybe_put_tool_choice(payload, %Params{tool_choice: :none}),
+    do: Map.put(payload, "tool_choice", "none")
+
+  defp maybe_put_tool_choice(payload, %Params{tool_choice: :any}),
+    do: Map.put(payload, "tool_choice", "required")
+
+  defp maybe_put_tool_choice(payload, %Params{tool_choice: {:tool, name}}) do
+    Map.put(payload, "tool_choice", %{
+      "type" => "allowed_tools",
+      "mode" => "required",
+      "tools" => [%{"type" => "function", "name" => name}]
+    })
+  end
 
   defp maybe_put_tools(payload, []), do: {:ok, payload}
 

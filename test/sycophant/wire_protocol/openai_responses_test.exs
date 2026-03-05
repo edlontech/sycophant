@@ -90,32 +90,38 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
   end
 
   describe "encode_request/1 - assistant messages" do
-    test "encodes assistant message with output_text content" do
+    test "encodes assistant message as output item with type and status" do
       request = build_request([Message.assistant("hi there")])
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
 
       [msg] = payload["input"]
+      assert msg["type"] == "message"
       assert msg["role"] == "assistant"
+      assert msg["status"] == "completed"
       assert [%{"type" => "output_text", "text" => "hi there"}] = msg["content"]
     end
 
-    test "encodes assistant with nil content as empty content array" do
+    test "encodes assistant with nil content as output item with empty content" do
       request = build_request([Message.assistant(nil)])
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
 
       [msg] = payload["input"]
+      assert msg["type"] == "message"
       assert msg["role"] == "assistant"
+      assert msg["status"] == "completed"
       assert msg["content"] == []
     end
 
-    test "encodes assistant with tool_calls as message + function_call items" do
+    test "encodes assistant with tool_calls as output item + function_call items" do
       tc = %ToolCall{id: "call_1", name: "get_weather", arguments: %{"city" => "Paris"}}
       msg = %{Message.assistant("I'll check") | tool_calls: [tc]}
       request = build_request([msg])
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
 
       assert [assistant_item, fc_item] = payload["input"]
+      assert assistant_item["type"] == "message"
       assert assistant_item["role"] == "assistant"
+      assert assistant_item["status"] == "completed"
       assert [%{"type" => "output_text", "text" => "I'll check"}] = assistant_item["content"]
 
       assert fc_item["type"] == "function_call"
@@ -268,7 +274,9 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
 
       [user1, assistant, fc, fco, user2] = payload["input"]
       assert user1["role"] == "user"
+      assert assistant["type"] == "message"
       assert assistant["role"] == "assistant"
+      assert assistant["status"] == "completed"
       assert fc["type"] == "function_call"
       assert fco["type"] == "function_call_output"
       assert user2["role"] == "user"
@@ -826,11 +834,135 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
 
       assert {:ok, nil, []} = OpenAIResponses.decode_stream_chunk(nil, event)
     end
+
+    test "decodes text delta from data type when event key is missing" do
+      event = %{
+        data: %{
+          "type" => "response.output_text.delta",
+          "delta" => "Hello",
+          "item_id" => "item_1",
+          "output_index" => 0,
+          "content_index" => 0
+        }
+      }
+
+      assert {:ok, nil, [%StreamChunk{type: :text_delta, data: "Hello"}]} =
+               OpenAIResponses.decode_stream_chunk(nil, event)
+    end
+
+    test "decodes function call delta from data type when event key is missing" do
+      event = %{
+        data: %{
+          "type" => "response.function_call_arguments.delta",
+          "delta" => "{\"city\":",
+          "item_id" => "fc_1",
+          "output_index" => 0
+        }
+      }
+
+      assert {:ok, nil,
+              [
+                %StreamChunk{
+                  type: :tool_call_delta,
+                  data: %{id: "fc_1", name: nil, arguments_delta: "{\"city\":"},
+                  index: 0
+                }
+              ]} = OpenAIResponses.decode_stream_chunk(nil, event)
+    end
+
+    test "decodes reasoning delta from data type when event key is missing" do
+      event = %{
+        data: %{
+          "type" => "response.reasoning_summary_text.delta",
+          "delta" => "Let me think...",
+          "item_id" => "rs_1",
+          "output_index" => 0
+        }
+      }
+
+      assert {:ok, nil, [%StreamChunk{type: :reasoning_delta, data: "Let me think..."}]} =
+               OpenAIResponses.decode_stream_chunk(nil, event)
+    end
+
+    test "decodes response.completed from data type when event key is missing" do
+      completed_response = responses_api_response(text: "Final answer")
+
+      event = %{
+        data: %{
+          "type" => "response.completed",
+          "response" => completed_response
+        }
+      }
+
+      assert {:done, response} = OpenAIResponses.decode_stream_chunk(nil, event)
+      assert response.text == "Final answer"
+    end
   end
 
-  describe "request_path/0" do
+  describe "encode_request/1 - tool_choice" do
+    test "encodes :auto as \"auto\"" do
+      request = build_request([Message.user("hi")], params: %Params{tool_choice: :auto})
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+      assert payload["tool_choice"] == "auto"
+    end
+
+    test "encodes :none as \"none\"" do
+      request = build_request([Message.user("hi")], params: %Params{tool_choice: :none})
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+      assert payload["tool_choice"] == "none"
+    end
+
+    test "encodes :any as \"required\"" do
+      request = build_request([Message.user("hi")], params: %Params{tool_choice: :any})
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+      assert payload["tool_choice"] == "required"
+    end
+
+    test "encodes {:tool, name} as allowed_tools object" do
+      request =
+        build_request([Message.user("hi")], params: %Params{tool_choice: {:tool, "get_weather"}})
+
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+
+      assert payload["tool_choice"] == %{
+               "type" => "allowed_tools",
+               "mode" => "required",
+               "tools" => [%{"type" => "function", "name" => "get_weather"}]
+             }
+    end
+
+    test "omits tool_choice when nil" do
+      request = build_request([Message.user("hi")], params: %Params{tool_choice: nil})
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+      refute Map.has_key?(payload, "tool_choice")
+    end
+  end
+
+  describe "decode_response/1 - cache usage" do
+    test "decodes cached_tokens from prompt_tokens_details" do
+      body =
+        responses_api_response(text: "hi")
+        |> put_in(
+          ["usage", "prompt_tokens_details"],
+          %{"cached_tokens" => 50}
+        )
+
+      assert {:ok, resp} = OpenAIResponses.decode_response(body)
+      assert resp.usage.cache_read_input_tokens == 50
+      assert resp.usage.cache_creation_input_tokens == nil
+    end
+
+    test "sets cache fields to nil when prompt_tokens_details is absent" do
+      body = responses_api_response(text: "hi")
+      assert {:ok, resp} = OpenAIResponses.decode_response(body)
+      assert resp.usage.cache_read_input_tokens == nil
+      assert resp.usage.cache_creation_input_tokens == nil
+    end
+  end
+
+  describe "request_path/1" do
     test "returns /responses" do
-      assert OpenAIResponses.request_path() == "/responses"
+      assert OpenAIResponses.request_path(%Sycophant.Request{messages: []}) == "/responses"
     end
   end
 end

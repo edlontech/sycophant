@@ -1,0 +1,211 @@
+{
+  "metadata": {
+    "model": "deepseek/deepseek-r1",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-03-05T13:44:10.095955Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "role": "user"
+        },
+        {
+          "content": [],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "arguments": "{\"city\":\"Paris\"}",
+          "call_id": "d15e1707105b46ecb91fe3093e81229f",
+          "name": "get_weather",
+          "type": "function_call"
+        },
+        {
+          "call_id": "d15e1707105b46ecb91fe3093e81229f",
+          "output": "Paris: 22C, sunny",
+          "type": "function_call_output"
+        }
+      ],
+      "model": "deepseek/deepseek-r1",
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "completed_at": 1772718250,
+      "created_at": 1772718236,
+      "error": null,
+      "frequency_penalty": 0,
+      "id": "gen-1772718236-4im7BbCXiJRwWyzLAdHj",
+      "incomplete_details": null,
+      "instructions": null,
+      "max_output_tokens": null,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "deepseek/deepseek-r1",
+      "object": "response",
+      "output": [
+        {
+          "content": [
+            {
+              "text": "好的，用户之前询问了巴黎的天气，并且我调用了get_weather工具来获取信息。现在用户的回复是“Paris: 22C, sunny”，看起来这是工具返回的结果。我需要确认用户是否需要进一步的信息或者是否有其他问题。\n\n首先，我需要确认当前的对话上下文。用户最初的问题是关于巴黎的天气，我正确调用了天气工具，现在用户提供了结果数据。这可能意味着用户是在测试工具的功能，或者可能在模拟工具返回的数据。接下来，用户可能希望我根据这些数据给出一个友好的回复，或者是继续询问其他城市的天气。\n\n同时，我需要检查是否有必要调用其他工具或者是否需要进一步的行动。根据目前的工具列表，只有get_weather可用，所以只需要处理天气相关的请求。用户当前给出的信息是巴黎的天气情况，我需要将其转化为自然语言的回复，让用户知道当前巴黎的天气状况。\n\n另外，要注意用户的回复是否符合预期。用户在这里可能是在模拟工具返回的数据，因此我需要确认是否应该直接使用这个数据来回答，或者是否有其他步骤。根据之前的指示，当工具返回结果后，我应该直接回复用户的内容，而不需要再次调用工具。因此，现在应该将工具返回的结果整理成自然语言，例如“It's currently sunny in Paris with a temperature of 22°C.”\n\n同时，我需要确保回复的格式正确，不使用任何markdown，保持口语化，并且简洁明了。此外，观察用户是否还有其他需求，比如询问其他城市或天气的更多细节，但根据当前回复，用户可能只是需要确认巴黎的天气情况，所以应直接回应即可。\n",
+              "type": "reasoning_text"
+            }
+          ],
+          "format": "unknown",
+          "id": "rs_tmp_u2va0xm0m5",
+          "status": "completed",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "It's currently sunny in Paris with a temperature of 22°C.",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_tmp_1kx5tqijhpq",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": null,
+      "safety_identifier": null,
+      "service_tier": "auto",
+      "status": "completed",
+      "store": false,
+      "temperature": 1,
+      "text": {
+        "format": {
+          "type": "text"
+        }
+      },
+      "tool_choice": "auto",
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ],
+      "top_logprobs": 0,
+      "top_p": 1,
+      "truncation": "disabled",
+      "usage": {
+        "cost": 0.0011425,
+        "cost_details": {
+          "upstream_inference_cost": 0.0011425,
+          "upstream_inference_input_cost": 2.975e-4,
+          "upstream_inference_output_cost": 8.45e-4
+        },
+        "input_tokens": 425,
+        "input_tokens_details": {
+          "cached_tokens": 384
+        },
+        "is_byok": false,
+        "output_tokens": 338,
+        "output_tokens_details": {
+          "reasoning_tokens": 323
+        },
+        "total_tokens": 763
+      },
+      "user": null
+    },
+    "headers": [
+      [
+        "date",
+        "Thu, 05 Mar 2026 13:43:57 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1225"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "9d798d71fafc910e-AMS"
+      ]
+    ],
+    "status": 200
+  }
+}
