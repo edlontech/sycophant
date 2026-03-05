@@ -98,12 +98,23 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
   defp record(env, next, name, opts) do
     case Tesla.run(env, next) do
       {:ok, response_env} ->
-        write_fixture(name, env, response_env, opts)
+        {response_env, streaming?} = maybe_collect_stream(response_env)
+        write_fixture(name, env, response_env, streaming?, opts)
         {:ok, response_env}
 
       {:error, _} = error ->
         error
     end
+  end
+
+  defp maybe_collect_stream(%Tesla.Env{body: body} = env)
+       when is_binary(body) or (is_map(body) and not is_struct(body)) or is_nil(body) do
+    {env, false}
+  end
+
+  defp maybe_collect_stream(%Tesla.Env{body: stream} = env) do
+    collected = Enum.join(stream, "")
+    {%{env | body: collected}, true}
   end
 
   defp replay(env, name, opts) do
@@ -117,14 +128,25 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
     end
   end
 
-  defp write_fixture(name, request_env, response_env, opts) do
+  defp write_fixture(name, request_env, response_env, streaming?, opts) do
+    metadata =
+      then(
+        %{
+          "recorded_at" => DateTime.to_iso8601(DateTime.utc_now()),
+          "sycophant_version" => Application.spec(:sycophant, :vsn) |> to_string(),
+          "model" => extract_model(request_env.body),
+          "provider" => extract_provider(request_env.url)
+        },
+        fn m -> if streaming?, do: Map.put(m, "streaming", true), else: m end
+      )
+
+    response_body =
+      if streaming?,
+        do: response_env.body,
+        else: safe_decode(response_env.body)
+
     fixture = %{
-      "metadata" => %{
-        "recorded_at" => DateTime.to_iso8601(DateTime.utc_now()),
-        "sycophant_version" => Application.spec(:sycophant, :vsn) |> to_string(),
-        "model" => extract_model(request_env.body),
-        "provider" => extract_provider(request_env.url)
-      },
+      "metadata" => metadata,
       "request" => %{
         "method" => to_string(request_env.method),
         "url" => request_env.url,
@@ -134,7 +156,7 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
       "response" => %{
         "status" => response_env.status,
         "headers" => redact_headers(response_env.headers),
-        "body" => safe_decode(response_env.body)
+        "body" => response_body
       }
     }
 
@@ -153,12 +175,18 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
 
   defp fixture_to_env(%Tesla.Env{} = request_env, fixture) do
     response = fixture["response"]
+    streaming? = get_in(fixture, ["metadata", "streaming"]) == true
+
+    body =
+      if streaming?,
+        do: response["body"],
+        else: JSON.encode!(response["body"])
 
     %Tesla.Env{
       request_env
       | status: response["status"],
         headers: decode_headers(response["headers"]),
-        body: JSON.encode!(response["body"])
+        body: body
     }
   end
 

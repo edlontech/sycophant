@@ -6,6 +6,8 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
   alias Sycophant.Message.Content
   alias Sycophant.Params
   alias Sycophant.Request
+  alias Sycophant.Response
+  alias Sycophant.StreamChunk
   alias Sycophant.Tool
   alias Sycophant.ToolCall
   alias Sycophant.WireProtocol.OpenAICompletions
@@ -430,7 +432,8 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
       model: opts[:model] || "gpt-4o",
       params: opts[:params],
       tools: opts[:tools] || [],
-      response_schema: opts[:response_schema]
+      response_schema: opts[:response_schema],
+      stream: opts[:stream]
     }
   end
 
@@ -464,6 +467,381 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
         "arguments" => Keyword.get(opts, :arguments, ~s({"key":"value"}))
       }
     }
+  end
+
+  defp stream_event(data) when is_map(data), do: %{data: data}
+
+  describe "encode_request/1 - streaming" do
+    test "adds stream fields when request.stream is set" do
+      callback = fn _chunk -> :ok end
+      request = build_request([Message.user("hi")], stream: callback)
+      assert {:ok, payload} = OpenAICompletions.encode_request(request)
+
+      assert payload["stream"] == true
+      assert payload["stream_options"] == %{"include_usage" => true}
+    end
+
+    test "does not add stream fields when stream is nil" do
+      request = build_request([Message.user("hi")])
+      assert {:ok, payload} = OpenAICompletions.encode_request(request)
+
+      refute Map.has_key?(payload, "stream")
+      refute Map.has_key?(payload, "stream_options")
+    end
+  end
+
+  describe "init_stream/0" do
+    test "returns a StreamState struct" do
+      state = OpenAICompletions.init_stream()
+      assert %{text: "", tool_calls: %{}, usage: nil, model: nil} = state
+    end
+  end
+
+  describe "decode_stream_chunk/2 - text deltas" do
+    test "returns StreamChunk with type :text_delta" do
+      state = OpenAICompletions.init_stream()
+
+      event =
+        stream_event(%{
+          "choices" => [
+            %{"index" => 0, "delta" => %{"content" => "Hello"}, "finish_reason" => nil}
+          ]
+        })
+
+      assert {:ok, new_state, [chunk]} = OpenAICompletions.decode_stream_chunk(state, event)
+      assert %StreamChunk{type: :text_delta, data: "Hello"} = chunk
+      assert new_state.text == "Hello"
+    end
+
+    test "accumulates text across multiple chunks" do
+      state = OpenAICompletions.init_stream()
+
+      event1 =
+        stream_event(%{
+          "choices" => [
+            %{"index" => 0, "delta" => %{"content" => "Hello"}, "finish_reason" => nil}
+          ]
+        })
+
+      event2 =
+        stream_event(%{
+          "choices" => [
+            %{"index" => 0, "delta" => %{"content" => " world"}, "finish_reason" => nil}
+          ]
+        })
+
+      assert {:ok, state, _} = OpenAICompletions.decode_stream_chunk(state, event1)
+      assert {:ok, state, _} = OpenAICompletions.decode_stream_chunk(state, event2)
+      assert state.text == "Hello world"
+    end
+
+    test "handles empty delta (role-only chunk)" do
+      state = OpenAICompletions.init_stream()
+
+      event =
+        stream_event(%{
+          "choices" => [
+            %{"index" => 0, "delta" => %{"role" => "assistant"}, "finish_reason" => nil}
+          ]
+        })
+
+      assert {:ok, _state, []} = OpenAICompletions.decode_stream_chunk(state, event)
+    end
+  end
+
+  describe "decode_stream_chunk/2 - finish" do
+    test "returns {:done, Response} on finish_reason stop" do
+      state = OpenAICompletions.init_stream()
+
+      event1 =
+        stream_event(%{
+          "choices" => [
+            %{"index" => 0, "delta" => %{"content" => "Hello"}, "finish_reason" => nil}
+          ]
+        })
+
+      event2 =
+        stream_event(%{
+          "choices" => [%{"index" => 0, "delta" => %{}, "finish_reason" => "stop"}],
+          "model" => "gpt-4o"
+        })
+
+      assert {:ok, state, _} = OpenAICompletions.decode_stream_chunk(state, event1)
+
+      assert {:done, %Response{} = response} =
+               OpenAICompletions.decode_stream_chunk(state, event2)
+
+      assert response.text == "Hello"
+      assert response.tool_calls == []
+      assert response.context.messages == []
+    end
+
+    test "returns {:done, Response} on finish_reason tool_calls" do
+      state = OpenAICompletions.init_stream()
+
+      tc_event =
+        stream_event(%{
+          "choices" => [
+            %{
+              "index" => 0,
+              "delta" => %{
+                "tool_calls" => [
+                  %{
+                    "index" => 0,
+                    "id" => "call_1",
+                    "function" => %{"name" => "weather", "arguments" => "{\"city\":\"Paris\"}"}
+                  }
+                ]
+              },
+              "finish_reason" => nil
+            }
+          ]
+        })
+
+      finish_event =
+        stream_event(%{
+          "choices" => [%{"index" => 0, "delta" => %{}, "finish_reason" => "tool_calls"}],
+          "model" => "gpt-4o"
+        })
+
+      assert {:ok, state, _} = OpenAICompletions.decode_stream_chunk(state, tc_event)
+
+      assert {:done, %Response{} = response} =
+               OpenAICompletions.decode_stream_chunk(state, finish_event)
+
+      assert [tool_call] = response.tool_calls
+      assert tool_call.name == "weather"
+      assert tool_call.arguments == %{"city" => "Paris"}
+    end
+
+    test "sets text to nil when no text accumulated" do
+      state = OpenAICompletions.init_stream()
+
+      tc_event =
+        stream_event(%{
+          "choices" => [
+            %{
+              "index" => 0,
+              "delta" => %{
+                "tool_calls" => [
+                  %{
+                    "index" => 0,
+                    "id" => "call_1",
+                    "function" => %{"name" => "weather", "arguments" => "{}"}
+                  }
+                ]
+              },
+              "finish_reason" => nil
+            }
+          ]
+        })
+
+      finish_event =
+        stream_event(%{
+          "choices" => [%{"index" => 0, "delta" => %{}, "finish_reason" => "tool_calls"}]
+        })
+
+      assert {:ok, state, _} = OpenAICompletions.decode_stream_chunk(state, tc_event)
+
+      assert {:done, %Response{text: nil}} =
+               OpenAICompletions.decode_stream_chunk(state, finish_event)
+    end
+  end
+
+  describe "decode_stream_chunk/2 - tool call deltas" do
+    test "accumulates tool call deltas with index and emits StreamChunk" do
+      state = OpenAICompletions.init_stream()
+
+      event =
+        stream_event(%{
+          "choices" => [
+            %{
+              "index" => 0,
+              "delta" => %{
+                "tool_calls" => [
+                  %{
+                    "index" => 0,
+                    "id" => "call_1",
+                    "function" => %{"name" => "weather", "arguments" => "{\"ci"}
+                  }
+                ]
+              },
+              "finish_reason" => nil
+            }
+          ]
+        })
+
+      assert {:ok, state, [chunk]} = OpenAICompletions.decode_stream_chunk(state, event)
+      assert %StreamChunk{type: :tool_call_delta} = chunk
+      assert chunk.data.name == "weather"
+      assert state.tool_calls[0].arguments == "{\"ci"
+    end
+
+    test "accumulates arguments across multiple tool call delta chunks" do
+      state = OpenAICompletions.init_stream()
+
+      event1 =
+        stream_event(%{
+          "choices" => [
+            %{
+              "index" => 0,
+              "delta" => %{
+                "tool_calls" => [
+                  %{
+                    "index" => 0,
+                    "id" => "call_1",
+                    "function" => %{"name" => "weather", "arguments" => "{\"ci"}
+                  }
+                ]
+              },
+              "finish_reason" => nil
+            }
+          ]
+        })
+
+      event2 =
+        stream_event(%{
+          "choices" => [
+            %{
+              "index" => 0,
+              "delta" => %{
+                "tool_calls" => [
+                  %{"index" => 0, "function" => %{"arguments" => "ty\":\"Paris\"}"}}
+                ]
+              },
+              "finish_reason" => nil
+            }
+          ]
+        })
+
+      assert {:ok, state, _} = OpenAICompletions.decode_stream_chunk(state, event1)
+      assert {:ok, state, _} = OpenAICompletions.decode_stream_chunk(state, event2)
+      assert state.tool_calls[0].arguments == "{\"city\":\"Paris\"}"
+    end
+
+    test "assembles multiple tool calls sorted by index" do
+      state = OpenAICompletions.init_stream()
+
+      event1 =
+        stream_event(%{
+          "choices" => [
+            %{
+              "index" => 0,
+              "delta" => %{
+                "tool_calls" => [
+                  %{
+                    "index" => 0,
+                    "id" => "call_1",
+                    "function" => %{"name" => "weather", "arguments" => "{\"city\":\"Paris\"}"}
+                  }
+                ]
+              },
+              "finish_reason" => nil
+            }
+          ]
+        })
+
+      event2 =
+        stream_event(%{
+          "choices" => [
+            %{
+              "index" => 0,
+              "delta" => %{
+                "tool_calls" => [
+                  %{
+                    "index" => 1,
+                    "id" => "call_2",
+                    "function" => %{"name" => "search", "arguments" => "{\"q\":\"elixir\"}"}
+                  }
+                ]
+              },
+              "finish_reason" => nil
+            }
+          ]
+        })
+
+      finish_event =
+        stream_event(%{
+          "choices" => [%{"index" => 0, "delta" => %{}, "finish_reason" => "tool_calls"}]
+        })
+
+      assert {:ok, state, _} = OpenAICompletions.decode_stream_chunk(state, event1)
+      assert {:ok, state, _} = OpenAICompletions.decode_stream_chunk(state, event2)
+
+      assert {:done, %Response{} = response} =
+               OpenAICompletions.decode_stream_chunk(state, finish_event)
+
+      assert [tc1, tc2] = response.tool_calls
+      assert tc1.name == "weather"
+      assert tc1.arguments == %{"city" => "Paris"}
+      assert tc2.name == "search"
+      assert tc2.arguments == %{"q" => "elixir"}
+    end
+  end
+
+  describe "decode_stream_chunk/2 - [DONE] sentinel" do
+    test "[DONE] sentinel returns empty chunks" do
+      state = OpenAICompletions.init_stream()
+      event = %{data: "[DONE]"}
+
+      assert {:ok, _state, []} = OpenAICompletions.decode_stream_chunk(state, event)
+    end
+  end
+
+  describe "decode_stream_chunk/2 - usage" do
+    test "captures usage from chunk with usage field" do
+      state = OpenAICompletions.init_stream()
+
+      event =
+        stream_event(%{
+          "choices" => [%{"index" => 0, "delta" => %{"content" => "Hi"}, "finish_reason" => nil}],
+          "usage" => %{"prompt_tokens" => 10, "completion_tokens" => 5}
+        })
+
+      assert {:ok, state, _chunks} = OpenAICompletions.decode_stream_chunk(state, event)
+      assert state.usage == %Sycophant.Usage{input_tokens: 10, output_tokens: 5}
+    end
+
+    test "usage appears in final response" do
+      state = OpenAICompletions.init_stream()
+
+      event1 =
+        stream_event(%{
+          "choices" => [
+            %{"index" => 0, "delta" => %{"content" => "Hello"}, "finish_reason" => nil}
+          ],
+          "usage" => %{"prompt_tokens" => 10, "completion_tokens" => 5}
+        })
+
+      event2 =
+        stream_event(%{
+          "choices" => [%{"index" => 0, "delta" => %{}, "finish_reason" => "stop"}],
+          "model" => "gpt-4o"
+        })
+
+      assert {:ok, state, _} = OpenAICompletions.decode_stream_chunk(state, event1)
+
+      assert {:done, %Response{} = response} =
+               OpenAICompletions.decode_stream_chunk(state, event2)
+
+      assert response.usage.input_tokens == 10
+      assert response.usage.output_tokens == 5
+    end
+  end
+
+  describe "decode_stream_chunk/2 - model capture" do
+    test "captures model from chunk" do
+      state = OpenAICompletions.init_stream()
+
+      event =
+        stream_event(%{
+          "choices" => [%{"index" => 0, "delta" => %{"content" => "Hi"}, "finish_reason" => nil}],
+          "model" => "gpt-4o-2024-08-06"
+        })
+
+      assert {:ok, state, _} = OpenAICompletions.decode_stream_chunk(state, event)
+      assert state.model == "gpt-4o-2024-08-06"
+    end
   end
 
   describe "request_path/0" do

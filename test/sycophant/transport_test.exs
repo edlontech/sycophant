@@ -122,4 +122,62 @@ defmodule Sycophant.TransportTest do
                call_with(adapter, middlewares: [{Tesla.Middleware.Logger, []}])
     end
   end
+
+  describe "stream/3" do
+    test "passes SSE event stream to on_event callback" do
+      raw_chunks = ["data: {\"text\":\"hello\"}\n\n"]
+      stream = Stream.map(raw_chunks, & &1)
+
+      adapter = fn env ->
+        {:ok,
+         %{env | status: 200, body: stream, headers: [{"content-type", "text/event-stream"}]}}
+      end
+
+      on_event = fn event_stream ->
+        Enum.to_list(event_stream)
+      end
+
+      opts = @base_opts |> Keyword.put(:adapter, adapter)
+
+      assert {:ok, [%{data: "{\"text\":\"hello\"}"}]} =
+               Transport.stream(%{"model" => "gpt-4o"}, opts, on_event)
+    end
+
+    test "maps 401 to AuthenticationFailed" do
+      adapter = fn env ->
+        {:ok, %{env | status: 401, body: "unauthorized"}}
+      end
+
+      on_event = fn _ -> flunk("should not be called") end
+      opts = @base_opts |> Keyword.put(:adapter, adapter)
+      assert {:error, %AuthenticationFailed{}} = Transport.stream(%{}, opts, on_event)
+    end
+
+    test "maps 429 to RateLimited" do
+      adapter = fn env ->
+        {:ok, %{env | status: 429, body: "", headers: [{"retry-after", "10"}]}}
+      end
+
+      on_event = fn _ -> flunk("should not be called") end
+      opts = @base_opts |> Keyword.put(:adapter, adapter)
+      assert {:error, %RateLimited{retry_after: 10.0}} = Transport.stream(%{}, opts, on_event)
+    end
+
+    test "maps 500 to ServerError" do
+      adapter = fn env ->
+        {:ok, %{env | status: 500, body: "internal error"}}
+      end
+
+      on_event = fn _ -> flunk("should not be called") end
+      opts = @base_opts |> Keyword.put(:adapter, adapter)
+      assert {:error, %ServerError{status: 500}} = Transport.stream(%{}, opts, on_event)
+    end
+
+    test "wraps connection errors as Unknown" do
+      adapter = fn _env -> {:error, :timeout} end
+      on_event = fn _ -> flunk("should not be called") end
+      opts = @base_opts |> Keyword.put(:adapter, adapter)
+      assert {:error, %Unknown{}} = Transport.stream(%{}, opts, on_event)
+    end
+  end
 end

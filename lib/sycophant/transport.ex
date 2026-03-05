@@ -19,21 +19,27 @@ defmodule Sycophant.Transport do
       {:ok, %Tesla.Env{status: status, body: body}} when status in 200..299 ->
         {:ok, body}
 
-      {:ok, %Tesla.Env{status: 401, body: body}} ->
-        {:error, Error.Provider.AuthenticationFailed.exception(status: 401, body: inspect(body))}
+      {:ok, %Tesla.Env{} = env} ->
+        map_error(env)
 
-      {:ok, %Tesla.Env{status: 429, headers: headers}} ->
-        retry_after = get_retry_after(headers)
-        {:error, Error.Provider.RateLimited.exception(retry_after: retry_after)}
+      {:error, reason} ->
+        {:error, Error.Unknown.Unknown.exception(error: reason)}
+    end
+  end
 
-      {:ok, %Tesla.Env{status: 404, body: body}} ->
-        {:error, Error.Provider.ModelNotFound.exception(model: inspect(body))}
+  @spec stream(map(), keyword(), (Enumerable.t() -> term())) ::
+          {:ok, term()} | {:error, Splode.Error.t()}
+  def stream(payload, opts, on_event) do
+    client = build_stream_client(opts)
+    path = Keyword.fetch!(opts, :path)
+    body = JSON.encode!(payload)
 
-      {:ok, %Tesla.Env{status: status, body: body}} when status in 400..499 ->
-        {:error, Error.Provider.BadRequest.exception(status: status, body: inspect(body))}
+    case Tesla.post(client, path, body) do
+      {:ok, %Tesla.Env{status: status, body: event_stream}} when status in 200..299 ->
+        {:ok, on_event.(event_stream)}
 
-      {:ok, %Tesla.Env{status: status, body: body}} when status >= 500 ->
-        {:error, Error.Provider.ServerError.exception(status: status, body: inspect(body))}
+      {:ok, %Tesla.Env{} = env} ->
+        map_error(env)
 
       {:error, reason} ->
         {:error, Error.Unknown.Unknown.exception(error: reason)}
@@ -54,6 +60,55 @@ defmodule Sycophant.Transport do
         Keyword.get(opts, :middlewares, tesla_config.middlewares)
 
     Tesla.client(middlewares, adapter)
+  end
+
+  defp build_stream_client(opts) do
+    base_url = Keyword.fetch!(opts, :base_url)
+    {:ok, tesla_config} = Sycophant.Config.tesla()
+    raw_adapter = Keyword.get(opts, :adapter) || tesla_config.adapter
+
+    adapter =
+      case raw_adapter do
+        mod when is_atom(mod) ->
+          {mod, [response: :stream]}
+
+        {mod, adapter_opts} when is_atom(mod) ->
+          {mod, Keyword.put(adapter_opts, :response, :stream)}
+
+        other ->
+          other
+      end
+
+    middlewares =
+      [
+        {Tesla.Middleware.BaseUrl, base_url},
+        {Tesla.Middleware.Headers, [{"content-type", "application/json"}]},
+        Tesla.Middleware.SSE
+      ] ++
+        Keyword.get(opts, :auth_middlewares, []) ++
+        Keyword.get(opts, :middlewares, tesla_config.middlewares)
+
+    Tesla.client(middlewares, adapter)
+  end
+
+  defp map_error(%Tesla.Env{status: 401, body: body}) do
+    {:error, Error.Provider.AuthenticationFailed.exception(status: 401, body: inspect(body))}
+  end
+
+  defp map_error(%Tesla.Env{status: 429, headers: headers}) do
+    {:error, Error.Provider.RateLimited.exception(retry_after: get_retry_after(headers))}
+  end
+
+  defp map_error(%Tesla.Env{status: 404, body: body}) do
+    {:error, Error.Provider.ModelNotFound.exception(model: inspect(body))}
+  end
+
+  defp map_error(%Tesla.Env{status: status, body: body}) when status in 400..499 do
+    {:error, Error.Provider.BadRequest.exception(status: status, body: inspect(body))}
+  end
+
+  defp map_error(%Tesla.Env{status: status, body: body}) when status >= 500 do
+    {:error, Error.Provider.ServerError.exception(status: status, body: inspect(body))}
   end
 
   defp get_retry_after(headers) do

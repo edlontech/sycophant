@@ -1,0 +1,152 @@
+{
+  "metadata": {
+    "model": "gpt-3.5-turbo",
+    "provider": "api.openai.com",
+    "recorded_at": "2026-03-05T12:10:06.358095Z",
+    "streaming": true,
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "role": "user"
+        }
+      ],
+      "model": "gpt-3.5-turbo",
+      "stream": true,
+      "stream_options": {
+        "include_usage": true
+      },
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather for a city. Returns temperature and conditions.",
+            "name": "get_weather",
+            "parameters": {
+              "additionalProperties": false,
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.openai.com/v1/chat/completions"
+  },
+  "response": {
+    "body": "data: {\"id\":\"chatcmpl-DG1okvk5ltUWH1lHeYH8MCAwqcLdc\",\"object\":\"chat.completion.chunk\",\"created\":1772712606,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":null,\"tool_calls\":[{\"index\":0,\"id\":\"call_IaqGM8UFrJrYnOFhYrulYUiI\",\"type\":\"function\",\"function\":{\"name\":\"get_weather\",\"arguments\":\"\"}}],\"refusal\":null},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"4nt\"}\n\ndata: {\"id\":\"chatcmpl-DG1okvk5ltUWH1lHeYH8MCAwqcLdc\",\"object\":\"chat.completion.chunk\",\"created\":1772712606,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"{\\\"\"}}]},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"ZL0ZY8ZenFBJM\"}\n\ndata: {\"id\":\"chatcmpl-DG1okvk5ltUWH1lHeYH8MCAwqcLdc\",\"object\":\"chat.completion.chunk\",\"created\":1772712606,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"city\"}}]},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"dyqRhIeQqFbP\"}\n\ndata: {\"id\":\"chatcmpl-DG1okvk5ltUWH1lHeYH8MCAwqcLdc\",\"object\":\"chat.completion.chunk\",\"created\":1772712606,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\":\\\"\"}}]},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"zd3rIwCit03\"}\n\ndata: {\"id\":\"chatcmpl-DG1okvk5ltUWH1lHeYH8MCAwqcLdc\",\"object\":\"chat.completion.chunk\",\"created\":1772712606,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"Paris\"}}]},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"OBHd8h45V7O\"}\n\ndata: {\"id\":\"chatcmpl-DG1okvk5ltUWH1lHeYH8MCAwqcLdc\",\"object\":\"chat.completion.chunk\",\"created\":1772712606,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"}\"}}]},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"rhQQLisoztSaU\"}\n\ndata: {\"id\":\"chatcmpl-DG1okvk5ltUWH1lHeYH8MCAwqcLdc\",\"object\":\"chat.completion.chunk\",\"created\":1772712606,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{},\"logprobs\":null,\"finish_reason\":\"tool_calls\"}],\"usage\":null,\"obfuscation\":\"YWTRYryNZAmC54\"}\n\ndata: {\"id\":\"chatcmpl-DG1okvk5ltUWH1lHeYH8MCAwqcLdc\",\"object\":\"chat.completion.chunk\",\"created\":1772712606,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[],\"usage\":{\"prompt_tokens\":63,\"completion_tokens\":14,\"total_tokens\":77,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0,\"audio_tokens\":0,\"accepted_prediction_tokens\":0,\"rejected_prediction_tokens\":0}},\"obfuscation\":\"Zy3ksVoap\"}\n\ndata: [DONE]\n\n",
+    "headers": [
+      [
+        "date",
+        "Thu, 05 Mar 2026 12:10:06 GMT"
+      ],
+      [
+        "content-type",
+        "text/event-stream; charset=utf-8"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Request-ID"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-processing-ms",
+        "451"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "x-ratelimit-limit-requests",
+        "9000"
+      ],
+      [
+        "x-ratelimit-limit-tokens",
+        "2000000"
+      ],
+      [
+        "x-ratelimit-remaining-requests",
+        "8998"
+      ],
+      [
+        "x-ratelimit-remaining-tokens",
+        "1999984"
+      ],
+      [
+        "x-ratelimit-reset-requests",
+        "6ms"
+      ],
+      [
+        "x-ratelimit-reset-tokens",
+        "0s"
+      ],
+      [
+        "x-request-id",
+        "req_d72bf30175254cb9aa0c7659d704d4b0"
+      ],
+      [
+        "x-openai-proxy-wasm",
+        "v0.1"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "cf-ray",
+        "9d7903f70d8b49b6-AMS"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}

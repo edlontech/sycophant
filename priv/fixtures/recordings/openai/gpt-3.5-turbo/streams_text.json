@@ -1,0 +1,130 @@
+{
+  "metadata": {
+    "model": "gpt-3.5-turbo",
+    "provider": "api.openai.com",
+    "recorded_at": "2026-03-05T12:10:08.357871Z",
+    "streaming": true,
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "Say 'hello' and nothing else.",
+          "role": "user"
+        }
+      ],
+      "model": "gpt-3.5-turbo",
+      "stream": true,
+      "stream_options": {
+        "include_usage": true
+      }
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.openai.com/v1/chat/completions"
+  },
+  "response": {
+    "body": "data: {\"id\":\"chatcmpl-DG1omyRt5nPKSVWvVy4OvNwx8LYPm\",\"object\":\"chat.completion.chunk\",\"created\":1772712608,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\",\"refusal\":null},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"2wPibGf4\"}\n\ndata: {\"id\":\"chatcmpl-DG1omyRt5nPKSVWvVy4OvNwx8LYPm\",\"object\":\"chat.completion.chunk\",\"created\":1772712608,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":\"Hello\"},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"mvGdn\"}\n\ndata: {\"id\":\"chatcmpl-DG1omyRt5nPKSVWvVy4OvNwx8LYPm\",\"object\":\"chat.completion.chunk\",\"created\":1772712608,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{},\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":null,\"obfuscation\":\"smBv\"}\n\ndata: {\"id\":\"chatcmpl-DG1omyRt5nPKSVWvVy4OvNwx8LYPm\",\"object\":\"chat.completion.chunk\",\"created\":1772712608,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[],\"usage\":{\"prompt_tokens\":15,\"completion_tokens\":1,\"total_tokens\":16,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0,\"audio_tokens\":0,\"accepted_prediction_tokens\":0,\"rejected_prediction_tokens\":0}},\"obfuscation\":\"GuIMoN7pDe\"}\n\ndata: [DONE]\n\n",
+    "headers": [
+      [
+        "date",
+        "Thu, 05 Mar 2026 12:10:08 GMT"
+      ],
+      [
+        "content-type",
+        "text/event-stream; charset=utf-8"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Request-ID"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-processing-ms",
+        "205"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "x-ratelimit-limit-requests",
+        "9000"
+      ],
+      [
+        "x-ratelimit-limit-tokens",
+        "2000000"
+      ],
+      [
+        "x-ratelimit-remaining-requests",
+        "8998"
+      ],
+      [
+        "x-ratelimit-remaining-tokens",
+        "1999990"
+      ],
+      [
+        "x-ratelimit-reset-requests",
+        "6ms"
+      ],
+      [
+        "x-ratelimit-reset-tokens",
+        "0s"
+      ],
+      [
+        "x-request-id",
+        "req_47e59f6fd185418ebdd66f6a319164cb"
+      ],
+      [
+        "x-openai-proxy-wasm",
+        "v0.1"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "cf-ray",
+        "9d790405df2449b6-AMS"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}

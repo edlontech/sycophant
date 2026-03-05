@@ -56,7 +56,8 @@ defmodule Sycophant.Pipeline do
 
     with {:ok, params} <- validate_params(opts),
          {:ok, credentials} <- Credentials.resolve(model_info.provider, opts[:credentials]),
-         {:ok, response} <- single_call(messages, params, opts, model_info, adapter, credentials),
+         {:ok, response} <-
+           dispatch_call(messages, params, opts, model_info, adapter, credentials),
          {:ok, response} <-
            maybe_tool_loop(response, opts, params, model_info, adapter, credentials) do
       maybe_validate_response(response, opts)
@@ -68,13 +69,102 @@ defmodule Sycophant.Pipeline do
 
     if has_executable_tools?(tools) and response.tool_calls != [] do
       call_fn = fn msgs ->
-        single_call(msgs, params, opts, model_info, adapter, credentials)
+        dispatch_call(msgs, params, opts, model_info, adapter, credentials)
       end
 
       ToolExecutor.run(response, tools, opts, call_fn)
     else
       {:ok, response}
     end
+  end
+
+  defp dispatch_call(messages, params, opts, model_info, adapter, credentials) do
+    case opts[:stream] do
+      nil ->
+        single_call(messages, params, opts, model_info, adapter, credentials)
+
+      false ->
+        single_call(messages, params, opts, model_info, adapter, credentials)
+
+      callback when is_function(callback, 1) ->
+        stream_call(messages, params, opts, model_info, adapter, credentials)
+
+      other ->
+        {:error,
+         Error.Invalid.InvalidParams.exception(
+           errors: [":stream must be a function/1, got: #{inspect(other)}"]
+         )}
+    end
+  end
+
+  defp stream_call(messages, params, opts, model_info, adapter, credentials) do
+    callback = opts[:stream]
+
+    with {:ok, request} <- build_request(messages, params, opts, model_info),
+         {:ok, payload} <- adapter.encode_request(request),
+         {:ok, result} <-
+           Transport.stream(payload, transport_opts(model_info, credentials), fn event_stream ->
+             initial_state = adapter.init_stream()
+             process_event_stream(event_stream, initial_state, adapter, callback)
+           end) do
+      case result do
+        {:done, response} ->
+          {:ok, attach_context(response, messages, params, opts)}
+
+        {:error, _} = error ->
+          error
+
+        {:ok, _state} ->
+          {:error,
+           Error.Provider.ResponseInvalid.exception(
+             errors: ["Stream ended without a completed response"]
+           )}
+      end
+    end
+  end
+
+  defp process_event_stream(event_stream, initial_state, adapter, callback) do
+    Enum.reduce_while(event_stream, {:ok, initial_state}, fn event, {:ok, state} ->
+      case decode_sse_data(event) do
+        {:ok, decoded_event} ->
+          case adapter.decode_stream_chunk(state, decoded_event) do
+            {:ok, new_state, chunks} ->
+              fire_stream_events(chunks, callback)
+              {:cont, {:ok, new_state}}
+
+            {:done, response} ->
+              {:halt, {:done, response}}
+
+            {:error, _} = error ->
+              {:halt, error}
+          end
+
+        {:error, _} = error ->
+          {:halt, error}
+      end
+    end)
+  end
+
+  defp decode_sse_data(%{data: "[DONE]"} = event), do: {:ok, event}
+
+  defp decode_sse_data(%{data: data} = event) when is_binary(data) do
+    case JSON.decode(data) do
+      {:ok, decoded} ->
+        {:ok, %{event | data: decoded}}
+
+      {:error, _} ->
+        {:error,
+         Error.Provider.ResponseInvalid.exception(errors: ["Invalid JSON in SSE data: #{data}"])}
+    end
+  end
+
+  defp decode_sse_data(event), do: {:ok, event}
+
+  defp fire_stream_events(chunks, callback) do
+    Enum.each(chunks, fn chunk ->
+      Telemetry.stream_chunk(chunk)
+      callback.(chunk)
+    end)
   end
 
   defp single_call(messages, params, opts, model_info, adapter, credentials) do

@@ -21,9 +21,15 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
   alias Sycophant.Request
   alias Sycophant.Response
   alias Sycophant.Schema.JsonSchema
+  alias Sycophant.StreamChunk
   alias Sycophant.Tool
   alias Sycophant.ToolCall
   alias Sycophant.Usage
+
+  defmodule StreamState do
+    @moduledoc false
+    defstruct text: "", tool_calls: %{}, usage: nil, model: nil
+  end
 
   @param_map %{
     temperature: "temperature",
@@ -96,8 +102,117 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
   end
 
   @impl true
-  def decode_stream_chunk(_chunk) do
-    raise "Streaming is not yet implemented (planned for M6)"
+  def init_stream, do: %StreamState{}
+
+  @impl true
+  def decode_stream_chunk(state, %{data: "[DONE]"}), do: {:ok, state, []}
+
+  def decode_stream_chunk(state, %{
+        data: %{"choices" => [%{"delta" => delta} = choice | _]} = body
+      }) do
+    state = maybe_capture_model(state, body)
+    state = maybe_capture_usage(state, body)
+
+    {state, chunks} = process_delta(state, delta)
+
+    case choice["finish_reason"] do
+      reason when reason in ["stop", "tool_calls", "length"] ->
+        {:done, build_streamed_response(state)}
+
+      _ ->
+        {:ok, state, chunks}
+    end
+  end
+
+  def decode_stream_chunk(state, _event), do: {:ok, state, []}
+
+  # --- Streaming Helpers ---
+
+  defp maybe_capture_model(state, %{"model" => model}) when is_binary(model),
+    do: %{state | model: model}
+
+  defp maybe_capture_model(state, _body), do: state
+
+  defp maybe_capture_usage(state, %{
+         "usage" => %{"prompt_tokens" => input, "completion_tokens" => output}
+       }),
+       do: %{state | usage: %Usage{input_tokens: input, output_tokens: output}}
+
+  defp maybe_capture_usage(state, _body), do: state
+
+  defp process_delta(state, %{"content" => content} = delta) when is_binary(content) do
+    state = %{state | text: state.text <> content}
+    chunk = %StreamChunk{type: :text_delta, data: content}
+    {state, tc_chunks} = process_tool_call_deltas(state, delta)
+    {state, [chunk | tc_chunks]}
+  end
+
+  defp process_delta(state, %{"tool_calls" => _} = delta) do
+    process_tool_call_deltas(state, delta)
+  end
+
+  defp process_delta(state, _delta), do: {state, []}
+
+  defp process_tool_call_deltas(state, %{"tool_calls" => tool_calls}) when is_list(tool_calls) do
+    Enum.reduce(tool_calls, {state, []}, fn tc_delta, {acc_state, acc_chunks} ->
+      index = tc_delta["index"]
+      existing = Map.get(acc_state.tool_calls, index)
+
+      {updated_tc, chunk_data} = merge_tool_call_delta(existing, tc_delta)
+
+      new_state = %{acc_state | tool_calls: Map.put(acc_state.tool_calls, index, updated_tc)}
+      chunk = %StreamChunk{type: :tool_call_delta, data: chunk_data, index: index}
+      {new_state, acc_chunks ++ [chunk]}
+    end)
+  end
+
+  defp process_tool_call_deltas(state, _delta), do: {state, []}
+
+  defp merge_tool_call_delta(nil, tc_delta) do
+    func = tc_delta["function"] || %{}
+
+    tc = %{
+      id: tc_delta["id"],
+      name: func["name"],
+      arguments: func["arguments"] || ""
+    }
+
+    {tc, %{id: tc.id, name: tc.name, arguments_delta: func["arguments"] || ""}}
+  end
+
+  defp merge_tool_call_delta(existing, tc_delta) do
+    func = tc_delta["function"] || %{}
+    args_delta = func["arguments"] || ""
+    name = func["name"] || existing.name
+
+    updated = %{existing | arguments: existing.arguments <> args_delta, name: name}
+    {updated, %{id: existing.id, name: name, arguments_delta: args_delta}}
+  end
+
+  defp build_streamed_response(state) do
+    tool_calls = assemble_tool_calls(state.tool_calls)
+    text = if state.text == "", do: nil, else: state.text
+
+    %Response{
+      text: text,
+      tool_calls: tool_calls,
+      usage: state.usage,
+      model: state.model,
+      context: %Context{messages: []}
+    }
+  end
+
+  defp assemble_tool_calls(tool_calls_map) when map_size(tool_calls_map) == 0, do: []
+
+  defp assemble_tool_calls(tool_calls_map) do
+    tool_calls_map
+    |> Enum.sort_by(fn {index, _} -> index end)
+    |> Enum.map(fn {_index, tc} ->
+      case JSON.decode(tc.arguments) do
+        {:ok, args} -> %ToolCall{id: tc.id, name: tc.name, arguments: args}
+        {:error, _} -> %ToolCall{id: tc.id, name: tc.name, arguments: %{}}
+      end
+    end)
   end
 
   # --- Response Decoding Helpers ---
@@ -246,9 +361,18 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
          {:ok, payload} <- maybe_put_response_format(payload, request.response_schema) do
       {:ok,
        payload
+       |> maybe_put_stream(request.stream)
        |> Map.merge(translate_params(request.params))
        |> Map.merge(request.provider_params || %{})}
     end
+  end
+
+  defp maybe_put_stream(payload, nil), do: payload
+
+  defp maybe_put_stream(payload, _stream) do
+    payload
+    |> Map.put("stream", true)
+    |> Map.put("stream_options", %{"include_usage" => true})
   end
 
   defp maybe_put_tools(payload, []), do: {:ok, payload}

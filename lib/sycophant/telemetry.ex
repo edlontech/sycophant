@@ -24,9 +24,10 @@ defmodule Sycophant.Telemetry do
   @request_start [:sycophant, :request, :start]
   @request_stop [:sycophant, :request, :stop]
   @request_error [:sycophant, :request, :error]
+  @stream_chunk [:sycophant, :stream, :chunk]
 
-  @spec events() :: [[:sycophant | :request | :start | :stop | :error, ...]]
-  def events, do: [@request_start, @request_stop, @request_error]
+  @spec events() :: [[atom(), ...]]
+  def events, do: [@request_start, @request_stop, @request_error, @stream_chunk]
 
   @spec span(map(), (-> {:ok, term()} | {:error, term()})) :: {:ok, term()} | {:error, term()}
   def span(metadata, fun) do
@@ -58,6 +59,11 @@ defmodule Sycophant.Telemetry do
         :telemetry.execute(@request_error, %{duration: duration}, error_metadata)
         result
     end
+  end
+
+  @spec stream_chunk(Sycophant.StreamChunk.t()) :: :ok
+  def stream_chunk(%Sycophant.StreamChunk{} = chunk) do
+    :telemetry.execute(@stream_chunk, %{}, %{chunk_type: chunk.type})
   end
 
   defp format_usage(nil), do: nil

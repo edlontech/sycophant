@@ -9,6 +9,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
   alias Sycophant.Message.Content
   alias Sycophant.Params
   alias Sycophant.Request
+  alias Sycophant.StreamChunk
   alias Sycophant.Tool
   alias Sycophant.ToolCall
   alias Sycophant.WireProtocol.OpenAIResponses
@@ -649,7 +650,8 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
       params: opts[:params],
       tools: opts[:tools] || [],
       response_schema: opts[:response_schema],
-      provider_params: opts[:provider_params] || %{}
+      provider_params: opts[:provider_params] || %{},
+      stream: opts[:stream]
     }
   end
 
@@ -726,6 +728,104 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
       "id" => "rs_test",
       "summary" => [%{"type" => "summary_text", "text" => summary_text}]
     }
+  end
+
+  describe "encode_request/1 - streaming" do
+    test "adds stream: true when request.stream is set" do
+      callback = fn _chunk -> :ok end
+      request = build_request([Message.user("hello")], stream: callback)
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+
+      assert payload["stream"] == true
+    end
+
+    test "does not add stream or stream_options when stream is nil" do
+      request = build_request([Message.user("hello")])
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+
+      refute Map.has_key?(payload, "stream")
+      refute Map.has_key?(payload, "stream_options")
+    end
+  end
+
+  describe "init_stream/0" do
+    test "returns nil" do
+      assert OpenAIResponses.init_stream() == nil
+    end
+  end
+
+  describe "decode_stream_chunk/2" do
+    test "decodes text delta event" do
+      event = %{
+        event: "response.output_text.delta",
+        data: %{
+          "type" => "response.output_text.delta",
+          "delta" => "Hello",
+          "item_id" => "item_1",
+          "output_index" => 0,
+          "content_index" => 0
+        }
+      }
+
+      assert {:ok, nil, [%StreamChunk{type: :text_delta, data: "Hello"}]} =
+               OpenAIResponses.decode_stream_chunk(nil, event)
+    end
+
+    test "decodes function call arguments delta event" do
+      event = %{
+        event: "response.function_call_arguments.delta",
+        data: %{
+          "delta" => "{\"city\":",
+          "item_id" => "fc_1",
+          "output_index" => 0
+        }
+      }
+
+      assert {:ok, nil,
+              [
+                %StreamChunk{
+                  type: :tool_call_delta,
+                  data: %{id: "fc_1", name: nil, arguments_delta: "{\"city\":"},
+                  index: 0
+                }
+              ]} = OpenAIResponses.decode_stream_chunk(nil, event)
+    end
+
+    test "decodes reasoning summary text delta event" do
+      event = %{
+        event: "response.reasoning_summary_text.delta",
+        data: %{
+          "delta" => "Let me think...",
+          "item_id" => "rs_1",
+          "output_index" => 0
+        }
+      }
+
+      assert {:ok, nil, [%StreamChunk{type: :reasoning_delta, data: "Let me think..."}]} =
+               OpenAIResponses.decode_stream_chunk(nil, event)
+    end
+
+    test "response.completed delegates to decode_response and returns {:done, Response}" do
+      completed_response = responses_api_response(text: "Final answer")
+
+      event = %{
+        event: "response.completed",
+        data: %{"response" => completed_response}
+      }
+
+      assert {:done, response} = OpenAIResponses.decode_stream_chunk(nil, event)
+      assert response.text == "Final answer"
+      assert response.model == "gpt-4o-2024-08-06"
+    end
+
+    test "unknown events return empty chunks" do
+      event = %{
+        event: "response.created",
+        data: %{"type" => "response.created"}
+      }
+
+      assert {:ok, nil, []} = OpenAIResponses.decode_stream_chunk(nil, event)
+    end
   end
 
   describe "request_path/0" do

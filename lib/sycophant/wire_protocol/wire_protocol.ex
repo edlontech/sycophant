@@ -16,8 +16,12 @@ defmodule Sycophant.WireProtocol do
   @callback decode_response(map()) ::
               {:ok, Sycophant.Response.t()} | {:error, Splode.Error.t()}
 
-  @callback decode_stream_chunk(binary()) ::
-              {:ok, list()} | {:error, Splode.Error.t()}
+  @callback init_stream() :: term()
+
+  @callback decode_stream_chunk(state :: term(), event :: map()) ::
+              {:ok, term(), [Sycophant.StreamChunk.t()]}
+              | {:done, Sycophant.Response.t()}
+              | {:error, Splode.Error.t()}
 
   @callback encode_tools([Sycophant.Tool.t()]) ::
               {:ok, [map()]} | {:error, Splode.Error.t()}

@@ -289,5 +289,88 @@ defmodule Sycophant.Tesla.RecorderMiddlewareTest do
       assert {:error, :timeout} =
                RecorderMiddleware.call(env, next, fixtures_path: tmp_dir, record: true)
     end
+
+    @tag :tmp_dir
+    test "collects streaming body and marks fixture as streaming", %{tmp_dir: tmp_dir} do
+      name = "test/record_stream"
+      fixture_path = Path.join([tmp_dir, "#{name}.json"])
+
+      RecorderMiddleware.set_recording(name)
+      on_exit(fn -> RecorderMiddleware.clear_recording() end)
+
+      sse_chunks = ["data: {\"id\":\"1\"}\n\n", "data: {\"id\":\"2\"}\n\n", "data: [DONE]\n\n"]
+
+      env = %Tesla.Env{
+        method: :post,
+        url: "https://api.openai.com/v1/chat/completions",
+        headers: [{"content-type", "application/json"}],
+        body: JSON.encode!(%{"model" => "gpt-4o", "stream" => true})
+      }
+
+      next = [
+        {:fn,
+         fn %Tesla.Env{} = env ->
+           {:ok, %{env | status: 200, body: Stream.map(sse_chunks, & &1)}}
+         end}
+      ]
+
+      assert {:ok, %Tesla.Env{status: 200, body: body}} =
+               RecorderMiddleware.call(env, next, fixtures_path: tmp_dir, record: true)
+
+      assert is_binary(body)
+      assert body =~ "data: {\"id\":\"1\"}"
+
+      assert File.exists?(fixture_path)
+      {:ok, content} = File.read(fixture_path)
+      fixture = JSON.decode!(content)
+
+      assert fixture["metadata"]["streaming"] == true
+      assert is_binary(fixture["response"]["body"])
+      assert fixture["response"]["body"] =~ "data: [DONE]"
+    end
+  end
+
+  describe "replay streaming fixture" do
+    @tag :tmp_dir
+    test "returns raw body without JSON encoding", %{tmp_dir: tmp_dir} do
+      name = "test/replay_stream"
+      fixture_path = Path.join([tmp_dir, "#{name}.json"])
+
+      sse_body = "data: {\"id\":\"1\"}\n\ndata: [DONE]\n\n"
+
+      fixture = %{
+        "metadata" => %{
+          "recorded_at" => "2026-03-05T12:00:00Z",
+          "sycophant_version" => "0.1.0",
+          "model" => "gpt-4o",
+          "provider" => "api.openai.com",
+          "streaming" => true
+        },
+        "request" => %{
+          "method" => "post",
+          "url" => "https://api.openai.com/v1/chat/completions",
+          "headers" => [],
+          "body" => %{"model" => "gpt-4o", "stream" => true}
+        },
+        "response" => %{
+          "status" => 200,
+          "headers" => [["content-type", "text/event-stream"]],
+          "body" => sse_body
+        }
+      }
+
+      File.mkdir_p!(Path.dirname(fixture_path))
+      File.write!(fixture_path, JSON.encode!(fixture))
+
+      RecorderMiddleware.set_recording(name)
+      on_exit(fn -> RecorderMiddleware.clear_recording() end)
+
+      env = %Tesla.Env{method: :post, url: "https://api.openai.com/v1/chat/completions"}
+
+      assert {:ok, %Tesla.Env{status: 200, body: body}} =
+               RecorderMiddleware.call(env, [], fixtures_path: tmp_dir)
+
+      assert body == sse_body
+    end
   end
 end

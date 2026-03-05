@@ -22,13 +22,14 @@ defmodule Sycophant.TelemetryTest do
   end
 
   describe "events/0" do
-    test "returns all three event names" do
+    test "returns all event names" do
       events = Telemetry.events()
 
       assert [:sycophant, :request, :start] in events
       assert [:sycophant, :request, :stop] in events
       assert [:sycophant, :request, :error] in events
-      assert length(events) == 3
+      assert [:sycophant, :stream, :chunk] in events
+      assert length(events) == 4
     end
   end
 

@@ -25,6 +25,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   alias Sycophant.Request
   alias Sycophant.Response
   alias Sycophant.Schema.JsonSchema
+  alias Sycophant.StreamChunk
   alias Sycophant.Tool
   alias Sycophant.ToolCall
   alias Sycophant.Usage
@@ -109,8 +110,38 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   end
 
   @impl true
-  def decode_stream_chunk(_chunk) do
-    raise "Streaming is not yet implemented"
+  def init_stream, do: nil
+
+  @impl true
+  def decode_stream_chunk(_state, %{
+        event: "response.output_text.delta",
+        data: %{"delta" => delta}
+      }) do
+    {:ok, nil, [%StreamChunk{type: :text_delta, data: delta}]}
+  end
+
+  def decode_stream_chunk(_state, %{event: "response.function_call_arguments.delta", data: data}) do
+    chunk = %StreamChunk{
+      type: :tool_call_delta,
+      data: %{id: data["item_id"], name: nil, arguments_delta: data["delta"]},
+      index: data["output_index"]
+    }
+
+    {:ok, nil, [chunk]}
+  end
+
+  def decode_stream_chunk(_state, %{event: "response.reasoning_summary_text.delta", data: data}) do
+    {:ok, nil, [%StreamChunk{type: :reasoning_delta, data: data["delta"]}]}
+  end
+
+  def decode_stream_chunk(_state, %{event: "response.completed", data: %{"response" => response}}) do
+    with {:ok, response} <- decode_response(response) do
+      {:done, response}
+    end
+  end
+
+  def decode_stream_chunk(state, _event) do
+    {:ok, state, []}
   end
 
   # --- Response Decoding Helpers ---
@@ -386,12 +417,16 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
          {:ok, payload} <- maybe_put_text_format(payload, request.response_schema) do
       payload =
         payload
+        |> maybe_put_stream(request.stream)
         |> Map.merge(translate_params(request.params))
         |> Map.merge(request.provider_params || %{})
 
       {:ok, payload}
     end
   end
+
+  defp maybe_put_stream(payload, nil), do: payload
+  defp maybe_put_stream(payload, _callback), do: Map.put(payload, "stream", true)
 
   defp maybe_put_field(payload, _key, nil), do: payload
   defp maybe_put_field(payload, key, value), do: Map.put(payload, key, value)

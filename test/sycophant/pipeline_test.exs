@@ -554,4 +554,269 @@ defmodule Sycophant.PipelineTest do
       assert context.response_schema == schema
     end
   end
+
+  describe "call/2 streaming" do
+    defp completed_response_body do
+      %{
+        "id" => "resp-123",
+        "status" => "completed",
+        "output" => [
+          %{
+            "type" => "message",
+            "content" => [%{"type" => "output_text", "text" => "Hello World"}]
+          }
+        ],
+        "usage" => %{"input_tokens" => 10, "output_tokens" => 5}
+      }
+    end
+
+    defp stream_events do
+      [
+        %{event: "response.output_text.delta", data: JSON.encode!(%{"delta" => "Hello "})},
+        %{event: "response.output_text.delta", data: JSON.encode!(%{"delta" => "World"})},
+        %{
+          event: "response.completed",
+          data: JSON.encode!(%{"response" => completed_response_body()})
+        }
+      ]
+    end
+
+    defp stub_stream_happy_path do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      stub(Sycophant.Transport, :stream, fn _payload, _opts, on_event ->
+        {:ok, on_event.(stream_events())}
+      end)
+    end
+
+    test "text deltas fire callback and returns final Response" do
+      stub_stream_happy_path()
+      test_pid = self()
+
+      callback = fn chunk -> send(test_pid, {:chunk, chunk}) end
+      opts = default_opts() ++ [stream: callback]
+
+      assert {:ok, %Response{text: "Hello World"}} =
+               Pipeline.call(default_messages(), opts)
+
+      assert_received {:chunk, %Sycophant.StreamChunk{type: :text_delta, data: "Hello "}}
+      assert_received {:chunk, %Sycophant.StreamChunk{type: :text_delta, data: "World"}}
+    end
+
+    test "streaming composes with tool auto-execution" do
+      model = build_model()
+      provider = build_provider()
+      counter = :counters.new(1, [:atomics])
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      stub(Sycophant.Transport, :stream, fn _payload, _opts, on_event ->
+        :counters.add(counter, 1, 1)
+        count = :counters.get(counter, 1)
+
+        events =
+          case count do
+            1 ->
+              tool_call_body = %{
+                "id" => "resp-1",
+                "status" => "completed",
+                "output" => [
+                  %{
+                    "type" => "function_call",
+                    "call_id" => "call_1",
+                    "name" => "weather",
+                    "arguments" => ~s({"city":"Paris"})
+                  }
+                ],
+                "usage" => %{"input_tokens" => 10, "output_tokens" => 5}
+              }
+
+              [
+                %{
+                  event: "response.function_call_arguments.delta",
+                  data:
+                    JSON.encode!(%{"item_id" => "call_1", "delta" => "{}", "output_index" => 0})
+                },
+                %{
+                  event: "response.completed",
+                  data: JSON.encode!(%{"response" => tool_call_body})
+                }
+              ]
+
+            2 ->
+              final_body = %{
+                "id" => "resp-2",
+                "status" => "completed",
+                "output" => [
+                  %{
+                    "type" => "message",
+                    "content" => [%{"type" => "output_text", "text" => "Sunny in Paris!"}]
+                  }
+                ],
+                "usage" => %{"input_tokens" => 20, "output_tokens" => 10}
+              }
+
+              [
+                %{
+                  event: "response.output_text.delta",
+                  data: JSON.encode!(%{"delta" => "Sunny in Paris!"})
+                },
+                %{event: "response.completed", data: JSON.encode!(%{"response" => final_body})}
+              ]
+          end
+
+        {:ok, on_event.(events)}
+      end)
+
+      tool = %Sycophant.Tool{
+        name: "weather",
+        description: "Get weather",
+        parameters: Zoi.map(%{}),
+        function: fn %{"city" => city} -> "Sunny in #{city}" end
+      }
+
+      callback = fn _chunk -> :ok end
+      opts = default_opts() ++ [tools: [tool], stream: callback]
+
+      assert {:ok, %Response{text: "Sunny in Paris!"}} =
+               Pipeline.call(default_messages(), opts)
+
+      assert :counters.get(counter, 1) == 2
+    end
+
+    test "stream context preserves stream callback for continuation" do
+      stub_stream_happy_path()
+
+      callback = fn _chunk -> :ok end
+      opts = default_opts() ++ [stream: callback]
+
+      assert {:ok, %Response{context: context}} =
+               Pipeline.call(default_messages(), opts)
+
+      assert context.stream == callback
+    end
+
+    test "non-streaming calls still work when stream is nil" do
+      stub_happy_path()
+
+      assert {:ok, %Response{text: "Hello!"}} =
+               Pipeline.call(default_messages(), default_opts())
+    end
+
+    test "returns InvalidParams when stream is not a function/1" do
+      stub_happy_path()
+
+      opts = default_opts() ++ [stream: true]
+
+      assert {:error, %Error.Invalid.InvalidParams{}} =
+               Pipeline.call(default_messages(), opts)
+    end
+
+    test "propagates transport error from Transport.stream" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      stub(Sycophant.Transport, :stream, fn _payload, _opts, _on_event ->
+        {:error, Error.Provider.ServerError.exception(status: 500, body: "stream failed")}
+      end)
+
+      callback = fn _chunk -> :ok end
+      opts = default_opts() ++ [stream: callback]
+
+      assert {:error, %Error.Provider.ServerError{}} =
+               Pipeline.call(default_messages(), opts)
+    end
+
+    test "returns ResponseInvalid when stream ends without completed response" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      events = [
+        %{event: "response.output_text.delta", data: JSON.encode!(%{"delta" => "partial"})}
+      ]
+
+      stub(Sycophant.Transport, :stream, fn _payload, _opts, on_event ->
+        {:ok, on_event.(events)}
+      end)
+
+      callback = fn _chunk -> :ok end
+      opts = default_opts() ++ [stream: callback]
+
+      assert {:error, %Error.Provider.ResponseInvalid{}} =
+               Pipeline.call(default_messages(), opts)
+    end
+  end
+
+  describe "call/2 streaming telemetry" do
+    setup do
+      test_pid = self()
+      handler_id = "pipeline-stream-telemetry-test-#{inspect(test_pid)}"
+
+      :telemetry.attach_many(
+        handler_id,
+        Telemetry.events(),
+        fn event, measurements, metadata, _config ->
+          send(test_pid, {:telemetry_event, event, measurements, metadata})
+        end,
+        nil
+      )
+
+      on_exit(fn -> :telemetry.detach(handler_id) end)
+
+      :ok
+    end
+
+    test "emits stream.chunk events during streaming" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      completed = %{
+        "id" => "resp-123",
+        "status" => "completed",
+        "output" => [
+          %{
+            "type" => "message",
+            "content" => [%{"type" => "output_text", "text" => "Hi"}]
+          }
+        ],
+        "usage" => %{"input_tokens" => 10, "output_tokens" => 5}
+      }
+
+      events = [
+        %{event: "response.output_text.delta", data: JSON.encode!(%{"delta" => "Hi"})},
+        %{event: "response.completed", data: JSON.encode!(%{"response" => completed})}
+      ]
+
+      stub(Sycophant.Transport, :stream, fn _payload, _opts, on_event ->
+        {:ok, on_event.(events)}
+      end)
+
+      callback = fn _chunk -> :ok end
+      opts = default_opts() ++ [stream: callback]
+
+      assert {:ok, _} = Pipeline.call(default_messages(), opts)
+
+      assert_received {:telemetry_event, [:sycophant, :stream, :chunk], %{},
+                       %{chunk_type: :text_delta}}
+    end
+  end
 end

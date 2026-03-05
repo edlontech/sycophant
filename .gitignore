@@ -113,4 +113,7 @@ tmp/*
 
 **/CLAUDE.md
 
+openai_completion.md
+openai_responses.md
+
 # End of https://www.toptal.com/developers/gitignore/api/elixir,erlang,macos,visualstudiocode,vim
