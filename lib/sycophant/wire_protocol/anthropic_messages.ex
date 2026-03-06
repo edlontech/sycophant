@@ -11,6 +11,9 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
   @impl true
   def request_path(_request), do: "/v1/messages"
 
+  @impl true
+  def stream_transport, do: :sse
+
   alias Sycophant.Context
   alias Sycophant.Error.Provider.RateLimited
   alias Sycophant.Error.Provider.ResponseInvalid

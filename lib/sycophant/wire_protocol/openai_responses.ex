@@ -13,6 +13,9 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   @impl true
   def request_path(_request), do: "/responses"
 
+  @impl true
+  def stream_transport, do: :sse
+
   alias Sycophant.Context
   alias Sycophant.Error.Provider.ContentFiltered
   alias Sycophant.Error.Provider.RateLimited

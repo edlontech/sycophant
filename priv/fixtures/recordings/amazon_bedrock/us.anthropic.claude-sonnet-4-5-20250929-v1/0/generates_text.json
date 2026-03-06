@@ -1,0 +1,77 @@
+{
+  "metadata": {
+    "model": "unknown",
+    "provider": "bedrock-runtime.us-east-1.amazonaws.com",
+    "recorded_at": "2026-03-06T14:57:42.407497Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": [
+            {
+              "text": "Say 'hello' and nothing else."
+            }
+          ],
+          "role": "user"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ]
+    ],
+    "method": "post",
+    "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-5-20250929-v1%3A0/converse"
+  },
+  "response": {
+    "body": {
+      "metrics": {
+        "latencyMs": 1890
+      },
+      "output": {
+        "message": {
+          "content": [
+            {
+              "text": "hello"
+            }
+          ],
+          "role": "assistant"
+        }
+      },
+      "stopReason": "end_turn",
+      "usage": {
+        "cacheReadInputTokenCount": 0,
+        "cacheReadInputTokens": 0,
+        "cacheWriteInputTokenCount": 0,
+        "cacheWriteInputTokens": 0,
+        "inputTokens": 16,
+        "outputTokens": 4,
+        "serverToolUsage": {},
+        "totalTokens": 20
+      }
+    },
+    "headers": [
+      [
+        "date",
+        "Fri, 06 Mar 2026 14:57:42 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-length",
+        "317"
+      ],
+      [
+        "x-amzn-requestid",
+        "7bbc8507-ed8a-4611-be60-81390902c7e3"
+      ]
+    ],
+    "status": 200
+  }
+}

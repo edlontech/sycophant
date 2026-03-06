@@ -103,30 +103,131 @@ defmodule Sycophant.Pipeline do
     callback = opts[:stream]
 
     with {:ok, request} <- build_request(messages, params, opts, model_info),
-         {:ok, payload} <- adapter.encode_request(request),
-         {:ok, result} <-
-           Transport.stream(
-             payload,
-             transport_opts(model_info, credentials, request),
-             fn event_stream ->
-               initial_state = adapter.init_stream()
-               process_event_stream(event_stream, initial_state, adapter, callback)
-             end
-           ) do
+         {:ok, payload} <- adapter.encode_request(request) do
+      transport_type =
+        if function_exported?(adapter, :stream_transport, 0),
+          do: adapter.stream_transport(),
+          else: :sse
+
+      result =
+        case transport_type do
+          :sse ->
+            sse_stream(payload, request, model_info, credentials, adapter, callback)
+
+          :event_stream ->
+            binary_stream(payload, request, model_info, credentials, adapter, callback)
+        end
+
       case result do
-        {:done, response} ->
+        {:ok, {:done, response}} ->
           {:ok, attach_context(response, messages, params, opts)}
 
-        {:error, _} = error ->
+        {:ok, {:error, _} = error} ->
           error
 
-        {:ok, _state} ->
+        {:ok, {:ok, _state}} ->
           {:error,
            Error.Provider.ResponseInvalid.exception(
              errors: ["Stream ended without a completed response"]
            )}
+
+        {:error, _} = error ->
+          error
       end
     end
+  end
+
+  defp sse_stream(payload, request, model_info, credentials, adapter, callback) do
+    Transport.stream(
+      payload,
+      transport_opts(model_info, credentials, request),
+      fn event_stream ->
+        initial_state = adapter.init_stream()
+        process_event_stream(event_stream, initial_state, adapter, callback)
+      end
+    )
+  end
+
+  defp binary_stream(payload, request, model_info, credentials, adapter, callback) do
+    Transport.stream_binary(
+      payload,
+      transport_opts(model_info, credentials, request),
+      fn binary_stream ->
+        initial_state = adapter.init_stream()
+        process_binary_stream(binary_stream, <<>>, initial_state, adapter, callback)
+      end
+    )
+  end
+
+  defp process_binary_stream(binary_stream, buffer, state, adapter, callback) do
+    stream = if is_binary(binary_stream), do: [binary_stream], else: binary_stream
+
+    Enum.reduce_while(stream, {:ok, buffer, state}, fn chunk, {:ok, buf, st} ->
+      data = buf <> chunk
+
+      case process_event_frames(data, st, adapter, callback) do
+        {:ok, rest, new_state} ->
+          {:cont, {:ok, rest, new_state}}
+
+        {:done, response} ->
+          {:halt, {:done, response}}
+
+        {:error, _} = error ->
+          {:halt, error}
+      end
+    end)
+    |> case do
+      {:ok, _buf, final_state} -> {:ok, final_state}
+      {:done, _} = done -> done
+      {:error, _} = error -> error
+    end
+  end
+
+  defp process_event_frames(data, state, adapter, callback) do
+    case Sycophant.AWS.EventStream.decode_frame(data) do
+      {:ok, raw_event, rest} ->
+        event = decode_event_stream_frame(raw_event)
+
+        case adapter.decode_stream_chunk(state, event) do
+          {:ok, new_state, chunks} ->
+            fire_stream_events(chunks, callback)
+            process_event_frames(rest, new_state, adapter, callback)
+
+          {:done, response} ->
+            {:done, response}
+
+          {:done, response, chunks} ->
+            fire_stream_events(chunks, callback)
+            {:done, response}
+
+          {:error, _} = error ->
+            error
+        end
+
+      {:incomplete, rest} ->
+        {:ok, rest, state}
+
+      {:error, _} = error ->
+        error
+    end
+  end
+
+  defp decode_event_stream_frame(%{headers: headers, payload: payload}) do
+    event_type = Map.get(headers, ":event-type", "unknown")
+
+    parsed_payload =
+      case payload do
+        "" ->
+          %{}
+
+        bin ->
+          case JSON.decode(bin) do
+            {:ok, decoded} -> decoded
+            {:error, _} -> %{}
+          end
+      end
+
+    %{event_type: event_type, payload: parsed_payload}
   end
 
   defp process_event_stream(event_stream, initial_state, adapter, callback) do
@@ -253,7 +354,8 @@ defmodule Sycophant.Pipeline do
     [
       base_url: model_info.base_url,
       path: model_info.wire_adapter.request_path(request),
-      auth_middlewares: Auth.middlewares_for(model_info.provider, credentials)
+      auth_middlewares: Auth.middlewares_for(model_info.provider, credentials),
+      path_params: Auth.path_params_for(model_info.provider, credentials)
     ]
   end
 end

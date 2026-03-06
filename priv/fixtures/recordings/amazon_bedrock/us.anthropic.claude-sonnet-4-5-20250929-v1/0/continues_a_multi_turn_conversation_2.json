@@ -1,0 +1,93 @@
+{
+  "metadata": {
+    "model": "unknown",
+    "provider": "bedrock-runtime.us-east-1.amazonaws.com",
+    "recorded_at": "2026-03-06T14:57:37.977062Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": [
+            {
+              "text": "My name is Sycophant. Remember it."
+            }
+          ],
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "Got it – your name is Sycophant. I'll remember that for our conversation."
+            }
+          ],
+          "role": "assistant"
+        },
+        {
+          "content": [
+            {
+              "text": "What is my name?"
+            }
+          ],
+          "role": "user"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ]
+    ],
+    "method": "post",
+    "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-5-20250929-v1%3A0/converse"
+  },
+  "response": {
+    "body": {
+      "metrics": {
+        "latencyMs": 1657
+      },
+      "output": {
+        "message": {
+          "content": [
+            {
+              "text": "Your name is Sycophant."
+            }
+          ],
+          "role": "assistant"
+        }
+      },
+      "stopReason": "end_turn",
+      "usage": {
+        "cacheReadInputTokenCount": 0,
+        "cacheReadInputTokens": 0,
+        "cacheWriteInputTokenCount": 0,
+        "cacheWriteInputTokens": 0,
+        "inputTokens": 50,
+        "outputTokens": 12,
+        "serverToolUsage": {},
+        "totalTokens": 62
+      }
+    },
+    "headers": [
+      [
+        "date",
+        "Fri, 06 Mar 2026 14:57:37 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-length",
+        "336"
+      ],
+      [
+        "x-amzn-requestid",
+        "8289b5fc-b2b1-4977-a6bb-cfec3fc5636e"
+      ]
+    ],
+    "status": 200
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "model": "unknown",
+    "provider": "bedrock-runtime.us-east-1.amazonaws.com",
+    "recorded_at": "2026-03-06T14:59:17.615573Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": [
+            {
+              "text": "Generate a fictional person with name, age, and 2-3 hobbies. Return only JSON."
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "outputConfig": {
+        "textFormat": {
+          "structure": {
+            "jsonSchema": {
+              "name": "response_schema",
+              "schema": "{\"additionalProperties\":false,\"properties\":{\"age\":{\"type\":\"integer\"},\"hobbies\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"name\":{\"type\":\"string\"}},\"required\":[\"name\",\"age\",\"hobbies\"],\"type\":\"object\"}"
+            }
+          },
+          "type": "json_schema"
+        }
+      }
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ]
+    ],
+    "method": "post",
+    "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-5-20250929-v1%3A0/converse"
+  },
+  "response": {
+    "body": {
+      "metrics": {
+        "latencyMs": 4149
+      },
+      "output": {
+        "message": {
+          "content": [
+            {
+              "text": "{\"age\":28,\"hobbies\":[\"photography\",\"hiking\",\"cooking\"],\"name\":\"Elena Martinez\"}"
+            }
+          ],
+          "role": "assistant"
+        }
+      },
+      "stopReason": "end_turn",
+      "usage": {
+        "cacheReadInputTokenCount": 0,
+        "cacheReadInputTokens": 0,
+        "cacheWriteInputTokenCount": 0,
+        "cacheWriteInputTokens": 0,
+        "inputTokens": 236,
+        "outputTokens": 25,
+        "serverToolUsage": {},
+        "totalTokens": 261
+      }
+    },
+    "headers": [
+      [
+        "date",
+        "Fri, 06 Mar 2026 14:59:17 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-length",
+        "408"
+      ],
+      [
+        "x-amzn-requestid",
+        "e71d146f-ad3d-47ce-a8de-b2dd8581a359"
+      ]
+    ],
+    "status": 200
+  }
+}

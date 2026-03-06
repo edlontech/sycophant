@@ -15,7 +15,7 @@ defmodule Sycophant.Transport do
     client = build_client(opts)
     path = Keyword.fetch!(opts, :path)
 
-    case Tesla.post(client, path, payload) do
+    case Tesla.post(client, path, payload, opts: request_opts(opts)) do
       {:ok, %Tesla.Env{status: status, body: body}} when status in 200..299 ->
         {:ok, body}
 
@@ -34,7 +34,7 @@ defmodule Sycophant.Transport do
     path = Keyword.fetch!(opts, :path)
     body = JSON.encode!(payload)
 
-    case Tesla.post(client, path, body) do
+    case Tesla.post(client, path, body, opts: request_opts(opts)) do
       {:ok, %Tesla.Env{status: status, body: event_stream}} when status in 200..299 ->
         {:ok, on_event.(event_stream)}
 
@@ -46,6 +46,32 @@ defmodule Sycophant.Transport do
     end
   end
 
+  @spec stream_binary(map(), keyword(), (Enumerable.t() -> term())) ::
+          {:ok, term()} | {:error, Splode.Error.t()}
+  def stream_binary(payload, opts, on_chunks) do
+    client = build_binary_stream_client(opts)
+    path = Keyword.fetch!(opts, :path)
+    body = JSON.encode!(payload)
+
+    case Tesla.post(client, path, body, opts: request_opts(opts)) do
+      {:ok, %Tesla.Env{status: status, body: binary_stream}} when status in 200..299 ->
+        {:ok, on_chunks.(binary_stream)}
+
+      {:ok, %Tesla.Env{} = env} ->
+        map_error(env)
+
+      {:error, reason} ->
+        {:error, Error.Unknown.Unknown.exception(error: reason)}
+    end
+  end
+
+  defp request_opts(opts) do
+    case Keyword.get(opts, :path_params) do
+      nil -> []
+      params -> [path_params: params]
+    end
+  end
+
   defp build_client(opts) do
     base_url = Keyword.fetch!(opts, :base_url)
     {:ok, tesla_config} = Sycophant.Config.tesla()
@@ -54,10 +80,11 @@ defmodule Sycophant.Transport do
     middlewares =
       [
         {Tesla.Middleware.BaseUrl, base_url},
+        Tesla.Middleware.PathParams,
         Tesla.Middleware.JSON
       ] ++
-        Keyword.get(opts, :auth_middlewares, []) ++
-        Keyword.get(opts, :middlewares, tesla_config.middlewares)
+        Keyword.get(opts, :middlewares, tesla_config.middlewares) ++
+        Keyword.get(opts, :auth_middlewares, [])
 
     Tesla.client(middlewares, adapter)
   end
@@ -82,11 +109,42 @@ defmodule Sycophant.Transport do
     middlewares =
       [
         {Tesla.Middleware.BaseUrl, base_url},
+        Tesla.Middleware.PathParams,
         {Tesla.Middleware.Headers, [{"content-type", "application/json"}]},
         Tesla.Middleware.SSE
       ] ++
-        Keyword.get(opts, :auth_middlewares, []) ++
-        Keyword.get(opts, :middlewares, tesla_config.middlewares)
+        Keyword.get(opts, :middlewares, tesla_config.middlewares) ++
+        Keyword.get(opts, :auth_middlewares, [])
+
+    Tesla.client(middlewares, adapter)
+  end
+
+  defp build_binary_stream_client(opts) do
+    base_url = Keyword.fetch!(opts, :base_url)
+    {:ok, tesla_config} = Sycophant.Config.tesla()
+    raw_adapter = Keyword.get(opts, :adapter) || tesla_config.adapter
+
+    adapter =
+      case raw_adapter do
+        mod when is_atom(mod) ->
+          {mod, [response: :stream]}
+
+        {mod, adapter_opts} when is_atom(mod) ->
+          {mod, Keyword.put(adapter_opts, :response, :stream)}
+
+        other ->
+          other
+      end
+
+    middlewares =
+      [
+        {Tesla.Middleware.BaseUrl, base_url},
+        Tesla.Middleware.PathParams,
+        {Tesla.Middleware.Headers,
+         [{"content-type", "application/json"}, {"accept", "application/vnd.amazon.eventstream"}]}
+      ] ++
+        Keyword.get(opts, :middlewares, tesla_config.middlewares) ++
+        Keyword.get(opts, :auth_middlewares, [])
 
     Tesla.client(middlewares, adapter)
   end

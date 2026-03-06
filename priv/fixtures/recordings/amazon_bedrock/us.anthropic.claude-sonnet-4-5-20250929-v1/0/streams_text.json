@@ -1,0 +1,54 @@
+{
+  "metadata": {
+    "binary_streaming": true,
+    "model": "unknown",
+    "provider": "bedrock-runtime.us-east-1.amazonaws.com",
+    "recorded_at": "2026-03-06T14:57:42.567216Z",
+    "streaming": true,
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": [
+            {
+              "text": "Say 'hello' and nothing else."
+            }
+          ],
+          "role": "user"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "accept",
+        "application/vnd.amazon.eventstream"
+      ]
+    ],
+    "method": "post",
+    "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-5-20250929-v1%3A0/converse-stream"
+  },
+  "response": {
+    "body": "AAAApQAAAFJYgP9XCzpldmVudC10eXBlBwAMbWVzc2FnZVN0YXJ0DTpjb250ZW50LXR5cGUHABBhcHBsaWNhdGlvbi9qc29uDTptZXNzYWdlLXR5cGUHAAVldmVudHsicCI6ImFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6QUJDREVGR0hJSktMTU4iLCJyb2xlIjoiYXNzaXN0YW50In27QtplAAAAqgAAAFequpwJCzpldmVudC10eXBlBwARY29udGVudEJsb2NrRGVsdGENOmNvbnRlbnQtdHlwZQcAEGFwcGxpY2F0aW9uL2pzb24NOm1lc3NhZ2UtdHlwZQcABWV2ZW50eyJjb250ZW50QmxvY2tJbmRleCI6MCwiZGVsdGEiOnsidGV4dCI6ImhlbGxvIn0sInAiOiJhYmNkZWZnaGlqa2wifV10nhsAAACpAAAAVpod1k8LOmV2ZW50LXR5cGUHABBjb250ZW50QmxvY2tTdG9wDTpjb250ZW50LXR5cGUHABBhcHBsaWNhdGlvbi9qc29uDTptZXNzYWdlLXR5cGUHAAVldmVudHsiY29udGVudEJsb2NrSW5kZXgiOjAsInAiOiJhYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ekFCQ0RFRkdISUpLIn1hlyCjAAAAvQAAAFGRGXKuCzpldmVudC10eXBlBwALbWVzc2FnZVN0b3ANOmNvbnRlbnQtdHlwZQcAEGFwcGxpY2F0aW9uL2pzb24NOm1lc3NhZ2UtdHlwZQcABWV2ZW50eyJwIjoiYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXpBQkNERUZHSElKS0xNTk9QUVJTVFVWV1hZWjAxMjM0NTY3Iiwic3RvcFJlYXNvbiI6ImVuZF90dXJuIn2lawg0AAAA3QAAAE6FIwgWCzpldmVudC10eXBlBwAIbWV0YWRhdGENOmNvbnRlbnQtdHlwZQcAEGFwcGxpY2F0aW9uL2pzb24NOm1lc3NhZ2UtdHlwZQcABWV2ZW50eyJtZXRyaWNzIjp7ImxhdGVuY3lNcyI6MTc0Nn0sInAiOiJhYmNkZWZnaCIsInVzYWdlIjp7ImlucHV0VG9rZW5zIjoxNiwib3V0cHV0VG9rZW5zIjo0LCJzZXJ2ZXJUb29sVXNhZ2UiOnt9LCJ0b3RhbFRva2VucyI6MjB9fXBDKmY=",
+    "headers": [
+      [
+        "date",
+        "Fri, 06 Mar 2026 14:57:42 GMT"
+      ],
+      [
+        "content-type",
+        "application/vnd.amazon.eventstream"
+      ],
+      [
+        "x-amzn-requestid",
+        "18b39f7a-1a05-42e7-b35e-c4d38ce647b2"
+      ]
+    ],
+    "status": 200
+  }
+}

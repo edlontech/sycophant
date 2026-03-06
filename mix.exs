@@ -8,7 +8,21 @@ defmodule Sycophant.MixProject do
       elixir: "~> 1.19",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      elixirc_paths: elixirc_paths(Mix.env())
+      elixirc_paths: elixirc_paths(Mix.env()),
+      aliases: aliases()
+    ]
+  end
+
+  def cli do
+    [
+      preferred_envs: [
+        coveralls: :test,
+        "coveralls.post": :test,
+        "coveralls.github": :test,
+        "coveralls.html": :test,
+        "test.recording": :test,
+        "test.integration": :test
+      ]
     ]
   end
 
@@ -19,6 +33,12 @@ defmodule Sycophant.MixProject do
     [
       extra_applications: [:logger],
       mod: {Sycophant.Application, []}
+    ]
+  end
+
+  defp aliases do
+    [
+      "test.recording": ["test --include recording test/recording/"]
     ]
   end
 

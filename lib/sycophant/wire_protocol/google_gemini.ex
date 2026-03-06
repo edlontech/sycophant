@@ -30,6 +30,9 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
   end
 
   @impl true
+  def stream_transport, do: :sse
+
+  @impl true
   def request_path(%Request{model: model, stream: stream}) do
     base = "/models/#{model}"
     if stream, do: "#{base}:streamGenerateContent?alt=sse", else: "#{base}:generateContent"

@@ -1,0 +1,108 @@
+{
+  "metadata": {
+    "model": "unknown",
+    "provider": "bedrock-runtime.us-east-1.amazonaws.com",
+    "recorded_at": "2026-03-06T14:57:42.305444Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": [
+            {
+              "text": "What's the weather in Paris? Use the get_weather tool."
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "toolConfig": {
+        "tools": [
+          {
+            "toolSpec": {
+              "description": "Get current weather for a city",
+              "inputSchema": {
+                "json": {
+                  "additionalProperties": true,
+                  "properties": {
+                    "city": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "city"
+                  ],
+                  "type": "object"
+                }
+              },
+              "name": "get_weather"
+            }
+          }
+        ]
+      }
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ]
+    ],
+    "method": "post",
+    "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-5-20250929-v1%3A0/converse"
+  },
+  "response": {
+    "body": {
+      "metrics": {
+        "latencyMs": 2169
+      },
+      "output": {
+        "message": {
+          "content": [
+            {
+              "toolUse": {
+                "input": {
+                  "city": "Paris"
+                },
+                "name": "get_weather",
+                "toolUseId": "tooluse_G9S2a6aEQ95GYho9Z97Ts5",
+                "type": "tool_use"
+              }
+            }
+          ],
+          "role": "assistant"
+        }
+      },
+      "stopReason": "tool_use",
+      "usage": {
+        "cacheReadInputTokenCount": 0,
+        "cacheReadInputTokens": 0,
+        "cacheWriteInputTokenCount": 0,
+        "cacheWriteInputTokens": 0,
+        "inputTokens": 578,
+        "outputTokens": 53,
+        "serverToolUsage": {},
+        "totalTokens": 631
+      }
+    },
+    "headers": [
+      [
+        "date",
+        "Fri, 06 Mar 2026 14:57:42 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-length",
+        "426"
+      ],
+      [
+        "x-amzn-requestid",
+        "7aeace37-8e5c-4455-9207-d51ad58d880b"
+      ]
+    ],
+    "status": 200
+  }
+}

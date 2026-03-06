@@ -2,7 +2,11 @@ defmodule Sycophant.RecordingCase do
   @moduledoc """
   ExUnit case template for tests that use recorded HTTP fixtures.
 
-  Supports two modes:
+  Recording tests are excluded by default. Run them with:
+
+      mix test.recording                              # all recorded models
+      RECORD=true mix test.recording                  # record missing fixtures
+      RECORD=true RECORD_MODELS=amazon_bedrock mix test.recording  # record specific models
 
   ### Explicit recording name
 
@@ -30,7 +34,7 @@ defmodule Sycophant.RecordingCase do
   Set `RECORD_MODELS` to a comma-separated list of model specs to
   only record fixtures for specific models:
 
-      RECORD=true RECORD_MODELS=anthropic:claude-haiku-4-5-20251001 mix test test/recording/
+      RECORD=true RECORD_MODELS=anthropic:claude-haiku-4-5-20251001 mix test.recording
 
   Supports prefix matching: `RECORD_MODELS=anthropic` matches all
   anthropic models. When unset, all configured test models are used.
@@ -91,11 +95,18 @@ defmodule Sycophant.RecordingCase do
 
   using do
     quote do
+      @moduletag :recording
+
       defp recording_opts(opts) do
         if System.get_env("RECORD") in ["true", "force"] do
           opts
         else
-          Keyword.put_new(opts, :credentials, %{api_key: "recorded"})
+          Keyword.put_new(opts, :credentials, %{
+            api_key: "recorded",
+            access_key_id: "recorded",
+            secret_access_key: "recorded",
+            region: "us-east-1"
+          })
         end
       end
     end
@@ -112,7 +123,7 @@ defmodule Sycophant.RecordingCase do
     :ok
   end
 
-  defp resolve_recording(%{recording: name}), do: name
+  defp resolve_recording(%{recording: name}) when is_binary(name), do: name
 
   defp resolve_recording(%{recording_prefix: true, fixture_prefix: prefix} = context) do
     slug =

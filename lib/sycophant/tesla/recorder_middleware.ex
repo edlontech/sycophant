@@ -148,7 +148,7 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
   end
 
   defp maybe_collect_stream(%Tesla.Env{body: stream} = env) do
-    collected = Enum.join(stream, "")
+    collected = Enum.reduce(stream, <<>>, fn chunk, acc -> acc <> chunk end)
     {%{env | body: collected}, true}
   end
 
@@ -175,10 +175,22 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
         fn m -> if streaming?, do: Map.put(m, "streaming", true), else: m end
       )
 
-    response_body =
-      if streaming?,
-        do: response_env.body,
-        else: safe_decode(response_env.body)
+    {response_body, binary_stream?} =
+      cond do
+        not streaming? ->
+          {safe_decode(response_env.body), false}
+
+        String.valid?(response_env.body) ->
+          {response_env.body, false}
+
+        true ->
+          {Base.encode64(response_env.body), true}
+      end
+
+    metadata =
+      if binary_stream?,
+        do: Map.put(metadata, "binary_streaming", true),
+        else: metadata
 
     fixture = %{
       "metadata" => metadata,
@@ -211,11 +223,19 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
   defp fixture_to_env(%Tesla.Env{} = request_env, fixture) do
     response = fixture["response"]
     streaming? = get_in(fixture, ["metadata", "streaming"]) == true
+    binary_streaming? = get_in(fixture, ["metadata", "binary_streaming"]) == true
 
     body =
-      if streaming?,
-        do: response["body"],
-        else: JSON.encode!(response["body"])
+      cond do
+        binary_streaming? ->
+          [Base.decode64!(response["body"])]
+
+        streaming? ->
+          response["body"]
+
+        true ->
+          JSON.encode!(response["body"])
+      end
 
     %Tesla.Env{
       request_env
@@ -235,6 +255,7 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
     "x-api-key",
     "api-key",
     "x-goog-api-key",
+    "x-amz-security-token",
     "openai-organization",
     "openai-project",
     "set-cookie"

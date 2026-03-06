@@ -13,6 +13,9 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
   @impl true
   def request_path(_request), do: "/chat/completions"
 
+  @impl true
+  def stream_transport, do: :sse
+
   alias Sycophant.Context
   alias Sycophant.Error.Provider.ResponseInvalid
   alias Sycophant.Message

@@ -1,0 +1,82 @@
+{
+  "metadata": {
+    "model": "unknown",
+    "provider": "bedrock-runtime.us-east-1.amazonaws.com",
+    "recorded_at": "2026-03-06T14:57:40.405568Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": [
+            {
+              "text": "What is 2 + 2?"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "system": [
+        {
+          "text": "You are a calculator. Only respond with numbers."
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ]
+    ],
+    "method": "post",
+    "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-5-20250929-v1%3A0/converse"
+  },
+  "response": {
+    "body": {
+      "metrics": {
+        "latencyMs": 2316
+      },
+      "output": {
+        "message": {
+          "content": [
+            {
+              "text": "4"
+            }
+          ],
+          "role": "assistant"
+        }
+      },
+      "stopReason": "end_turn",
+      "usage": {
+        "cacheReadInputTokenCount": 0,
+        "cacheReadInputTokens": 0,
+        "cacheWriteInputTokenCount": 0,
+        "cacheWriteInputTokens": 0,
+        "inputTokens": 26,
+        "outputTokens": 5,
+        "serverToolUsage": {},
+        "totalTokens": 31
+      }
+    },
+    "headers": [
+      [
+        "date",
+        "Fri, 06 Mar 2026 14:57:40 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-length",
+        "313"
+      ],
+      [
+        "x-amzn-requestid",
+        "0ed88af7-e891-4765-9e6e-1d486aa12eb8"
+      ]
+    ],
+    "status": 200
+  }
+}

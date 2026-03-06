@@ -15,7 +15,8 @@ defmodule Sycophant.ModelResolver do
     "openai_chat" => Sycophant.WireProtocol.OpenAICompletions,
     "openai_responses" => Sycophant.WireProtocol.OpenAIResponses,
     "anthropic_messages" => Sycophant.WireProtocol.AnthropicMessages,
-    "google_gemini" => Sycophant.WireProtocol.GoogleGemini
+    "google_gemini" => Sycophant.WireProtocol.GoogleGemini,
+    "bedrock_converse" => Sycophant.WireProtocol.BedrockConverse
   }
 
   @spec resolve(nil | binary() | LLMDB.Model.t() | term()) ::
@@ -33,8 +34,15 @@ defmodule Sycophant.ModelResolver do
 
   def resolve(spec) when is_binary(spec) do
     case LLMDB.model(spec) do
-      {:ok, model} -> resolve(model)
-      {:error, _} -> {:error, Error.Invalid.MissingModel.exception([])}
+      {:ok, model} ->
+        requested_id = parse_model_id(spec)
+
+        with {:ok, info} <- resolve(model) do
+          {:ok, maybe_override_model_id(info, requested_id)}
+        end
+
+      {:error, _} ->
+        {:error, Error.Invalid.MissingModel.exception([])}
     end
   end
 
@@ -80,5 +88,20 @@ defmodule Sycophant.ModelResolver do
       model_struct: model,
       provider_struct: provider
     }
+  end
+
+  defp parse_model_id(spec) do
+    case String.split(spec, ":", parts: 2) do
+      [_provider, model_id] -> model_id
+      _ -> spec
+    end
+  end
+
+  defp maybe_override_model_id(info, requested_id) do
+    if requested_id != info.model_id do
+      %{info | model_id: requested_id}
+    else
+      info
+    end
   end
 end

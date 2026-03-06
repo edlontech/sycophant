@@ -9,8 +9,12 @@ defmodule Sycophant.Auth do
   """
 
   @callback middlewares(credentials :: map()) :: [Tesla.Client.middleware()]
+  @callback path_params(credentials :: map()) :: keyword()
+
+  @optional_callbacks [path_params: 1]
 
   @registry %{
+    amazon_bedrock: Sycophant.Auth.Bedrock,
     anthropic: Sycophant.Auth.Anthropic,
     google: Sycophant.Auth.Google
   }
@@ -20,6 +24,19 @@ defmodule Sycophant.Auth do
     case Map.get(@registry, provider) do
       nil -> Sycophant.Auth.Bearer.middlewares(credentials)
       mod -> mod.middlewares(credentials)
+    end
+  end
+
+  @spec path_params_for(atom(), map()) :: keyword()
+  def path_params_for(provider, credentials) do
+    case Map.get(@registry, provider) do
+      nil ->
+        []
+
+      mod ->
+        if function_exported?(mod, :path_params, 1),
+          do: mod.path_params(credentials),
+          else: []
     end
   end
 end
