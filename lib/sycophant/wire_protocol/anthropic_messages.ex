@@ -50,18 +50,7 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
     service_tier: "service_tier"
   }
 
-  @dropped_params [
-    :seed,
-    :frequency_penalty,
-    :presence_penalty,
-    :parallel_tool_calls,
-    :cache_key,
-    :cache_retention,
-    :safety_identifier,
-    :reasoning,
-    :reasoning_summary,
-    :tool_choice
-  ]
+  @supported_params Map.keys(@param_map)
 
   @reasoning_budgets %{low: 1024, medium: 4096, high: 16384}
 
@@ -415,7 +404,7 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
   defp translate_params(%Params{} = params) do
     params
     |> Map.from_struct()
-    |> Enum.reject(fn {k, v} -> is_nil(v) or k in @dropped_params end)
+    |> Enum.filter(fn {k, v} -> not is_nil(v) and k in @supported_params end)
     |> Map.new(&translate_param/1)
   end
 

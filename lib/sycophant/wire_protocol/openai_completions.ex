@@ -46,7 +46,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
     service_tier: "service_tier"
   }
 
-  @dropped_params [:top_k, :cache_key, :cache_retention, :safety_identifier, :tool_choice]
+  @supported_params Map.keys(@param_map) ++ [:reasoning, :reasoning_summary]
 
   @impl true
   def encode_request(%Request{} = request) do
@@ -347,7 +347,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
   defp translate_params(%Params{} = params) do
     params
     |> Map.from_struct()
-    |> Enum.reject(fn {k, v} -> is_nil(v) or k in @dropped_params end)
+    |> Enum.filter(fn {k, v} -> not is_nil(v) and k in @supported_params end)
     |> Map.new(&translate_param/1)
   end
 

@@ -38,20 +38,7 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
     stop: "stopSequences"
   }
 
-  @dropped_params [
-    :top_k,
-    :seed,
-    :frequency_penalty,
-    :presence_penalty,
-    :parallel_tool_calls,
-    :cache_key,
-    :cache_retention,
-    :safety_identifier,
-    :service_tier,
-    :reasoning,
-    :reasoning_summary,
-    :tool_choice
-  ]
+  @supported_params Map.keys(@param_map)
 
   @impl true
   def stream_transport, do: :event_stream
@@ -352,7 +339,7 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
   defp translate_params(%Params{} = params) do
     params
     |> Map.from_struct()
-    |> Enum.reject(fn {k, v} -> is_nil(v) or k in @dropped_params end)
+    |> Enum.filter(fn {k, v} -> not is_nil(v) and k in @supported_params end)
     |> Map.new(&translate_param/1)
   end
 

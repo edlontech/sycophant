@@ -44,7 +44,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     safety_identifier: "safety_identifier"
   }
 
-  @dropped_params [:top_k, :stop, :seed, :frequency_penalty, :presence_penalty, :tool_choice]
+  @supported_params Map.keys(@param_map)
 
   @impl true
   def encode_request(%Request{} = request) do
@@ -400,9 +400,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   defp translate_params(%Params{} = params) do
     params
     |> Map.from_struct()
-    |> Enum.reject(fn {k, v} ->
-      is_nil(v) or k in @dropped_params or k in [:reasoning, :reasoning_summary]
-    end)
+    |> Enum.filter(fn {k, v} -> not is_nil(v) and k in @supported_params end)
     |> Map.new(&translate_param/1)
     |> maybe_put_reasoning(params)
   end
