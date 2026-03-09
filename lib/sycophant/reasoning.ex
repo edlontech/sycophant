@@ -2,10 +2,15 @@ defmodule Sycophant.Reasoning do
   @moduledoc """
   Reasoning output from an LLM response.
 
-  Contains the model's reasoning summary when available.
-  The `encrypted_content` field carries opaque data for
-  stateless multi-turn reasoning that can be passed back
-  via `provider_params`.
+  When a model supports extended thinking (e.g. with the `:reasoning` parameter),
+  the reasoning summary is available in `response.reasoning.summary`. The
+  `:encrypted_content` field carries opaque data for stateless multi-turn
+  reasoning that can be passed back via `provider_params`.
+
+  ## Examples
+
+      iex> %Sycophant.Reasoning{summary: "The user asked about capitals..."}
+      %Sycophant.Reasoning{summary: "The user asked about capitals...", encrypted_content: nil}
   """
   use TypedStruct
 

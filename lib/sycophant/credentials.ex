@@ -1,11 +1,26 @@
 defmodule Sycophant.Credentials do
   @moduledoc """
-  Three-layer credential resolution: per-request > app config > env vars.
+  Three-layer credential resolution for LLM providers.
 
-  Resolution order:
-  1. Per-request credentials passed directly
-  2. Application configuration under `:sycophant, :providers`
-  3. Environment variables discovered via LLMDB provider metadata
+  Credentials are resolved in order of specificity:
+
+  1. **Per-request** -- credentials passed directly in options
+  2. **Application config** -- from `config :sycophant, :providers`
+  3. **Environment variables** -- discovered via LLMDB provider metadata
+
+  The first non-empty layer wins. If all layers are empty, a
+  `MissingCredentials` error is returned.
+
+  ## Examples
+
+      # Per-request credentials take priority
+      Sycophant.generate_text(messages,
+        model: "openai:gpt-4o-mini",
+        credentials: %{api_key: "sk-override"}
+      )
+
+      # Falls back to app config, then env vars
+      Sycophant.generate_text(messages, model: "openai:gpt-4o-mini")
   """
 
   alias Sycophant.Error

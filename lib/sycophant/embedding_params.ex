@@ -1,9 +1,16 @@
 defmodule Sycophant.EmbeddingParams do
   @moduledoc """
-  Canonical embedding parameters with validation.
+  Canonical embedding parameters with Zoi validation.
 
   All fields are optional. Wire protocol adapters translate these into
   provider-specific parameter names and value formats.
+
+  ## Supported Parameters
+
+    * `:dimensions` - Desired output vector dimensionality (positive integer)
+    * `:embedding_types` - List of output types (`:float`, `:int8`, `:uint8`, `:binary`, `:ubinary`). Defaults to `[:float]`
+    * `:truncate` - Truncation strategy (`:none`, `:left`, `:right`). Defaults to `:none`
+    * `:max_tokens` - Maximum tokens to embed per input (positive integer)
   """
   use ZoiDefstruct
 

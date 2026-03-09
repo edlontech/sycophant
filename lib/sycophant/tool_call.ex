@@ -2,9 +2,14 @@ defmodule Sycophant.ToolCall do
   @moduledoc """
   Represents a tool invocation requested by the LLM.
 
-  Contains the provider-assigned call ID, the tool name,
-  and the parsed arguments map. Argument validation against
-  the Tool's Zoi schema is the caller's responsibility.
+  When an LLM decides to use a tool, it returns one or more `ToolCall` structs
+  in `response.tool_calls`. Each contains a provider-assigned `:id`, the tool
+  `:name`, and the parsed `:arguments` map.
+
+  ## Examples
+
+      iex> %Sycophant.ToolCall{id: "call_abc", name: "get_weather", arguments: %{"city" => "Paris"}}
+      %Sycophant.ToolCall{id: "call_abc", name: "get_weather", arguments: %{"city" => "Paris"}}
   """
   use TypedStruct
 

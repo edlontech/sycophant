@@ -3,7 +3,8 @@ defmodule Sycophant.Request do
   Internal struct representing a normalized LLM request.
 
   Built by `Sycophant.Pipeline` after model resolution and parameter
-  validation. Passed to wire protocol adapters for encoding.
+  validation. Passed to wire protocol adapters for encoding into
+  provider-specific JSON payloads. This is not part of the public API.
   """
 
   use TypedStruct

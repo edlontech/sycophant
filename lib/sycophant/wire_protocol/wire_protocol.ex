@@ -1,11 +1,19 @@
 defmodule Sycophant.WireProtocol do
   @moduledoc """
-  Behaviour for wire protocol adapters.
+  Behaviour for chat wire protocol adapters.
 
-  Wire protocol adapters encode Sycophant Request structs into
-  provider-specific JSON payloads and decode provider responses
-  back into Response structs. Dispatch is by wire protocol, not
-  provider identity.
+  Wire protocol adapters encode `Sycophant.Request` structs into
+  provider-specific JSON payloads and decode provider responses back
+  into `Sycophant.Response` structs. Dispatch is by wire protocol
+  metadata from LLMDB, not by provider identity.
+
+  ## Built-in Adapters
+
+    * `Sycophant.WireProtocol.OpenAICompletions` - OpenAI Chat Completions API
+    * `Sycophant.WireProtocol.OpenAIResponses` - OpenAI Responses API
+    * `Sycophant.WireProtocol.AnthropicMessages` - Anthropic Messages API
+    * `Sycophant.WireProtocol.GoogleGemini` - Google Gemini API
+    * `Sycophant.WireProtocol.BedrockConverse` - AWS Bedrock Converse API
   """
 
   @callback request_path(Sycophant.Request.t()) :: String.t()

@@ -1,11 +1,19 @@
 defmodule Sycophant.Transport do
   @moduledoc """
-  Builds a fresh Tesla client per request and executes HTTP POST,
-  mapping HTTP status codes to Splode error structs.
+  HTTP transport layer built on Tesla.
 
-  Auth middleware is injected by the caller via the `:auth_middlewares`
-  option, keeping Transport agnostic about authentication schemes
-  (Bearer tokens, API-key headers, AWS SigV4, etc.).
+  Constructs a fresh Tesla client per request and executes HTTP POSTs,
+  mapping HTTP status codes to Splode error structs. Auth middleware is
+  injected by the caller via `:auth_middlewares`, keeping Transport
+  agnostic about authentication schemes.
+
+  ## Error Mapping
+
+    * `401` -> `AuthenticationFailed`
+    * `404` -> `ModelNotFound`
+    * `429` -> `RateLimited` (with `Retry-After` parsing)
+    * `400-499` -> `BadRequest`
+    * `500+` -> `ServerError`
   """
 
   alias Sycophant.Error

@@ -1,8 +1,18 @@
 defmodule Sycophant.Pipeline do
   @moduledoc """
-  Orchestrates the full request lifecycle: model resolution, parameter
-  validation, credential resolution, wire encoding, transport, and
-  wire decoding.
+  Orchestrates the full LLM request lifecycle.
+
+  The pipeline executes these steps in order:
+
+  1. **Model Resolution** - Resolves the model spec to provider metadata via LLMDB
+  2. **Parameter Validation** - Validates LLM parameters through Zoi schemas
+  3. **Credential Resolution** - Finds credentials (per-request > app config > env vars)
+  4. **Wire Encoding** - Converts the request into provider-specific JSON
+  5. **HTTP Transport** - Sends the request via Tesla (sync or streaming)
+  6. **Wire Decoding** - Parses the provider response back into Sycophant structs
+  7. **Tool Execution** - Auto-executes tool calls if tools have functions set
+  8. **Response Validation** - Validates structured output against schema if provided
+  9. **Context Attachment** - Stores conversation state for continuation
   """
 
   alias Sycophant.Auth

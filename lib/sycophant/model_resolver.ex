@@ -1,12 +1,23 @@
 defmodule Sycophant.ModelResolver do
   @moduledoc """
-  Resolves a model specification into a normalized map containing
-  everything the pipeline needs: model ID, provider, base URL,
-  wire protocol adapter, environment variable names, and the raw
+  Resolves model identifiers into pipeline-ready metadata.
+
+  Takes a model specification (e.g., `"openai:gpt-4o-mini"`) and returns
+  a normalized map containing everything the pipeline needs: model ID,
+  provider atom, base URL, wire protocol adapter module, and the raw
   LLMDB structs.
 
-  Accepts either a `"provider:model"` string or an `%LLMDB.Model{}`
-  struct. Uses LLMDB as the single source of truth.
+  ## Model Specification Format
+
+  Models are identified as `"provider:model_id"` strings:
+
+    * `"openai:gpt-4o-mini"` - OpenAI GPT-4o Mini
+    * `"anthropic:claude-haiku-4-5-20251001"` - Anthropic Claude Haiku
+    * `"amazon_bedrock:anthropic.claude-3-5-sonnet-20241022-v2:0"` - Bedrock Claude
+    * `"google:gemini-2.0-flash"` - Google Gemini
+    * `"azure:gpt-4o"` - Azure OpenAI
+
+  Model metadata is sourced from LLMDB as the single source of truth.
   """
 
   alias Sycophant.Error

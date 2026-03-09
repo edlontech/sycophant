@@ -1,6 +1,14 @@
 defmodule Sycophant.Usage do
   @moduledoc """
-  Token usage information from an LLM response.
+  Token usage statistics from an LLM response.
+
+  Reports input and output token counts, plus optional cache hit/miss
+  information for providers that support prompt caching.
+
+  ## Examples
+
+      iex> %Sycophant.Usage{input_tokens: 10, output_tokens: 25}
+      %Sycophant.Usage{input_tokens: 10, output_tokens: 25, cache_creation_input_tokens: nil, cache_read_input_tokens: nil}
   """
   use TypedStruct
 

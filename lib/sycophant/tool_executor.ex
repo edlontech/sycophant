@@ -1,11 +1,14 @@
 defmodule Sycophant.ToolExecutor do
   @moduledoc """
-  Executes tool functions and manages the auto-execution loop.
+  Automatic tool execution loop.
 
-  When a response contains tool_calls and the corresponding tools have
-  `:function` set, this module executes them, builds tool_result messages,
-  and re-submits via the provided `call_fn` until the LLM produces a
-  final text response or `max_steps` is reached.
+  When a response contains tool calls and the corresponding `Tool` structs
+  have a `:function` set, this module executes them, builds `tool_result`
+  messages, and re-submits to the LLM until it produces a final text
+  response or `:max_steps` is reached (default: 10).
+
+  Tools without a `:function` are skipped -- their tool calls appear in
+  `response.tool_calls` for manual handling by the caller.
   """
 
   alias Sycophant.Message

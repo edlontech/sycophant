@@ -1,11 +1,24 @@
 defmodule Sycophant.Error do
   @moduledoc """
-  Root error module for Sycophant.
+  Root error module for Sycophant, built on Splode.
 
-  Errors are organized into three classes:
-  - `:invalid` -- caller mistakes, fixable before sending
-  - `:provider` -- remote failures from the LLM API
-  - `:unknown` -- anything uncategorized
+  All errors returned by Sycophant implement `Splode.Error` and are organized
+  into three classes:
+
+    * `:invalid` - Caller mistakes that can be fixed before sending
+      (e.g., `MissingModel`, `MissingCredentials`, `InvalidParams`)
+    * `:provider` - Remote failures from the LLM API
+      (e.g., `RateLimited`, `ServerError`, `BadRequest`, `AuthenticationFailed`)
+    * `:unknown` - Uncategorized errors
+
+  Pattern match on the error class or specific error module:
+
+      case Sycophant.generate_text(messages, model: "openai:gpt-4o-mini") do
+        {:ok, response} -> response.text
+        {:error, %Sycophant.Error.Provider.RateLimited{}} -> "Rate limited, retry later"
+        {:error, %Sycophant.Error.Invalid.MissingCredentials{}} -> "Missing API key"
+        {:error, error} -> Splode.Error.message(error)
+      end
   """
   use Splode,
     error_classes: [

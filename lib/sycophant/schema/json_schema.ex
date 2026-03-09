@@ -4,7 +4,7 @@ defmodule Sycophant.Schema.JsonSchema do
 
   Wraps `Zoi.to_json_schema/1` with normalization: atom keys and values
   are converted to strings, and the `$schema` meta-reference is stripped.
-  Wire protocol adapters call this for tool parameters and response schemas.
+  Wire protocol adapters use this for tool parameters and response schemas.
   """
 
   alias Sycophant.Error.Invalid.InvalidSchema

@@ -2,11 +2,32 @@ defmodule Sycophant.Response do
   @moduledoc """
   The result of an LLM call.
 
-  Contains the generated text or object, any tool calls requested,
-  token usage, and an internal `Context` that enables conversation
-  continuation via `Sycophant.generate_text(response, new_message)`.
+  Contains the generated text or structured object, any tool calls requested
+  by the model, token usage statistics, and an opaque `Context` that enables
+  conversation continuation.
 
-  Use `Response.messages/1` to inspect the conversation history.
+  ## Continuing Conversations
+
+  Pass a `Response` directly to `Sycophant.generate_text/2` with a new message
+  to continue the conversation. The context carries forward model, tools, and
+  parameters automatically:
+
+      {:ok, response} = Sycophant.generate_text(messages, model: "openai:gpt-4o-mini")
+      {:ok, follow_up} = Sycophant.generate_text(response, Message.user("Tell me more"))
+
+  ## Inspecting History
+
+  Use `messages/1` to retrieve the full conversation history:
+
+      Response.messages(response)
+      #=> [%Message{role: :user, ...}, %Message{role: :assistant, ...}]
+
+  ## Serialization
+
+  Responses implement `Sycophant.Serializable` for JSON persistence:
+
+      json = Sycophant.Serializable.Decoder.encode(response)
+      restored = Sycophant.Serializable.Decoder.decode(json)
   """
   use TypedStruct
 
@@ -27,11 +48,18 @@ defmodule Sycophant.Response do
     field :context, Context.t(), enforce: true
   end
 
-  @doc "Returns the conversation message history from the response."
+  @doc """
+  Returns the full conversation message history from the response context.
+
+  The list includes all user, assistant, system, and tool result messages
+  exchanged during the conversation.
+  """
   @spec messages(t()) :: [Sycophant.Message.t()]
   def messages(%__MODULE__{context: context}), do: context.messages
 
-  @doc "Reconstructs a Response struct from a serialized map."
+  @doc """
+  Reconstructs a `Response` from a serialized map produced by `Sycophant.Serializable`.
+  """
   @spec from_map(map()) :: t()
   def from_map(data) do
     opts = Map.get(data, :opts, [])

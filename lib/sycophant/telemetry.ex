@@ -1,24 +1,39 @@
 defmodule Sycophant.Telemetry do
   @moduledoc """
-  Telemetry event definitions and span helper for Sycophant requests.
+  Telemetry events for observability and metrics.
 
-  Emits the following events:
+  Sycophant emits `:telemetry` events at key points in the request lifecycle,
+  following the standard span pattern.
 
-  * `[:sycophant, :request, :start]` -- when a request begins.
-    Measurements: `%{system_time: integer}`.
-    Metadata: caller-supplied map (typically model, provider).
+  ## Request Events
 
-  * `[:sycophant, :request, :stop]` -- when a request succeeds.
-    Measurements: `%{duration: integer}` (native time units).
-    Metadata: caller-supplied map merged with `%{duration, usage}`.
+    * `[:sycophant, :request, :start]` - Request begins.
+      Measurements: `%{system_time: integer}`.
+      Metadata: `%{model, provider, wire_protocol, has_tools?, has_stream?}`.
 
-  * `[:sycophant, :request, :error]` -- when a request returns `{:error, _}`.
-    Measurements: `%{duration: integer}` (native time units).
-    Metadata: caller-supplied map merged with `%{error, error_class}`.
+    * `[:sycophant, :request, :stop]` - Request succeeds.
+      Measurements: `%{duration: integer}` (native time units).
+      Metadata: start metadata merged with `%{duration, usage}`.
 
-  Uses manual event emission rather than `:telemetry.span/3` because the
-  pipeline returns `{:error, _}` tuples instead of raising, and we want
-  error metadata on the error event.
+    * `[:sycophant, :request, :error]` - Request fails.
+      Measurements: `%{duration: integer}` (native time units).
+      Metadata: start metadata merged with `%{error, error_class}`.
+
+  ## Streaming Events
+
+    * `[:sycophant, :stream, :chunk]` - Individual stream chunk received.
+      Measurements: `%{}`.
+      Metadata: `%{chunk_type: atom}`.
+
+  ## Embedding Events
+
+    * `[:sycophant, :embedding, :start]` - Embedding request begins.
+    * `[:sycophant, :embedding, :stop]` - Embedding request succeeds.
+    * `[:sycophant, :embedding, :error]` - Embedding request fails.
+
+  ## Attaching Handlers
+
+      :telemetry.attach_many("sycophant-logger", Sycophant.Telemetry.events(), &handle_event/4, nil)
   """
 
   @request_start [:sycophant, :request, :start]

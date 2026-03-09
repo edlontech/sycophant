@@ -1,8 +1,11 @@
 defmodule Sycophant.EmbeddingPipeline do
   @moduledoc """
-  Orchestrates the embedding request lifecycle: model resolution,
-  parameter validation, credential resolution, wire encoding,
-  transport, and wire decoding.
+  Orchestrates the embedding request lifecycle.
+
+  Follows the same pattern as `Sycophant.Pipeline` but for embedding
+  models: resolves the model, validates parameters, resolves credentials,
+  encodes via the embedding wire protocol adapter, transports, and decodes
+  the response.
   """
 
   alias Sycophant.Auth

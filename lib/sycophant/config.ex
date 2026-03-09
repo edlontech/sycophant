@@ -5,10 +5,29 @@ defmodule Sycophant.Config do
   Configuration is read from the `:sycophant` application environment
   and validated through Zoi schemas.
 
-  ## Example
+  ## Provider Credentials
 
-      Application.put_env(:sycophant, :providers, openai: [api_key: "sk-..."])
-      Application.put_env(:sycophant, :tesla, adapter: Tesla.Adapter.Mint, middlewares: [])
+      # config/runtime.exs
+      config :sycophant, :providers,
+        openai: [api_key: System.get_env("OPENAI_API_KEY")],
+        anthropic: [api_key: System.get_env("ANTHROPIC_API_KEY")],
+        amazon_bedrock: [
+          access_key_id: System.get_env("AWS_ACCESS_KEY_ID"),
+          secret_access_key: System.get_env("AWS_SECRET_ACCESS_KEY"),
+          region: "us-east-1"
+        ],
+        azure: [
+          api_key: System.get_env("AZURE_API_KEY"),
+          base_url: "https://my-resource.openai.azure.com",
+          deployment_name: "gpt-4o",
+          api_version: "2025-04-01-preview"
+        ]
+
+  ## Tesla HTTP Client
+
+      config :sycophant, :tesla,
+        adapter: Tesla.Adapter.Mint,
+        middlewares: [Tesla.Middleware.Logger]
   """
 
   defmodule Provider do
@@ -38,8 +57,14 @@ defmodule Sycophant.Config do
 
   Reads the `:providers` key from the `:sycophant` application environment,
   extracts the entry matching `name`, and parses it through the `Provider`
-  Zoi schema. Returns `{:ok, %Provider{}}` or `{:error, errors}` when
-  validation fails.
+  Zoi schema.
+
+  ## Examples
+
+      Application.put_env(:sycophant, :providers, openai: [api_key: "sk-test"])
+      {:ok, config} = Sycophant.Config.provider(:openai)
+      config.api_key
+      #=> "sk-test"
   """
   @spec provider(atom()) :: {:ok, Provider.t()} | {:error, [Zoi.Error.t()]}
   def provider(name) do
@@ -55,6 +80,13 @@ defmodule Sycophant.Config do
   Reads the `:tesla` key from the `:sycophant` application environment and
   parses it through the `Tesla` Zoi schema. The returned struct contains the
   adapter module and any additional middlewares to inject into every request.
+
+  ## Examples
+
+      Application.put_env(:sycophant, :tesla, adapter: Tesla.Adapter.Mint)
+      {:ok, config} = Sycophant.Config.tesla()
+      config.adapter
+      #=> Tesla.Adapter.Mint
   """
   @spec tesla() :: {:ok, Tesla.t()} | {:error, [Zoi.Error.t()]}
   def tesla do

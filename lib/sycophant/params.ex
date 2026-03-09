@@ -1,12 +1,37 @@
 defmodule Sycophant.Params do
   @moduledoc """
-  Canonical LLM parameters with validation.
+  Canonical LLM parameters with Zoi validation.
 
-  All fields are optional — `nil` means the provider's default is used.
+  All fields are optional -- `nil` means the provider's default is used.
   Wire protocol adapters translate these into provider-specific parameter
   names and value formats, dropping any fields the provider doesn't support.
 
-  Use `Params.t()` to get the Zoi schema for validation.
+  ## Supported Parameters
+
+    * `:temperature` - Sampling temperature between 0.0 and 2.0
+    * `:max_tokens` - Maximum number of tokens to generate
+    * `:top_p` - Nucleus sampling threshold between 0.0 and 1.0
+    * `:top_k` - Top-K sampling (positive integer)
+    * `:stop` - List of stop sequences
+    * `:seed` - Random seed for reproducible outputs
+    * `:frequency_penalty` - Penalize repeated tokens (-2.0 to 2.0)
+    * `:presence_penalty` - Penalize tokens already present (-2.0 to 2.0)
+    * `:reasoning` - Extended thinking effort level (`:low`, `:medium`, `:high`)
+    * `:reasoning_summary` - How to summarize reasoning (`:auto`, `:concise`, `:detailed`, `:none`)
+    * `:parallel_tool_calls` - Allow the model to call multiple tools at once
+    * `:cache_key` - Cache key for prompt caching
+    * `:cache_retention` - Cache retention time in seconds
+    * `:safety_identifier` - Safety identifier for content filtering
+    * `:service_tier` - Service tier selection (e.g. `"auto"`)
+    * `:tool_choice` - Tool selection strategy
+
+  Parameters are passed as keyword options to `Sycophant.generate_text/2`:
+
+      Sycophant.generate_text(messages,
+        model: "openai:gpt-4o-mini",
+        temperature: 0.7,
+        max_tokens: 500
+      )
   """
   use ZoiDefstruct
 

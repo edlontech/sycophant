@@ -2,8 +2,22 @@ defmodule Sycophant.EmbeddingResponse do
   @moduledoc """
   The result of an embedding request.
 
-  Embeddings are always keyed by type (e.g., `:float`, `:int8`),
-  even when only one type is requested.
+  Embeddings are keyed by type (e.g., `:float`, `:int8`), even when only
+  one type is requested. Each value is a list of vectors corresponding
+  to the input order.
+
+  ## Examples
+
+      {:ok, response} = Sycophant.embed(request)
+
+      # Access float embeddings
+      [first_vector | _rest] = response.embeddings.float
+      length(first_vector)
+      #=> 1024
+
+      # Multiple types when requested
+      response.embeddings
+      #=> %{float: [[0.1, ...], [0.2, ...]], int8: [[12, ...], [34, ...]]}
   """
   use TypedStruct
 

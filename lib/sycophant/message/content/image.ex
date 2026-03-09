@@ -2,7 +2,20 @@ defmodule Sycophant.Message.Content.Image do
   @moduledoc """
   Image content part for multimodal messages.
 
-  Either `url` or `data` (base64) should be provided.
+  Provide either a `:url` for remote images or `:data` with base64-encoded
+  content. When using `:data`, set `:media_type` to indicate the format
+  (e.g. `"image/png"`, `"image/jpeg"`).
+
+  ## Examples
+
+      # URL-based image
+      %Sycophant.Message.Content.Image{url: "https://example.com/photo.jpg"}
+
+      # Base64-encoded image
+      %Sycophant.Message.Content.Image{
+        data: "iVBORw0KGgo...",
+        media_type: "image/png"
+      }
   """
   use TypedStruct
 

@@ -2,9 +2,12 @@ defmodule Sycophant.ResponseValidator do
   @moduledoc """
   Validates LLM response text against a Zoi schema.
 
-  Parses the response text as JSON and optionally validates it
-  against the provided schema. The validated (or raw) map is
-  placed in `response.object`.
+  Used by `Sycophant.generate_object/3` to parse the response as JSON and
+  optionally validate it against the provided schema. The validated (or raw)
+  map is placed in `response.object`.
+
+  When `:validate` is `false`, the JSON is parsed but not validated against
+  the schema, allowing schema-as-hint usage where strict validation isn't needed.
   """
 
   alias Sycophant.Error.Invalid.InvalidResponse

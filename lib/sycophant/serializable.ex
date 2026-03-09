@@ -1,10 +1,19 @@
 defprotocol Sycophant.Serializable do
   @moduledoc """
-  Protocol for converting Sycophant structs to plain maps
-  suitable for JSON serialization.
+  Protocol for converting Sycophant structs to plain maps for JSON serialization.
 
-  Every implementation must include a `"__type__"` discriminator
-  key to enable round-trip decoding.
+  Every implementation includes a `"__type__"` discriminator key that enables
+  round-trip decoding via `Sycophant.Serializable.Decoder`.
+
+  ## Round-trip Example
+
+      response = %Sycophant.Response{...}
+      json = Sycophant.Serializable.Decoder.encode(response)
+      restored = Sycophant.Serializable.Decoder.decode(json)
+
+  All core structs implement this protocol: `Response`, `Context`, `Message`,
+  `Tool`, `ToolCall`, `Usage`, `Reasoning`, `Params`, `EmbeddingRequest`,
+  `EmbeddingResponse`, `EmbeddingParams`, and content parts.
   """
 
   @fallback_to_any false
@@ -26,9 +35,28 @@ end
 
 defmodule Sycophant.Serializable.Decoder do
   @moduledoc """
-  Decodes plain maps (with `"__type__"` discriminators) back
-  into Sycophant structs. Provides `encode/1` and `decode/1`
-  convenience functions for JSON round-tripping.
+  Decodes plain maps back into Sycophant structs using `"__type__"` discriminators.
+
+  Provides `encode/1` and `decode/1` convenience functions for full JSON
+  round-tripping, as well as `from_map/2` for working with already-parsed maps.
+
+  ## Examples
+
+      # Full JSON round-trip
+      json = Sycophant.Serializable.Decoder.encode(response)
+      restored = Sycophant.Serializable.Decoder.decode(json)
+
+      # From a pre-parsed map
+      map = %{"__type__" => "Usage", "input_tokens" => 10, "output_tokens" => 25}
+      usage = Sycophant.Serializable.Decoder.from_map(map)
+
+  ## Tool Registry
+
+  When decoding `Tool` structs, pass a `:tool_registry` option to restore
+  function references (which cannot be serialized):
+
+      registry = %{"get_weather" => &MyApp.get_weather/1}
+      Sycophant.Serializable.Decoder.decode(json, tool_registry: registry)
   """
 
   @doc "Serializes a struct to a JSON string via `Sycophant.Serializable`."

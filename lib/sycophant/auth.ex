@@ -1,11 +1,21 @@
 defmodule Sycophant.Auth do
   @moduledoc """
-  Behaviour for provider-level authentication strategies.
+  Behaviour and registry for provider authentication strategies.
 
-  Each provider implements this behaviour to produce the Tesla middleware
-  entries needed for its authentication scheme (Bearer token, API key
-  header, SigV4, etc.). The pipeline dispatches through a registry
-  so adding a new provider never requires editing the pipeline itself.
+  Each provider implements this behaviour to produce Tesla middleware
+  entries for its authentication scheme. The pipeline dispatches through
+  an internal registry, so adding a new provider never requires editing
+  the pipeline.
+
+  ## Built-in Strategies
+
+    * `Sycophant.Auth.Bearer` - Bearer token (OpenAI, OpenRouter, and OpenAI-compatible)
+    * `Sycophant.Auth.Anthropic` - `x-api-key` header with version header
+    * `Sycophant.Auth.Google` - `x-goog-api-key` header
+    * `Sycophant.Auth.Bedrock` - AWS SigV4 request signing
+    * `Sycophant.Auth.Azure` - Bearer token with `api-version` query parameter
+
+  Unregistered providers fall back to the Bearer strategy.
   """
 
   @callback middlewares(credentials :: map()) :: [Tesla.Client.middleware()]

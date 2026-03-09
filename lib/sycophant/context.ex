@@ -1,11 +1,15 @@
 defmodule Sycophant.Context do
   @moduledoc """
-  Internal conversation state held inside Response.
+  Internal conversation state held inside a `Response`.
 
-  Carries the full message history and configuration needed
-  for continuation calls. Credentials are intentionally excluded —
-  they are resolved fresh per-call. Wire protocol lives on individual
-  messages to support mid-conversation model swaps.
+  Carries the full message history and configuration needed for continuation
+  calls. This is an opaque struct -- you typically don't interact with it
+  directly. Instead, pass the entire `Response` to `Sycophant.generate_text/2`
+  to continue a conversation.
+
+  Credentials are intentionally excluded from the context and resolved fresh
+  on each call. Wire protocol tags live on individual messages to support
+  mid-conversation model swaps.
   """
   use TypedStruct
 

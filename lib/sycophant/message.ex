@@ -2,8 +2,29 @@ defmodule Sycophant.Message do
   @moduledoc """
   Represents a message in a conversation.
 
-  Use the constructor functions `user/1`, `assistant/1`, `system/1`,
-  and `tool_result/2` to create messages with the correct role.
+  Messages are the building blocks of LLM conversations. Each message has a
+  `:role` and `:content`, with optional `:tool_calls` for assistant responses
+  and `:tool_call_id` for tool results.
+
+  Use the constructor functions to create messages with the correct role:
+
+      iex> Sycophant.Message.user("Hello!")
+      %Sycophant.Message{role: :user, content: "Hello!", metadata: %{}}
+
+      iex> Sycophant.Message.system("You are helpful.")
+      %Sycophant.Message{role: :system, content: "You are helpful.", metadata: %{}}
+
+      iex> Sycophant.Message.assistant("Hi there!")
+      %Sycophant.Message{role: :assistant, content: "Hi there!", metadata: %{}}
+
+  ## Multimodal Content
+
+  Content can be a plain string or a list of content parts for multimodal input:
+
+      Sycophant.Message.user([
+        %Sycophant.Message.Content.Text{text: "What's in this image?"},
+        %Sycophant.Message.Content.Image{url: "https://example.com/photo.jpg"}
+      ])
   """
   use TypedStruct
 
@@ -21,19 +42,53 @@ defmodule Sycophant.Message do
     field :wire_protocol, atom()
   end
 
-  @doc "Creates a user message with the given content."
+  @doc """
+  Creates a user message with the given content.
+
+  ## Examples
+
+      iex> Sycophant.Message.user("What is Elixir?")
+      %Sycophant.Message{role: :user, content: "What is Elixir?", metadata: %{}}
+  """
   @spec user(String.t() | [content_part()]) :: t()
   def user(content), do: %__MODULE__{role: :user, content: content}
 
-  @doc "Creates an assistant message with the given content."
+  @doc """
+  Creates an assistant message with the given content.
+
+  ## Examples
+
+      iex> Sycophant.Message.assistant("Elixir is a functional language.")
+      %Sycophant.Message{role: :assistant, content: "Elixir is a functional language.", metadata: %{}}
+  """
   @spec assistant(String.t() | [content_part()]) :: t()
   def assistant(content), do: %__MODULE__{role: :assistant, content: content}
 
-  @doc "Creates a system message with the given content."
+  @doc """
+  Creates a system message with the given content.
+
+  ## Examples
+
+      iex> Sycophant.Message.system("You are a helpful assistant.")
+      %Sycophant.Message{role: :system, content: "You are a helpful assistant.", metadata: %{}}
+  """
   @spec system(String.t() | [content_part()]) :: t()
   def system(content), do: %__MODULE__{role: :system, content: content}
 
-  @doc "Creates a tool result message from a tool call and its output."
+  @doc """
+  Creates a tool result message from a tool call and its output.
+
+  ## Examples
+
+      iex> tool_call = %Sycophant.ToolCall{id: "call_123", name: "get_weather", arguments: %{}}
+      iex> Sycophant.Message.tool_result(tool_call, "72F and sunny")
+      %Sycophant.Message{
+        role: :tool_result,
+        content: "72F and sunny",
+        tool_call_id: "call_123",
+        metadata: %{tool_name: "get_weather"}
+      }
+  """
   @spec tool_result(ToolCall.t(), String.t()) :: t()
   def tool_result(%ToolCall{id: id, name: name}, result) do
     %__MODULE__{
@@ -48,7 +103,11 @@ defmodule Sycophant.Message do
 
   @role_allowlist ~w(user assistant system tool_result)
 
-  @doc "Deserializes a message from a plain map."
+  @doc """
+  Deserializes a message from a plain map produced by `Sycophant.Serializable`.
+
+  Used internally by the serialization layer for JSON round-tripping.
+  """
   @spec from_map(map()) :: t()
   def from_map(data) do
     opts = Map.get(data, :opts, [])

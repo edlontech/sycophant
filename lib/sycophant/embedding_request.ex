@@ -2,10 +2,23 @@ defmodule Sycophant.EmbeddingRequest do
   @moduledoc """
   Input struct for embedding requests.
 
-  Each element in `inputs` produces one embedding vector. Elements can be:
-  - `String.t()` for text-only
-  - `%Content.Image{}` for image-only
-  - `[String.t() | Content.Image.t()]` for mixed content
+  Each element in `inputs` produces one embedding vector. Elements can be
+  plain text strings, image content parts, or mixed lists.
+
+  ## Examples
+
+      # Text embeddings
+      %Sycophant.EmbeddingRequest{
+        inputs: ["Hello world", "Goodbye world"],
+        model: "amazon_bedrock:cohere.embed-english-v3"
+      }
+
+      # With parameters
+      %Sycophant.EmbeddingRequest{
+        inputs: ["Hello world"],
+        model: "amazon_bedrock:cohere.embed-english-v3",
+        params: %Sycophant.EmbeddingParams{dimensions: 256, embedding_types: [:float, :int8]}
+      }
   """
   use TypedStruct
 

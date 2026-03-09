@@ -2,13 +2,38 @@ defmodule Sycophant.Tool do
   @moduledoc """
   Defines a tool that can be provided to an LLM.
 
-  Parameters are defined as a Zoi schema, which gets converted
-  to provider-specific JSON Schema by wire protocol adapters.
+  Tools describe callable functions that the LLM can invoke during generation.
+  Parameters are defined as a Zoi schema, which wire protocol adapters convert
+  to provider-specific JSON Schema.
 
-  When `function` is set, Sycophant will auto-execute the tool
-  when the LLM returns a tool call for it. The function receives
-  the parsed arguments map and returns a string result.
-  When `function` is nil, tool calls are returned to the caller.
+  ## Auto-execution
+
+  When `function` is set, Sycophant automatically executes the tool when the
+  LLM returns a tool call, feeds the result back, and continues the loop
+  (up to `:max_steps` iterations). When `function` is `nil`, tool calls are
+  returned in `response.tool_calls` for manual handling.
+
+  ## Examples
+
+      # Auto-executed tool
+      weather_tool = %Sycophant.Tool{
+        name: "get_weather",
+        description: "Get current weather for a city",
+        parameters: Zoi.object(%{city: Zoi.string()}),
+        function: fn %{"city" => city} -> "72F and sunny in \#{city}" end
+      }
+
+      # Manual tool (no function)
+      search_tool = %Sycophant.Tool{
+        name: "search",
+        description: "Search the web",
+        parameters: Zoi.object(%{query: Zoi.string()})
+      }
+
+      {:ok, response} = Sycophant.generate_text(messages,
+        model: "openai:gpt-4o-mini",
+        tools: [weather_tool, search_tool]
+      )
   """
   use TypedStruct
 
