@@ -14,6 +14,7 @@ defmodule Sycophant.ToolCall do
     field :arguments, map(), enforce: true
   end
 
+  @doc "Reconstructs a ToolCall struct from a serialized map."
   @spec from_map(map()) :: t()
   def from_map(%{"id" => id, "name" => name, "arguments" => arguments}) do
     %__MODULE__{id: id, name: name, arguments: arguments}

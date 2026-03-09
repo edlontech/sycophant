@@ -14,6 +14,7 @@ defmodule Sycophant.Reasoning do
     field :encrypted_content, String.t()
   end
 
+  @doc "Deserializes reasoning output from a plain map."
   @spec from_map(map()) :: t()
   def from_map(data) do
     %__MODULE__{summary: data["summary"], encrypted_content: data["encrypted_content"]}

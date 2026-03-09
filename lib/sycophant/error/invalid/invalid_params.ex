@@ -2,6 +2,7 @@ defmodule Sycophant.Error.Invalid.InvalidParams do
   @moduledoc false
   use Splode.Error, fields: [:errors], class: :invalid
 
+  @spec message(%__MODULE__{}) :: String.t()
   def message(%{errors: errors}) when is_list(errors) do
     details = Enum.map_join(errors, ", ", &to_string/1)
     "Invalid parameters: #{details}"

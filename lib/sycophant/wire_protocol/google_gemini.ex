@@ -26,6 +26,7 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
 
   defmodule StreamState do
     @moduledoc false
+    @type t :: %__MODULE__{}
     defstruct text: "", tool_calls: %{}, thinking: "", usage: nil, model: nil
   end
 

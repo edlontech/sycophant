@@ -2,6 +2,7 @@ defmodule Sycophant.Error.Invalid.InvalidSchema do
   @moduledoc false
   use Splode.Error, fields: [:errors, :target, :context], class: :invalid
 
+  @spec message(%__MODULE__{}) :: String.t()
   def message(%{errors: errors, target: target, context: context})
       when is_list(errors) and not is_nil(target) and not is_nil(context) do
     details = Enum.map_join(errors, ", ", &to_string/1)

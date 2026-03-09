@@ -35,6 +35,7 @@ defmodule Sycophant.Pipeline do
     :tool_choice
   ]
 
+  @doc "Executes a full LLM request pipeline: resolves model, validates params, encodes, transports, and decodes."
   @spec call([Sycophant.Message.t()], keyword()) ::
           {:ok, Sycophant.Response.t()} | {:error, Splode.Error.t()}
   def call(messages, opts) do

@@ -19,9 +19,25 @@ defmodule Sycophant.AWS.EventStream do
   @message_crc_size 4
   @type_string 7
 
+  @doc """
+  Decodes a complete AWS event stream binary into a list of event maps.
+
+  Iterates through all concatenated frames in `data`, verifying both prelude
+  and message CRC-32 checksums for each one. Returns `{:ok, events}` when
+  every frame is valid and complete, or `{:error, reason}` on CRC mismatch
+  or truncated input.
+  """
   @spec decode(binary()) :: {:ok, [map()]} | {:error, term()}
   def decode(data), do: decode_all(data, [])
 
+  @doc """
+  Decodes a single frame from the beginning of an event stream binary.
+
+  Returns `{:ok, event, rest}` on success, where `event` is a map with
+  `:headers` and `:payload` keys and `rest` is the unconsumed binary.
+  Returns `{:incomplete, data}` when the buffer does not yet contain a
+  full frame, or `{:error, reason}` on CRC validation failure.
+  """
   @spec decode_frame(binary()) ::
           {:ok, map(), binary()} | {:incomplete, binary()} | {:error, term()}
   def decode_frame(data) when byte_size(data) < @prelude_size do

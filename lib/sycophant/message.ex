@@ -21,15 +21,19 @@ defmodule Sycophant.Message do
     field :wire_protocol, atom()
   end
 
+  @doc "Creates a user message with the given content."
   @spec user(String.t() | [content_part()]) :: t()
   def user(content), do: %__MODULE__{role: :user, content: content}
 
+  @doc "Creates an assistant message with the given content."
   @spec assistant(String.t() | [content_part()]) :: t()
   def assistant(content), do: %__MODULE__{role: :assistant, content: content}
 
+  @doc "Creates a system message with the given content."
   @spec system(String.t() | [content_part()]) :: t()
   def system(content), do: %__MODULE__{role: :system, content: content}
 
+  @doc "Creates a tool result message from a tool call and its output."
   @spec tool_result(ToolCall.t(), String.t()) :: t()
   def tool_result(%ToolCall{id: id, name: name}, result) do
     %__MODULE__{
@@ -44,6 +48,7 @@ defmodule Sycophant.Message do
 
   @role_allowlist ~w(user assistant system tool_result)
 
+  @doc "Deserializes a message from a plain map."
   @spec from_map(map()) :: t()
   def from_map(data) do
     opts = Map.get(data, :opts, [])

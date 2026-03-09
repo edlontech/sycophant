@@ -9,6 +9,7 @@ defmodule Sycophant.Schema.JsonSchema do
 
   alias Sycophant.Error.Invalid.InvalidSchema
 
+  @doc "Converts a Zoi schema to a normalized JSON Schema map."
   @spec to_json_schema(Zoi.schema() | map()) :: {:ok, map()} | {:error, Splode.Error.t()}
   def to_json_schema(schema) when is_map(schema) and not is_struct(schema) do
     {:ok, schema}

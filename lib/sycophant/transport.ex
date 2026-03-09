@@ -10,6 +10,7 @@ defmodule Sycophant.Transport do
 
   alias Sycophant.Error
 
+  @doc "Sends a synchronous HTTP POST and returns the decoded body."
   @spec call(map(), keyword()) :: {:ok, map()} | {:error, Splode.Error.t()}
   def call(payload, opts) do
     client = build_client(opts)
@@ -27,6 +28,7 @@ defmodule Sycophant.Transport do
     end
   end
 
+  @doc "Sends a streaming HTTP POST using SSE and yields the event stream to `on_event`."
   @spec stream(map(), keyword(), (Enumerable.t() -> term())) ::
           {:ok, term()} | {:error, Splode.Error.t()}
   def stream(payload, opts, on_event) do
@@ -46,6 +48,7 @@ defmodule Sycophant.Transport do
     end
   end
 
+  @doc "Sends a streaming HTTP POST for binary event-stream protocols and yields raw chunks to `on_chunks`."
   @spec stream_binary(map(), keyword(), (Enumerable.t() -> term())) ::
           {:ok, term()} | {:error, Splode.Error.t()}
   def stream_binary(payload, opts, on_chunks) do

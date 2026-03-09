@@ -31,6 +31,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
 
   defmodule StreamState do
     @moduledoc false
+    @type t :: %__MODULE__{}
     defstruct text: "", tool_calls: %{}, usage: nil, model: nil
   end
 

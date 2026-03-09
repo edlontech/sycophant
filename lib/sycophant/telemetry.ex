@@ -26,9 +26,11 @@ defmodule Sycophant.Telemetry do
   @request_error [:sycophant, :request, :error]
   @stream_chunk [:sycophant, :stream, :chunk]
 
+  @doc "Returns the list of telemetry event names emitted by Sycophant."
   @spec events() :: [[atom(), ...]]
   def events, do: [@request_start, @request_stop, @request_error, @stream_chunk]
 
+  @doc "Wraps a function in start/stop/error telemetry events."
   @spec span(map(), (-> {:ok, term()} | {:error, term()})) :: {:ok, term()} | {:error, term()}
   def span(metadata, fun) do
     start_time = System.monotonic_time()
@@ -61,6 +63,7 @@ defmodule Sycophant.Telemetry do
     end
   end
 
+  @doc "Emits a telemetry event for a single stream chunk."
   @spec stream_chunk(Sycophant.StreamChunk.t()) :: :ok
   def stream_chunk(%Sycophant.StreamChunk{} = chunk) do
     :telemetry.execute(@stream_chunk, %{}, %{chunk_type: chunk.type})

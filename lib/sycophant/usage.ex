@@ -11,6 +11,7 @@ defmodule Sycophant.Usage do
     field :cache_read_input_tokens, non_neg_integer()
   end
 
+  @doc "Reconstructs a Usage struct from a serialized map."
   @spec from_map(map()) :: t()
   def from_map(data) do
     %__MODULE__{

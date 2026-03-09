@@ -14,6 +14,7 @@ defmodule Sycophant.ToolExecutor do
 
   @default_max_steps 10
 
+  @doc "Runs the tool auto-execution loop until no more tool calls remain or max_steps is reached."
   @spec run(Response.t(), [Tool.t()], keyword(), (list() ->
                                                     {:ok, Response.t()} | {:error, term()})) ::
           {:ok, Response.t()} | {:error, term()}

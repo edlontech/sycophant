@@ -30,6 +30,14 @@ defmodule Sycophant.Config do
               middlewares: Zoi.list(Zoi.any()) |> Zoi.default([])
   end
 
+  @doc """
+  Fetches and validates the configuration for the given provider name.
+
+  Reads the `:providers` key from the `:sycophant` application environment,
+  extracts the entry matching `name`, and parses it through the `Provider`
+  Zoi schema. Returns `{:ok, %Provider{}}` or `{:error, errors}` when
+  validation fails.
+  """
   @spec provider(atom()) :: {:ok, Provider.t()} | {:error, [Zoi.Error.t()]}
   def provider(name) do
     Application.get_env(:sycophant, :providers, [])
@@ -38,6 +46,13 @@ defmodule Sycophant.Config do
     |> then(&Zoi.parse(Provider.t(), &1))
   end
 
+  @doc """
+  Fetches and validates the Tesla HTTP client configuration.
+
+  Reads the `:tesla` key from the `:sycophant` application environment and
+  parses it through the `Tesla` Zoi schema. The returned struct contains the
+  adapter module and any additional middlewares to inject into every request.
+  """
   @spec tesla() :: {:ok, Tesla.t()} | {:error, [Zoi.Error.t()]}
   def tesla do
     Application.get_env(:sycophant, :tesla, [])

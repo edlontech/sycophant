@@ -24,6 +24,7 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
 
   defmodule StreamState do
     @moduledoc false
+    @type t :: %__MODULE__{}
     defstruct text: "",
               tool_calls: %{},
               usage: nil,

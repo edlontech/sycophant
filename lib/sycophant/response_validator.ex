@@ -9,6 +9,7 @@ defmodule Sycophant.ResponseValidator do
 
   alias Sycophant.Error.Invalid.InvalidResponse
 
+  @doc "Validates and parses LLM response text against an optional schema."
   @spec validate(Sycophant.Response.t(), Zoi.schema(), boolean()) ::
           {:ok, Sycophant.Response.t()} | {:error, Splode.Error.t()}
   def validate(response, schema, validate?)

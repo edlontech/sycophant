@@ -27,6 +27,7 @@ defmodule Sycophant.Params do
             service_tier: Zoi.optional(Zoi.string()),
             tool_choice: Zoi.optional(Zoi.any())
 
+  @doc "Deserializes params from a plain map."
   @spec from_map(map()) :: t()
   def from_map(data) do
     %__MODULE__{

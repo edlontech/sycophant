@@ -27,9 +27,11 @@ defmodule Sycophant.Response do
     field :context, Context.t(), enforce: true
   end
 
+  @doc "Returns the conversation message history from the response."
   @spec messages(t()) :: [Sycophant.Message.t()]
   def messages(%__MODULE__{context: context}), do: context.messages
 
+  @doc "Reconstructs a Response struct from a serialized map."
   @spec from_map(map()) :: t()
   def from_map(data) do
     opts = Map.get(data, :opts, [])

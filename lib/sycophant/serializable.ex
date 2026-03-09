@@ -9,6 +9,7 @@ defprotocol Sycophant.Serializable do
 
   @fallback_to_any false
 
+  @doc "Converts a Sycophant struct into a plain map with a `__type__` discriminator."
   @spec to_map(t()) :: map()
   def to_map(struct)
 end
@@ -16,6 +17,7 @@ end
 defmodule Sycophant.Serializable.Helpers do
   @moduledoc false
 
+  @doc false
   @spec compact(map()) :: map()
   def compact(map) do
     Map.reject(map, fn {_k, v} -> is_nil(v) end)
@@ -29,12 +31,15 @@ defmodule Sycophant.Serializable.Decoder do
   convenience functions for JSON round-tripping.
   """
 
+  @doc "Serializes a struct to a JSON string via `Sycophant.Serializable`."
   @spec encode(struct()) :: String.t()
   def encode(struct), do: struct |> Sycophant.Serializable.to_map() |> JSON.encode!()
 
+  @doc "Decodes a JSON string back into the appropriate Sycophant struct."
   @spec decode(String.t(), keyword()) :: struct()
   def decode(json, opts \\ []), do: json |> JSON.decode!() |> from_map(opts)
 
+  @doc "Reconstructs a Sycophant struct from a plain map using its `__type__` discriminator."
   @spec from_map(map(), keyword()) :: struct()
   def from_map(data, opts \\ [])
 

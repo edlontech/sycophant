@@ -1,7 +1,12 @@
 defmodule Sycophant.ResponseTest do
   use ExUnit.Case, async: true
 
-  alias Sycophant.{Context, Message, Params, Response, Tool, Usage}
+  alias Sycophant.Context
+  alias Sycophant.Message
+  alias Sycophant.Params
+  alias Sycophant.Response
+  alias Sycophant.Tool
+  alias Sycophant.Usage
 
   defp build_response(opts \\ []) do
     messages = Keyword.get(opts, :messages, [Message.user("hello")])

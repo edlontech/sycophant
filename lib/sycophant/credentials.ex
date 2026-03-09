@@ -10,6 +10,14 @@ defmodule Sycophant.Credentials do
 
   alias Sycophant.Error
 
+  @doc """
+  Resolves credentials for the given provider using a three-layer strategy.
+
+  Checks in order: (1) per-request credentials passed as `per_request_creds`,
+  (2) application config under `:sycophant, :providers`, (3) environment
+  variables discovered via LLMDB provider metadata. Returns the first non-empty
+  result or a `MissingCredentials` error when all layers come up empty.
+  """
   @spec resolve(atom(), map() | nil) :: {:ok, map()} | {:error, Splode.Error.t()}
   def resolve(provider, per_request_creds \\ nil)
 

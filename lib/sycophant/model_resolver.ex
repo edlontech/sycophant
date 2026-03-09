@@ -19,6 +19,16 @@ defmodule Sycophant.ModelResolver do
     "bedrock_converse" => Sycophant.WireProtocol.BedrockConverse
   }
 
+  @doc """
+  Resolves a model specification into a normalized map for the pipeline.
+
+  Accepts a `"provider:model"` string, an `%LLMDB.Model{}` struct, or `nil`.
+  Looks up the model and its provider in LLMDB, selects the appropriate wire
+  protocol adapter, and returns a map with `:model_id`, `:provider`,
+  `:base_url`, `:wire_adapter`, `:env_vars`, and the raw LLMDB structs.
+  When a string spec contains a model ID that differs from the canonical one,
+  the requested ID takes precedence.
+  """
   @spec resolve(nil | binary() | LLMDB.Model.t() | term()) ::
           {:ok, map()} | {:error, Exception.t()}
   def resolve(nil) do

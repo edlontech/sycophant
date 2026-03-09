@@ -12,6 +12,7 @@ defmodule Sycophant.Message.Content.Image do
     field :media_type, String.t()
   end
 
+  @doc "Deserializes an image content part from a plain map."
   @spec from_map(map()) :: t()
   def from_map(data) do
     %__MODULE__{url: data["url"], data: data["data"], media_type: data["media_type"]}

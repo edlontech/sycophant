@@ -19,6 +19,12 @@ defmodule Sycophant.Auth do
     google: Sycophant.Auth.Google
   }
 
+  @doc """
+  Returns the list of Tesla middlewares needed to authenticate requests for
+  the given `provider`. Looks up the provider in the internal registry and
+  delegates to its `middlewares/1` callback. Falls back to a generic Bearer
+  token strategy for unregistered providers.
+  """
   @spec middlewares_for(atom(), map()) :: [Tesla.Client.middleware()]
   def middlewares_for(provider, credentials) do
     case Map.get(@registry, provider) do
@@ -27,6 +33,13 @@ defmodule Sycophant.Auth do
     end
   end
 
+  @doc """
+  Returns provider-specific path parameters derived from the given credentials.
+
+  Some providers (e.g. Bedrock) require dynamic URL segments such as region or
+  model ID. If the provider module implements the optional `path_params/1`
+  callback, those parameters are returned; otherwise an empty list is returned.
+  """
   @spec path_params_for(atom(), map()) :: keyword()
   def path_params_for(provider, credentials) do
     case Map.get(@registry, provider) do

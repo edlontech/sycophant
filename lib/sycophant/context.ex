@@ -21,6 +21,7 @@ defmodule Sycophant.Context do
     field :response_schema, Zoi.schema()
   end
 
+  @doc "Deserializes a context from a plain map."
   @spec from_map(map()) :: t()
   def from_map(data) do
     opts = Map.get(data, :opts, [])

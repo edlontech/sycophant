@@ -7,6 +7,14 @@ defmodule Sycophant do
   alias Sycophant.Params
   alias Sycophant.Response
 
+  @doc """
+  Sends a text generation request to the configured LLM provider.
+
+  Accepts either a list of `Message` structs with keyword options, or a previous
+  `Response` together with a follow-up `Message` to continue the conversation.
+  When a `Response` is passed, the model, tools, streaming, and parameter settings
+  are automatically carried over from its context.
+  """
   @spec generate_text([Message.t()] | Response.t(), keyword() | Message.t()) ::
           {:ok, Response.t()} | {:error, Splode.Error.t()}
   def generate_text(messages_or_response, opts_or_message \\ [])
@@ -29,6 +37,13 @@ defmodule Sycophant do
     Sycophant.Pipeline.call(messages, opts)
   end
 
+  @doc """
+  Generates a structured object whose output is validated against a Zoi schema.
+
+  Works like `generate_text/2` but additionally instructs the provider to return
+  output conforming to `schema`. When continuing from a previous `Response`, the
+  schema stored in its context is reused automatically.
+  """
   @spec generate_object([Message.t()] | Response.t(), Zoi.schema() | Message.t(), keyword()) ::
           {:ok, Response.t()} | {:error, Splode.Error.t()}
   def generate_object(messages_or_response, schema_or_message, opts \\ [])

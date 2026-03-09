@@ -19,6 +19,7 @@ defmodule Sycophant.Tool do
     field :function, (map() -> String.t())
   end
 
+  @doc "Reconstructs a Tool struct from a serialized map."
   @spec from_map(map()) :: t()
   def from_map(data) do
     opts = Map.get(data, :opts, [])

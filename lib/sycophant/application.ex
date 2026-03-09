@@ -3,6 +3,8 @@ defmodule Sycophant.Application do
 
   use Application
 
+  @doc false
+  @impl true
   def start(_type, _args) do
     children = quiver_children() ++ dev_children()
 

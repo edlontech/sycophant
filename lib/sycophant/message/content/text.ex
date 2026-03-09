@@ -8,6 +8,7 @@ defmodule Sycophant.Message.Content.Text do
     field :text, String.t(), enforce: true
   end
 
+  @doc "Deserializes a text content part from a plain map."
   @spec from_map(map()) :: t()
   def from_map(%{"text" => text}), do: %__MODULE__{text: text}
 end
