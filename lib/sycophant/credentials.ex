@@ -34,9 +34,12 @@ defmodule Sycophant.Credentials do
 
   defp from_app_config(provider) do
     case Sycophant.Config.provider(provider) do
-      {:ok, %{api_key: nil}} -> :error
-      {:ok, config} -> {:ok, Map.from_struct(config) |> Map.reject(fn {_, v} -> is_nil(v) end)}
-      {:error, _} -> :error
+      {:ok, config} ->
+        creds = config |> Map.from_struct() |> Map.reject(fn {_, v} -> is_nil(v) end)
+        if map_size(creds) > 0, do: {:ok, creds}, else: :error
+
+      {:error, _} ->
+        :error
     end
   end
 

@@ -74,8 +74,6 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
     end
   end
 
-  defp extract_provider(_), do: "unknown"
-
   defp handle_recording(env, next, name, opts) do
     seq_name = sequenced_name(name)
 
