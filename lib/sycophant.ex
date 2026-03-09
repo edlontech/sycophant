@@ -3,6 +3,8 @@ defmodule Sycophant do
   Public API for the Sycophant LLM client.
   """
 
+  alias Sycophant.EmbeddingRequest
+  alias Sycophant.EmbeddingResponse
   alias Sycophant.Message
   alias Sycophant.Params
   alias Sycophant.Response
@@ -65,6 +67,18 @@ defmodule Sycophant do
       ] ++ params_to_opts(context.params)
 
     Sycophant.Pipeline.call(messages, opts)
+  end
+
+  @doc """
+  Generates embeddings for the given inputs.
+
+  Accepts an `EmbeddingRequest` struct containing inputs (text, images,
+  or mixed), model specification, and optional parameters.
+  """
+  @spec embed(EmbeddingRequest.t(), keyword()) ::
+          {:ok, EmbeddingResponse.t()} | {:error, Splode.Error.t()}
+  def embed(%EmbeddingRequest{} = request, opts \\ []) do
+    Sycophant.EmbeddingPipeline.call(request, opts)
   end
 
   defp params_to_opts(%Params{} = params) do

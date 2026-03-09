@@ -28,6 +28,25 @@ defmodule Sycophant.Transport do
     end
   end
 
+  @doc "Sends a synchronous HTTP POST and returns the decoded body along with response headers."
+  @spec call_raw(map(), keyword()) ::
+          {:ok, {map(), [{String.t(), String.t()}]}} | {:error, Splode.Error.t()}
+  def call_raw(payload, opts) do
+    client = build_client(opts)
+    path = Keyword.fetch!(opts, :path)
+
+    case Tesla.post(client, path, payload, opts: request_opts(opts)) do
+      {:ok, %Tesla.Env{status: status, body: body, headers: headers}} when status in 200..299 ->
+        {:ok, {body, headers}}
+
+      {:ok, %Tesla.Env{} = env} ->
+        map_error(env)
+
+      {:error, reason} ->
+        {:error, Error.Unknown.Unknown.exception(error: reason)}
+    end
+  end
+
   @doc "Sends a streaming HTTP POST using SSE and yields the event stream to `on_event`."
   @spec stream(map(), keyword(), (Enumerable.t() -> term())) ::
           {:ok, term()} | {:error, Splode.Error.t()}

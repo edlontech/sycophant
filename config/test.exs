@@ -15,3 +15,7 @@ config :sycophant, :test_models, [
   %{model: "google:gemini-2.5-flash", structured_output: true},
   %{model: "amazon_bedrock:us.anthropic.claude-sonnet-4-5-20250929-v1:0", structured_output: true}
 ]
+
+config :sycophant, :test_embedding_models, [
+  %{model: "amazon_bedrock:cohere.embed-v4"}
+]

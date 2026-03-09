@@ -54,6 +54,15 @@ defmodule Sycophant.Serializable.Decoder do
   def from_map(%{"__type__" => "Reasoning"} = data, _opts), do: Sycophant.Reasoning.from_map(data)
   def from_map(%{"__type__" => "Params"} = data, _opts), do: Sycophant.Params.from_map(data)
 
+  def from_map(%{"__type__" => "EmbeddingParams"} = data, _opts),
+    do: Sycophant.EmbeddingParams.from_map(data)
+
+  def from_map(%{"__type__" => "EmbeddingRequest"} = data, _opts),
+    do: Sycophant.EmbeddingRequest.from_map(data)
+
+  def from_map(%{"__type__" => "EmbeddingResponse"} = data, _opts),
+    do: Sycophant.EmbeddingResponse.from_map(data)
+
   def from_map(%{"__type__" => "Tool"} = data, opts),
     do: Sycophant.Tool.from_map(Map.put(data, :opts, opts))
 

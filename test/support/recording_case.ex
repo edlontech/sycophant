@@ -70,6 +70,23 @@ defmodule Sycophant.RecordingCase do
     end
   end
 
+  @doc """
+  Returns the filtered list of test embedding model parameterization maps.
+
+  Reads `:test_embedding_models` from app config. Filters by `RECORD_MODELS`
+  env var the same way as `test_models/1`.
+  """
+  def test_embedding_models do
+    all_entries = Application.get_env(:sycophant, :test_embedding_models, [])
+
+    entries = filter_by_env(all_entries)
+
+    for entry <- entries do
+      model = entry.model
+      %{model: model, fixture_prefix: String.replace(model, ":", "/")}
+    end
+  end
+
   defp filter_by_capability(entries, nil), do: entries
 
   defp filter_by_capability(entries, capability) do

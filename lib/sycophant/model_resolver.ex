@@ -11,6 +11,10 @@ defmodule Sycophant.ModelResolver do
 
   alias Sycophant.Error
 
+  @embedding_adapters %{
+    amazon_bedrock: Sycophant.EmbeddingWireProtocol.BedrockEmbed
+  }
+
   @adapter_map %{
     "openai_chat" => Sycophant.WireProtocol.OpenAICompletions,
     "openai_responses" => Sycophant.WireProtocol.OpenAIResponses,
@@ -48,7 +52,7 @@ defmodule Sycophant.ModelResolver do
         requested_id = parse_model_id(spec)
 
         with {:ok, info} <- resolve(model) do
-          {:ok, maybe_override_model_id(info, requested_id)}
+          {:ok, maybe_override_model_id(info, model, requested_id)}
         end
 
       {:error, _} ->
@@ -57,6 +61,60 @@ defmodule Sycophant.ModelResolver do
   end
 
   def resolve(_), do: {:error, Error.Invalid.MissingModel.exception([])}
+
+  @spec resolve_embedding(nil | binary() | LLMDB.Model.t() | term()) ::
+          {:ok, map()} | {:error, Exception.t()}
+  def resolve_embedding(nil) do
+    {:error, Error.Invalid.MissingModel.exception([])}
+  end
+
+  def resolve_embedding(%LLMDB.Model{} = model) do
+    with :ok <- validate_embedding_model(model),
+         {:ok, provider} <- fetch_provider(model.provider),
+         {:ok, adapter} <- resolve_embedding_adapter(model.provider) do
+      {:ok, build_info(model, provider, adapter)}
+    end
+  end
+
+  def resolve_embedding(spec) when is_binary(spec) do
+    case LLMDB.model(spec) do
+      {:ok, model} ->
+        requested_id = parse_model_id(spec)
+
+        with {:ok, info} <- resolve_embedding(model) do
+          {:ok, maybe_override_model_id(info, model, requested_id)}
+        end
+
+      {:error, _} ->
+        {:error, Error.Invalid.MissingModel.exception([])}
+    end
+  end
+
+  def resolve_embedding(_), do: {:error, Error.Invalid.MissingModel.exception([])}
+
+  defp validate_embedding_model(%LLMDB.Model{modalities: %{output: outputs}}) do
+    if :embedding in outputs do
+      :ok
+    else
+      {:error,
+       Error.Invalid.InvalidParams.exception(errors: ["model does not support embeddings"])}
+    end
+  end
+
+  defp validate_embedding_model(_) do
+    {:error, Error.Invalid.InvalidParams.exception(errors: ["model does not support embeddings"])}
+  end
+
+  defp resolve_embedding_adapter(provider) do
+    case Map.fetch(@embedding_adapters, provider) do
+      {:ok, adapter} ->
+        {:ok, adapter}
+
+      :error ->
+        {:error,
+         Error.Unknown.Unknown.exception(error: "No embedding adapter for provider: #{provider}")}
+    end
+  end
 
   defp fetch_provider(provider_id) do
     case LLMDB.provider(provider_id) do
@@ -107,8 +165,8 @@ defmodule Sycophant.ModelResolver do
     end
   end
 
-  defp maybe_override_model_id(info, requested_id) do
-    if requested_id != info.model_id do
+  defp maybe_override_model_id(info, model, requested_id) do
+    if requested_id != info.model_id and requested_id != model.id do
       %{info | model_id: requested_id}
     else
       info
