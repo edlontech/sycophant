@@ -4,7 +4,7 @@ defmodule Sycophant.Auth do
 
   Each provider implements this behaviour to produce Tesla middleware
   entries for its authentication scheme. The pipeline dispatches through
-  an internal registry, so adding a new provider never requires editing
+  `Sycophant.Registry`, so adding a new provider never requires editing
   the pipeline.
 
   ## Built-in Strategies
@@ -23,24 +23,17 @@ defmodule Sycophant.Auth do
 
   @optional_callbacks [path_params: 1]
 
-  @registry %{
-    amazon_bedrock: Sycophant.Auth.Bedrock,
-    anthropic: Sycophant.Auth.Anthropic,
-    azure: Sycophant.Auth.Azure,
-    google: Sycophant.Auth.Google
-  }
-
   @doc """
   Returns the list of Tesla middlewares needed to authenticate requests for
-  the given `provider`. Looks up the provider in the internal registry and
+  the given `provider`. Looks up the provider in `Sycophant.Registry` and
   delegates to its `middlewares/1` callback. Falls back to a generic Bearer
   token strategy for unregistered providers.
   """
   @spec middlewares_for(atom(), map()) :: [Tesla.Client.middleware()]
   def middlewares_for(provider, credentials) do
-    case Map.get(@registry, provider) do
-      nil -> Sycophant.Auth.Bearer.middlewares(credentials)
-      mod -> mod.middlewares(credentials)
+    case Sycophant.Registry.fetch_auth(provider) do
+      {:ok, mod} -> mod.middlewares(credentials)
+      :error -> Sycophant.Auth.Bearer.middlewares(credentials)
     end
   end
 
@@ -53,14 +46,14 @@ defmodule Sycophant.Auth do
   """
   @spec path_params_for(atom(), map()) :: keyword()
   def path_params_for(provider, credentials) do
-    case Map.get(@registry, provider) do
-      nil ->
-        []
-
-      mod ->
+    case Sycophant.Registry.fetch_auth(provider) do
+      {:ok, mod} ->
         if function_exported?(mod, :path_params, 1),
           do: mod.path_params(credentials),
           else: []
+
+      :error ->
+        []
     end
   end
 end

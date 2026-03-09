@@ -6,6 +6,8 @@ defmodule Sycophant.Application do
   @doc false
   @impl true
   def start(_type, _args) do
+    Sycophant.Registry.init()
+
     children = quiver_children() ++ dev_children()
 
     opts = [strategy: :one_for_one, name: Sycophant.Supervisor]

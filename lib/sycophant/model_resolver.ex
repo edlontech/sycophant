@@ -22,20 +22,6 @@ defmodule Sycophant.ModelResolver do
 
   alias Sycophant.Error
 
-  @embedding_adapters %{
-    amazon_bedrock: Sycophant.EmbeddingWireProtocol.BedrockEmbed,
-    azure: Sycophant.EmbeddingWireProtocol.OpenAIEmbed
-  }
-
-  @adapter_map %{
-    "openai_chat" => Sycophant.WireProtocol.OpenAICompletions,
-    "openai_completion" => Sycophant.WireProtocol.OpenAICompletions,
-    "openai_responses" => Sycophant.WireProtocol.OpenAIResponses,
-    "anthropic_messages" => Sycophant.WireProtocol.AnthropicMessages,
-    "google_gemini" => Sycophant.WireProtocol.GoogleGemini,
-    "bedrock_converse" => Sycophant.WireProtocol.BedrockConverse
-  }
-
   @doc """
   Resolves a model specification into a normalized map for the pipeline.
 
@@ -119,7 +105,7 @@ defmodule Sycophant.ModelResolver do
   end
 
   defp resolve_embedding_adapter(provider) do
-    case Map.fetch(@embedding_adapters, provider) do
+    case Sycophant.Registry.fetch_embedding_protocol(provider) do
       {:ok, adapter} ->
         {:ok, adapter}
 
@@ -148,11 +134,15 @@ defmodule Sycophant.ModelResolver do
       nil ->
         {:error, Error.Invalid.MissingModel.exception([])}
 
-      protocol when is_map_key(@adapter_map, protocol) ->
-        {:ok, Map.fetch!(@adapter_map, protocol)}
+      protocol ->
+        case Sycophant.Registry.fetch_wire_protocol(protocol) do
+          {:ok, adapter} ->
+            {:ok, adapter}
 
-      unknown ->
-        {:error, Error.Unknown.Unknown.exception(error: "Unsupported wire protocol: #{unknown}")}
+          :error ->
+            {:error,
+             Error.Unknown.Unknown.exception(error: "Unsupported wire protocol: #{protocol}")}
+        end
     end
   end
 
