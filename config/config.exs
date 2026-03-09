@@ -7,4 +7,14 @@ config :sycophant, :wire_protocol_defaults, %{
   amazon_bedrock: "bedrock_converse"
 }
 
+config :llm_db,
+  allow: %{
+    openai: ["*"],
+    anthropic: ["*"],
+    google: ["*"],
+    amazon_bedrock: ["*"],
+    openrouter: ["*"],
+    azure: ["*"]
+  }
+
 import_config "#{config_env()}.exs"
