@@ -15,7 +15,38 @@ defmodule Sycophant.Tool do
   typedstruct do
     field :name, String.t(), enforce: true
     field :description, String.t(), enforce: true
-    field :parameters, Zoi.schema(), enforce: true
+    field :parameters, Zoi.schema() | map(), enforce: true
     field :function, (map() -> String.t())
+  end
+
+  @spec from_map(map()) :: t()
+  def from_map(data) do
+    opts = Map.get(data, :opts, [])
+    tool_registry = Keyword.get(opts, :tool_registry, %{})
+    name = data["name"]
+
+    %__MODULE__{
+      name: name,
+      description: data["description"],
+      parameters: data["parameters"],
+      function: Map.get(tool_registry, name)
+    }
+  end
+end
+
+defimpl Sycophant.Serializable, for: Sycophant.Tool do
+  def to_map(%{name: name, description: desc, parameters: params}) do
+    json_schema =
+      case Sycophant.Schema.JsonSchema.to_json_schema(params) do
+        {:ok, schema} -> schema
+        _ -> params
+      end
+
+    %{
+      "__type__" => "Tool",
+      "name" => name,
+      "description" => desc,
+      "parameters" => json_schema
+    }
   end
 end

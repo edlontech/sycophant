@@ -17,6 +17,12 @@ defmodule Sycophant.ResponseValidator do
     {:error, InvalidResponse.exception(errors: ["response text is nil"])}
   end
 
+  def validate(response, schema, true) when is_map(schema) and not is_struct(schema) do
+    with {:ok, decoded} <- decode_json(response.text) do
+      {:ok, %{response | object: decoded}}
+    end
+  end
+
   def validate(response, schema, true) do
     with {:ok, decoded} <- decode_json(response.text),
          {:ok, validated} <- validate_schema(decoded, schema) do

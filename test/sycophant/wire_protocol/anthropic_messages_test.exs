@@ -264,7 +264,7 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
       request = build_request([Message.user("hi")], params: %Params{reasoning: :high})
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
 
-      assert payload["thinking"] == %{"type" => "enabled", "budget_tokens" => 16384}
+      assert payload["thinking"] == %{"type" => "enabled", "budget_tokens" => 16_384}
     end
 
     test "provider_params thinking overrides reasoning mapping" do
@@ -272,12 +272,12 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
         build_request([Message.user("hi")],
           params: %Params{reasoning: :high},
           provider_params: %{
-            "thinking" => %{"type" => "enabled", "budget_tokens" => 32768}
+            "thinking" => %{"type" => "enabled", "budget_tokens" => 32_768}
           }
         )
 
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
-      assert payload["thinking"] == %{"type" => "enabled", "budget_tokens" => 32768}
+      assert payload["thinking"] == %{"type" => "enabled", "budget_tokens" => 32_768}
     end
 
     test "no thinking field when reasoning is nil" do

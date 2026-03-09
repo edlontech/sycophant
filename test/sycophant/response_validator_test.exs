@@ -71,4 +71,30 @@ defmodule Sycophant.ResponseValidatorTest do
                ResponseValidator.validate(response, schema, false)
     end
   end
+
+  describe "validate/3 with plain JSON Schema map" do
+    test "accepts plain JSON Schema map without Zoi validation" do
+      response = build_response(~s({"name": "Alice"}))
+      schema = %{"type" => "object", "properties" => %{"name" => %{"type" => "string"}}}
+
+      assert {:ok, result} = ResponseValidator.validate(response, schema, true)
+      assert result.object == %{"name" => "Alice"}
+    end
+
+    test "returns error when JSON is invalid with plain schema" do
+      response = build_response("not json")
+      schema = %{"type" => "object"}
+
+      assert {:error, %Sycophant.Error.Invalid.InvalidResponse{}} =
+               ResponseValidator.validate(response, schema, true)
+    end
+
+    test "returns error when text is nil with plain schema" do
+      response = build_response(nil)
+      schema = %{"type" => "object"}
+
+      assert {:error, %Sycophant.Error.Invalid.InvalidResponse{}} =
+               ResponseValidator.validate(response, schema, true)
+    end
+  end
 end

@@ -52,7 +52,7 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
 
   @supported_params Map.keys(@param_map)
 
-  @reasoning_budgets %{low: 1024, medium: 4096, high: 16384}
+  @reasoning_budgets %{low: 1024, medium: 4096, high: 16_384}
 
   # --- encode_request ---
 

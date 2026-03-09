@@ -13,4 +13,15 @@ defmodule Sycophant.ToolCall do
     field :name, String.t(), enforce: true
     field :arguments, map(), enforce: true
   end
+
+  @spec from_map(map()) :: t()
+  def from_map(%{"id" => id, "name" => name, "arguments" => arguments}) do
+    %__MODULE__{id: id, name: name, arguments: arguments}
+  end
+end
+
+defimpl Sycophant.Serializable, for: Sycophant.ToolCall do
+  def to_map(%{id: id, name: name, arguments: arguments}) do
+    %{"__type__" => "ToolCall", "id" => id, "name" => name, "arguments" => arguments}
+  end
 end

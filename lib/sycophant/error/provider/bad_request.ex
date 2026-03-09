@@ -1,4 +1,5 @@
 defmodule Sycophant.Error.Provider.BadRequest do
+  @moduledoc false
   use Splode.Error, fields: [:status, :body], class: :provider
 
   def message(%{status: status, body: body}) when is_integer(status) do

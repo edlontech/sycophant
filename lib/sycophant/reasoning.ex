@@ -13,4 +13,21 @@ defmodule Sycophant.Reasoning do
     field :summary, String.t()
     field :encrypted_content, String.t()
   end
+
+  @spec from_map(map()) :: t()
+  def from_map(data) do
+    %__MODULE__{summary: data["summary"], encrypted_content: data["encrypted_content"]}
+  end
+end
+
+defimpl Sycophant.Serializable, for: Sycophant.Reasoning do
+  import Sycophant.Serializable.Helpers
+
+  def to_map(r) do
+    compact(%{
+      "__type__" => "Reasoning",
+      "summary" => r.summary,
+      "encrypted_content" => r.encrypted_content
+    })
+  end
 end

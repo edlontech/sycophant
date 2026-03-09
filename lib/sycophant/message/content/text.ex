@@ -5,6 +5,13 @@ defmodule Sycophant.Message.Content.Text do
   use TypedStruct
 
   typedstruct do
-    field(:text, String.t(), enforce: true)
+    field :text, String.t(), enforce: true
   end
+
+  @spec from_map(map()) :: t()
+  def from_map(%{"text" => text}), do: %__MODULE__{text: text}
+end
+
+defimpl Sycophant.Serializable, for: Sycophant.Message.Content.Text do
+  def to_map(%{text: text}), do: %{"__type__" => "Text", "type" => "text", "text" => text}
 end

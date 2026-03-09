@@ -234,27 +234,29 @@ defmodule Sycophant.Pipeline do
     Enum.reduce_while(event_stream, {:ok, initial_state}, fn event, {:ok, state} ->
       case decode_sse_data(event) do
         {:ok, decoded_event} ->
-          case adapter.decode_stream_chunk(state, decoded_event) do
-            {:ok, new_state, chunks} ->
-              fire_stream_events(chunks, callback)
-              {:cont, {:ok, new_state}}
-
-            {:done, response} ->
-              {:halt, {:done, response}}
-
-            {:done, response, chunks} ->
-              fire_stream_events(chunks, callback)
-              {:halt, {:done, response}}
-
-            {:error, _} = error ->
-              {:halt, error}
-          end
+          decoded_event
+          |> then(&adapter.decode_stream_chunk(state, &1))
+          |> handle_stream_chunk(callback)
 
         {:error, _} = error ->
           {:halt, error}
       end
     end)
   end
+
+  defp handle_stream_chunk({:ok, new_state, chunks}, callback) do
+    fire_stream_events(chunks, callback)
+    {:cont, {:ok, new_state}}
+  end
+
+  defp handle_stream_chunk({:done, response}, _callback), do: {:halt, {:done, response}}
+
+  defp handle_stream_chunk({:done, response, chunks}, callback) do
+    fire_stream_events(chunks, callback)
+    {:halt, {:done, response}}
+  end
+
+  defp handle_stream_chunk({:error, _} = error, _callback), do: {:halt, error}
 
   defp decode_sse_data(%{data: "[DONE]"} = event), do: {:ok, event}
 

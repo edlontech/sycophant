@@ -162,5 +162,10 @@ defmodule Sycophant.Schema.JsonSchemaTest do
       assert result["minItems"] == 1
       assert result["maxItems"] == 5
     end
+
+    test "passes through plain map as-is" do
+      schema = %{"type" => "object", "properties" => %{"name" => %{"type" => "string"}}}
+      assert {:ok, ^schema} = JsonSchema.to_json_schema(schema)
+    end
   end
 end
