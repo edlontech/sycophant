@@ -141,6 +141,56 @@ defmodule Sycophant.EmbeddingPipelineTest do
     end
   end
 
+  describe "call/2 with credentials base_url override" do
+    test "uses base_url from credentials instead of LLMDB base_url" do
+      model = build_embed_model()
+      provider = build_provider()
+
+      expect(LLMDB, :model, fn "amazon_bedrock:cohere.embed-v4" -> {:ok, model} end)
+      expect(LLMDB, :provider, fn :amazon_bedrock -> {:ok, provider} end)
+
+      expect(Sycophant.Transport, :call_raw, fn _payload, opts ->
+        assert opts[:base_url] == "https://custom.bedrock.endpoint"
+
+        {:ok, {%{"embeddings" => [[0.1, 0.2, 0.3]]}, []}}
+      end)
+
+      request = %EmbeddingRequest{
+        inputs: ["hello"],
+        model: "amazon_bedrock:cohere.embed-v4",
+        params: %EmbeddingParams{embedding_types: [:float], truncate: :none}
+      }
+
+      assert {:ok, _} =
+               EmbeddingPipeline.call(request,
+                 credentials: %{region: "us-east-1", base_url: "https://custom.bedrock.endpoint"}
+               )
+    end
+
+    test "falls back to LLMDB base_url when credentials lack base_url" do
+      model = build_embed_model()
+      provider = build_provider()
+
+      expect(LLMDB, :model, fn "amazon_bedrock:cohere.embed-v4" -> {:ok, model} end)
+      expect(LLMDB, :provider, fn :amazon_bedrock -> {:ok, provider} end)
+
+      expect(Sycophant.Transport, :call_raw, fn _payload, opts ->
+        assert opts[:base_url] == "https://bedrock-runtime.us-east-1.amazonaws.com"
+
+        {:ok, {%{"embeddings" => [[0.1, 0.2, 0.3]]}, []}}
+      end)
+
+      request = %EmbeddingRequest{
+        inputs: ["hello"],
+        model: "amazon_bedrock:cohere.embed-v4",
+        params: %EmbeddingParams{embedding_types: [:float], truncate: :none}
+      }
+
+      assert {:ok, _} =
+               EmbeddingPipeline.call(request, credentials: %{region: "us-east-1"})
+    end
+  end
+
   describe "call/2 telemetry" do
     setup do
       test_pid = self()

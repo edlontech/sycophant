@@ -13,7 +13,7 @@ defmodule Sycophant.ModelResolverTest do
       provider: :openai,
       provider_model_id: nil,
       base_url: nil,
-      extra: %{wire: %{protocol: "openai_chat"}}
+      extra: %{wire: %{protocol: "openai_completion"}}
     }
 
     struct(LLMDB.Model, Map.merge(defaults, attrs))
@@ -100,8 +100,8 @@ defmodule Sycophant.ModelResolverTest do
   end
 
   describe "wire protocol mapping" do
-    test "maps openai_chat to OpenAICompletions adapter" do
-      model = build_model(%{extra: %{wire: %{protocol: "openai_chat"}}})
+    test "maps openai_completion to OpenAICompletions adapter" do
+      model = build_model(%{extra: %{wire: %{protocol: "openai_completion"}}})
       provider = build_provider()
 
       expect(LLMDB, :provider, fn :openai -> {:ok, provider} end)
@@ -185,7 +185,7 @@ defmodule Sycophant.ModelResolverTest do
     test "model-level protocol takes priority over config default" do
       model =
         build_model(%{
-          extra: %{wire: %{protocol: "openai_chat"}},
+          extra: %{wire: %{protocol: "openai_completion"}},
           provider: :openrouter
         })
 

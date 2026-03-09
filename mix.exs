@@ -52,7 +52,7 @@ defmodule Sycophant.MixProject do
       {:excoveralls, "~> 0.18", only: [:dev, :test]},
       {:ex_doc, "~> 0.34", only: :dev, runtime: false},
       {:jason, "~> 1.4"},
-      {:llm_db, "~> 2026.2"},
+      {:llm_db, github: "ycastorium/llm_db", branch: "provider_and_wire_improvements"},
       {:mimic, "~> 2.0", only: :test},
       {:mix_audit, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:quiver, "~> 0.1", only: [:dev, :test]},

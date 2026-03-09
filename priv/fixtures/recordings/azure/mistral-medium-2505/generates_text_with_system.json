@@ -1,0 +1,115 @@
+{
+  "metadata": {
+    "model": "mistral-medium-2505",
+    "provider": "azure",
+    "recorded_at": "2026-03-09T18:15:27.032173Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "You are a calculator. Only respond with numbers.",
+          "role": "system"
+        },
+        {
+          "content": "What is 2 + 2?",
+          "role": "user"
+        }
+      ],
+      "model": "mistral-medium-2505"
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ]
+    ],
+    "method": "post",
+    "url": "https://azure/models/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "content_filter_result": {
+            "error": {
+              "code": "content_filter_error",
+              "message": "The contents are not filtered"
+            }
+          },
+          "content_filter_results": {},
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "content": "4",
+            "role": "assistant",
+            "tool_calls": null
+          }
+        }
+      ],
+      "created": 1773080126,
+      "id": "02825c651da24bc2bbd98a9f3af3e75b",
+      "model": "mistral-medium-2505",
+      "object": "chat.completion",
+      "prompt_filter_results": [
+        {
+          "content_filter_results": {},
+          "prompt_index": 0
+        }
+      ],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 23,
+        "total_tokens": 25
+      }
+    },
+    "headers": [
+      [
+        "content-length",
+        "508"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "vary",
+        "Accept-Encoding"
+      ],
+      [
+        "request-context",
+        "appId="
+      ],
+      [
+        "prompt_token_len",
+        "23"
+      ],
+      [
+        "sampling_token_len",
+        "2"
+      ],
+      [
+        "apim-request-id",
+        "dbb50194-e81c-49df-b955-07f3904ee12d"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "x-ms-region",
+        "East US"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "date",
+        "Mon, 09 Mar 2026 18:15:26 GMT"
+      ]
+    ],
+    "status": 200
+  }
+}

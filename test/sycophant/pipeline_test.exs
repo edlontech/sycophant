@@ -555,6 +555,65 @@ defmodule Sycophant.PipelineTest do
     end
   end
 
+  describe "call/2 with credentials base_url override" do
+    test "uses base_url from credentials instead of LLMDB base_url" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+
+      expect(Sycophant.Transport, :call, fn _payload, opts ->
+        assert opts[:base_url] == "https://custom.azure.endpoint/openai"
+
+        {:ok,
+         %{
+           "id" => "resp-123",
+           "output" => [
+             %{
+               "type" => "message",
+               "content" => [%{"type" => "output_text", "text" => "Ok"}]
+             }
+           ],
+           "usage" => %{"input_tokens" => 1, "output_tokens" => 1}
+         }}
+      end)
+
+      opts =
+        default_opts() ++
+          [credentials: %{api_key: "sk-custom", base_url: "https://custom.azure.endpoint/openai"}]
+
+      assert {:ok, _} = Pipeline.call(default_messages(), opts)
+    end
+
+    test "falls back to LLMDB base_url when credentials lack base_url" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+
+      expect(Sycophant.Transport, :call, fn _payload, opts ->
+        assert opts[:base_url] == "https://api.openai.com/v1"
+
+        {:ok,
+         %{
+           "id" => "resp-123",
+           "output" => [
+             %{
+               "type" => "message",
+               "content" => [%{"type" => "output_text", "text" => "Ok"}]
+             }
+           ],
+           "usage" => %{"input_tokens" => 1, "output_tokens" => 1}
+         }}
+      end)
+
+      opts = default_opts() ++ [credentials: %{api_key: "sk-custom"}]
+      assert {:ok, _} = Pipeline.call(default_messages(), opts)
+    end
+  end
+
   describe "call/2 streaming" do
     defp completed_response_body do
       %{

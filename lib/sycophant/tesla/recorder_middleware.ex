@@ -69,8 +69,31 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
 
   defp extract_provider(url) when is_binary(url) do
     case URI.parse(url) do
-      %URI{host: host} when is_binary(host) -> host
+      %URI{host: host} when is_binary(host) -> sanitize_host(host)
       _ -> "unknown"
+    end
+  end
+
+  defp sanitize_url(url) when is_binary(url) do
+    case URI.parse(url) do
+      %URI{host: host} = uri when is_binary(host) ->
+        URI.to_string(%{uri | host: sanitize_host(host)})
+
+      _ ->
+        url
+    end
+  end
+
+  @provider_domains %{
+    ".openai.azure.com" => "azure",
+    ".cognitiveservices.azure.com" => "azure",
+    ".services.ai.azure.com" => "azure"
+  }
+
+  defp sanitize_host(host) do
+    case Enum.find(@provider_domains, fn {suffix, _} -> String.ends_with?(host, suffix) end) do
+      {_, provider} -> provider
+      nil -> host
     end
   end
 
@@ -194,7 +217,7 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
       "metadata" => metadata,
       "request" => %{
         "method" => to_string(request_env.method),
-        "url" => request_env.url,
+        "url" => sanitize_url(request_env.url),
         "headers" => redact_headers(request_env.headers),
         "body" => safe_decode(request_env.body)
       },

@@ -1,0 +1,216 @@
+{
+  "metadata": {
+    "model": "gpt-5-mini",
+    "provider": "azure",
+    "recorded_at": "2026-03-09T18:15:24.375493Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "What is 2 + 2?",
+          "role": "user"
+        }
+      ],
+      "instructions": "You are a calculator. Only respond with numbers.",
+      "model": "gpt-5-mini"
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ]
+    ],
+    "method": "post",
+    "url": "https://azure/openai/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "top_logprobs": 0,
+      "content_filters": [
+        {
+          "blocked": false,
+          "content_filter_offsets": {
+            "check_offset": 0,
+            "end_offset": 279,
+            "start_offset": 0
+          },
+          "content_filter_raw": [],
+          "content_filter_results": {
+            "hate": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "protected_material_code": {
+              "detected": false,
+              "filtered": false
+            },
+            "protected_material_text": {
+              "detected": false,
+              "filtered": false
+            },
+            "self_harm": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "sexual": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "violence": {
+              "filtered": false,
+              "severity": "safe"
+            }
+          },
+          "source_type": "completion"
+        }
+      ],
+      "previous_response_id": null,
+      "tool_choice": "auto",
+      "service_tier": "default",
+      "status": "completed",
+      "tools": [],
+      "id": "resp_01fa67ca4ed7eef60069af0e3a7e308195afae0acc8527b8ef",
+      "temperature": 1.0,
+      "max_output_tokens": null,
+      "user": null,
+      "frequency_penalty": 0.0,
+      "error": null,
+      "model": "gpt-5-mini",
+      "usage": {
+        "input_tokens": 28,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 77,
+        "output_tokens_details": {
+          "reasoning_tokens": 64
+        },
+        "total_tokens": 105
+      },
+      "safety_identifier": null,
+      "object": "response",
+      "parallel_tool_calls": true,
+      "output": [
+        {
+          "id": "rs_01fa67ca4ed7eef60069af0e3ae8848195991a13f19bc073e4",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "4",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_01fa67ca4ed7eef60069af0e3bc1d8819596c394fae31ceda2",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "instructions": "You are a calculator. Only respond with numbers.",
+      "store": true,
+      "presence_penalty": 0.0,
+      "incomplete_details": null,
+      "reasoning": {
+        "effort": "medium",
+        "summary": null
+      },
+      "completed_at": 1773080124,
+      "truncation": "disabled",
+      "top_p": 1.0,
+      "prompt_cache_retention": null,
+      "metadata": {},
+      "prompt_cache_key": null,
+      "created_at": 1773080122,
+      "max_tool_calls": null
+    },
+    "headers": [
+      [
+        "content-length",
+        "2517"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "skip-error-remapping",
+        "true"
+      ],
+      [
+        "x-ratelimit-limit-requests",
+        "150"
+      ],
+      [
+        "x-ratelimit-limit-tokens",
+        "150000"
+      ],
+      [
+        "x-ratelimit-remaining-requests",
+        "149"
+      ],
+      [
+        "x-ratelimit-remaining-tokens",
+        "149993"
+      ],
+      [
+        "x-ratelimit-reset-requests",
+        "0"
+      ],
+      [
+        "x-ratelimit-reset-tokens",
+        "0"
+      ],
+      [
+        "azureai-requested-tier",
+        "default"
+      ],
+      [
+        "azureai-processed-tier",
+        "default"
+      ],
+      [
+        "x-request-id",
+        "34522dc4-97af-42ad-b3f0-5c660c1e6eb4"
+      ],
+      [
+        "apim-request-id",
+        "9691cee2-5165-4b36-a367-8a5c045dc310"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-ms-client-request-id",
+        "Not-Set"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "x-ms-region",
+        "East US"
+      ],
+      [
+        "date",
+        "Mon, 09 Mar 2026 18:15:24 GMT"
+      ]
+    ],
+    "status": 200
+  }
+}

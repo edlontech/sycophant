@@ -339,10 +339,12 @@ defmodule Sycophant.Pipeline do
   end
 
   defp build_request(messages, params, opts, model_info) do
+    model_id = resolve_model_id(model_info, opts)
+
     {:ok,
      %Sycophant.Request{
        messages: messages,
-       model: model_info.model_id,
+       model: model_id,
        resolved_model: model_info.model_struct,
        wire_protocol: model_info.wire_adapter,
        params: params,
@@ -353,12 +355,24 @@ defmodule Sycophant.Pipeline do
      }}
   end
 
+  defp resolve_model_id(model_info, opts) do
+    case get_in(opts, [:credentials, :deployment_name]) do
+      nil -> model_info.model_id
+      name -> name
+    end
+  end
+
   defp transport_opts(model_info, credentials, request) do
+    base_url = Map.get(credentials, :base_url, model_info.base_url)
+    path_params = Auth.path_params_for(model_info.provider, credentials)
+    {path_prefix, path_params} = Keyword.pop(path_params, :path_prefix, "")
+    path = path_prefix <> model_info.wire_adapter.request_path(request)
+
     [
-      base_url: model_info.base_url,
-      path: model_info.wire_adapter.request_path(request),
+      base_url: base_url,
+      path: path,
       auth_middlewares: Auth.middlewares_for(model_info.provider, credentials),
-      path_params: Auth.path_params_for(model_info.provider, credentials)
+      path_params: path_params
     ]
   end
 end

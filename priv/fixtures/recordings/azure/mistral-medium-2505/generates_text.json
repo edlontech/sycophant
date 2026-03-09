@@ -1,0 +1,151 @@
+{
+  "metadata": {
+    "model": "mistral-medium-2505",
+    "provider": "azure",
+    "recorded_at": "2026-03-09T18:15:26.088393Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "Say 'hello' and nothing else.",
+          "role": "user"
+        }
+      ],
+      "model": "mistral-medium-2505"
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ]
+    ],
+    "method": "post",
+    "url": "https://azure/models/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "content_filter_results": {
+            "hate": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "protected_material_code": {
+              "detected": false,
+              "filtered": false
+            },
+            "protected_material_text": {
+              "detected": false,
+              "filtered": false
+            },
+            "self_harm": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "sexual": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "violence": {
+              "filtered": false,
+              "severity": "safe"
+            }
+          },
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "content": "hello",
+            "role": "assistant",
+            "tool_calls": null
+          }
+        }
+      ],
+      "created": 1773080125,
+      "id": "b14ea3a630494160a10f62eecb996165",
+      "model": "mistral-medium-2505",
+      "object": "chat.completion",
+      "prompt_filter_results": [
+        {
+          "content_filter_results": {
+            "hate": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "jailbreak": {
+              "detected": false,
+              "filtered": false
+            },
+            "self_harm": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "sexual": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "violence": {
+              "filtered": false,
+              "severity": "safe"
+            }
+          },
+          "prompt_index": 0
+        }
+      ],
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 11,
+        "total_tokens": 13
+      }
+    },
+    "headers": [
+      [
+        "content-length",
+        "948"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "vary",
+        "Accept-Encoding"
+      ],
+      [
+        "request-context",
+        "appId="
+      ],
+      [
+        "prompt_token_len",
+        "11"
+      ],
+      [
+        "sampling_token_len",
+        "2"
+      ],
+      [
+        "apim-request-id",
+        "8a57e1c5-21f7-4336-90a4-b2d116271cc5"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "x-ms-region",
+        "East US"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "date",
+        "Mon, 09 Mar 2026 18:15:25 GMT"
+      ]
+    ],
+    "status": 200
+  }
+}

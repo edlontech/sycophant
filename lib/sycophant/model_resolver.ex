@@ -12,11 +12,13 @@ defmodule Sycophant.ModelResolver do
   alias Sycophant.Error
 
   @embedding_adapters %{
-    amazon_bedrock: Sycophant.EmbeddingWireProtocol.BedrockEmbed
+    amazon_bedrock: Sycophant.EmbeddingWireProtocol.BedrockEmbed,
+    azure: Sycophant.EmbeddingWireProtocol.OpenAIEmbed
   }
 
   @adapter_map %{
     "openai_chat" => Sycophant.WireProtocol.OpenAICompletions,
+    "openai_completion" => Sycophant.WireProtocol.OpenAICompletions,
     "openai_responses" => Sycophant.WireProtocol.OpenAIResponses,
     "anthropic_messages" => Sycophant.WireProtocol.AnthropicMessages,
     "google_gemini" => Sycophant.WireProtocol.GoogleGemini,
@@ -124,8 +126,11 @@ defmodule Sycophant.ModelResolver do
   end
 
   defp resolve_adapter(model) do
+    extra = model.extra || %{}
+
     protocol =
-      get_in(model.extra || %{}, [:wire, :protocol]) ||
+      get_in(extra, [:wire, :protocol]) ||
+        extra[:wire_protocol] ||
         wire_protocol_default(model.provider)
 
     case protocol do

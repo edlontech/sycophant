@@ -16,6 +16,7 @@ defmodule Sycophant.Auth do
   @registry %{
     amazon_bedrock: Sycophant.Auth.Bedrock,
     anthropic: Sycophant.Auth.Anthropic,
+    azure: Sycophant.Auth.Azure,
     google: Sycophant.Auth.Google
   }
 

@@ -19,7 +19,10 @@ defmodule Sycophant.Config do
               api_secret: Zoi.optional(Zoi.string()),
               region: Zoi.optional(Zoi.string()),
               access_key_id: Zoi.optional(Zoi.string()),
-              secret_access_key: Zoi.optional(Zoi.string())
+              secret_access_key: Zoi.optional(Zoi.string()),
+              base_url: Zoi.optional(Zoi.string()),
+              deployment_name: Zoi.optional(Zoi.string()),
+              api_version: Zoi.optional(Zoi.string())
   end
 
   defmodule Tesla do

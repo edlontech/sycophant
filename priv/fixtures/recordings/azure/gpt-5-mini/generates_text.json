@@ -1,0 +1,215 @@
+{
+  "metadata": {
+    "model": "gpt-5-mini",
+    "provider": "azure",
+    "recorded_at": "2026-03-09T18:15:22.388810Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "Say 'hello' and nothing else.",
+          "role": "user"
+        }
+      ],
+      "model": "gpt-5-mini"
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ]
+    ],
+    "method": "post",
+    "url": "https://azure/openai/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "top_logprobs": 0,
+      "content_filters": [
+        {
+          "blocked": false,
+          "content_filter_offsets": {
+            "check_offset": 0,
+            "end_offset": 547,
+            "start_offset": 0
+          },
+          "content_filter_raw": [],
+          "content_filter_results": {
+            "hate": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "protected_material_code": {
+              "detected": false,
+              "filtered": false
+            },
+            "protected_material_text": {
+              "detected": false,
+              "filtered": false
+            },
+            "self_harm": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "sexual": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "violence": {
+              "filtered": false,
+              "severity": "safe"
+            }
+          },
+          "source_type": "completion"
+        }
+      ],
+      "previous_response_id": null,
+      "tool_choice": "auto",
+      "service_tier": "default",
+      "status": "completed",
+      "tools": [],
+      "id": "resp_0e79e57acb9659c20069af0e38118c81959cd8ae7af039a84b",
+      "temperature": 1.0,
+      "max_output_tokens": null,
+      "user": null,
+      "frequency_penalty": 0.0,
+      "error": null,
+      "model": "gpt-5-mini",
+      "usage": {
+        "input_tokens": 14,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 122,
+        "output_tokens_details": {
+          "reasoning_tokens": 64
+        },
+        "total_tokens": 136
+      },
+      "safety_identifier": null,
+      "object": "response",
+      "parallel_tool_calls": true,
+      "output": [
+        {
+          "id": "rs_0e79e57acb9659c20069af0e3875348195af1e29946850fd4e",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "hello",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_0e79e57acb9659c20069af0e39d7248195aaec917072edfbb9",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "instructions": null,
+      "store": true,
+      "presence_penalty": 0.0,
+      "incomplete_details": null,
+      "reasoning": {
+        "effort": "medium",
+        "summary": null
+      },
+      "completed_at": 1773080122,
+      "truncation": "disabled",
+      "top_p": 1.0,
+      "prompt_cache_retention": null,
+      "metadata": {},
+      "prompt_cache_key": null,
+      "created_at": 1773080120,
+      "max_tool_calls": null
+    },
+    "headers": [
+      [
+        "content-length",
+        "2476"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "skip-error-remapping",
+        "true"
+      ],
+      [
+        "x-ratelimit-limit-requests",
+        "150"
+      ],
+      [
+        "x-ratelimit-limit-tokens",
+        "150000"
+      ],
+      [
+        "x-ratelimit-remaining-requests",
+        "150"
+      ],
+      [
+        "x-ratelimit-remaining-tokens",
+        "150000"
+      ],
+      [
+        "x-ratelimit-reset-requests",
+        "0"
+      ],
+      [
+        "x-ratelimit-reset-tokens",
+        "0"
+      ],
+      [
+        "azureai-requested-tier",
+        "default"
+      ],
+      [
+        "azureai-processed-tier",
+        "default"
+      ],
+      [
+        "x-request-id",
+        "737d9ef1-52b6-4cb2-87b0-730e86befafa"
+      ],
+      [
+        "apim-request-id",
+        "69968969-8e68-49ba-8c02-809deaa06145"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-ms-client-request-id",
+        "Not-Set"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "x-ms-region",
+        "East US"
+      ],
+      [
+        "date",
+        "Mon, 09 Mar 2026 18:15:22 GMT"
+      ]
+    ],
+    "status": 200
+  }
+}
