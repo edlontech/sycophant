@@ -113,8 +113,8 @@ defmodule Sycophant.Transport do
         Tesla.Middleware.PathParams,
         Tesla.Middleware.JSON
       ] ++
-        Keyword.get(opts, :middlewares, tesla_config.middlewares) ++
-        Keyword.get(opts, :auth_middlewares, [])
+        Keyword.get(opts, :auth_middlewares, []) ++
+        Keyword.get(opts, :middlewares, tesla_config.middlewares)
 
     Tesla.client(middlewares, adapter)
   end
@@ -143,8 +143,8 @@ defmodule Sycophant.Transport do
         {Tesla.Middleware.Headers, [{"content-type", "application/json"}]},
         Tesla.Middleware.SSE
       ] ++
-        Keyword.get(opts, :middlewares, tesla_config.middlewares) ++
-        Keyword.get(opts, :auth_middlewares, [])
+        Keyword.get(opts, :auth_middlewares, []) ++
+        Keyword.get(opts, :middlewares, tesla_config.middlewares)
 
     Tesla.client(middlewares, adapter)
   end
@@ -173,8 +173,8 @@ defmodule Sycophant.Transport do
         {Tesla.Middleware.Headers,
          [{"content-type", "application/json"}, {"accept", "application/vnd.amazon.eventstream"}]}
       ] ++
-        Keyword.get(opts, :middlewares, tesla_config.middlewares) ++
-        Keyword.get(opts, :auth_middlewares, [])
+        Keyword.get(opts, :auth_middlewares, []) ++
+        Keyword.get(opts, :middlewares, tesla_config.middlewares)
 
     Tesla.client(middlewares, adapter)
   end
