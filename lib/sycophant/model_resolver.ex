@@ -147,9 +147,7 @@ defmodule Sycophant.ModelResolver do
   end
 
   defp wire_protocol_default(provider) do
-    :sycophant
-    |> Application.get_env(:wire_protocol_defaults, %{})
-    |> Map.get(provider)
+    Map.get(Sycophant.Config.wire_protocol_defaults(), provider)
   end
 
   defp build_info(model, provider, adapter) do

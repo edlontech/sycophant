@@ -1,10 +1,12 @@
 defmodule Sycophant.CredentialsTest do
-  use ExUnit.Case, async: false
+  use ExUnit.Case, async: true
   use Mimic
 
+  alias Sycophant.Config
   alias Sycophant.Credentials
   alias Sycophant.Error.Invalid.MissingCredentials
 
+  setup :set_mimic_from_context
   setup :verify_on_exit!
 
   describe "resolve/2 with per-request credentials" do
@@ -23,18 +25,15 @@ defmodule Sycophant.CredentialsTest do
 
   describe "resolve/2 with application config" do
     test "reads from application config" do
-      Application.put_env(:sycophant, :providers, openai: [api_key: "sk-from-config"])
-
-      on_exit(fn -> Application.delete_env(:sycophant, :providers) end)
+      expect(Config, :provider, fn :openai ->
+        {:ok, %Config.Provider{api_key: "sk-from-config"}}
+      end)
 
       assert {:ok, %{api_key: "sk-from-config"}} = Credentials.resolve(:openai)
     end
 
     test "skips app config when provider not configured" do
-      Application.put_env(:sycophant, :providers, anthropic: [api_key: "sk-anthropic"])
-
-      on_exit(fn -> Application.delete_env(:sycophant, :providers) end)
-
+      expect(Config, :provider, fn :openai -> {:ok, %Config.Provider{}} end)
       stub(LLMDB, :provider, fn :openai -> {:error, :not_found} end)
 
       assert {:error, %MissingCredentials{}} = Credentials.resolve(:openai)
@@ -65,18 +64,14 @@ defmodule Sycophant.CredentialsTest do
 
   describe "resolve/2 priority" do
     test "per-request beats app config" do
-      Application.put_env(:sycophant, :providers, openai: [api_key: "sk-from-config"])
-
-      on_exit(fn -> Application.delete_env(:sycophant, :providers) end)
-
       per_request = %{api_key: "sk-per-request"}
       assert {:ok, ^per_request} = Credentials.resolve(:openai, per_request)
     end
 
     test "app config beats env vars" do
-      Application.put_env(:sycophant, :providers, openai: [api_key: "sk-from-config"])
-
-      on_exit(fn -> Application.delete_env(:sycophant, :providers) end)
+      expect(Config, :provider, fn :openai ->
+        {:ok, %Config.Provider{api_key: "sk-from-config"}}
+      end)
 
       reject(&LLMDB.provider/1)
 

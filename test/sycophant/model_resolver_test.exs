@@ -1,9 +1,11 @@
 defmodule Sycophant.ModelResolverTest do
-  use ExUnit.Case, async: false
+  use ExUnit.Case, async: true
   use Mimic
 
+  alias Sycophant.Config
   alias Sycophant.ModelResolver
 
+  setup :set_mimic_from_context
   setup :verify_on_exit!
 
   defp build_model(attrs \\ %{}) do
@@ -154,12 +156,7 @@ defmodule Sycophant.ModelResolverTest do
       model = build_model(%{extra: %{}, provider: :openrouter})
       provider = build_provider(%{id: :openrouter, base_url: "https://openrouter.ai/api/v1"})
 
-      Application.put_env(:sycophant, :wire_protocol_defaults, %{
-        openrouter: "openai_responses"
-      })
-
-      on_exit(fn -> Application.delete_env(:sycophant, :wire_protocol_defaults) end)
-
+      expect(Config, :wire_protocol_defaults, fn -> %{openrouter: "openai_responses"} end)
       expect(LLMDB, :provider, fn :openrouter -> {:ok, provider} end)
 
       assert {:ok, info} = ModelResolver.resolve(model)
@@ -170,12 +167,7 @@ defmodule Sycophant.ModelResolverTest do
       model = build_model(%{extra: nil, provider: :openrouter})
       provider = build_provider(%{id: :openrouter, base_url: "https://openrouter.ai/api/v1"})
 
-      Application.put_env(:sycophant, :wire_protocol_defaults, %{
-        openrouter: "openai_responses"
-      })
-
-      on_exit(fn -> Application.delete_env(:sycophant, :wire_protocol_defaults) end)
-
+      expect(Config, :wire_protocol_defaults, fn -> %{openrouter: "openai_responses"} end)
       expect(LLMDB, :provider, fn :openrouter -> {:ok, provider} end)
 
       assert {:ok, info} = ModelResolver.resolve(model)
@@ -191,12 +183,7 @@ defmodule Sycophant.ModelResolverTest do
 
       provider = build_provider(%{id: :openrouter, base_url: "https://openrouter.ai/api/v1"})
 
-      Application.put_env(:sycophant, :wire_protocol_defaults, %{
-        openrouter: "openai_responses"
-      })
-
-      on_exit(fn -> Application.delete_env(:sycophant, :wire_protocol_defaults) end)
-
+      stub(Config, :wire_protocol_defaults, fn -> %{openrouter: "openai_responses"} end)
       expect(LLMDB, :provider, fn :openrouter -> {:ok, provider} end)
 
       assert {:ok, info} = ModelResolver.resolve(model)
@@ -217,12 +204,7 @@ defmodule Sycophant.ModelResolverTest do
       model = build_model(%{extra: %{}, provider: :badprovider})
       provider = build_provider(%{id: :badprovider})
 
-      Application.put_env(:sycophant, :wire_protocol_defaults, %{
-        badprovider: "unsupported_protocol"
-      })
-
-      on_exit(fn -> Application.delete_env(:sycophant, :wire_protocol_defaults) end)
-
+      expect(Config, :wire_protocol_defaults, fn -> %{badprovider: "unsupported_protocol"} end)
       expect(LLMDB, :provider, fn :badprovider -> {:ok, provider} end)
 
       assert {:error, %Sycophant.Error.Unknown.Unknown{}} =

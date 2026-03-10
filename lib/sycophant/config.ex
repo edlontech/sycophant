@@ -75,6 +75,17 @@ defmodule Sycophant.Config do
   end
 
   @doc """
+  Returns the wire protocol defaults map from application config.
+
+  Used by `ModelResolver` to fall back to a configured wire protocol
+  when LLMDB metadata doesn't specify one for a provider.
+  """
+  @spec wire_protocol_defaults() :: map()
+  def wire_protocol_defaults do
+    Application.get_env(:sycophant, :wire_protocol_defaults, %{})
+  end
+
+  @doc """
   Fetches and validates the Tesla HTTP client configuration.
 
   Reads the `:tesla` key from the `:sycophant` application environment and
