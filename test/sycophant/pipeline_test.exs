@@ -385,13 +385,13 @@ defmodule Sycophant.PipelineTest do
       assert Enum.at(context.messages, 2).content == "Hello!"
     end
 
-    test "response context carries model spec from opts" do
+    test "response context does not carry model" do
       stub_happy_path()
 
       assert {:ok, %Response{context: context}} =
                Pipeline.call(default_messages(), default_opts())
 
-      assert context.model == "openai:gpt-4o"
+      refute Map.has_key?(context, :model)
     end
 
     test "response context carries validated params as plain map" do
@@ -616,7 +616,7 @@ defmodule Sycophant.PipelineTest do
                Pipeline.call(default_messages(), opts)
     end
 
-    test "carries response_schema through context" do
+    test "context does not carry response_schema" do
       model = build_model()
       provider = build_provider()
 
@@ -644,7 +644,7 @@ defmodule Sycophant.PipelineTest do
       opts = default_opts() ++ [response_schema: schema]
 
       assert {:ok, %Response{context: context}} = Pipeline.call(default_messages(), opts)
-      assert context.response_schema == schema
+      refute Map.has_key?(context, :response_schema)
     end
   end
 

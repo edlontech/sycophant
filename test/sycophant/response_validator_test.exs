@@ -8,7 +8,7 @@ defmodule Sycophant.ResponseValidatorTest do
   defp build_response(text) do
     %Response{
       text: text,
-      context: %Context{messages: [], model: "test"}
+      context: %Context{messages: []}
     }
   end
 

@@ -71,7 +71,7 @@ defmodule Sycophant.Recording.MyFeatureTest do
     messages = [Message.user("Say 'hello' and nothing else.")]
 
     assert {:ok, response} =
-             Sycophant.generate_text(messages, recording_opts(model: model))
+             Sycophant.generate_text(model, messages, recording_opts([]))
 
     assert is_binary(response.text)
     assert String.length(response.text) > 0
@@ -98,7 +98,7 @@ test "generates structured output", %{model: model} do
   messages = [Message.user("Extract: Alice")]
 
   assert {:ok, response} =
-           Sycophant.generate_object(messages, schema, recording_opts(model: model))
+           Sycophant.generate_object(model, messages, schema, recording_opts([]))
 
   assert response.object.name == "Alice"
 end
@@ -114,9 +114,8 @@ test "generates text with Azure" do
   messages = [Message.user("Say hello")]
 
   assert {:ok, response} =
-           Sycophant.generate_text(messages,
+           Sycophant.generate_text("azure:gpt-5-mini", messages,
              recording_opts(
-               model: "azure:gpt-5-mini",
                credentials: %{
                  api_key: System.get_env("AZURE_API_KEY"),
                  base_url: System.get_env("AZURE_BASE_URL"),
@@ -146,9 +145,8 @@ test "streams text", %{model: model} do
   messages = [Message.user("Say 'hello' and nothing else.")]
 
   assert {:ok, response} =
-           Sycophant.generate_text(
-             messages,
-             recording_opts(model: model, stream: callback)
+           Sycophant.generate_text(model, messages,
+             recording_opts(stream: callback)
            )
 
   assert is_binary(response.text)
@@ -163,10 +161,14 @@ When a test makes multiple API calls, fixtures are automatically sequenced:
 ```elixir
 @tag recording_prefix: true
 test "continues a multi-turn conversation", %{model: model} do
+  alias Sycophant.Context
+
   messages = [Message.user("My name is Sycophant. Remember it.")]
 
-  {:ok, resp1} = Sycophant.generate_text(messages, recording_opts(model: model))
-  {:ok, resp2} = Sycophant.generate_text(resp1, Message.user("What is my name?"))
+  {:ok, resp1} = Sycophant.generate_text(model, messages, recording_opts([]))
+
+  ctx = resp1.context |> Context.add(Message.user("What is my name?"))
+  {:ok, resp2} = Sycophant.generate_text(model, ctx, recording_opts([]))
 
   history = Sycophant.Response.messages(resp2)
   assert length(history) == 4
@@ -189,8 +191,8 @@ injection automatically:
 
 ```elixir
 # Always use recording_opts to wrap your options
-Sycophant.generate_text(messages, recording_opts(model: model))
-Sycophant.generate_text(messages, recording_opts(model: model, temperature: 0.5))
+Sycophant.generate_text(model, messages, recording_opts([]))
+Sycophant.generate_text(model, messages, recording_opts(temperature: 0.5))
 ```
 
 ## Fixture Format

@@ -16,8 +16,7 @@ defmodule Sycophant.ResponseTest do
       model: "openai:gpt-4o",
       raw: %{"id" => "chatcmpl-123"},
       context: %Context{
-        messages: messages,
-        model: "openai:gpt-4o"
+        messages: messages
       }
     }
   end
@@ -104,13 +103,11 @@ defmodule Sycophant.ResponseTest do
         text: "ok",
         context: %Context{
           messages: [Message.user("hi")],
-          model: "anthropic:claude-sonnet-4-20250514",
           params: params,
           tools: tools
         }
       }
 
-      assert resp.context.model == "anthropic:claude-sonnet-4-20250514"
       assert resp.context.params == params
       assert resp.context.tools == tools
     end

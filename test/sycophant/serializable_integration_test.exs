@@ -41,7 +41,6 @@ defmodule Sycophant.SerializableIntegrationTest do
           ),
           Message.assistant("The weather in NYC is sunny, 72F")
         ],
-        model: "claude-sonnet-4-20250514",
         params: %{temperature: 0.7, reasoning: :high, stop: ["END"]},
         tools: [
           %Tool{
@@ -64,7 +63,6 @@ defmodule Sycophant.SerializableIntegrationTest do
     assert decoded.usage == response.usage
     assert decoded.reasoning == response.reasoning
     assert length(decoded.context.messages) == 5
-    assert decoded.context.model == response.context.model
     assert decoded.context.params.temperature == 0.7
     assert decoded.context.params.reasoning in [:high, "high"]
 
@@ -91,7 +89,7 @@ defmodule Sycophant.SerializableIntegrationTest do
     response = %Response{
       text: "hi",
       tool_calls: [],
-      context: %Context{messages: [Message.user("hello")], model: "test"}
+      context: %Context{messages: [Message.user("hello")]}
     }
 
     json = Decoder.encode(response)

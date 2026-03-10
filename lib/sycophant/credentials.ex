@@ -14,13 +14,12 @@ defmodule Sycophant.Credentials do
   ## Examples
 
       # Per-request credentials take priority
-      Sycophant.generate_text(messages,
-        model: "openai:gpt-4o-mini",
+      Sycophant.generate_text("openai:gpt-4o-mini", messages,
         credentials: %{api_key: "sk-override"}
       )
 
       # Falls back to app config, then env vars
-      Sycophant.generate_text(messages, model: "openai:gpt-4o-mini")
+      Sycophant.generate_text("openai:gpt-4o-mini", messages)
   """
 
   alias Sycophant.Error

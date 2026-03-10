@@ -161,7 +161,6 @@ defmodule Sycophant.SerializableTest do
     test "round-trips with messages and tools" do
       ctx = %Sycophant.Context{
         messages: [Sycophant.Message.user("hi"), Sycophant.Message.assistant("hello")],
-        model: "claude-sonnet-4-20250514",
         params: %{temperature: 0.7},
         tools: [
           %Sycophant.Tool{
@@ -174,7 +173,6 @@ defmodule Sycophant.SerializableTest do
 
       decoded = ctx |> Decoder.encode() |> Decoder.decode()
       assert length(decoded.messages) == 2
-      assert decoded.model == ctx.model
       assert decoded.params.temperature == 0.7
       assert length(decoded.tools) == 1
       assert decoded.stream == nil
@@ -190,22 +188,9 @@ defmodule Sycophant.SerializableTest do
       refute Map.has_key?(map, "stream")
     end
 
-    test "converts response_schema to JSON Schema" do
-      schema = Zoi.map(%{name: Zoi.string()})
-
-      ctx = %Sycophant.Context{
-        messages: [Sycophant.Message.user("hi")],
-        response_schema: schema
-      }
-
-      map = Serializable.to_map(ctx)
-      assert map["response_schema"]["type"] == "object"
-    end
-
     test "compacts empty params and tools" do
       ctx = %Sycophant.Context{
-        messages: [Sycophant.Message.user("hi")],
-        model: "test-model"
+        messages: [Sycophant.Message.user("hi")]
       }
 
       map = Serializable.to_map(ctx)
@@ -226,8 +211,7 @@ defmodule Sycophant.SerializableTest do
           messages: [
             Sycophant.Message.user("hi"),
             Sycophant.Message.assistant("Hello there")
-          ],
-          model: "claude-sonnet-4-20250514"
+          ]
         }
       }
 
@@ -243,8 +227,7 @@ defmodule Sycophant.SerializableTest do
         text: "Hello",
         finish_reason: :stop,
         context: %Sycophant.Context{
-          messages: [Sycophant.Message.user("hi")],
-          model: "test-model"
+          messages: [Sycophant.Message.user("hi")]
         }
       }
 

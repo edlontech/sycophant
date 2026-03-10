@@ -2,6 +2,7 @@ defmodule SycophantTest do
   use ExUnit.Case, async: true
   use Mimic
 
+  alias Sycophant.Context
   alias Sycophant.Message
   alias Sycophant.Response
 
@@ -32,7 +33,7 @@ defmodule SycophantTest do
     struct(LLMDB.Provider, Map.merge(defaults, attrs))
   end
 
-  describe "generate_text/2" do
+  describe "generate_text/3" do
     test "delegates to Pipeline and returns Response" do
       model = build_model()
       provider = build_provider()
@@ -56,12 +57,12 @@ defmodule SycophantTest do
       end)
 
       assert {:ok, %Response{text: "Hello!"}} =
-               Sycophant.generate_text([Message.user("Hi")], model: "openai:gpt-4o")
+               Sycophant.generate_text("openai:gpt-4o", [Message.user("Hi")])
     end
   end
 
-  describe "generate_text/2 continuation" do
-    test "accepts Response and Message, re-enters pipeline with accumulated messages" do
+  describe "generate_text/3 with Context" do
+    test "accepts Context with accumulated messages" do
       model = build_model()
       provider = build_provider()
 
@@ -83,7 +84,7 @@ defmodule SycophantTest do
          }}
       end)
 
-      {:ok, resp1} = Sycophant.generate_text([Message.user("Hi")], model: "openai:gpt-4o")
+      {:ok, resp1} = Sycophant.generate_text("openai:gpt-4o", [Message.user("Hi")])
 
       expect(Sycophant.Transport, :call, fn payload, _opts ->
         input = payload["input"]
@@ -102,12 +103,15 @@ defmodule SycophantTest do
          }}
       end)
 
-      {:ok, resp2} = Sycophant.generate_text(resp1, Message.user("Continue"))
+      ctx = Context.add(resp1.context, Message.user("Continue"))
+
+      {:ok, resp2} = Sycophant.generate_text("openai:gpt-4o", ctx)
+
       assert resp2.text == "World!"
       assert length(Response.messages(resp2)) == 4
     end
 
-    test "carries params from original call through continuation" do
+    test "carries params from context through continuation" do
       model = build_model()
       provider = build_provider()
 
@@ -130,10 +134,7 @@ defmodule SycophantTest do
       end)
 
       {:ok, resp} =
-        Sycophant.generate_text([Message.user("Hi")],
-          model: "openai:gpt-4o",
-          temperature: 0.7
-        )
+        Sycophant.generate_text("openai:gpt-4o", [Message.user("Hi")], temperature: 0.7)
 
       assert resp.context.params.temperature == 0.7
 
@@ -153,11 +154,12 @@ defmodule SycophantTest do
          }}
       end)
 
-      assert {:ok, _} = Sycophant.generate_text(resp, Message.user("More"))
+      ctx = Context.add(resp.context, Message.user("More"))
+      assert {:ok, _} = Sycophant.generate_text("openai:gpt-4o", ctx)
     end
   end
 
-  describe "generate_object/3" do
+  describe "generate_object/4" do
     test "returns validated object from JSON response" do
       model = build_model()
       provider = build_provider()
@@ -185,8 +187,10 @@ defmodule SycophantTest do
       schema = Zoi.map(%{name: Zoi.string(), age: Zoi.integer()}, coerce: true)
 
       assert {:ok, %Response{object: %{name: "Alice", age: 30}}} =
-               Sycophant.generate_object([Message.user("Give me a person")], schema,
-                 model: "openai:gpt-4o"
+               Sycophant.generate_object(
+                 "openai:gpt-4o",
+                 [Message.user("Give me a person")],
+                 schema
                )
     end
 
@@ -217,8 +221,10 @@ defmodule SycophantTest do
       schema = Zoi.map(%{name: Zoi.string(), age: Zoi.integer()}, coerce: true)
 
       assert {:error, %Sycophant.Error.Invalid.InvalidResponse{}} =
-               Sycophant.generate_object([Message.user("Give me a person")], schema,
-                 model: "openai:gpt-4o"
+               Sycophant.generate_object(
+                 "openai:gpt-4o",
+                 [Message.user("Give me a person")],
+                 schema
                )
     end
 
@@ -249,15 +255,17 @@ defmodule SycophantTest do
       schema = Zoi.map(%{name: Zoi.string(), age: Zoi.integer()}, coerce: true)
 
       assert {:ok, %Response{object: %{"name" => "Alice", "age" => 30}}} =
-               Sycophant.generate_object([Message.user("Give me a person")], schema,
-                 model: "openai:gpt-4o",
+               Sycophant.generate_object(
+                 "openai:gpt-4o",
+                 [Message.user("Give me a person")],
+                 schema,
                  validate: false
                )
     end
   end
 
-  describe "generate_object/2 continuation" do
-    test "carries response_schema through context" do
+  describe "generate_object/4 with Context" do
+    test "passes context and schema through to pipeline" do
       model = build_model()
       provider = build_provider()
       counter = :counters.new(1, [:atomics])
@@ -292,13 +300,18 @@ defmodule SycophantTest do
       schema = Zoi.map(%{name: Zoi.string(), age: Zoi.integer()}, coerce: true)
 
       {:ok, resp1} =
-        Sycophant.generate_object([Message.user("Give me a person")], schema,
-          model: "openai:gpt-4o"
+        Sycophant.generate_object(
+          "openai:gpt-4o",
+          [Message.user("Give me a person")],
+          schema
         )
 
       assert resp1.object == %{name: "Alice", age: 30}
 
-      {:ok, resp2} = Sycophant.generate_object(resp1, Message.user("Give me another"))
+      ctx = Context.add(resp1.context, Message.user("Give me another"))
+
+      {:ok, resp2} = Sycophant.generate_object("openai:gpt-4o", ctx, schema)
+
       assert resp2.object == %{name: "Bob", age: 25}
     end
   end

@@ -1,28 +1,89 @@
 defmodule Sycophant.Context do
   @moduledoc """
-  Internal conversation state held inside a `Response`.
+  Public conversation handle for multi-turn LLM interactions.
 
-  Carries the full message history and configuration needed for continuation
-  calls. This is an opaque struct -- you typically don't interact with it
-  directly. Instead, pass the entire `Response` to `Sycophant.generate_text/2`
-  to continue a conversation.
+  Context is a builder for conversation state. It holds message history,
+  tools, streaming callbacks, and provider params. Model and response schema
+  are per-call concerns and live outside the context.
 
-  Credentials are intentionally excluded from the context and resolved fresh
-  on each call. Wire protocol tags live on individual messages to support
-  mid-conversation model swaps.
+  ## Building a conversation
+
+      ctx = Context.new()
+            |> Context.add(Message.system("You are helpful."))
+            |> Context.add(Message.user("Hello!"))
+
+  ## Passing options
+
+      opts = Context.to_opts(ctx)
   """
   use TypedStruct
 
   alias Sycophant.Serializable.Decoder
 
   typedstruct do
-    field :messages, [Sycophant.Message.t()], enforce: true
-    field :model, String.t()
+    field :messages, [Sycophant.Message.t()], default: []
     field :params, map(), default: %{}
     field :tools, [Sycophant.Tool.t()], default: []
     field :stream, (term() -> term())
-    field :response_schema, Zoi.schema()
   end
+
+  @doc "Creates an empty context."
+  @spec new() :: t()
+  def new, do: %__MODULE__{}
+
+  @doc "Creates a context from a message list or keyword opts."
+  @spec new([Sycophant.Message.t()] | keyword()) :: t()
+  def new(messages) when is_list(messages) and not is_tuple(hd(messages)) do
+    %__MODULE__{messages: messages}
+  end
+
+  def new(opts) when is_list(opts), do: new([], opts)
+
+  @doc "Creates a context from messages and keyword opts."
+  @spec new([Sycophant.Message.t()], keyword()) :: t()
+  def new(messages, opts) when is_list(messages) and is_list(opts) do
+    {tools, opts} = Keyword.pop(opts, :tools, [])
+    {stream, opts} = Keyword.pop(opts, :stream)
+    params = opts |> Keyword.drop([:credentials, :max_steps]) |> Map.new()
+
+    %__MODULE__{
+      messages: messages,
+      tools: tools,
+      stream: stream,
+      params: params
+    }
+  end
+
+  @doc "Appends one or more messages to the context."
+  @spec add(t(), Sycophant.Message.t() | [Sycophant.Message.t()]) :: t()
+  def add(%__MODULE__{} = ctx, messages) when is_list(messages) do
+    %{ctx | messages: ctx.messages ++ messages}
+  end
+
+  def add(%__MODULE__{} = ctx, %Sycophant.Message{} = message) do
+    %{ctx | messages: ctx.messages ++ [message]}
+  end
+
+  @doc "Converts context fields into flat keyword opts for pipeline consumption."
+  @spec to_opts(t()) :: keyword()
+  def to_opts(%__MODULE__{} = ctx) do
+    base =
+      []
+      |> maybe_add(:tools, ctx.tools)
+      |> maybe_add(:stream, ctx.stream)
+
+    params_opts =
+      ctx.params
+      |> Enum.reject(fn {_k, v} -> is_nil(v) end)
+      |> Keyword.new()
+
+    Keyword.merge(base, params_opts)
+  end
+
+  defp maybe_add(opts, _key, nil), do: opts
+  defp maybe_add(opts, _key, []), do: opts
+  defp maybe_add(opts, _key, map) when is_map(map) and map_size(map) == 0, do: opts
+  defp maybe_add(opts, key, value), do: Keyword.put(opts, key, value)
 
   @doc "Deserializes a context from a plain map."
   @spec from_map(map()) :: t()
@@ -31,11 +92,9 @@ defmodule Sycophant.Context do
 
     %__MODULE__{
       messages: Enum.map(data["messages"], &Decoder.from_map/1),
-      model: data["model"],
       params: decode_params(data["params"]),
       tools: decode_tools(data["tools"], opts),
-      stream: nil,
-      response_schema: data["response_schema"]
+      stream: nil
     }
   end
 
@@ -66,10 +125,8 @@ defimpl Sycophant.Serializable, for: Sycophant.Context do
     compact(%{
       "__type__" => "Context",
       "messages" => Enum.map(ctx.messages, &Sycophant.Serializable.to_map/1),
-      "model" => ctx.model,
       "params" => encode_params(ctx.params),
-      "tools" => encode_tools(ctx.tools),
-      "response_schema" => encode_schema(ctx.response_schema)
+      "tools" => encode_tools(ctx.tools)
     })
   end
 
@@ -84,13 +141,4 @@ defimpl Sycophant.Serializable, for: Sycophant.Context do
 
   defp encode_tools([]), do: nil
   defp encode_tools(tools), do: Enum.map(tools, &Sycophant.Serializable.to_map/1)
-
-  defp encode_schema(nil), do: nil
-
-  defp encode_schema(schema) do
-    case Sycophant.Schema.JsonSchema.to_json_schema(schema) do
-      {:ok, json_schema} -> json_schema
-      _ -> nil
-    end
-  end
 end

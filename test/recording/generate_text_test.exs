@@ -2,6 +2,7 @@ defmodule Sycophant.Recording.GenerateTextTest do
   @models Sycophant.RecordingCase.test_models()
   use Sycophant.RecordingCase, async: true, parameterize: @models
 
+  alias Sycophant.Context
   alias Sycophant.Message
 
   @tag recording_prefix: true
@@ -9,7 +10,7 @@ defmodule Sycophant.Recording.GenerateTextTest do
     messages = [Message.user("Say 'hello' and nothing else.")]
 
     assert {:ok, response} =
-             Sycophant.generate_text(messages, recording_opts(model: model))
+             Sycophant.generate_text(model, messages, recording_opts([]))
 
     assert is_binary(response.text)
     assert String.length(response.text) > 0
@@ -25,7 +26,7 @@ defmodule Sycophant.Recording.GenerateTextTest do
     ]
 
     assert {:ok, response} =
-             Sycophant.generate_text(messages, recording_opts(model: model))
+             Sycophant.generate_text(model, messages, recording_opts([]))
 
     assert is_binary(response.text)
     assert response.text =~ "4"
@@ -35,11 +36,12 @@ defmodule Sycophant.Recording.GenerateTextTest do
   test "continues a multi-turn conversation", %{model: model} do
     messages = [Message.user("My name is Sycophant. Remember it.")]
 
-    {:ok, resp1} = Sycophant.generate_text(messages, recording_opts(model: model))
+    {:ok, resp1} = Sycophant.generate_text(model, messages, recording_opts([]))
     assert is_binary(resp1.text)
 
-    {:ok, resp2} =
-      Sycophant.generate_text(resp1, Message.user("What is my name?"), recording_opts([]))
+    ctx = Context.add(resp1.context, Message.user("What is my name?"))
+
+    {:ok, resp2} = Sycophant.generate_text(model, ctx, recording_opts([]))
 
     assert is_binary(resp2.text)
     assert resp2.text =~ "Sycophant"

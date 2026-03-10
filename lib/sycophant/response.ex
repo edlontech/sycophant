@@ -8,12 +8,11 @@ defmodule Sycophant.Response do
 
   ## Continuing Conversations
 
-  Pass a `Response` directly to `Sycophant.generate_text/2` with a new message
-  to continue the conversation. The context carries forward model, tools, and
-  parameters automatically:
+  Use `response.context` with `Context.add/2` to continue the conversation:
 
-      {:ok, response} = Sycophant.generate_text(messages, model: "openai:gpt-4o-mini")
-      {:ok, follow_up} = Sycophant.generate_text(response, Message.user("Tell me more"))
+      {:ok, response} = Sycophant.generate_text("openai:gpt-4o-mini", messages)
+      ctx = response.context |> Context.add(Message.user("Tell me more"))
+      {:ok, follow_up} = Sycophant.generate_text("openai:gpt-4o-mini", ctx)
 
   ## Inspecting History
 

@@ -43,9 +43,9 @@ defmodule Sycophant.Recording.AzureTest do
       config = unquote(Macro.escape(azure))
       messages = [Message.user("Say 'hello' and nothing else.")]
 
-      opts = recording_opts(model: config.model, credentials: azure_credentials(config))
+      opts = recording_opts(credentials: azure_credentials(config))
 
-      assert {:ok, response} = Sycophant.generate_text(messages, opts)
+      assert {:ok, response} = Sycophant.generate_text(config.model, messages, opts)
       assert is_binary(response.text)
       assert String.length(response.text) > 0
     end
@@ -59,9 +59,9 @@ defmodule Sycophant.Recording.AzureTest do
         Message.user("What is 2 + 2?")
       ]
 
-      opts = recording_opts(model: config.model, credentials: azure_credentials(config))
+      opts = recording_opts(credentials: azure_credentials(config))
 
-      assert {:ok, response} = Sycophant.generate_text(messages, opts)
+      assert {:ok, response} = Sycophant.generate_text(config.model, messages, opts)
       assert is_binary(response.text)
       assert response.text =~ "4"
     end
@@ -85,10 +85,7 @@ defmodule Sycophant.Recording.AzureTest do
     }
 
     opts =
-      recording_opts(
-        model: config.model,
-        credentials: azure_credentials(config)
-      )
+      recording_opts(credentials: azure_credentials(config))
 
     assert {:ok, response} = Sycophant.embed(request, opts)
     assert is_map(response.embeddings)
@@ -109,10 +106,7 @@ defmodule Sycophant.Recording.AzureTest do
     }
 
     opts =
-      recording_opts(
-        model: config.model,
-        credentials: azure_credentials(config)
-      )
+      recording_opts(credentials: azure_credentials(config))
 
     assert {:ok, response} = Sycophant.embed(request, opts)
     assert length(response.embeddings.float) == 3

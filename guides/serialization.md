@@ -7,10 +7,10 @@ to a database and restoring it later.
 ## Round-trip Example
 
 ```elixir
-alias Sycophant.Serializable.Decoder
+alias Sycophant.{Context, Serializable.Decoder}
 
 # After a conversation
-{:ok, response} = Sycophant.generate_text(messages, model: "openai:gpt-4o-mini")
+{:ok, response} = Sycophant.generate_text("openai:gpt-4o-mini", messages)
 
 # Serialize to JSON
 json = Decoder.encode(response)
@@ -22,7 +22,8 @@ MyRepo.insert(%Conversation{state: json})
 json = MyRepo.get(Conversation, id).state
 restored = Decoder.decode(json)
 
-{:ok, continued} = Sycophant.generate_text(restored, Message.user("Continue our chat"))
+ctx = restored.context |> Context.add(Message.user("Continue our chat"))
+{:ok, continued} = Sycophant.generate_text("openai:gpt-4o-mini", ctx)
 ```
 
 ## Supported Structs

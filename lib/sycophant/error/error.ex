@@ -13,7 +13,7 @@ defmodule Sycophant.Error do
 
   Pattern match on the error class or specific error module:
 
-      case Sycophant.generate_text(messages, model: "openai:gpt-4o-mini") do
+      case Sycophant.generate_text("openai:gpt-4o-mini", messages) do
         {:ok, response} -> response.text
         {:error, %Sycophant.Error.Provider.RateLimited{}} -> "Rate limited, retry later"
         {:error, %Sycophant.Error.Invalid.MissingCredentials{}} -> "Missing API key"

@@ -45,8 +45,7 @@ config :sycophant, :providers,
 Useful for multi-tenant applications or testing:
 
 ```elixir
-Sycophant.generate_text(messages,
-  model: "openai:gpt-4o-mini",
+Sycophant.generate_text("openai:gpt-4o-mini", messages,
   credentials: %{api_key: "sk-..."}
 )
 ```
@@ -70,8 +69,7 @@ config :sycophant, :providers,
 Azure uses a deployment-based model where you deploy models to named endpoints:
 
 ```elixir
-Sycophant.generate_text(messages,
-  model: "azure:gpt-4o-mini",
+Sycophant.generate_text("azure:gpt-4o-mini", messages,
   credentials: %{
     api_key: "your-azure-key",
     base_url: "https://your-resource.openai.azure.com",
@@ -87,7 +85,7 @@ alias Sycophant.Message
 
 messages = [Message.user("What is the capital of France?")]
 
-{:ok, response} = Sycophant.generate_text(messages, model: "openai:gpt-4o-mini")
+{:ok, response} = Sycophant.generate_text("openai:gpt-4o-mini", messages)
 
 IO.puts(response.text)
 #=> "The capital of France is Paris."
@@ -100,19 +98,19 @@ determines which wire protocol, authentication strategy, and base URL to use:
 
 ```elixir
 # OpenAI
-model: "openai:gpt-4o-mini"
+"openai:gpt-4o-mini"
 
 # Anthropic
-model: "anthropic:claude-haiku-4-5-20251001"
+"anthropic:claude-haiku-4-5-20251001"
 
 # Google Gemini
-model: "google:gemini-2.0-flash"
+"google:gemini-2.0-flash"
 
 # AWS Bedrock
-model: "amazon_bedrock:anthropic.claude-3-5-haiku-20241022-v1:0"
+"amazon_bedrock:anthropic.claude-3-5-haiku-20241022-v1:0"
 
 # OpenRouter
-model: "openrouter:meta-llama/llama-3.1-8b-instruct"
+"openrouter:meta-llama/llama-3.1-8b-instruct"
 ```
 
 ## LLM Parameters
@@ -122,8 +120,7 @@ declares its own param schema -- unsupported params for the target provider
 are dropped with a warning log:
 
 ```elixir
-Sycophant.generate_text(messages,
-  model: "openai:gpt-4o-mini",
+Sycophant.generate_text("openai:gpt-4o-mini", messages,
   temperature: 0.7,
   max_tokens: 500,
   top_p: 0.9
@@ -134,8 +131,7 @@ Wire-specific params work the same way:
 
 ```elixir
 # OpenAI-specific
-Sycophant.generate_text(messages,
-  model: "openai:gpt-4o-mini",
+Sycophant.generate_text("openai:gpt-4o-mini", messages,
   logprobs: true,
   seed: 42
 )
@@ -143,16 +139,18 @@ Sycophant.generate_text(messages,
 
 ## Multi-turn Conversations
 
-Pass a previous `Response` with a new `Message` to continue the conversation.
-Model, tools, and parameters carry over automatically:
+Extract the context from a response, add new messages, and pass the context
+to continue the conversation:
 
 ```elixir
-{:ok, r1} = Sycophant.generate_text(
-  [Message.user("My name is Alice")],
-  model: "openai:gpt-4o-mini"
+alias Sycophant.Context
+
+{:ok, r1} = Sycophant.generate_text("openai:gpt-4o-mini",
+  [Message.user("My name is Alice")]
 )
 
-{:ok, r2} = Sycophant.generate_text(r1, Message.user("What's my name?"))
+ctx = r1.context |> Context.add(Message.user("What's my name?"))
+{:ok, r2} = Sycophant.generate_text("openai:gpt-4o-mini", ctx)
 IO.puts(r2.text)
 #=> "Your name is Alice."
 ```
@@ -170,9 +168,7 @@ schema = Zoi.object(%{
 
 messages = [Message.user("Extract: Alice is 25 and likes hiking and painting")]
 
-{:ok, response} = Sycophant.generate_object(messages, schema,
-  model: "openai:gpt-4o-mini"
-)
+{:ok, response} = Sycophant.generate_object("openai:gpt-4o-mini", messages, schema)
 
 response.object
 #=> %{name: "Alice", age: 25, hobbies: ["hiking", "painting"]}
@@ -184,9 +180,8 @@ Pass a callback function via the `:stream` option to receive chunks as they
 arrive:
 
 ```elixir
-Sycophant.generate_text(
+Sycophant.generate_text("openai:gpt-4o-mini",
   [Message.user("Write a haiku about Elixir")],
-  model: "openai:gpt-4o-mini",
   stream: fn chunk -> IO.write(chunk.data) end
 )
 ```

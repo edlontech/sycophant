@@ -30,8 +30,7 @@ defmodule Sycophant.Tool do
         parameters: Zoi.object(%{query: Zoi.string()})
       }
 
-      {:ok, response} = Sycophant.generate_text(messages,
-        model: "openai:gpt-4o-mini",
+      {:ok, response} = Sycophant.generate_text("openai:gpt-4o-mini", messages,
         tools: [weather_tool, search_tool]
       )
   """

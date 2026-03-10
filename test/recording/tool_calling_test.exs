@@ -15,7 +15,7 @@ defmodule Sycophant.Recording.ToolCallingTest do
     messages = [Message.user("What's the weather in Paris? Use the get_weather tool.")]
 
     {:ok, response} =
-      Sycophant.generate_text(messages, recording_opts(model: model, tools: [tool]))
+      Sycophant.generate_text(model, messages, recording_opts(tools: [tool]))
 
     assert response.tool_calls != []
     tc = hd(response.tool_calls)
@@ -35,7 +35,7 @@ defmodule Sycophant.Recording.ToolCallingTest do
     messages = [Message.user("What's the weather in Paris? Use the get_weather tool.")]
 
     {:ok, response} =
-      Sycophant.generate_text(messages, recording_opts(model: model, tools: [tool]))
+      Sycophant.generate_text(model, messages, recording_opts(tools: [tool]))
 
     assert response.tool_calls == []
     assert is_binary(response.text)

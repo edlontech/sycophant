@@ -330,11 +330,9 @@ defmodule Sycophant.Pipeline do
 
     context = %Context{
       messages: messages ++ [assistant_msg],
-      model: opts[:model],
       params: params,
       tools: opts[:tools] || [],
-      stream: opts[:stream],
-      response_schema: opts[:response_schema]
+      stream: opts[:stream]
     }
 
     %{response | context: context}

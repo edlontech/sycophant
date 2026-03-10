@@ -21,7 +21,7 @@ handled automatically based on the model identifier.
 - **Structured output** -- validated against Zoi schemas
 - **Tool use** -- auto-execution loop or manual handling
 - **Embeddings** -- unified embedding API across providers
-- **Multi-turn conversations** -- pass a response back to continue
+- **Multi-turn conversations** -- extract context from a response to continue
 - **Automatic cost calculation** -- token costs from LLMDB pricing data
 - **Telemetry** -- `:telemetry` events with optional OpenTelemetry bridge
 - **Serialization** -- JSON round-trip for all core structs (database persistence)
@@ -33,14 +33,17 @@ handled automatically based on the model identifier.
 # Generate text
 messages = [Sycophant.Message.user("What is the capital of France?")]
 
-{:ok, response} = Sycophant.generate_text(messages, model: "openai:gpt-4o-mini")
+{:ok, response} = Sycophant.generate_text("openai:gpt-4o-mini", messages)
 response.text
 #=> "The capital of France is Paris."
 ```
 
 ```elixir
 # Continue the conversation
-{:ok, follow_up} = Sycophant.generate_text(response, Sycophant.Message.user("Tell me more"))
+alias Sycophant.Context
+
+ctx = response.context |> Context.add(Sycophant.Message.user("Tell me more"))
+{:ok, follow_up} = Sycophant.generate_text("openai:gpt-4o-mini", ctx)
 ```
 
 ```elixir
@@ -48,15 +51,14 @@ response.text
 schema = Zoi.object(%{name: Zoi.string(), age: Zoi.integer()})
 messages = [Sycophant.Message.user("Extract: John is 30 years old")]
 
-{:ok, response} = Sycophant.generate_object(messages, schema, model: "openai:gpt-4o-mini")
+{:ok, response} = Sycophant.generate_object("openai:gpt-4o-mini", messages, schema)
 response.object
 #=> %{name: "John", age: 30}
 ```
 
 ```elixir
 # Streaming
-Sycophant.generate_text(messages,
-  model: "openai:gpt-4o-mini",
+Sycophant.generate_text("openai:gpt-4o-mini", messages,
   stream: fn chunk -> IO.write(chunk.data) end
 )
 ```
@@ -70,8 +72,7 @@ weather_tool = %Sycophant.Tool{
   function: fn %{"city" => city} -> "72F sunny in #{city}" end
 }
 
-Sycophant.generate_text(messages,
-  model: "openai:gpt-4o-mini",
+Sycophant.generate_text("openai:gpt-4o-mini", messages,
   tools: [weather_tool]
 )
 ```

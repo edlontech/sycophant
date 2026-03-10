@@ -13,8 +13,7 @@ defmodule Sycophant.ToolExecutorTest do
       text: nil,
       tool_calls: [],
       context: %Context{
-        messages: [Message.user("Hi")],
-        model: "openai:gpt-4o"
+        messages: [Message.user("Hi")]
       }
     }
 
@@ -60,8 +59,7 @@ defmodule Sycophant.ToolExecutorTest do
             messages: [
               Message.user("What's the weather?"),
               %Message{role: :assistant, content: nil, tool_calls: [tool_call]}
-            ],
-            model: "openai:gpt-4o"
+            ]
           }
         })
 
@@ -96,8 +94,7 @@ defmodule Sycophant.ToolExecutorTest do
             messages: [
               Message.user("weather"),
               %Message{role: :assistant, content: nil, tool_calls: [tool_call]}
-            ],
-            model: "openai:gpt-4o"
+            ]
           }
         })
 
@@ -129,8 +126,7 @@ defmodule Sycophant.ToolExecutorTest do
             messages: [
               Message.user("go"),
               %Message{role: :assistant, content: nil, tool_calls: [tool_call_1]}
-            ],
-            model: "openai:gpt-4o"
+            ]
           }
         })
 
@@ -143,8 +139,7 @@ defmodule Sycophant.ToolExecutorTest do
               %Message{role: :assistant, content: nil, tool_calls: [tool_call_1]},
               Message.tool_result(tool_call_1, "done 1"),
               %Message{role: :assistant, content: nil, tool_calls: [tool_call_2]}
-            ],
-            model: "openai:gpt-4o"
+            ]
           }
         })
 
@@ -178,8 +173,7 @@ defmodule Sycophant.ToolExecutorTest do
             messages: [
               Message.user("go"),
               %Message{role: :assistant, content: nil, tool_calls: [tc]}
-            ],
-            model: "openai:gpt-4o"
+            ]
           }
         })
       end
@@ -208,8 +202,7 @@ defmodule Sycophant.ToolExecutorTest do
             messages: [
               Message.user("weather"),
               %Message{role: :assistant, content: nil, tool_calls: [tool_call]}
-            ],
-            model: "openai:gpt-4o"
+            ]
           }
         })
 
@@ -233,8 +226,7 @@ defmodule Sycophant.ToolExecutorTest do
             messages: [
               Message.user("test"),
               %Message{role: :assistant, content: nil, tool_calls: [tool_call]}
-            ],
-            model: "openai:gpt-4o"
+            ]
           }
         })
 

@@ -23,7 +23,7 @@ defmodule Sycophant.Recording.GenerateObjectTest do
     ]
 
     {:ok, response} =
-      Sycophant.generate_object(messages, schema, recording_opts(model: model))
+      Sycophant.generate_object(model, messages, schema, recording_opts([]))
 
     assert is_map(response.object)
     assert is_binary(response.object[:name])

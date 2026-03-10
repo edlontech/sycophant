@@ -37,8 +37,7 @@ weather_tool = %Sycophant.Tool{
 
 messages = [Sycophant.Message.user("What's the weather in Paris?")]
 
-{:ok, response} = Sycophant.generate_text(messages,
-  model: "openai:gpt-4o-mini",
+{:ok, response} = Sycophant.generate_text("openai:gpt-4o-mini", messages,
   tools: [weather_tool]
 )
 
@@ -67,8 +66,7 @@ search_tool = %Sycophant.Tool{
   parameters: Zoi.object(%{query: Zoi.string()})
 }
 
-{:ok, response} = Sycophant.generate_text(messages,
-  model: "openai:gpt-4o-mini",
+{:ok, response} = Sycophant.generate_text("openai:gpt-4o-mini", messages,
   tools: [search_tool]
 )
 
@@ -100,8 +98,7 @@ manual_tool = %Sycophant.Tool{
   parameters: Zoi.object(%{to: Zoi.string(), body: Zoi.string()})
 }
 
-Sycophant.generate_text(messages,
-  model: "openai:gpt-4o-mini",
+Sycophant.generate_text("openai:gpt-4o-mini", messages,
   tools: [auto_tool, manual_tool],
   max_steps: 5
 )
@@ -129,8 +126,7 @@ The `:max_steps` option controls the maximum number of tool execution loop
 iterations. This prevents infinite loops when the LLM keeps calling tools:
 
 ```elixir
-Sycophant.generate_text(messages,
-  model: "openai:gpt-4o-mini",
+Sycophant.generate_text("openai:gpt-4o-mini", messages,
   tools: [weather_tool],
   max_steps: 3
 )

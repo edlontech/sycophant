@@ -8,7 +8,7 @@ defmodule Sycophant.Integration.GenerateTextTest do
   test "generates text with OpenAI gpt-4o-mini" do
     messages = [Message.user("Say 'hello' and nothing else.")]
 
-    assert {:ok, response} = Sycophant.generate_text(messages, model: "openai:gpt-4o-mini")
+    assert {:ok, response} = Sycophant.generate_text("openai:gpt-4o-mini", messages)
     assert is_binary(response.text)
     assert response.text =~ ~r/hello/i
     assert response.usage.input_tokens > 0
@@ -21,7 +21,7 @@ defmodule Sycophant.Integration.GenerateTextTest do
       Message.user("What is 2 + 2?")
     ]
 
-    assert {:ok, response} = Sycophant.generate_text(messages, model: "openai:gpt-4o-mini")
+    assert {:ok, response} = Sycophant.generate_text("openai:gpt-4o-mini", messages)
     assert is_binary(response.text)
     assert response.text =~ "4"
   end
@@ -30,7 +30,7 @@ defmodule Sycophant.Integration.GenerateTextTest do
     messages = [Message.user("What is the capital of France? One word only.")]
 
     assert {:ok, response} =
-             Sycophant.generate_text(messages, model: "openai:gpt-4o-mini", temperature: 0.0)
+             Sycophant.generate_text("openai:gpt-4o-mini", messages, temperature: 0.0)
 
     assert is_binary(response.text)
     assert response.text =~ "Paris"
@@ -40,8 +40,7 @@ defmodule Sycophant.Integration.GenerateTextTest do
     messages = [Message.user("Hello")]
 
     assert {:error, _} =
-             Sycophant.generate_text(messages,
-               model: "openai:gpt-4o-mini",
+             Sycophant.generate_text("openai:gpt-4o-mini", messages,
                credentials: %{api_key: "sk-invalid"}
              )
   end

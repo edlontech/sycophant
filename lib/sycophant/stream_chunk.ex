@@ -14,8 +14,7 @@ defmodule Sycophant.StreamChunk do
 
   ## Examples
 
-      Sycophant.generate_text(messages,
-        model: "openai:gpt-4o-mini",
+      Sycophant.generate_text("openai:gpt-4o-mini", messages,
         stream: fn
           %Sycophant.StreamChunk{type: :text_delta, data: text} -> IO.write(text)
           %Sycophant.StreamChunk{type: :usage, data: usage} -> IO.inspect(usage)

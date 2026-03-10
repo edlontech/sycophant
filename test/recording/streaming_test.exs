@@ -16,8 +16,9 @@ defmodule Sycophant.Recording.StreamingTest do
 
     assert {:ok, response} =
              Sycophant.generate_text(
+               model,
                messages,
-               recording_opts(model: model, stream: callback)
+               recording_opts(stream: callback)
              )
 
     assert is_binary(response.text)
@@ -45,8 +46,9 @@ defmodule Sycophant.Recording.StreamingTest do
 
     assert {:ok, response} =
              Sycophant.generate_text(
+               model,
                messages,
-               recording_opts(model: model, tools: [tool], stream: callback)
+               recording_opts(tools: [tool], stream: callback)
              )
 
     assert response.tool_calls == []

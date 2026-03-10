@@ -12,7 +12,7 @@ Errors you can fix before sending the request:
 
 | Error | When |
 |-------|------|
-| `MissingModel` | No `:model` option provided |
+| `MissingModel` | No model argument provided |
 | `MissingCredentials` | No credentials found for the provider |
 | `InvalidParams` | Parameters fail Zoi schema validation |
 | `InvalidSchema` | Response schema is malformed |
@@ -44,7 +44,7 @@ Catch-all for errors that don't fit the above categories.
 Match on specific error modules for targeted handling:
 
 ```elixir
-case Sycophant.generate_text(messages, model: "openai:gpt-4o-mini") do
+case Sycophant.generate_text("openai:gpt-4o-mini", messages) do
   {:ok, response} ->
     response.text
 
@@ -69,7 +69,7 @@ end
 Match on the error class to handle categories:
 
 ```elixir
-case Sycophant.generate_text(messages, model: "openai:gpt-4o-mini") do
+case Sycophant.generate_text("openai:gpt-4o-mini", messages) do
   {:ok, response} ->
     {:ok, response}
 
@@ -91,7 +91,7 @@ end
 Use `Splode.Error.message/1` to get a human-readable description:
 
 ```elixir
-{:error, error} = Sycophant.generate_text(messages, model: "bad:model")
+{:error, error} = Sycophant.generate_text("bad:model", messages)
 Splode.Error.message(error)
 #=> "Model not found: bad:model"
 ```
