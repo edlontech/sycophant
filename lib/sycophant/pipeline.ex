@@ -11,8 +11,9 @@ defmodule Sycophant.Pipeline do
   5. **HTTP Transport** - Sends the request via Tesla (sync or streaming)
   6. **Wire Decoding** - Parses the provider response back into Sycophant structs
   7. **Tool Execution** - Auto-executes tool calls if tools have functions set
-  8. **Response Validation** - Validates structured output against schema if provided
-  9. **Context Attachment** - Stores conversation state for continuation
+  8. **Cost Enrichment** - Calculates token costs from LLMDB pricing data
+  9. **Response Validation** - Validates structured output against schema if provided
+  10. **Context Attachment** - Stores conversation state for continuation
   """
 
   require Logger
@@ -27,6 +28,7 @@ defmodule Sycophant.Pipeline do
   alias Sycophant.Telemetry
   alias Sycophant.ToolExecutor
   alias Sycophant.Transport
+  alias Sycophant.Usage
 
   @meta_keys [:model, :tools, :stream, :credentials, :response_schema, :validate, :max_steps]
 
@@ -58,6 +60,7 @@ defmodule Sycophant.Pipeline do
            dispatch_call(messages, params, opts, model_info, adapter, credentials),
          {:ok, response} <-
            maybe_tool_loop(response, opts, params, model_info, adapter, credentials) do
+      response = enrich_usage_cost(response, model_info)
       maybe_validate_response(response, opts)
     end
   end
@@ -298,6 +301,11 @@ defmodule Sycophant.Pipeline do
         validate? = Keyword.get(opts, :validate, true)
         ResponseValidator.validate(response, schema, validate?)
     end
+  end
+
+  defp enrich_usage_cost(response, model_info) do
+    cost_map = get_in(model_info, [:model_struct, Access.key(:cost)])
+    %{response | usage: Usage.calculate_cost(response.usage, cost_map)}
   end
 
   defp attach_context(response, messages, params, opts) do

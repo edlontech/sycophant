@@ -873,6 +873,53 @@ defmodule Sycophant.PipelineTest do
     end
   end
 
+  describe "call/2 usage cost enrichment" do
+    test "populates cost fields when model has cost data" do
+      model =
+        build_model(%{
+          cost: %{input: 3.0, output: 15.0, cache_read: 0.3, cache_write: 3.75}
+        })
+
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      stub(Sycophant.Transport, :call, fn _payload, _opts ->
+        {:ok,
+         %{
+           "id" => "resp-123",
+           "output" => [
+             %{
+               "type" => "message",
+               "content" => [%{"type" => "output_text", "text" => "Hello!"}]
+             }
+           ],
+           "usage" => %{"input_tokens" => 1000, "output_tokens" => 500}
+         }}
+      end)
+
+      assert {:ok, %Response{usage: usage}} =
+               Pipeline.call(default_messages(), default_opts())
+
+      assert_in_delta usage.input_cost, 0.003, 1.0e-9
+      assert_in_delta usage.output_cost, 0.0075, 1.0e-9
+      assert_in_delta usage.total_cost, 0.0105, 1.0e-9
+    end
+
+    test "leaves cost fields nil when model has no cost data" do
+      stub_happy_path()
+
+      assert {:ok, %Response{usage: usage}} =
+               Pipeline.call(default_messages(), default_opts())
+
+      assert is_nil(usage.input_cost)
+      assert is_nil(usage.output_cost)
+      assert is_nil(usage.total_cost)
+    end
+  end
+
   describe "call/2 streaming telemetry" do
     setup do
       test_pid = self()
