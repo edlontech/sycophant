@@ -92,7 +92,7 @@ Add `sycophant` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:sycophant, "~> 0.1.0"}
+    {:sycophant, github: "edlontech/sycophant", branch: "main"}
   ]
 end
 ```
