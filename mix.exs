@@ -1,6 +1,3 @@
-==> llm_db
-Compiling 40 files (.ex)
-Generated llm_db app
 defmodule Sycophant.MixProject do
   use Mix.Project
 
@@ -11,6 +8,9 @@ defmodule Sycophant.MixProject do
       package: package(),
       version: "0.1.0",
       elixir: "~> 1.19",
+      dialyzer: [
+        plt_core_path: "_plts/core"
+      ],
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       docs: docs(),
