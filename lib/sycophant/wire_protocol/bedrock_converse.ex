@@ -29,7 +29,8 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
               tool_calls: %{},
               usage: nil,
               model: nil,
-              current_block: nil
+              current_block: nil,
+              stop_reason: nil
   end
 
   @param_map %{
@@ -86,6 +87,7 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
     response = %Response{
       text: text,
       tool_calls: tool_calls,
+      finish_reason: map_finish_reason(body["stopReason"]),
       usage: decode_usage(body["usage"]),
       model: nil,
       raw: body,
@@ -159,8 +161,8 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
     {:ok, %{state | current_block: nil}, []}
   end
 
-  def decode_stream_chunk(state, %{event_type: "messageStop", payload: _}) do
-    {:ok, state, []}
+  def decode_stream_chunk(state, %{event_type: "messageStop", payload: payload}) do
+    {:ok, %{state | stop_reason: payload["stopReason"]}, []}
   end
 
   def decode_stream_chunk(state, %{
@@ -182,6 +184,7 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
     %Response{
       text: text,
       tool_calls: tool_calls,
+      finish_reason: map_finish_reason(state.stop_reason),
       usage: state.usage,
       model: state.model,
       context: %Context{messages: []}
@@ -441,4 +444,12 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
         err
     end
   end
+
+  # --- Finish Reason Mapping ---
+
+  defp map_finish_reason("end_turn"), do: :stop
+  defp map_finish_reason("tool_use"), do: :tool_use
+  defp map_finish_reason("max_tokens"), do: :max_tokens
+  defp map_finish_reason(nil), do: nil
+  defp map_finish_reason(_), do: :unknown
 end

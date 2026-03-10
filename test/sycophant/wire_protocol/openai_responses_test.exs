@@ -405,6 +405,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
       assert resp.text == "Hello there!"
       assert resp.tool_calls == []
       assert resp.model == "gpt-4o-2024-08-06"
+      assert resp.finish_reason == :stop
     end
 
     test "decodes usage tokens" do
@@ -455,6 +456,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
       assert tool_call.id == "call_abc"
       assert tool_call.name == "get_weather"
       assert tool_call.arguments == %{"city" => "Paris"}
+      assert resp.finish_reason == :stop
     end
 
     test "decodes multiple function_call items" do
@@ -649,6 +651,32 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
     end
   end
 
+  describe "map_finish_reason/1" do
+    test "maps provider-specific values to canonical atoms" do
+      for {status, expected_atom} <- [
+            {"completed", :stop},
+            {"failed", :error},
+            {"incomplete", :incomplete}
+          ] do
+        body = %{responses_api_response(text: "hi") | "status" => status}
+        assert {:ok, resp} = OpenAIResponses.decode_response(body)
+        assert resp.finish_reason == expected_atom
+      end
+    end
+
+    test "maps nil to nil" do
+      body = %{responses_api_response(text: "hi") | "status" => nil}
+      assert {:ok, resp} = OpenAIResponses.decode_response(body)
+      assert resp.finish_reason == nil
+    end
+
+    test "maps unknown values to :unknown" do
+      body = %{responses_api_response(text: "hi") | "status" => "something_new"}
+      assert {:ok, resp} = OpenAIResponses.decode_response(body)
+      assert resp.finish_reason == :unknown
+    end
+  end
+
   # --- Helpers ---
 
   defp build_request(messages, opts \\ []) do
@@ -824,6 +852,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
       assert {:done, response} = OpenAIResponses.decode_stream_chunk(nil, event)
       assert response.text == "Final answer"
       assert response.model == "gpt-4o-2024-08-06"
+      assert response.finish_reason == :stop
     end
 
     test "unknown events return empty chunks" do

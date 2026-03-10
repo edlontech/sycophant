@@ -98,6 +98,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
         text: text,
         tool_calls: tool_calls,
         reasoning: reasoning,
+        finish_reason: map_finish_reason(body["status"]),
         usage: decode_usage(body["usage"]),
         model: body["model"],
         raw: body,
@@ -505,4 +506,12 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   end
 
   defp set_strict_additional_properties(schema), do: schema
+
+  # --- Finish Reason Mapping ---
+
+  defp map_finish_reason("completed"), do: :stop
+  defp map_finish_reason("failed"), do: :error
+  defp map_finish_reason("incomplete"), do: :incomplete
+  defp map_finish_reason(nil), do: nil
+  defp map_finish_reason(_), do: :unknown
 end

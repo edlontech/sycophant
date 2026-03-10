@@ -32,7 +32,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
   defmodule StreamState do
     @moduledoc false
     @type t :: %__MODULE__{}
-    defstruct text: "", tool_calls: %{}, usage: nil, model: nil
+    defstruct text: "", tool_calls: %{}, usage: nil, model: nil, finish_reason: nil
   end
 
   @param_map %{
@@ -91,6 +91,8 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
       response = %Response{
         text: message["content"],
         tool_calls: tool_calls,
+        finish_reason:
+          map_finish_reason(get_in(body, ["choices", Access.at(0), "finish_reason"])),
         usage: decode_usage(body["usage"]),
         model: body["model"],
         raw: body,
@@ -120,8 +122,8 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
     {state, chunks} = process_delta(state, delta)
 
     case choice["finish_reason"] do
-      reason when reason in ["stop", "tool_calls", "length"] ->
-        {:done, build_streamed_response(state)}
+      reason when reason in ["stop", "tool_calls", "length", "content_filter"] ->
+        {:done, build_streamed_response(%{state | finish_reason: reason})}
 
       _ ->
         {:ok, state, chunks}
@@ -200,6 +202,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
     %Response{
       text: text,
       tool_calls: tool_calls,
+      finish_reason: map_finish_reason(state.finish_reason),
       usage: state.usage,
       model: state.model,
       context: %Context{messages: []}
@@ -433,4 +436,14 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
   end
 
   defp set_strict_additional_properties(schema), do: schema
+
+  # --- Finish Reason Mapping ---
+
+  defp map_finish_reason("stop"), do: :stop
+  defp map_finish_reason("tool_calls"), do: :tool_use
+  defp map_finish_reason("function_call"), do: :tool_use
+  defp map_finish_reason("length"), do: :max_tokens
+  defp map_finish_reason("content_filter"), do: :content_filter
+  defp map_finish_reason(nil), do: nil
+  defp map_finish_reason(_), do: :unknown
 end

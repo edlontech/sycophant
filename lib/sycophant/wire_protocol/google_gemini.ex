@@ -77,6 +77,8 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
       text: text,
       tool_calls: tool_calls,
       reasoning: reasoning,
+      finish_reason:
+        map_finish_reason(get_in(body, ["candidates", Access.at(0), "finishReason"])),
       usage: decode_usage(body["usageMetadata"]),
       model: body["modelVersion"],
       raw: body,
@@ -115,6 +117,7 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
               do: nil,
               else: %Reasoning{summary: state.thinking}
             ),
+          finish_reason: map_finish_reason(reason),
           usage: state.usage,
           model: state.model,
           context: %Context{messages: []}
@@ -476,4 +479,16 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
   end
 
   defp strip_additional_properties(value), do: value
+
+  # --- Finish Reason Mapping ---
+
+  defp map_finish_reason("STOP"), do: :stop
+  defp map_finish_reason("MAX_TOKENS"), do: :max_tokens
+  defp map_finish_reason("SAFETY"), do: :content_filter
+  defp map_finish_reason("SPII"), do: :content_filter
+  defp map_finish_reason("IMAGE_SAFETY"), do: :content_filter
+  defp map_finish_reason("RECITATION"), do: :recitation
+  defp map_finish_reason("MALFORMED_FUNCTION_CALL"), do: :error
+  defp map_finish_reason(nil), do: nil
+  defp map_finish_reason(_), do: :unknown
 end

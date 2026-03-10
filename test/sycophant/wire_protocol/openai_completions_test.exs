@@ -315,6 +315,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
       assert resp.text == "Hello there!"
       assert resp.tool_calls == []
       assert resp.model == "gpt-4o-2024-08-06"
+      assert resp.finish_reason == :stop
     end
 
     test "decodes usage tokens" do
@@ -354,6 +355,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
       assert tool_call.id == "call_abc"
       assert tool_call.name == "get_weather"
       assert tool_call.arguments == %{"city" => "Paris"}
+      assert resp.finish_reason == :stop
     end
 
     test "decodes multiple tool calls" do
@@ -423,6 +425,42 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
       assert decoded_tc.id == "call_1"
       assert decoded_tc.name == "calc"
       assert decoded_tc.arguments == %{"expr" => "2+2"}
+    end
+  end
+
+  describe "map_finish_reason/1" do
+    test "maps provider-specific values to canonical atoms" do
+      for {provider_value, expected_atom} <- [
+            {"stop", :stop},
+            {"tool_calls", :tool_use},
+            {"length", :max_tokens},
+            {"content_filter", :content_filter}
+          ] do
+        body =
+          openai_response(content: "hi")
+          |> put_in(["choices", Access.at(0), "finish_reason"], provider_value)
+
+        assert {:ok, resp} = OpenAICompletions.decode_response(body)
+        assert resp.finish_reason == expected_atom
+      end
+    end
+
+    test "maps nil to nil" do
+      body =
+        openai_response(content: "hi")
+        |> put_in(["choices", Access.at(0), "finish_reason"], nil)
+
+      assert {:ok, resp} = OpenAICompletions.decode_response(body)
+      assert resp.finish_reason == nil
+    end
+
+    test "maps unknown values to :unknown" do
+      body =
+        openai_response(content: "hi")
+        |> put_in(["choices", Access.at(0), "finish_reason"], "something_new")
+
+      assert {:ok, resp} = OpenAICompletions.decode_response(body)
+      assert resp.finish_reason == :unknown
     end
   end
 
@@ -574,6 +612,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
       assert response.text == "Hello"
       assert response.tool_calls == []
       assert response.context.messages == []
+      assert response.finish_reason == :stop
     end
 
     test "returns {:done, Response} on finish_reason tool_calls" do
@@ -612,6 +651,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
       assert [tool_call] = response.tool_calls
       assert tool_call.name == "weather"
       assert tool_call.arguments == %{"city" => "Paris"}
+      assert response.finish_reason == :tool_use
     end
 
     test "sets text to nil when no text accumulated" do

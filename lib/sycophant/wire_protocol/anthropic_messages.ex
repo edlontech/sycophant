@@ -39,7 +39,8 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
               encrypted_thinking: nil,
               usage: nil,
               model: nil,
-              current_block: nil
+              current_block: nil,
+              stop_reason: nil
   end
 
   @param_map %{
@@ -105,6 +106,7 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
       text: text,
       tool_calls: tool_calls,
       reasoning: reasoning,
+      finish_reason: map_finish_reason(body["stop_reason"]),
       usage: decode_usage(body["usage"]),
       model: body["model"],
       raw: body,
@@ -212,6 +214,12 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
 
         _ ->
           state
+      end
+
+    state =
+      case get_in(data, ["delta", "stop_reason"]) do
+        nil -> state
+        reason -> %{state | stop_reason: reason}
       end
 
     {:ok, state, []}
@@ -529,6 +537,7 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
       text: text,
       tool_calls: tool_calls,
       reasoning: reasoning,
+      finish_reason: map_finish_reason(state.stop_reason),
       usage: state.usage,
       model: state.model,
       context: %Context{messages: []}
@@ -547,4 +556,12 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
       end
     end)
   end
+
+  # --- Private: Finish Reason Mapping ---
+
+  defp map_finish_reason("end_turn"), do: :stop
+  defp map_finish_reason("tool_use"), do: :tool_use
+  defp map_finish_reason("max_tokens"), do: :max_tokens
+  defp map_finish_reason(nil), do: nil
+  defp map_finish_reason(_), do: :unknown
 end

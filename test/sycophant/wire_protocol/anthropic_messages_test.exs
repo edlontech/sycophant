@@ -417,6 +417,7 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
       assert resp.text == "Hello there!"
       assert resp.tool_calls == []
       assert resp.model == "claude-sonnet-4-20250514"
+      assert resp.finish_reason == :stop
     end
 
     test "decodes usage tokens" do
@@ -474,6 +475,7 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
       assert tc.id == "toolu_1"
       assert tc.name == "get_weather"
       assert tc.arguments == %{"city" => "Paris"}
+      assert resp.finish_reason == :stop
     end
 
     test "decodes mixed text and tool_use" do
@@ -653,6 +655,7 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
       assert response.model == "claude-sonnet-4-20250514"
       assert response.usage.input_tokens == 15
       assert response.usage.output_tokens == 15
+      assert response.finish_reason == :stop
     end
 
     test "streaming with tool_use" do
@@ -731,6 +734,7 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
       assert tc.id == "toolu_1"
       assert tc.name == "weather"
       assert tc.arguments == %{"city" => "Paris"}
+      assert response.finish_reason == :tool_use
     end
 
     test "streaming with thinking" do
@@ -807,12 +811,53 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
 
       assert response.text == "42"
       assert response.reasoning == %Reasoning{summary: "Let me think..."}
+      assert response.finish_reason == :stop
     end
 
     test "skips ping events" do
       state = AnthropicMessages.init_stream()
       event = %{event: "ping", data: %{}}
       assert {:ok, ^state, []} = AnthropicMessages.decode_stream_chunk(state, event)
+    end
+  end
+
+  describe "map_finish_reason/1" do
+    test "maps provider-specific values to canonical atoms" do
+      base_content = [%{"type" => "text", "text" => "hi"}]
+
+      for {provider_value, expected_atom} <- [
+            {"end_turn", :stop},
+            {"tool_use", :tool_use},
+            {"max_tokens", :max_tokens}
+          ] do
+        body = %{
+          anthropic_response(content: base_content)
+          | "stop_reason" => provider_value
+        }
+
+        assert {:ok, resp} = AnthropicMessages.decode_response(body)
+        assert resp.finish_reason == expected_atom
+      end
+    end
+
+    test "maps nil to nil" do
+      body = %{
+        anthropic_response(content: [%{"type" => "text", "text" => "hi"}])
+        | "stop_reason" => nil
+      }
+
+      assert {:ok, resp} = AnthropicMessages.decode_response(body)
+      assert resp.finish_reason == nil
+    end
+
+    test "maps unknown values to :unknown" do
+      body = %{
+        anthropic_response(content: [%{"type" => "text", "text" => "hi"}])
+        | "stop_reason" => "something_new"
+      }
+
+      assert {:ok, resp} = AnthropicMessages.decode_response(body)
+      assert resp.finish_reason == :unknown
     end
   end
 

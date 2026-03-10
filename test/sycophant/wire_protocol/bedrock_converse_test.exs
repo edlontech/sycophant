@@ -317,6 +317,7 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
       assert response.tool_calls == []
       assert %Usage{input_tokens: 30, output_tokens: 100} = response.usage
       assert response.raw == body
+      assert response.finish_reason == :stop
     end
 
     test "decodes tool use response with text and tool calls" do
@@ -345,6 +346,8 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
 
       assert [%ToolCall{id: "tc1", name: "get_weather", arguments: %{"city" => "NYC"}}] =
                response.tool_calls
+
+      assert response.finish_reason == :tool_use
     end
 
     test "decodes response with only tool use and no text" do
@@ -372,6 +375,8 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
 
       assert [%ToolCall{id: "tc2", name: "search", arguments: %{"query" => "elixir"}}] =
                response.tool_calls
+
+      assert response.finish_reason == :tool_use
     end
 
     test "returns error for invalid body structure" do
@@ -453,6 +458,7 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
       assert response.text == "Hello world"
       assert response.tool_calls == []
       assert %Usage{input_tokens: 10, output_tokens: 25} = response.usage
+      assert response.finish_reason == :stop
     end
 
     test "tool use streaming sequence" do
@@ -522,6 +528,7 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
                response.tool_calls
 
       assert %Usage{input_tokens: 50, output_tokens: 30} = response.usage
+      assert response.finish_reason == :tool_use
     end
 
     test "metadata event provides usage and completes stream" do
@@ -548,6 +555,64 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
                BedrockConverse.decode_stream_chunk(state, %{event_type: "ping", payload: %{}})
 
       assert {:ok, ^state, []} = BedrockConverse.decode_stream_chunk(state, %{})
+    end
+  end
+
+  describe "map_finish_reason/1" do
+    test "maps provider-specific values to canonical atoms" do
+      base_body = fn stop_reason ->
+        %{
+          "output" => %{
+            "message" => %{
+              "role" => "assistant",
+              "content" => [%{"text" => "hi"}]
+            }
+          },
+          "stopReason" => stop_reason,
+          "usage" => %{"inputTokens" => 10, "outputTokens" => 5, "totalTokens" => 15}
+        }
+      end
+
+      for {provider_value, expected_atom} <- [
+            {"end_turn", :stop},
+            {"tool_use", :tool_use},
+            {"max_tokens", :max_tokens}
+          ] do
+        assert {:ok, resp} = BedrockConverse.decode_response(base_body.(provider_value))
+        assert resp.finish_reason == expected_atom
+      end
+    end
+
+    test "maps nil to nil" do
+      body = %{
+        "output" => %{
+          "message" => %{
+            "role" => "assistant",
+            "content" => [%{"text" => "hi"}]
+          }
+        },
+        "stopReason" => nil,
+        "usage" => %{"inputTokens" => 10, "outputTokens" => 5, "totalTokens" => 15}
+      }
+
+      assert {:ok, resp} = BedrockConverse.decode_response(body)
+      assert resp.finish_reason == nil
+    end
+
+    test "maps unknown values to :unknown" do
+      body = %{
+        "output" => %{
+          "message" => %{
+            "role" => "assistant",
+            "content" => [%{"text" => "hi"}]
+          }
+        },
+        "stopReason" => "something_new",
+        "usage" => %{"inputTokens" => 10, "outputTokens" => 5, "totalTokens" => 15}
+      }
+
+      assert {:ok, resp} = BedrockConverse.decode_response(body)
+      assert resp.finish_reason == :unknown
     end
   end
 

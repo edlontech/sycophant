@@ -37,6 +37,19 @@ defmodule Sycophant.Response do
   alias Sycophant.ToolCall
   alias Sycophant.Usage
 
+  @type finish_reason() ::
+          :stop
+          | :tool_use
+          | :max_tokens
+          | :content_filter
+          | :recitation
+          | :error
+          | :incomplete
+          | :unknown
+          | nil
+
+  @valid_finish_reasons ~w(stop tool_use max_tokens content_filter recitation error incomplete unknown)a
+
   typedstruct do
     field :text, String.t()
     field :object, map()
@@ -45,6 +58,7 @@ defmodule Sycophant.Response do
     field :model, String.t()
     field :raw, map()
     field :reasoning, Reasoning.t()
+    field :finish_reason, finish_reason()
     field :context, Context.t(), enforce: true
   end
 
@@ -72,6 +86,7 @@ defmodule Sycophant.Response do
       model: data["model"],
       raw: data["raw"],
       reasoning: decode_optional(data["reasoning"]),
+      finish_reason: decode_finish_reason(data["finish_reason"]),
       context: Decoder.from_map(Map.put(data["context"], :opts, opts), opts)
     }
   end
@@ -81,6 +96,15 @@ defmodule Sycophant.Response do
 
   defp decode_optional(nil), do: nil
   defp decode_optional(data), do: Decoder.from_map(data)
+
+  defp decode_finish_reason(nil), do: nil
+
+  defp decode_finish_reason(value) when is_binary(value) do
+    atom = String.to_existing_atom(value)
+    if atom in @valid_finish_reasons, do: atom, else: :unknown
+  rescue
+    ArgumentError -> :unknown
+  end
 end
 
 defimpl Sycophant.Serializable, for: Sycophant.Response do
@@ -96,6 +120,7 @@ defimpl Sycophant.Serializable, for: Sycophant.Response do
       "model" => resp.model,
       "raw" => resp.raw,
       "reasoning" => maybe_to_map(resp.reasoning),
+      "finish_reason" => if(resp.finish_reason, do: Atom.to_string(resp.finish_reason)),
       "context" => Sycophant.Serializable.to_map(resp.context)
     })
   end

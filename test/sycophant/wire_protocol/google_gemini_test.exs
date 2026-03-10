@@ -406,6 +406,7 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
       assert resp.text == "Hello there!"
       assert resp.tool_calls == []
       assert resp.model == "gemini-2.0-flash"
+      assert resp.finish_reason == :stop
     end
 
     test "decodes usage metadata" do
@@ -457,6 +458,7 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
       assert tc.name == "get_weather"
       assert tc.arguments == %{"city" => "Paris"}
       assert tc.id == "gemini_call_0"
+      assert resp.finish_reason == :stop
     end
 
     test "decodes mixed text and tool calls" do
@@ -635,6 +637,7 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
       assert response.model == "gemini-2.0-flash"
       assert response.usage.input_tokens == 10
       assert response.usage.output_tokens == 15
+      assert response.finish_reason == :stop
     end
 
     test "streaming with tool calls" do
@@ -715,6 +718,7 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
 
       assert response.text == "The answer is 42"
       assert response.reasoning == %Reasoning{summary: "Let me think..."}
+      assert response.finish_reason == :stop
     end
 
     test "skips unknown events" do
@@ -742,7 +746,81 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
         }
       }
 
-      assert {:done, %Response{}, _chunks} = GoogleGemini.decode_stream_chunk(state, event)
+      assert {:done, %Response{} = response, _chunks} =
+               GoogleGemini.decode_stream_chunk(state, event)
+
+      assert response.finish_reason == :max_tokens
+    end
+  end
+
+  describe "map_finish_reason/1" do
+    test "maps provider-specific values to canonical atoms" do
+      base_parts = [%{"text" => "hi"}]
+
+      for {provider_value, expected_atom} <- [
+            {"STOP", :stop},
+            {"MAX_TOKENS", :max_tokens},
+            {"SAFETY", :content_filter},
+            {"RECITATION", :recitation}
+          ] do
+        body = %{
+          "candidates" => [
+            %{
+              "content" => %{"parts" => base_parts, "role" => "model"},
+              "finishReason" => provider_value
+            }
+          ],
+          "usageMetadata" => %{
+            "promptTokenCount" => 10,
+            "candidatesTokenCount" => 100,
+            "totalTokenCount" => 110
+          },
+          "modelVersion" => "gemini-2.0-flash"
+        }
+
+        assert {:ok, resp} = GoogleGemini.decode_response(body)
+        assert resp.finish_reason == expected_atom
+      end
+    end
+
+    test "maps nil to nil" do
+      body = %{
+        "candidates" => [
+          %{
+            "content" => %{"parts" => [%{"text" => "hi"}], "role" => "model"},
+            "finishReason" => nil
+          }
+        ],
+        "usageMetadata" => %{
+          "promptTokenCount" => 10,
+          "candidatesTokenCount" => 100,
+          "totalTokenCount" => 110
+        },
+        "modelVersion" => "gemini-2.0-flash"
+      }
+
+      assert {:ok, resp} = GoogleGemini.decode_response(body)
+      assert resp.finish_reason == nil
+    end
+
+    test "maps unknown values to :unknown" do
+      body = %{
+        "candidates" => [
+          %{
+            "content" => %{"parts" => [%{"text" => "hi"}], "role" => "model"},
+            "finishReason" => "SOMETHING_NEW"
+          }
+        ],
+        "usageMetadata" => %{
+          "promptTokenCount" => 10,
+          "candidatesTokenCount" => 100,
+          "totalTokenCount" => 110
+        },
+        "modelVersion" => "gemini-2.0-flash"
+      }
+
+      assert {:ok, resp} = GoogleGemini.decode_response(body)
+      assert resp.finish_reason == :unknown
     end
   end
 

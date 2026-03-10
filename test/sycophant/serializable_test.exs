@@ -267,6 +267,45 @@ defmodule Sycophant.SerializableTest do
       assert length(decoded.context.messages) == 2
     end
 
+    test "round-trips finish_reason" do
+      response = %Sycophant.Response{
+        text: "Hello",
+        finish_reason: :stop,
+        context: %Sycophant.Context{
+          messages: [Sycophant.Message.user("hi")],
+          model: "test-model"
+        }
+      }
+
+      decoded = response |> Decoder.encode() |> Decoder.decode()
+      assert decoded.finish_reason == :stop
+    end
+
+    test "serializes finish_reason as string" do
+      response = %Sycophant.Response{
+        text: "Hello",
+        finish_reason: :tool_use,
+        context: %Sycophant.Context{
+          messages: [Sycophant.Message.user("hi")]
+        }
+      }
+
+      map = Serializable.to_map(response)
+      assert map["finish_reason"] == "tool_use"
+    end
+
+    test "omits finish_reason when nil" do
+      response = %Sycophant.Response{
+        text: "Hello",
+        context: %Sycophant.Context{
+          messages: [Sycophant.Message.user("hi")]
+        }
+      }
+
+      map = Serializable.to_map(response)
+      refute Map.has_key?(map, "finish_reason")
+    end
+
     test "compacts empty tool_calls" do
       response = %Sycophant.Response{
         text: "hi",
