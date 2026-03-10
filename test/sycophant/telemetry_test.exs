@@ -59,7 +59,40 @@ defmodule Sycophant.TelemetryTest do
 
       assert is_integer(stop_measurements.duration)
       assert stop_metadata.model == "gpt-4"
-      assert stop_metadata.usage == %{input_tokens: 10, output_tokens: 5, total_tokens: 15}
+
+      assert stop_metadata.usage == %{
+               input_tokens: 10,
+               output_tokens: 5,
+               total_tokens: 15,
+               input_cost: nil,
+               output_cost: nil,
+               cache_read_cost: nil,
+               cache_write_cost: nil,
+               total_cost: nil
+             }
+    end
+
+    test "includes cost fields in usage metadata when present" do
+      response = %Sycophant.Response{
+        text: "Hello",
+        usage: %Sycophant.Usage{
+          input_tokens: 1000,
+          output_tokens: 500,
+          input_cost: 0.003,
+          output_cost: 0.0075,
+          total_cost: 0.0105
+        },
+        context: %Sycophant.Context{messages: []}
+      }
+
+      Telemetry.span(%{}, fn -> {:ok, response} end)
+
+      assert_received {:telemetry_event, [:sycophant, :request, :stop], _measurements,
+                       stop_metadata}
+
+      assert stop_metadata.usage.input_cost == 0.003
+      assert stop_metadata.usage.output_cost == 0.0075
+      assert stop_metadata.usage.total_cost == 0.0105
     end
 
     test "emits start and error events on failure with error metadata" do

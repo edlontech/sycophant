@@ -14,6 +14,7 @@ defmodule Sycophant.Telemetry do
     * `[:sycophant, :request, :stop]` - Request succeeds.
       Measurements: `%{duration: integer}` (native time units).
       Metadata: start metadata merged with `%{duration, usage}`.
+      Usage includes token counts and cost fields (from LLMDB pricing).
 
     * `[:sycophant, :request, :error]` - Request fails.
       Measurements: `%{duration: integer}` (native time units).
@@ -90,7 +91,12 @@ defmodule Sycophant.Telemetry do
     %{
       input_tokens: usage.input_tokens,
       output_tokens: usage.output_tokens,
-      total_tokens: (usage.input_tokens || 0) + (usage.output_tokens || 0)
+      total_tokens: (usage.input_tokens || 0) + (usage.output_tokens || 0),
+      input_cost: usage.input_cost,
+      output_cost: usage.output_cost,
+      cache_read_cost: usage.cache_read_cost,
+      cache_write_cost: usage.cache_write_cost,
+      total_cost: usage.total_cost
     }
   end
 
