@@ -152,26 +152,29 @@ defmodule Sycophant do
 
       # Continue the conversation
       {:ok, response2} = Sycophant.generate_text(response, Sycophant.Message.user("Thanks!"))
-  """
-  @spec generate_text([Message.t()] | Response.t(), keyword() | Message.t()) ::
-          {:ok, Response.t()} | {:error, Splode.Error.t()}
-  def generate_text(messages_or_response, opts_or_message \\ [])
 
-  def generate_text(messages, opts) when is_list(messages) do
+      # Continue with additional options (e.g. credentials)
+      {:ok, response3} = Sycophant.generate_text(response2, Sycophant.Message.user("Bye!"), credentials: creds)
+  """
+  @spec generate_text([Message.t()] | Response.t(), keyword() | Message.t(), keyword()) ::
+          {:ok, Response.t()} | {:error, Splode.Error.t()}
+  def generate_text(messages_or_response, opts_or_message \\ [], extra_opts \\ [])
+
+  def generate_text(messages, opts, _extra_opts) when is_list(messages) do
     Sycophant.Pipeline.call(messages, opts)
   end
 
-  def generate_text(%Response{context: context}, %Message{} = message) do
+  def generate_text(%Response{context: context}, %Message{} = message, opts) do
     messages = context.messages ++ [message]
 
-    opts =
+    context_opts =
       [
         model: context.model,
         tools: context.tools,
         stream: context.stream
       ] ++ params_to_opts(context.params)
 
-    Sycophant.Pipeline.call(messages, opts)
+    Sycophant.Pipeline.call(messages, Keyword.merge(context_opts, opts))
   end
 
   @doc """
@@ -205,10 +208,10 @@ defmodule Sycophant do
     Sycophant.Pipeline.call(messages, Keyword.put(opts, :response_schema, schema))
   end
 
-  def generate_object(%Response{context: context}, %Message{} = message, _opts) do
+  def generate_object(%Response{context: context}, %Message{} = message, opts) do
     messages = context.messages ++ [message]
 
-    opts =
+    context_opts =
       [
         model: context.model,
         tools: context.tools,
@@ -216,7 +219,7 @@ defmodule Sycophant do
         response_schema: context.response_schema
       ] ++ params_to_opts(context.params)
 
-    Sycophant.Pipeline.call(messages, opts)
+    Sycophant.Pipeline.call(messages, Keyword.merge(context_opts, opts))
   end
 
   @doc """

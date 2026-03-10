@@ -38,7 +38,9 @@ defmodule Sycophant.Recording.GenerateTextTest do
     {:ok, resp1} = Sycophant.generate_text(messages, recording_opts(model: model))
     assert is_binary(resp1.text)
 
-    {:ok, resp2} = Sycophant.generate_text(resp1, Message.user("What is my name?"))
+    {:ok, resp2} =
+      Sycophant.generate_text(resp1, Message.user("What is my name?"), recording_opts([]))
+
     assert is_binary(resp2.text)
     assert resp2.text =~ "Sycophant"
 
