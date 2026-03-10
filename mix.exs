@@ -1,13 +1,19 @@
+==> llm_db
+Compiling 40 files (.ex)
+Generated llm_db app
 defmodule Sycophant.MixProject do
   use Mix.Project
 
   def project do
     [
       app: :sycophant,
+      description: description(),
+      package: package(),
       version: "0.1.0",
       elixir: "~> 1.19",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      docs: docs(),
       elixirc_paths: elixirc_paths(Mix.env()),
       aliases: aliases()
     ]
@@ -22,6 +28,122 @@ defmodule Sycophant.MixProject do
         "coveralls.html": :test,
         "test.recording": :test,
         "test.integration": :test
+      ]
+    ]
+  end
+
+  defp docs do
+    [
+      main: "readme",
+      logo: "logo.png",
+      extras: [
+        {"README.md", title: "Overview"},
+        {"guides/getting-started.md", title: "Getting Started"},
+        {"guides/architecture.md", title: "Architecture"},
+        {"guides/tool-use.md", title: "Tool Use"},
+        {"guides/error-handling.md", title: "Error Handling"},
+        {"guides/telemetry.md", title: "Telemetry"},
+        {"guides/serialization.md", title: "Serialization"},
+        {"guides/http-configuration.md", title: "HTTP Configuration"},
+        {"guides/custom-providers.md", title: "Custom Providers"},
+        {"guides/recording-tests.md", title: "Recording Tests"}
+      ],
+      groups_for_extras: [
+        Guides: [
+          "guides/getting-started.md",
+          "guides/architecture.md",
+          "guides/tool-use.md",
+          "guides/error-handling.md",
+          "guides/telemetry.md",
+          "guides/serialization.md",
+          "guides/http-configuration.md"
+        ],
+        "Extending Sycophant": [
+          "guides/custom-providers.md",
+          "guides/recording-tests.md"
+        ]
+      ],
+      groups_for_modules: [
+        "Client API": [
+          Sycophant,
+          Sycophant.Request,
+          Sycophant.Response,
+          Sycophant.Context,
+          Sycophant.Message,
+          Sycophant.Message.Content.Text,
+          Sycophant.Message.Content.Image
+        ],
+        "Tools & Execution": [
+          Sycophant.Tool,
+          Sycophant.ToolCall,
+          Sycophant.ToolExecutor
+        ],
+        Pipeline: [
+          Sycophant.Pipeline,
+          Sycophant.ModelResolver,
+          Sycophant.ResponseValidator
+        ],
+        "Wire Protocols": [
+          Sycophant.WireProtocol,
+          Sycophant.WireProtocol.AnthropicMessages,
+          Sycophant.WireProtocol.OpenAICompletions,
+          Sycophant.WireProtocol.OpenAIResponses,
+          Sycophant.WireProtocol.GoogleGemini,
+          Sycophant.WireProtocol.BedrockConverse
+        ],
+        Embeddings: [
+          Sycophant.EmbeddingPipeline,
+          Sycophant.EmbeddingRequest,
+          Sycophant.EmbeddingResponse,
+          Sycophant.EmbeddingParams,
+          Sycophant.EmbeddingWireProtocol,
+          Sycophant.EmbeddingWireProtocol.OpenAIEmbed,
+          Sycophant.EmbeddingWireProtocol.BedrockEmbed
+        ],
+        Authentication: [
+          Sycophant.Auth,
+          Sycophant.Auth.Bearer,
+          Sycophant.Auth.Anthropic,
+          Sycophant.Auth.Google,
+          Sycophant.Auth.Bedrock,
+          Sycophant.Auth.Azure
+        ],
+        "Telemetry & Observability": [
+          Sycophant.Telemetry,
+          Sycophant.OpenTelemetry
+        ],
+        Serialization: [
+          Sycophant.Serializable,
+          Sycophant.Serializable.Decoder
+        ],
+        Configuration: [
+          Sycophant.Config,
+          Sycophant.Credentials,
+          Sycophant.ParamDefs
+        ],
+        "Data Types": [
+          Sycophant.StreamChunk,
+          Sycophant.Usage,
+          Sycophant.Reasoning
+        ],
+        Errors: [
+          Sycophant.Error,
+          ~r/Sycophant\.Error\./
+        ],
+        Infrastructure: [
+          Sycophant.Transport,
+          Sycophant.Registry,
+          Sycophant.Application,
+          Sycophant.AWS.EventStream,
+          Sycophant.Schema.JsonSchema
+        ]
+      ],
+      nest_modules_by_prefix: [
+        Sycophant.Error,
+        Sycophant.Auth,
+        Sycophant.WireProtocol,
+        Sycophant.EmbeddingWireProtocol,
+        Sycophant.Message.Content
       ]
     ]
   end
@@ -52,7 +174,7 @@ defmodule Sycophant.MixProject do
       {:excoveralls, "~> 0.18", only: [:dev, :test]},
       {:ex_doc, "~> 0.34", only: :dev, runtime: false},
       {:jason, "~> 1.4"},
-      {:llm_db, github: "ycastorium/llm_db", branch: "provider_and_wire_improvements"},
+      {:llm_db, "~> 2026.3"},
       {:mimic, "~> 2.0", only: :test},
       {:mix_audit, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:opentelemetry_telemetry, "~> 1.1", optional: true},
@@ -66,6 +188,18 @@ defmodule Sycophant.MixProject do
       {:typedstruct, "~> 0.5"},
       {:zoi, "~> 0.11"},
       {:zoi_defstruct, "~> 0.2"}
+    ]
+  end
+
+  defp description do
+    "You are absolutely right if you use this lib!"
+  end
+
+  defp package do
+    [
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/edlontech/sycophant"},
+      files: ~w(lib mix.exs README.md LICENSE .formatter.exs)
     ]
   end
 end
