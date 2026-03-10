@@ -20,7 +20,7 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
   alias Sycophant.Error.Provider.ServerError
   alias Sycophant.Message
   alias Sycophant.Message.Content
-  alias Sycophant.Params
+  alias Sycophant.ParamDefs
   alias Sycophant.Reasoning
   alias Sycophant.Request
   alias Sycophant.Response
@@ -43,6 +43,19 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
               stop_reason: nil
   end
 
+  @param_schema Zoi.map(
+                  Map.merge(ParamDefs.shared(), %{
+                    speed:
+                      Zoi.enum([:standard, :fast],
+                        description: "Inference speed mode"
+                      )
+                      |> Zoi.optional()
+                  })
+                )
+
+  @impl true
+  def param_schema, do: @param_schema
+
   @param_map %{
     temperature: "temperature",
     max_tokens: "max_tokens",
@@ -52,9 +65,13 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
     service_tier: "service_tier"
   }
 
-  @supported_params Map.keys(@param_map)
-
-  @reasoning_budgets %{low: 1024, medium: 4096, high: 16_384}
+  @reasoning_budgets %{
+    minimal: 1024,
+    low: 1024,
+    medium: 4096,
+    high: 16_384,
+    xhigh: 32_768
+  }
 
   # --- encode_request ---
 
@@ -408,16 +425,23 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
 
   # --- Private: Param Translation ---
 
-  defp translate_params(nil), do: %{}
+  defp translate_params(params) when is_map(params) do
+    base =
+      Enum.reduce(@param_map, %{}, fn {canonical, wire_key}, acc ->
+        case Map.get(params, canonical) do
+          nil -> acc
+          value -> Map.put(acc, wire_key, value)
+        end
+      end)
 
-  defp translate_params(%Params{} = params) do
-    params
-    |> Map.from_struct()
-    |> Enum.filter(fn {k, v} -> not is_nil(v) and k in @supported_params end)
-    |> Map.new(&translate_param/1)
+    maybe_put_speed(base, params)
   end
 
-  defp translate_param({key, value}), do: {Map.fetch!(@param_map, key), value}
+  defp maybe_put_speed(payload, %{speed: speed}) when speed in [:standard, :fast] do
+    Map.put(payload, "speed", Atom.to_string(speed))
+  end
+
+  defp maybe_put_speed(payload, _), do: payload
 
   # --- Private: Payload Assembly ---
 
@@ -433,49 +457,44 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
         |> maybe_put_tool_choice(request.params)
         |> Map.merge(translate_params(request.params))
         |> ensure_max_tokens(request.params)
-        |> maybe_put_thinking(request.params, request.provider_params)
-        |> Map.merge(provider_params_without_thinking(request.provider_params))
+        |> maybe_put_thinking(request.params)
 
       {:ok, payload}
     end
   end
 
-  defp ensure_max_tokens(payload, %Params{max_tokens: max}) when is_integer(max), do: payload
+  defp ensure_max_tokens(payload, %{max_tokens: max}) when is_integer(max), do: payload
   defp ensure_max_tokens(payload, _), do: Map.put_new(payload, "max_tokens", 4096)
 
   defp maybe_put_stream(payload, nil), do: payload
   defp maybe_put_stream(payload, _callback), do: Map.put(payload, "stream", true)
 
-  defp maybe_put_tool_choice(payload, nil), do: payload
-  defp maybe_put_tool_choice(payload, %Params{tool_choice: nil}), do: payload
-
-  defp maybe_put_tool_choice(payload, %Params{tool_choice: :auto}),
+  defp maybe_put_tool_choice(payload, %{tool_choice: :auto}),
     do: Map.put(payload, "tool_choice", %{"type" => "auto"})
 
-  defp maybe_put_tool_choice(payload, %Params{tool_choice: :none}),
+  defp maybe_put_tool_choice(payload, %{tool_choice: :none}),
     do: Map.put(payload, "tool_choice", %{"type" => "none"})
 
-  defp maybe_put_tool_choice(payload, %Params{tool_choice: :any}),
+  defp maybe_put_tool_choice(payload, %{tool_choice: :any}),
     do: Map.put(payload, "tool_choice", %{"type" => "any"})
 
-  defp maybe_put_tool_choice(payload, %Params{tool_choice: {:tool, name}}) do
+  defp maybe_put_tool_choice(payload, %{tool_choice: {:tool, name}}) do
     Map.put(payload, "tool_choice", %{"type" => "tool", "name" => name})
   end
 
-  defp maybe_put_thinking(payload, _params, %{"thinking" => thinking}) do
-    Map.put(payload, "thinking", thinking)
+  defp maybe_put_tool_choice(payload, _), do: payload
+
+  defp maybe_put_thinking(payload, %{reasoning: :none}) do
+    Map.put(payload, "thinking", %{"type" => "disabled"})
   end
 
-  defp maybe_put_thinking(payload, %Params{reasoning: level}, _provider_params)
-       when is_atom(level) and not is_nil(level) do
+  defp maybe_put_thinking(payload, %{reasoning: level})
+       when is_map_key(@reasoning_budgets, level) do
     budget = Map.fetch!(@reasoning_budgets, level)
     Map.put(payload, "thinking", %{"type" => "enabled", "budget_tokens" => budget})
   end
 
-  defp maybe_put_thinking(payload, _, _), do: payload
-
-  defp provider_params_without_thinking(nil), do: %{}
-  defp provider_params_without_thinking(params), do: Map.delete(params, "thinking")
+  defp maybe_put_thinking(payload, _), do: payload
 
   defp maybe_put_tools(payload, []), do: {:ok, payload}
 

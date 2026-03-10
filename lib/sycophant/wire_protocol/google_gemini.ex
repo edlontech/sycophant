@@ -14,7 +14,7 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
   alias Sycophant.Error.Provider.ServerError
   alias Sycophant.Message
   alias Sycophant.Message.Content
-  alias Sycophant.Params
+  alias Sycophant.ParamDefs
   alias Sycophant.Reasoning
   alias Sycophant.Request
   alias Sycophant.Response
@@ -29,6 +29,48 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
     @type t :: %__MODULE__{}
     defstruct text: "", tool_calls: %{}, thinking: "", usage: nil, model: nil
   end
+
+  @param_schema Zoi.map(
+                  Map.merge(
+                    Map.take(ParamDefs.shared(), [
+                      :temperature,
+                      :max_tokens,
+                      :top_p,
+                      :top_k,
+                      :stop,
+                      :reasoning,
+                      :reasoning_summary,
+                      :tool_choice,
+                      :parallel_tool_calls
+                    ]),
+                    %{
+                      seed:
+                        Zoi.integer(description: "Random seed for reproducible outputs")
+                        |> Zoi.optional(),
+                      frequency_penalty:
+                        Zoi.float(description: "Penalize repeated tokens")
+                        |> Zoi.min(-2.0)
+                        |> Zoi.max(2.0)
+                        |> Zoi.optional(),
+                      presence_penalty:
+                        Zoi.float(description: "Penalize tokens already present")
+                        |> Zoi.min(-2.0)
+                        |> Zoi.max(2.0)
+                        |> Zoi.optional(),
+                      logprobs:
+                        Zoi.boolean(description: "Return log probabilities of output tokens")
+                        |> Zoi.optional(),
+                      top_logprobs:
+                        Zoi.integer(description: "Number of most likely tokens to return")
+                        |> Zoi.min(0)
+                        |> Zoi.max(20)
+                        |> Zoi.optional()
+                    }
+                  )
+                )
+
+  @impl true
+  def param_schema, do: @param_schema
 
   @impl true
   def stream_transport, do: :sse
@@ -366,10 +408,7 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
 
     with {:ok, payload} <- maybe_put_tools(base, request.tools),
          {:ok, payload} <- maybe_put_generation_config(payload, request) do
-      payload =
-        payload
-        |> maybe_put_tool_choice(request.params)
-        |> Map.merge(provider_params(request.provider_params))
+      payload = maybe_put_tool_choice(payload, request.params)
 
       {:ok, payload}
     end
@@ -387,23 +426,22 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
     end
   end
 
-  defp maybe_put_tool_choice(payload, nil), do: payload
-  defp maybe_put_tool_choice(payload, %Params{tool_choice: nil}), do: payload
-
-  defp maybe_put_tool_choice(payload, %Params{tool_choice: :auto}),
+  defp maybe_put_tool_choice(payload, %{tool_choice: :auto}),
     do: Map.put(payload, "toolConfig", %{"functionCallingConfig" => %{"mode" => "AUTO"}})
 
-  defp maybe_put_tool_choice(payload, %Params{tool_choice: :none}),
+  defp maybe_put_tool_choice(payload, %{tool_choice: :none}),
     do: Map.put(payload, "toolConfig", %{"functionCallingConfig" => %{"mode" => "NONE"}})
 
-  defp maybe_put_tool_choice(payload, %Params{tool_choice: :any}),
+  defp maybe_put_tool_choice(payload, %{tool_choice: :any}),
     do: Map.put(payload, "toolConfig", %{"functionCallingConfig" => %{"mode" => "ANY"}})
 
-  defp maybe_put_tool_choice(payload, %Params{tool_choice: {:tool, name}}) do
+  defp maybe_put_tool_choice(payload, %{tool_choice: {:tool, name}}) do
     Map.put(payload, "toolConfig", %{
       "functionCallingConfig" => %{"mode" => "ANY", "allowedFunctionNames" => [name]}
     })
   end
+
+  defp maybe_put_tool_choice(payload, _), do: payload
 
   defp maybe_put_generation_config(payload, request) do
     with {:ok, config} <- build_generation_config(request.params, request.response_schema) do
@@ -413,7 +451,9 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
     end
   end
 
-  defp build_generation_config(nil, nil), do: {:ok, %{}}
+  defp build_generation_config(params, response_schema)
+       when map_size(params) == 0 and is_nil(response_schema),
+       do: {:ok, %{}}
 
   defp build_generation_config(params, response_schema) do
     config = translate_params(params)
@@ -425,30 +465,62 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
     end
   end
 
-  defp translate_params(nil), do: %{}
+  @gemini_param_map %{
+    temperature: "temperature",
+    top_p: "topP",
+    top_k: "topK",
+    stop: "stopSequences",
+    max_tokens: "maxOutputTokens",
+    seed: "seed",
+    frequency_penalty: "frequencyPenalty",
+    presence_penalty: "presencePenalty",
+    logprobs: "responseLogprobs",
+    top_logprobs: "logprobs"
+  }
 
-  defp translate_params(%Params{} = params) do
-    %{}
-    |> put_if_set(:temperature, params.temperature, "temperature")
-    |> put_if_set(:top_p, params.top_p, "topP")
-    |> put_if_set(:top_k, params.top_k, "topK")
-    |> put_if_set(:stop, params.stop, "stopSequences")
-    |> put_if_set(:max_tokens, params.max_tokens, "maxOutputTokens")
+  defp translate_params(params) when is_map(params) do
+    Enum.reduce(@gemini_param_map, %{}, fn {canonical, wire_key}, acc ->
+      case Map.get(params, canonical) do
+        nil -> acc
+        value -> Map.put(acc, wire_key, value)
+      end
+    end)
   end
 
-  defp put_if_set(map, _key, nil, _target), do: map
-  defp put_if_set(map, _key, value, target), do: Map.put(map, target, value)
+  @thinking_levels %{
+    minimal: "MINIMAL",
+    low: "LOW",
+    medium: "MEDIUM",
+    high: "HIGH",
+    xhigh: "HIGH"
+  }
 
-  @thinking_levels %{low: "LOW", medium: "MEDIUM", high: "HIGH"}
+  defp maybe_put_thinking_config(config, params) do
+    thinking_config =
+      params
+      |> build_thinking_level()
+      |> maybe_include_thoughts(params)
 
-  defp maybe_put_thinking_config(config, nil), do: config
-
-  defp maybe_put_thinking_config(config, %Params{reasoning: level})
-       when is_atom(level) and not is_nil(level) do
-    Map.put(config, "thinkingConfig", %{"thinkingLevel" => Map.fetch!(@thinking_levels, level)})
+    if thinking_config == %{},
+      do: config,
+      else: Map.put(config, "thinkingConfig", thinking_config)
   end
 
-  defp maybe_put_thinking_config(config, _), do: config
+  defp build_thinking_level(%{reasoning: :none}), do: %{"thinkingBudget" => 0}
+
+  defp build_thinking_level(%{reasoning: level})
+       when is_map_key(@thinking_levels, level) do
+    %{"thinkingLevel" => Map.fetch!(@thinking_levels, level)}
+  end
+
+  defp build_thinking_level(_), do: %{}
+
+  defp maybe_include_thoughts(thinking_config, %{reasoning_summary: value})
+       when value not in [nil, :none] do
+    Map.put(thinking_config, "includeThoughts", true)
+  end
+
+  defp maybe_include_thoughts(thinking_config, _), do: thinking_config
 
   defp maybe_put_response_schema_config(config, nil), do: {:ok, config}
 
@@ -464,9 +536,6 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
         err
     end
   end
-
-  defp provider_params(nil), do: %{}
-  defp provider_params(params), do: params
 
   defp strip_additional_properties(map) when is_map(map) do
     map

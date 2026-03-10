@@ -13,7 +13,7 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
   alias Sycophant.Error.Provider.ResponseInvalid
   alias Sycophant.Message
   alias Sycophant.Message.Content
-  alias Sycophant.Params
+  alias Sycophant.ParamDefs
   alias Sycophant.Request
   alias Sycophant.Response
   alias Sycophant.Schema.JsonSchema
@@ -33,14 +33,26 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
               stop_reason: nil
   end
 
+  @param_schema Zoi.map(
+                  Map.take(ParamDefs.shared(), [
+                    :temperature,
+                    :max_tokens,
+                    :top_p,
+                    :stop,
+                    :tool_choice,
+                    :parallel_tool_calls
+                  ])
+                )
+
+  @impl true
+  def param_schema, do: @param_schema
+
   @param_map %{
     temperature: "temperature",
     max_tokens: "maxTokens",
     top_p: "topP",
     stop: "stopSequences"
   }
-
-  @supported_params Map.keys(@param_map)
 
   @impl true
   def stream_transport, do: :event_stream
@@ -338,31 +350,26 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
 
   # --- Private: Param Translation ---
 
-  defp translate_params(nil), do: %{}
-
-  defp translate_params(%Params{} = params) do
-    params
-    |> Map.from_struct()
-    |> Enum.filter(fn {k, v} -> not is_nil(v) and k in @supported_params end)
-    |> Map.new(&translate_param/1)
+  defp translate_params(params) when is_map(params) do
+    Enum.reduce(@param_map, %{}, fn {canonical, wire_key}, acc ->
+      case Map.get(params, canonical) do
+        nil -> acc
+        value -> Map.put(acc, wire_key, value)
+      end
+    end)
   end
-
-  defp translate_param({key, value}), do: {Map.fetch!(@param_map, key), value}
 
   # --- Private: Tool Choice ---
 
-  defp maybe_put_tool_choice(tool_config, nil), do: tool_config
-  defp maybe_put_tool_choice(tool_config, %Params{tool_choice: nil}), do: tool_config
-
-  defp maybe_put_tool_choice(tool_config, %Params{tool_choice: :auto}) do
+  defp maybe_put_tool_choice(tool_config, %{tool_choice: :auto}) do
     Map.put(tool_config, "toolChoice", %{"auto" => %{}})
   end
 
-  defp maybe_put_tool_choice(tool_config, %Params{tool_choice: :any}) do
+  defp maybe_put_tool_choice(tool_config, %{tool_choice: :any}) do
     Map.put(tool_config, "toolChoice", %{"any" => %{}})
   end
 
-  defp maybe_put_tool_choice(tool_config, %Params{tool_choice: {:tool, name}}) do
+  defp maybe_put_tool_choice(tool_config, %{tool_choice: {:tool, name}}) do
     Map.put(tool_config, "toolChoice", %{"tool" => %{"name" => name}})
   end
 
@@ -384,8 +391,6 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
         else
           payload
         end
-
-      payload = Map.merge(payload, request.provider_params || %{})
 
       {:ok, payload}
     end

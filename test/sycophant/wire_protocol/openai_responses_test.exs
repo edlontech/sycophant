@@ -7,7 +7,6 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
   alias Sycophant.Error.Provider.ServerError
   alias Sycophant.Message
   alias Sycophant.Message.Content
-  alias Sycophant.Params
   alias Sycophant.Request
   alias Sycophant.StreamChunk
   alias Sycophant.Tool
@@ -147,7 +146,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
 
   describe "encode_request/1 - params" do
     test "translates canonical params" do
-      params = %Params{temperature: 0.7, max_tokens: 1000, top_p: 0.9}
+      params = %{temperature: 0.7, max_tokens: 1000, top_p: 0.9}
       request = build_request([Message.user("hi")], params: params)
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
 
@@ -157,7 +156,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
     end
 
     test "omits nil params" do
-      params = %Params{temperature: 0.5}
+      params = %{temperature: 0.5}
       request = build_request([Message.user("hi")], params: params)
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
 
@@ -166,7 +165,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
     end
 
     test "drops unsupported params" do
-      params = %Params{
+      params = %{
         top_k: 40,
         stop: ["END"],
         seed: 42,
@@ -185,7 +184,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
     end
 
     test "nests reasoning params into reasoning object" do
-      params = %Params{reasoning: :medium, reasoning_summary: :concise}
+      params = %{reasoning: :medium, reasoning_summary: :concise}
       request = build_request([Message.user("hi")], params: params)
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
 
@@ -193,7 +192,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
     end
 
     test "nests reasoning effort alone" do
-      params = %Params{reasoning: :high}
+      params = %{reasoning: :high}
       request = build_request([Message.user("hi")], params: params)
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
 
@@ -201,7 +200,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
     end
 
     test "omits reasoning object when both nil" do
-      params = %Params{temperature: 0.5}
+      params = %{temperature: 0.5}
       request = build_request([Message.user("hi")], params: params)
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
 
@@ -209,7 +208,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
     end
 
     test "translates cache_key to prompt_cache_key" do
-      params = %Params{cache_key: "abc"}
+      params = %{cache_key: "abc"}
       request = build_request([Message.user("hi")], params: params)
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
 
@@ -218,7 +217,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
     end
 
     test "passes safety_identifier through" do
-      params = %Params{safety_identifier: "safe-123"}
+      params = %{safety_identifier: "safe-123"}
       request = build_request([Message.user("hi")], params: params)
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
 
@@ -226,11 +225,11 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
     end
 
     test "translates cache_retention to prompt_cache_retention" do
-      params = %Params{cache_retention: 300}
+      params = %{cache_retention: "24h"}
       request = build_request([Message.user("hi")], params: params)
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
 
-      assert payload["prompt_cache_retention"] == 300
+      assert payload["prompt_cache_retention"] == "24h"
       refute Map.has_key?(payload, "cache_retention")
     end
 
@@ -241,16 +240,104 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
     end
   end
 
-  describe "encode_request/1 - provider_params passthrough" do
-    test "merges provider_params into payload" do
+  describe "encode_request/1 - wire-specific params" do
+    test "wire-specific params pass through via param_schema" do
       request =
         build_request([Message.user("hi")],
-          provider_params: %{"previous_response_id" => "resp_abc", "store" => true}
+          params: %{cache_key: "abc", cache_retention: "24h", safety_identifier: "safe"}
         )
 
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
-      assert payload["previous_response_id"] == "resp_abc"
-      assert payload["store"] == true
+      assert payload["prompt_cache_key"] == "abc"
+      assert payload["prompt_cache_retention"] == "24h"
+      assert payload["safety_identifier"] == "safe"
+    end
+
+    test "passes store boolean" do
+      request = build_request([Message.user("hi")], params: %{store: false})
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+      assert payload["store"] == false
+    end
+
+    test "passes truncation as string" do
+      request = build_request([Message.user("hi")], params: %{truncation: :auto})
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+      assert payload["truncation"] == "auto"
+    end
+
+    test "passes include array" do
+      includes = ["reasoning.encrypted_content", "message.output_text.logprobs"]
+      request = build_request([Message.user("hi")], params: %{include: includes})
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+      assert payload["include"] == includes
+    end
+
+    test "passes top_logprobs" do
+      request = build_request([Message.user("hi")], params: %{top_logprobs: 5})
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+      assert payload["top_logprobs"] == 5
+    end
+
+    test "passes max_tool_calls" do
+      request = build_request([Message.user("hi")], params: %{max_tool_calls: 3})
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+      assert payload["max_tool_calls"] == 3
+    end
+
+    test "passes metadata map" do
+      meta = %{"run_id" => "abc123"}
+      request = build_request([Message.user("hi")], params: %{metadata: meta})
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+      assert payload["metadata"] == meta
+    end
+
+    test "passes stream_options" do
+      opts = %{"include_obfuscation" => false}
+      request = build_request([Message.user("hi")], params: %{stream_options: opts})
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+      assert payload["stream_options"] == opts
+    end
+
+    test "passes context_management" do
+      config = [%{"type" => "compaction", "compact_threshold" => 10_000}]
+      request = build_request([Message.user("hi")], params: %{context_management: config})
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+      assert payload["context_management"] == config
+    end
+
+    test "nests verbosity under text object" do
+      request = build_request([Message.user("hi")], params: %{verbosity: :low})
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+      assert payload["text"] == %{"verbosity" => "low"}
+    end
+
+    test "includes verbosity alongside format in text object" do
+      schema = Zoi.map(%{answer: Zoi.string()})
+
+      request =
+        build_request([Message.user("hi")],
+          response_schema: schema,
+          params: %{verbosity: :medium}
+        )
+
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+      assert payload["text"]["verbosity"] == "medium"
+      assert payload["text"]["format"]["type"] == "json_schema"
+    end
+
+    test "omits new params when not set" do
+      request = build_request([Message.user("hi")])
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+
+      refute Map.has_key?(payload, "store")
+      refute Map.has_key?(payload, "truncation")
+      refute Map.has_key?(payload, "include")
+      refute Map.has_key?(payload, "top_logprobs")
+      refute Map.has_key?(payload, "max_tool_calls")
+      refute Map.has_key?(payload, "metadata")
+      refute Map.has_key?(payload, "stream_options")
+      refute Map.has_key?(payload, "context_management")
+      refute Map.has_key?(payload, "text")
     end
   end
 
@@ -610,6 +697,35 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
     end
   end
 
+  describe "decode_response/1 - metadata" do
+    test "populates metadata with response id" do
+      body = responses_api_response(text: "hi")
+      assert {:ok, resp} = OpenAIResponses.decode_response(body)
+      assert resp.metadata == %{openai_responses: %{id: "resp_test123"}}
+    end
+
+    test "returns empty metadata when id is missing" do
+      body = responses_api_response(text: "hi") |> Map.delete("id")
+      assert {:ok, resp} = OpenAIResponses.decode_response(body)
+      assert resp.metadata == %{}
+    end
+  end
+
+  describe "encode_request/1 - previous_response_id" do
+    test "passes previous_response_id from params" do
+      params = %{previous_response_id: "resp_abc123"}
+      request = build_request([Message.user("hi")], params: params)
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+      assert payload["previous_response_id"] == "resp_abc123"
+    end
+
+    test "omits previous_response_id when not set" do
+      request = build_request([Message.user("hi")])
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+      refute Map.has_key?(payload, "previous_response_id")
+    end
+  end
+
   describe "round trip" do
     test "encode then decode preserves message content" do
       request = build_request([Message.user("what is 2+2?")])
@@ -677,16 +793,49 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
     end
   end
 
+  describe "param_schema/0" do
+    test "validates supported params" do
+      schema = OpenAIResponses.param_schema()
+      assert {:ok, result} = Zoi.parse(schema, %{temperature: 0.7})
+      assert result.temperature == 0.7
+    end
+
+    test "strips unsupported params" do
+      schema = OpenAIResponses.param_schema()
+      assert {:ok, result} = Zoi.parse(schema, %{temperature: 0.7, unknown_param: true})
+      refute Map.has_key?(result, :unknown_param)
+    end
+
+    test "rejects invalid values" do
+      schema = OpenAIResponses.param_schema()
+      assert {:error, _} = Zoi.parse(schema, %{temperature: 5.0})
+    end
+
+    test "accepts wire-specific extras" do
+      schema = OpenAIResponses.param_schema()
+
+      assert {:ok, result} =
+               Zoi.parse(schema, %{
+                 cache_key: "abc",
+                 cache_retention: "24h",
+                 safety_identifier: "safe"
+               })
+
+      assert result.cache_key == "abc"
+      assert result.cache_retention == "24h"
+      assert result.safety_identifier == "safe"
+    end
+  end
+
   # --- Helpers ---
 
   defp build_request(messages, opts \\ []) do
     %Request{
       messages: messages,
       model: opts[:model] || "gpt-4o",
-      params: opts[:params],
+      params: opts[:params] || %{},
       tools: opts[:tools] || [],
       response_schema: opts[:response_schema],
-      provider_params: opts[:provider_params] || %{},
       stream: opts[:stream]
     }
   end
@@ -930,26 +1079,26 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
 
   describe "encode_request/1 - tool_choice" do
     test "encodes :auto as \"auto\"" do
-      request = build_request([Message.user("hi")], params: %Params{tool_choice: :auto})
+      request = build_request([Message.user("hi")], params: %{tool_choice: :auto})
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
       assert payload["tool_choice"] == "auto"
     end
 
     test "encodes :none as \"none\"" do
-      request = build_request([Message.user("hi")], params: %Params{tool_choice: :none})
+      request = build_request([Message.user("hi")], params: %{tool_choice: :none})
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
       assert payload["tool_choice"] == "none"
     end
 
     test "encodes :any as \"required\"" do
-      request = build_request([Message.user("hi")], params: %Params{tool_choice: :any})
+      request = build_request([Message.user("hi")], params: %{tool_choice: :any})
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
       assert payload["tool_choice"] == "required"
     end
 
     test "encodes {:tool, name} as allowed_tools object" do
       request =
-        build_request([Message.user("hi")], params: %Params{tool_choice: {:tool, "get_weather"}})
+        build_request([Message.user("hi")], params: %{tool_choice: {:tool, "get_weather"}})
 
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
 
@@ -961,7 +1110,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
     end
 
     test "omits tool_choice when nil" do
-      request = build_request([Message.user("hi")], params: %Params{tool_choice: nil})
+      request = build_request([Message.user("hi")], params: %{tool_choice: nil})
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
       refute Map.has_key?(payload, "tool_choice")
     end

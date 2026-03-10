@@ -3,7 +3,6 @@ defmodule Sycophant.ResponseTest do
 
   alias Sycophant.Context
   alias Sycophant.Message
-  alias Sycophant.Params
   alias Sycophant.Response
   alias Sycophant.Tool
   alias Sycophant.Usage
@@ -98,7 +97,7 @@ defmodule Sycophant.ResponseTest do
 
   describe "context carries config for continuation" do
     test "preserves model and params" do
-      params = %Params{temperature: 0.7}
+      params = %{temperature: 0.7}
       tools = [%Tool{name: "search", description: "Search", parameters: Zoi.map(%{})}]
 
       resp = %Response{

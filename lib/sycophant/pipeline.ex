@@ -15,6 +15,8 @@ defmodule Sycophant.Pipeline do
   9. **Context Attachment** - Stores conversation state for continuation
   """
 
+  require Logger
+
   alias Sycophant.Auth
   alias Sycophant.Context
   alias Sycophant.Credentials
@@ -26,24 +28,7 @@ defmodule Sycophant.Pipeline do
   alias Sycophant.ToolExecutor
   alias Sycophant.Transport
 
-  @param_keys [
-    :temperature,
-    :max_tokens,
-    :top_p,
-    :top_k,
-    :stop,
-    :seed,
-    :frequency_penalty,
-    :presence_penalty,
-    :reasoning,
-    :reasoning_summary,
-    :parallel_tool_calls,
-    :cache_key,
-    :cache_retention,
-    :safety_identifier,
-    :service_tier,
-    :tool_choice
-  ]
+  @meta_keys [:model, :tools, :stream, :credentials, :response_schema, :validate, :max_steps]
 
   @doc "Executes a full LLM request pipeline: resolves model, validates params, encodes, transports, and decodes."
   @spec call([Sycophant.Message.t()], keyword()) ::
@@ -67,7 +52,7 @@ defmodule Sycophant.Pipeline do
   defp execute(messages, opts, model_info) do
     adapter = model_info.wire_adapter
 
-    with {:ok, params} <- validate_params(opts),
+    with {:ok, params} <- validate_params(opts, adapter, model_info),
          {:ok, credentials} <- Credentials.resolve(model_info.provider, opts[:credentials]),
          {:ok, response} <-
            dispatch_call(messages, params, opts, model_info, adapter, credentials),
@@ -326,7 +311,6 @@ defmodule Sycophant.Pipeline do
       messages: messages ++ [assistant_msg],
       model: opts[:model],
       params: params,
-      provider_params: opts[:provider_params] || %{},
       tools: opts[:tools] || [],
       stream: opts[:stream],
       response_schema: opts[:response_schema]
@@ -335,17 +319,43 @@ defmodule Sycophant.Pipeline do
     %{response | context: context}
   end
 
-  defp validate_params(opts) do
-    param_data = opts |> Keyword.take(@param_keys) |> Map.new()
+  defp validate_params(opts, wire_adapter, model_info) do
+    raw = opts |> Keyword.drop(@meta_keys) |> Map.new()
 
-    case Zoi.parse(Sycophant.Params.t(), param_data) do
-      {:ok, params} ->
-        {:ok, params}
+    case Zoi.parse(wire_adapter.param_schema(), raw) do
+      {:ok, validated} ->
+        dropped = Map.keys(raw) -- Map.keys(validated)
+
+        if dropped != [] do
+          Logger.warning("Params not supported by #{inspect(wire_adapter)}: #{inspect(dropped)}")
+        end
+
+        {:ok, apply_model_constraints(validated, model_info)}
 
       {:error, errors} ->
         {:error,
          Error.Invalid.InvalidParams.exception(errors: Enum.map(errors, &to_string(&1.message)))}
     end
+  end
+
+  defp apply_model_constraints(params, model_info) do
+    constraints =
+      get_in(model_info, [:model_struct, Access.key(:extra, %{}), :constraints]) || %{}
+
+    {final, dropped} =
+      Enum.reduce(constraints, {params, []}, fn
+        {param, "unsupported"}, {p, d} ->
+          if Map.has_key?(p, param), do: {Map.delete(p, param), [param | d]}, else: {p, d}
+
+        _, acc ->
+          acc
+      end)
+
+    if dropped != [] do
+      Logger.warning("Params unsupported by model #{model_info.model_id}: #{inspect(dropped)}")
+    end
+
+    final
   end
 
   defp build_request(messages, params, opts, model_info) do
@@ -358,7 +368,6 @@ defmodule Sycophant.Pipeline do
        resolved_model: model_info.model_struct,
        wire_protocol: model_info.wire_adapter,
        params: params,
-       provider_params: opts[:provider_params] || %{},
        tools: opts[:tools] || [],
        stream: opts[:stream],
        response_schema: opts[:response_schema]

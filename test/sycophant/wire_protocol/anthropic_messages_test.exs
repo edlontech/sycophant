@@ -6,7 +6,6 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
   alias Sycophant.Error.Provider.ServerError
   alias Sycophant.Message
   alias Sycophant.Message.Content
-  alias Sycophant.Params
   alias Sycophant.Reasoning
   alias Sycophant.Request
   alias Sycophant.Response
@@ -178,31 +177,31 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
     end
 
     test "uses provided max_tokens" do
-      request = build_request([Message.user("hi")], params: %Params{max_tokens: 1000})
+      request = build_request([Message.user("hi")], params: %{max_tokens: 1000})
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
       assert payload["max_tokens"] == 1000
     end
 
     test "translates temperature" do
-      request = build_request([Message.user("hi")], params: %Params{temperature: 0.7})
+      request = build_request([Message.user("hi")], params: %{temperature: 0.7})
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
       assert payload["temperature"] == 0.7
     end
 
     test "translates top_k" do
-      request = build_request([Message.user("hi")], params: %Params{top_k: 40})
+      request = build_request([Message.user("hi")], params: %{top_k: 40})
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
       assert payload["top_k"] == 40
     end
 
     test "translates stop to stop_sequences" do
-      request = build_request([Message.user("hi")], params: %Params{stop: ["END", "STOP"]})
+      request = build_request([Message.user("hi")], params: %{stop: ["END", "STOP"]})
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
       assert payload["stop_sequences"] == ["END", "STOP"]
     end
 
     test "drops unsupported params" do
-      params = %Params{
+      params = %{
         seed: 42,
         frequency_penalty: 0.5,
         presence_penalty: 0.3,
@@ -219,26 +218,26 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
     end
 
     test "translates tool_choice :auto" do
-      request = build_request([Message.user("hi")], params: %Params{tool_choice: :auto})
+      request = build_request([Message.user("hi")], params: %{tool_choice: :auto})
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
       assert payload["tool_choice"] == %{"type" => "auto"}
     end
 
     test "translates tool_choice :none" do
-      request = build_request([Message.user("hi")], params: %Params{tool_choice: :none})
+      request = build_request([Message.user("hi")], params: %{tool_choice: :none})
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
       assert payload["tool_choice"] == %{"type" => "none"}
     end
 
     test "translates tool_choice :any" do
-      request = build_request([Message.user("hi")], params: %Params{tool_choice: :any})
+      request = build_request([Message.user("hi")], params: %{tool_choice: :any})
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
       assert payload["tool_choice"] == %{"type" => "any"}
     end
 
     test "translates tool_choice {:tool, name}" do
       request =
-        build_request([Message.user("hi")], params: %Params{tool_choice: {:tool, "weather"}})
+        build_request([Message.user("hi")], params: %{tool_choice: {:tool, "weather"}})
 
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
       assert payload["tool_choice"] == %{"type" => "tool", "name" => "weather"}
@@ -247,37 +246,24 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
 
   describe "encode_request/1 - thinking" do
     test "maps reasoning :low to thinking with budget_tokens 1024" do
-      request = build_request([Message.user("hi")], params: %Params{reasoning: :low})
+      request = build_request([Message.user("hi")], params: %{reasoning: :low})
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
 
       assert payload["thinking"] == %{"type" => "enabled", "budget_tokens" => 1024}
     end
 
     test "maps reasoning :medium to thinking with budget_tokens 4096" do
-      request = build_request([Message.user("hi")], params: %Params{reasoning: :medium})
+      request = build_request([Message.user("hi")], params: %{reasoning: :medium})
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
 
       assert payload["thinking"] == %{"type" => "enabled", "budget_tokens" => 4096}
     end
 
     test "maps reasoning :high to thinking with budget_tokens 16384" do
-      request = build_request([Message.user("hi")], params: %Params{reasoning: :high})
+      request = build_request([Message.user("hi")], params: %{reasoning: :high})
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
 
       assert payload["thinking"] == %{"type" => "enabled", "budget_tokens" => 16_384}
-    end
-
-    test "provider_params thinking overrides reasoning mapping" do
-      request =
-        build_request([Message.user("hi")],
-          params: %Params{reasoning: :high},
-          provider_params: %{
-            "thinking" => %{"type" => "enabled", "budget_tokens" => 32_768}
-          }
-        )
-
-      assert {:ok, payload} = AnthropicMessages.encode_request(request)
-      assert payload["thinking"] == %{"type" => "enabled", "budget_tokens" => 32_768}
     end
 
     test "no thinking field when reasoning is nil" do
@@ -316,46 +302,6 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
       request = build_request([Message.user("hi")])
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
       refute Map.has_key?(payload, "output_config")
-    end
-  end
-
-  describe "encode_request/1 - provider_params" do
-    test "merges provider_params into payload" do
-      request = %Request{
-        messages: [Message.user("hi")],
-        model: "claude-sonnet-4-20250514",
-        provider_params: %{"metadata" => %{"user_id" => "abc"}}
-      }
-
-      assert {:ok, payload} = AnthropicMessages.encode_request(request)
-      assert payload["metadata"] == %{"user_id" => "abc"}
-    end
-
-    test "provider_params override translated params" do
-      request = %Request{
-        messages: [Message.user("hi")],
-        model: "claude-sonnet-4-20250514",
-        params: %Params{temperature: 0.5},
-        provider_params: %{"temperature" => 0.9}
-      }
-
-      assert {:ok, payload} = AnthropicMessages.encode_request(request)
-      assert payload["temperature"] == 0.9
-    end
-
-    test "thinking in provider_params is excluded from general merge" do
-      request = %Request{
-        messages: [Message.user("hi")],
-        model: "claude-sonnet-4-20250514",
-        provider_params: %{
-          "thinking" => %{"type" => "enabled", "budget_tokens" => 8192},
-          "metadata" => %{"user_id" => "abc"}
-        }
-      }
-
-      assert {:ok, payload} = AnthropicMessages.encode_request(request)
-      assert payload["thinking"] == %{"type" => "enabled", "budget_tokens" => 8192}
-      assert payload["metadata"] == %{"user_id" => "abc"}
     end
   end
 
@@ -861,17 +807,56 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
     end
   end
 
+  describe "param_schema/0" do
+    test "validates supported params" do
+      schema = AnthropicMessages.param_schema()
+      assert {:ok, result} = Zoi.parse(schema, %{temperature: 0.7})
+      assert result.temperature == 0.7
+    end
+
+    test "strips unsupported params" do
+      schema = AnthropicMessages.param_schema()
+      assert {:ok, result} = Zoi.parse(schema, %{temperature: 0.7, unknown_param: true})
+      refute Map.has_key?(result, :unknown_param)
+    end
+
+    test "rejects invalid values" do
+      schema = AnthropicMessages.param_schema()
+      assert {:error, _} = Zoi.parse(schema, %{temperature: 5.0})
+    end
+
+    test "accepts all shared params" do
+      schema = AnthropicMessages.param_schema()
+
+      assert {:ok, result} =
+               Zoi.parse(schema, %{
+                 temperature: 0.5,
+                 max_tokens: 100,
+                 top_p: 0.9,
+                 top_k: 40,
+                 stop: ["END"],
+                 reasoning: :medium,
+                 reasoning_summary: :auto,
+                 service_tier: "default",
+                 tool_choice: :auto,
+                 parallel_tool_calls: true
+               })
+
+      assert result.temperature == 0.5
+      assert result.max_tokens == 100
+    end
+  end
+
   # --- Helpers ---
 
   defp build_request(messages, opts \\ []) do
     %Request{
       messages: messages,
       model: opts[:model] || "claude-sonnet-4-20250514",
-      params: opts[:params],
+      params: opts[:params] || %{},
       tools: opts[:tools] || [],
       response_schema: opts[:response_schema],
-      stream: opts[:stream],
-      provider_params: opts[:provider_params] || %{}
+      stream: opts[:stream]
     }
   end
 

@@ -4,7 +4,6 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
   alias Sycophant.Error.Provider.ResponseInvalid
   alias Sycophant.Message
   alias Sycophant.Message.Content
-  alias Sycophant.Params
   alias Sycophant.Request
   alias Sycophant.Response
   alias Sycophant.StreamChunk
@@ -114,46 +113,19 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
     end
   end
 
-  describe "encode_request/1 - provider_params" do
-    test "merges provider_params into payload" do
-      request = %Request{
-        messages: [Message.user("hi")],
-        model: "gpt-4o",
-        provider_params: %{"logprobs" => true, "top_logprobs" => 5}
-      }
+  describe "encode_request/1 - wire-specific params" do
+    test "wire-specific params like logprobs pass through via param_schema" do
+      request = build_request([Message.user("hi")], params: %{logprobs: true, top_logprobs: 5})
 
       assert {:ok, payload} = OpenAICompletions.encode_request(request)
       assert payload["logprobs"] == true
       assert payload["top_logprobs"] == 5
     end
-
-    test "provider_params override translated params" do
-      request = %Request{
-        messages: [Message.user("hi")],
-        model: "gpt-4o",
-        params: %Params{temperature: 0.5},
-        provider_params: %{"temperature" => 0.9}
-      }
-
-      assert {:ok, payload} = OpenAICompletions.encode_request(request)
-      assert payload["temperature"] == 0.9
-    end
-
-    test "handles nil provider_params" do
-      request = %Request{
-        messages: [Message.user("hi")],
-        model: "gpt-4o",
-        provider_params: nil
-      }
-
-      assert {:ok, payload} = OpenAICompletions.encode_request(request)
-      assert payload["model"] == "gpt-4o"
-    end
   end
 
   describe "encode_request/1 - params" do
     test "translates canonical params to OpenAI names" do
-      params = %Params{temperature: 0.7, max_tokens: 1000, top_p: 0.9}
+      params = %{temperature: 0.7, max_tokens: 1000, top_p: 0.9}
       request = build_request([Message.user("hi")], params: params)
       assert {:ok, payload} = OpenAICompletions.encode_request(request)
 
@@ -163,7 +135,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
     end
 
     test "omits nil params" do
-      params = %Params{temperature: 0.5}
+      params = %{temperature: 0.5}
       request = build_request([Message.user("hi")], params: params)
       assert {:ok, payload} = OpenAICompletions.encode_request(request)
 
@@ -173,7 +145,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
     end
 
     test "drops unsupported params" do
-      params = %Params{
+      params = %{
         top_k: 40,
         cache_key: "abc",
         cache_retention: 3600,
@@ -190,7 +162,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
     end
 
     test "translates reasoning to reasoning_effort as string" do
-      params = %Params{reasoning: :medium}
+      params = %{reasoning: :medium}
       request = build_request([Message.user("hi")], params: params)
       assert {:ok, payload} = OpenAICompletions.encode_request(request)
 
@@ -198,7 +170,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
     end
 
     test "translates stop sequences" do
-      params = %Params{stop: ["END", "STOP"]}
+      params = %{stop: ["END", "STOP"]}
       request = build_request([Message.user("hi")], params: params)
       assert {:ok, payload} = OpenAICompletions.encode_request(request)
 
@@ -464,11 +436,51 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
     end
   end
 
+  describe "param_schema/0" do
+    test "validates supported params" do
+      schema = OpenAICompletions.param_schema()
+      assert {:ok, result} = Zoi.parse(schema, %{temperature: 0.7})
+      assert result.temperature == 0.7
+    end
+
+    test "strips unsupported params" do
+      schema = OpenAICompletions.param_schema()
+      assert {:ok, result} = Zoi.parse(schema, %{temperature: 0.7, unknown_param: true})
+      refute Map.has_key?(result, :unknown_param)
+    end
+
+    test "rejects invalid values" do
+      schema = OpenAICompletions.param_schema()
+      assert {:error, _} = Zoi.parse(schema, %{temperature: 5.0})
+    end
+
+    test "accepts wire-specific extras" do
+      schema = OpenAICompletions.param_schema()
+      assert {:ok, result} = Zoi.parse(schema, %{logprobs: true, seed: 42})
+      assert result.logprobs == true
+      assert result.seed == 42
+    end
+
+    test "validates frequency_penalty bounds" do
+      schema = OpenAICompletions.param_schema()
+      assert {:ok, result} = Zoi.parse(schema, %{frequency_penalty: 1.0})
+      assert result.frequency_penalty == 1.0
+      assert {:error, _} = Zoi.parse(schema, %{frequency_penalty: 3.0})
+    end
+
+    test "validates presence_penalty bounds" do
+      schema = OpenAICompletions.param_schema()
+      assert {:ok, result} = Zoi.parse(schema, %{presence_penalty: -1.5})
+      assert result.presence_penalty == -1.5
+      assert {:error, _} = Zoi.parse(schema, %{presence_penalty: 2.5})
+    end
+  end
+
   defp build_request(messages, opts \\ []) do
     %Request{
       messages: messages,
       model: opts[:model] || "gpt-4o",
-      params: opts[:params],
+      params: opts[:params] || %{},
       tools: opts[:tools] || [],
       response_schema: opts[:response_schema],
       stream: opts[:stream]
@@ -886,26 +898,26 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
 
   describe "encode_request/1 - tool_choice" do
     test "encodes :auto as \"auto\"" do
-      request = build_request([Message.user("hi")], params: %Params{tool_choice: :auto})
+      request = build_request([Message.user("hi")], params: %{tool_choice: :auto})
       assert {:ok, payload} = OpenAICompletions.encode_request(request)
       assert payload["tool_choice"] == "auto"
     end
 
     test "encodes :none as \"none\"" do
-      request = build_request([Message.user("hi")], params: %Params{tool_choice: :none})
+      request = build_request([Message.user("hi")], params: %{tool_choice: :none})
       assert {:ok, payload} = OpenAICompletions.encode_request(request)
       assert payload["tool_choice"] == "none"
     end
 
     test "encodes :any as \"required\"" do
-      request = build_request([Message.user("hi")], params: %Params{tool_choice: :any})
+      request = build_request([Message.user("hi")], params: %{tool_choice: :any})
       assert {:ok, payload} = OpenAICompletions.encode_request(request)
       assert payload["tool_choice"] == "required"
     end
 
     test "encodes {:tool, name} as function object" do
       request =
-        build_request([Message.user("hi")], params: %Params{tool_choice: {:tool, "get_weather"}})
+        build_request([Message.user("hi")], params: %{tool_choice: {:tool, "get_weather"}})
 
       assert {:ok, payload} = OpenAICompletions.encode_request(request)
 
@@ -916,7 +928,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
     end
 
     test "omits tool_choice when nil" do
-      request = build_request([Message.user("hi")], params: %Params{tool_choice: nil})
+      request = build_request([Message.user("hi")], params: %{tool_choice: nil})
       assert {:ok, payload} = OpenAICompletions.encode_request(request)
       refute Map.has_key?(payload, "tool_choice")
     end

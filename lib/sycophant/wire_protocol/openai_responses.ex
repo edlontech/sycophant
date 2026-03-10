@@ -23,7 +23,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   alias Sycophant.Error.Provider.ServerError
   alias Sycophant.Message
   alias Sycophant.Message.Content
-  alias Sycophant.Params
+  alias Sycophant.ParamDefs
   alias Sycophant.Reasoning
   alias Sycophant.Request
   alias Sycophant.Response
@@ -33,6 +33,68 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   alias Sycophant.ToolCall
   alias Sycophant.Usage
 
+  @param_schema Zoi.map(
+                  Map.merge(ParamDefs.shared(), %{
+                    cache_key:
+                      Zoi.string(description: "Cache key for prompt caching")
+                      |> Zoi.optional(),
+                    cache_retention:
+                      Zoi.enum(["in-memory", "24h"],
+                        description: "Cache retention policy"
+                      )
+                      |> Zoi.optional(),
+                    safety_identifier:
+                      Zoi.string(description: "Safety identifier for content filtering")
+                      |> Zoi.optional(),
+                    store:
+                      Zoi.boolean(
+                        description: "Whether to store the response for later retrieval"
+                      )
+                      |> Zoi.optional(),
+                    truncation:
+                      Zoi.enum([:auto, :disabled],
+                        description: "Context window overflow handling"
+                      )
+                      |> Zoi.optional(),
+                    include:
+                      Zoi.list(Zoi.string(),
+                        description: "Additional output data to include in the response"
+                      )
+                      |> Zoi.optional(),
+                    top_logprobs:
+                      Zoi.integer(
+                        description: "Number of most likely tokens to return per position"
+                      )
+                      |> Zoi.min(0)
+                      |> Zoi.max(20)
+                      |> Zoi.optional(),
+                    max_tool_calls:
+                      Zoi.integer(description: "Maximum number of tool calls per response")
+                      |> Zoi.positive()
+                      |> Zoi.optional(),
+                    metadata:
+                      Zoi.any(description: "Key-value metadata to attach to the response")
+                      |> Zoi.optional(),
+                    stream_options:
+                      Zoi.any(description: "Options for streaming responses")
+                      |> Zoi.optional(),
+                    context_management:
+                      Zoi.any(description: "Context management configuration")
+                      |> Zoi.optional(),
+                    verbosity:
+                      Zoi.enum([:low, :medium, :high],
+                        description: "Response verbosity level"
+                      )
+                      |> Zoi.optional(),
+                    previous_response_id:
+                      Zoi.string(description: "ID of a previous response to chain from")
+                      |> Zoi.optional()
+                  })
+                )
+
+  @impl true
+  def param_schema, do: @param_schema
+
   @param_map %{
     temperature: "temperature",
     max_tokens: "max_output_tokens",
@@ -41,10 +103,14 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     service_tier: "service_tier",
     cache_key: "prompt_cache_key",
     cache_retention: "prompt_cache_retention",
-    safety_identifier: "safety_identifier"
+    safety_identifier: "safety_identifier",
+    store: "store",
+    include: "include",
+    top_logprobs: "top_logprobs",
+    max_tool_calls: "max_tool_calls",
+    metadata: "metadata",
+    previous_response_id: "previous_response_id"
   }
-
-  @supported_params Map.keys(@param_map)
 
   @impl true
   def encode_request(%Request{} = request) do
@@ -102,7 +168,8 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
         usage: decode_usage(body["usage"]),
         model: body["model"],
         raw: body,
-        context: %Context{messages: []}
+        context: %Context{messages: []},
+        metadata: decode_metadata(body)
       }
 
       {:ok, response}
@@ -262,6 +329,12 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
 
   defp decode_usage(_), do: nil
 
+  defp decode_metadata(%{"id" => id}) when is_binary(id) do
+    %{openai_responses: %{id: id}}
+  end
+
+  defp decode_metadata(_), do: %{}
+
   defp decode_api_error(%{"code" => "server_error", "message" => msg}) do
     ServerError.exception(body: msg)
   end
@@ -396,25 +469,21 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
 
   # --- Param Translation ---
 
-  defp translate_params(nil), do: %{}
-
-  defp translate_params(%Params{} = params) do
-    params
-    |> Map.from_struct()
-    |> Enum.filter(fn {k, v} -> not is_nil(v) and k in @supported_params end)
-    |> Map.new(&translate_param/1)
+  defp translate_params(params) when is_map(params) do
+    Enum.reduce(@param_map, %{}, fn {canonical, wire_key}, acc ->
+      case Map.get(params, canonical) do
+        nil -> acc
+        value -> Map.put(acc, wire_key, value)
+      end
+    end)
     |> maybe_put_reasoning(params)
   end
 
-  defp translate_param({key, value}), do: {Map.fetch!(@param_map, key), value}
-
-  defp maybe_put_reasoning(payload, %Params{reasoning: nil, reasoning_summary: nil}), do: payload
-
-  defp maybe_put_reasoning(payload, %Params{} = params) do
+  defp maybe_put_reasoning(payload, params) do
     reasoning =
       %{}
-      |> maybe_put("effort", params.reasoning)
-      |> maybe_put("summary", params.reasoning_summary)
+      |> maybe_put("effort", Map.get(params, :reasoning))
+      |> maybe_put("summary", Map.get(params, :reasoning_summary))
 
     if map_size(reasoning) > 0 do
       Map.put(payload, "reasoning", reasoning)
@@ -437,13 +506,15 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
       maybe_put_field(%{"model" => request.model, "input" => input}, "instructions", instructions)
 
     with {:ok, payload} <- maybe_put_tools(base, request.tools),
-         {:ok, payload} <- maybe_put_text_format(payload, request.response_schema) do
+         {:ok, payload} <- maybe_put_text(payload, request.response_schema, request.params) do
       payload =
         payload
         |> maybe_put_stream(request.stream)
         |> maybe_put_tool_choice(request.params)
+        |> maybe_put_truncation(request.params)
+        |> maybe_put_stream_options(request.params)
+        |> maybe_put_context_management(request.params)
         |> Map.merge(translate_params(request.params))
-        |> Map.merge(request.provider_params || %{})
 
       {:ok, payload}
     end
@@ -455,25 +526,24 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   defp maybe_put_field(payload, _key, nil), do: payload
   defp maybe_put_field(payload, key, value), do: Map.put(payload, key, value)
 
-  defp maybe_put_tool_choice(payload, nil), do: payload
-  defp maybe_put_tool_choice(payload, %Params{tool_choice: nil}), do: payload
-
-  defp maybe_put_tool_choice(payload, %Params{tool_choice: :auto}),
+  defp maybe_put_tool_choice(payload, %{tool_choice: :auto}),
     do: Map.put(payload, "tool_choice", "auto")
 
-  defp maybe_put_tool_choice(payload, %Params{tool_choice: :none}),
+  defp maybe_put_tool_choice(payload, %{tool_choice: :none}),
     do: Map.put(payload, "tool_choice", "none")
 
-  defp maybe_put_tool_choice(payload, %Params{tool_choice: :any}),
+  defp maybe_put_tool_choice(payload, %{tool_choice: :any}),
     do: Map.put(payload, "tool_choice", "required")
 
-  defp maybe_put_tool_choice(payload, %Params{tool_choice: {:tool, name}}) do
+  defp maybe_put_tool_choice(payload, %{tool_choice: {:tool, name}}) do
     Map.put(payload, "tool_choice", %{
       "type" => "allowed_tools",
       "mode" => "required",
       "tools" => [%{"type" => "function", "name" => name}]
     })
   end
+
+  defp maybe_put_tool_choice(payload, _), do: payload
 
   defp maybe_put_tools(payload, []), do: {:ok, payload}
 
@@ -484,14 +554,39 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     end
   end
 
-  defp maybe_put_text_format(payload, nil), do: {:ok, payload}
+  defp maybe_put_text(payload, nil, %{verbosity: verbosity}) when not is_nil(verbosity) do
+    {:ok, Map.put(payload, "text", %{"verbosity" => Atom.to_string(verbosity)})}
+  end
 
-  defp maybe_put_text_format(payload, schema) do
+  defp maybe_put_text(payload, nil, _params), do: {:ok, payload}
+
+  defp maybe_put_text(payload, schema, params) do
     case encode_response_schema(schema) do
-      {:ok, format} -> {:ok, Map.put(payload, "text", %{"format" => format})}
-      {:error, _} = err -> err
+      {:ok, format} ->
+        text = %{"format" => format}
+        text = maybe_put(text, "verbosity", Map.get(params, :verbosity))
+        {:ok, Map.put(payload, "text", text)}
+
+      {:error, _} = err ->
+        err
     end
   end
+
+  defp maybe_put_truncation(payload, %{truncation: truncation}) when not is_nil(truncation),
+    do: Map.put(payload, "truncation", Atom.to_string(truncation))
+
+  defp maybe_put_truncation(payload, _), do: payload
+
+  defp maybe_put_stream_options(payload, %{stream_options: opts}) when not is_nil(opts),
+    do: Map.put(payload, "stream_options", opts)
+
+  defp maybe_put_stream_options(payload, _), do: payload
+
+  defp maybe_put_context_management(payload, %{context_management: config})
+       when not is_nil(config),
+       do: Map.put(payload, "context_management", config)
+
+  defp maybe_put_context_management(payload, _), do: payload
 
   defp set_strict_additional_properties(%{"type" => "object", "properties" => props} = schema) do
     updated_props = Map.new(props, fn {k, v} -> {k, set_strict_additional_properties(v)} end)

@@ -14,8 +14,7 @@ defmodule Sycophant.Request do
     field :model, String.t()
     field :resolved_model, term()
     field :wire_protocol, atom()
-    field :params, Sycophant.Params.t()
-    field :provider_params, map(), default: %{}
+    field :params, map(), default: %{}
     field :tools, [Sycophant.Tool.t()], default: []
     field :credentials, map(), default: %{}
     field :stream, (term() -> term())

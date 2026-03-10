@@ -6,7 +6,6 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
   alias Sycophant.Error.Provider.ServerError
   alias Sycophant.Message
   alias Sycophant.Message.Content
-  alias Sycophant.Params
   alias Sycophant.Reasoning
   alias Sycophant.Request
   alias Sycophant.Response
@@ -170,7 +169,7 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
 
   describe "encode_request/1 - generationConfig" do
     test "assembles temperature, topP, topK, stopSequences, maxOutputTokens" do
-      params = %Params{
+      params = %{
         temperature: 0.7,
         top_p: 0.9,
         top_k: 40,
@@ -211,7 +210,7 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
 
   describe "encode_request/1 - dropped params" do
     test "drops unsupported params" do
-      params = %Params{
+      params = %{
         seed: 42,
         frequency_penalty: 0.5,
         presence_penalty: 0.3,
@@ -235,21 +234,21 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
 
   describe "encode_request/1 - tool_choice" do
     test "maps :auto to toolConfig AUTO" do
-      request = build_request([Message.user("hi")], params: %Params{tool_choice: :auto})
+      request = build_request([Message.user("hi")], params: %{tool_choice: :auto})
       assert {:ok, payload} = GoogleGemini.encode_request(request)
 
       assert payload["toolConfig"] == %{"functionCallingConfig" => %{"mode" => "AUTO"}}
     end
 
     test "maps :none to toolConfig NONE" do
-      request = build_request([Message.user("hi")], params: %Params{tool_choice: :none})
+      request = build_request([Message.user("hi")], params: %{tool_choice: :none})
       assert {:ok, payload} = GoogleGemini.encode_request(request)
 
       assert payload["toolConfig"] == %{"functionCallingConfig" => %{"mode" => "NONE"}}
     end
 
     test "maps :any to toolConfig ANY" do
-      request = build_request([Message.user("hi")], params: %Params{tool_choice: :any})
+      request = build_request([Message.user("hi")], params: %{tool_choice: :any})
       assert {:ok, payload} = GoogleGemini.encode_request(request)
 
       assert payload["toolConfig"] == %{"functionCallingConfig" => %{"mode" => "ANY"}}
@@ -257,7 +256,7 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
 
     test "maps {:tool, name} to toolConfig ANY with allowedFunctionNames" do
       request =
-        build_request([Message.user("hi")], params: %Params{tool_choice: {:tool, "weather"}})
+        build_request([Message.user("hi")], params: %{tool_choice: {:tool, "weather"}})
 
       assert {:ok, payload} = GoogleGemini.encode_request(request)
 
@@ -278,7 +277,7 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
 
   describe "encode_request/1 - thinking" do
     test "maps reasoning :low to thinkingConfig LOW" do
-      request = build_request([Message.user("hi")], params: %Params{reasoning: :low})
+      request = build_request([Message.user("hi")], params: %{reasoning: :low})
       assert {:ok, payload} = GoogleGemini.encode_request(request)
 
       config = payload["generationConfig"]
@@ -286,7 +285,7 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
     end
 
     test "maps reasoning :medium to thinkingConfig MEDIUM" do
-      request = build_request([Message.user("hi")], params: %Params{reasoning: :medium})
+      request = build_request([Message.user("hi")], params: %{reasoning: :medium})
       assert {:ok, payload} = GoogleGemini.encode_request(request)
 
       config = payload["generationConfig"]
@@ -294,7 +293,7 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
     end
 
     test "maps reasoning :high to thinkingConfig HIGH" do
-      request = build_request([Message.user("hi")], params: %Params{reasoning: :high})
+      request = build_request([Message.user("hi")], params: %{reasoning: :high})
       assert {:ok, payload} = GoogleGemini.encode_request(request)
 
       config = payload["generationConfig"]
@@ -302,7 +301,7 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
     end
 
     test "no thinkingConfig when reasoning is nil" do
-      request = build_request([Message.user("hi")], params: %Params{temperature: 0.5})
+      request = build_request([Message.user("hi")], params: %{temperature: 0.5})
       assert {:ok, payload} = GoogleGemini.encode_request(request)
 
       config = payload["generationConfig"]
@@ -332,16 +331,11 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
     end
   end
 
-  describe "encode_request/1 - provider_params" do
-    test "merges provider_params into payload" do
-      request = %Request{
-        messages: [Message.user("hi")],
-        model: "gemini-2.0-flash",
-        provider_params: %{"safetySettings" => [%{"category" => "HARM"}]}
-      }
-
+  describe "encode_request/1 - empty params" do
+    test "handles empty params map" do
+      request = build_request([Message.user("hi")])
       assert {:ok, payload} = GoogleGemini.encode_request(request)
-      assert payload["safetySettings"] == [%{"category" => "HARM"}]
+      refute Map.has_key?(payload, "generationConfig")
     end
   end
 
@@ -824,17 +818,62 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
     end
   end
 
+  describe "param_schema/0" do
+    test "validates supported params" do
+      schema = GoogleGemini.param_schema()
+      assert {:ok, result} = Zoi.parse(schema, %{temperature: 0.7})
+      assert result.temperature == 0.7
+    end
+
+    test "strips unsupported params" do
+      schema = GoogleGemini.param_schema()
+      assert {:ok, result} = Zoi.parse(schema, %{temperature: 0.7, unknown_param: true})
+      refute Map.has_key?(result, :unknown_param)
+    end
+
+    test "rejects invalid values" do
+      schema = GoogleGemini.param_schema()
+      assert {:error, _} = Zoi.parse(schema, %{temperature: 5.0})
+    end
+
+    test "excludes shared params not in subset" do
+      schema = GoogleGemini.param_schema()
+      assert {:ok, result} = Zoi.parse(schema, %{temperature: 0.5, service_tier: "default"})
+      assert result.temperature == 0.5
+      refute Map.has_key?(result, :service_tier)
+    end
+
+    test "accepts subset params including top_k and reasoning" do
+      schema = GoogleGemini.param_schema()
+
+      assert {:ok, result} =
+               Zoi.parse(schema, %{
+                 temperature: 0.5,
+                 max_tokens: 100,
+                 top_p: 0.9,
+                 top_k: 40,
+                 stop: ["END"],
+                 reasoning: :high,
+                 tool_choice: :auto,
+                 parallel_tool_calls: true
+               })
+
+      assert result.temperature == 0.5
+      assert result.top_k == 40
+      assert result.reasoning == :high
+    end
+  end
+
   # --- Helpers ---
 
   defp build_request(messages, opts \\ []) do
     %Request{
       messages: messages,
       model: opts[:model] || "gemini-2.0-flash",
-      params: opts[:params],
+      params: opts[:params] || %{},
       tools: opts[:tools] || [],
       response_schema: opts[:response_schema],
-      stream: opts[:stream],
-      provider_params: opts[:provider_params] || %{}
+      stream: opts[:stream]
     }
   end
 

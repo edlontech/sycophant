@@ -12,7 +12,7 @@ defprotocol Sycophant.Serializable do
       restored = Sycophant.Serializable.Decoder.decode(json)
 
   All core structs implement this protocol: `Response`, `Context`, `Message`,
-  `Tool`, `ToolCall`, `Usage`, `Reasoning`, `Params`, `EmbeddingRequest`,
+  `Tool`, `ToolCall`, `Usage`, `Reasoning`, `EmbeddingRequest`,
   `EmbeddingResponse`, `EmbeddingParams`, and content parts.
   """
 
@@ -80,7 +80,6 @@ defmodule Sycophant.Serializable.Decoder do
   def from_map(%{"__type__" => "ToolCall"} = data, _opts), do: Sycophant.ToolCall.from_map(data)
   def from_map(%{"__type__" => "Usage"} = data, _opts), do: Sycophant.Usage.from_map(data)
   def from_map(%{"__type__" => "Reasoning"} = data, _opts), do: Sycophant.Reasoning.from_map(data)
-  def from_map(%{"__type__" => "Params"} = data, _opts), do: Sycophant.Params.from_map(data)
 
   def from_map(%{"__type__" => "EmbeddingParams"} = data, _opts),
     do: Sycophant.EmbeddingParams.from_map(data)

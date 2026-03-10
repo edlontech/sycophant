@@ -20,7 +20,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
   alias Sycophant.Error.Provider.ResponseInvalid
   alias Sycophant.Message
   alias Sycophant.Message.Content
-  alias Sycophant.Params
+  alias Sycophant.ParamDefs
   alias Sycophant.Request
   alias Sycophant.Response
   alias Sycophant.Schema.JsonSchema
@@ -35,6 +35,33 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
     defstruct text: "", tool_calls: %{}, usage: nil, model: nil, finish_reason: nil
   end
 
+  @param_schema Zoi.map(
+                  Map.merge(ParamDefs.shared(), %{
+                    seed:
+                      Zoi.integer(description: "Random seed for reproducible outputs")
+                      |> Zoi.optional(),
+                    frequency_penalty:
+                      Zoi.float(description: "Penalize repeated tokens")
+                      |> Zoi.min(-2.0)
+                      |> Zoi.max(2.0)
+                      |> Zoi.optional(),
+                    presence_penalty:
+                      Zoi.float(description: "Penalize tokens already present")
+                      |> Zoi.min(-2.0)
+                      |> Zoi.max(2.0)
+                      |> Zoi.optional(),
+                    logprobs:
+                      Zoi.boolean(description: "Return log probabilities of output tokens")
+                      |> Zoi.optional(),
+                    top_logprobs:
+                      Zoi.integer(description: "Number of most likely tokens to return")
+                      |> Zoi.optional()
+                  })
+                )
+
+  @impl true
+  def param_schema, do: @param_schema
+
   @param_map %{
     temperature: "temperature",
     max_tokens: "max_completion_tokens",
@@ -44,10 +71,10 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
     frequency_penalty: "frequency_penalty",
     presence_penalty: "presence_penalty",
     parallel_tool_calls: "parallel_tool_calls",
-    service_tier: "service_tier"
+    service_tier: "service_tier",
+    logprobs: "logprobs",
+    top_logprobs: "top_logprobs"
   }
-
-  @supported_params Map.keys(@param_map) ++ [:reasoning, :reasoning_summary]
 
   @impl true
   def encode_request(%Request{} = request) do
@@ -346,21 +373,29 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
 
   # --- Param Translation ---
 
-  defp translate_params(nil), do: %{}
+  defp translate_params(params) when is_map(params) do
+    base =
+      Enum.reduce(@param_map, %{}, fn {canonical, wire_key}, acc ->
+        case Map.get(params, canonical) do
+          nil -> acc
+          value -> Map.put(acc, wire_key, value)
+        end
+      end)
 
-  defp translate_params(%Params{} = params) do
-    params
-    |> Map.from_struct()
-    |> Enum.filter(fn {k, v} -> not is_nil(v) and k in @supported_params end)
-    |> Map.new(&translate_param/1)
+    base
+    |> maybe_put_reasoning_effort(params)
+    |> maybe_put_reasoning_summary(params)
   end
 
-  defp translate_param({:reasoning, value}), do: {"reasoning_effort", stringify_atom(value)}
+  defp maybe_put_reasoning_effort(payload, %{reasoning: level}) when not is_nil(level),
+    do: Map.put(payload, "reasoning_effort", stringify_atom(level))
 
-  defp translate_param({:reasoning_summary, value}),
-    do: {"reasoning_summary", stringify_atom(value)}
+  defp maybe_put_reasoning_effort(payload, _), do: payload
 
-  defp translate_param({key, value}), do: {Map.fetch!(@param_map, key), value}
+  defp maybe_put_reasoning_summary(payload, %{reasoning_summary: value}) when not is_nil(value),
+    do: Map.put(payload, "reasoning_summary", stringify_atom(value))
+
+  defp maybe_put_reasoning_summary(payload, _), do: payload
 
   defp stringify_atom(value) when is_atom(value), do: Atom.to_string(value)
   defp stringify_atom(value), do: value
@@ -376,8 +411,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
        payload
        |> maybe_put_stream(request.stream)
        |> maybe_put_tool_choice(request.params)
-       |> Map.merge(translate_params(request.params))
-       |> Map.merge(request.provider_params || %{})}
+       |> Map.merge(translate_params(request.params))}
     end
   end
 
@@ -398,21 +432,20 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
     end
   end
 
-  defp maybe_put_tool_choice(payload, nil), do: payload
-  defp maybe_put_tool_choice(payload, %Params{tool_choice: nil}), do: payload
-
-  defp maybe_put_tool_choice(payload, %Params{tool_choice: :auto}),
+  defp maybe_put_tool_choice(payload, %{tool_choice: :auto}),
     do: Map.put(payload, "tool_choice", "auto")
 
-  defp maybe_put_tool_choice(payload, %Params{tool_choice: :none}),
+  defp maybe_put_tool_choice(payload, %{tool_choice: :none}),
     do: Map.put(payload, "tool_choice", "none")
 
-  defp maybe_put_tool_choice(payload, %Params{tool_choice: :any}),
+  defp maybe_put_tool_choice(payload, %{tool_choice: :any}),
     do: Map.put(payload, "tool_choice", "required")
 
-  defp maybe_put_tool_choice(payload, %Params{tool_choice: {:tool, name}}) do
+  defp maybe_put_tool_choice(payload, %{tool_choice: {:tool, name}}) do
     Map.put(payload, "tool_choice", %{"type" => "function", "function" => %{"name" => name}})
   end
+
+  defp maybe_put_tool_choice(payload, _), do: payload
 
   defp maybe_put_response_format(payload, nil), do: {:ok, payload}
 

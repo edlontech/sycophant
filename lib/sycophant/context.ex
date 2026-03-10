@@ -18,8 +18,7 @@ defmodule Sycophant.Context do
   typedstruct do
     field :messages, [Sycophant.Message.t()], enforce: true
     field :model, String.t()
-    field :params, Sycophant.Params.t()
-    field :provider_params, map(), default: %{}
+    field :params, map(), default: %{}
     field :tools, [Sycophant.Tool.t()], default: []
     field :stream, (term() -> term())
     field :response_schema, Zoi.schema()
@@ -33,16 +32,26 @@ defmodule Sycophant.Context do
     %__MODULE__{
       messages: Enum.map(data["messages"], &Decoder.from_map/1),
       model: data["model"],
-      params: decode_optional(data["params"]),
-      provider_params: data["provider_params"] || %{},
+      params: decode_params(data["params"]),
       tools: decode_tools(data["tools"], opts),
       stream: nil,
       response_schema: data["response_schema"]
     }
   end
 
-  defp decode_optional(nil), do: nil
-  defp decode_optional(data), do: Decoder.from_map(data)
+  defp decode_params(nil), do: %{}
+
+  defp decode_params(params) when is_map(params) do
+    Map.new(params, fn
+      {k, v} when is_binary(k) ->
+        {String.to_existing_atom(k), v}
+
+      {k, v} ->
+        {k, v}
+    end)
+  rescue
+    ArgumentError -> params
+  end
 
   defp decode_tools(nil, _opts), do: []
 
@@ -58,18 +67,20 @@ defimpl Sycophant.Serializable, for: Sycophant.Context do
       "__type__" => "Context",
       "messages" => Enum.map(ctx.messages, &Sycophant.Serializable.to_map/1),
       "model" => ctx.model,
-      "params" => maybe_to_map(ctx.params),
-      "provider_params" => non_empty_map(ctx.provider_params),
+      "params" => encode_params(ctx.params),
       "tools" => encode_tools(ctx.tools),
       "response_schema" => encode_schema(ctx.response_schema)
     })
   end
 
-  defp maybe_to_map(nil), do: nil
-  defp maybe_to_map(struct), do: Sycophant.Serializable.to_map(struct)
+  defp encode_params(params) when map_size(params) == 0, do: nil
 
-  defp non_empty_map(map) when map_size(map) == 0, do: nil
-  defp non_empty_map(map), do: map
+  defp encode_params(params) do
+    Map.new(params, fn
+      {k, v} when is_atom(k) -> {Atom.to_string(k), v}
+      {k, v} -> {k, v}
+    end)
+  end
 
   defp encode_tools([]), do: nil
   defp encode_tools(tools), do: Enum.map(tools, &Sycophant.Serializable.to_map/1)

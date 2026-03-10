@@ -39,5 +39,8 @@ defmodule Sycophant.WireProtocol do
               {:ok, map()} | {:error, Splode.Error.t()}
 
   @callback stream_transport() :: :sse | :event_stream
+
+  @callback param_schema() :: Zoi.schema()
+
   @optional_callbacks [stream_transport: 0]
 end

@@ -75,35 +75,6 @@ defmodule Sycophant.SerializableTest do
     end
   end
 
-  describe "Params" do
-    test "round-trips with atom enum fields" do
-      original = %Sycophant.Params{
-        temperature: 0.7,
-        max_tokens: 1000,
-        reasoning: :high,
-        reasoning_summary: :concise,
-        stop: ["END"]
-      }
-
-      assert original == original |> Decoder.encode() |> Decoder.decode()
-    end
-
-    test "handles nil fields" do
-      original = %Sycophant.Params{temperature: 0.5}
-      decoded = original |> Decoder.encode() |> Decoder.decode()
-      assert decoded.temperature == 0.5
-      assert decoded.max_tokens == nil
-    end
-
-    test "compacts nil fields from serialized map" do
-      map = Serializable.to_map(%Sycophant.Params{temperature: 0.5})
-      assert map["__type__"] == "Params"
-      assert map["temperature"] == 0.5
-      refute Map.has_key?(map, "max_tokens")
-      refute Map.has_key?(map, "reasoning")
-    end
-  end
-
   describe "Tool" do
     test "round-trips with parameters as JSON Schema" do
       original = %Sycophant.Tool{
@@ -191,7 +162,7 @@ defmodule Sycophant.SerializableTest do
       ctx = %Sycophant.Context{
         messages: [Sycophant.Message.user("hi"), Sycophant.Message.assistant("hello")],
         model: "claude-sonnet-4-20250514",
-        params: %Sycophant.Params{temperature: 0.7},
+        params: %{temperature: 0.7},
         tools: [
           %Sycophant.Tool{
             name: "search",
@@ -231,14 +202,14 @@ defmodule Sycophant.SerializableTest do
       assert map["response_schema"]["type"] == "object"
     end
 
-    test "compacts empty provider_params and tools" do
+    test "compacts empty params and tools" do
       ctx = %Sycophant.Context{
         messages: [Sycophant.Message.user("hi")],
         model: "test-model"
       }
 
       map = Serializable.to_map(ctx)
-      refute Map.has_key?(map, "provider_params")
+      refute Map.has_key?(map, "params")
       refute Map.has_key?(map, "tools")
     end
   end

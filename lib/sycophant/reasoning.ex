@@ -5,7 +5,7 @@ defmodule Sycophant.Reasoning do
   When a model supports extended thinking (e.g. with the `:reasoning` parameter),
   the reasoning summary is available in `response.reasoning.summary`. The
   `:encrypted_content` field carries opaque data for stateless multi-turn
-  reasoning that can be passed back via `provider_params`.
+  reasoning that is automatically included in continuation calls.
 
   ## Examples
 

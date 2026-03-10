@@ -4,7 +4,6 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
   alias Sycophant.Error.Provider.ResponseInvalid
   alias Sycophant.Message
   alias Sycophant.Message.Content
-  alias Sycophant.Params
   alias Sycophant.Request
   alias Sycophant.Response
   alias Sycophant.StreamChunk
@@ -140,7 +139,7 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
 
   describe "encode_request/1 - params" do
     test "translates params to inferenceConfig" do
-      params = %Params{
+      params = %{
         max_tokens: 1000,
         temperature: 0.7,
         top_p: 0.9,
@@ -165,13 +164,13 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
     end
 
     test "omits inferenceConfig when all params are nil" do
-      request = build_request([Message.user("hi")], params: %Params{})
+      request = build_request([Message.user("hi")], params: %{})
       assert {:ok, payload} = BedrockConverse.encode_request(request)
       refute Map.has_key?(payload, "inferenceConfig")
     end
 
     test "drops unsupported params" do
-      params = %Params{
+      params = %{
         top_k: 40,
         seed: 42,
         frequency_penalty: 0.5,
@@ -203,7 +202,7 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
       ]
 
       request =
-        build_request([Message.user("hi")], tools: tools, params: %Params{tool_choice: :auto})
+        build_request([Message.user("hi")], tools: tools, params: %{tool_choice: :auto})
 
       assert {:ok, payload} = BedrockConverse.encode_request(request)
       assert payload["toolConfig"]["toolChoice"] == %{"auto" => %{}}
@@ -219,7 +218,7 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
       ]
 
       request =
-        build_request([Message.user("hi")], tools: tools, params: %Params{tool_choice: :any})
+        build_request([Message.user("hi")], tools: tools, params: %{tool_choice: :any})
 
       assert {:ok, payload} = BedrockConverse.encode_request(request)
       assert payload["toolConfig"]["toolChoice"] == %{"any" => %{}}
@@ -237,7 +236,7 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
       request =
         build_request([Message.user("hi")],
           tools: tools,
-          params: %Params{tool_choice: {:tool, "weather"}}
+          params: %{tool_choice: {:tool, "weather"}}
         )
 
       assert {:ok, payload} = BedrockConverse.encode_request(request)
@@ -285,17 +284,11 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
     end
   end
 
-  describe "encode_request/1 - provider_params" do
-    test "merges provider_params into payload" do
-      request =
-        build_request([Message.user("hi")],
-          provider_params: %{
-            "additionalModelRequestFields" => %{"top_k" => 200}
-          }
-        )
-
+  describe "encode_request/1 - empty params" do
+    test "handles empty params map" do
+      request = build_request([Message.user("hi")])
       assert {:ok, payload} = BedrockConverse.encode_request(request)
-      assert payload["additionalModelRequestFields"] == %{"top_k" => 200}
+      refute Map.has_key?(payload, "inferenceConfig")
     end
   end
 
@@ -616,14 +609,57 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
     end
   end
 
+  describe "param_schema/0" do
+    test "validates supported params" do
+      schema = BedrockConverse.param_schema()
+      assert {:ok, result} = Zoi.parse(schema, %{temperature: 0.7})
+      assert result.temperature == 0.7
+    end
+
+    test "strips unsupported params" do
+      schema = BedrockConverse.param_schema()
+      assert {:ok, result} = Zoi.parse(schema, %{temperature: 0.7, unknown_param: true})
+      refute Map.has_key?(result, :unknown_param)
+    end
+
+    test "rejects invalid values" do
+      schema = BedrockConverse.param_schema()
+      assert {:error, _} = Zoi.parse(schema, %{temperature: 5.0})
+    end
+
+    test "excludes shared params not in subset" do
+      schema = BedrockConverse.param_schema()
+      assert {:ok, result} = Zoi.parse(schema, %{temperature: 0.5, top_k: 40, reasoning: :high})
+      assert result.temperature == 0.5
+      refute Map.has_key?(result, :top_k)
+      refute Map.has_key?(result, :reasoning)
+    end
+
+    test "accepts subset params" do
+      schema = BedrockConverse.param_schema()
+
+      assert {:ok, result} =
+               Zoi.parse(schema, %{
+                 temperature: 0.5,
+                 max_tokens: 100,
+                 top_p: 0.9,
+                 stop: ["END"],
+                 tool_choice: :auto,
+                 parallel_tool_calls: true
+               })
+
+      assert result.temperature == 0.5
+      assert result.max_tokens == 100
+    end
+  end
+
   defp build_request(messages, opts \\ []) do
     %Request{
       messages: messages,
       model: opts[:model] || "test-model",
-      params: opts[:params],
+      params: opts[:params] || %{},
       tools: opts[:tools] || [],
-      stream: opts[:stream],
-      provider_params: opts[:provider_params] || %{}
+      stream: opts[:stream]
     }
   end
 end

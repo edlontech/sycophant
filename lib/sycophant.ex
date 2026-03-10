@@ -4,7 +4,7 @@ defmodule Sycophant do
 
   Sycophant abstracts the differences between OpenAI, Anthropic, Google Gemini,
   AWS Bedrock, Azure AI Foundry, and OpenRouter behind a single composable API.
-  Provider-specific wire protocols, authentication, and parameter translation
+  Provider-specific wire protocols, authentication, and parameter validation
   are handled automatically based on the model identifier.
 
   ## Text Generation
@@ -34,6 +34,30 @@ defmodule Sycophant do
       {:ok, response} = Sycophant.generate_object(messages, schema, model: "openai:gpt-4o-mini")
       response.object
       #=> %{name: "John", age: 30}
+
+  ## Parameters
+
+  LLM parameters like `temperature` and `max_tokens` are passed as flat keyword
+  options. Each wire protocol declares its own param schema composed from shared
+  definitions plus wire-specific extras. Only parameters supported by the resolved
+  wire protocol are sent to the provider; unsupported params are dropped
+  with a warning log. LLMDB model constraints (e.g., temperature unsupported)
+  are applied automatically.
+
+  Common shared params: `:temperature`, `:max_tokens`, `:top_p`, `:top_k`,
+  `:stop`, `:reasoning`, `:reasoning_summary`, `:service_tier`, `:tool_choice`,
+  `:parallel_tool_calls`.
+
+  Wire-specific params are passed as flat keywords alongside shared ones. For
+  example, OpenAI completions accept `:logprobs`, `:seed`, and `:top_logprobs`:
+
+      Sycophant.generate_text(messages,
+        model: "openai:gpt-4o-mini",
+        temperature: 0.7,
+        max_tokens: 500,
+        logprobs: true,
+        seed: 42
+      )
 
   ## Embeddings
 
@@ -89,7 +113,6 @@ defmodule Sycophant do
   alias Sycophant.EmbeddingRequest
   alias Sycophant.EmbeddingResponse
   alias Sycophant.Message
-  alias Sycophant.Params
   alias Sycophant.Response
 
   @doc """
@@ -107,13 +130,25 @@ defmodule Sycophant do
     * `:tools` - List of `Sycophant.Tool` structs (optional)
     * `:stream` - Callback function receiving `StreamChunk` structs (optional)
     * `:max_steps` - Maximum tool execution loop iterations (default: 10)
-    * `:provider_params` - Provider-specific parameters passed through as-is (optional)
-    * `:temperature`, `:max_tokens`, `:top_p`, etc. - Standard LLM parameters (optional)
+    * `:temperature`, `:max_tokens`, `:top_p`, etc. - LLM parameters validated
+      against the resolved wire protocol's param schema. Unsupported params for
+      the target provider are dropped with a debug log.
+
+  Wire-specific params can also be passed as flat keywords (e.g., `logprobs: true`
+  for OpenAI, `cache_key: "key"` for OpenAI Responses). See the wire protocol
+  modules for the full list of supported params per provider.
 
   ## Examples
 
       messages = [Sycophant.Message.user("Hello")]
       {:ok, response} = Sycophant.generate_text(messages, model: "openai:gpt-4o-mini")
+
+      # With params
+      {:ok, response} = Sycophant.generate_text(messages,
+        model: "openai:gpt-4o-mini",
+        temperature: 0.5,
+        max_tokens: 200
+      )
 
       # Continue the conversation
       {:ok, response2} = Sycophant.generate_text(response, Sycophant.Message.user("Thanks!"))
@@ -133,8 +168,7 @@ defmodule Sycophant do
       [
         model: context.model,
         tools: context.tools,
-        stream: context.stream,
-        provider_params: context.provider_params
+        stream: context.stream
       ] ++ params_to_opts(context.params)
 
     Sycophant.Pipeline.call(messages, opts)
@@ -179,7 +213,6 @@ defmodule Sycophant do
         model: context.model,
         tools: context.tools,
         stream: context.stream,
-        provider_params: context.provider_params,
         response_schema: context.response_schema
       ] ++ params_to_opts(context.params)
 
@@ -208,9 +241,8 @@ defmodule Sycophant do
     Sycophant.EmbeddingPipeline.call(request, opts)
   end
 
-  defp params_to_opts(%Params{} = params) do
+  defp params_to_opts(params) when is_map(params) do
     params
-    |> Map.from_struct()
     |> Enum.reject(fn {_k, v} -> is_nil(v) end)
     |> Keyword.new()
   end

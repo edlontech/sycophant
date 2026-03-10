@@ -60,6 +60,7 @@ defmodule Sycophant.Response do
     field :reasoning, Reasoning.t()
     field :finish_reason, finish_reason()
     field :context, Context.t(), enforce: true
+    field :metadata, map(), default: %{}
   end
 
   @doc """
@@ -87,7 +88,8 @@ defmodule Sycophant.Response do
       raw: data["raw"],
       reasoning: decode_optional(data["reasoning"]),
       finish_reason: decode_finish_reason(data["finish_reason"]),
-      context: Decoder.from_map(Map.put(data["context"], :opts, opts), opts)
+      context: Decoder.from_map(Map.put(data["context"], :opts, opts), opts),
+      metadata: decode_metadata(data["metadata"])
     }
   end
 
@@ -96,6 +98,20 @@ defmodule Sycophant.Response do
 
   defp decode_optional(nil), do: nil
   defp decode_optional(data), do: Decoder.from_map(data)
+
+  defp decode_metadata(nil), do: %{}
+  defp decode_metadata(meta) when is_map(meta), do: atomize_keys(meta)
+
+  defp atomize_keys(map) when is_map(map) do
+    Map.new(map, fn
+      {k, v} when is_binary(k) -> {String.to_existing_atom(k), atomize_keys(v)}
+      {k, v} -> {k, atomize_keys(v)}
+    end)
+  rescue
+    ArgumentError -> map
+  end
+
+  defp atomize_keys(value), do: value
 
   defp decode_finish_reason(nil), do: nil
 
@@ -121,7 +137,8 @@ defimpl Sycophant.Serializable, for: Sycophant.Response do
       "raw" => resp.raw,
       "reasoning" => maybe_to_map(resp.reasoning),
       "finish_reason" => if(resp.finish_reason, do: Atom.to_string(resp.finish_reason)),
-      "context" => Sycophant.Serializable.to_map(resp.context)
+      "context" => Sycophant.Serializable.to_map(resp.context),
+      "metadata" => encode_metadata(resp.metadata)
     })
   end
 
@@ -130,4 +147,19 @@ defimpl Sycophant.Serializable, for: Sycophant.Response do
 
   defp maybe_to_map(nil), do: nil
   defp maybe_to_map(struct), do: Sycophant.Serializable.to_map(struct)
+
+  defp encode_metadata(meta) when map_size(meta) == 0, do: nil
+
+  defp encode_metadata(meta) do
+    stringify_keys(meta)
+  end
+
+  defp stringify_keys(map) when is_map(map) do
+    Map.new(map, fn
+      {k, v} when is_atom(k) -> {Atom.to_string(k), stringify_keys(v)}
+      {k, v} -> {k, stringify_keys(v)}
+    end)
+  end
+
+  defp stringify_keys(value), do: value
 end

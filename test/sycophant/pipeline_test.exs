@@ -188,6 +188,58 @@ defmodule Sycophant.PipelineTest do
       assert {:error, %Error.Invalid.MissingCredentials{}} =
                Pipeline.call(default_messages(), default_opts())
     end
+
+    test "soft-drops params not in wire schema without erroring" do
+      stub_happy_path()
+
+      opts = default_opts() ++ [temperature: 0.5, bogus_param: "ignored"]
+
+      assert {:ok, %Response{}} = Pipeline.call(default_messages(), opts)
+    end
+
+    test "returns error for invalid param values against wire schema" do
+      stub_happy_path()
+
+      opts = default_opts() ++ [temperature: 5.0]
+
+      assert {:error, %Error.Invalid.InvalidParams{}} =
+               Pipeline.call(default_messages(), opts)
+    end
+
+    test "applies model constraints to drop unsupported params" do
+      model =
+        build_model(%{
+          extra: %{
+            wire: %{protocol: "openai_responses"},
+            constraints: %{temperature: "unsupported"}
+          }
+        })
+
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      stub(Sycophant.Transport, :call, fn payload, _opts ->
+        refute Map.has_key?(payload, "temperature")
+
+        {:ok,
+         %{
+           "id" => "resp-123",
+           "output" => [
+             %{
+               "type" => "message",
+               "content" => [%{"type" => "output_text", "text" => "Hello!"}]
+             }
+           ],
+           "usage" => %{"input_tokens" => 10, "output_tokens" => 5, "total_tokens" => 15}
+         }}
+      end)
+
+      opts = default_opts() ++ [temperature: 0.5]
+      assert {:ok, %Response{}} = Pipeline.call(default_messages(), opts)
+    end
   end
 
   describe "call/2 telemetry" do
@@ -301,16 +353,17 @@ defmodule Sycophant.PipelineTest do
       assert context.model == "openai:gpt-4o"
     end
 
-    test "response context carries validated params" do
+    test "response context carries validated params as plain map" do
       stub_happy_path()
 
       opts = default_opts() ++ [temperature: 0.5]
       assert {:ok, %Response{context: context}} = Pipeline.call(default_messages(), opts)
 
+      assert is_map(context.params)
       assert context.params.temperature == 0.5
     end
 
-    test "response context carries tools and provider_params" do
+    test "response context carries tools" do
       stub_happy_path()
 
       tool = %Sycophant.Tool{
@@ -319,11 +372,10 @@ defmodule Sycophant.PipelineTest do
         parameters: Zoi.map(%{})
       }
 
-      opts = default_opts() ++ [tools: [tool], provider_params: %{"foo" => "bar"}]
+      opts = default_opts() ++ [tools: [tool]]
       assert {:ok, %Response{context: context}} = Pipeline.call(default_messages(), opts)
 
       assert context.tools == [tool]
-      assert context.provider_params == %{"foo" => "bar"}
     end
 
     test "assistant message includes tool_calls when present" do
