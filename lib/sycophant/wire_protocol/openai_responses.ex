@@ -92,7 +92,16 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
                   })
                 )
 
+  @type t :: unquote(Zoi.type_spec(@param_schema))
+
   @impl true
+  @doc """
+  #{Zoi.description(@param_schema)}
+
+  Options:
+
+  #{Zoi.describe(@param_schema)}
+  """
   def param_schema, do: @param_schema
 
   @param_map %{
