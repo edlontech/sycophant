@@ -2,7 +2,7 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-03-05T18:03:44.789800Z",
+    "recorded_at": "2026-03-10T18:35:08.221617Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -14,7 +14,7 @@
           "role": "user"
         },
         {
-          "content": "I've noted that your name is Sycophant. However, I should mention that I don't retain information between separate conversations. Each time you start a new chat with me, I won't remember this exchange.\n\nWithin *this* conversation, I'll certainly refer to you as Sycophant if you'd like. But if you return tomorrow or next week, you'd need to reintroduce yourself.\n\nIs there something I can help you with today?",
+          "content": "I've noted that your name is Sycophant. However, I should mention that I don't retain information between separate conversations. Each time we chat, I start fresh without memory of previous interactions.\n\nIf you'd like me to use your name during *this* conversation, I'm happy to do so. But if you return another day, you'd need to reintroduce yourself.\n\nIs there something I can help you with?",
           "role": "assistant"
         },
         {
@@ -45,11 +45,11 @@
     "body": {
       "content": [
         {
-          "text": "Your name is Sycophant, as you just told me in this conversation.",
+          "text": "Your name is Sycophant, as you just told me in this conversation.\n\nAs I mentioned, I can recall information from within our current chat, but I won't remember it if we talk again in a future conversation.",
           "type": "text"
         }
       ],
-      "id": "msg_011kCQ8Y9UtYFnvsYPuBzUPo",
+      "id": "msg_012Jy3dzfhCR1hEmG1PUQAKC",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
       "stop_reason": "end_turn",
@@ -63,15 +63,15 @@
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "inference_geo": "not_available",
-        "input_tokens": 129,
-        "output_tokens": 21,
+        "input_tokens": 122,
+        "output_tokens": 51,
         "service_tier": "standard"
       }
     },
     "headers": [
       [
         "date",
-        "Thu, 05 Mar 2026 18:03:44 GMT"
+        "Tue, 10 Mar 2026 18:35:08 GMT"
       ],
       [
         "content-type",
@@ -87,7 +87,7 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-03-05T18:03:44Z"
+        "2026-03-10T18:35:06Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
@@ -99,7 +99,7 @@
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-03-05T18:03:44Z"
+        "2026-03-10T18:35:08Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
@@ -111,7 +111,7 @@
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-03-05T18:03:44Z"
+        "2026-03-10T18:35:06Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
@@ -123,11 +123,11 @@
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-03-05T18:03:44Z"
+        "2026-03-10T18:35:06Z"
       ],
       [
         "request-id",
-        "req_011CYkNf3s9KJtJ9yqjaHHFY"
+        "req_011CYut6Myv4pjLPH7ZWxL4r"
       ],
       [
         "strict-transport-security",
@@ -143,7 +143,7 @@
       ],
       [
         "x-envoy-upstream-service-time",
-        "504"
+        "1820"
       ],
       [
         "vary",
@@ -163,7 +163,7 @@
       ],
       [
         "cf-ray",
-        "9d7b0a012fbe9f84-AMS"
+        "9da46ad3f8ee3466-AMS"
       ]
     ],
     "status": 200

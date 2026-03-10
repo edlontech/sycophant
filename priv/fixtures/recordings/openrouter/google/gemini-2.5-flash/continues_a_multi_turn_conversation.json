@@ -2,7 +2,7 @@
   "metadata": {
     "model": "google/gemini-2.5-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-05T13:43:49.575068Z",
+    "recorded_at": "2026-03-10T18:35:05.842426Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -31,11 +31,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1772718229,
-      "created_at": 1772718229,
+      "completed_at": 1773167705,
+      "created_at": 1773167705,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1772718229-pRPiT5lcddfwM8yrA8Jy",
+      "id": "gen-1773167705-R2PsF5NISBEzA1QLcfG2",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -49,11 +49,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Alright, Sycophant, I've got your name noted. How can I help you today?",
+              "text": "Got it, Sycophant. I'll remember your name.",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_94vrlp1ndhh",
+          "id": "msg_tmp_25jwshkhe3x",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -80,29 +80,29 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 5.83e-5,
+        "cost": 4.08e-5,
         "cost_details": {
-          "upstream_inference_cost": 5.83e-5,
+          "upstream_inference_cost": 4.08e-5,
           "upstream_inference_input_cost": 3.3e-6,
-          "upstream_inference_output_cost": 5.5e-5
+          "upstream_inference_output_cost": 3.75e-5
         },
         "input_tokens": 11,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 22,
+        "output_tokens": 15,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 33
+        "total_tokens": 26
       },
       "user": null
     },
     "headers": [
       [
         "date",
-        "Thu, 05 Mar 2026 13:43:49 GMT"
+        "Tue, 10 Mar 2026 18:35:05 GMT"
       ],
       [
         "content-type",
@@ -110,7 +110,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=2,cfOrigin;dur=0,cfWorker;dur=583"
+        "cfEdge;dur=1047,cfOrigin;dur=0,cfWorker;dur=927"
       ],
       [
         "access-control-allow-origin",
@@ -134,7 +134,7 @@
       ],
       [
         "cf-ray",
-        "9d798d423a26910e-AMS"
+        "9da46ac48d566568-AMS"
       ]
     ],
     "status": 200

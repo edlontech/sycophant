@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-5-mini",
     "provider": "azure",
-    "recorded_at": "2026-03-09T18:15:22.388810Z",
+    "recorded_at": "2026-03-10T18:35:16.006577Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -19,6 +19,10 @@
       [
         "content-type",
         "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
       ]
     ],
     "method": "post",
@@ -39,7 +43,7 @@
           "blocked": false,
           "content_filter_offsets": {
             "check_offset": 0,
-            "end_offset": 547,
+            "end_offset": 529,
             "start_offset": 0
           },
           "content_filter_raw": [],
@@ -77,7 +81,7 @@
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_0e79e57acb9659c20069af0e38118c81959cd8ae7af039a84b",
+      "id": "resp_0442899db14b290f0069b064619d9c81969bd56546c8b39b54",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -89,18 +93,18 @@
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 122,
+        "output_tokens": 128,
         "output_tokens_details": {
           "reasoning_tokens": 64
         },
-        "total_tokens": 136
+        "total_tokens": 142
       },
       "safety_identifier": null,
       "object": "response",
       "parallel_tool_calls": true,
       "output": [
         {
-          "id": "rs_0e79e57acb9659c20069af0e3875348195af1e29946850fd4e",
+          "id": "rs_0442899db14b290f0069b064620f2481968d8fd4f0c5dc1ba8",
           "summary": [],
           "type": "reasoning"
         },
@@ -113,7 +117,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_0e79e57acb9659c20069af0e39d7248195aaec917072edfbb9",
+          "id": "msg_0442899db14b290f0069b0646345f88196ad7ee077e8ca3bf0",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -127,13 +131,13 @@
         "effort": "medium",
         "summary": null
       },
-      "completed_at": 1773080122,
+      "completed_at": 1773167715,
       "truncation": "disabled",
       "top_p": 1.0,
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1773080120,
+      "created_at": 1773167713,
       "max_tool_calls": null
     },
     "headers": [
@@ -183,11 +187,11 @@
       ],
       [
         "x-request-id",
-        "737d9ef1-52b6-4cb2-87b0-730e86befafa"
+        "8f7e0c5f-9a24-4b1d-866d-7f930faa2043"
       ],
       [
         "apim-request-id",
-        "69968969-8e68-49ba-8c02-809deaa06145"
+        "5ae4d26e-6382-4450-a72f-684ae604d1aa"
       ],
       [
         "strict-transport-security",
@@ -207,7 +211,7 @@
       ],
       [
         "date",
-        "Mon, 09 Mar 2026 18:15:22 GMT"
+        "Tue, 10 Mar 2026 18:35:15 GMT"
       ]
     ],
     "status": 200

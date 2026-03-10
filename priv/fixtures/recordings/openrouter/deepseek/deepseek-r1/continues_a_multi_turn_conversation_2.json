@@ -2,7 +2,7 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-05T13:44:13.479500Z",
+    "recorded_at": "2026-03-10T18:35:22.025307Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "Got it, Sycophant! I’ll remember your name for the duration of this conversation. How can I assist you today? Just a heads-up, though: my memory resets between chats, so feel free to reintroduce yourself anytime. 😊",
+              "text": "Got it, Sycophant! I'll remember your name. How can I assist you today?",
               "type": "output_text"
             }
           ],
@@ -46,11 +46,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1772718253,
-      "created_at": 1772718241,
+      "completed_at": 1773167721,
+      "created_at": 1773167717,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1772718241-3u1CWGJ4lGVkmIp4XSUK",
+      "id": "gen-1773167717-ZTXPpIa7MNLAnG77yLoO",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -62,12 +62,12 @@
         {
           "content": [
             {
-              "text": "Okay, the user's name is Sycophant. They told me that in the first message. Now they're asking, \"What is my name?\" because they want to confirm if I remembered.\n\nWait, let me check the history. The initial interaction was the user saying, \"My name is Sycophant. Remember it.\" And I responded that I'll remember it for the duration of the conversation. Then the user now asks again.\n\nBut according to the rules, I can remember information shared in the current conversation. So I should recall that their name is Sycophant. However, the user might be testing if I retained that information. But since it's within the same chat, I should answer correctly. \n\nWait, but the user's current question is \"What is my name?\" and my previous response said I'll remember it for the duration. So I need to answer with their name. But in the response template, it's supposed to be the answer. So the answer here is straightforward: \"Your name is Sycophant.\"\n\nBut wait, the user might expect a bit more. Maybe they want a friendly reminder. Also, I should mention that I remember from earlier in the chat. But the response needs to be concise. Let me structure it properly. No markdown, just plain text. So the correct answer is \"Your name is Sycophant! (And don’t worry—I’ll remember until this chat ends. 😊)\" which matches the example response. That's friendly and confirms the memory within the conversation.\n",
+              "text": "Okay, the user asked, \"What is my name?\" Let me check the conversation history.\n\nLooking back at the first message, the user said, \"My name is Sycophant. Remember it.\" Then I responded by acknowledging the name. Now, when they ask again, I need to confirm that I remembered correctly. The user is testing if I retained their name. Since I stored the name \"Sycophant\" from the initial interaction, I should reply with that. No complications here, just a straightforward answer.\n",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_vmmce7m3e28",
+          "id": "rs_tmp_2oxu3cljass",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
@@ -77,11 +77,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Your name is **Sycophant**! (And don’t worry—I’ll remember until this chat ends. 😊)",
+              "text": "Your name is Sycophant! 🎯 Let me know how I can help!",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_cd4njk5jqlu",
+          "id": "msg_tmp_u56jvuulul",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -108,29 +108,29 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 9.314e-4,
+        "cost": 3.49e-4,
         "cost_details": {
-          "upstream_inference_cost": 9.314e-4,
-          "upstream_inference_input_cost": 5.39e-5,
-          "upstream_inference_output_cost": 8.775e-4
+          "upstream_inference_cost": 3.49e-4,
+          "upstream_inference_input_cost": 3.15e-5,
+          "upstream_inference_output_cost": 3.175e-4
         },
-        "input_tokens": 77,
+        "input_tokens": 45,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 351,
+        "output_tokens": 127,
         "output_tokens_details": {
-          "reasoning_tokens": 321
+          "reasoning_tokens": 109
         },
-        "total_tokens": 428
+        "total_tokens": 172
       },
       "user": null
     },
     "headers": [
       [
         "date",
-        "Thu, 05 Mar 2026 13:44:02 GMT"
+        "Tue, 10 Mar 2026 18:35:18 GMT"
       ],
       [
         "content-type",
@@ -138,7 +138,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1346"
+        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=1268"
       ],
       [
         "access-control-allow-origin",
@@ -162,7 +162,7 @@
       ],
       [
         "cf-ray",
-        "9d798d921b26910e-AMS"
+        "9da46b1a4a6c6568-AMS"
       ]
     ],
     "status": 200

@@ -2,7 +2,7 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-03-05T20:05:20.569967Z",
+    "recorded_at": "2026-03-10T18:35:03.153634Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -46,7 +46,7 @@
       ],
       [
         "x-goog-api-key",
-        "REDACTED"
+        "[REDACTED]"
       ]
     ],
     "method": "post",
@@ -65,7 +65,7 @@
                   },
                   "name": "get_weather"
                 },
-                "thoughtSignature": "CsABAb4+9vvtB7fNqH8QKwUNkpzT8dGtmTQOp8p+rWhoJhEPumC904JD/+333y8ywTfWnz7XO3UlPJtjbrRHHVLBY1q+UDVl1uy5St7jmVD5zWW6CgFAauEBp848tTAwE1vsI+jDZdmn9ZoGyW7qDg/JocWLywjXWQKsDYB0ds7ldYfNs0/7OdrWGrF/35qHB+/MSMEcvBtV8MHHYOuWGPUdw+efGPFWF1XVj6RaL8/wewV92VyR9OHP/9HBGiSU6rPA"
+                "thoughtSignature": "CtgBAb4+9vsy/vQu/kYkPs0e5GOI0weygL+cX+wrFqf/Se+RiTINNuMt/IeD69+1TjD5R5rl3uQjldqpDmUYmkQGPPRgB/ZnGoaoPoiaam0X/GWRhcge0fi+18r2QbvqxDZ/DmFura4V5bqkgp8dMdfXNyN69xh2NcFhtDSniIzrYv18Lf6any7VRbveIyf4dMkgHTtiraE133VaSRBmSt3ErrR49pY4aWfzLPfVdxyTHyBQfM1+FTS+fEvbDa1i3d0eBhZvizHthu4+CjtdByGGuCMNEADR54lc"
               }
             ],
             "role": "model"
@@ -76,7 +76,7 @@
         }
       ],
       "modelVersion": "gemini-2.5-flash",
-      "responseId": "AOKpaannAavqxN8PmJfTAQ",
+      "responseId": "VmSwafPCIaLikdUPr9uS6Qo",
       "usageMetadata": {
         "candidatesTokenCount": 15,
         "promptTokenCount": 60,
@@ -86,8 +86,8 @@
             "tokenCount": 60
           }
         ],
-        "thoughtsTokenCount": 40,
-        "totalTokenCount": 115
+        "thoughtsTokenCount": 47,
+        "totalTokenCount": 122
       }
     },
     "headers": [
@@ -109,7 +109,7 @@
       ],
       [
         "date",
-        "Thu, 05 Mar 2026 20:05:20 GMT"
+        "Tue, 10 Mar 2026 18:35:03 GMT"
       ],
       [
         "server",
@@ -129,7 +129,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=585"
+        "gfet4t7; dur=630"
       ],
       [
         "alt-svc",

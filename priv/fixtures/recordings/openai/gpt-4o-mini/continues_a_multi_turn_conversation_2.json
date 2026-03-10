@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-05T13:43:50.803954Z",
+    "recorded_at": "2026-03-10T18:35:04.568750Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -58,7 +58,7 @@
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_0bc1f7d0beebe4f20069a988961234819686708801c07df748",
+      "id": "resp_0baa7378878e58170069b06457ece48193b381d2fcc6159bcf",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -70,11 +70,11 @@
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 16,
+        "output_tokens": 9,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 62
+        "total_tokens": 55
       },
       "safety_identifier": null,
       "object": "response",
@@ -85,11 +85,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Your name is Sycophant. How can I help you today?",
+              "text": "Your name is Sycophant.",
               "type": "output_text"
             }
           ],
-          "id": "msg_0bc1f7d0beebe4f20069a9889667dc819695b853385f5a72e1",
+          "id": "msg_0baa7378878e58170069b064583eac81938c367a03d2de20ad",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -103,7 +103,7 @@
         "effort": null,
         "summary": null
       },
-      "completed_at": 1772718230,
+      "completed_at": 1773167704,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -112,13 +112,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1772718230,
+      "created_at": 1773167703,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Thu, 05 Mar 2026 13:43:50 GMT"
+        "Tue, 10 Mar 2026 18:35:04 GMT"
       ],
       [
         "content-type",
@@ -126,7 +126,7 @@
       ],
       [
         "content-length",
-        "1577"
+        "1550"
       ],
       [
         "server",
@@ -146,7 +146,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "149999932"
+        "149999935"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -170,11 +170,11 @@
       ],
       [
         "x-request-id",
-        "req_83e375385d0e4eaf9f973e3aa93ae475"
+        "req_f80163db424f4574b8d6d06c90d21800"
       ],
       [
         "openai-processing-ms",
-        "681"
+        "589"
       ],
       [
         "cf-cache-status",
@@ -194,7 +194,7 @@
       ],
       [
         "cf-ray",
-        "9d798d496ab1f5b4-AMS"
+        "9da46ac50f07fba4-AMS"
       ],
       [
         "alt-svc",

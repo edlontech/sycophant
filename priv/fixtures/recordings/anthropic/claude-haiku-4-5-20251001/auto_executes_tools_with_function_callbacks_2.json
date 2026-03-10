@@ -2,7 +2,7 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-03-05T18:03:43.960590Z",
+    "recorded_at": "2026-03-10T18:35:06.621010Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -16,7 +16,7 @@
         {
           "content": [
             {
-              "id": "toolu_01KXd9nH2eMDbjgeh5jmTUY1",
+              "id": "toolu_01QKREcjRa4KPfhBWb5kbdcg",
               "input": {
                 "city": "Paris"
               },
@@ -30,7 +30,7 @@
           "content": [
             {
               "content": "Paris: 22C, sunny",
-              "tool_use_id": "toolu_01KXd9nH2eMDbjgeh5jmTUY1",
+              "tool_use_id": "toolu_01QKREcjRa4KPfhBWb5kbdcg",
               "type": "tool_result"
             }
           ],
@@ -82,7 +82,7 @@
           "type": "text"
         }
       ],
-      "id": "msg_01FuExioQy791RAgj71SipP5",
+      "id": "msg_01VNxTqwuv4HVptJwccaatgL",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
       "stop_reason": "end_turn",
@@ -104,7 +104,7 @@
     "headers": [
       [
         "date",
-        "Thu, 05 Mar 2026 18:03:43 GMT"
+        "Tue, 10 Mar 2026 18:35:06 GMT"
       ],
       [
         "content-type",
@@ -120,7 +120,7 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-03-05T18:03:43Z"
+        "2026-03-10T18:35:05Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
@@ -132,7 +132,7 @@
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-03-05T18:03:43Z"
+        "2026-03-10T18:35:06Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
@@ -144,7 +144,7 @@
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-03-05T18:03:43Z"
+        "2026-03-10T18:35:05Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
@@ -156,11 +156,11 @@
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-03-05T18:03:43Z"
+        "2026-03-10T18:35:05Z"
       ],
       [
         "request-id",
-        "req_011CYkNeyirSzkmKL2DgbiHA"
+        "req_011CYut6Gos7SMRdXCJQMxB5"
       ],
       [
         "strict-transport-security",
@@ -176,7 +176,7 @@
       ],
       [
         "x-envoy-upstream-service-time",
-        "645"
+        "1495"
       ],
       [
         "vary",
@@ -196,7 +196,7 @@
       ],
       [
         "cf-ray",
-        "9d7b09fb1afa9f84-AMS"
+        "9da46acc6c4f3466-AMS"
       ]
     ],
     "status": 200

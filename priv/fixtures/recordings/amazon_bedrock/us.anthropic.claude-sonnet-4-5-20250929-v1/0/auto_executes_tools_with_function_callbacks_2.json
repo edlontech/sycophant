@@ -2,7 +2,7 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-03-06T14:57:40.023264Z",
+    "recorded_at": "2026-03-10T18:35:11.817551Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -24,7 +24,7 @@
                   "city": "Paris"
                 },
                 "name": "get_weather",
-                "toolUseId": "tooluse_MwIVuKZlKShjWnJmPl7xi4"
+                "toolUseId": "tooluse_QRkienTkemNzEq3DcOt5kt"
               }
             }
           ],
@@ -39,7 +39,7 @@
                     "text": "Paris: 22C, sunny"
                   }
                 ],
-                "toolUseId": "tooluse_MwIVuKZlKShjWnJmPl7xi4"
+                "toolUseId": "tooluse_QRkienTkemNzEq3DcOt5kt"
               }
             }
           ],
@@ -73,6 +73,18 @@
     },
     "headers": [
       [
+        "Authorization",
+        "[REDACTED]"
+      ],
+      [
+        "host",
+        "bedrock-runtime.us-east-1.amazonaws.com"
+      ],
+      [
+        "x-amz-date",
+        "20260310T183508Z"
+      ],
+      [
         "content-type",
         "application/json"
       ]
@@ -83,7 +95,7 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 3265
+        "latencyMs": 3369
       },
       "output": {
         "message": {
@@ -110,7 +122,7 @@
     "headers": [
       [
         "date",
-        "Fri, 06 Mar 2026 14:57:39 GMT"
+        "Tue, 10 Mar 2026 18:35:11 GMT"
       ],
       [
         "content-type",
@@ -122,7 +134,7 @@
       ],
       [
         "x-amzn-requestid",
-        "cc98900a-834c-4ea5-bed7-15a83215f9b9"
+        "b5f7a642-7aea-454a-ada5-0f3b6b2db454"
       ]
     ],
     "status": 200

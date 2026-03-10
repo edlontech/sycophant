@@ -2,7 +2,7 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-03-05T20:05:25.842493Z",
+    "recorded_at": "2026-03-10T18:35:07.189262Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -25,7 +25,7 @@
       ],
       [
         "x-goog-api-key",
-        "REDACTED"
+        "[REDACTED]"
       ]
     ],
     "method": "post",
@@ -38,7 +38,7 @@
           "content": {
             "parts": [
               {
-                "text": "Okay, Sycophant. I will remember that your name is Sycophant for the duration of our conversation."
+                "text": "Okay, Sycophant. I will remember that."
               }
             ],
             "role": "model"
@@ -48,9 +48,9 @@
         }
       ],
       "modelVersion": "gemini-2.5-flash",
-      "responseId": "BeKpaYbwAf7SvdIP16OgYQ",
+      "responseId": "WGSwaYfSE4iEkdUP_4aqmAU",
       "usageMetadata": {
-        "candidatesTokenCount": 25,
+        "candidatesTokenCount": 12,
         "promptTokenCount": 12,
         "promptTokensDetails": [
           {
@@ -58,8 +58,8 @@
             "tokenCount": 12
           }
         ],
-        "thoughtsTokenCount": 39,
-        "totalTokenCount": 76
+        "thoughtsTokenCount": 26,
+        "totalTokenCount": 50
       }
     },
     "headers": [
@@ -81,7 +81,7 @@
       ],
       [
         "date",
-        "Thu, 05 Mar 2026 20:05:25 GMT"
+        "Tue, 10 Mar 2026 18:35:07 GMT"
       ],
       [
         "server",
@@ -101,7 +101,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=773"
+        "gfet4t7; dur=2897"
       ],
       [
         "alt-svc",

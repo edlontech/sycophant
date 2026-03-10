@@ -2,7 +2,7 @@
   "metadata": {
     "model": "anthropic/claude-haiku-4.5",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-05T13:43:53.015521Z",
+    "recorded_at": "2026-03-10T18:35:13.755897Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -32,11 +32,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1772718232,
-      "created_at": 1772718231,
+      "completed_at": 1773167713,
+      "created_at": 1773167712,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1772718231-9XYKtbRfifDSwBQm2mm6",
+      "id": "gen-1773167712-9HwYeqTZ7RLC1zgRtYWY",
       "incomplete_details": null,
       "instructions": "You are a calculator. Only respond with numbers.",
       "max_output_tokens": null,
@@ -54,7 +54,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_u7f4un6wwy",
+          "id": "msg_tmp_0wp3p6xlh6x",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -103,7 +103,7 @@
     "headers": [
       [
         "date",
-        "Thu, 05 Mar 2026 13:43:52 GMT"
+        "Tue, 10 Mar 2026 18:35:13 GMT"
       ],
       [
         "content-type",
@@ -111,7 +111,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1187"
+        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=1118"
       ],
       [
         "access-control-allow-origin",
@@ -135,7 +135,7 @@
       ],
       [
         "cf-ray",
-        "9d798d541fe8910e-AMS"
+        "9da46afb4e906568-AMS"
       ]
     ],
     "status": 200

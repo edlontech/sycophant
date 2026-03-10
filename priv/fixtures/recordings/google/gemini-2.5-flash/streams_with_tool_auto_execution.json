@@ -2,7 +2,7 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-03-05T20:07:47.625077Z",
+    "recorded_at": "2026-03-10T18:35:02.801805Z",
     "streaming": true,
     "sycophant_version": "0.1.0"
   },
@@ -47,14 +47,14 @@
       ],
       [
         "x-goog-api-key",
-        "REDACTED"
+        "[REDACTED]"
       ]
     ],
     "method": "post",
     "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse"
   },
   "response": {
-    "body": "data: {\"candidates\": [{\"content\": {\"parts\": [{\"functionCall\": {\"name\": \"get_weather\",\"args\": {\"city\": \"Paris\"}},\"thoughtSignature\": \"CiQBvj72+xhnELS+lJZeRnYmQ6Qa6qc8in3BQWr90kWJ5JCMb1gKYQG+Pvb76xibgnFk4geJWhdMyjFdr62n2CTfhBz0hRWgdUNV6yLJoXYvzvxgjEtsEcUzyCLmR84rop81kR+VXx1MgyWlxW1E9OQcD6S/TiUty7q+W1oIphNiI5WwH3Ksa3oKfwG+Pvb7nremEOnUqCX8ZzxD98UMJHOBit0fdziy/Ae1dlvWQ4DshgLYZvFr5rAutZlmx/rcXSwZT8fBGKaq5e5XGtoSvo0E2dk5Xj4FbqnKGHuTUMHTZjg53xU1nYFg18vZAZJrjFb8BkY/+rCfHkCmff8oXptzlakfvMbF6Q0=\"}],\"role\": \"model\"},\"finishReason\": \"STOP\",\"index\": 0,\"finishMessage\": \"Model generated function call(s).\"}],\"usageMetadata\": {\"promptTokenCount\": 60,\"candidatesTokenCount\": 15,\"totalTokenCount\": 116,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\": 60}],\"thoughtsTokenCount\": 41},\"modelVersion\": \"gemini-2.5-flash\",\"responseId\": \"kuKpaZz2N-mCxN8PhJGCwAs\"}\r\n\r\n",
+    "body": "data: {\"candidates\": [{\"content\": {\"parts\": [{\"functionCall\": {\"name\": \"get_weather\",\"args\": {\"city\": \"Paris\"}},\"thoughtSignature\": \"CiQBvj72+50YSRDgTXSPynzKRyU8m1PO4Mp7qGRdhQD7/9fbXsMKYQG+Pvb7SYVHWlFvqYtNN2rpqiQT7rgDT/LuODXPVZLNWpIa0EYWGIqTGqsAcabTf0STDQ3tYHDjaBJJqmxJZTdRlTgoDeFzfIiWDmUEHLY83Odz3AbsK2IW1TXP1ewJDpIKpAEBvj72+2eSXZazT4s70yb08vx6c5mNF0BLpQyMgH0uoI7+eyYZBctA5cuUyewyqDVO1q3ew/nnO/0vlUbrATStQn9KyPD5YCYrbklUdYHFdiiya9sbDVqiUuN7K71NRX/XgyMKDFc7dZSEv055r/LtQ1nETCUPpIg/0ZY30OyuSca3yO8X399080vpIfiMfIO6kga9LlDUhc8UNHHDRUXpPQiywQ==\"}],\"role\": \"model\"},\"finishReason\": \"STOP\",\"index\": 0,\"finishMessage\": \"Model generated function call(s).\"}],\"usageMetadata\": {\"promptTokenCount\": 60,\"candidatesTokenCount\": 15,\"totalTokenCount\": 125,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\": 60}],\"thoughtsTokenCount\": 50},\"modelVersion\": \"gemini-2.5-flash\",\"responseId\": \"VmSwaZ6ZCrOensEPmuPpsQo\"}\r\n\r\n",
     "headers": [
       [
         "content-type",
@@ -78,7 +78,7 @@
       ],
       [
         "date",
-        "Thu, 05 Mar 2026 20:07:47 GMT"
+        "Tue, 10 Mar 2026 18:35:02 GMT"
       ],
       [
         "server",
@@ -98,7 +98,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=751"
+        "gfet4t7; dur=661"
       ],
       [
         "alt-svc",

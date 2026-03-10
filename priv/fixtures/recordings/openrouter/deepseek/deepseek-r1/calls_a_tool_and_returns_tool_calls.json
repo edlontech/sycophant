@@ -2,7 +2,7 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-05T13:44:15.026509Z",
+    "recorded_at": "2026-03-10T18:35:06.942624Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -51,11 +51,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1772718255,
-      "created_at": 1772718250,
+      "completed_at": 1773167706,
+      "created_at": 1773167702,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1772718250-qOTtkwbH1AsNw4j7LZiU",
+      "id": "gen-1773167702-jcWGjN0kAqpucZafTlcr",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -67,20 +67,20 @@
         {
           "content": [
             {
-              "text": "好的，用户想知道巴黎的天气，需要使用get_weather工具。首先，我需要确认工具的参数和要求。根据工具列表，get_weather需要一个必填参数city，类型是字符串。用户已经明确提到了巴黎，所以参数没问题。接下来我要生成正确的调用格式。记得严格按照输出格式要求，用tool_call的标签包裹函数名和参数。参数部分要用JSON格式，确保city的值是字符串类型。检查一下有没有拼写错误或者格式问题，然后正确输出即可。不需要其他额外内容，直接调用工具。\n",
+              "text": "嗯，用户问巴黎的天气，我需要使用get_weather工具。先看一下工具的说明，工具需要参数城市，且必须提供。用户已经提到了巴黎，所以参数应该是city: Paris。确认一下工具的名字和参数类型是否正确，是的，city是字符串类型，没有其他参数。直接调用get_weather，参数填巴黎。然后按照格式输出，确保JSON正确，没有多余的内容。不需要多次调用，只需要一次工具调用。检查输出格式是否正确，使用指定的标签和结构。这样就完成了。\n",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_ajbe8i4ceh",
+          "id": "rs_tmp_pqk8nua18o",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
         },
         {
           "arguments": "{\"city\": \"Paris\"}",
-          "call_id": "1a97ad9b181744c1836c838076e17c5d",
-          "id": "fc_tmp_qw9hae0sth",
+          "call_id": "41c21fe549fb4eadb88e6c382da73414",
+          "id": "fc_tmp_pz1rlse0n4",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -126,29 +126,29 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 6.426e-4,
+        "cost": 6.351e-4,
         "cost_details": {
-          "upstream_inference_cost": 6.426e-4,
+          "upstream_inference_cost": 6.351e-4,
           "upstream_inference_input_cost": 2.576e-4,
-          "upstream_inference_output_cost": 3.85e-4
+          "upstream_inference_output_cost": 3.775e-4
         },
         "input_tokens": 368,
         "input_tokens_details": {
-          "cached_tokens": 320
+          "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 154,
+        "output_tokens": 151,
         "output_tokens_details": {
-          "reasoning_tokens": 111
+          "reasoning_tokens": 108
         },
-        "total_tokens": 522
+        "total_tokens": 519
       },
       "user": null
     },
     "headers": [
       [
         "date",
-        "Thu, 05 Mar 2026 13:44:11 GMT"
+        "Tue, 10 Mar 2026 18:35:03 GMT"
       ],
       [
         "content-type",
@@ -156,7 +156,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1100"
+        "cfEdge;dur=10,cfOrigin;dur=0,cfWorker;dur=1390"
       ],
       [
         "access-control-allow-origin",
@@ -180,7 +180,7 @@
       ],
       [
         "cf-ray",
-        "9d798dc73d91910e-AMS"
+        "9da46ab769186568-AMS"
       ]
     ],
     "status": 200

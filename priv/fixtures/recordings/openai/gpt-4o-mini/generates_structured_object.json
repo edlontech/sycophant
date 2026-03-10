@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-05T13:43:50.503378Z",
+    "recorded_at": "2026-03-10T18:35:03.113548Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -99,7 +99,7 @@
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_0d11838c86b99b3d0069a98894ec4c81948327c81deabf2711",
+      "id": "resp_0a75f6de04ca50ff0069b06455bdfc8195b196180e26b43317",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -126,11 +126,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "{\"age\":28,\"hobbies\":[\"hiking\",\"photography\",\"reading\"],\"name\":\"Liam Carter\"}",
+              "text": "{\"age\":29,\"hobbies\":[\"photography\",\"hiking\",\"playing guitar\"],\"name\":\"Ella Thompson\"}",
               "type": "output_text"
             }
           ],
-          "id": "msg_0d11838c86b99b3d0069a98895fae4819485463151f9a43e01",
+          "id": "msg_0a75f6de04ca50ff0069b064565bc88195acc402d930b48dc1",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -144,7 +144,7 @@
         "effort": null,
         "summary": null
       },
-      "completed_at": 1772718230,
+      "completed_at": 1773167702,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -153,13 +153,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1772718228,
+      "created_at": 1773167701,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Thu, 05 Mar 2026 13:43:50 GMT"
+        "Tue, 10 Mar 2026 18:35:03 GMT"
       ],
       [
         "content-type",
@@ -167,7 +167,7 @@
       ],
       [
         "content-length",
-        "2170"
+        "2179"
       ],
       [
         "server",
@@ -187,7 +187,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "149999907"
+        "149999910"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -211,11 +211,11 @@
       ],
       [
         "x-request-id",
-        "req_ffe2c4f4c4b7427b93c5118d3811a7de"
+        "req_32fc74c869ef4990ac62f752777659c7"
       ],
       [
         "openai-processing-ms",
-        "1529"
+        "1269"
       ],
       [
         "cf-cache-status",
@@ -235,7 +235,7 @@
       ],
       [
         "cf-ray",
-        "9d798d423a5af5b4-AMS"
+        "9da46ab74be3fba4-AMS"
       ],
       [
         "alt-svc",

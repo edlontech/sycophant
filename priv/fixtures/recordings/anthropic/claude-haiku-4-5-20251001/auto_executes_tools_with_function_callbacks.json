@@ -2,7 +2,7 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-03-05T18:03:43.201741Z",
+    "recorded_at": "2026-03-10T18:35:05.013511Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -58,7 +58,7 @@
           "caller": {
             "type": "direct"
           },
-          "id": "toolu_01KXd9nH2eMDbjgeh5jmTUY1",
+          "id": "toolu_01QKREcjRa4KPfhBWb5kbdcg",
           "input": {
             "city": "Paris"
           },
@@ -66,7 +66,7 @@
           "type": "tool_use"
         }
       ],
-      "id": "msg_01E9z4wpT5paWGYR97LfqN6y",
+      "id": "msg_01GaJSANtxL2dtgJrdH2nADh",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
       "stop_reason": "tool_use",
@@ -88,7 +88,7 @@
     "headers": [
       [
         "date",
-        "Thu, 05 Mar 2026 18:03:43 GMT"
+        "Tue, 10 Mar 2026 18:35:05 GMT"
       ],
       [
         "content-type",
@@ -104,7 +104,7 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-03-05T18:03:43Z"
+        "2026-03-10T18:35:03Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
@@ -116,7 +116,7 @@
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-03-05T18:03:43Z"
+        "2026-03-10T18:35:04Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
@@ -128,7 +128,7 @@
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-03-05T18:03:42Z"
+        "2026-03-10T18:35:03Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
@@ -140,11 +140,11 @@
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-03-05T18:03:43Z"
+        "2026-03-10T18:35:03Z"
       ],
       [
         "request-id",
-        "req_011CYkNevVPND7KtLnmAeJV9"
+        "req_011CYut69u9CKgoEAEmhi94i"
       ],
       [
         "strict-transport-security",
@@ -160,7 +160,7 @@
       ],
       [
         "x-envoy-upstream-service-time",
-        "640"
+        "1504"
       ],
       [
         "vary",
@@ -180,7 +180,7 @@
       ],
       [
         "cf-ray",
-        "9d7b09f66ef69f84-AMS"
+        "9da46ac249123466-AMS"
       ]
     ],
     "status": 200

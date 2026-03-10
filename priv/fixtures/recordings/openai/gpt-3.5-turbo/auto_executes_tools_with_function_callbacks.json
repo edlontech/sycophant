@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-05T13:43:49.525043Z",
+    "recorded_at": "2026-03-10T18:35:06.024792Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -68,15 +68,15 @@
                   "arguments": "{\"city\":\"Paris\"}",
                   "name": "get_weather"
                 },
-                "id": "call_hJpt4R1AyYLdLxlbCikSkNyS",
+                "id": "call_IO4M7ov4NnXCvODs3oeJzwHO",
                 "type": "function"
               }
             ]
           }
         }
       ],
-      "created": 1772718229,
-      "id": "chatcmpl-DG3HRGkPipHrKt9eCH5A8YN0ptcQh",
+      "created": 1773167705,
+      "id": "chatcmpl-DHwD3k0o2V5z5IuqTzMilrSXwAWeb",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -100,15 +100,11 @@
     "headers": [
       [
         "date",
-        "Thu, 05 Mar 2026 13:43:49 GMT"
+        "Tue, 10 Mar 2026 18:35:06 GMT"
       ],
       [
         "content-type",
         "application/json"
-      ],
-      [
-        "content-length",
-        "1069"
       ],
       [
         "access-control-expose-headers",
@@ -120,7 +116,7 @@
       ],
       [
         "openai-processing-ms",
-        "555"
+        "2222"
       ],
       [
         "openai-project",
@@ -160,7 +156,7 @@
       ],
       [
         "x-request-id",
-        "req_dc155b3b445e4d3899d1d09cd4cdfd72"
+        "req_7703ac81fa3b45dca881846ed3b2b215"
       ],
       [
         "x-openai-proxy-wasm",
@@ -184,7 +180,7 @@
       ],
       [
         "cf-ray",
-        "9d798d421a2af5b4-AMS"
+        "9da46ac3fcc0fba4-AMS"
       ],
       [
         "alt-svc",

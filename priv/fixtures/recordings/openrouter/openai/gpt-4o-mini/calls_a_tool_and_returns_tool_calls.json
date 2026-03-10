@@ -2,7 +2,7 @@
   "metadata": {
     "model": "openai/gpt-4o-mini",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-05T13:43:52.045832Z",
+    "recorded_at": "2026-03-10T18:35:05.344112Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -51,11 +51,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1772718232,
-      "created_at": 1772718231,
+      "completed_at": 1773167705,
+      "created_at": 1773167704,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1772718231-9480rNEJFKwFEE5Wg3jK",
+      "id": "gen-1773167704-i1p0fWLMUGeR8Dw926rr",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -66,8 +66,8 @@
       "output": [
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "call_v8QQpDnW8LuBFdXG26UL2b8k",
-          "id": "fc_tmp_dqvqflxi23l",
+          "call_id": "call_5h6n8rJVVSQQdU6FHoAFqKJ0",
+          "id": "fc_tmp_8ugdou3mzqj",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -135,7 +135,7 @@
     "headers": [
       [
         "date",
-        "Thu, 05 Mar 2026 13:43:51 GMT"
+        "Tue, 10 Mar 2026 18:35:05 GMT"
       ],
       [
         "content-type",
@@ -143,7 +143,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=489"
+        "cfEdge;dur=2338,cfOrigin;dur=0,cfWorker;dur=1221"
       ],
       [
         "access-control-allow-origin",
@@ -167,7 +167,7 @@
       ],
       [
         "cf-ray",
-        "9d798d526b33910e-AMS"
+        "9da46ab749106568-AMS"
       ]
     ],
     "status": 200

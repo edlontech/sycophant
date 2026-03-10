@@ -2,7 +2,7 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-03-09T14:16:01.833437Z",
+    "recorded_at": "2026-03-10T18:35:04.010557Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -19,6 +19,18 @@
       "truncate": "NONE"
     },
     "headers": [
+      [
+        "Authorization",
+        "[REDACTED]"
+      ],
+      [
+        "host",
+        "bedrock-runtime.us-east-1.amazonaws.com"
+      ],
+      [
+        "x-amz-date",
+        "20260310T183503Z"
+      ],
       [
         "content-type",
         "application/json"
@@ -4647,7 +4659,7 @@
           ]
         ]
       },
-      "id": "0ebef5c7-a6a9-43f0-954d-567b41f7b649",
+      "id": "89621d51-898f-44b0-a440-bfc4acc645a7",
       "response_type": "embeddings_by_type",
       "texts": [
         "first document",
@@ -4658,7 +4670,7 @@
     "headers": [
       [
         "date",
-        "Mon, 09 Mar 2026 14:16:01 GMT"
+        "Tue, 10 Mar 2026 18:35:03 GMT"
       ],
       [
         "content-type",
@@ -4670,11 +4682,11 @@
       ],
       [
         "x-amzn-requestid",
-        "0ebef5c7-a6a9-43f0-954d-567b41f7b649"
+        "89621d51-898f-44b0-a440-bfc4acc645a7"
       ],
       [
         "x-amzn-bedrock-invocation-latency",
-        "121"
+        "125"
       ],
       [
         "x-amzn-bedrock-input-token-count",

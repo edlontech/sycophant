@@ -2,7 +2,7 @@
   "metadata": {
     "model": "openai/gpt-4o-mini",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-05T18:49:51.326597Z",
+    "recorded_at": "2026-03-10T18:35:02.834437Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -61,11 +61,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1772736591,
-      "created_at": 1772736590,
+      "completed_at": 1773167702,
+      "created_at": 1773167702,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1772736590-429PzH7NEk7wbAKQWIPy",
+      "id": "gen-1773167702-UgNdEMWNXr6FF1mjioJI",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -79,11 +79,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "{\"age\":29,\"hobbies\":[\"photography\",\"hiking\",\"cooking\"],\"name\":\"Lara Jensen\"}",
+              "text": "{\"age\":29,\"hobbies\":[\"hiking\",\"playing guitar\",\"cooking\"],\"name\":\"Lila Thompson\"}",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_dwa3i3vvwbk",
+          "id": "msg_tmp_2zrvqlwm7w7",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -157,7 +157,7 @@
     "headers": [
       [
         "date",
-        "Thu, 05 Mar 2026 18:49:50 GMT"
+        "Tue, 10 Mar 2026 18:35:02 GMT"
       ],
       [
         "content-type",
@@ -165,7 +165,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=905"
+        "cfEdge;dur=6,cfOrigin;dur=0,cfWorker;dur=831"
       ],
       [
         "access-control-allow-origin",
@@ -189,7 +189,7 @@
       ],
       [
         "cf-ray",
-        "9d7b4d8779fcb966-AMS"
+        "9da46ab7490e6568-AMS"
       ]
     ],
     "status": 200

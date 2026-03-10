@@ -2,7 +2,7 @@
   "metadata": {
     "model": "anthropic/claude-haiku-4.5",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-05T13:43:50.185464Z",
+    "recorded_at": "2026-03-10T18:35:08.222497Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -31,11 +31,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1772718230,
-      "created_at": 1772718229,
+      "completed_at": 1773167708,
+      "created_at": 1773167704,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1772718229-JlcTGysoinLCqMuafh8I",
+      "id": "gen-1773167704-qq7AmYQAKob1ptUe81yl",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -49,11 +49,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "I've noted that your name is Sycophant. However, I should mention that I don't have memory that persists between conversations. Each time we chat, I start fresh without access to previous interactions.\n\nThat said, within *this* conversation, I'll certainly remember that you're Sycophant. How can I help you today?",
+              "text": "I've noted that your name is Sycophant. However, I should mention that I don't retain information between separate conversations. Each time we start fresh, I won't have memories of this exchange.\n\nThat said, within *this* conversation, I'll certainly remember and can refer to you as Sycophant. Is there something I can help you with?",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_ytkduw2olk",
+          "id": "msg_tmp_ooylweo7sa",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -80,29 +80,29 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 4.04e-4,
+        "cost": 4.24e-4,
         "cost_details": {
-          "upstream_inference_cost": 4.04e-4,
+          "upstream_inference_cost": 4.24e-4,
           "upstream_inference_input_cost": 1.9e-5,
-          "upstream_inference_output_cost": 3.85e-4
+          "upstream_inference_output_cost": 4.05e-4
         },
         "input_tokens": 19,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 77,
+        "output_tokens": 81,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 96
+        "total_tokens": 100
       },
       "user": null
     },
     "headers": [
       [
         "date",
-        "Thu, 05 Mar 2026 13:43:49 GMT"
+        "Tue, 10 Mar 2026 18:35:07 GMT"
       ],
       [
         "content-type",
@@ -110,7 +110,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=651"
+        "cfEdge;dur=427,cfOrigin;dur=0,cfWorker;dur=3272"
       ],
       [
         "access-control-allow-origin",
@@ -134,7 +134,7 @@
       ],
       [
         "cf-ray",
-        "9d798d422a02910e-AMS"
+        "9da46ac34c446568-AMS"
       ]
     ],
     "status": 200

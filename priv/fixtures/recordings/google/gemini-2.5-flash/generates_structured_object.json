@@ -2,7 +2,7 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-03-05T20:05:19.957754Z",
+    "recorded_at": "2026-03-10T18:35:02.992897Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -50,7 +50,7 @@
       ],
       [
         "x-goog-api-key",
-        "REDACTED"
+        "[REDACTED]"
       ]
     ],
     "method": "post",
@@ -63,7 +63,7 @@
           "content": {
             "parts": [
               {
-                "text": "{\"name\":\"Alice\",\"age\":30,\"hobbies\":[\"reading\",\"hiking\",\"cooking\"]}"
+                "text": "{\"name\":\"Alice Wonderland\",\"age\":30,\"hobbies\":[\"reading\",\"hiking\",\"photography\"]}"
               }
             ],
             "role": "model"
@@ -73,9 +73,9 @@
         }
       ],
       "modelVersion": "gemini-2.5-flash",
-      "responseId": "_-GpacsS37O90g-1w7zhDA",
+      "responseId": "VWSwaZOfLIO5kdUP-9S_oQU",
       "usageMetadata": {
-        "candidatesTokenCount": 19,
+        "candidatesTokenCount": 20,
         "promptTokenCount": 21,
         "promptTokensDetails": [
           {
@@ -83,8 +83,8 @@
             "tokenCount": 21
           }
         ],
-        "thoughtsTokenCount": 110,
-        "totalTokenCount": 150
+        "thoughtsTokenCount": 127,
+        "totalTokenCount": 168
       }
     },
     "headers": [
@@ -106,7 +106,7 @@
       ],
       [
         "date",
-        "Thu, 05 Mar 2026 20:05:19 GMT"
+        "Tue, 10 Mar 2026 18:35:02 GMT"
       ],
       [
         "server",
@@ -126,7 +126,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=1002"
+        "gfet4t7; dur=1326"
       ],
       [
         "alt-svc",

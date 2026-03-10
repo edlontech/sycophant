@@ -2,7 +2,7 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-03-05T20:05:22.153584Z",
+    "recorded_at": "2026-03-10T18:35:02.496620Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -46,7 +46,7 @@
       ],
       [
         "x-goog-api-key",
-        "REDACTED"
+        "[REDACTED]"
       ]
     ],
     "method": "post",
@@ -65,7 +65,7 @@
                   },
                   "name": "get_weather"
                 },
-                "thoughtSignature": "CvcBAb4+9vuq3ejFNxCKdx4qnwunG8wY8VM6Y9AhlJv8nROyPNZyfjUKwsTawIQYuHhm2IN19R1NTWhOQGbf3aiC/zfiMZeevxtxzhQMU0kM2ioBcAu22VDzy6xM/lifuWtD4E6jk9NAB7dbawuDGyTnnsh8Qb2/QaUPVjbcL/YAqoFuQkLJl+P5p7OFy5z8jk6Clg0KrCRckoX9fj2YxRkmVfrsQYOOE/2aomE/BVP3T1Bj15AbDIq49syo2F+3NIGB3Ruv0p1ymGSRYMTgLElGJHit6Zm4GM5inbZTd1yD0YDQLSW0BWCBNmqAYJKwhKPdujYI1VZN6A=="
+                "thoughtSignature": "CsMBAb4+9vtAHH5YTG2VyBdKc/GLot80HCgFNT20EdeE3ahKob9XeUQYzgCmgEEKwqtAYwRCJNkrkjR8cEX4YvBh49aa8f7ocQLnd1TY6Z7ssmUMqQ9xMGgB5sW9JDq5BLjh/QI3SbfX9lrJBTbTjElWUkjV/2Y5tjG0+t2fqyxthncIWveFDh2jPaqYKo55EOtNso7lzE9nLHqenBo6USLLC2hGuDE1deuapjJkX70rd5EZVnECtLtYOrkCsWHEyTAiP1Co"
               }
             ],
             "role": "model"
@@ -76,7 +76,7 @@
         }
       ],
       "modelVersion": "gemini-2.5-flash",
-      "responseId": "AeKpabrmEZDDxN8Plb_r0A8",
+      "responseId": "VWSwacS9Kojp7M8P7KjSyAc",
       "usageMetadata": {
         "candidatesTokenCount": 15,
         "promptTokenCount": 54,
@@ -86,8 +86,8 @@
             "tokenCount": 54
           }
         ],
-        "thoughtsTokenCount": 54,
-        "totalTokenCount": 123
+        "thoughtsTokenCount": 40,
+        "totalTokenCount": 109
       }
     },
     "headers": [
@@ -109,7 +109,7 @@
       ],
       [
         "date",
-        "Thu, 05 Mar 2026 20:05:22 GMT"
+        "Tue, 10 Mar 2026 18:35:02 GMT"
       ],
       [
         "server",
@@ -129,7 +129,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=876"
+        "gfet4t7; dur=828"
       ],
       [
         "alt-svc",

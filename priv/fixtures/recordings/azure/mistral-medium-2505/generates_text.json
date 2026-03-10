@@ -2,7 +2,7 @@
   "metadata": {
     "model": "mistral-medium-2505",
     "provider": "azure",
-    "recorded_at": "2026-03-09T18:15:26.088393Z",
+    "recorded_at": "2026-03-10T18:35:11.838149Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -19,6 +19,10 @@
       [
         "content-type",
         "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
       ]
     ],
     "method": "post",
@@ -63,8 +67,8 @@
           }
         }
       ],
-      "created": 1773080125,
-      "id": "b14ea3a630494160a10f62eecb996165",
+      "created": 1773167706,
+      "id": "4f58cdef8c2c4c578bd54283c984afa9",
       "model": "mistral-medium-2505",
       "object": "chat.completion",
       "prompt_filter_results": [
@@ -127,7 +131,7 @@
       ],
       [
         "apim-request-id",
-        "8a57e1c5-21f7-4336-90a4-b2d116271cc5"
+        "1ac5fe7d-05c5-457a-afec-08cee1a82bd7"
       ],
       [
         "x-content-type-options",
@@ -143,7 +147,7 @@
       ],
       [
         "date",
-        "Mon, 09 Mar 2026 18:15:25 GMT"
+        "Tue, 10 Mar 2026 18:35:11 GMT"
       ]
     ],
     "status": 200

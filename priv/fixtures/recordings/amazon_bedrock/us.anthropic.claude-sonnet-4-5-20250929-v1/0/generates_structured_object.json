@@ -2,7 +2,7 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-03-06T14:59:17.615573Z",
+    "recorded_at": "2026-03-10T18:35:05.077449Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -31,6 +31,18 @@
     },
     "headers": [
       [
+        "Authorization",
+        "[REDACTED]"
+      ],
+      [
+        "host",
+        "bedrock-runtime.us-east-1.amazonaws.com"
+      ],
+      [
+        "x-amz-date",
+        "20260310T183501Z"
+      ],
+      [
         "content-type",
         "application/json"
       ]
@@ -41,13 +53,13 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 4149
+        "latencyMs": 2728
       },
       "output": {
         "message": {
           "content": [
             {
-              "text": "{\"age\":28,\"hobbies\":[\"photography\",\"hiking\",\"cooking\"],\"name\":\"Elena Martinez\"}"
+              "text": "{\"age\":28,\"hobbies\":[\"photography\",\"hiking\",\"cooking\"],\"name\":\"Maya Chen\"}"
             }
           ],
           "role": "assistant"
@@ -68,7 +80,7 @@
     "headers": [
       [
         "date",
-        "Fri, 06 Mar 2026 14:59:17 GMT"
+        "Tue, 10 Mar 2026 18:35:05 GMT"
       ],
       [
         "content-type",
@@ -76,11 +88,11 @@
       ],
       [
         "content-length",
-        "408"
+        "403"
       ],
       [
         "x-amzn-requestid",
-        "e71d146f-ad3d-47ce-a8de-b2dd8581a359"
+        "71197544-95b4-4cc2-b99f-bc0f93f15ae9"
       ]
     ],
     "status": 200

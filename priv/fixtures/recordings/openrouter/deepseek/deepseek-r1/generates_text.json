@@ -2,7 +2,7 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-05T13:44:20.731782Z",
+    "recorded_at": "2026-03-10T18:27:44.626317Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -31,11 +31,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1772718260,
-      "created_at": 1772718257,
+      "completed_at": 1773167264,
+      "created_at": 1773167261,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1772718257-jXHePmONqQLK9tDdRJ3k",
+      "id": "gen-1773167261-cPioxXYu2boYDELlMrXC",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -47,12 +47,12 @@
         {
           "content": [
             {
-              "text": "Okay, the user asked me to say \"hello\" and nothing else. Let me start by confirming the request. They want a simple \"hello\" without any additional text. So I need to make sure I don't add anything else like explanations or follow-ups. Let me check the instructions again. Yep, just \"hello\". Alright, I'll respond with exactly that. No extra words. Just \"hello\". Got it.\n",
+              "text": "Okay, the user wants me to simply say 'hello' and nothing else. Let me check the instructions again. Yes, they specified to respond with 'hello' and nothing else. I need to make sure there's no extra text. Just the word 'hello'. Alright, I'll keep it straightforward. No greetings, explanations, or additional words. Just 'hello' as per the request. Got it.\n",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_jyf7shbn22",
+          "id": "rs_tmp_u0kt7mqmtq",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
@@ -62,11 +62,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Hello.",
+              "text": "hello",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_hcj4elhlvnh",
+          "id": "msg_tmp_78h3mr9liqy",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -93,29 +93,29 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 2.366e-4,
+        "cost": 2.241e-4,
         "cost_details": {
-          "upstream_inference_cost": 2.366e-4,
+          "upstream_inference_cost": 2.241e-4,
           "upstream_inference_input_cost": 9.1e-6,
-          "upstream_inference_output_cost": 2.275e-4
+          "upstream_inference_output_cost": 2.15e-4
         },
         "input_tokens": 13,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 91,
+        "output_tokens": 86,
         "output_tokens_details": {
-          "reasoning_tokens": 89
+          "reasoning_tokens": 85
         },
-        "total_tokens": 104
+        "total_tokens": 99
       },
       "user": null
     },
     "headers": [
       [
         "date",
-        "Thu, 05 Mar 2026 13:44:18 GMT"
+        "Tue, 10 Mar 2026 18:27:42 GMT"
       ],
       [
         "content-type",
@@ -123,7 +123,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1244"
+        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=988"
       ],
       [
         "access-control-allow-origin",
@@ -147,7 +147,7 @@
       ],
       [
         "cf-ray",
-        "9d798df35cf0910e-AMS"
+        "9da45ff83c1b6622-AMS"
       ]
     ],
     "status": 200

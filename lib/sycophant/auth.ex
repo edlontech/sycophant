@@ -48,6 +48,8 @@ defmodule Sycophant.Auth do
   def path_params_for(provider, credentials) do
     case Sycophant.Registry.fetch_auth(provider) do
       {:ok, mod} ->
+        Code.ensure_loaded!(mod)
+
         if function_exported?(mod, :path_params, 1),
           do: mod.path_params(credentials),
           else: []

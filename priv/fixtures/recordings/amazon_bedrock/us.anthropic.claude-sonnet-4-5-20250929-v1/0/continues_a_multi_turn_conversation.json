@@ -2,7 +2,7 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-03-06T14:57:36.143937Z",
+    "recorded_at": "2026-03-10T18:35:08.478227Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -20,6 +20,18 @@
     },
     "headers": [
       [
+        "Authorization",
+        "[REDACTED]"
+      ],
+      [
+        "host",
+        "bedrock-runtime.us-east-1.amazonaws.com"
+      ],
+      [
+        "x-amz-date",
+        "20260310T183504Z"
+      ],
+      [
         "content-type",
         "application/json"
       ]
@@ -30,13 +42,13 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 2159
+        "latencyMs": 4004
       },
       "output": {
         "message": {
           "content": [
             {
-              "text": "Got it – your name is Sycophant. I'll remember that for our conversation."
+              "text": "Hello Sycophant! I'll remember your name for our conversation. How can I help you today?"
             }
           ],
           "role": "assistant"
@@ -49,15 +61,15 @@
         "cacheWriteInputTokenCount": 0,
         "cacheWriteInputTokens": 0,
         "inputTokens": 19,
-        "outputTokens": 23,
+        "outputTokens": 26,
         "serverToolUsage": {},
-        "totalTokens": 42
+        "totalTokens": 45
       }
     },
     "headers": [
       [
         "date",
-        "Fri, 06 Mar 2026 14:57:36 GMT"
+        "Tue, 10 Mar 2026 18:35:08 GMT"
       ],
       [
         "content-type",
@@ -65,11 +77,11 @@
       ],
       [
         "content-length",
-        "388"
+        "401"
       ],
       [
         "x-amzn-requestid",
-        "b99b88ce-cd12-49a9-b0a8-1b84a5ec07c3"
+        "dbebba1c-4472-4484-b46a-55982858a04e"
       ]
     ],
     "status": 200

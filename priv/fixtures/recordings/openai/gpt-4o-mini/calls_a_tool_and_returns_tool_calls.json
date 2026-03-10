@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-05T13:43:53.731569Z",
+    "recorded_at": "2026-03-10T18:35:02.567275Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -82,7 +82,7 @@
           "type": "function"
         }
       ],
-      "id": "resp_025d334395fe2aa90069a98896bbfc81908d277ce819541070",
+      "id": "resp_04489024ab8f7fd10069b06455ca008193aa1191b3a147fcb6",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -106,8 +106,8 @@
       "output": [
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "call_pKmYX8aiM42tTsGTUEJVgFk6",
-          "id": "fc_025d334395fe2aa90069a988993ec88190b85e5c1b46597500",
+          "call_id": "call_ko8W86oz2Dcj2WBRPuN3Fb03",
+          "id": "fc_04489024ab8f7fd10069b064564da481939bdd5ff8fe65ab3a",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -121,7 +121,7 @@
         "effort": null,
         "summary": null
       },
-      "completed_at": 1772718233,
+      "completed_at": 1773167702,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -130,13 +130,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1772718230,
+      "created_at": 1773167701,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Thu, 05 Mar 2026 13:43:53 GMT"
+        "Tue, 10 Mar 2026 18:35:02 GMT"
       ],
       [
         "content-type",
@@ -164,7 +164,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "149999732"
+        "149999735"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -188,11 +188,11 @@
       ],
       [
         "x-request-id",
-        "req_130bba141dbd4eecbed53e1c2183ecc0"
+        "req_ea27f80085b04a528995ed9f154951d3"
       ],
       [
         "openai-processing-ms",
-        "2943"
+        "717"
       ],
       [
         "cf-cache-status",
@@ -212,7 +212,7 @@
       ],
       [
         "cf-ray",
-        "9d798d4d8b6ef5b4-AMS"
+        "9da46ab7acb1fba4-AMS"
       ],
       [
         "alt-svc",

@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-05T13:43:50.002631Z",
+    "recorded_at": "2026-03-10T18:35:06.757392Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -21,7 +21,7 @@
                 "arguments": "{\"city\":\"Paris\"}",
                 "name": "get_weather"
               },
-              "id": "call_hJpt4R1AyYLdLxlbCikSkNyS",
+              "id": "call_IO4M7ov4NnXCvODs3oeJzwHO",
               "type": "function"
             }
           ]
@@ -29,7 +29,7 @@
         {
           "content": "Paris: 22C, sunny",
           "role": "tool",
-          "tool_call_id": "call_hJpt4R1AyYLdLxlbCikSkNyS"
+          "tool_call_id": "call_IO4M7ov4NnXCvODs3oeJzwHO"
         }
       ],
       "model": "gpt-3.5-turbo",
@@ -78,14 +78,14 @@
           "logprobs": null,
           "message": {
             "annotations": [],
-            "content": "The weather in Paris is currently 22°C and sunny.",
+            "content": "The current weather in Paris is 22°C and sunny.",
             "refusal": null,
             "role": "assistant"
           }
         }
       ],
-      "created": 1772718229,
-      "id": "chatcmpl-DG3HRPyZSwONyxhEsil0RlD0zL5QI",
+      "created": 1773167706,
+      "id": "chatcmpl-DHwD47sjxBlkjDlBekRPUiIJYJCwv",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -109,7 +109,7 @@
     "headers": [
       [
         "date",
-        "Thu, 05 Mar 2026 13:43:49 GMT"
+        "Tue, 10 Mar 2026 18:35:06 GMT"
       ],
       [
         "content-type",
@@ -125,7 +125,7 @@
       ],
       [
         "openai-processing-ms",
-        "340"
+        "597"
       ],
       [
         "openai-project",
@@ -149,7 +149,7 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "8998"
+        "8999"
       ],
       [
         "x-ratelimit-remaining-tokens",
@@ -165,7 +165,7 @@
       ],
       [
         "x-request-id",
-        "req_6e2af17f5ab0459e9fa884b97693e586"
+        "req_686d35313bb44255a19900ed7bda8690"
       ],
       [
         "x-openai-proxy-wasm",
@@ -189,7 +189,7 @@
       ],
       [
         "cf-ray",
-        "9d798d46acbcf5b4-AMS"
+        "9da46ad2b93bfba4-AMS"
       ],
       [
         "alt-svc",

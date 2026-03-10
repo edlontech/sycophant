@@ -2,7 +2,7 @@
   "metadata": {
     "model": "mistral-medium-2505",
     "provider": "azure",
-    "recorded_at": "2026-03-09T18:15:27.032173Z",
+    "recorded_at": "2026-03-10T18:35:12.231481Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -23,6 +23,10 @@
       [
         "content-type",
         "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
       ]
     ],
     "method": "post",
@@ -32,13 +36,32 @@
     "body": {
       "choices": [
         {
-          "content_filter_result": {
-            "error": {
-              "code": "content_filter_error",
-              "message": "The contents are not filtered"
+          "content_filter_results": {
+            "hate": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "protected_material_code": {
+              "detected": false,
+              "filtered": false
+            },
+            "protected_material_text": {
+              "detected": false,
+              "filtered": false
+            },
+            "self_harm": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "sexual": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "violence": {
+              "filtered": false,
+              "severity": "safe"
             }
           },
-          "content_filter_results": {},
           "finish_reason": "stop",
           "index": 0,
           "message": {
@@ -48,13 +71,34 @@
           }
         }
       ],
-      "created": 1773080126,
-      "id": "02825c651da24bc2bbd98a9f3af3e75b",
+      "created": 1773167711,
+      "id": "300bc08d0b9c4d9192bffad339d3bcf0",
       "model": "mistral-medium-2505",
       "object": "chat.completion",
       "prompt_filter_results": [
         {
-          "content_filter_results": {},
+          "content_filter_results": {
+            "hate": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "jailbreak": {
+              "detected": false,
+              "filtered": false
+            },
+            "self_harm": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "sexual": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "violence": {
+              "filtered": false,
+              "severity": "safe"
+            }
+          },
           "prompt_index": 0
         }
       ],
@@ -67,7 +111,7 @@
     "headers": [
       [
         "content-length",
-        "508"
+        "944"
       ],
       [
         "content-type",
@@ -91,7 +135,7 @@
       ],
       [
         "apim-request-id",
-        "dbb50194-e81c-49df-b955-07f3904ee12d"
+        "bbb1ad79-5ae9-45b8-9f8d-2b4978c16001"
       ],
       [
         "x-content-type-options",
@@ -107,7 +151,7 @@
       ],
       [
         "date",
-        "Mon, 09 Mar 2026 18:15:26 GMT"
+        "Tue, 10 Mar 2026 18:35:11 GMT"
       ]
     ],
     "status": 200

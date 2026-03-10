@@ -2,7 +2,7 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-03-06T14:57:40.405568Z",
+    "recorded_at": "2026-03-10T18:35:15.833016Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -25,6 +25,18 @@
     },
     "headers": [
       [
+        "Authorization",
+        "[REDACTED]"
+      ],
+      [
+        "host",
+        "bedrock-runtime.us-east-1.amazonaws.com"
+      ],
+      [
+        "x-amz-date",
+        "20260310T183514Z"
+      ],
+      [
         "content-type",
         "application/json"
       ]
@@ -35,7 +47,7 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 2316
+        "latencyMs": 1610
       },
       "output": {
         "message": {
@@ -62,7 +74,7 @@
     "headers": [
       [
         "date",
-        "Fri, 06 Mar 2026 14:57:40 GMT"
+        "Tue, 10 Mar 2026 18:35:15 GMT"
       ],
       [
         "content-type",
@@ -74,7 +86,7 @@
       ],
       [
         "x-amzn-requestid",
-        "0ed88af7-e891-4765-9e6e-1d486aa12eb8"
+        "c1e15221-74f5-4200-a95b-d62c7fce7ccf"
       ]
     ],
     "status": 200

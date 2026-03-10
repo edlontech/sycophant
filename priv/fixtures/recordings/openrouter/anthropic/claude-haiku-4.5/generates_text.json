@@ -2,7 +2,7 @@
   "metadata": {
     "model": "anthropic/claude-haiku-4.5",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-05T13:43:54.097804Z",
+    "recorded_at": "2026-03-10T18:35:12.507619Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -31,11 +31,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1772718234,
-      "created_at": 1772718233,
+      "completed_at": 1773167712,
+      "created_at": 1773167711,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1772718233-F1iubdeqTLtLXheXOiBa",
+      "id": "gen-1773167711-QbLJksDqmoEIzAGF6e6O",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -53,7 +53,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_rdayojk4d7d",
+          "id": "msg_tmp_7g2pkf0oe6o",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -102,7 +102,7 @@
     "headers": [
       [
         "date",
-        "Thu, 05 Mar 2026 13:43:54 GMT"
+        "Tue, 10 Mar 2026 18:35:12 GMT"
       ],
       [
         "content-type",
@@ -110,7 +110,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=967"
+        "cfEdge;dur=6,cfOrigin;dur=0,cfWorker;dur=1245"
       ],
       [
         "access-control-allow-origin",
@@ -134,7 +134,7 @@
       ],
       [
         "cf-ray",
-        "9d798d5c7c87910e-AMS"
+        "9da46af2fe606568-AMS"
       ]
     ],
     "status": 200

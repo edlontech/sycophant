@@ -2,7 +2,7 @@
   "metadata": {
     "model": "openai/gpt-4o-mini",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-05T13:43:51.993572Z",
+    "recorded_at": "2026-03-10T18:35:05.488308Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "Got it, Sycophant! How can I assist you today?",
+              "text": "Nice to meet you, Sycophant! While I can't remember names or details between conversations, I'm here to help you with whatever you need right now. What can I assist you with today?",
               "type": "output_text"
             }
           ],
@@ -46,11 +46,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1772718231,
-      "created_at": 1772718231,
+      "completed_at": 1773167705,
+      "created_at": 1773167704,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1772718231-GBDX2iUhzULEtyGMbAJ6",
+      "id": "gen-1773167704-uXlowMaNTTP5Y6iw0lEJ",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -64,11 +64,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Your name is Sycophant.",
+              "text": "Your name is Sycophant. How can I assist you today?",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_9stnh7stvkb",
+          "id": "msg_tmp_o4mnx6wuedl",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -95,29 +95,29 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 1.17e-5,
+        "cost": 1.965e-5,
         "cost_details": {
-          "upstream_inference_cost": 1.17e-5,
-          "upstream_inference_input_cost": 6.9e-6,
-          "upstream_inference_output_cost": 4.8e-6
+          "upstream_inference_cost": 1.965e-5,
+          "upstream_inference_input_cost": 1.065e-5,
+          "upstream_inference_output_cost": 9.0e-6
         },
-        "input_tokens": 46,
+        "input_tokens": 71,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 8,
+        "output_tokens": 15,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 54
+        "total_tokens": 86
       },
       "user": null
     },
     "headers": [
       [
         "date",
-        "Thu, 05 Mar 2026 13:43:51 GMT"
+        "Tue, 10 Mar 2026 18:35:05 GMT"
       ],
       [
         "content-type",
@@ -125,7 +125,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=325"
+        "cfEdge;dur=8,cfOrigin;dur=0,cfWorker;dur=866"
       ],
       [
         "access-control-allow-origin",
@@ -149,7 +149,7 @@
       ],
       [
         "cf-ray",
-        "9d798d52cc58910e-AMS"
+        "9da46ac72f656568-AMS"
       ]
     ],
     "status": 200

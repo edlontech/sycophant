@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-05T13:43:49.731080Z",
+    "recorded_at": "2026-03-10T18:35:04.395788Z",
     "sycophant_version": "0.1.0"
   },
   "request": {
@@ -13,7 +13,7 @@
           "role": "user"
         },
         {
-          "content": "Nice to meet you, Sycophant. How can I assist you today?",
+          "content": "Sure, I will remember your name, Sycophant. Nice to meet you.",
           "role": "assistant"
         },
         {
@@ -51,8 +51,8 @@
           }
         }
       ],
-      "created": 1772718229,
-      "id": "chatcmpl-DG3HRoX4PeiWNDt9Mg6FKOvfjUvW5",
+      "created": 1773167703,
+      "id": "chatcmpl-DHwD1LnFaiI5x5TVFOMNGgTwhGo8v",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -65,18 +65,18 @@
           "reasoning_tokens": 0,
           "rejected_prediction_tokens": 0
         },
-        "prompt_tokens": 48,
+        "prompt_tokens": 49,
         "prompt_tokens_details": {
           "audio_tokens": 0,
           "cached_tokens": 0
         },
-        "total_tokens": 56
+        "total_tokens": 57
       }
     },
     "headers": [
       [
         "date",
-        "Thu, 05 Mar 2026 13:43:49 GMT"
+        "Tue, 10 Mar 2026 18:35:04 GMT"
       ],
       [
         "content-type",
@@ -92,7 +92,7 @@
       ],
       [
         "openai-processing-ms",
-        "285"
+        "582"
       ],
       [
         "openai-project",
@@ -120,7 +120,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "1999969"
+        "1999968"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -132,7 +132,7 @@
       ],
       [
         "x-request-id",
-        "req_65338a801932484eb574a6a18d98bc43"
+        "req_f4789b9f6a3a4b3f869808b11df6205e"
       ],
       [
         "x-openai-proxy-wasm",
@@ -156,7 +156,7 @@
       ],
       [
         "cf-ray",
-        "9d798d4549aef5b4-AMS"
+        "9da46ac41d02fba4-AMS"
       ],
       [
         "alt-svc",
