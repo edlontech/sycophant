@@ -37,17 +37,7 @@ defmodule Sycophant.Pipeline do
           {:ok, Sycophant.Response.t()} | {:error, Splode.Error.t()}
   def call(messages, opts) do
     with {:ok, model_info} <- ModelResolver.resolve(opts[:model]) do
-      telemetry_metadata = %{
-        model: "#{model_info.provider}:#{model_info.model_id}",
-        provider: model_info.provider,
-        wire_protocol: model_info.wire_adapter,
-        has_tools?: opts[:tools] != nil and opts[:tools] != [],
-        has_stream?: opts[:stream] != nil
-      }
-
-      Telemetry.span(telemetry_metadata, fn ->
-        execute(messages, opts, model_info)
-      end)
+      execute(messages, opts, model_info)
     end
   end
 
@@ -55,14 +45,37 @@ defmodule Sycophant.Pipeline do
     adapter = model_info.wire_adapter
 
     with {:ok, params} <- validate_params(opts, adapter, model_info),
-         {:ok, credentials} <- Credentials.resolve(model_info.provider, opts[:credentials]),
-         {:ok, response} <-
+         {:ok, credentials} <- Credentials.resolve(model_info.provider, opts[:credentials]) do
+      telemetry_metadata = build_telemetry_metadata(model_info, opts, params)
+
+      Telemetry.span(telemetry_metadata, fn ->
+        run_pipeline(messages, params, opts, model_info, adapter, credentials)
+      end)
+    end
+  end
+
+  defp run_pipeline(messages, params, opts, model_info, adapter, credentials) do
+    with {:ok, response} <-
            dispatch_call(messages, params, opts, model_info, adapter, credentials),
          {:ok, response} <-
            maybe_tool_loop(response, opts, params, model_info, adapter, credentials) do
       response = enrich_usage_cost(response, model_info)
       maybe_validate_response(response, opts)
     end
+  end
+
+  defp build_telemetry_metadata(model_info, opts, params) do
+    %{
+      model: "#{model_info.provider}:#{model_info.model_id}",
+      provider: model_info.provider,
+      wire_protocol: model_info.wire_adapter,
+      has_tools?: opts[:tools] != nil and opts[:tools] != [],
+      has_stream?: opts[:stream] != nil,
+      temperature: params[:temperature],
+      top_p: params[:top_p],
+      top_k: params[:top_k],
+      max_tokens: params[:max_tokens]
+    }
   end
 
   defp maybe_tool_loop(response, opts, params, model_info, adapter, credentials) do

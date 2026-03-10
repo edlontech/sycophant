@@ -55,6 +55,7 @@ defmodule Sycophant.MixProject do
       {:llm_db, github: "ycastorium/llm_db", branch: "provider_and_wire_improvements"},
       {:mimic, "~> 2.0", only: :test},
       {:mix_audit, ">= 0.0.0", only: [:dev, :test], runtime: false},
+      {:opentelemetry_telemetry, "~> 1.1", optional: true},
       {:quiver, "~> 0.1", only: [:dev, :test]},
       {:recode, "~> 0.8", only: [:dev], runtime: false},
       {:splode, "~> 0.3"},

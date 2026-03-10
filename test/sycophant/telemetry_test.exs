@@ -37,7 +37,10 @@ defmodule Sycophant.TelemetryTest do
     test "emits start and stop events on success with usage metadata" do
       response = %Sycophant.Response{
         text: "Hello",
+        model: "gpt-4",
+        finish_reason: :stop,
         usage: %Sycophant.Usage{input_tokens: 10, output_tokens: 5},
+        metadata: %{response_id: "resp-abc"},
         context: %Sycophant.Context{messages: []}
       }
 
@@ -59,11 +62,16 @@ defmodule Sycophant.TelemetryTest do
 
       assert is_integer(stop_measurements.duration)
       assert stop_metadata.model == "gpt-4"
+      assert stop_metadata.response_model == "gpt-4"
+      assert stop_metadata.response_id == "resp-abc"
+      assert stop_metadata.finish_reason == :stop
 
       assert stop_metadata.usage == %{
                input_tokens: 10,
                output_tokens: 5,
                total_tokens: 15,
+               cache_creation_input_tokens: nil,
+               cache_read_input_tokens: nil,
                input_cost: nil,
                output_cost: nil,
                cache_read_cost: nil,
@@ -78,6 +86,8 @@ defmodule Sycophant.TelemetryTest do
         usage: %Sycophant.Usage{
           input_tokens: 1000,
           output_tokens: 500,
+          cache_creation_input_tokens: 100,
+          cache_read_input_tokens: 200,
           input_cost: 0.003,
           output_cost: 0.0075,
           total_cost: 0.0105
@@ -93,6 +103,48 @@ defmodule Sycophant.TelemetryTest do
       assert stop_metadata.usage.input_cost == 0.003
       assert stop_metadata.usage.output_cost == 0.0075
       assert stop_metadata.usage.total_cost == 0.0105
+      assert stop_metadata.usage.cache_creation_input_tokens == 100
+      assert stop_metadata.usage.cache_read_input_tokens == 200
+    end
+
+    test "stop metadata includes response_model, response_id, and finish_reason" do
+      response = %Sycophant.Response{
+        text: "Hi",
+        model: "claude-3-opus",
+        finish_reason: :max_tokens,
+        usage: %Sycophant.Usage{input_tokens: 1, output_tokens: 1},
+        metadata: %{response_id: "resp-xyz"},
+        context: %Sycophant.Context{messages: []}
+      }
+
+      Telemetry.span(%{model: "anthropic:claude-3-opus"}, fn -> {:ok, response} end)
+
+      assert_received {:telemetry_event, [:sycophant, :request, :stop], _measurements,
+                       stop_metadata}
+
+      assert stop_metadata.response_model == "claude-3-opus"
+      assert stop_metadata.response_id == "resp-xyz"
+      assert stop_metadata.finish_reason == :max_tokens
+    end
+
+    test "stop metadata handles nil metadata gracefully" do
+      response = %Sycophant.Response{
+        text: "Hi",
+        model: nil,
+        finish_reason: nil,
+        usage: %Sycophant.Usage{input_tokens: 1, output_tokens: 1},
+        metadata: nil,
+        context: %Sycophant.Context{messages: []}
+      }
+
+      Telemetry.span(%{}, fn -> {:ok, response} end)
+
+      assert_received {:telemetry_event, [:sycophant, :request, :stop], _measurements,
+                       stop_metadata}
+
+      assert stop_metadata.response_model == nil
+      assert stop_metadata.response_id == nil
+      assert stop_metadata.finish_reason == nil
     end
 
     test "emits start and error events on failure with error metadata" do

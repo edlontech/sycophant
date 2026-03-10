@@ -273,6 +273,47 @@ defmodule Sycophant.PipelineTest do
       assert_received {:telemetry_event, [:sycophant, :request, :stop], _, _}
     end
 
+    test "start metadata includes validated params when provided" do
+      stub_happy_path()
+
+      opts = default_opts() ++ [temperature: 0.7]
+      assert {:ok, _} = Pipeline.call(default_messages(), opts)
+
+      assert_received {:telemetry_event, [:sycophant, :request, :start], _, start_meta}
+      assert start_meta.temperature == 0.7
+    end
+
+    test "start metadata has nil for params not provided" do
+      stub_happy_path()
+
+      assert {:ok, _} = Pipeline.call(default_messages(), default_opts())
+
+      assert_received {:telemetry_event, [:sycophant, :request, :start], _, start_meta}
+      assert is_nil(start_meta.temperature)
+      assert is_nil(start_meta.top_p)
+    end
+
+    test "does not emit telemetry when param validation fails" do
+      stub_happy_path()
+
+      opts = default_opts() ++ [temperature: 5.0]
+      assert {:error, _} = Pipeline.call(default_messages(), opts)
+
+      refute_received {:telemetry_event, [:sycophant, :request, :start], _, _}
+    end
+
+    test "does not emit telemetry when credential resolution fails" do
+      model = build_model(%{provider: :unknown_provider})
+      provider = build_provider(%{id: :unknown_provider, env: []})
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :unknown_provider -> {:ok, provider} end)
+
+      assert {:error, _} = Pipeline.call(default_messages(), default_opts())
+
+      refute_received {:telemetry_event, [:sycophant, :request, :start], _, _}
+    end
+
     test "emits start and error events on transport failure" do
       model = build_model()
       provider = build_provider()
