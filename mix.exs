@@ -43,6 +43,7 @@ defmodule Sycophant.MixProject do
         {"guides/tool-use.md", title: "Tool Use"},
         {"guides/error-handling.md", title: "Error Handling"},
         {"guides/telemetry.md", title: "Telemetry"},
+        {"guides/agent-mode.md", title: "Agent Mode"},
         {"guides/serialization.md", title: "Serialization"},
         {"guides/http-configuration.md", title: "HTTP Configuration"},
         {"guides/custom-providers.md", title: "Custom Providers"},
@@ -55,6 +56,7 @@ defmodule Sycophant.MixProject do
           "guides/tool-use.md",
           "guides/error-handling.md",
           "guides/telemetry.md",
+          "guides/agent-mode.md",
           "guides/serialization.md",
           "guides/http-configuration.md"
         ],
@@ -77,6 +79,14 @@ defmodule Sycophant.MixProject do
           Sycophant.Tool,
           Sycophant.ToolCall,
           Sycophant.ToolExecutor
+        ],
+        Agent: [
+          Sycophant.Agent,
+          Sycophant.Agent.Callbacks,
+          Sycophant.Agent.Stats,
+          Sycophant.Agent.Stats.Turn,
+          Sycophant.Agent.State,
+          Sycophant.Agent.Telemetry
         ],
         Pipeline: [
           Sycophant.Pipeline,
@@ -141,6 +151,7 @@ defmodule Sycophant.MixProject do
       nest_modules_by_prefix: [
         Sycophant.Error,
         Sycophant.Auth,
+        Sycophant.Agent,
         Sycophant.WireProtocol,
         Sycophant.EmbeddingWireProtocol,
         Sycophant.Message.Content
@@ -173,6 +184,7 @@ defmodule Sycophant.MixProject do
       {:ex_check, "~> 0.16", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.18", only: [:dev, :test]},
       {:ex_doc, "~> 0.34", only: :dev, runtime: false},
+      {:gen_state_machine, "~> 3.0"},
       {:jason, "~> 1.4"},
       {:llm_db, "~> 2026.3"},
       {:mimic, "~> 2.0", only: :test},

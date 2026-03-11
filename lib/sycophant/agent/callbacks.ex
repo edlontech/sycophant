@@ -1,0 +1,40 @@
+defmodule Sycophant.Agent.Callbacks do
+  @moduledoc """
+  Callback function types for agent lifecycle hooks.
+
+  All callbacks are optional. When nil, the agent uses default behavior.
+  """
+  use TypedStruct
+
+  alias Sycophant.Context
+  alias Sycophant.Message
+  alias Sycophant.Response
+  alias Sycophant.ToolCall
+
+  @type on_response :: (Response.t() -> :ok)
+  @type on_tool_call :: (ToolCall.t() -> :approve | :reject | {:modify, ToolCall.t()})
+  @type on_error ::
+          (Splode.Error.t(), Context.t() ->
+             :retry
+             | {:retry, pos_integer()}
+             | {:continue, String.t() | Message.t() | [Message.t()]}
+             | {:stop, term()})
+  @type on_max_steps :: (non_neg_integer(), Context.t() -> :continue | :stop)
+
+  typedstruct do
+    field :on_response, on_response()
+    field :on_tool_call, on_tool_call()
+    field :on_error, on_error()
+    field :on_max_steps, on_max_steps()
+  end
+
+  @spec new(keyword()) :: t()
+  def new(opts \\ []) do
+    %__MODULE__{
+      on_response: opts[:on_response],
+      on_tool_call: opts[:on_tool_call],
+      on_error: opts[:on_error],
+      on_max_steps: opts[:on_max_steps]
+    }
+  end
+end

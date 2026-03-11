@@ -191,6 +191,7 @@ is still returned as the function result.
 
 ## Next Steps
 
+- [Agent Mode](agent-mode.md) -- stateful multi-turn agents with tool loops
 - [Architecture](architecture.md) -- understand the request pipeline
 - [Tool Use](tool-use.md) -- auto-execute tools or handle calls manually
 - [Error Handling](error-handling.md) -- pattern match on typed errors

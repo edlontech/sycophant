@@ -287,24 +287,25 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
   end
 
   defp group_tool_results(messages) do
-    messages
-    |> Enum.chunk_while(
-      [],
-      fn
-        %Message{role: :tool_result} = msg, acc -> {:cont, [msg | acc]}
-        msg, [] -> {:cont, msg, []}
-        msg, acc -> {:cont, Enum.reverse(acc), [msg]}
-      end,
-      fn
-        [] -> {:cont, []}
-        acc -> {:cont, Enum.reverse(acc), []}
+    {acc, group} =
+      Enum.reduce(messages, {[], []}, fn
+        %Message{role: :tool_result} = msg, {acc, group} ->
+          {acc, [msg | group]}
+
+        msg, {acc, []} ->
+          {[msg | acc], []}
+
+        msg, {acc, group} ->
+          {[msg, {:tool_result_group, Enum.reverse(group)} | acc], []}
+      end)
+
+    final =
+      case group do
+        [] -> acc
+        _ -> [{:tool_result_group, Enum.reverse(group)} | acc]
       end
-    )
-    |> Enum.flat_map(fn
-      list when is_list(list) and list != [] -> [{:tool_result_group, list}]
-      %Message{} = msg -> [msg]
-      [] -> []
-    end)
+
+    Enum.reverse(final)
   end
 
   defp encode_message({:tool_result_group, results}) do
