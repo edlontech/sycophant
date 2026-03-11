@@ -26,9 +26,11 @@ defmodule Sycophant.Agent.Stats do
     field :total_cost, float(), default: 0.0
   end
 
+  @doc "Creates a new empty Stats."
   @spec new() :: t()
   def new, do: %__MODULE__{}
 
+  @doc "Records a completed turn with usage data and finish reason."
   @spec record_turn(t(), Sycophant.Usage.t() | nil, atom()) :: t()
   def record_turn(stats, usage, finish_reason) do
     input = (usage && usage.input_tokens) || 0
@@ -52,9 +54,11 @@ defmodule Sycophant.Agent.Stats do
     }
   end
 
+  @doc "Returns turns in chronological order."
   @spec turns(t()) :: [Turn.t()]
   def turns(%__MODULE__{turns: turns}), do: Enum.reverse(turns)
 
+  @doc "Returns the number of recorded turns."
   @spec turn_count(t()) :: non_neg_integer()
   def turn_count(%__MODULE__{turns: turns}), do: length(turns)
 end

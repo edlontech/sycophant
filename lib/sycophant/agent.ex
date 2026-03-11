@@ -34,6 +34,7 @@ defmodule Sycophant.Agent do
 
   # -- Public API --
 
+  @doc "Starts an agent process linked to the caller."
   @spec start_link(String.t() | nil, keyword()) :: GenStateMachine.on_start()
   def start_link(model, opts \\ []) do
     {name, opts} = Keyword.pop(opts, :name)
@@ -76,28 +77,34 @@ defmodule Sycophant.Agent do
     end
   end
 
+  @doc "Stops the agent process."
   @spec stop(agent(), term()) :: :ok
   def stop(agent, reason \\ :normal) do
     GenStateMachine.stop(agent, reason)
   end
 
+  @doc "Sends a message and waits synchronously for the response."
   @spec chat(agent(), String.t() | Message.t() | [Message.t()], timeout()) ::
           {:ok, Sycophant.Response.t()} | {:error, term()}
   def chat(agent, input, timeout \\ 30_000) do
     GenStateMachine.call(agent, {:chat, normalize_input(input)}, timeout)
   end
 
+  @doc "Sends a message asynchronously; response delivered via `on_response` callback."
   @spec chat_async(agent(), String.t() | Message.t() | [Message.t()]) :: :ok | {:error, term()}
   def chat_async(agent, input) do
     GenStateMachine.call(agent, {:chat_async, normalize_input(input)})
   end
 
+  @doc "Returns the current state of the agent."
   @spec status(agent()) :: atom()
   def status(agent), do: GenStateMachine.call(agent, :status)
 
+  @doc "Returns accumulated statistics for all turns."
   @spec stats(agent()) :: Stats.t()
   def stats(agent), do: GenStateMachine.call(agent, :stats)
 
+  @doc "Returns the current conversation context."
   @spec context(agent()) :: Context.t()
   def context(agent), do: GenStateMachine.call(agent, :context)
 
@@ -121,6 +128,7 @@ defmodule Sycophant.Agent do
 
   # -- Introspection (handled in all states) --
 
+  @doc false
   def idle(:info, {:EXIT, _pid, _reason}, data), do: {:keep_state, data}
 
   def idle({:call, from}, :status, data), do: {:keep_state, data, [{:reply, from, :idle}]}
@@ -145,6 +153,7 @@ defmodule Sycophant.Agent do
 
   # -- Generating state --
 
+  @doc false
   def generating({:call, from}, :status, data),
     do: {:keep_state, data, [{:reply, from, :generating}]}
 
@@ -187,6 +196,7 @@ defmodule Sycophant.Agent do
 
   # -- Streaming state --
 
+  @doc false
   def streaming({:call, from}, :status, data),
     do: {:keep_state, data, [{:reply, from, :streaming}]}
 
@@ -237,6 +247,7 @@ defmodule Sycophant.Agent do
 
   # -- Error state --
 
+  @doc false
   def error(:info, {:EXIT, _pid, _reason}, data), do: {:keep_state, data}
 
   def error({:call, from}, :status, data), do: {:keep_state, data, [{:reply, from, :error}]}
@@ -265,6 +276,7 @@ defmodule Sycophant.Agent do
 
   # -- Completed state --
 
+  @doc false
   def completed(:info, {:EXIT, _pid, _reason}, data), do: {:keep_state, data}
 
   def completed({:call, from}, :status, data),
@@ -332,6 +344,7 @@ defmodule Sycophant.Agent do
 
   # -- Tool executing state --
 
+  @doc false
   def tool_executing(:internal, {:execute_tools, response, tool_map}, data) do
     on_tool_call = data.callbacks.on_tool_call
 

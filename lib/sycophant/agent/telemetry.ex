@@ -76,30 +76,38 @@ defmodule Sycophant.Agent.Telemetry do
     ]
   end
 
+  @doc "Emits agent start event."
   @spec agent_start(map()) :: :ok
   def agent_start(metadata), do: :telemetry.execute(@agent_start, %{}, metadata)
 
+  @doc "Emits agent stop event with measurements."
   @spec agent_stop(map(), map()) :: :ok
   def agent_stop(measurements, metadata),
     do: :telemetry.execute(@agent_stop, measurements, metadata)
 
+  @doc "Emits turn start event."
   @spec turn_start(map()) :: :ok
   def turn_start(metadata), do: :telemetry.execute(@turn_start, %{}, metadata)
 
+  @doc "Emits turn stop event with measurements."
   @spec turn_stop(map(), map()) :: :ok
   def turn_stop(measurements, metadata),
     do: :telemetry.execute(@turn_stop, measurements, metadata)
 
+  @doc "Emits tool start event."
   @spec tool_start(map()) :: :ok
   def tool_start(metadata), do: :telemetry.execute(@tool_start, %{}, metadata)
 
+  @doc "Emits tool stop event with measurements."
   @spec tool_stop(map(), map()) :: :ok
   def tool_stop(measurements, metadata),
     do: :telemetry.execute(@tool_stop, measurements, metadata)
 
+  @doc "Emits error event."
   @spec error(map()) :: :ok
   def error(metadata), do: :telemetry.execute(@agent_error, %{}, metadata)
 
+  @doc "Emits state change event."
   @spec state_change(atom(), atom()) :: :ok
   def state_change(from, to),
     do: :telemetry.execute(@state_change, %{}, %{from_state: from, to_state: to})

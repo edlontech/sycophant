@@ -28,6 +28,7 @@ defmodule Sycophant.Agent.Callbacks do
     field :on_max_steps, on_max_steps()
   end
 
+  @doc "Creates a new Callbacks struct from keyword options."
   @spec new(keyword()) :: t()
   def new(opts \\ []) do
     %__MODULE__{

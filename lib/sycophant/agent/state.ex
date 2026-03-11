@@ -15,7 +15,7 @@ defmodule Sycophant.Agent.State do
     field :opts, keyword(), default: []
     field :callbacks, Callbacks.t(), default: %Callbacks{}
     field :stats, Stats.t(), default: %Stats{}
-    field :from, GenStateMachine.from()
+    field :from, {pid(), term()}
     field :last_error, term()
     field :current_step, non_neg_integer(), default: 0
     field :max_steps, pos_integer(), default: 10
@@ -25,6 +25,7 @@ defmodule Sycophant.Agent.State do
     field :stream, function()
   end
 
+  @doc "Creates a new State from keyword options, requiring `:model`."
   @spec new(keyword()) :: {:ok, t()} | {:error, Exception.t()}
   def new(opts) do
     case Keyword.get(opts, :model) do
