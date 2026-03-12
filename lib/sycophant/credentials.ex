@@ -8,8 +8,10 @@ defmodule Sycophant.Credentials do
   2. **Application config** -- from `config :sycophant, :providers`
   3. **Environment variables** -- discovered via LLMDB provider metadata
 
-  The first non-empty layer wins. If all layers are empty, a
-  `MissingCredentials` error is returned.
+  The first non-empty layer wins. If all layers are empty, providers with
+  `extra: %{auth: :none}` or `extra: %{auth: :optional}` in their LLMDB
+  metadata receive an empty credential map, while all other providers raise
+  a `MissingCredentials` error.
 
   ## Examples
 
@@ -20,9 +22,12 @@ defmodule Sycophant.Credentials do
 
       # Falls back to app config, then env vars
       Sycophant.generate_text("openai:gpt-4o-mini", messages)
+
+      # Local providers with auth: :none skip credentials entirely
+      Sycophant.generate_text("ollama:llama3", messages)
   """
 
-  alias Sycophant.Error
+  alias Sycophant.Error.Invalid.MissingCredentials
 
   @doc """
   Resolves credentials for the given provider using a three-layer strategy.
@@ -30,7 +35,9 @@ defmodule Sycophant.Credentials do
   Checks in order: (1) per-request credentials passed as `per_request_creds`,
   (2) application config under `:sycophant, :providers`, (3) environment
   variables discovered via LLMDB provider metadata. Returns the first non-empty
-  result or a `MissingCredentials` error when all layers come up empty.
+  result. When all layers come up empty, returns an empty map for providers
+  with `auth: :none` or `auth: :optional` in LLMDB, or a `MissingCredentials`
+  error otherwise.
   """
   @spec resolve(atom(), map() | nil) :: {:ok, map()} | {:error, Splode.Error.t()}
   def resolve(provider, per_request_creds \\ nil)
@@ -41,8 +48,12 @@ defmodule Sycophant.Credentials do
 
   def resolve(provider, _) do
     with :error <- from_app_config(provider),
-         :error <- from_env_vars(provider) do
-      {:error, Error.Invalid.MissingCredentials.exception(provider: provider)}
+         {:error, llmdb_provider} <- from_llmdb(provider) do
+      if auth_optional?(llmdb_provider) do
+        {:ok, %{}}
+      else
+        {:error, MissingCredentials.exception(provider: provider)}
+      end
     end
   end
 
@@ -57,13 +68,20 @@ defmodule Sycophant.Credentials do
     end
   end
 
-  defp from_env_vars(provider) do
+  defp from_llmdb(provider) do
     case LLMDB.provider(provider) do
-      {:ok, %{env: env_vars}} when is_list(env_vars) and env_vars != [] ->
-        resolve_env_vars(env_vars)
+      {:ok, %{env: env_vars} = llmdb_provider}
+      when is_list(env_vars) and env_vars != [] ->
+        case resolve_env_vars(env_vars) do
+          {:ok, _} = ok -> ok
+          :error -> {:error, llmdb_provider}
+        end
 
-      _ ->
-        :error
+      {:ok, llmdb_provider} ->
+        {:error, llmdb_provider}
+
+      {:error, _} ->
+        {:error, nil}
     end
   end
 
@@ -76,6 +94,9 @@ defmodule Sycophant.Credentials do
 
     if map_size(resolved) > 0, do: {:ok, resolved}, else: :error
   end
+
+  defp auth_optional?(%{extra: %{auth: auth}}) when auth in [:none, :optional], do: true
+  defp auth_optional?(_), do: false
 
   defp env_key_to_atom(var) do
     var

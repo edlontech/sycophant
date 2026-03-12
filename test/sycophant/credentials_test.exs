@@ -18,8 +18,7 @@ defmodule Sycophant.CredentialsTest do
     test "skips per-request when empty map" do
       stub(LLMDB, :provider, fn :unknown_provider -> {:error, :not_found} end)
 
-      assert {:error, %MissingCredentials{}} =
-               Credentials.resolve(:unknown_provider, %{})
+      assert {:error, %MissingCredentials{}} = Credentials.resolve(:unknown_provider, %{})
     end
   end
 
@@ -85,6 +84,49 @@ defmodule Sycophant.CredentialsTest do
 
       assert {:error, %MissingCredentials{provider: :unknown}} =
                Credentials.resolve(:unknown)
+    end
+  end
+
+  describe "resolve/2 with auth_optional providers" do
+    test "returns empty creds when provider has auth: :none" do
+      stub(LLMDB, :provider, fn :ollama ->
+        {:ok, %{env: [], extra: %{auth: :none}}}
+      end)
+
+      assert {:ok, %{}} = Credentials.resolve(:ollama)
+    end
+
+    test "returns empty creds when provider has auth: :optional" do
+      stub(LLMDB, :provider, fn :vllm ->
+        {:ok, %{env: [], extra: %{auth: :optional}}}
+      end)
+
+      assert {:ok, %{}} = Credentials.resolve(:vllm)
+    end
+
+    test "uses provided credentials even when auth is optional" do
+      creds = %{api_key: "sk-local"}
+      assert {:ok, ^creds} = Credentials.resolve(:ollama, creds)
+    end
+
+    test "uses app config credentials when auth is optional" do
+      expect(Config, :provider, fn :ollama ->
+        {:ok, %Config.Provider{api_key: "sk-from-config"}}
+      end)
+
+      reject(&LLMDB.provider/1)
+
+      assert {:ok, %{api_key: "sk-from-config"}} = Credentials.resolve(:ollama)
+    end
+
+    test "returns MissingCredentials when provider has no auth flag" do
+      stub(LLMDB, :provider, fn :openai ->
+        {:ok, %{env: ["OPENAI_API_KEY"], extra: %{}}}
+      end)
+
+      expect(System, :get_env, fn "OPENAI_API_KEY" -> nil end)
+
+      assert {:error, %MissingCredentials{}} = Credentials.resolve(:openai)
     end
   end
 end

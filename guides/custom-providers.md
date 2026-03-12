@@ -268,6 +268,84 @@ config :sycophant, :providers,
 # Environment variables (discovered via LLMDB provider metadata)
 ```
 
+## Local Providers (Ollama, vLLM, LM Studio)
+
+Local inference servers that expose an OpenAI-compatible API can be used
+without writing any custom code. They reuse the built-in `OpenAICompletions`
+wire protocol and the `Bearer` auth fallback.
+
+### Configuration
+
+Register local providers as LLMDB custom providers. Set `auth: :none` (or
+`auth: :optional` if the server accepts an API key) in the provider's
+`extra` field, and `wire_protocol: "openai_chat"` in each model's `extra`:
+
+```elixir
+# config/runtime.exs
+config :llm_db, :runtime,
+  custom: %{
+    ollama: [
+      name: "Ollama",
+      base_url: "http://localhost:11434/v1",
+      extra: %{auth: :none},
+      models: %{
+        "llama3" => %{
+          capabilities: %{chat: true},
+          extra: %{wire: %{protocol: "openai_chat"}}
+        },
+        "deepseek-r1" => %{
+          capabilities: %{chat: true, tools: %{enabled: true}},
+          extra: %{wire: %{protocol: "openai_chat"}}
+        }
+      }
+    ],
+    vllm: [
+      name: "vLLM",
+      base_url: "http://localhost:8000/v1",
+      extra: %{auth: :optional},
+      models: %{
+        "mistral-7b" => %{
+          capabilities: %{chat: true},
+          extra: %{wire: %{protocol: "openai_chat"}}
+        }
+      }
+    ]
+  }
+```
+
+For servers that require an API key (e.g., vLLM with `--api-key`), add
+credentials through the standard config:
+
+```elixir
+config :sycophant, :providers,
+  vllm: [api_key: System.get_env("VLLM_API_KEY")]
+```
+
+### Usage
+
+Local providers work identically to cloud providers:
+
+```elixir
+messages = [Sycophant.Message.user("Hello")]
+
+{:ok, response} = Sycophant.generate_text("ollama:llama3", messages)
+
+{:ok, response} = Sycophant.generate_text("vllm:mistral-7b", messages,
+  temperature: 0.7
+)
+```
+
+Streaming, tool use, and structured output all work as long as the local
+server supports them and the model's `capabilities` are declared correctly.
+
+### Auth Modes
+
+| `extra.auth` | Behavior |
+|--------------|----------|
+| `:none` | No credentials required. Pipeline proceeds with empty auth. |
+| `:optional` | Credentials used when available, empty auth otherwise. |
+| _(absent)_ | Standard behavior. `MissingCredentials` error if no credentials found. |
+
 ## Checklist
 
 When adding a new provider:
