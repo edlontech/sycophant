@@ -7,6 +7,8 @@ if Code.ensure_loaded?(OpenTelemetry.Tracer) do
 
     @tracer_id :sycophant
 
+    @doc false
+    @spec handle_start(String.t(), String.t(), map(), map(), keyword()) :: :ok
     def handle_start(span_name, operation_name, measurements, metadata, config) do
       OpentelemetryTelemetry.start_telemetry_span(
         @tracer_id,
@@ -21,6 +23,8 @@ if Code.ensure_loaded?(OpenTelemetry.Tracer) do
       :ok
     end
 
+    @doc false
+    @spec handle_stop(map(), keyword()) :: :ok
     def handle_stop(metadata, config) do
       OpentelemetryTelemetry.set_current_telemetry_span(@tracer_id, metadata)
 
@@ -32,6 +36,8 @@ if Code.ensure_loaded?(OpenTelemetry.Tracer) do
       :ok
     end
 
+    @doc false
+    @spec handle_error(map(), keyword()) :: :ok
     def handle_error(metadata, config) do
       OpentelemetryTelemetry.set_current_telemetry_span(@tracer_id, metadata)
 
