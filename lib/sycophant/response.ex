@@ -162,3 +162,25 @@ defimpl Sycophant.Serializable, for: Sycophant.Response do
 
   defp stringify_keys(value), do: value
 end
+
+defimpl Inspect, for: Sycophant.Response do
+  import Inspect.Algebra
+  alias Sycophant.InspectHelpers
+
+  def inspect(resp, opts) do
+    fields =
+      Enum.reject(
+        [
+          text: InspectHelpers.truncate(resp.text),
+          object: InspectHelpers.truncate_inspect(resp.object),
+          model: resp.model,
+          finish_reason: resp.finish_reason,
+          tool_calls: length(resp.tool_calls),
+          usage: resp.usage
+        ],
+        fn {_, v} -> is_nil(v) end
+      )
+
+    concat(["#Sycophant.Response<", to_doc(Map.new(fields), opts), ">"])
+  end
+end

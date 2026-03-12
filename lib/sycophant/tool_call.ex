@@ -8,7 +8,6 @@ defmodule Sycophant.ToolCall do
 
   ## Examples
 
-      iex> %Sycophant.ToolCall{id: "call_abc", name: "get_weather", arguments: %{"city" => "Paris"}}
       %Sycophant.ToolCall{id: "call_abc", name: "get_weather", arguments: %{"city" => "Paris"}}
   """
   use TypedStruct
@@ -29,5 +28,20 @@ end
 defimpl Sycophant.Serializable, for: Sycophant.ToolCall do
   def to_map(%{id: id, name: name, arguments: arguments}) do
     %{"__type__" => "ToolCall", "id" => id, "name" => name, "arguments" => arguments}
+  end
+end
+
+defimpl Inspect, for: Sycophant.ToolCall do
+  import Inspect.Algebra
+  alias Sycophant.InspectHelpers
+
+  def inspect(tc, opts) do
+    fields = %{
+      id: InspectHelpers.truncate(tc.id, 15),
+      name: tc.name,
+      arguments: InspectHelpers.truncate_inspect(tc.arguments)
+    }
+
+    concat(["#Sycophant.ToolCall<", to_doc(fields, opts), ">"])
   end
 end

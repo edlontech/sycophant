@@ -8,7 +8,7 @@ defmodule Sycophant.Usage do
   ## Examples
 
       iex> %Sycophant.Usage{input_tokens: 10, output_tokens: 25}
-      %Sycophant.Usage{input_tokens: 10, output_tokens: 25, cache_creation_input_tokens: nil, cache_read_input_tokens: nil, input_cost: nil, output_cost: nil, cache_read_cost: nil, cache_write_cost: nil, total_cost: nil}
+      #Sycophant.Usage<%{in: 10, out: 25}>
   """
   use TypedStruct
 
@@ -93,5 +93,19 @@ defimpl Sycophant.Serializable, for: Sycophant.Usage do
       "cache_write_cost" => u.cache_write_cost,
       "total_cost" => u.total_cost
     })
+  end
+end
+
+defimpl Inspect, for: Sycophant.Usage do
+  import Inspect.Algebra
+
+  def inspect(usage, opts) do
+    fields =
+      Enum.reject(
+        [in: usage.input_tokens, out: usage.output_tokens, cost: usage.total_cost],
+        fn {_, v} -> is_nil(v) end
+      )
+
+    concat(["#Sycophant.Usage<", to_doc(Map.new(fields), opts), ">"])
   end
 end

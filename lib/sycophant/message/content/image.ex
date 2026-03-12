@@ -45,3 +45,18 @@ defimpl Sycophant.Serializable, for: Sycophant.Message.Content.Image do
     })
   end
 end
+
+defimpl Inspect, for: Sycophant.Message.Content.Image do
+  import Inspect.Algebra
+  alias Sycophant.InspectHelpers
+
+  def inspect(img, opts) do
+    fields =
+      Enum.reject(
+        [url: img.url, data: InspectHelpers.redact(img.data), media_type: img.media_type],
+        fn {_, v} -> is_nil(v) end
+      )
+
+    concat(["#Sycophant.Message.Content.Image<", to_doc(Map.new(fields), opts), ">"])
+  end
+end

@@ -39,3 +39,23 @@ defmodule Sycophant.Agent.Callbacks do
     }
   end
 end
+
+defimpl Inspect, for: Sycophant.Agent.Callbacks do
+  import Inspect.Algebra
+  alias Sycophant.InspectHelpers
+
+  def inspect(cb, opts) do
+    fields =
+      Enum.reject(
+        [
+          on_response: InspectHelpers.fn_label(cb.on_response),
+          on_tool_call: InspectHelpers.fn_label(cb.on_tool_call),
+          on_error: InspectHelpers.fn_label(cb.on_error),
+          on_max_steps: InspectHelpers.fn_label(cb.on_max_steps)
+        ],
+        fn {_, v} -> is_nil(v) end
+      )
+
+    concat(["#Sycophant.Agent.Callbacks<", to_doc(Map.new(fields), opts), ">"])
+  end
+end

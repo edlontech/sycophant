@@ -9,13 +9,13 @@ defmodule Sycophant.Message do
   Use the constructor functions to create messages with the correct role:
 
       iex> Sycophant.Message.user("Hello!")
-      %Sycophant.Message{role: :user, content: "Hello!", metadata: %{}}
+      #Sycophant.Message<%{role: :user, content: "Hello!"}>
 
       iex> Sycophant.Message.system("You are helpful.")
-      %Sycophant.Message{role: :system, content: "You are helpful.", metadata: %{}}
+      #Sycophant.Message<%{role: :system, content: "You are helpful."}>
 
       iex> Sycophant.Message.assistant("Hi there!")
-      %Sycophant.Message{role: :assistant, content: "Hi there!", metadata: %{}}
+      #Sycophant.Message<%{role: :assistant, content: "Hi there!"}>
 
   ## Multimodal Content
 
@@ -48,7 +48,7 @@ defmodule Sycophant.Message do
   ## Examples
 
       iex> Sycophant.Message.user("What is Elixir?")
-      %Sycophant.Message{role: :user, content: "What is Elixir?", metadata: %{}}
+      #Sycophant.Message<%{role: :user, content: "What is Elixir?"}>
   """
   @spec user(String.t() | [content_part()]) :: t()
   def user(content), do: %__MODULE__{role: :user, content: content}
@@ -59,7 +59,7 @@ defmodule Sycophant.Message do
   ## Examples
 
       iex> Sycophant.Message.assistant("Elixir is a functional language.")
-      %Sycophant.Message{role: :assistant, content: "Elixir is a functional language.", metadata: %{}}
+      #Sycophant.Message<%{role: :assistant, content: "Elixir is a functional language."}>
   """
   @spec assistant(String.t() | [content_part()]) :: t()
   def assistant(content), do: %__MODULE__{role: :assistant, content: content}
@@ -70,7 +70,7 @@ defmodule Sycophant.Message do
   ## Examples
 
       iex> Sycophant.Message.system("You are a helpful assistant.")
-      %Sycophant.Message{role: :system, content: "You are a helpful assistant.", metadata: %{}}
+      #Sycophant.Message<%{role: :system, content: "You are a helpful assistant."}>
   """
   @spec system(String.t() | [content_part()]) :: t()
   def system(content), do: %__MODULE__{role: :system, content: content}
@@ -82,12 +82,7 @@ defmodule Sycophant.Message do
 
       iex> tool_call = %Sycophant.ToolCall{id: "call_123", name: "get_weather", arguments: %{}}
       iex> Sycophant.Message.tool_result(tool_call, "72F and sunny")
-      %Sycophant.Message{
-        role: :tool_result,
-        content: "72F and sunny",
-        tool_call_id: "call_123",
-        metadata: %{tool_name: "get_weather"}
-      }
+      #Sycophant.Message<%{role: :tool_result, content: "72F and sunny", tool_call_id: "call_123"}>
   """
   @spec tool_result(ToolCall.t(), String.t()) :: t()
   def tool_result(%ToolCall{id: id, name: name}, result) do
@@ -187,4 +182,32 @@ defimpl Sycophant.Serializable, for: Sycophant.Message do
 
   defp atom_to_string(nil), do: nil
   defp atom_to_string(atom), do: Atom.to_string(atom)
+end
+
+defimpl Inspect, for: Sycophant.Message do
+  import Inspect.Algebra
+  alias Sycophant.InspectHelpers
+
+  def inspect(msg, opts) do
+    fields =
+      Enum.reject(
+        [
+          role: msg.role,
+          content: inspect_content(msg.content),
+          tool_call_id: msg.tool_call_id,
+          tool_calls: inspect_tool_calls(msg.tool_calls)
+        ],
+        fn {_, v} -> is_nil(v) end
+      )
+
+    concat(["#Sycophant.Message<", to_doc(Map.new(fields), opts), ">"])
+  end
+
+  defp inspect_content(content) when is_binary(content), do: InspectHelpers.truncate(content)
+  defp inspect_content(parts) when is_list(parts), do: "#{length(parts)} parts"
+  defp inspect_content(nil), do: nil
+
+  defp inspect_tool_calls(nil), do: nil
+  defp inspect_tool_calls([]), do: nil
+  defp inspect_tool_calls(tcs), do: "#{length(tcs)} calls"
 end

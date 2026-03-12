@@ -81,3 +81,25 @@ defimpl Sycophant.Serializable, for: Sycophant.EmbeddingResponse do
   defp maybe_to_map(nil), do: nil
   defp maybe_to_map(struct), do: Sycophant.Serializable.to_map(struct)
 end
+
+defimpl Inspect, for: Sycophant.EmbeddingResponse do
+  import Inspect.Algebra
+
+  def inspect(resp, opts) do
+    types = Map.keys(resp.embeddings)
+    count = resp.embeddings |> Map.values() |> List.first([]) |> length()
+
+    fields =
+      Enum.reject(
+        [
+          model: resp.model,
+          types: types,
+          vectors: count,
+          usage: resp.usage
+        ],
+        fn {_, v} -> is_nil(v) end
+      )
+
+    concat(["#Sycophant.EmbeddingResponse<", to_doc(Map.new(fields), opts), ">"])
+  end
+end

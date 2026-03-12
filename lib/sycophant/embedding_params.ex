@@ -64,3 +64,22 @@ defimpl Sycophant.Serializable, for: Sycophant.EmbeddingParams do
     })
   end
 end
+
+defimpl Inspect, for: Sycophant.EmbeddingParams do
+  import Inspect.Algebra
+
+  def inspect(params, opts) do
+    fields =
+      Enum.reject(
+        [
+          dimensions: params.dimensions,
+          embedding_types: params.embedding_types,
+          truncate: params.truncate,
+          max_tokens: params.max_tokens
+        ],
+        fn {_, v} -> is_nil(v) end
+      )
+
+    concat(["#Sycophant.EmbeddingParams<", to_doc(Map.new(fields), opts), ">"])
+  end
+end

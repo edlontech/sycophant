@@ -106,3 +106,27 @@ defmodule Sycophant.Config do
     |> then(&Zoi.parse(Tesla.t(), &1))
   end
 end
+
+defimpl Inspect, for: Sycophant.Config.Provider do
+  import Inspect.Algebra
+  alias Sycophant.InspectHelpers
+
+  def inspect(provider, opts) do
+    fields =
+      Enum.reject(
+        [
+          api_key: InspectHelpers.redact(provider.api_key),
+          api_secret: InspectHelpers.redact(provider.api_secret),
+          access_key_id: InspectHelpers.redact(provider.access_key_id),
+          secret_access_key: InspectHelpers.redact(provider.secret_access_key),
+          region: provider.region,
+          base_url: provider.base_url,
+          deployment_name: provider.deployment_name,
+          api_version: provider.api_version
+        ],
+        fn {_, v} -> is_nil(v) end
+      )
+
+    concat(["#Sycophant.Config.Provider<", to_doc(Map.new(fields), opts), ">"])
+  end
+end

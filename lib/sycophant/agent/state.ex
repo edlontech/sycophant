@@ -47,3 +47,23 @@ defmodule Sycophant.Agent.State do
     end
   end
 end
+
+defimpl Inspect, for: Sycophant.Agent.State do
+  import Inspect.Algebra
+  alias Sycophant.InspectHelpers
+
+  def inspect(state, opts) do
+    fields =
+      Enum.reject(
+        [
+          model: state.model,
+          step: "#{state.current_step}/#{state.max_steps}",
+          retries: "#{state.retry_count}/#{state.max_retries}",
+          stream: InspectHelpers.fn_label(state.stream)
+        ],
+        fn {_, v} -> is_nil(v) end
+      )
+
+    concat(["#Sycophant.Agent.State<", to_doc(Map.new(fields), opts), ">"])
+  end
+end

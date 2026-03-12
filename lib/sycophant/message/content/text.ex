@@ -9,7 +9,7 @@ defmodule Sycophant.Message.Content.Text do
   ## Examples
 
       iex> %Sycophant.Message.Content.Text{text: "Describe this image"}
-      %Sycophant.Message.Content.Text{text: "Describe this image"}
+      #Sycophant.Message.Content.Text<"Describe this image">
   """
   use TypedStruct
 
@@ -24,4 +24,17 @@ end
 
 defimpl Sycophant.Serializable, for: Sycophant.Message.Content.Text do
   def to_map(%{text: text}), do: %{"__type__" => "Text", "type" => "text", "text" => text}
+end
+
+defimpl Inspect, for: Sycophant.Message.Content.Text do
+  import Inspect.Algebra
+  alias Sycophant.InspectHelpers
+
+  def inspect(text, opts) do
+    concat([
+      "#Sycophant.Message.Content.Text<",
+      to_doc(InspectHelpers.truncate(text.text), opts),
+      ">"
+    ])
+  end
 end

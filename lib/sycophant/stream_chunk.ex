@@ -30,3 +30,18 @@ defmodule Sycophant.StreamChunk do
     field :index, non_neg_integer()
   end
 end
+
+defimpl Inspect, for: Sycophant.StreamChunk do
+  import Inspect.Algebra
+  alias Sycophant.InspectHelpers
+
+  def inspect(chunk, opts) do
+    fields =
+      Enum.reject(
+        [type: chunk.type, data: InspectHelpers.truncate_inspect(chunk.data), index: chunk.index],
+        fn {_, v} -> is_nil(v) end
+      )
+
+    concat(["#Sycophant.StreamChunk<", to_doc(Map.new(fields), opts), ">"])
+  end
+end

@@ -142,3 +142,22 @@ defimpl Sycophant.Serializable, for: Sycophant.Context do
   defp encode_tools([]), do: nil
   defp encode_tools(tools), do: Enum.map(tools, &Sycophant.Serializable.to_map/1)
 end
+
+defimpl Inspect, for: Sycophant.Context do
+  import Inspect.Algebra
+  alias Sycophant.InspectHelpers
+
+  def inspect(ctx, opts) do
+    fields =
+      Enum.reject(
+        [
+          messages: length(ctx.messages),
+          tools: length(ctx.tools),
+          stream: InspectHelpers.fn_label(ctx.stream)
+        ],
+        fn {_, v} -> is_nil(v) or v == 0 end
+      )
+
+    concat(["#Sycophant.Context<", to_doc(Map.new(fields), opts), ">"])
+  end
+end

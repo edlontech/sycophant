@@ -10,7 +10,7 @@ defmodule Sycophant.Reasoning do
   ## Examples
 
       iex> %Sycophant.Reasoning{summary: "The user asked about capitals..."}
-      %Sycophant.Reasoning{summary: "The user asked about capitals...", encrypted_content: nil}
+      #Sycophant.Reasoning<%{summary: "The user asked about capitals..."}>
   """
   use TypedStruct
 
@@ -35,5 +35,23 @@ defimpl Sycophant.Serializable, for: Sycophant.Reasoning do
       "summary" => r.summary,
       "encrypted_content" => r.encrypted_content
     })
+  end
+end
+
+defimpl Inspect, for: Sycophant.Reasoning do
+  import Inspect.Algebra
+  alias Sycophant.InspectHelpers
+
+  def inspect(reasoning, opts) do
+    fields =
+      Enum.reject(
+        [
+          summary: InspectHelpers.truncate(reasoning.summary),
+          encrypted_content: InspectHelpers.redact(reasoning.encrypted_content)
+        ],
+        fn {_, v} -> is_nil(v) end
+      )
+
+    concat(["#Sycophant.Reasoning<", to_doc(Map.new(fields), opts), ">"])
   end
 end

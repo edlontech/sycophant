@@ -21,3 +21,24 @@ defmodule Sycophant.Request do
     field :response_schema, term()
   end
 end
+
+defimpl Inspect, for: Sycophant.Request do
+  import Inspect.Algebra
+  alias Sycophant.InspectHelpers
+
+  def inspect(req, opts) do
+    fields =
+      Enum.reject(
+        [
+          model: req.model,
+          messages: length(req.messages),
+          tools: if(req.tools != [], do: length(req.tools)),
+          credentials: InspectHelpers.redact(if(req.credentials != %{}, do: req.credentials)),
+          stream: InspectHelpers.fn_label(req.stream)
+        ],
+        fn {_, v} -> is_nil(v) end
+      )
+
+    concat(["#Sycophant.Request<", to_doc(Map.new(fields), opts), ">"])
+  end
+end

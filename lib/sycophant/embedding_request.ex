@@ -78,3 +78,21 @@ defimpl Sycophant.Serializable, for: Sycophant.EmbeddingRequest do
   defp maybe_to_map(nil), do: nil
   defp maybe_to_map(struct), do: Sycophant.Serializable.to_map(struct)
 end
+
+defimpl Inspect, for: Sycophant.EmbeddingRequest do
+  import Inspect.Algebra
+
+  def inspect(req, opts) do
+    fields =
+      Enum.reject(
+        [
+          model: req.model,
+          inputs: length(req.inputs),
+          params: req.params
+        ],
+        fn {_, v} -> is_nil(v) end
+      )
+
+    concat(["#Sycophant.EmbeddingRequest<", to_doc(Map.new(fields), opts), ">"])
+  end
+end

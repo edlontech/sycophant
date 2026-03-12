@@ -62,3 +62,36 @@ defmodule Sycophant.Agent.Stats do
   @spec turn_count(t()) :: non_neg_integer()
   def turn_count(%__MODULE__{turns: turns}), do: length(turns)
 end
+
+defimpl Inspect, for: Sycophant.Agent.Stats.Turn do
+  import Inspect.Algebra
+
+  def inspect(turn, opts) do
+    fields =
+      Enum.reject(
+        [
+          in: turn.input_tokens,
+          out: turn.output_tokens,
+          cost: turn.cost,
+          finish_reason: turn.finish_reason
+        ],
+        fn {_, v} -> is_nil(v) end
+      )
+
+    concat(["#Sycophant.Agent.Stats.Turn<", to_doc(Map.new(fields), opts), ">"])
+  end
+end
+
+defimpl Inspect, for: Sycophant.Agent.Stats do
+  import Inspect.Algebra
+
+  def inspect(stats, opts) do
+    fields = %{
+      turns: length(stats.turns),
+      tokens: "#{stats.total_input_tokens}+#{stats.total_output_tokens}",
+      cost: stats.total_cost
+    }
+
+    concat(["#Sycophant.Agent.Stats<", to_doc(fields, opts), ">"])
+  end
+end

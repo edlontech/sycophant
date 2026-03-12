@@ -75,3 +75,17 @@ defimpl Sycophant.Serializable, for: Sycophant.Tool do
     }
   end
 end
+
+defimpl Inspect, for: Sycophant.Tool do
+  import Inspect.Algebra
+  alias Sycophant.InspectHelpers
+
+  def inspect(tool, opts) do
+    fields =
+      Enum.reject([name: tool.name, function: InspectHelpers.fn_label(tool.function)], fn {_, v} ->
+        is_nil(v)
+      end)
+
+    concat(["#Sycophant.Tool<", to_doc(Map.new(fields), opts), ">"])
+  end
+end
