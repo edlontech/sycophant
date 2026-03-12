@@ -24,11 +24,9 @@ defmodule Sycophant.OpenTelemetry do
   Requires the `opentelemetry_telemetry` optional dependency.
   """
 
-  require Logger
-  require OpenTelemetry.Tracer, as: Tracer
-  require OpenTelemetry
+  @compile {:no_warn_undefined, Sycophant.OpenTelemetry.Handlers}
 
-  @tracer_id :sycophant
+  require Logger
 
   @request_start [:sycophant, :request, :start]
   @request_stop [:sycophant, :request, :stop]
@@ -95,60 +93,69 @@ defmodule Sycophant.OpenTelemetry do
   end
 
   @doc false
-  def handle_request_event(@request_start, measurements, metadata, config),
-    do: handle_start("sycophant.request", "chat", measurements, metadata, config)
+  def handle_request_event(@request_start, measurements, metadata, config) do
+    if otel_available?() do
+      Sycophant.OpenTelemetry.Handlers.handle_start(
+        "sycophant.request",
+        "chat",
+        measurements,
+        metadata,
+        config
+      )
+    else
+      :ok
+    end
+  end
 
-  def handle_request_event(@request_stop, _measurements, metadata, config),
-    do: handle_stop(metadata, config)
+  def handle_request_event(@request_stop, _measurements, metadata, config) do
+    if otel_available?() do
+      Sycophant.OpenTelemetry.Handlers.handle_stop(metadata, config)
+    else
+      :ok
+    end
+  end
 
-  def handle_request_event(@request_error, _measurements, metadata, config),
-    do: handle_error(metadata, config)
+  def handle_request_event(@request_error, _measurements, metadata, config) do
+    if otel_available?() do
+      Sycophant.OpenTelemetry.Handlers.handle_error(metadata, config)
+    else
+      :ok
+    end
+  end
 
   @doc false
-  def handle_embedding_event(@embedding_start, measurements, metadata, config),
-    do: handle_start("sycophant.embedding", "embeddings", measurements, metadata, config)
-
-  def handle_embedding_event(@embedding_stop, _measurements, metadata, config),
-    do: handle_stop(metadata, config)
-
-  def handle_embedding_event(@embedding_error, _measurements, metadata, config),
-    do: handle_error(metadata, config)
-
-  defp handle_start(span_name, operation_name, measurements, metadata, config) do
-    OpentelemetryTelemetry.start_telemetry_span(
-      @tracer_id,
-      span_name,
-      metadata,
-      %{start_time: measurements[:system_time]}
-    )
-
-    attrs = build_start_attributes(metadata, operation_name)
-    attrs = maybe_merge_custom(attrs, config[:attribute_mapper], metadata)
-    Tracer.set_attributes(attrs)
-    :ok
+  def handle_embedding_event(@embedding_start, measurements, metadata, config) do
+    if otel_available?() do
+      Sycophant.OpenTelemetry.Handlers.handle_start(
+        "sycophant.embedding",
+        "embeddings",
+        measurements,
+        metadata,
+        config
+      )
+    else
+      :ok
+    end
   end
 
-  defp handle_stop(metadata, config) do
-    OpentelemetryTelemetry.set_current_telemetry_span(@tracer_id, metadata)
-
-    attrs = build_stop_attributes(metadata)
-    attrs = maybe_merge_custom(attrs, config[:attribute_mapper], metadata)
-    Tracer.set_attributes(attrs)
-
-    OpentelemetryTelemetry.end_telemetry_span(@tracer_id, metadata)
-    :ok
+  def handle_embedding_event(@embedding_stop, _measurements, metadata, config) do
+    if otel_available?() do
+      Sycophant.OpenTelemetry.Handlers.handle_stop(metadata, config)
+    else
+      :ok
+    end
   end
 
-  defp handle_error(metadata, config) do
-    OpentelemetryTelemetry.set_current_telemetry_span(@tracer_id, metadata)
+  def handle_embedding_event(@embedding_error, _measurements, metadata, config) do
+    if otel_available?() do
+      Sycophant.OpenTelemetry.Handlers.handle_error(metadata, config)
+    else
+      :ok
+    end
+  end
 
-    attrs = build_error_attributes(metadata)
-    attrs = maybe_merge_custom(attrs, config[:attribute_mapper], metadata)
-    Tracer.set_attributes(attrs)
-    Tracer.set_status(OpenTelemetry.status(:error, ""))
-
-    OpentelemetryTelemetry.end_telemetry_span(@tracer_id, metadata)
-    :ok
+  defp otel_available? do
+    Code.ensure_loaded?(Sycophant.OpenTelemetry.Handlers)
   end
 
   @doc false
@@ -206,18 +213,8 @@ defmodule Sycophant.OpenTelemetry do
   defp wire_protocol_name(mod) when is_atom(mod), do: inspect(mod)
   defp wire_protocol_name(other), do: to_string(other)
 
-  defp reject_nil_values(attrs) do
+  @doc false
+  def reject_nil_values(attrs) do
     Enum.reject(attrs, fn {_k, v} -> is_nil(v) end)
-  end
-
-  defp maybe_merge_custom(attrs, nil, _metadata), do: attrs
-
-  defp maybe_merge_custom(attrs, mapper, metadata) when is_function(mapper, 1) do
-    custom = mapper.(metadata)
-    attrs ++ reject_nil_values(custom)
-  rescue
-    e ->
-      Logger.warning("Sycophant.OpenTelemetry attribute_mapper raised: #{inspect(e)}")
-      attrs
   end
 end
