@@ -1,0 +1,232 @@
+{
+  "metadata": {
+    "model": "deepseek/deepseek-r1",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-03-12T12:37:01.079264Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "Hi! I'm planning a trip to London.",
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "Hello! London is a fantastic destination with so much to see and do. To help you plan your trip better, would you like me to check the current weather in London? This could be useful for deciding what to pack and which activities to prioritize.",
+              "type": "output_text"
+            }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "content": "What's the current weather in London? Use the get_weather tool.",
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "\n\n",
+              "type": "output_text"
+            }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "arguments": "{\"city\":\"London\"}",
+          "call_id": "72a93322ba0e4bd3935e1ea86054b09e",
+          "name": "get_weather",
+          "type": "function_call"
+        },
+        {
+          "call_id": "72a93322ba0e4bd3935e1ea86054b09e",
+          "output": "London: 18C, cloudy",
+          "type": "function_call_output"
+        }
+      ],
+      "instructions": "You are a helpful assistant. Be concise.",
+      "model": "deepseek/deepseek-r1",
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "completed_at": 1773319020,
+      "created_at": 1773319008,
+      "error": null,
+      "frequency_penalty": 0,
+      "id": "gen-1773319008-QAvHmasJN6agt6eUgE78",
+      "incomplete_details": null,
+      "instructions": "You are a helpful assistant. Be concise.",
+      "max_output_tokens": null,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "deepseek/deepseek-r1",
+      "object": "response",
+      "output": [
+        {
+          "content": [
+            {
+              "text": "好的，用户刚才问的是伦敦的当前天气，我用了get_weather工具来获取信息。现在用户回复了“London: 18C, cloudy”，看起来是工具调用后的结果。我需要确认是否需要进一步帮助。可能用户是在确认天气情况，之后可能需要建议穿衣或者旅行贴士。但用户没有直接问其他问题，所以应该保持简洁，提供相关信息并询问是否需要更多帮助。考虑到用户之前计划去伦敦旅行，可能需要天气相关的建议，比如带外套或雨伞，但不确定是否应主动提供。根据用户的问题历史，他们可能希望简短回复，所以先确认天气信息，然后邀请用户提问是否需要其他帮助比较合适。不需要调用其他工具，因为用户的问题已经通过get_weather得到了回答。现在只需把天气结果明确告知，并保持友好开放的态度。避免冗长，但确保用户知道可以继续寻求帮助。因此，回复应该包括天气情况，并询问是否需要进一步协助。检查是否有必要推荐景点或活动，但用户可能还没有到那一步，所以保持回复针对性。总结：确认天气，简短说明，询问是否需要更多帮助。\n",
+              "type": "reasoning_text"
+            }
+          ],
+          "format": "unknown",
+          "id": "rs_tmp_9hmzzu8084",
+          "status": "completed",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "The current weather in London is **18°C with cloudy conditions**. Let me know if you need further help planning your trip! 😊",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_tmp_im1d46o075",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": null,
+      "safety_identifier": null,
+      "service_tier": "auto",
+      "status": "completed",
+      "store": false,
+      "temperature": 1,
+      "text": {
+        "format": {
+          "type": "text"
+        }
+      },
+      "tool_choice": "auto",
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ],
+      "top_logprobs": 0,
+      "top_p": 1,
+      "truncation": "disabled",
+      "usage": {
+        "cost": 9.986e-4,
+        "cost_details": {
+          "upstream_inference_cost": 9.986e-4,
+          "upstream_inference_input_cost": 3.486e-4,
+          "upstream_inference_output_cost": 6.5e-4
+        },
+        "input_tokens": 498,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "is_byok": false,
+        "output_tokens": 260,
+        "output_tokens_details": {
+          "reasoning_tokens": 231
+        },
+        "total_tokens": 758
+      },
+      "user": null
+    },
+    "headers": [
+      [
+        "date",
+        "Thu, 12 Mar 2026 12:36:49 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=1085"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "9db2d8bd78f76567-AMS"
+      ]
+    ],
+    "status": 200
+  }
+}

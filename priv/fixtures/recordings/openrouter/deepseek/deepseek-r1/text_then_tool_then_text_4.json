@@ -1,0 +1,247 @@
+{
+  "metadata": {
+    "model": "deepseek/deepseek-r1",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-03-12T12:37:09.578783Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "Hi! I'm planning a trip to London.",
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "Hello! London is a fantastic destination with so much to see and do. To help you plan your trip better, would you like me to check the current weather in London? This could be useful for deciding what to pack and which activities to prioritize.",
+              "type": "output_text"
+            }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "content": "What's the current weather in London? Use the get_weather tool.",
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "\n\n",
+              "type": "output_text"
+            }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "arguments": "{\"city\":\"London\"}",
+          "call_id": "72a93322ba0e4bd3935e1ea86054b09e",
+          "name": "get_weather",
+          "type": "function_call"
+        },
+        {
+          "call_id": "72a93322ba0e4bd3935e1ea86054b09e",
+          "output": "London: 18C, cloudy",
+          "type": "function_call_output"
+        },
+        {
+          "content": [
+            {
+              "text": "The current weather in London is **18°C with cloudy conditions**. Let me know if you need further help planning your trip! 😊",
+              "type": "output_text"
+            }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "content": "Thanks! Should I bring an umbrella?",
+          "role": "user"
+        }
+      ],
+      "instructions": "You are a helpful assistant. Be concise.",
+      "model": "deepseek/deepseek-r1",
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "completed_at": 1773319029,
+      "created_at": 1773319021,
+      "error": null,
+      "frequency_penalty": 0,
+      "id": "gen-1773319021-uAhj6jFD2qwjfqONdlJA",
+      "incomplete_details": null,
+      "instructions": "You are a helpful assistant. Be concise.",
+      "max_output_tokens": null,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "deepseek/deepseek-r1",
+      "object": "response",
+      "output": [
+        {
+          "content": [
+            {
+              "text": "Okay, the user asked if they should bring an umbrella to London. Let me check the weather again. Earlier, I told them it's 18°C and cloudy. But cloudy doesn't necessarily mean rain. Wait, did the previous tool response mention any precipitation? No, it just said cloudy. But maybe the cloudiness could lead to rain later? Hmm, the get_weather tool only provides current temperature and conditions. So right now, it's cloudy, but no rain mentioned.\n\nThe user is planning a trip, so they want to be prepared. Even though it's cloudy, I can't confirm if it will rain. I should advise them based on the current information. Since it's cloudy, there's a chance of rain, but it's not certain. Maybe suggest bringing a light umbrella just in case, as the weather can be unpredictable. Also, checking a weather forecast for the next few days might help, but I only have the current data. Let me make sure not to assume future conditions beyond the current data. So my recommendation would be to pack an umbrella as a precaution.\n",
+              "type": "reasoning_text"
+            }
+          ],
+          "format": "unknown",
+          "id": "rs_tmp_0nqsqo4h3bmf",
+          "status": "completed",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Based on the current **cloudy** conditions in London, it's a good idea to carry a compact umbrella just in case. The weather can change quickly, and it’s better to be prepared! Enjoy your trip! 🌂✨",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_tmp_9riqhut76lb",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": null,
+      "safety_identifier": null,
+      "service_tier": "auto",
+      "status": "completed",
+      "store": false,
+      "temperature": 1,
+      "text": {
+        "format": {
+          "type": "text"
+        }
+      },
+      "tool_choice": "auto",
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ],
+      "top_logprobs": 0,
+      "top_p": 1,
+      "truncation": "disabled",
+      "usage": {
+        "cost": 0.0010584,
+        "cost_details": {
+          "upstream_inference_cost": 0.0010584,
+          "upstream_inference_input_cost": 3.759e-4,
+          "upstream_inference_output_cost": 6.825e-4
+        },
+        "input_tokens": 537,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "is_byok": false,
+        "output_tokens": 273,
+        "output_tokens_details": {
+          "reasoning_tokens": 225
+        },
+        "total_tokens": 810
+      },
+      "user": null
+    },
+    "headers": [
+      [
+        "date",
+        "Thu, 12 Mar 2026 12:37:02 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=1216"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "9db2d909da526567-AMS"
+      ]
+    ],
+    "status": 200
+  }
+}

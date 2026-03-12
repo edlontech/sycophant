@@ -1,0 +1,229 @@
+{
+  "metadata": {
+    "model": "openai/gpt-4o-mini",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-03-12T12:36:46.275788Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "Hi! I'm planning a trip to London.",
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "That sounds exciting! When are you planning to go, and do you need any specific information about London?",
+              "type": "output_text"
+            }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "content": "What's the current weather in London? Use the get_weather tool.",
+          "role": "user"
+        },
+        {
+          "content": [],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "arguments": "{\"city\":\"London\"}",
+          "call_id": "call_tqvqszAmBviE9LopqvRKx4uj",
+          "name": "get_weather",
+          "type": "function_call"
+        },
+        {
+          "call_id": "call_tqvqszAmBviE9LopqvRKx4uj",
+          "output": "London: 18C, cloudy",
+          "type": "function_call_output"
+        },
+        {
+          "content": [
+            {
+              "text": "The current weather in London is 18°C and cloudy.",
+              "type": "output_text"
+            }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "content": "Thanks! Should I bring an umbrella?",
+          "role": "user"
+        }
+      ],
+      "instructions": "You are a helpful assistant. Be concise.",
+      "model": "openai/gpt-4o-mini",
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "completed_at": 1773319005,
+      "created_at": 1773319005,
+      "error": null,
+      "frequency_penalty": 0,
+      "id": "gen-1773319005-9iUkmOWgRxvfWa2anlS1",
+      "incomplete_details": null,
+      "instructions": "You are a helpful assistant. Be concise.",
+      "max_output_tokens": null,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "openai/gpt-4o-mini",
+      "object": "response",
+      "output": [
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Since it's cloudy, there's a possibility of rain. It might be a good idea to bring an umbrella just in case!",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_tmp_4s2rli6dal7",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": null,
+      "safety_identifier": null,
+      "service_tier": "auto",
+      "status": "completed",
+      "store": false,
+      "temperature": 1,
+      "text": {
+        "format": {
+          "type": "text"
+        }
+      },
+      "tool_choice": "auto",
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ],
+      "top_logprobs": 0,
+      "top_p": 1,
+      "truncation": "disabled",
+      "usage": {
+        "cost": 3.99e-5,
+        "cost_details": {
+          "upstream_inference_cost": 3.99e-5,
+          "upstream_inference_input_cost": 2.49e-5,
+          "upstream_inference_output_cost": 1.5e-5
+        },
+        "input_tokens": 166,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "is_byok": false,
+        "output_tokens": 25,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 191
+      },
+      "user": null
+    },
+    "headers": [
+      [
+        "date",
+        "Thu, 12 Mar 2026 12:36:45 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=357"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "9db2d8a79d696567-AMS"
+      ]
+    ],
+    "status": 200
+  }
+}

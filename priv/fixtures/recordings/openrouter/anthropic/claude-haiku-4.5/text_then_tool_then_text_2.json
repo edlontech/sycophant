@@ -1,0 +1,191 @@
+{
+  "metadata": {
+    "model": "anthropic/claude-haiku-4.5",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-03-12T12:36:48.727940Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "Hi! I'm planning a trip to London.",
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "That sounds exciting! I'd be happy to help you plan your trip to London. Here are some things I can assist with:\n\n1. **Weather**: I can check the current weather in London to help you pack appropriately\n2. **General advice**: I can offer tips on attractions, neighborhoods, transportation, and activities\n\nWould you like me to check the current weather in London for you? Also, it would help to know:\n- When are you planning to visit?\n- How long will you be staying?\n- What are you most interested in (museums, food, history, shopping, etc.)?\n- Do you have specific questions about the trip?\n\nLet me know how I can best help!",
+              "type": "output_text"
+            }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "content": "What's the current weather in London? Use the get_weather tool.",
+          "role": "user"
+        }
+      ],
+      "instructions": "You are a helpful assistant. Be concise.",
+      "model": "anthropic/claude-haiku-4.5",
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "completed_at": 1773319008,
+      "created_at": 1773319007,
+      "error": null,
+      "frequency_penalty": 0,
+      "id": "gen-1773319007-vYAWHso21fVUYjAer5uX",
+      "incomplete_details": null,
+      "instructions": "You are a helpful assistant. Be concise.",
+      "max_output_tokens": null,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "anthropic/claude-4.5-haiku-20251001",
+      "object": "response",
+      "output": [
+        {
+          "arguments": "{\"city\": \"London\"}",
+          "call_id": "toolu_bdrk_01Ntkx6QwuGNrV3EoN7JeTxs",
+          "id": "fc_tmp_qh3c50e38td",
+          "name": "get_weather",
+          "status": "completed",
+          "type": "function_call"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": null,
+      "safety_identifier": null,
+      "service_tier": "auto",
+      "status": "completed",
+      "store": false,
+      "temperature": 1,
+      "text": {
+        "format": {
+          "type": "text"
+        }
+      },
+      "tool_choice": "auto",
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ],
+      "top_logprobs": 0,
+      "top_p": 1,
+      "truncation": "disabled",
+      "usage": {
+        "cost": 0.001029,
+        "cost_details": {
+          "upstream_inference_cost": 0.001029,
+          "upstream_inference_input_cost": 7.59e-4,
+          "upstream_inference_output_cost": 2.7e-4
+        },
+        "input_tokens": 759,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "is_byok": false,
+        "output_tokens": 54,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 813
+      },
+      "user": null
+    },
+    "headers": [
+      [
+        "date",
+        "Thu, 12 Mar 2026 12:36:48 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1401"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "9db2d8b2bed86567-AMS"
+      ]
+    ],
+    "status": 200
+  }
+}

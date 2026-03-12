@@ -1,0 +1,179 @@
+{
+  "metadata": {
+    "model": "unknown",
+    "provider": "bedrock-runtime.us-east-1.amazonaws.com",
+    "recorded_at": "2026-03-12T12:36:54.175451Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": [
+            {
+              "text": "Hi! I'm planning a trip to London."
+            }
+          ],
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "Hello! How exciting that you're planning a trip to London! How can I help you with your trip? \n\nWould you like me to check the current weather in London, or is there something else you'd like to know?"
+            }
+          ],
+          "role": "assistant"
+        },
+        {
+          "content": [
+            {
+              "text": "What's the current weather in London? Use the get_weather tool."
+            }
+          ],
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "toolUse": {
+                "input": {
+                  "city": "London"
+                },
+                "name": "get_weather",
+                "toolUseId": "tooluse_LyT9W0NQGlGhYbWaQsOG1m"
+              }
+            }
+          ],
+          "role": "assistant"
+        },
+        {
+          "content": [
+            {
+              "toolResult": {
+                "content": [
+                  {
+                    "text": "London: 18C, cloudy"
+                  }
+                ],
+                "toolUseId": "tooluse_LyT9W0NQGlGhYbWaQsOG1m"
+              }
+            }
+          ],
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "The current weather in London is 18°C and cloudy. You might want to bring a light jacket and perhaps an umbrella just in case!"
+            }
+          ],
+          "role": "assistant"
+        },
+        {
+          "content": [
+            {
+              "text": "Thanks! Should I bring an umbrella?"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "system": [
+        {
+          "text": "You are a helpful assistant. Be concise."
+        }
+      ],
+      "toolConfig": {
+        "tools": [
+          {
+            "toolSpec": {
+              "description": "Get current weather for a city. Returns temperature and conditions.",
+              "inputSchema": {
+                "json": {
+                  "additionalProperties": true,
+                  "properties": {
+                    "city": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "city"
+                  ],
+                  "type": "object"
+                }
+              },
+              "name": "get_weather"
+            }
+          }
+        ]
+      }
+    },
+    "headers": [
+      [
+        "Authorization",
+        "[REDACTED]"
+      ],
+      [
+        "host",
+        "bedrock-runtime.us-east-1.amazonaws.com"
+      ],
+      [
+        "x-amz-date",
+        "20260312T123650Z"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ]
+    ],
+    "method": "post",
+    "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-5-20250929-v1%3A0/converse"
+  },
+  "response": {
+    "body": {
+      "metrics": {
+        "latencyMs": 3143
+      },
+      "output": {
+        "message": {
+          "content": [
+            {
+              "text": "Yes, I'd recommend bringing an umbrella! London is known for its unpredictable weather and frequent rain showers. Even though it's just cloudy now at 18°C, the weather can change quickly, and it's better to be prepared. A compact travel umbrella would be perfect to keep in your bag."
+            }
+          ],
+          "role": "assistant"
+        }
+      },
+      "stopReason": "end_turn",
+      "usage": {
+        "cacheReadInputTokenCount": 0,
+        "cacheReadInputTokens": 0,
+        "cacheWriteInputTokenCount": 0,
+        "cacheWriteInputTokens": 0,
+        "inputTokens": 778,
+        "outputTokens": 71,
+        "serverToolUsage": {},
+        "totalTokens": 849
+      }
+    },
+    "headers": [
+      [
+        "date",
+        "Thu, 12 Mar 2026 12:36:54 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-length",
+        "599"
+      ],
+      [
+        "x-amzn-requestid",
+        "2a08f152-a119-4c39-9ae9-7f50cd971a11"
+      ]
+    ],
+    "status": 200
+  }
+}

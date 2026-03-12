@@ -1,0 +1,141 @@
+{
+  "metadata": {
+    "model": "unknown",
+    "provider": "bedrock-runtime.us-east-1.amazonaws.com",
+    "recorded_at": "2026-03-12T12:36:48.380096Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": [
+            {
+              "text": "Hi! I'm planning a trip to London."
+            }
+          ],
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "Hello! How exciting that you're planning a trip to London! How can I help you with your trip? \n\nWould you like me to check the current weather in London, or is there something else you'd like to know?"
+            }
+          ],
+          "role": "assistant"
+        },
+        {
+          "content": [
+            {
+              "text": "What's the current weather in London? Use the get_weather tool."
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "system": [
+        {
+          "text": "You are a helpful assistant. Be concise."
+        }
+      ],
+      "toolConfig": {
+        "tools": [
+          {
+            "toolSpec": {
+              "description": "Get current weather for a city. Returns temperature and conditions.",
+              "inputSchema": {
+                "json": {
+                  "additionalProperties": true,
+                  "properties": {
+                    "city": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "city"
+                  ],
+                  "type": "object"
+                }
+              },
+              "name": "get_weather"
+            }
+          }
+        ]
+      }
+    },
+    "headers": [
+      [
+        "Authorization",
+        "[REDACTED]"
+      ],
+      [
+        "host",
+        "bedrock-runtime.us-east-1.amazonaws.com"
+      ],
+      [
+        "x-amz-date",
+        "20260312T123646Z"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ]
+    ],
+    "method": "post",
+    "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-5-20250929-v1%3A0/converse"
+  },
+  "response": {
+    "body": {
+      "metrics": {
+        "latencyMs": 2218
+      },
+      "output": {
+        "message": {
+          "content": [
+            {
+              "toolUse": {
+                "input": {
+                  "city": "London"
+                },
+                "name": "get_weather",
+                "toolUseId": "tooluse_LyT9W0NQGlGhYbWaQsOG1m",
+                "type": "tool_use"
+              }
+            }
+          ],
+          "role": "assistant"
+        }
+      },
+      "stopReason": "tool_use",
+      "usage": {
+        "cacheReadInputTokenCount": 0,
+        "cacheReadInputTokens": 0,
+        "cacheWriteInputTokenCount": 0,
+        "cacheWriteInputTokens": 0,
+        "inputTokens": 658,
+        "outputTokens": 53,
+        "serverToolUsage": {},
+        "totalTokens": 711
+      }
+    },
+    "headers": [
+      [
+        "date",
+        "Thu, 12 Mar 2026 12:36:48 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-length",
+        "427"
+      ],
+      [
+        "x-amzn-requestid",
+        "2f20d266-2091-46ef-9e9e-816579fd6728"
+      ]
+    ],
+    "status": 200
+  }
+}

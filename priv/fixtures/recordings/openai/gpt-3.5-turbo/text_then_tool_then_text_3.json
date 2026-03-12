@@ -1,0 +1,213 @@
+{
+  "metadata": {
+    "model": "gpt-3.5-turbo",
+    "provider": "api.openai.com",
+    "recorded_at": "2026-03-12T12:36:46.538091Z",
+    "sycophant_version": "0.1.0"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "You are a helpful assistant. Be concise.",
+          "role": "system"
+        },
+        {
+          "content": "Hi! I'm planning a trip to London.",
+          "role": "user"
+        },
+        {
+          "content": "That's great! Do you need any information or assistance for your trip to London?",
+          "role": "assistant"
+        },
+        {
+          "content": "What's the current weather in London? Use the get_weather tool.",
+          "role": "user"
+        },
+        {
+          "content": null,
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "function": {
+                "arguments": "{\"city\":\"London\"}",
+                "name": "get_weather"
+              },
+              "id": "call_JNe0lCotIuAgAvzswA33hY9A",
+              "type": "function"
+            }
+          ]
+        },
+        {
+          "content": "London: 18C, cloudy",
+          "role": "tool",
+          "tool_call_id": "call_JNe0lCotIuAgAvzswA33hY9A"
+        }
+      ],
+      "model": "gpt-3.5-turbo",
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather for a city. Returns temperature and conditions.",
+            "name": "get_weather",
+            "parameters": {
+              "additionalProperties": false,
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.openai.com/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "annotations": [],
+            "content": "The current weather in London is 18°C and cloudy. If you need any more details or assistance with your trip, feel free to ask!",
+            "refusal": null,
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1773319006,
+      "id": "chatcmpl-DIZZOJp0WDD5Orw6TzBO7ET8iXlrw",
+      "model": "gpt-3.5-turbo-0125",
+      "object": "chat.completion",
+      "service_tier": "default",
+      "system_fingerprint": null,
+      "usage": {
+        "completion_tokens": 30,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        },
+        "prompt_tokens": 137,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 0
+        },
+        "total_tokens": 167
+      }
+    },
+    "headers": [
+      [
+        "date",
+        "Thu, 12 Mar 2026 12:36:46 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Request-ID"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-processing-ms",
+        "724"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "x-ratelimit-limit-requests",
+        "9000"
+      ],
+      [
+        "x-ratelimit-limit-tokens",
+        "2000000"
+      ],
+      [
+        "x-ratelimit-remaining-requests",
+        "8998"
+      ],
+      [
+        "x-ratelimit-remaining-tokens",
+        "1999934"
+      ],
+      [
+        "x-ratelimit-reset-requests",
+        "6ms"
+      ],
+      [
+        "x-ratelimit-reset-tokens",
+        "1ms"
+      ],
+      [
+        "x-request-id",
+        "req_0d68bf8cba8e4fa295dcfce662dc8b3b"
+      ],
+      [
+        "x-openai-proxy-wasm",
+        "v0.1"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "cf-ray",
+        "9db2d8a76dc2fb83-AMS"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}
