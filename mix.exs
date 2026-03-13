@@ -47,7 +47,9 @@ defmodule Sycophant.MixProject do
         {"guides/serialization.md", title: "Serialization"},
         {"guides/http-configuration.md", title: "HTTP Configuration"},
         {"guides/custom-providers.md", title: "Custom Providers"},
-        {"guides/recording-tests.md", title: "Recording Tests"}
+        {"guides/recording-tests.md", title: "Recording Tests"},
+        {"CHANGELOG.md", title: "Changelog"},
+        {"LICENSE", title: "License"}
       ],
       groups_for_extras: [
         Guides: [
