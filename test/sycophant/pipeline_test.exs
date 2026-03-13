@@ -1,5 +1,5 @@
 defmodule Sycophant.PipelineTest do
-  use ExUnit.Case, async: true
+  use ExUnit.Case, async: false
   use Mimic
 
   alias Sycophant.Error
@@ -8,7 +8,7 @@ defmodule Sycophant.PipelineTest do
   alias Sycophant.Response
   alias Sycophant.Telemetry
 
-  setup :set_mimic_from_context
+  setup :set_mimic_global
   setup :verify_on_exit!
 
   defp build_model(attrs \\ %{}) do
