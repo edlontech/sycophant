@@ -143,10 +143,11 @@ defmodule Sycophant.AgentTest do
 
       {:ok, agent} = Agent.start_link(@model)
 
-      Task.async(fn -> Agent.chat(agent, "Hi") end)
+      task = Task.async(fn -> Agent.chat(agent, "Hi") end)
       assert_receive :generating, 1000
 
       assert {:error, :busy} = Agent.chat(agent, "Another", 100)
+      Task.await(task, 1000)
       Agent.stop(agent)
     end
   end
@@ -507,9 +508,10 @@ defmodule Sycophant.AgentTest do
           stream: fn _chunk -> :ok end
         )
 
-      Task.async(fn -> Agent.chat(agent, "hi") end)
+      task = Task.async(fn -> Agent.chat(agent, "hi") end)
       assert_receive :streaming, 1000
       assert {:error, :busy} = Agent.chat(agent, "another", 100)
+      Task.await(task, 1000)
       Agent.stop(agent)
     end
 
