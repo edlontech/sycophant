@@ -34,7 +34,7 @@ jobs:
           release-type: elixir
 
   publish:
-    needs: [release-please, benchmark]
+    needs: [release-please]
     if: ${{ needs.release-please.outputs.release_created }}
     strategy:
       matrix:
