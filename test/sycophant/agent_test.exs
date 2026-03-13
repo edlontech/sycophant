@@ -1,8 +1,6 @@
 defmodule Sycophant.AgentTest do
-  use ExUnit.Case, async: true
+  use ExUnit.Case, async: false
   use Mimic
-
-  setup :set_mimic_from_context
 
   alias Sycophant.Agent
   alias Sycophant.Agent.Callbacks
@@ -13,6 +11,8 @@ defmodule Sycophant.AgentTest do
   alias Sycophant.Usage
 
   @model "anthropic:claude-haiku-4-5-20251001"
+
+  setup :set_mimic_global
 
   defp build_response(text, opts \\ []) do
     context =
