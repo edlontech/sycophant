@@ -80,9 +80,16 @@ defmodule Sycophant.Config do
   Used by `ModelResolver` to fall back to a configured wire protocol
   when LLMDB metadata doesn't specify one for a provider.
   """
+  @wire_protocol_defaults %{
+    openrouter: "openai_responses",
+    anthropic: "anthropic_messages",
+    google: "google_gemini",
+    amazon_bedrock: "bedrock_converse"
+  }
+
   @spec wire_protocol_defaults() :: map()
   def wire_protocol_defaults do
-    Application.get_env(:sycophant, :wire_protocol_defaults, %{})
+    Application.get_env(:sycophant, :wire_protocol_defaults, @wire_protocol_defaults)
   end
 
   @doc """

@@ -3,15 +3,29 @@ defmodule Sycophant.Application do
 
   use Application
 
+  @llmdb_allow %{
+    openai: ["*"],
+    anthropic: ["*"],
+    google: ["*"],
+    amazon_bedrock: ["*"],
+    openrouter: ["*"],
+    azure: ["*"]
+  }
+
   @doc false
   @impl true
   def start(_type, _args) do
+    load_llmdb()
     Sycophant.Registry.init()
 
     children = quiver_children() ++ dev_children()
 
     opts = [strategy: :one_for_one, name: Sycophant.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  defp load_llmdb do
+    LLMDB.load(allow: Application.get_env(:sycophant, :llmdb_allow, @llmdb_allow))
   end
 
   defp quiver_children do
