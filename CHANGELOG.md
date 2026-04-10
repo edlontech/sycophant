@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.0](https://github.com/edlontech/sycophant/compare/v0.1.0...v0.2.0) (2026-04-10)
+
+
+### Features
+
+* replace legacy cost map with LLMDB component-based pricing ([032f978](https://github.com/edlontech/sycophant/commit/032f9789fee223c9e2c473a11b0b02ef5f7c7650))
+* unify wire and embedding protocol registries ([fefc7ec](https://github.com/edlontech/sycophant/commit/fefc7ecb29e0872941642976b8c382acd104f902))
+
 ## 0.1.0 (2026-03-13)
 
 
