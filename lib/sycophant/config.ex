@@ -78,13 +78,16 @@ defmodule Sycophant.Config do
   Returns the wire protocol defaults map from application config.
 
   Used by `ModelResolver` to fall back to a configured wire protocol
-  when LLMDB metadata doesn't specify one for a provider.
+  when LLMDB metadata doesn't specify one for a provider. Each provider
+  maps to a nested map keyed by kind (`:chat`, `:embedding`, etc.).
   """
   @wire_protocol_defaults %{
-    openrouter: "openai_responses",
-    anthropic: "anthropic_messages",
-    google: "google_gemini",
-    amazon_bedrock: "bedrock_converse"
+    openrouter: %{chat: :openai_responses},
+    openai: %{embedding: :openai_embed},
+    anthropic: %{chat: :anthropic_messages},
+    google: %{chat: :google_gemini},
+    amazon_bedrock: %{chat: :bedrock_converse, embedding: :bedrock_embed},
+    azure: %{embedding: :openai_embed}
   }
 
   @spec wire_protocol_defaults() :: map()

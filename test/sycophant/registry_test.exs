@@ -17,32 +17,32 @@ defmodule Sycophant.RegistryTest do
       assert {:ok, Sycophant.Auth.Google} = Registry.fetch_auth(:google)
     end
 
-    test "seeds built-in wire protocols" do
+    test "seeds built-in chat protocols" do
       assert {:ok, Sycophant.WireProtocol.OpenAICompletions} =
-               Registry.fetch_wire_protocol("openai_chat")
+               Registry.fetch_protocol(:chat, :openai_chat)
 
       assert {:ok, Sycophant.WireProtocol.OpenAICompletions} =
-               Registry.fetch_wire_protocol("openai_completion")
+               Registry.fetch_protocol(:chat, :openai_completion)
 
       assert {:ok, Sycophant.WireProtocol.OpenAIResponses} =
-               Registry.fetch_wire_protocol("openai_responses")
+               Registry.fetch_protocol(:chat, :openai_responses)
 
       assert {:ok, Sycophant.WireProtocol.AnthropicMessages} =
-               Registry.fetch_wire_protocol("anthropic_messages")
+               Registry.fetch_protocol(:chat, :anthropic_messages)
 
       assert {:ok, Sycophant.WireProtocol.GoogleGemini} =
-               Registry.fetch_wire_protocol("google_gemini")
+               Registry.fetch_protocol(:chat, :google_gemini)
 
       assert {:ok, Sycophant.WireProtocol.BedrockConverse} =
-               Registry.fetch_wire_protocol("bedrock_converse")
+               Registry.fetch_protocol(:chat, :bedrock_converse)
     end
 
     test "seeds built-in embedding protocols" do
-      assert {:ok, Sycophant.EmbeddingWireProtocol.BedrockEmbed} =
-               Registry.fetch_embedding_protocol(:amazon_bedrock)
-
       assert {:ok, Sycophant.EmbeddingWireProtocol.OpenAIEmbed} =
-               Registry.fetch_embedding_protocol(:azure)
+               Registry.fetch_protocol(:embedding, :openai_embed)
+
+      assert {:ok, Sycophant.EmbeddingWireProtocol.BedrockEmbed} =
+               Registry.fetch_protocol(:embedding, :bedrock_embed)
     end
   end
 
@@ -64,47 +64,64 @@ defmodule Sycophant.RegistryTest do
     end
   end
 
-  describe "register_wire_protocol!/2" do
-    test "registers a valid wire protocol module" do
-      Registry.register_wire_protocol!("custom", Sycophant.WireProtocol.GoogleGemini)
+  describe "register_protocol!/3" do
+    test "registers a valid chat module" do
+      Registry.register_protocol!(:chat, :custom, Sycophant.WireProtocol.GoogleGemini)
 
       assert {:ok, Sycophant.WireProtocol.GoogleGemini} =
-               Registry.fetch_wire_protocol("custom")
+               Registry.fetch_protocol(:chat, :custom)
     end
 
-    test "raises InvalidRegistration for non-implementing module" do
-      assert_raise InvalidRegistration, fn ->
-        Registry.register_wire_protocol!("bad", String)
-      end
-    end
-  end
-
-  describe "register_embedding_protocol!/2" do
-    test "registers a valid embedding protocol module" do
-      Registry.register_embedding_protocol!(:custom, Sycophant.EmbeddingWireProtocol.OpenAIEmbed)
+    test "registers a valid embedding module" do
+      Registry.register_protocol!(
+        :embedding,
+        :custom,
+        Sycophant.EmbeddingWireProtocol.OpenAIEmbed
+      )
 
       assert {:ok, Sycophant.EmbeddingWireProtocol.OpenAIEmbed} =
-               Registry.fetch_embedding_protocol(:custom)
+               Registry.fetch_protocol(:embedding, :custom)
     end
 
-    test "raises InvalidRegistration for non-implementing module" do
+    test "overrides existing registration" do
+      Registry.register_protocol!(:chat, :openai_chat, Sycophant.WireProtocol.GoogleGemini)
+
+      assert {:ok, Sycophant.WireProtocol.GoogleGemini} =
+               Registry.fetch_protocol(:chat, :openai_chat)
+    end
+
+    test "raises InvalidRegistration for non-implementing chat module" do
       assert_raise InvalidRegistration, fn ->
-        Registry.register_embedding_protocol!(:bad, String)
+        Registry.register_protocol!(:chat, :bad, String)
+      end
+    end
+
+    test "raises InvalidRegistration for non-implementing embedding module" do
+      assert_raise InvalidRegistration, fn ->
+        Registry.register_protocol!(:embedding, :bad, String)
+      end
+    end
+
+    test "raises InvalidRegistration for cross-kind mismatch" do
+      assert_raise InvalidRegistration, fn ->
+        Registry.register_protocol!(:embedding, :bad, Sycophant.WireProtocol.OpenAICompletions)
       end
     end
   end
 
-  describe "fetch_*/1 returns :error for unknown keys" do
-    test "fetch_auth" do
+  describe "fetch_protocol/2" do
+    test "returns :error for unknown chat key" do
+      assert :error = Registry.fetch_protocol(:chat, :nonexistent)
+    end
+
+    test "returns :error for unknown embedding key" do
+      assert :error = Registry.fetch_protocol(:embedding, :nonexistent)
+    end
+  end
+
+  describe "fetch_auth/1" do
+    test "returns :error for unknown key" do
       assert :error = Registry.fetch_auth(:nonexistent)
-    end
-
-    test "fetch_wire_protocol" do
-      assert :error = Registry.fetch_wire_protocol("nonexistent")
-    end
-
-    test "fetch_embedding_protocol" do
-      assert :error = Registry.fetch_embedding_protocol(:nonexistent)
     end
   end
 end

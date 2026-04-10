@@ -62,13 +62,15 @@ defmodule Sycophant.EmbeddingPipelineTest do
     end
 
     test "returns error for provider without embedding adapter" do
-      model = build_embed_model(%{provider: :openai})
-      provider = build_provider(%{id: :openai, base_url: "https://api.openai.com/v1"})
+      model = build_embed_model(%{provider: :google})
 
-      expect(LLMDB, :model, fn "openai:text-embedding" -> {:ok, model} end)
-      expect(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      provider =
+        build_provider(%{id: :google, base_url: "https://generativelanguage.googleapis.com"})
 
-      request = %EmbeddingRequest{inputs: ["hello"], model: "openai:text-embedding"}
+      expect(LLMDB, :model, fn "google:text-embedding" -> {:ok, model} end)
+      expect(LLMDB, :provider, fn :google -> {:ok, provider} end)
+
+      request = %EmbeddingRequest{inputs: ["hello"], model: "google:text-embedding"}
       assert {:error, _} = EmbeddingPipeline.call(request)
     end
 

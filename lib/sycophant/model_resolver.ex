@@ -34,53 +34,32 @@ defmodule Sycophant.ModelResolver do
   """
   @spec resolve(nil | binary() | LLMDB.Model.t() | term()) ::
           {:ok, map()} | {:error, Exception.t()}
-  def resolve(nil) do
-    {:error, Error.Invalid.MissingModel.exception([])}
-  end
-
-  def resolve(%LLMDB.Model{} = model) do
-    with {:ok, provider} <- fetch_provider(model.provider),
-         {:ok, adapter} <- resolve_adapter(model) do
-      {:ok, build_info(model, provider, adapter)}
-    end
-  end
-
-  def resolve(spec) when is_binary(spec) do
-    case LLMDB.model(spec) do
-      {:ok, model} ->
-        requested_id = parse_model_id(spec)
-
-        with {:ok, info} <- resolve(model) do
-          {:ok, maybe_override_model_id(info, model, requested_id)}
-        end
-
-      {:error, _} ->
-        {:error, Error.Invalid.MissingModel.exception([])}
-    end
-  end
-
+  def resolve(nil), do: {:error, Error.Invalid.MissingModel.exception([])}
+  def resolve(%LLMDB.Model{} = model), do: do_resolve(model, :chat)
+  def resolve(spec) when is_binary(spec), do: do_resolve_spec(spec, :chat)
   def resolve(_), do: {:error, Error.Invalid.MissingModel.exception([])}
 
   @spec resolve_embedding(nil | binary() | LLMDB.Model.t() | term()) ::
           {:ok, map()} | {:error, Exception.t()}
-  def resolve_embedding(nil) do
-    {:error, Error.Invalid.MissingModel.exception([])}
-  end
+  def resolve_embedding(nil), do: {:error, Error.Invalid.MissingModel.exception([])}
+  def resolve_embedding(%LLMDB.Model{} = model), do: do_resolve(model, :embedding)
+  def resolve_embedding(spec) when is_binary(spec), do: do_resolve_spec(spec, :embedding)
+  def resolve_embedding(_), do: {:error, Error.Invalid.MissingModel.exception([])}
 
-  def resolve_embedding(%LLMDB.Model{} = model) do
-    with :ok <- validate_embedding_model(model),
+  defp do_resolve(model, kind) do
+    with :ok <- validate_model_kind(model, kind),
          {:ok, provider} <- fetch_provider(model.provider),
-         {:ok, adapter} <- resolve_embedding_adapter(model.provider) do
+         {:ok, adapter} <- resolve_adapter(model, kind) do
       {:ok, build_info(model, provider, adapter)}
     end
   end
 
-  def resolve_embedding(spec) when is_binary(spec) do
+  defp do_resolve_spec(spec, kind) do
     case LLMDB.model(spec) do
       {:ok, model} ->
         requested_id = parse_model_id(spec)
 
-        with {:ok, info} <- resolve_embedding(model) do
+        with {:ok, info} <- do_resolve(model, kind) do
           {:ok, maybe_override_model_id(info, model, requested_id)}
         end
 
@@ -89,9 +68,9 @@ defmodule Sycophant.ModelResolver do
     end
   end
 
-  def resolve_embedding(_), do: {:error, Error.Invalid.MissingModel.exception([])}
+  defp validate_model_kind(_model, :chat), do: :ok
 
-  defp validate_embedding_model(%LLMDB.Model{modalities: %{output: outputs}}) do
+  defp validate_model_kind(%LLMDB.Model{modalities: %{output: outputs}}, :embedding) do
     if :embedding in outputs do
       :ok
     else
@@ -100,54 +79,56 @@ defmodule Sycophant.ModelResolver do
     end
   end
 
-  defp validate_embedding_model(_) do
+  defp validate_model_kind(_, :embedding) do
     {:error, Error.Invalid.InvalidParams.exception(errors: ["model does not support embeddings"])}
   end
 
-  defp resolve_embedding_adapter(provider) do
-    case Sycophant.Registry.fetch_embedding_protocol(provider) do
-      {:ok, adapter} ->
-        {:ok, adapter}
-
-      :error ->
-        {:error,
-         Error.Unknown.Unknown.exception(error: "No embedding adapter for provider: #{provider}")}
-    end
-  end
-
-  defp fetch_provider(provider_id) do
-    case LLMDB.provider(provider_id) do
-      {:ok, provider} -> {:ok, provider}
-      {:error, _} -> {:error, Error.Invalid.MissingModel.exception([])}
-    end
-  end
-
-  defp resolve_adapter(model) do
-    extra = model.extra || %{}
-
+  defp resolve_adapter(model, kind) do
     protocol =
-      get_in(extra, [:wire, :protocol]) ||
-        extra[:wire_protocol] ||
-        wire_protocol_default(model.provider)
+      protocol_from_model_extra(model, kind) ||
+        wire_protocol_default(model.provider, kind)
 
     case protocol do
       nil ->
         {:error, Error.Invalid.MissingModel.exception([])}
 
       protocol ->
-        case Sycophant.Registry.fetch_wire_protocol(protocol) do
+        case Sycophant.Registry.fetch_protocol(kind, protocol) do
           {:ok, adapter} ->
             {:ok, adapter}
 
           :error ->
             {:error,
-             Error.Unknown.Unknown.exception(error: "Unsupported wire protocol: #{protocol}")}
+             Error.Unknown.Unknown.exception(error: "Unsupported #{kind} protocol: #{protocol}")}
         end
     end
   end
 
-  defp wire_protocol_default(provider) do
-    Map.get(Sycophant.Config.wire_protocol_defaults(), provider)
+  defp protocol_from_model_extra(%{extra: extra}, :chat) when is_map(extra) do
+    raw = get_in(extra, [:wire, :protocol]) || extra[:wire_protocol]
+    to_existing_atom(raw)
+  end
+
+  defp protocol_from_model_extra(%{extra: extra}, :embedding) when is_map(extra) do
+    raw = get_in(extra, [:wire, :embedding_protocol])
+    to_existing_atom(raw)
+  end
+
+  defp protocol_from_model_extra(_, _), do: nil
+
+  defp wire_protocol_default(provider, kind) do
+    get_in(Sycophant.Config.wire_protocol_defaults(), [provider, kind])
+  end
+
+  defp to_existing_atom(nil), do: nil
+  defp to_existing_atom(value) when is_atom(value), do: value
+  defp to_existing_atom(value) when is_binary(value), do: String.to_existing_atom(value)
+
+  defp fetch_provider(provider_id) do
+    case LLMDB.provider(provider_id) do
+      {:ok, provider} -> {:ok, provider}
+      {:error, _} -> {:error, Error.Invalid.MissingModel.exception([])}
+    end
   end
 
   defp build_info(model, provider, adapter) do

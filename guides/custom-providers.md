@@ -202,7 +202,7 @@ Register your provider at application startup or any time before first use:
 ```elixir
 # In your Application.start/2
 def start(_type, _args) do
-  Sycophant.Registry.register_wire_protocol!("custom_chat", MyApp.WireProtocol.CustomProvider)
+  Sycophant.Registry.register_protocol!(:chat, :custom_chat, MyApp.WireProtocol.CustomProvider)
   Sycophant.Registry.register_auth!(:custom, MyApp.Auth.CustomProvider)
 
   children = [...]
@@ -210,8 +210,8 @@ def start(_type, _args) do
 end
 ```
 
-The wire protocol name (first argument to `register_wire_protocol!/2`) must
-match what LLMDB returns in the model's `wire.protocol` metadata field.
+The protocol name (second argument to `register_protocol!/3`) must match what
+LLMDB returns in the model's `wire.protocol` metadata field (atomized).
 
 The auth provider atom (first argument to `register_auth!/2`) must match the
 provider atom from the model spec (e.g., `:custom` for `"custom:model-id"`).
@@ -220,15 +220,22 @@ provider atom from the model spec (e.g., `:custom` for `"custom:model-id"`).
 
 Sycophant registers these automatically at startup:
 
-**Wire protocols:**
+**Chat protocols:**
 
 | Name | Module |
 |------|--------|
-| `"openai_chat"` | `OpenAICompletions` |
-| `"openai_responses"` | `OpenAIResponses` |
-| `"anthropic_messages"` | `AnthropicMessages` |
-| `"google_gemini"` | `GoogleGemini` |
-| `"bedrock_converse"` | `BedrockConverse` |
+| `:openai_chat` | `OpenAICompletions` |
+| `:openai_responses` | `OpenAIResponses` |
+| `:anthropic_messages` | `AnthropicMessages` |
+| `:google_gemini` | `GoogleGemini` |
+| `:bedrock_converse` | `BedrockConverse` |
+
+**Embedding protocols:**
+
+| Name | Module |
+|------|--------|
+| `:openai_embed` | `EmbeddingWireProtocol.OpenAIEmbed` |
+| `:bedrock_embed` | `EmbeddingWireProtocol.BedrockEmbed` |
 
 **Auth strategies:**
 
@@ -247,7 +254,7 @@ To add embedding support, implement `Sycophant.EmbeddingWireProtocol` and
 register it:
 
 ```elixir
-Sycophant.Registry.register_embedding_protocol!(:custom, MyApp.EmbeddingWireProtocol.Custom)
+Sycophant.Registry.register_protocol!(:embedding, :custom_embed, MyApp.EmbeddingWireProtocol.Custom)
 ```
 
 ## Credentials Configuration
@@ -353,7 +360,7 @@ When adding a new provider:
 1. Implement `Sycophant.WireProtocol` with all callbacks
 2. Define `@param_schema` composing `ParamDefs.shared()` with extras
 3. Implement `Sycophant.Auth` for authentication
-4. Register both via `Sycophant.Registry` at startup
+4. Register via `Sycophant.Registry.register_protocol!/3` and `register_auth!/2` at startup
 5. Add model metadata to LLMDB pointing to your wire protocol name
 6. Add credentials configuration
 7. Write recording tests (see [Recording Tests](recording-tests.md))

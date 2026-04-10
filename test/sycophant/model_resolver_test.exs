@@ -142,21 +142,19 @@ defmodule Sycophant.ModelResolverTest do
                ModelResolver.resolve(model)
     end
 
-    test "returns error for unsupported wire protocol" do
+    test "raises for wire protocol string that is not an existing atom" do
       model = build_model(%{extra: %{wire: %{protocol: "totally_unknown_protocol"}}})
-      provider = build_provider()
 
-      expect(LLMDB, :provider, fn :openai -> {:ok, provider} end)
-
-      assert {:error, %Sycophant.Error.Unknown.Unknown{}} =
-               ModelResolver.resolve(model)
+      assert_raise ArgumentError, fn ->
+        ModelResolver.resolve(model)
+      end
     end
 
     test "falls back to app config when model has no wire protocol" do
       model = build_model(%{extra: %{}, provider: :openrouter})
       provider = build_provider(%{id: :openrouter, base_url: "https://openrouter.ai/api/v1"})
 
-      expect(Config, :wire_protocol_defaults, fn -> %{openrouter: "openai_responses"} end)
+      expect(Config, :wire_protocol_defaults, fn -> %{openrouter: %{chat: :openai_responses}} end)
       expect(LLMDB, :provider, fn :openrouter -> {:ok, provider} end)
 
       assert {:ok, info} = ModelResolver.resolve(model)
@@ -167,7 +165,7 @@ defmodule Sycophant.ModelResolverTest do
       model = build_model(%{extra: nil, provider: :openrouter})
       provider = build_provider(%{id: :openrouter, base_url: "https://openrouter.ai/api/v1"})
 
-      expect(Config, :wire_protocol_defaults, fn -> %{openrouter: "openai_responses"} end)
+      expect(Config, :wire_protocol_defaults, fn -> %{openrouter: %{chat: :openai_responses}} end)
       expect(LLMDB, :provider, fn :openrouter -> {:ok, provider} end)
 
       assert {:ok, info} = ModelResolver.resolve(model)
@@ -183,7 +181,7 @@ defmodule Sycophant.ModelResolverTest do
 
       provider = build_provider(%{id: :openrouter, base_url: "https://openrouter.ai/api/v1"})
 
-      stub(Config, :wire_protocol_defaults, fn -> %{openrouter: "openai_responses"} end)
+      stub(Config, :wire_protocol_defaults, fn -> %{openrouter: %{chat: :openai_responses}} end)
       expect(LLMDB, :provider, fn :openrouter -> {:ok, provider} end)
 
       assert {:ok, info} = ModelResolver.resolve(model)
@@ -204,7 +202,10 @@ defmodule Sycophant.ModelResolverTest do
       model = build_model(%{extra: %{}, provider: :badprovider})
       provider = build_provider(%{id: :badprovider})
 
-      expect(Config, :wire_protocol_defaults, fn -> %{badprovider: "unsupported_protocol"} end)
+      expect(Config, :wire_protocol_defaults, fn ->
+        %{badprovider: %{chat: :unsupported_protocol}}
+      end)
+
       expect(LLMDB, :provider, fn :badprovider -> {:ok, provider} end)
 
       assert {:error, %Sycophant.Error.Unknown.Unknown{}} =
@@ -221,6 +222,125 @@ defmodule Sycophant.ModelResolverTest do
     test "returns error for non-string, non-struct input" do
       assert {:error, %Sycophant.Error.Invalid.MissingModel{}} =
                ModelResolver.resolve(42)
+    end
+  end
+
+  describe "resolve_embedding/1" do
+    test "resolves embedding model with adapter from config defaults" do
+      model =
+        build_model(%{
+          provider: :amazon_bedrock,
+          modalities: %{input: [:text], output: [:embedding]},
+          extra: %{}
+        })
+
+      provider =
+        build_provider(%{
+          id: :amazon_bedrock,
+          base_url: "https://bedrock-runtime.us-east-1.amazonaws.com"
+        })
+
+      expect(LLMDB, :model, fn "amazon_bedrock:cohere.embed-v4" -> {:ok, model} end)
+      expect(LLMDB, :provider, fn :amazon_bedrock -> {:ok, provider} end)
+
+      expect(Config, :wire_protocol_defaults, fn ->
+        %{amazon_bedrock: %{chat: :bedrock_converse, embedding: :bedrock_embed}}
+      end)
+
+      assert {:ok, info} = ModelResolver.resolve_embedding("amazon_bedrock:cohere.embed-v4")
+      assert info.wire_adapter == Sycophant.EmbeddingWireProtocol.BedrockEmbed
+    end
+
+    test "returns error for non-embedding model" do
+      model =
+        build_model(%{
+          modalities: %{input: [:text], output: [:text]},
+          extra: %{wire: %{protocol: "openai_completion"}}
+        })
+
+      expect(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+
+      assert {:error, error} = ModelResolver.resolve_embedding("openai:gpt-4o")
+      assert Exception.message(error) =~ "embeddings"
+    end
+
+    test "returns error for nil" do
+      assert {:error, %Sycophant.Error.Invalid.MissingModel{}} =
+               ModelResolver.resolve_embedding(nil)
+    end
+
+    test "returns error for unknown model string" do
+      expect(LLMDB, :model, fn "fake:model" -> {:error, :not_found} end)
+
+      assert {:error, %Sycophant.Error.Invalid.MissingModel{}} =
+               ModelResolver.resolve_embedding("fake:model")
+    end
+
+    test "returns error for provider without embedding adapter" do
+      model =
+        build_model(%{
+          provider: :google,
+          modalities: %{input: [:text], output: [:embedding]},
+          extra: %{}
+        })
+
+      provider = build_provider(%{id: :google})
+
+      expect(LLMDB, :model, fn "google:text-embedding" -> {:ok, model} end)
+      expect(LLMDB, :provider, fn :google -> {:ok, provider} end)
+
+      assert {:error, %Sycophant.Error.Invalid.MissingModel{}} =
+               ModelResolver.resolve_embedding("google:text-embedding")
+    end
+
+    test "model-level embedding_protocol takes priority over config default" do
+      model =
+        build_model(%{
+          provider: :amazon_bedrock,
+          modalities: %{input: [:text], output: [:embedding]},
+          extra: %{wire: %{embedding_protocol: "openai_embed"}}
+        })
+
+      provider =
+        build_provider(%{
+          id: :amazon_bedrock,
+          base_url: "https://bedrock-runtime.us-east-1.amazonaws.com"
+        })
+
+      stub(Config, :wire_protocol_defaults, fn ->
+        %{amazon_bedrock: %{embedding: :bedrock_embed}}
+      end)
+
+      expect(LLMDB, :model, fn "amazon_bedrock:embed-model" -> {:ok, model} end)
+      expect(LLMDB, :provider, fn :amazon_bedrock -> {:ok, provider} end)
+
+      assert {:ok, info} = ModelResolver.resolve_embedding("amazon_bedrock:embed-model")
+      assert info.wire_adapter == Sycophant.EmbeddingWireProtocol.OpenAIEmbed
+    end
+
+    test "falls back to config default when model has no embedding_protocol" do
+      model =
+        build_model(%{
+          provider: :azure,
+          modalities: %{input: [:text], output: [:embedding]},
+          extra: %{}
+        })
+
+      provider =
+        build_provider(%{
+          id: :azure,
+          base_url: "https://my-resource.openai.azure.com"
+        })
+
+      expect(LLMDB, :model, fn "azure:text-embedding" -> {:ok, model} end)
+      expect(LLMDB, :provider, fn :azure -> {:ok, provider} end)
+
+      expect(Config, :wire_protocol_defaults, fn ->
+        %{azure: %{embedding: :openai_embed}}
+      end)
+
+      assert {:ok, info} = ModelResolver.resolve_embedding("azure:text-embedding")
+      assert info.wire_adapter == Sycophant.EmbeddingWireProtocol.OpenAIEmbed
     end
   end
 end
