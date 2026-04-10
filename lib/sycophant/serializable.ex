@@ -80,6 +80,10 @@ defmodule Sycophant.Serializable.Decoder do
   def from_map(%{"__type__" => "ToolCall"} = data, _opts), do: Sycophant.ToolCall.from_map(data)
   def from_map(%{"__type__" => "Usage"} = data, _opts), do: Sycophant.Usage.from_map(data)
   def from_map(%{"__type__" => "Reasoning"} = data, _opts), do: Sycophant.Reasoning.from_map(data)
+  def from_map(%{"__type__" => "Pricing"} = data, _opts), do: Sycophant.Pricing.from_map(data)
+
+  def from_map(%{"__type__" => "PricingComponent"} = data, _opts),
+    do: Sycophant.Pricing.Component.from_map(data)
 
   def from_map(%{"__type__" => "EmbeddingParams"} = data, _opts),
     do: Sycophant.EmbeddingParams.from_map(data)

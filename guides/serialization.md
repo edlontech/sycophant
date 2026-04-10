@@ -38,6 +38,8 @@ All core structs implement the `Sycophant.Serializable` protocol:
 - `Tool`
 - `ToolCall`
 - `Usage`
+- `Pricing`
+- `Pricing.Component`
 - `Reasoning`
 - `EmbeddingRequest`
 - `EmbeddingResponse`

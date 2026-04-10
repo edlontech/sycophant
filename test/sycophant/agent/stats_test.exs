@@ -59,4 +59,17 @@ defmodule Sycophant.Agent.StatsTest do
     [turn] = Stats.turns(stats)
     assert turn.cost == 0.0
   end
+
+  test "record_turn/3 accumulates reasoning tokens" do
+    usage = %Usage{input_tokens: 100, output_tokens: 50, reasoning_tokens: 200, total_cost: 0.001}
+    stats = Stats.record_turn(Stats.new(), usage, :stop)
+    assert stats.total_reasoning_tokens == 200
+    assert [%Stats.Turn{reasoning_tokens: 200}] = stats.turns
+  end
+
+  test "record_turn/3 defaults reasoning tokens to 0 when nil" do
+    usage = %Usage{input_tokens: 100, output_tokens: 50, total_cost: 0.001}
+    stats = Stats.record_turn(Stats.new(), usage, :stop)
+    assert stats.total_reasoning_tokens == 0
+  end
 end

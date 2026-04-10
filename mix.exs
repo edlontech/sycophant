@@ -43,6 +43,7 @@ defmodule Sycophant.MixProject do
         {"guides/tool-use.md", title: "Tool Use"},
         {"guides/error-handling.md", title: "Error Handling"},
         {"guides/telemetry.md", title: "Telemetry"},
+        {"guides/pricing.md", title: "Pricing and Cost Tracking"},
         {"guides/agent-mode.md", title: "Agent Mode"},
         {"guides/serialization.md", title: "Serialization"},
         {"guides/http-configuration.md", title: "HTTP Configuration"},
@@ -58,6 +59,7 @@ defmodule Sycophant.MixProject do
           "guides/tool-use.md",
           "guides/error-handling.md",
           "guides/telemetry.md",
+          "guides/pricing.md",
           "guides/agent-mode.md",
           "guides/serialization.md",
           "guides/http-configuration.md"

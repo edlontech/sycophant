@@ -223,7 +223,8 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
     %Usage{
       input_tokens: input,
       output_tokens: output,
-      cache_read_input_tokens: meta["cachedContentTokenCount"]
+      cache_read_input_tokens: meta["cachedContentTokenCount"],
+      reasoning_tokens: meta["thoughtsTokenCount"]
     }
   end
 

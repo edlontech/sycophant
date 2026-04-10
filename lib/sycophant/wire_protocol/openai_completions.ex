@@ -176,9 +176,21 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
   defp maybe_capture_model(state, _body), do: state
 
   defp maybe_capture_usage(state, %{
-         "usage" => %{"prompt_tokens" => input, "completion_tokens" => output}
-       }),
-       do: %{state | usage: %Usage{input_tokens: input, output_tokens: output}}
+         "usage" => %{"prompt_tokens" => input, "completion_tokens" => output} = usage
+       }) do
+    cached = get_in(usage, ["prompt_tokens_details", "cached_tokens"])
+    reasoning = get_in(usage, ["completion_tokens_details", "reasoning_tokens"])
+
+    %{
+      state
+      | usage: %Usage{
+          input_tokens: input,
+          output_tokens: output,
+          cache_read_input_tokens: cached,
+          reasoning_tokens: reasoning
+        }
+    }
+  end
 
   defp maybe_capture_usage(state, _body), do: state
 
@@ -298,11 +310,13 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
 
   defp decode_usage(%{"prompt_tokens" => input, "completion_tokens" => output} = usage) do
     cached = get_in(usage, ["prompt_tokens_details", "cached_tokens"])
+    reasoning = get_in(usage, ["completion_tokens_details", "reasoning_tokens"])
 
     %Usage{
       input_tokens: input,
       output_tokens: output,
-      cache_read_input_tokens: cached
+      cache_read_input_tokens: cached,
+      reasoning_tokens: reasoning
     }
   end
 

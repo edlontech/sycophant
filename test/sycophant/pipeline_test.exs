@@ -918,7 +918,21 @@ defmodule Sycophant.PipelineTest do
     test "populates cost fields when model has cost data" do
       model =
         build_model(%{
-          cost: %{input: 3.0, output: 15.0, cache_read: 0.3, cache_write: 3.75}
+          pricing: %{
+            currency: "USD",
+            components: [
+              %{id: "token.input", kind: "token", unit: "tokens", per: 1_000_000, rate: 3.0},
+              %{id: "token.output", kind: "token", unit: "tokens", per: 1_000_000, rate: 15.0},
+              %{id: "token.cache_read", kind: "token", unit: "tokens", per: 1_000_000, rate: 0.3},
+              %{
+                id: "token.cache_write",
+                kind: "token",
+                unit: "tokens",
+                per: 1_000_000,
+                rate: 3.75
+              }
+            ]
+          }
         })
 
       provider = build_provider()

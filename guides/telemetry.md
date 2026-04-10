@@ -69,11 +69,14 @@ The `usage` field in stop metadata contains:
 | `:total_tokens` | Sum of input and output (computed) |
 | `:cache_creation_input_tokens` | Tokens written to provider cache |
 | `:cache_read_input_tokens` | Tokens read from provider cache |
+| `:reasoning_tokens` | Internal reasoning tokens (thinking models) |
 | `:input_cost` | Cost of input tokens (from LLMDB pricing) |
 | `:output_cost` | Cost of output tokens |
 | `:cache_read_cost` | Cost of cache read tokens |
 | `:cache_write_cost` | Cost of cache creation tokens |
+| `:reasoning_cost` | Cost of reasoning tokens |
 | `:total_cost` | Sum of all cost components |
+| `:pricing` | Full pricing metadata as a plain map (see [Pricing guide](pricing.md)) |
 
 ## OpenTelemetry Integration
 

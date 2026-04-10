@@ -12,16 +12,21 @@ defmodule Sycophant.Usage do
   """
   use TypedStruct
 
+  alias Sycophant.Pricing
+
   typedstruct do
     field :input_tokens, non_neg_integer()
     field :output_tokens, non_neg_integer()
     field :cache_creation_input_tokens, non_neg_integer()
     field :cache_read_input_tokens, non_neg_integer()
+    field :reasoning_tokens, non_neg_integer()
     field :input_cost, float()
     field :output_cost, float()
     field :cache_read_cost, float()
     field :cache_write_cost, float()
+    field :reasoning_cost, float()
     field :total_cost, float()
+    field :pricing, Pricing.t()
   end
 
   @doc "Reconstructs a Usage struct from a serialized map."
@@ -32,30 +37,34 @@ defmodule Sycophant.Usage do
       output_tokens: data["output_tokens"],
       cache_creation_input_tokens: data["cache_creation_input_tokens"],
       cache_read_input_tokens: data["cache_read_input_tokens"],
+      reasoning_tokens: data["reasoning_tokens"],
       input_cost: data["input_cost"],
       output_cost: data["output_cost"],
       cache_read_cost: data["cache_read_cost"],
       cache_write_cost: data["cache_write_cost"],
-      total_cost: data["total_cost"]
+      reasoning_cost: data["reasoning_cost"],
+      total_cost: data["total_cost"],
+      pricing: if(data["pricing"], do: Pricing.from_map(data["pricing"]))
     }
   end
 
   @doc """
-  Calculates cost fields from token counts and a cost rate map.
+  Calculates cost fields from token counts and a `Pricing` struct.
 
-  The cost map uses rates per million tokens:
-  `%{input: 3.0, output: 15.0, cache_read: 0.3, cache_write: 3.75}`
+  Looks up each token component by ID (e.g. `"token.input"`, `"token.output"`)
+  and computes cost as `tokens * rate / per`. Missing components yield nil costs.
   """
-  @spec calculate_cost(t() | nil, map() | nil) :: t() | nil
-  def calculate_cost(nil, _cost_map), do: nil
+  @spec calculate_cost(t() | nil, Pricing.t() | nil) :: t() | nil
+  def calculate_cost(nil, _pricing), do: nil
   def calculate_cost(usage, nil), do: usage
 
-  def calculate_cost(usage, cost_map) do
-    input = token_cost(usage.input_tokens, cost_map[:input])
-    output = token_cost(usage.output_tokens, cost_map[:output])
-    cache_read = token_cost(usage.cache_read_input_tokens, cost_map[:cache_read])
-    cache_write = token_cost(usage.cache_creation_input_tokens, cost_map[:cache_write])
-    total = sum_costs([input, output, cache_read, cache_write])
+  def calculate_cost(usage, %Pricing{} = pricing) do
+    input = component_cost(usage.input_tokens, pricing, "token.input")
+    output = component_cost(usage.output_tokens, pricing, "token.output")
+    cache_read = component_cost(usage.cache_read_input_tokens, pricing, "token.cache_read")
+    cache_write = component_cost(usage.cache_creation_input_tokens, pricing, "token.cache_write")
+    reasoning = component_cost(usage.reasoning_tokens, pricing, "token.reasoning")
+    total = sum_costs([input, output, cache_read, cache_write, reasoning])
 
     %{
       usage
@@ -63,13 +72,20 @@ defmodule Sycophant.Usage do
         output_cost: output,
         cache_read_cost: cache_read,
         cache_write_cost: cache_write,
-        total_cost: total
+        reasoning_cost: reasoning,
+        total_cost: total,
+        pricing: pricing
     }
   end
 
-  defp token_cost(nil, _rate), do: nil
-  defp token_cost(_tokens, nil), do: nil
-  defp token_cost(tokens, rate), do: tokens * rate / 1_000_000
+  defp component_cost(nil, _pricing, _id), do: nil
+
+  defp component_cost(tokens, %Pricing{} = pricing, id) do
+    case Pricing.find_component(pricing, id) do
+      nil -> nil
+      comp -> tokens * comp.rate / comp.per
+    end
+  end
 
   defp sum_costs(costs) do
     non_nil = Enum.reject(costs, &is_nil/1)
@@ -87,11 +103,14 @@ defimpl Sycophant.Serializable, for: Sycophant.Usage do
       "output_tokens" => u.output_tokens,
       "cache_creation_input_tokens" => u.cache_creation_input_tokens,
       "cache_read_input_tokens" => u.cache_read_input_tokens,
+      "reasoning_tokens" => u.reasoning_tokens,
       "input_cost" => u.input_cost,
       "output_cost" => u.output_cost,
       "cache_read_cost" => u.cache_read_cost,
       "cache_write_cost" => u.cache_write_cost,
-      "total_cost" => u.total_cost
+      "reasoning_cost" => u.reasoning_cost,
+      "total_cost" => u.total_cost,
+      "pricing" => if(u.pricing, do: Sycophant.Serializable.to_map(u.pricing))
     })
   end
 end
@@ -102,7 +121,12 @@ defimpl Inspect, for: Sycophant.Usage do
   def inspect(usage, opts) do
     fields =
       Enum.reject(
-        [in: usage.input_tokens, out: usage.output_tokens, cost: usage.total_cost],
+        [
+          in: usage.input_tokens,
+          out: usage.output_tokens,
+          reasoning: usage.reasoning_tokens,
+          cost: usage.total_cost
+        ],
         fn {_, v} -> is_nil(v) end
       )
 

@@ -13,6 +13,7 @@ defmodule Sycophant.Agent.Stats do
     typedstruct do
       field :input_tokens, non_neg_integer(), default: 0
       field :output_tokens, non_neg_integer(), default: 0
+      field :reasoning_tokens, non_neg_integer(), default: 0
       field :cost, float()
       field :timestamp, DateTime.t()
       field :finish_reason, atom()
@@ -23,6 +24,7 @@ defmodule Sycophant.Agent.Stats do
     field :turns, [Turn.t()], default: []
     field :total_input_tokens, non_neg_integer(), default: 0
     field :total_output_tokens, non_neg_integer(), default: 0
+    field :total_reasoning_tokens, non_neg_integer(), default: 0
     field :total_cost, float(), default: 0.0
   end
 
@@ -35,11 +37,13 @@ defmodule Sycophant.Agent.Stats do
   def record_turn(stats, usage, finish_reason) do
     input = (usage && usage.input_tokens) || 0
     output = (usage && usage.output_tokens) || 0
+    reasoning = (usage && usage.reasoning_tokens) || 0
     cost = (usage && usage.total_cost) || 0.0
 
     turn = %Turn{
       input_tokens: input,
       output_tokens: output,
+      reasoning_tokens: reasoning,
       cost: cost,
       timestamp: DateTime.utc_now(),
       finish_reason: finish_reason
@@ -50,6 +54,7 @@ defmodule Sycophant.Agent.Stats do
       | turns: [turn | stats.turns],
         total_input_tokens: stats.total_input_tokens + input,
         total_output_tokens: stats.total_output_tokens + output,
+        total_reasoning_tokens: stats.total_reasoning_tokens + reasoning,
         total_cost: stats.total_cost + cost
     }
   end
@@ -72,10 +77,11 @@ defimpl Inspect, for: Sycophant.Agent.Stats.Turn do
         [
           in: turn.input_tokens,
           out: turn.output_tokens,
+          reasoning: turn.reasoning_tokens,
           cost: turn.cost,
           finish_reason: turn.finish_reason
         ],
-        fn {_, v} -> is_nil(v) end
+        fn {_, v} -> is_nil(v) or v == 0 end
       )
 
     concat(["#Sycophant.Agent.Stats.Turn<", to_doc(Map.new(fields), opts), ">"])
@@ -91,6 +97,11 @@ defimpl Inspect, for: Sycophant.Agent.Stats do
       tokens: "#{stats.total_input_tokens}+#{stats.total_output_tokens}",
       cost: stats.total_cost
     }
+
+    fields =
+      if stats.total_reasoning_tokens > 0,
+        do: Map.put(fields, :reasoning, stats.total_reasoning_tokens),
+        else: fields
 
     concat(["#Sycophant.Agent.Stats<", to_doc(fields, opts), ">"])
   end

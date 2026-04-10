@@ -24,6 +24,7 @@ defmodule Sycophant.Pipeline do
   alias Sycophant.Error
   alias Sycophant.Message
   alias Sycophant.ModelResolver
+  alias Sycophant.Pricing
   alias Sycophant.ResponseValidator
   alias Sycophant.Telemetry
   alias Sycophant.ToolExecutor
@@ -317,8 +318,9 @@ defmodule Sycophant.Pipeline do
   end
 
   defp enrich_usage_cost(response, model_info) do
-    cost_map = get_in(model_info, [:model_struct, Access.key(:cost)])
-    %{response | usage: Usage.calculate_cost(response.usage, cost_map)}
+    pricing = get_in(model_info, [:model_struct, Access.key(:pricing)])
+    pricing_struct = if pricing, do: Pricing.from_llmdb(pricing), else: nil
+    %{response | usage: Usage.calculate_cost(response.usage, pricing_struct)}
   end
 
   defp attach_context(response, messages, params, opts) do

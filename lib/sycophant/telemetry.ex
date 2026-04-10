@@ -94,6 +94,19 @@ defmodule Sycophant.Telemetry do
     usage
     |> Map.from_struct()
     |> Map.put(:total_tokens, (usage.input_tokens || 0) + (usage.output_tokens || 0))
+    |> Map.update(:pricing, nil, &format_pricing/1)
+  end
+
+  defp format_pricing(nil), do: nil
+
+  defp format_pricing(%Sycophant.Pricing{} = pricing) do
+    %{
+      currency: pricing.currency,
+      components:
+        Enum.map(pricing.components, fn comp ->
+          comp |> Map.from_struct() |> Map.reject(fn {_k, v} -> is_nil(v) end)
+        end)
+    }
   end
 
   defp error_class(%{class: class}), do: class

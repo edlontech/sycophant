@@ -72,11 +72,14 @@ defmodule Sycophant.TelemetryTest do
                total_tokens: 15,
                cache_creation_input_tokens: nil,
                cache_read_input_tokens: nil,
+               reasoning_tokens: nil,
                input_cost: nil,
                output_cost: nil,
                cache_read_cost: nil,
                cache_write_cost: nil,
-               total_cost: nil
+               reasoning_cost: nil,
+               total_cost: nil,
+               pricing: nil
              }
     end
 
