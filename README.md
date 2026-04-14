@@ -93,7 +93,7 @@ Add `sycophant` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:sycophant, github: "edlontech/sycophant", branch: "main"}
+    {:sycophant, "~> 0.2.0"} # x-release-please-version
   ]
 end
 ```
@@ -128,7 +128,7 @@ API reference.
 
 ## Acknowledgements
 
-Sycophant builds on the shoulders of great Elixir projects:
+Sycophant builds on:
 
 - [LLMDB](https://github.com/agentjido/llm_db) -- the model metadata database
   that powers model resolution, provider discovery, and pricing data.
