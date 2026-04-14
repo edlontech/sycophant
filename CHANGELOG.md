@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0](https://github.com/edlontech/sycophant/compare/v0.2.0...v0.3.0) (2026-04-14)
+
+
+### Features
+
+* add JSON Schema normalization and validation layer ([9efc226](https://github.com/edlontech/sycophant/commit/9efc226ecce26ccbbd70864414e51c0d4b61f172))
+
+
+### Bug Fixes
+
+* Fixed some tests and regenerated the fixtures ([527e9c1](https://github.com/edlontech/sycophant/commit/527e9c1f31f880995ce138f4e3ec779c74ec2677))
+
 ## [0.2.0](https://github.com/edlontech/sycophant/compare/v0.1.0...v0.2.0) (2026-04-10)
 
 
