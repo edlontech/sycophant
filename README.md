@@ -93,7 +93,7 @@ Add `sycophant` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:sycophant, "~> 0.2.0"} # x-release-please-version
+    {:sycophant, "~> 0.3.0"} # x-release-please-version
   ]
 end
 ```
