@@ -23,7 +23,6 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
   alias Sycophant.ParamDefs
   alias Sycophant.Request
   alias Sycophant.Response
-  alias Sycophant.Schema.JsonSchema
   alias Sycophant.StreamChunk
   alias Sycophant.Tool
   alias Sycophant.ToolCall
@@ -94,31 +93,24 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
 
   @impl true
   def encode_tools(tools) when is_list(tools) do
-    Enum.reduce_while(tools, {:ok, []}, fn tool, {:ok, acc} ->
-      case encode_tool(tool) do
-        {:ok, encoded} -> {:cont, {:ok, [encoded | acc]}}
-        {:error, _} = err -> {:halt, err}
-      end
-    end)
-    |> then(fn
-      {:ok, list} -> {:ok, Enum.reverse(list)}
-      error -> error
-    end)
+    {:ok,
+     Enum.map(tools, fn tool ->
+       {:ok, encoded} = encode_tool(tool)
+       encoded
+     end)}
   end
 
   @impl true
   def encode_response_schema(schema) do
-    with {:ok, json_schema} <- JsonSchema.to_json_schema(schema) do
-      {:ok,
-       %{
-         "type" => "json_schema",
-         "json_schema" => %{
-           "name" => "response",
-           "strict" => true,
-           "schema" => set_strict_additional_properties(json_schema)
-         }
-       }}
-    end
+    {:ok,
+     %{
+       "type" => "json_schema",
+       "json_schema" => %{
+         "name" => "response",
+         "strict" => true,
+         "schema" => set_strict_additional_properties(schema)
+       }
+     }}
   end
 
   @impl true
@@ -380,18 +372,16 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
   # --- Tool Encoding ---
 
   defp encode_tool(%Tool{name: name, description: description, parameters: parameters}) do
-    with {:ok, json_schema} <- JsonSchema.to_json_schema(parameters) do
-      {:ok,
-       %{
-         "type" => "function",
-         "function" => %{
-           "name" => name,
-           "description" => description,
-           "parameters" => set_strict_additional_properties(json_schema),
-           "strict" => true
-         }
-       }}
-    end
+    {:ok,
+     %{
+       "type" => "function",
+       "function" => %{
+         "name" => name,
+         "description" => description,
+         "parameters" => set_strict_additional_properties(parameters),
+         "strict" => true
+       }
+     }}
   end
 
   # --- Param Translation ---
@@ -449,10 +439,8 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
   defp maybe_put_tools(payload, []), do: {:ok, payload}
 
   defp maybe_put_tools(payload, tools) do
-    case encode_tools(tools) do
-      {:ok, encoded} -> {:ok, Map.put(payload, "tools", encoded)}
-      {:error, _} = err -> err
-    end
+    {:ok, encoded} = encode_tools(tools)
+    {:ok, Map.put(payload, "tools", encoded)}
   end
 
   defp maybe_put_tool_choice(payload, %{tool_choice: :auto}),
@@ -473,10 +461,8 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
   defp maybe_put_response_format(payload, nil), do: {:ok, payload}
 
   defp maybe_put_response_format(payload, schema) do
-    case encode_response_schema(schema) do
-      {:ok, format} -> {:ok, Map.put(payload, "response_format", format)}
-      {:error, _} = err -> err
-    end
+    {:ok, format} = encode_response_schema(schema)
+    {:ok, Map.put(payload, "response_format", format)}
   end
 
   defp set_strict_additional_properties(%{"type" => "object", "properties" => props} = schema) do

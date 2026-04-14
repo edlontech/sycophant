@@ -16,7 +16,6 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
   alias Sycophant.ParamDefs
   alias Sycophant.Request
   alias Sycophant.Response
-  alias Sycophant.Schema.JsonSchema
   alias Sycophant.StreamChunk
   alias Sycophant.Tool
   alias Sycophant.ToolCall
@@ -84,21 +83,16 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
 
   @impl true
   def encode_tools(tools) when is_list(tools) do
-    Enum.reduce_while(tools, {:ok, []}, fn tool, {:ok, acc} ->
-      case encode_tool(tool) do
-        {:ok, encoded} -> {:cont, {:ok, [encoded | acc]}}
-        {:error, _} = err -> {:halt, err}
-      end
-    end)
-    |> then(fn
-      {:ok, list} -> {:ok, Enum.reverse(list)}
-      error -> error
-    end)
+    {:ok,
+     Enum.map(tools, fn tool ->
+       {:ok, encoded} = encode_tool(tool)
+       encoded
+     end)}
   end
 
   @impl true
   def encode_response_schema(schema) do
-    JsonSchema.to_json_schema(schema)
+    {:ok, schema}
   end
 
   @impl true
@@ -345,16 +339,14 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
   # --- Private: Tool Encoding ---
 
   defp encode_tool(%Tool{name: name, description: description, parameters: parameters}) do
-    with {:ok, json_schema} <- JsonSchema.to_json_schema(parameters) do
-      {:ok,
-       %{
-         "toolSpec" => %{
-           "name" => name,
-           "description" => description,
-           "inputSchema" => %{"json" => json_schema}
-         }
-       }}
-    end
+    {:ok,
+     %{
+       "toolSpec" => %{
+         "name" => name,
+         "description" => description,
+         "inputSchema" => %{"json" => parameters}
+       }
+     }}
   end
 
   # --- Private: Param Translation ---
@@ -408,27 +400,22 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
   defp maybe_put_response_format(payload, nil), do: {:ok, payload}
 
   defp maybe_put_response_format(payload, schema) do
-    case encode_response_schema(schema) do
-      {:ok, json_schema} ->
-        strict_schema = set_strict_additional_properties(json_schema)
+    {:ok, json_schema} = encode_response_schema(schema)
+    strict_schema = set_strict_additional_properties(json_schema)
 
-        output_config = %{
-          "textFormat" => %{
-            "type" => "json_schema",
-            "structure" => %{
-              "jsonSchema" => %{
-                "schema" => JSON.encode!(strict_schema),
-                "name" => "response_schema"
-              }
-            }
+    output_config = %{
+      "textFormat" => %{
+        "type" => "json_schema",
+        "structure" => %{
+          "jsonSchema" => %{
+            "schema" => JSON.encode!(strict_schema),
+            "name" => "response_schema"
           }
         }
+      }
+    }
 
-        {:ok, Map.put(payload, "outputConfig", output_config)}
-
-      {:error, _} = err ->
-        err
-    end
+    {:ok, Map.put(payload, "outputConfig", output_config)}
   end
 
   defp set_strict_additional_properties(%{"type" => "object", "properties" => props} = schema) do
@@ -448,15 +435,10 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
   defp maybe_put_tools(payload, [], _params), do: {:ok, payload}
 
   defp maybe_put_tools(payload, tools, params) do
-    case encode_tools(tools) do
-      {:ok, encoded} ->
-        tool_config = %{"tools" => encoded}
-        tool_config = maybe_put_tool_choice(tool_config, params)
-        {:ok, Map.put(payload, "toolConfig", tool_config)}
-
-      {:error, _} = err ->
-        err
-    end
+    {:ok, encoded} = encode_tools(tools)
+    tool_config = %{"tools" => encoded}
+    tool_config = maybe_put_tool_choice(tool_config, params)
+    {:ok, Map.put(payload, "toolConfig", tool_config)}
   end
 
   # --- Finish Reason Mapping ---

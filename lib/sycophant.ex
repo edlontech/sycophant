@@ -26,14 +26,20 @@ defmodule Sycophant do
 
   ## Structured Output
 
-  Use `generate_object/4` with a Zoi schema to get validated structured data:
+  Use `generate_object/4` with a Zoi schema or a JSON Schema map to get
+  validated structured data:
 
+      # With Zoi (returns atom keys)
       schema = Zoi.object(%{name: Zoi.string(), age: Zoi.integer()})
-      messages = [Message.user("Extract: John is 30 years old")]
-
       {:ok, response} = Sycophant.generate_object("openai:gpt-4o-mini", messages, schema)
       response.object
       #=> %{name: "John", age: 30}
+
+      # With JSON Schema (returns string keys)
+      schema = %{"type" => "object", "properties" => %{"name" => %{"type" => "string"}}, "required" => ["name"]}
+      {:ok, response} = Sycophant.generate_object("openai:gpt-4o-mini", messages, schema)
+      response.object
+      #=> %{"name" => "John"}
 
   ## Parameters
 
@@ -78,12 +84,22 @@ defmodule Sycophant do
 
   ## Tool Use
 
-  Define tools with auto-execution functions or handle tool calls manually:
+  Define tools with Zoi schemas or JSON Schema maps. When using Zoi, tool
+  functions receive atom keys. When using JSON Schema, functions receive string keys:
 
+      # Zoi-defined tool (atom keys in function args)
       weather_tool = %Sycophant.Tool{
         name: "get_weather",
         description: "Gets current weather for a city",
         parameters: Zoi.object(%{city: Zoi.string()}),
+        function: fn %{city: city} -> "72F sunny in \#{city}" end
+      }
+
+      # JSON Schema-defined tool (string keys in function args)
+      weather_tool = %Sycophant.Tool{
+        name: "get_weather",
+        description: "Gets current weather for a city",
+        parameters: %{"type" => "object", "properties" => %{"city" => %{"type" => "string"}}, "required" => ["city"]},
         function: fn %{"city" => city} -> "72F sunny in \#{city}" end
       }
 
@@ -157,28 +173,38 @@ defmodule Sycophant do
   end
 
   @doc """
-  Generates a structured object validated against a Zoi schema.
+  Generates a structured object validated against a schema.
 
-  Works like `generate_text/3` but instructs the provider to return output
-  conforming to `schema`. The parsed and validated result is placed in
-  `response.object`.
+  Accepts either a Zoi schema or a JSON Schema map. The schema is sent to
+  the provider to constrain output format, and the response is validated
+  against it.
+
+  When using a Zoi schema, `response.object` has atom keys. When using a
+  JSON Schema map, `response.object` has string keys.
 
   ## Options
 
   Accepts the same options as `generate_text/3`, plus:
 
-    * `:validate` - Whether to validate the output against the schema (default: `true`)
+    * `:validate` - Whether to validate the output against the schema (default: `true`).
+      When `false`, the response is parsed as JSON but not validated, and string keys
+      are always returned regardless of schema type.
 
   ## Examples
 
+      # Zoi schema (atom keys)
       schema = Zoi.object(%{name: Zoi.string(), age: Zoi.integer()})
-      messages = [Sycophant.Message.user("Extract: Alice is 25")]
-
       {:ok, response} = Sycophant.generate_object("openai:gpt-4o-mini", messages, schema)
       response.object
       #=> %{name: "Alice", age: 25}
+
+      # JSON Schema (string keys)
+      schema = %{"type" => "object", "properties" => %{"name" => %{"type" => "string"}}, "required" => ["name"]}
+      {:ok, response} = Sycophant.generate_object("openai:gpt-4o-mini", messages, schema)
+      response.object
+      #=> %{"name" => "Alice"}
   """
-  @spec generate_object(model_ref(), [Message.t()] | Context.t(), Zoi.schema(), keyword()) ::
+  @spec generate_object(model_ref(), [Message.t()] | Context.t(), Zoi.schema() | map(), keyword()) ::
           {:ok, Response.t()} | {:error, Splode.Error.t()}
   def generate_object(model, messages_or_context, schema, opts \\ [])
 

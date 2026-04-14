@@ -290,7 +290,12 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
 
   describe "encode_request/1 - response schema" do
     test "encodes response schema as output_config" do
-      schema = Zoi.map(%{answer: Zoi.string()})
+      schema = %{
+        "type" => "object",
+        "properties" => %{"answer" => %{"type" => "string"}},
+        "required" => ["answer"]
+      }
+
       request = build_request([Message.user("hi")], response_schema: schema)
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
 
@@ -311,7 +316,11 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
         %Tool{
           name: "get_weather",
           description: "Get current weather",
-          parameters: Zoi.map(%{city: Zoi.string()})
+          parameters: %{
+            "type" => "object",
+            "properties" => %{"city" => %{"type" => "string"}},
+            "required" => ["city"]
+          }
         }
       ]
 
@@ -329,7 +338,11 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
         %Tool{
           name: "search",
           description: "Search the web",
-          parameters: Zoi.map(%{query: Zoi.string()})
+          parameters: %{
+            "type" => "object",
+            "properties" => %{"query" => %{"type" => "string"}},
+            "required" => ["query"]
+          }
         }
       ]
 
@@ -348,7 +361,15 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
 
   describe "encode_response_schema/1" do
     test "converts to JSON schema without wrapper" do
-      schema = Zoi.map(%{name: Zoi.string(), score: Zoi.float()})
+      schema = %{
+        "type" => "object",
+        "properties" => %{
+          "name" => %{"type" => "string"},
+          "score" => %{"type" => "number"}
+        },
+        "required" => ["name", "score"]
+      }
+
       assert {:ok, json_schema} = AnthropicMessages.encode_response_schema(schema)
 
       assert json_schema["type"] == "object"

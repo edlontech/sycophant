@@ -26,12 +26,24 @@ defmodule Sycophant.Pipeline do
   alias Sycophant.ModelResolver
   alias Sycophant.Pricing
   alias Sycophant.ResponseValidator
+  alias Sycophant.Schema.NormalizedSchema
+  alias Sycophant.Schema.Normalizer
   alias Sycophant.Telemetry
+  alias Sycophant.Tool
   alias Sycophant.ToolExecutor
   alias Sycophant.Transport
   alias Sycophant.Usage
 
-  @meta_keys [:model, :tools, :stream, :credentials, :response_schema, :validate, :max_steps]
+  @meta_keys [
+    :model,
+    :tools,
+    :stream,
+    :credentials,
+    :response_schema,
+    :normalized_response_schema,
+    :validate,
+    :max_steps
+  ]
 
   @doc "Executes a full LLM request pipeline: resolves model, validates params, encodes, transports, and decodes."
   @spec call([Sycophant.Message.t()], keyword()) ::
@@ -45,7 +57,8 @@ defmodule Sycophant.Pipeline do
   defp execute(messages, opts, model_info) do
     adapter = model_info.wire_adapter
 
-    with {:ok, params} <- validate_params(opts, adapter, model_info),
+    with {:ok, opts} <- normalize_schemas(opts),
+         {:ok, params} <- validate_params(opts, adapter, model_info),
          {:ok, credentials} <- Credentials.resolve(model_info.provider, opts[:credentials]) do
       telemetry_metadata = build_telemetry_metadata(model_info, opts, params)
 
@@ -307,13 +320,88 @@ defmodule Sycophant.Pipeline do
   end
 
   defp maybe_validate_response(response, opts) do
-    case opts[:response_schema] do
+    case opts[:normalized_response_schema] do
       nil ->
         {:ok, response}
 
-      schema ->
+      %NormalizedSchema{} = schema ->
         validate? = Keyword.get(opts, :validate, true)
         ResponseValidator.validate(response, schema, validate?)
+    end
+  end
+
+  defp normalize_schemas(opts) do
+    with {:ok, opts} <- normalize_response_schema(opts) do
+      normalize_tool_schemas(opts)
+    end
+  end
+
+  defp normalize_response_schema(opts) do
+    case opts[:response_schema] do
+      nil ->
+        {:ok, opts}
+
+      %NormalizedSchema{} = normalized ->
+        opts =
+          opts
+          |> Keyword.put(:response_schema, normalized.json_schema)
+          |> Keyword.put(:normalized_response_schema, normalized)
+
+        {:ok, opts}
+
+      schema ->
+        case Normalizer.normalize(schema) do
+          {:ok, normalized} ->
+            opts =
+              opts
+              |> Keyword.put(:response_schema, normalized.json_schema)
+              |> Keyword.put(:normalized_response_schema, normalized)
+
+            {:ok, opts}
+
+          {:error, _} = error ->
+            error
+        end
+    end
+  end
+
+  defp normalize_tool_schemas(opts) do
+    tools = opts[:tools] || []
+
+    case normalize_all_tools(tools) do
+      {:ok, normalized} -> {:ok, Keyword.put(opts, :tools, normalized)}
+      {:error, _} = error -> error
+    end
+  end
+
+  defp normalize_all_tools(tools) do
+    Enum.reduce_while(tools, {:ok, []}, fn tool, {:ok, acc} ->
+      case normalize_tool(tool) do
+        {:ok, updated_tool} -> {:cont, {:ok, [updated_tool | acc]}}
+        {:error, _} = error -> {:halt, error}
+      end
+    end)
+    |> case do
+      {:ok, tools} -> {:ok, Enum.reverse(tools)}
+      {:error, _} = error -> error
+    end
+  end
+
+  defp normalize_tool(%Tool{resolved_schema: %NormalizedSchema{}} = tool), do: {:ok, tool}
+
+  defp normalize_tool(tool) do
+    case Normalizer.normalize(tool.parameters) do
+      {:ok, normalized} ->
+        {:ok,
+         %{
+           tool
+           | parameters: normalized.json_schema,
+             schema_source: normalized.source,
+             resolved_schema: normalized
+         }}
+
+      {:error, _} = error ->
+        error
     end
   end
 

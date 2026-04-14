@@ -18,7 +18,6 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
   alias Sycophant.Reasoning
   alias Sycophant.Request
   alias Sycophant.Response
-  alias Sycophant.Schema.JsonSchema
   alias Sycophant.StreamChunk
   alias Sycophant.Tool
   alias Sycophant.ToolCall
@@ -101,23 +100,16 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
 
   @impl true
   def encode_tools(tools) when is_list(tools) do
-    Enum.reduce_while(tools, {:ok, []}, fn tool, {:ok, acc} ->
-      case encode_tool(tool) do
-        {:ok, encoded} -> {:cont, {:ok, [encoded | acc]}}
-        {:error, _} = err -> {:halt, err}
-      end
-    end)
-    |> then(fn
-      {:ok, list} -> {:ok, Enum.reverse(list)}
-      error -> error
-    end)
+    {:ok,
+     Enum.map(tools, fn tool ->
+       {:ok, encoded} = encode_tool(tool)
+       encoded
+     end)}
   end
 
   @impl true
   def encode_response_schema(schema) do
-    with {:ok, json_schema} <- JsonSchema.to_json_schema(schema) do
-      {:ok, strip_additional_properties(json_schema)}
-    end
+    {:ok, strip_additional_properties(schema)}
   end
 
   @impl true
@@ -387,14 +379,12 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
   # --- Private: Tool Encoding ---
 
   defp encode_tool(%Tool{name: name, description: description, parameters: parameters}) do
-    with {:ok, json_schema} <- JsonSchema.to_json_schema(parameters) do
-      {:ok,
-       %{
-         "name" => name,
-         "description" => description,
-         "parameters" => strip_additional_properties(json_schema)
-       }}
-    end
+    {:ok,
+     %{
+       "name" => name,
+       "description" => description,
+       "parameters" => strip_additional_properties(parameters)
+     }}
   end
 
   # --- Private: Tool Result Helper ---
@@ -427,13 +417,8 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
   defp maybe_put_tools(payload, []), do: {:ok, payload}
 
   defp maybe_put_tools(payload, tools) do
-    case encode_tools(tools) do
-      {:ok, encoded} ->
-        {:ok, Map.put(payload, "tools", [%{"functionDeclarations" => encoded}])}
-
-      {:error, _} = err ->
-        err
-    end
+    {:ok, encoded} = encode_tools(tools)
+    {:ok, Map.put(payload, "tools", [%{"functionDeclarations" => encoded}])}
   end
 
   defp maybe_put_tool_choice(payload, %{tool_choice: :auto}),
@@ -468,11 +453,7 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
   defp build_generation_config(params, response_schema) do
     config = translate_params(params)
     config = maybe_put_thinking_config(config, params)
-
-    case maybe_put_response_schema_config(config, response_schema) do
-      {:ok, config} -> {:ok, config}
-      {:error, _} = err -> err
-    end
+    maybe_put_response_schema_config(config, response_schema)
   end
 
   @gemini_param_map %{
@@ -535,16 +516,12 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
   defp maybe_put_response_schema_config(config, nil), do: {:ok, config}
 
   defp maybe_put_response_schema_config(config, schema) do
-    case encode_response_schema(schema) do
-      {:ok, json_schema} ->
-        {:ok,
-         config
-         |> Map.put("responseMimeType", "application/json")
-         |> Map.put("responseSchema", json_schema)}
+    {:ok, json_schema} = encode_response_schema(schema)
 
-      {:error, _} = err ->
-        err
-    end
+    {:ok,
+     config
+     |> Map.put("responseMimeType", "application/json")
+     |> Map.put("responseSchema", json_schema)}
   end
 
   defp strip_additional_properties(map) when is_map(map) do

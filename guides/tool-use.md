@@ -5,9 +5,11 @@ execution and manual handling.
 
 ## Defining Tools
 
-Tools are defined with a name, description, and Zoi parameter schema:
+Tools are defined with a name, description, and a parameter schema. The
+schema can be a Zoi schema or a JSON Schema map:
 
 ```elixir
+# With Zoi schema
 weather_tool = %Sycophant.Tool{
   name: "get_weather",
   description: "Get current weather for a city",
@@ -15,6 +17,20 @@ weather_tool = %Sycophant.Tool{
     city: Zoi.string(),
     unit: Zoi.enum(["celsius", "fahrenheit"])
   })
+}
+
+# With JSON Schema
+weather_tool = %Sycophant.Tool{
+  name: "get_weather",
+  description: "Get current weather for a city",
+  parameters: %{
+    "type" => "object",
+    "properties" => %{
+      "city" => %{"type" => "string"},
+      "unit" => %{"type" => "string", "enum" => ["celsius", "fahrenheit"]}
+    },
+    "required" => ["city", "unit"]
+  }
 }
 ```
 
@@ -25,12 +41,22 @@ the LLM returns a tool call. The result is fed back to the LLM, which
 continues generating. This loops up to `:max_steps` iterations (default 10):
 
 ```elixir
+# Zoi-defined tools receive atom keys in function arguments
 weather_tool = %Sycophant.Tool{
   name: "get_weather",
   description: "Get current weather for a city",
   parameters: Zoi.object(%{city: Zoi.string()}),
+  function: fn %{city: city} ->
+    "72F and sunny in #{city}"
+  end
+}
+
+# JSON Schema-defined tools receive string keys
+weather_tool = %Sycophant.Tool{
+  name: "get_weather",
+  description: "Get current weather for a city",
+  parameters: %{"type" => "object", "properties" => %{"city" => %{"type" => "string"}}, "required" => ["city"]},
   function: fn %{"city" => city} ->
-    # Your implementation here
     "72F and sunny in #{city}"
   end
 }
@@ -41,7 +67,6 @@ messages = [Sycophant.Message.user("What's the weather in Paris?")]
   tools: [weather_tool]
 )
 
-# The response contains the LLM's final answer incorporating the tool result
 response.text
 #=> "The current weather in Paris is 72F and sunny."
 ```
@@ -50,9 +75,11 @@ The execution flow:
 
 1. LLM receives the prompt and tool definitions
 2. LLM decides to call `get_weather` with `%{"city" => "Paris"}`
-3. Sycophant executes the function and gets `"72F and sunny in Paris"`
-4. Sycophant sends the result back to the LLM
-5. LLM generates a final response incorporating the tool result
+3. Sycophant validates the arguments against the tool's schema
+4. If using Zoi, keys are coerced to atoms; if JSON Schema, keys stay as strings
+5. Sycophant executes the function and gets `"72F and sunny in Paris"`
+6. Sycophant sends the result back to the LLM
+7. LLM generates a final response incorporating the tool result
 
 ## Manual Handling
 
@@ -106,10 +133,12 @@ Sycophant.generate_text("openai:gpt-4o-mini", messages,
 
 ## Tool Parameters
 
-Tool parameters are defined using Zoi schemas, which are automatically
-converted to provider-specific JSON Schema format by each wire protocol:
+Tool parameters can be defined using Zoi schemas or JSON Schema maps. Both
+are converted to provider-specific JSON Schema format before being sent to
+the LLM:
 
 ```elixir
+# Zoi schema (recommended for Elixir-native development)
 params = Zoi.object(%{
   query: Zoi.string(),
   limit: Zoi.integer() |> Zoi.default(10),
@@ -118,7 +147,29 @@ params = Zoi.object(%{
     active: Zoi.boolean()
   })
 })
+
+# Equivalent JSON Schema
+params = %{
+  "type" => "object",
+  "properties" => %{
+    "query" => %{"type" => "string"},
+    "limit" => %{"type" => "integer", "default" => 10},
+    "filters" => %{
+      "type" => "object",
+      "properties" => %{
+        "category" => %{"type" => "string", "enum" => ["A", "B", "C"]},
+        "active" => %{"type" => "boolean"}
+      },
+      "required" => ["category", "active"]
+    }
+  },
+  "required" => ["query", "filters"]
+}
 ```
+
+Tool arguments are validated against the schema before your function is
+called. If validation fails, the LLM receives an error message and can
+self-correct.
 
 ## Max Steps
 

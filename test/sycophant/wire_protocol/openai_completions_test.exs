@@ -191,7 +191,11 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
         %Tool{
           name: "get_weather",
           description: "Get current weather",
-          parameters: Zoi.map(%{city: Zoi.string()})
+          parameters: %{
+            "type" => "object",
+            "properties" => %{"city" => %{"type" => "string"}},
+            "required" => ["city"]
+          }
         }
       ]
 
@@ -210,7 +214,11 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
         %Tool{
           name: "search",
           description: "Search the web",
-          parameters: Zoi.map(%{query: Zoi.string()})
+          parameters: %{
+            "type" => "object",
+            "properties" => %{"query" => %{"type" => "string"}},
+            "required" => ["query"]
+          }
         }
       ]
 
@@ -225,31 +233,19 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
       assert {:ok, payload} = OpenAICompletions.encode_request(request)
       refute Map.has_key?(payload, "tools")
     end
-
-    test "returns error for invalid tool schema" do
-      tools = [
-        %Tool{name: "bad", description: "bad tool", parameters: Zoi.function()}
-      ]
-
-      assert {:error, %Sycophant.Error.Invalid.InvalidSchema{}} =
-               OpenAICompletions.encode_tools(tools)
-    end
-
-    test "encode_request/1 propagates tool encoding error" do
-      tools = [
-        %Tool{name: "bad", description: "bad tool", parameters: Zoi.function()}
-      ]
-
-      request = build_request([Message.user("hi")], tools: tools)
-
-      assert {:error, %Sycophant.Error.Invalid.InvalidSchema{}} =
-               OpenAICompletions.encode_request(request)
-    end
   end
 
   describe "encode_response_schema/1" do
-    test "encodes Zoi schema to OpenAI response_format" do
-      schema = Zoi.map(%{name: Zoi.string(), score: Zoi.float()})
+    test "encodes JSON Schema to OpenAI response_format" do
+      schema = %{
+        "type" => "object",
+        "properties" => %{
+          "name" => %{"type" => "string"},
+          "score" => %{"type" => "number"}
+        },
+        "required" => ["name", "score"]
+      }
+
       assert {:ok, format} = OpenAICompletions.encode_response_schema(schema)
 
       assert format["type"] == "json_schema"
@@ -260,7 +256,12 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
     end
 
     test "includes response_format in request payload" do
-      schema = Zoi.map(%{answer: Zoi.string()})
+      schema = %{
+        "type" => "object",
+        "properties" => %{"answer" => %{"type" => "string"}},
+        "required" => ["answer"]
+      }
+
       request = build_request([Message.user("hi")], response_schema: schema)
       assert {:ok, payload} = OpenAICompletions.encode_request(request)
       assert payload["response_format"]["type"] == "json_schema"
@@ -270,13 +271,6 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
       request = build_request([Message.user("hi")])
       assert {:ok, payload} = OpenAICompletions.encode_request(request)
       refute Map.has_key?(payload, "response_format")
-    end
-
-    test "encode_request/1 propagates response schema encoding error" do
-      request = build_request([Message.user("hi")], response_schema: Zoi.function())
-
-      assert {:error, %Sycophant.Error.Invalid.InvalidSchema{}} =
-               OpenAICompletions.encode_request(request)
     end
   end
 

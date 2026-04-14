@@ -186,6 +186,7 @@ defmodule Sycophant.MixProject do
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:doctor, "~> 0.22", only: :dev},
       {:ex_check, "~> 0.16", only: [:dev, :test], runtime: false},
+      {:ex_json_schema, "~> 0.11"},
       {:excoveralls, "~> 0.18", only: [:dev, :test]},
       {:ex_doc, "~> 0.34", only: :dev, runtime: false},
       {:gen_state_machine, "~> 3.0"},

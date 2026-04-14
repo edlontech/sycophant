@@ -433,7 +433,7 @@ defmodule Sycophant.Agent do
   defp build_tool_map(tools) do
     tools
     |> Enum.filter(& &1.function)
-    |> Map.new(&{&1.name, &1.function})
+    |> Map.new(&{&1.name, &1})
   end
 
   defp apply_tool_call_callback(nil, tc), do: {:execute, tc}
@@ -453,8 +453,14 @@ defmodule Sycophant.Agent do
     result =
       try do
         case Map.get(tool_map, tc.name) do
-          nil -> "Error: unknown tool #{tc.name}"
-          func -> func.(tc.arguments) |> to_string()
+          nil ->
+            "Error: unknown tool #{tc.name}"
+
+          tool ->
+            case validate_tool_args(tool.resolved_schema, tc.arguments) do
+              {:ok, args} -> tool.function.(args) |> to_string()
+              {:error, msg} -> "Validation error: #{msg}"
+            end
         end
       rescue
         e -> "Error: #{Exception.message(e)}"
@@ -463,6 +469,15 @@ defmodule Sycophant.Agent do
     duration = System.monotonic_time() - start_time
     Telemetry.tool_stop(%{duration: duration}, %{tool_name: tc.name})
     result
+  end
+
+  defp validate_tool_args(nil, arguments), do: {:ok, arguments}
+
+  defp validate_tool_args(schema, arguments) do
+    case Sycophant.Schema.Validator.validate(schema, arguments) do
+      {:ok, coerced} -> {:ok, coerced}
+      {:error, error} -> {:error, Exception.message(error)}
+    end
   end
 
   defp handle_max_steps(response, data) do

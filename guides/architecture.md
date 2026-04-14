@@ -15,6 +15,9 @@ Messages + Options
   Model Resolution (LLMDB)
        |
        v
+  Schema Normalization (Zoi/JSON Schema -> NormalizedSchema)
+       |
+       v
   Parameter Validation (Zoi schema per wire protocol)
        |
        v
@@ -42,7 +45,7 @@ Messages + Options
   Cost Enrichment (LLMDB pricing data)
        |
        v
-  Response Validation (schema check if generate_object)
+  Response Validation (JSON Schema check if generate_object)
        |
        v
   Context Attachment (conversation state for continuation)

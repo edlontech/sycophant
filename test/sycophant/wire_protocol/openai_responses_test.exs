@@ -312,7 +312,11 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
     end
 
     test "includes verbosity alongside format in text object" do
-      schema = Zoi.map(%{answer: Zoi.string()})
+      schema = %{
+        "type" => "object",
+        "properties" => %{"answer" => %{"type" => "string"}},
+        "required" => ["answer"]
+      }
 
       request =
         build_request([Message.user("hi")],
@@ -382,7 +386,11 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
         %Tool{
           name: "get_weather",
           description: "Get current weather",
-          parameters: Zoi.map(%{city: Zoi.string()})
+          parameters: %{
+            "type" => "object",
+            "properties" => %{"city" => %{"type" => "string"}},
+            "required" => ["city"]
+          }
         }
       ]
 
@@ -401,7 +409,11 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
         %Tool{
           name: "search",
           description: "Search",
-          parameters: Zoi.map(%{q: Zoi.string()})
+          parameters: %{
+            "type" => "object",
+            "properties" => %{"q" => %{"type" => "string"}},
+            "required" => ["q"]
+          }
         }
       ]
 
@@ -414,7 +426,11 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
         %Tool{
           name: "search",
           description: "Search the web",
-          parameters: Zoi.map(%{query: Zoi.string()})
+          parameters: %{
+            "type" => "object",
+            "properties" => %{"query" => %{"type" => "string"}},
+            "required" => ["query"]
+          }
         }
       ]
 
@@ -429,31 +445,19 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
       refute Map.has_key?(payload, "tools")
     end
-
-    test "returns error for invalid tool schema" do
-      tools = [
-        %Tool{name: "bad", description: "bad tool", parameters: Zoi.function()}
-      ]
-
-      assert {:error, %Sycophant.Error.Invalid.InvalidSchema{}} =
-               OpenAIResponses.encode_tools(tools)
-    end
-
-    test "encode_request/1 propagates tool encoding error" do
-      tools = [
-        %Tool{name: "bad", description: "bad tool", parameters: Zoi.function()}
-      ]
-
-      request = build_request([Message.user("hi")], tools: tools)
-
-      assert {:error, %Sycophant.Error.Invalid.InvalidSchema{}} =
-               OpenAIResponses.encode_request(request)
-    end
   end
 
   describe "encode_response_schema/1" do
-    test "encodes Zoi schema to Responses API text.format" do
-      schema = Zoi.map(%{name: Zoi.string(), score: Zoi.float()})
+    test "encodes JSON Schema to Responses API text.format" do
+      schema = %{
+        "type" => "object",
+        "properties" => %{
+          "name" => %{"type" => "string"},
+          "score" => %{"type" => "number"}
+        },
+        "required" => ["name", "score"]
+      }
+
       assert {:ok, format} = OpenAIResponses.encode_response_schema(schema)
 
       assert format["type"] == "json_schema"
@@ -464,7 +468,12 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
     end
 
     test "includes text.format in request payload" do
-      schema = Zoi.map(%{answer: Zoi.string()})
+      schema = %{
+        "type" => "object",
+        "properties" => %{"answer" => %{"type" => "string"}},
+        "required" => ["answer"]
+      }
+
       request = build_request([Message.user("hi")], response_schema: schema)
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
 
@@ -475,13 +484,6 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
       request = build_request([Message.user("hi")])
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
       refute Map.has_key?(payload, "text")
-    end
-
-    test "propagates response schema encoding error" do
-      request = build_request([Message.user("hi")], response_schema: Zoi.function())
-
-      assert {:error, %Sycophant.Error.Invalid.InvalidSchema{}} =
-               OpenAIResponses.encode_request(request)
     end
   end
 

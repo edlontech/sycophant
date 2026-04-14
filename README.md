@@ -18,7 +18,7 @@ handled automatically based on the model identifier.
 
 - **Multi-provider** -- OpenAI, Anthropic, Google Gemini, AWS Bedrock, Azure, OpenRouter
 - **Text generation** -- synchronous and streaming responses
-- **Structured output** -- validated against Zoi schemas
+- **Structured output** -- validated against Zoi or JSON Schema
 - **Tool use** -- auto-execution loop or manual handling
 - **Embeddings** -- unified embedding API across providers
 - **Multi-turn conversations** -- extract context from a response to continue
@@ -64,12 +64,12 @@ Sycophant.generate_text("openai:gpt-4o-mini", messages,
 ```
 
 ```elixir
-# Tool use with auto-execution
+# Tool use with auto-execution (Zoi schema -- atom keys in function)
 weather_tool = %Sycophant.Tool{
   name: "get_weather",
   description: "Gets current weather for a city",
   parameters: Zoi.object(%{city: Zoi.string()}),
-  function: fn %{"city" => city} -> "72F sunny in #{city}" end
+  function: fn %{city: city} -> "72F sunny in #{city}" end
 }
 
 Sycophant.generate_text("openai:gpt-4o-mini", messages,

@@ -15,8 +15,8 @@ Errors you can fix before sending the request:
 | `MissingModel` | No model argument provided |
 | `MissingCredentials` | No credentials found for the provider |
 | `InvalidParams` | Parameters fail Zoi schema validation |
-| `InvalidSchema` | Response schema is malformed |
-| `InvalidResponse` | Response fails schema validation |
+| `InvalidSchema` | Response schema is malformed (Zoi or JSON Schema) |
+| `InvalidResponse` | Response fails JSON Schema validation |
 | `InvalidSerialization` | Deserialization encounters unknown type |
 | `InvalidEmbeddingInput` | Embedding input is malformed |
 | `InvalidRegistration` | Module registration error |

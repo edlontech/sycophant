@@ -15,19 +15,24 @@ defmodule Sycophant.Tool do
 
   ## Examples
 
-      # Auto-executed tool
+      # Zoi-defined tool (receives atom keys after validation)
       weather_tool = %Sycophant.Tool{
         name: "get_weather",
         description: "Get current weather for a city",
         parameters: Zoi.object(%{city: Zoi.string()}),
-        function: fn %{"city" => city} -> "72F and sunny in \#{city}" end
+        function: fn %{city: city} -> "72F and sunny in \#{city}" end
       }
 
-      # Manual tool (no function)
+      # JSON Schema-defined tool (receives string keys)
       search_tool = %Sycophant.Tool{
         name: "search",
         description: "Search the web",
-        parameters: Zoi.object(%{query: Zoi.string()})
+        parameters: %{
+          "type" => "object",
+          "properties" => %{"query" => %{"type" => "string"}},
+          "required" => ["query"]
+        },
+        function: fn %{"query" => q} -> "Results for \#{q}" end
       }
 
       {:ok, response} = Sycophant.generate_text("openai:gpt-4o-mini", messages,
@@ -41,6 +46,8 @@ defmodule Sycophant.Tool do
     field :description, String.t(), enforce: true
     field :parameters, Zoi.schema() | map(), enforce: true
     field :function, (map() -> String.t())
+    field :schema_source, :zoi | :json_schema | nil
+    field :resolved_schema, Sycophant.Schema.NormalizedSchema.t()
   end
 
   @doc "Reconstructs a Tool struct from a serialized map."
@@ -50,29 +57,51 @@ defmodule Sycophant.Tool do
     tool_registry = Keyword.get(opts, :tool_registry, %{})
     name = data["name"]
 
+    source =
+      case data["schema_source"] do
+        "zoi" -> :zoi
+        "json_schema" -> :json_schema
+        _ -> nil
+      end
+
+    params = data["parameters"]
+
+    resolved =
+      case Sycophant.Schema.Normalizer.normalize(params) do
+        {:ok, normalized} ->
+          if source, do: %{normalized | source: source}, else: normalized
+
+        _ ->
+          nil
+      end
+
     %__MODULE__{
       name: name,
       description: data["description"],
-      parameters: data["parameters"],
-      function: Map.get(tool_registry, name)
+      parameters: params,
+      function: Map.get(tool_registry, name),
+      schema_source: source,
+      resolved_schema: resolved
     }
   end
 end
 
 defimpl Sycophant.Serializable, for: Sycophant.Tool do
-  def to_map(%{name: name, description: desc, parameters: params}) do
+  def to_map(%{name: name, description: desc, parameters: params, schema_source: source}) do
     json_schema =
       case Sycophant.Schema.JsonSchema.to_json_schema(params) do
         {:ok, schema} -> schema
         _ -> params
       end
 
-    %{
+    map = %{
       "__type__" => "Tool",
       "name" => name,
       "description" => desc,
       "parameters" => json_schema
     }
+
+    if source, do: Map.put(map, "schema_source", Atom.to_string(source)), else: map
   end
 end
 

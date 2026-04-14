@@ -416,7 +416,7 @@ defmodule Sycophant.PipelineTest do
       opts = default_opts() ++ [tools: [tool]]
       assert {:ok, %Response{context: context}} = Pipeline.call(default_messages(), opts)
 
-      assert context.tools == [tool]
+      assert [%Sycophant.Tool{name: "weather"}] = context.tools
     end
 
     test "assistant message includes tool_calls when present" do
@@ -645,6 +645,182 @@ defmodule Sycophant.PipelineTest do
 
       assert {:ok, %Response{context: context}} = Pipeline.call(default_messages(), opts)
       refute Map.has_key?(context, :response_schema)
+    end
+  end
+
+  describe "call/2 schema normalization" do
+    test "normalizes Zoi response_schema into JSON Schema map for wire encoding" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      expect(Sycophant.Transport, :call, fn payload, _opts ->
+        text = payload["text"] || %{}
+        format = text["format"] || payload["response_format"]
+
+        if format do
+          schema = format["schema"] || format
+          assert is_map(schema)
+          refute is_struct(schema)
+        end
+
+        {:ok,
+         %{
+           "id" => "resp-123",
+           "output" => [
+             %{
+               "type" => "message",
+               "content" => [
+                 %{"type" => "output_text", "text" => ~s({"name": "Alice", "age": 30})}
+               ]
+             }
+           ],
+           "usage" => %{"input_tokens" => 10, "output_tokens" => 5}
+         }}
+      end)
+
+      schema = Zoi.map(%{name: Zoi.string(), age: Zoi.integer()}, coerce: true)
+      opts = default_opts() ++ [response_schema: schema]
+
+      assert {:ok, %Response{object: %{name: "Alice", age: 30}}} =
+               Pipeline.call(default_messages(), opts)
+    end
+
+    test "normalizes JSON Schema map response_schema and validates" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      stub(Sycophant.Transport, :call, fn _payload, _opts ->
+        {:ok,
+         %{
+           "id" => "resp-123",
+           "output" => [
+             %{
+               "type" => "message",
+               "content" => [
+                 %{"type" => "output_text", "text" => ~s({"name": "Alice", "age": 30})}
+               ]
+             }
+           ],
+           "usage" => %{"input_tokens" => 10, "output_tokens" => 5}
+         }}
+      end)
+
+      schema = %{
+        "type" => "object",
+        "properties" => %{
+          "name" => %{"type" => "string"},
+          "age" => %{"type" => "integer"}
+        },
+        "required" => ["name", "age"]
+      }
+
+      opts = default_opts() ++ [response_schema: schema]
+
+      assert {:ok, %Response{object: %{"name" => "Alice", "age" => 30}}} =
+               Pipeline.call(default_messages(), opts)
+    end
+
+    test "normalizes tool parameters from Zoi to JSON Schema map" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      expect(Sycophant.Transport, :call, fn payload, _opts ->
+        tools = payload["tools"] || []
+
+        if tools != [] do
+          [tool | _] = tools
+          params = tool["parameters"] || get_in(tool, ["function", "parameters"])
+          assert is_map(params)
+          refute is_struct(params)
+        end
+
+        {:ok,
+         %{
+           "id" => "resp-123",
+           "output" => [
+             %{
+               "type" => "message",
+               "content" => [%{"type" => "output_text", "text" => "sunny"}]
+             }
+           ],
+           "usage" => %{"input_tokens" => 10, "output_tokens" => 5}
+         }}
+      end)
+
+      tool = %Sycophant.Tool{
+        name: "weather",
+        description: "Get weather",
+        parameters: Zoi.map(%{city: Zoi.string()})
+      }
+
+      opts = default_opts() ++ [tools: [tool]]
+
+      assert {:ok, %Response{}} = Pipeline.call(default_messages(), opts)
+    end
+
+    test "skips normalization for already-normalized tools" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      stub(Sycophant.Transport, :call, fn _payload, _opts ->
+        {:ok,
+         %{
+           "id" => "resp-123",
+           "output" => [
+             %{
+               "type" => "message",
+               "content" => [%{"type" => "output_text", "text" => "ok"}]
+             }
+           ],
+           "usage" => %{"input_tokens" => 10, "output_tokens" => 5}
+         }}
+      end)
+
+      json_params = %{
+        "type" => "object",
+        "properties" => %{"city" => %{"type" => "string"}},
+        "required" => ["city"]
+      }
+
+      {:ok, normalized} = Sycophant.Schema.Normalizer.normalize(json_params)
+
+      tool = %Sycophant.Tool{
+        name: "weather",
+        description: "Get weather",
+        parameters: json_params,
+        schema_source: :json_schema,
+        resolved_schema: normalized
+      }
+
+      opts = default_opts() ++ [tools: [tool]]
+
+      assert {:ok, %Response{}} = Pipeline.call(default_messages(), opts)
+    end
+
+    test "returns error for invalid response_schema" do
+      stub_happy_path()
+
+      opts =
+        default_opts() ++
+          [response_schema: %{"type" => "bogus_type_that_is_invalid", "properties" => 123}]
+
+      assert {:error, _} = Pipeline.call(default_messages(), opts)
     end
   end
 

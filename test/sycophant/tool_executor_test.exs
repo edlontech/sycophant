@@ -24,7 +24,26 @@ defmodule Sycophant.ToolExecutorTest do
     %Tool{
       name: name,
       description: "A test tool",
-      parameters: Zoi.map(%{}),
+      parameters: %{},
+      schema_source: nil,
+      resolved_schema: nil,
+      function: function
+    }
+  end
+
+  defp build_tool_with_schema(name, zoi_schema, function) do
+    resolved =
+      case Sycophant.Schema.Normalizer.normalize(zoi_schema) do
+        {:ok, normalized} -> normalized
+        _ -> nil
+      end
+
+    %Tool{
+      name: name,
+      description: "A test tool",
+      parameters: zoi_schema,
+      schema_source: :zoi,
+      resolved_schema: resolved,
       function: function
     }
   end
@@ -65,7 +84,12 @@ defmodule Sycophant.ToolExecutorTest do
 
       final_response = build_response(%{text: "It's sunny in Paris!", tool_calls: []})
 
-      tools = [build_tool("weather", fn %{"city" => city} -> "Sunny in #{city}" end)]
+      tool =
+        build_tool_with_schema(
+          "weather",
+          Zoi.object(%{city: Zoi.string()}),
+          fn %{city: city} -> "Sunny in #{city}" end
+        )
 
       call_fn = fn messages ->
         assert length(messages) == 3
@@ -81,7 +105,7 @@ defmodule Sycophant.ToolExecutorTest do
         {:ok, final_response}
       end
 
-      assert {:ok, ^final_response} = ToolExecutor.run(response, tools, [], call_fn)
+      assert {:ok, ^final_response} = ToolExecutor.run(response, [tool], [], call_fn)
     end
 
     test "catches exceptions and sends error as tool result" do
@@ -243,6 +267,149 @@ defmodule Sycophant.ToolExecutorTest do
       end
 
       assert {:ok, ^final_response} = ToolExecutor.run(response, tools, [], call_fn)
+    end
+
+    test "tool with Zoi schema receives atom keys in function" do
+      tool_call = %ToolCall{id: "call_1", name: "weather", arguments: %{"city" => "Paris"}}
+
+      response =
+        build_response(%{
+          tool_calls: [tool_call],
+          context: %Context{
+            messages: [
+              Message.user("What's the weather?"),
+              %Message{role: :assistant, content: nil, tool_calls: [tool_call]}
+            ]
+          }
+        })
+
+      final_response = build_response(%{text: "Done", tool_calls: []})
+
+      tool =
+        build_tool_with_schema(
+          "weather",
+          Zoi.object(%{city: Zoi.string()}),
+          fn %{city: city} -> "Sunny in #{city}" end
+        )
+
+      call_fn = fn messages ->
+        tool_result_msg = List.last(messages)
+        assert tool_result_msg.content == "Sunny in Paris"
+        {:ok, final_response}
+      end
+
+      assert {:ok, ^final_response} = ToolExecutor.run(response, [tool], [], call_fn)
+    end
+
+    test "tool with resolved_schema=nil still works (backward compat)" do
+      tool_call = %ToolCall{id: "call_1", name: "weather", arguments: %{"city" => "Paris"}}
+
+      response =
+        build_response(%{
+          tool_calls: [tool_call],
+          context: %Context{
+            messages: [
+              Message.user("Weather?"),
+              %Message{role: :assistant, content: nil, tool_calls: [tool_call]}
+            ]
+          }
+        })
+
+      final_response = build_response(%{text: "Done", tool_calls: []})
+
+      tool = %Tool{
+        name: "weather",
+        description: "Get weather",
+        parameters: %{},
+        function: fn %{"city" => city} -> "Sunny in #{city}" end,
+        schema_source: nil,
+        resolved_schema: nil
+      }
+
+      call_fn = fn messages ->
+        tool_result_msg = List.last(messages)
+        assert tool_result_msg.content == "Sunny in Paris"
+        {:ok, final_response}
+      end
+
+      assert {:ok, ^final_response} = ToolExecutor.run(response, [tool], [], call_fn)
+    end
+
+    test "tool with JSON Schema source receives string keys in function" do
+      tool_call = %ToolCall{id: "call_1", name: "weather", arguments: %{"city" => "Paris"}}
+
+      response =
+        build_response(%{
+          tool_calls: [tool_call],
+          context: %Context{
+            messages: [
+              Message.user("What's the weather?"),
+              %Message{role: :assistant, content: nil, tool_calls: [tool_call]}
+            ]
+          }
+        })
+
+      final_response = build_response(%{text: "Done", tool_calls: []})
+
+      json_schema = %{
+        "type" => "object",
+        "properties" => %{
+          "city" => %{"type" => "string"}
+        },
+        "required" => ["city"]
+      }
+
+      {:ok, resolved} = Sycophant.Schema.Normalizer.normalize(json_schema)
+
+      tool = %Tool{
+        name: "weather",
+        description: "Get weather",
+        parameters: json_schema,
+        schema_source: :json_schema,
+        resolved_schema: resolved,
+        function: fn %{"city" => city} -> "Sunny in #{city}" end
+      }
+
+      call_fn = fn messages ->
+        tool_result_msg = List.last(messages)
+        assert tool_result_msg.content == "Sunny in Paris"
+        {:ok, final_response}
+      end
+
+      assert {:ok, ^final_response} = ToolExecutor.run(response, [tool], [], call_fn)
+    end
+
+    test "validation failure returns error string as tool result" do
+      tool_call = %ToolCall{id: "call_1", name: "weather", arguments: %{"city" => 123}}
+
+      response =
+        build_response(%{
+          tool_calls: [tool_call],
+          context: %Context{
+            messages: [
+              Message.user("Weather?"),
+              %Message{role: :assistant, content: nil, tool_calls: [tool_call]}
+            ]
+          }
+        })
+
+      final_response = build_response(%{text: "Sorry", tool_calls: []})
+
+      tool =
+        build_tool_with_schema(
+          "weather",
+          Zoi.object(%{city: Zoi.string()}),
+          fn %{city: city} -> "Sunny in #{city}" end
+        )
+
+      call_fn = fn messages ->
+        tool_result_msg = List.last(messages)
+        assert tool_result_msg.role == :tool_result
+        assert tool_result_msg.content =~ "Validation error"
+        {:ok, final_response}
+      end
+
+      assert {:ok, ^final_response} = ToolExecutor.run(response, [tool], [], call_fn)
     end
   end
 end

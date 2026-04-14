@@ -61,19 +61,37 @@ defmodule Sycophant.ToolExecutor do
   end
 
   defp execute_tools(tool_calls, executable_tools) do
-    Enum.map(tool_calls, fn tool_call ->
-      case Map.fetch(executable_tools, tool_call.name) do
-        {:ok, tool} ->
-          result = safe_execute(tool.function, tool_call.arguments)
-          Message.tool_result(tool_call, result)
+    Enum.map(tool_calls, &execute_single_tool(&1, executable_tools))
+  end
 
-        :error ->
-          Message.tool_result(
-            tool_call,
-            "Error: no executable function for tool '#{tool_call.name}'"
-          )
-      end
-    end)
+  defp execute_single_tool(tool_call, executable_tools) do
+    case Map.fetch(executable_tools, tool_call.name) do
+      {:ok, tool} ->
+        execute_with_validation(tool_call, tool)
+
+      :error ->
+        Message.tool_result(
+          tool_call,
+          "Error: no executable function for tool '#{tool_call.name}'"
+        )
+    end
+  end
+
+  defp execute_with_validation(tool_call, tool) do
+    case validate_and_coerce(tool, tool_call.arguments) do
+      {:ok, coerced_args} ->
+        result = safe_execute(tool.function, coerced_args)
+        Message.tool_result(tool_call, result)
+
+      {:error, error} ->
+        Message.tool_result(tool_call, "Validation error: #{Exception.message(error)}")
+    end
+  end
+
+  defp validate_and_coerce(%{resolved_schema: nil}, arguments), do: {:ok, arguments}
+
+  defp validate_and_coerce(%{resolved_schema: schema}, arguments) do
+    Sycophant.Schema.Validator.validate(schema, arguments)
   end
 
   defp safe_execute(function, arguments) do

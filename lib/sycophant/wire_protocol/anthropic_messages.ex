@@ -24,7 +24,6 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
   alias Sycophant.Reasoning
   alias Sycophant.Request
   alias Sycophant.Response
-  alias Sycophant.Schema.JsonSchema
   alias Sycophant.StreamChunk
   alias Sycophant.Tool
   alias Sycophant.ToolCall
@@ -97,25 +96,18 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
 
   @impl true
   def encode_tools(tools) when is_list(tools) do
-    Enum.reduce_while(tools, {:ok, []}, fn tool, {:ok, acc} ->
-      case encode_tool(tool) do
-        {:ok, encoded} -> {:cont, {:ok, [encoded | acc]}}
-        {:error, _} = err -> {:halt, err}
-      end
-    end)
-    |> then(fn
-      {:ok, list} -> {:ok, Enum.reverse(list)}
-      error -> error
-    end)
+    {:ok,
+     Enum.map(tools, fn tool ->
+       {:ok, encoded} = encode_tool(tool)
+       encoded
+     end)}
   end
 
   # --- encode_response_schema ---
 
   @impl true
   def encode_response_schema(schema) do
-    with {:ok, json_schema} <- JsonSchema.to_json_schema(schema) do
-      {:ok, set_additional_properties_false(json_schema)}
-    end
+    {:ok, set_additional_properties_false(schema)}
   end
 
   # --- decode_response ---
@@ -367,9 +359,7 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
   # --- Private: Tool Encoding ---
 
   defp encode_tool(%Tool{name: name, description: description, parameters: parameters}) do
-    with {:ok, json_schema} <- JsonSchema.to_json_schema(parameters) do
-      {:ok, %{"name" => name, "description" => description, "input_schema" => json_schema}}
-    end
+    {:ok, %{"name" => name, "description" => description, "input_schema" => parameters}}
   end
 
   # --- Private: Response Decoding ---
@@ -509,10 +499,8 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
   defp maybe_put_tools(payload, []), do: {:ok, payload}
 
   defp maybe_put_tools(payload, tools) do
-    case encode_tools(tools) do
-      {:ok, encoded} -> {:ok, Map.put(payload, "tools", encoded)}
-      {:error, _} = err -> err
-    end
+    {:ok, encoded} = encode_tools(tools)
+    {:ok, Map.put(payload, "tools", encoded)}
   end
 
   defp set_additional_properties_false(%{"type" => "object", "properties" => props} = schema) do
@@ -532,16 +520,12 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
   defp maybe_put_response_format(payload, nil), do: {:ok, payload}
 
   defp maybe_put_response_format(payload, schema) do
-    case encode_response_schema(schema) do
-      {:ok, json_schema} ->
-        {:ok,
-         Map.put(payload, "output_config", %{
-           "format" => %{"type" => "json_schema", "schema" => json_schema}
-         })}
+    {:ok, json_schema} = encode_response_schema(schema)
 
-      {:error, _} = err ->
-        err
-    end
+    {:ok,
+     Map.put(payload, "output_config", %{
+       "format" => %{"type" => "json_schema", "schema" => json_schema}
+     })}
   end
 
   # --- Private: Streaming ---

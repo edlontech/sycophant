@@ -27,7 +27,6 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   alias Sycophant.Reasoning
   alias Sycophant.Request
   alias Sycophant.Response
-  alias Sycophant.Schema.JsonSchema
   alias Sycophant.StreamChunk
   alias Sycophant.Tool
   alias Sycophant.ToolCall
@@ -132,29 +131,22 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
 
   @impl true
   def encode_tools(tools) when is_list(tools) do
-    Enum.reduce_while(tools, {:ok, []}, fn tool, {:ok, acc} ->
-      case encode_tool(tool) do
-        {:ok, encoded} -> {:cont, {:ok, [encoded | acc]}}
-        {:error, _} = err -> {:halt, err}
-      end
-    end)
-    |> then(fn
-      {:ok, list} -> {:ok, Enum.reverse(list)}
-      error -> error
-    end)
+    {:ok,
+     Enum.map(tools, fn tool ->
+       {:ok, encoded} = encode_tool(tool)
+       encoded
+     end)}
   end
 
   @impl true
   def encode_response_schema(schema) do
-    with {:ok, json_schema} <- JsonSchema.to_json_schema(schema) do
-      {:ok,
-       %{
-         "type" => "json_schema",
-         "name" => "response",
-         "strict" => true,
-         "schema" => set_strict_additional_properties(json_schema)
-       }}
-    end
+    {:ok,
+     %{
+       "type" => "json_schema",
+       "name" => "response",
+       "strict" => true,
+       "schema" => set_strict_additional_properties(schema)
+     }}
   end
 
   @impl true
@@ -466,16 +458,14 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   # --- Tool Encoding ---
 
   defp encode_tool(%Tool{name: name, description: description, parameters: parameters}) do
-    with {:ok, json_schema} <- JsonSchema.to_json_schema(parameters) do
-      {:ok,
-       %{
-         "type" => "function",
-         "name" => name,
-         "description" => description,
-         "parameters" => set_strict_additional_properties(json_schema),
-         "strict" => true
-       }}
-    end
+    {:ok,
+     %{
+       "type" => "function",
+       "name" => name,
+       "description" => description,
+       "parameters" => set_strict_additional_properties(parameters),
+       "strict" => true
+     }}
   end
 
   # --- Param Translation ---
@@ -559,10 +549,8 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   defp maybe_put_tools(payload, []), do: {:ok, payload}
 
   defp maybe_put_tools(payload, tools) do
-    case encode_tools(tools) do
-      {:ok, encoded} -> {:ok, Map.put(payload, "tools", encoded)}
-      {:error, _} = err -> err
-    end
+    {:ok, encoded} = encode_tools(tools)
+    {:ok, Map.put(payload, "tools", encoded)}
   end
 
   defp maybe_put_text(payload, nil, %{verbosity: verbosity}) when not is_nil(verbosity) do
@@ -572,15 +560,10 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   defp maybe_put_text(payload, nil, _params), do: {:ok, payload}
 
   defp maybe_put_text(payload, schema, params) do
-    case encode_response_schema(schema) do
-      {:ok, format} ->
-        text = %{"format" => format}
-        text = maybe_put(text, "verbosity", Map.get(params, :verbosity))
-        {:ok, Map.put(payload, "text", text)}
-
-      {:error, _} = err ->
-        err
-    end
+    {:ok, format} = encode_response_schema(schema)
+    text = %{"format" => format}
+    text = maybe_put(text, "verbosity", Map.get(params, :verbosity))
+    {:ok, Map.put(payload, "text", text)}
   end
 
   defp maybe_put_truncation(payload, %{truncation: truncation}) when not is_nil(truncation),

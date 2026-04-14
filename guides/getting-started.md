@@ -157,9 +157,11 @@ IO.puts(r2.text)
 
 ## Structured Output
 
-Use `generate_object/3` with a Zoi schema to get validated structured data:
+Use `generate_object/3` with a Zoi schema or a JSON Schema map to get
+validated structured data:
 
 ```elixir
+# With Zoi schema (response.object has atom keys)
 schema = Zoi.object(%{
   name: Zoi.string(),
   age: Zoi.integer(),
@@ -172,6 +174,24 @@ messages = [Message.user("Extract: Alice is 25 and likes hiking and painting")]
 
 response.object
 #=> %{name: "Alice", age: 25, hobbies: ["hiking", "painting"]}
+```
+
+```elixir
+# With JSON Schema (response.object has string keys)
+schema = %{
+  "type" => "object",
+  "properties" => %{
+    "name" => %{"type" => "string"},
+    "age" => %{"type" => "integer"},
+    "hobbies" => %{"type" => "array", "items" => %{"type" => "string"}}
+  },
+  "required" => ["name", "age", "hobbies"]
+}
+
+{:ok, response} = Sycophant.generate_object("openai:gpt-4o-mini", messages, schema)
+
+response.object
+#=> %{"name" => "Alice", "age" => 25, "hobbies" => ["hiking", "painting"]}
 ```
 
 ## Streaming

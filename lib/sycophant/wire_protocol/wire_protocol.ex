@@ -35,7 +35,7 @@ defmodule Sycophant.WireProtocol do
   @callback encode_tools([Sycophant.Tool.t()]) ::
               {:ok, [map()]} | {:error, Splode.Error.t()}
 
-  @callback encode_response_schema(Zoi.schema()) ::
+  @callback encode_response_schema(map()) ::
               {:ok, map()} | {:error, Splode.Error.t()}
 
   @callback stream_transport() :: :sse | :event_stream

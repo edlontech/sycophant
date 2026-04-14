@@ -197,7 +197,11 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
         %Tool{
           name: "search",
           description: "Search",
-          parameters: Zoi.map(%{q: Zoi.string()})
+          parameters: %{
+            "type" => "object",
+            "properties" => %{"q" => %{"type" => "string"}},
+            "required" => ["q"]
+          }
         }
       ]
 
@@ -213,7 +217,11 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
         %Tool{
           name: "search",
           description: "Search",
-          parameters: Zoi.map(%{q: Zoi.string()})
+          parameters: %{
+            "type" => "object",
+            "properties" => %{"q" => %{"type" => "string"}},
+            "required" => ["q"]
+          }
         }
       ]
 
@@ -229,7 +237,11 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
         %Tool{
           name: "weather",
           description: "Get weather",
-          parameters: Zoi.map(%{city: Zoi.string()})
+          parameters: %{
+            "type" => "object",
+            "properties" => %{"city" => %{"type" => "string"}},
+            "required" => ["city"]
+          }
         }
       ]
 
@@ -250,7 +262,11 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
         %Tool{
           name: "get_weather",
           description: "Get current weather",
-          parameters: Zoi.map(%{city: Zoi.string()})
+          parameters: %{
+            "type" => "object",
+            "properties" => %{"city" => %{"type" => "string"}},
+            "required" => ["city"]
+          }
         }
       ]
 
@@ -267,7 +283,11 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
         %Tool{
           name: "search",
           description: "Search the web",
-          parameters: Zoi.map(%{query: Zoi.string()})
+          parameters: %{
+            "type" => "object",
+            "properties" => %{"query" => %{"type" => "string"}},
+            "required" => ["query"]
+          }
         }
       ]
 

@@ -18,7 +18,7 @@ defmodule Sycophant.Request do
     field :tools, [Sycophant.Tool.t()], default: []
     field :credentials, map(), default: %{}
     field :stream, (term() -> term())
-    field :response_schema, term()
+    field :response_schema, map() | nil
   end
 end
 

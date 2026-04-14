@@ -24,7 +24,6 @@ defmodule MyApp.WireProtocol.CustomProvider do
   @behaviour Sycophant.WireProtocol
 
   alias Sycophant.{Request, Response, StreamChunk, ParamDefs}
-  alias Sycophant.Schema.JsonSchema
 
   # Define accepted parameters by merging shared defs with provider-specific ones
   @param_schema Zoi.map(
@@ -76,7 +75,8 @@ defmodule MyApp.WireProtocol.CustomProvider do
 
   @impl true
   def encode_response_schema(schema) do
-    JsonSchema.to_json_schema(schema)
+    # schema is already a JSON Schema map (normalized by the pipeline)
+    {:ok, schema}
   end
 
   @impl true

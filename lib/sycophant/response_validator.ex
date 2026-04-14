@@ -1,19 +1,21 @@
 defmodule Sycophant.ResponseValidator do
   @moduledoc """
-  Validates LLM response text against a Zoi schema.
+  Validates LLM response text against a JSON Schema.
 
   Used by `Sycophant.generate_object/3` to parse the response as JSON and
-  optionally validate it against the provided schema. The validated (or raw)
-  map is placed in `response.object`.
+  optionally validate it against the provided `NormalizedSchema`. The validated
+  (or raw) map is placed in `response.object`.
 
   When `:validate` is `false`, the JSON is parsed but not validated against
   the schema, allowing schema-as-hint usage where strict validation isn't needed.
   """
 
   alias Sycophant.Error.Invalid.InvalidResponse
+  alias Sycophant.Schema.NormalizedSchema
+  alias Sycophant.Schema.Validator
 
   @doc "Validates and parses LLM response text against an optional schema."
-  @spec validate(Sycophant.Response.t(), Zoi.schema(), boolean()) ::
+  @spec validate(Sycophant.Response.t(), NormalizedSchema.t(), boolean()) ::
           {:ok, Sycophant.Response.t()} | {:error, Splode.Error.t()}
   def validate(response, schema, validate?)
 
@@ -21,15 +23,9 @@ defmodule Sycophant.ResponseValidator do
     {:error, InvalidResponse.exception(errors: ["response text is nil"])}
   end
 
-  def validate(response, schema, true) when is_map(schema) and not is_struct(schema) do
-    with {:ok, decoded} <- decode_json(response.text) do
-      {:ok, %{response | object: decoded}}
-    end
-  end
-
   def validate(response, schema, true) do
     with {:ok, decoded} <- decode_json(response.text),
-         {:ok, validated} <- validate_schema(decoded, schema) do
+         {:ok, validated} <- Validator.validate(schema, decoded) do
       {:ok, %{response | object: validated}}
     end
   end
@@ -47,17 +43,6 @@ defmodule Sycophant.ResponseValidator do
 
       {:error, _} ->
         {:error, InvalidResponse.exception(errors: ["invalid JSON in response"])}
-    end
-  end
-
-  defp validate_schema(data, schema) do
-    case Zoi.parse(schema, data) do
-      {:ok, validated} ->
-        {:ok, validated}
-
-      {:error, errors} ->
-        messages = Enum.map(errors, fn err -> "#{Enum.join(err.path, ".")}: #{err.message}" end)
-        {:error, InvalidResponse.exception(errors: messages)}
     end
   end
 end
