@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-03-12T12:36:43.701314Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:20.562832Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -19,7 +19,7 @@
         {
           "parts": [
             {
-              "text": "That sounds like fun! How can I help you with your trip to London?"
+              "text": "That's wonderful! Is there anything specific you'd like to know about London, or perhaps the weather there?"
             }
           ],
           "role": "model"
@@ -88,7 +88,7 @@
                   },
                   "name": "get_weather"
                 },
-                "thoughtSignature": "CswBAb4+9vuTz/yHynnj7MI0cBDwsiMSbOXMe6ibZewxyY6IyRfvHUgO1wazd2PS/gLUeo79FOyIoMxSC4RiREBtMjmKknQTLYQ6h8ct3Rr92/fKmmWtlleGbrfZkhOUeTb5nLxdDAyOcPrM6SwBW4uK07Tm+5Kk2z+4oufewNGP3yWdQBtyylLv5EfSbMdqKW9vk0dU3K2Om5IqZbLP5s/Axh4WUGKI51F1lJ+EcBFKImyarSX1cluPbuirkQigSDoMcEuYrTbs58TluYwd"
+                "thoughtSignature": "CtgBAb4+9vteKFbd7YU/W7PISJZ5lVFF/fJW03O7D4qRpMTFFzxncEjv7zfI9WIny+z1yupFlWVcnPTFsulvAhJfHKLV5r9zsYgQsJi8SZi/UyIjng9dVWeI5T3z/uKeJDuTJpboiKqod2LiR5I8/VNUFWz2f7Lzml2ucTmAGx1Wsx8H1WA1+YDyrZW2ms3Xq2Qe2k4By4rMPu5//bi6DwBuKoacKmy4aMzJxHz8gV3P/JDyJKTVomMOsRZO+ocCc9hkPEhLDKOtXqikxzWxVgJOiYD8wXd3M/tm"
               }
             ],
             "role": "model"
@@ -99,21 +99,25 @@
         }
       ],
       "modelVersion": "gemini-2.5-flash",
-      "responseId": "W7Oyaa3KCp3k7M8PxNqLmQo",
+      "responseId": "q1veaY2yNJTZvdIP_cWcuQc",
       "usageMetadata": {
         "candidatesTokenCount": 15,
-        "promptTokenCount": 99,
+        "promptTokenCount": 107,
         "promptTokensDetails": [
           {
             "modality": "TEXT",
-            "tokenCount": 99
+            "tokenCount": 107
           }
         ],
-        "thoughtsTokenCount": 40,
-        "totalTokenCount": 154
+        "thoughtsTokenCount": 43,
+        "totalTokenCount": 165
       }
     },
     "headers": [
+      [
+        "x-gemini-service-tier",
+        "standard"
+      ],
       [
         "content-type",
         "application/json; charset=UTF-8"
@@ -132,7 +136,7 @@
       ],
       [
         "date",
-        "Thu, 12 Mar 2026 12:36:43 GMT"
+        "Tue, 14 Apr 2026 15:22:20 GMT"
       ],
       [
         "server",
@@ -152,7 +156,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=559"
+        "gfet4t7; dur=748"
       ],
       [
         "alt-svc",

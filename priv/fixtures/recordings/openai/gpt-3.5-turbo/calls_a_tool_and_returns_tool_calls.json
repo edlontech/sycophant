@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-10T18:35:03.652926Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:21.212445Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -68,15 +68,15 @@
                   "arguments": "{\"city\":\"Paris\"}",
                   "name": "get_weather"
                 },
-                "id": "call_Aq704oljLafMZLPwFhxOkgQv",
+                "id": "call_VdvoVfoUpGrqKVTbVyKaYCHO",
                 "type": "function"
               }
             ]
           }
         }
       ],
-      "created": 1773167703,
-      "id": "chatcmpl-DHwD1va3IV4jsilaKydcEOHC5bUES",
+      "created": 1776180140,
+      "id": "chatcmpl-DUZsi2hJ58l2wInfwySsFfISHb6WI",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -100,11 +100,31 @@
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:03 GMT"
+        "Tue, 14 Apr 2026 15:22:21 GMT"
       ],
       [
         "content-type",
         "application/json"
+      ],
+      [
+        "cf-ray",
+        "9ec3b495add6ae1d-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
       ],
       [
         "access-control-expose-headers",
@@ -116,7 +136,7 @@
       ],
       [
         "openai-processing-ms",
-        "1866"
+        "637"
       ],
       [
         "openai-project",
@@ -127,8 +147,8 @@
         "2020-10-01"
       ],
       [
-        "server",
-        "cloudflare"
+        "x-openai-proxy-wasm",
+        "v0.1"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -140,7 +160,7 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "8998"
+        "8999"
       ],
       [
         "x-ratelimit-remaining-tokens",
@@ -156,31 +176,11 @@
       ],
       [
         "x-request-id",
-        "req_9a50db3b5a9840e9be3dfadd1ad4f16b"
-      ],
-      [
-        "x-openai-proxy-wasm",
-        "v0.1"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_8506dbc7e17943b898a60697809a44ec"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9da46ab74be9fba4-AMS"
       ],
       [
         "alt-svc",

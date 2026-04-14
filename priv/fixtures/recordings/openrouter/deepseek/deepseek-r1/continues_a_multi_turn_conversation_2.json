@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-10T18:35:22.025307Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:39.567195Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "Got it, Sycophant! I'll remember your name. How can I assist you today?",
+              "text": "Understood. I'll remember that your name is Sycophant. How can I assist you today?",
               "type": "output_text"
             }
           ],
@@ -46,11 +46,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1773167721,
-      "created_at": 1773167717,
+      "completed_at": 1776180159,
+      "created_at": 1776180154,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1773167717-ZTXPpIa7MNLAnG77yLoO",
+      "id": "gen-1776180154-TM8etQMxrfZpA70rBhC4",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -62,12 +62,12 @@
         {
           "content": [
             {
-              "text": "Okay, the user asked, \"What is my name?\" Let me check the conversation history.\n\nLooking back at the first message, the user said, \"My name is Sycophant. Remember it.\" Then I responded by acknowledging the name. Now, when they ask again, I need to confirm that I remembered correctly. The user is testing if I retained their name. Since I stored the name \"Sycophant\" from the initial interaction, I should reply with that. No complications here, just a straightforward answer.\n",
+              "text": "Okay, the user just asked, \"What is my name?\" Let me check the history.\n\nIn the first message, the user said, \"My name is Sycophant. Remember it.\" Then I responded that I'll remember the name is Sycophant. Now, the user is testing if I remembered. \n\nWait, but the username here is \"",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_2oxu3cljass",
+          "id": "rs_tmp_dpcom1ok24d",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
@@ -77,11 +77,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Your name is Sycophant! 🎯 Let me know how I can help!",
+              "text": "\". The user might be referring to the name they provided, Sycophant, but sometimes there's confusion between the display name and the name they tell me. Let me confirm. \n\nIn the initial interaction, the user explicitly stated their name as Sycophant and asked me to remember it. So the correct answer here should be Sycophant. The username is different, but the user instructed to remember the name they provided. \n\nI should make sure to use the name they gave, not the username. So the response should be \"Your name is Sycophant.\" That's straightforward. No complications here. Just need to recall the previous message. No ambiguity in this case. Alright, ready to respond.\nYour name is Sycophant. How can I assist you further?",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_u56jvuulul",
+          "id": "msg_tmp_vptdpgv6m28",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -108,29 +108,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 3.49e-4,
+        "cost": 0.001519155,
         "cost_details": {
-          "upstream_inference_cost": 3.49e-4,
-          "upstream_inference_input_cost": 3.15e-5,
-          "upstream_inference_output_cost": 3.175e-4
+          "upstream_inference_cost": 0.001519155,
+          "upstream_inference_input_cost": 6.9795e-5,
+          "upstream_inference_output_cost": 0.00144936
         },
-        "input_tokens": 45,
+        "input_tokens": 47,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 127,
+        "output_tokens": 244,
         "output_tokens_details": {
-          "reasoning_tokens": 109
+          "reasoning_tokens": 74
         },
-        "total_tokens": 172
-      },
-      "user": null
+        "total_tokens": 291
+      }
     },
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:18 GMT"
+        "Tue, 14 Apr 2026 15:22:34 GMT"
       ],
       [
         "content-type",
@@ -138,11 +137,19 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=1268"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=506"
       ],
       [
         "access-control-allow-origin",
         "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180154-TM8etQMxrfZpA70rBhC4"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -162,7 +169,7 @@
       ],
       [
         "cf-ray",
-        "9da46b1a4a6c6568-AMS"
+        "9ec3b4ecadc3f97e-PRG"
       ]
     ],
     "status": 200

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-03-10T18:35:03.153634Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:19.494753Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -65,7 +65,7 @@
                   },
                   "name": "get_weather"
                 },
-                "thoughtSignature": "CtgBAb4+9vsy/vQu/kYkPs0e5GOI0weygL+cX+wrFqf/Se+RiTINNuMt/IeD69+1TjD5R5rl3uQjldqpDmUYmkQGPPRgB/ZnGoaoPoiaam0X/GWRhcge0fi+18r2QbvqxDZ/DmFura4V5bqkgp8dMdfXNyN69xh2NcFhtDSniIzrYv18Lf6any7VRbveIyf4dMkgHTtiraE133VaSRBmSt3ErrR49pY4aWfzLPfVdxyTHyBQfM1+FTS+fEvbDa1i3d0eBhZvizHthu4+CjtdByGGuCMNEADR54lc"
+                "thoughtSignature": "CuUBAb4+9vshlusYU6uHNwOcFw4MKYlreqrxemoE0rClPrhsvzKCYZpZVyX5gtRguiS+IKSjIxt1ATfKez5fL3L55gLGYLzCOm7jKhT2qOKlgXQ2b4EXkQ+D6ffqRzMh7NOJZGKnj+g3HC/VlMIPxpIFeYLNoaW+b9s68PIjAAfzSBOSBkugmghHgNnaDCx1GrU2cu2gUcKlD5vpsN0FMGwvPHylGCBOFIazwpcR95oO/h5moCrSxVClIw/QJYrBjlX3j4ilnRxK25PKLEptxPtxAsVeCMzMSg6tn30H47F4QOMs9aOWUg=="
               }
             ],
             "role": "model"
@@ -76,7 +76,7 @@
         }
       ],
       "modelVersion": "gemini-2.5-flash",
-      "responseId": "VmSwafPCIaLikdUPr9uS6Qo",
+      "responseId": "qlveaYGRIfiIvdIPnt6x4Qs",
       "usageMetadata": {
         "candidatesTokenCount": 15,
         "promptTokenCount": 60,
@@ -86,11 +86,15 @@
             "tokenCount": 60
           }
         ],
-        "thoughtsTokenCount": 47,
-        "totalTokenCount": 122
+        "thoughtsTokenCount": 49,
+        "totalTokenCount": 124
       }
     },
     "headers": [
+      [
+        "x-gemini-service-tier",
+        "standard"
+      ],
       [
         "content-type",
         "application/json; charset=UTF-8"
@@ -109,7 +113,7 @@
       ],
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:03 GMT"
+        "Tue, 14 Apr 2026 15:22:19 GMT"
       ],
       [
         "server",
@@ -129,7 +133,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=630"
+        "gfet4t7; dur=1016"
       ],
       [
         "alt-svc",

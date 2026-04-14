@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-10T18:35:06.024792Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:19.628728Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -68,15 +68,15 @@
                   "arguments": "{\"city\":\"Paris\"}",
                   "name": "get_weather"
                 },
-                "id": "call_IO4M7ov4NnXCvODs3oeJzwHO",
+                "id": "call_YuXfn3BdGBU56jlgpmsp93NS",
                 "type": "function"
               }
             ]
           }
         }
       ],
-      "created": 1773167705,
-      "id": "chatcmpl-DHwD3k0o2V5z5IuqTzMilrSXwAWeb",
+      "created": 1776180139,
+      "id": "chatcmpl-DUZshkVhUdWLrWOfsxpUrEiyAuCHO",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -100,11 +100,31 @@
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:06 GMT"
+        "Tue, 14 Apr 2026 15:22:19 GMT"
       ],
       [
         "content-type",
         "application/json"
+      ],
+      [
+        "cf-ray",
+        "9ec3b4898c3cae1d-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
       ],
       [
         "access-control-expose-headers",
@@ -116,7 +136,7 @@
       ],
       [
         "openai-processing-ms",
-        "2222"
+        "578"
       ],
       [
         "openai-project",
@@ -127,8 +147,8 @@
         "2020-10-01"
       ],
       [
-        "server",
-        "cloudflare"
+        "x-openai-proxy-wasm",
+        "v0.1"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -156,31 +176,11 @@
       ],
       [
         "x-request-id",
-        "req_7703ac81fa3b45dca881846ed3b2b215"
-      ],
-      [
-        "x-openai-proxy-wasm",
-        "v0.1"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_b73125431d2346d7800d662f6bd31597"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9da46ac3fcc0fba4-AMS"
       ],
       [
         "alt-svc",

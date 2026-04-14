@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-4o-mini",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-10T18:35:05.344112Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:23.460430Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -51,11 +51,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1773167705,
-      "created_at": 1773167704,
+      "completed_at": 1776180143,
+      "created_at": 1776180140,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1773167704-i1p0fWLMUGeR8Dw926rr",
+      "id": "gen-1776180140-1XiVDTlPfDfQrVg6bi4v",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -66,8 +66,8 @@
       "output": [
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "call_5h6n8rJVVSQQdU6FHoAFqKJ0",
-          "id": "fc_tmp_8ugdou3mzqj",
+          "call_id": "call_9OEKYRaiQfs7VIvwLIGKzbKO",
+          "id": "fc_tmp_yx14d0bd5cj",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -129,13 +129,12 @@
           "reasoning_tokens": 0
         },
         "total_tokens": 70
-      },
-      "user": null
+      }
     },
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:05 GMT"
+        "Tue, 14 Apr 2026 15:22:23 GMT"
       ],
       [
         "content-type",
@@ -143,11 +142,19 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=2338,cfOrigin;dur=0,cfWorker;dur=1221"
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=2556"
       ],
       [
         "access-control-allow-origin",
         "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180140-1XiVDTlPfDfQrVg6bi4v"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -167,7 +174,7 @@
       ],
       [
         "cf-ray",
-        "9da46ab749106568-AMS"
+        "9ec3b4974e9bf97e-PRG"
       ]
     ],
     "status": 200

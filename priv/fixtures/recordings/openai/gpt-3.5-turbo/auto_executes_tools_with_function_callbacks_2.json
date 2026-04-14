@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-10T18:35:06.757392Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:20.396131Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -21,7 +21,7 @@
                 "arguments": "{\"city\":\"Paris\"}",
                 "name": "get_weather"
               },
-              "id": "call_IO4M7ov4NnXCvODs3oeJzwHO",
+              "id": "call_YuXfn3BdGBU56jlgpmsp93NS",
               "type": "function"
             }
           ]
@@ -29,7 +29,7 @@
         {
           "content": "Paris: 22C, sunny",
           "role": "tool",
-          "tool_call_id": "call_IO4M7ov4NnXCvODs3oeJzwHO"
+          "tool_call_id": "call_YuXfn3BdGBU56jlgpmsp93NS"
         }
       ],
       "model": "gpt-3.5-turbo",
@@ -78,14 +78,14 @@
           "logprobs": null,
           "message": {
             "annotations": [],
-            "content": "The current weather in Paris is 22°C and sunny.",
+            "content": "The weather in Paris is currently 22°C and sunny.",
             "refusal": null,
             "role": "assistant"
           }
         }
       ],
-      "created": 1773167706,
-      "id": "chatcmpl-DHwD47sjxBlkjDlBekRPUiIJYJCwv",
+      "created": 1776180139,
+      "id": "chatcmpl-DUZshyEnZXZt94bBgaSK6WbfVDT7P",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -109,11 +109,31 @@
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:06 GMT"
+        "Tue, 14 Apr 2026 15:22:20 GMT"
       ],
       [
         "content-type",
         "application/json"
+      ],
+      [
+        "cf-ray",
+        "9ec3b490e9daae1d-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
       ],
       [
         "access-control-expose-headers",
@@ -125,7 +145,7 @@
       ],
       [
         "openai-processing-ms",
-        "597"
+        "576"
       ],
       [
         "openai-project",
@@ -136,8 +156,8 @@
         "2020-10-01"
       ],
       [
-        "server",
-        "cloudflare"
+        "x-openai-proxy-wasm",
+        "v0.1"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -149,7 +169,7 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "8999"
+        "8998"
       ],
       [
         "x-ratelimit-remaining-tokens",
@@ -165,31 +185,11 @@
       ],
       [
         "x-request-id",
-        "req_686d35313bb44255a19900ed7bda8690"
-      ],
-      [
-        "x-openai-proxy-wasm",
-        "v0.1"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_82f3ca938d784b86864f0960a0361e17"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9da46ad2b93bfba4-AMS"
       ],
       [
         "alt-svc",

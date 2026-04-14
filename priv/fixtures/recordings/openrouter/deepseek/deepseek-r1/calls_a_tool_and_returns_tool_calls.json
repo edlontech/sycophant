@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-10T18:35:06.942624Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:30.510533Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -51,11 +51,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1773167706,
-      "created_at": 1773167702,
+      "completed_at": 1776180150,
+      "created_at": 1776180146,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1773167702-jcWGjN0kAqpucZafTlcr",
+      "id": "gen-1776180146-3oX7wtAAnjM8GDd3Z6lb",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -67,20 +67,20 @@
         {
           "content": [
             {
-              "text": "嗯，用户问巴黎的天气，我需要使用get_weather工具。先看一下工具的说明，工具需要参数城市，且必须提供。用户已经提到了巴黎，所以参数应该是city: Paris。确认一下工具的名字和参数类型是否正确，是的，city是字符串类型，没有其他参数。直接调用get_weather，参数填巴黎。然后按照格式输出，确保JSON正确，没有多余的内容。不需要多次调用，只需要一次工具调用。检查输出格式是否正确，使用指定的标签和结构。这样就完成了。\n",
+              "text": "The user asks for the weather in Paris and wants me to use the get_weather tool. I need to invoke get_weather with city parameter \"Paris\". Let's do that.",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_pqk8nua18o",
+          "id": "rs_tmp_c2sm4ng0kvf",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
         },
         {
           "arguments": "{\"city\": \"Paris\"}",
-          "call_id": "41c21fe549fb4eadb88e6c382da73414",
-          "id": "fc_tmp_pz1rlse0n4",
+          "call_id": "f87615b22cc44be9ac015b6844a9653b",
+          "id": "fc_tmp_mwkshpz41b",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -126,29 +126,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 6.351e-4,
+        "cost": 4.343e-4,
         "cost_details": {
-          "upstream_inference_cost": 6.351e-4,
-          "upstream_inference_input_cost": 2.576e-4,
-          "upstream_inference_output_cost": 3.775e-4
+          "upstream_inference_cost": 4.343e-4,
+          "upstream_inference_input_cost": 2.268e-4,
+          "upstream_inference_output_cost": 2.075e-4
         },
-        "input_tokens": 368,
+        "input_tokens": 324,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 151,
+        "output_tokens": 83,
         "output_tokens_details": {
-          "reasoning_tokens": 108
+          "reasoning_tokens": 37
         },
-        "total_tokens": 519
-      },
-      "user": null
+        "total_tokens": 407
+      }
     },
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:03 GMT"
+        "Tue, 14 Apr 2026 15:22:27 GMT"
       ],
       [
         "content-type",
@@ -156,11 +155,19 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=10,cfOrigin;dur=0,cfWorker;dur=1390"
+        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=1473"
       ],
       [
         "access-control-allow-origin",
         "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180146-3oX7wtAAnjM8GDd3Z6lb"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -180,7 +187,7 @@
       ],
       [
         "cf-ray",
-        "9da46ab769186568-AMS"
+        "9ec3b4bafb8af97e-PRG"
       ]
     ],
     "status": 200

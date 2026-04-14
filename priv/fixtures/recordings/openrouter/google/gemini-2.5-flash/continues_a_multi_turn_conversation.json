@@ -2,8 +2,8 @@
   "metadata": {
     "model": "google/gemini-2.5-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-10T18:35:05.842426Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:23.980869Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -31,11 +31,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1773167705,
-      "created_at": 1773167705,
+      "completed_at": 1776180143,
+      "created_at": 1776180143,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1773167705-R2PsF5NISBEzA1QLcfG2",
+      "id": "gen-1776180143-WhlckA2TjT7Po5slcoJU",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -49,11 +49,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Got it, Sycophant. I'll remember your name.",
+              "text": "Alright, Sycophant, I've got your name noted. How can I help you today?",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_25jwshkhe3x",
+          "id": "msg_tmp_3i4s4z2s02t",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -80,29 +80,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 4.08e-5,
+        "cost": 5.83e-5,
         "cost_details": {
-          "upstream_inference_cost": 4.08e-5,
+          "upstream_inference_cost": 5.83e-5,
           "upstream_inference_input_cost": 3.3e-6,
-          "upstream_inference_output_cost": 3.75e-5
+          "upstream_inference_output_cost": 5.5e-5
         },
         "input_tokens": 11,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 15,
+        "output_tokens": 22,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 26
-      },
-      "user": null
+        "total_tokens": 33
+      }
     },
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:05 GMT"
+        "Tue, 14 Apr 2026 15:22:23 GMT"
       ],
       [
         "content-type",
@@ -110,11 +109,19 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=1047,cfOrigin;dur=0,cfWorker;dur=927"
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=586"
       ],
       [
         "access-control-allow-origin",
         "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180143-WhlckA2TjT7Po5slcoJU"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -134,7 +141,7 @@
       ],
       [
         "cf-ray",
-        "9da46ac48d566568-AMS"
+        "9ec3b4a71ec6f97e-PRG"
       ]
     ],
     "status": 200

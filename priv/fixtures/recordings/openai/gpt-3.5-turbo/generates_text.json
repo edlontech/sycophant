@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-10T18:35:04.869681Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:25.737595Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -43,8 +43,8 @@
           }
         }
       ],
-      "created": 1773167704,
-      "id": "chatcmpl-DHwD2OPFNreIOaIerJ2Q8NZscslQR",
+      "created": 1776180145,
+      "id": "chatcmpl-DUZsnHPOHZOCuqL6fbzb2X6hkoriR",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -68,11 +68,31 @@
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:04 GMT"
+        "Tue, 14 Apr 2026 15:22:25 GMT"
       ],
       [
         "content-type",
         "application/json"
+      ],
+      [
+        "cf-ray",
+        "9ec3b4b49dc0ae1d-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
       ],
       [
         "access-control-expose-headers",
@@ -84,7 +104,7 @@
       ],
       [
         "openai-processing-ms",
-        "312"
+        "210"
       ],
       [
         "openai-project",
@@ -95,8 +115,8 @@
         "2020-10-01"
       ],
       [
-        "server",
-        "cloudflare"
+        "x-openai-proxy-wasm",
+        "v0.1"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -124,31 +144,11 @@
       ],
       [
         "x-request-id",
-        "req_ce9c71686f884e3b9c27298cb2959a0a"
-      ],
-      [
-        "x-openai-proxy-wasm",
-        "v0.1"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_82fd423f40ee4885b8617ddabde9097b"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9da46ac89f8bfba4-AMS"
       ],
       [
         "alt-svc",

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-10T18:35:04.568750Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:25.975092Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -58,7 +58,7 @@
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_0baa7378878e58170069b06457ece48193b381d2fcc6159bcf",
+      "id": "resp_00c29429be386f790069de5bb117f4819386bbe1e4d8bca0b7",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -89,7 +89,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_0baa7378878e58170069b064583eac81938c367a03d2de20ad",
+          "id": "msg_00c29429be386f790069de5bb1a8dc81938b952b8099ae6962",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -103,7 +103,7 @@
         "effort": null,
         "summary": null
       },
-      "completed_at": 1773167704,
+      "completed_at": 1776180145,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -112,13 +112,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1773167703,
+      "created_at": 1776180145,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:04 GMT"
+        "Tue, 14 Apr 2026 15:22:25 GMT"
       ],
       [
         "content-type",
@@ -170,11 +170,11 @@
       ],
       [
         "x-request-id",
-        "req_f80163db424f4574b8d6d06c90d21800"
+        "req_c347a8a02ce743b4b73d6a39d8a85d36"
       ],
       [
         "openai-processing-ms",
-        "589"
+        "815"
       ],
       [
         "cf-cache-status",
@@ -194,7 +194,7 @@
       ],
       [
         "cf-ray",
-        "9da46ac50f07fba4-AMS"
+        "9ec3b4b24bedae1d-PRG"
       ],
       [
         "alt-svc",

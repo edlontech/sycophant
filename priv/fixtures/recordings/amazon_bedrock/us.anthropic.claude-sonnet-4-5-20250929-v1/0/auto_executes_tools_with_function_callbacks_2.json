@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-03-10T18:35:11.817551Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:23.559299Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -24,7 +24,7 @@
                   "city": "Paris"
                 },
                 "name": "get_weather",
-                "toolUseId": "tooluse_QRkienTkemNzEq3DcOt5kt"
+                "toolUseId": "tooluse_4ssl1gB77KXCGIXsTy9LKD"
               }
             }
           ],
@@ -39,7 +39,7 @@
                     "text": "Paris: 22C, sunny"
                   }
                 ],
-                "toolUseId": "tooluse_QRkienTkemNzEq3DcOt5kt"
+                "toolUseId": "tooluse_4ssl1gB77KXCGIXsTy9LKD"
               }
             }
           ],
@@ -53,7 +53,7 @@
               "description": "Get current weather for a city. Returns temperature and conditions.",
               "inputSchema": {
                 "json": {
-                  "additionalProperties": true,
+                  "additionalProperties": false,
                   "properties": {
                     "city": {
                       "type": "string"
@@ -82,7 +82,7 @@
       ],
       [
         "x-amz-date",
-        "20260310T183508Z"
+        "20260414T152221Z"
       ],
       [
         "content-type",
@@ -95,7 +95,7 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 3369
+        "latencyMs": 1652
       },
       "output": {
         "message": {
@@ -122,7 +122,7 @@
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:11 GMT"
+        "Tue, 14 Apr 2026 15:22:23 GMT"
       ],
       [
         "content-type",
@@ -134,7 +134,7 @@
       ],
       [
         "x-amzn-requestid",
-        "b5f7a642-7aea-454a-ada5-0f3b6b2db454"
+        "a7e6129f-ba28-4863-b3fc-0eace303aa86"
       ]
     ],
     "status": 200

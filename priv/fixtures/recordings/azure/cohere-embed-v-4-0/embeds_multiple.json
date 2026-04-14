@@ -2,8 +2,8 @@
   "metadata": {
     "model": "embed-v-4-0",
     "provider": "azure",
-    "recorded_at": "2026-03-10T18:35:19.930916Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:25.205594Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -4658,7 +4658,7 @@
           "object": "embedding"
         }
       ],
-      "id": "c3598262-b30f-4c31-97f9-cc4e0a4fbb57",
+      "id": "b99d4bd6-6f7a-4ec4-a7f2-0b656dc6a981",
       "model": "embed-v4.0",
       "object": "list",
       "usage": {
@@ -4710,7 +4710,7 @@
       ],
       [
         "apim-request-id",
-        "22a4db3f-651d-4d5d-afbc-2e8ed850dde7"
+        "5d69d3a0-f9da-49cf-af7f-ade759c0b40f"
       ],
       [
         "x-content-type-options",
@@ -4721,12 +4721,12 @@
         "East US"
       ],
       [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
         "x-ratelimit-remaining-tokens",
         "249988"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
       ],
       [
         "x-ratelimit-limit-tokens",
@@ -4734,7 +4734,7 @@
       ],
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:19 GMT"
+        "Tue, 14 Apr 2026 15:22:24 GMT"
       ]
     ],
     "status": 200

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-10T18:35:03.673804Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:23.793055Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -37,14 +37,14 @@
           "logprobs": null,
           "message": {
             "annotations": [],
-            "content": "Sure, I will remember your name, Sycophant. Nice to meet you.",
+            "content": "Hello Sycophant, nice to meet you. How can I assist you today?",
             "refusal": null,
             "role": "assistant"
           }
         }
       ],
-      "created": 1773167703,
-      "id": "chatcmpl-DHwD18PE37fwv4tYKSYURllU0vVvX",
+      "created": 1776180143,
+      "id": "chatcmpl-DUZslWM22EA0AxiuyslacabFoFyUn",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -68,11 +68,31 @@
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:03 GMT"
+        "Tue, 14 Apr 2026 15:22:23 GMT"
       ],
       [
         "content-type",
         "application/json"
+      ],
+      [
+        "cf-ray",
+        "9ec3b4a6db95ae1d-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
       ],
       [
         "access-control-expose-headers",
@@ -84,7 +104,7 @@
       ],
       [
         "openai-processing-ms",
-        "370"
+        "451"
       ],
       [
         "openai-project",
@@ -95,8 +115,8 @@
         "2020-10-01"
       ],
       [
-        "server",
-        "cloudflare"
+        "x-openai-proxy-wasm",
+        "v0.1"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -124,31 +144,11 @@
       ],
       [
         "x-request-id",
-        "req_758e7ea5424b42e1b02d16483191a260"
-      ],
-      [
-        "x-openai-proxy-wasm",
-        "v0.1"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_cbd9cd2d516548b0bf01d69de3abf6e1"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9da46ac08c2bfba4-AMS"
       ],
       [
         "alt-svc",

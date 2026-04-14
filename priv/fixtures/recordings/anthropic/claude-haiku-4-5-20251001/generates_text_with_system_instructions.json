@@ -2,8 +2,8 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-03-10T18:35:11.149552Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:23.831612Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -42,9 +42,10 @@
           "type": "text"
         }
       ],
-      "id": "msg_01MKMaVk5kRJw7it8yLzda6f",
+      "id": "msg_01PpZmCQj7D3xrg3z6AXe1vz",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
+      "stop_details": null,
       "stop_reason": "end_turn",
       "stop_sequence": null,
       "type": "message",
@@ -64,11 +65,15 @@
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:11 GMT"
+        "Tue, 14 Apr 2026 15:22:23 GMT"
       ],
       [
         "content-type",
         "application/json"
+      ],
+      [
+        "content-length",
+        "457"
       ],
       [
         "anthropic-ratelimit-input-tokens-limit",
@@ -80,7 +85,7 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-03-10T18:35:10Z"
+        "2026-04-14T15:22:23Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
@@ -92,7 +97,7 @@
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-03-10T18:35:11Z"
+        "2026-04-14T15:22:23Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
@@ -104,7 +109,7 @@
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-03-10T18:35:09Z"
+        "2026-04-14T15:22:23Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
@@ -116,11 +121,11 @@
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-03-10T18:35:10Z"
+        "2026-04-14T15:22:23Z"
       ],
       [
         "request-id",
-        "req_011CYut6cjRnn4V4Twxa5CLd"
+        "req_011Ca3ti2n1scxmaqHrkaBeb"
       ],
       [
         "strict-transport-security",
@@ -136,27 +141,31 @@
       ],
       [
         "x-envoy-upstream-service-time",
-        "1363"
+        "785"
       ],
       [
-        "vary",
-        "Accept-Encoding"
-      ],
-      [
-        "x-robots-tag",
-        "none"
-      ],
-      [
-        "content-security-policy",
-        "default-src 'none'; frame-ancestors 'none'"
+        "server-timing",
+        "x-originResponse;dur=787"
       ],
       [
         "cf-cache-status",
         "DYNAMIC"
       ],
       [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "content-security-policy",
+        "default-src 'none'; frame-ancestors 'none'"
+      ],
+      [
+        "x-robots-tag",
+        "none"
+      ],
+      [
         "cf-ray",
-        "9da46ae98e573466-AMS"
+        "9ec3b4a55e689947-PRG"
       ]
     ],
     "status": 200

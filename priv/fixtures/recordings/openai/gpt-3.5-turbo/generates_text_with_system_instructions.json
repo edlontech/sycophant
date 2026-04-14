@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-10T18:35:05.156263Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:23.142222Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -47,8 +47,8 @@
           }
         }
       ],
-      "created": 1773167704,
-      "id": "chatcmpl-DHwD2VBVuoRhWh8tGhMYbFvdoPBwN",
+      "created": 1776180142,
+      "id": "chatcmpl-DUZsk4wD55F5kVbwqYtAjGPIVenl7",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -72,11 +72,31 @@
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:05 GMT"
+        "Tue, 14 Apr 2026 15:22:23 GMT"
       ],
       [
         "content-type",
         "application/json"
+      ],
+      [
+        "cf-ray",
+        "9ec3b4a12f41ae1d-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
       ],
       [
         "access-control-expose-headers",
@@ -88,7 +108,7 @@
       ],
       [
         "openai-processing-ms",
-        "142"
+        "509"
       ],
       [
         "openai-project",
@@ -99,8 +119,8 @@
         "2020-10-01"
       ],
       [
-        "server",
-        "cloudflare"
+        "x-openai-proxy-wasm",
+        "v0.1"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -116,7 +136,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "1999980"
+        "1999981"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -128,31 +148,11 @@
       ],
       [
         "x-request-id",
-        "req_5fae6041aaab42799f2a26267efc1e5d"
-      ],
-      [
-        "x-openai-proxy-wasm",
-        "v0.1"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_deaaedbd36364f918eae4db66cd98e56"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9da46acb8f3afba4-AMS"
       ],
       [
         "alt-svc",

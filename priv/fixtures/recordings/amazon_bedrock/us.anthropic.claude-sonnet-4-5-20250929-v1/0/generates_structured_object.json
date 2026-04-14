@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-03-10T18:35:05.077449Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:21.245989Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -40,7 +40,7 @@
       ],
       [
         "x-amz-date",
-        "20260310T183501Z"
+        "20260414T152218Z"
       ],
       [
         "content-type",
@@ -53,13 +53,13 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 2728
+        "latencyMs": 1936
       },
       "output": {
         "message": {
           "content": [
             {
-              "text": "{\"age\":28,\"hobbies\":[\"photography\",\"hiking\",\"cooking\"],\"name\":\"Maya Chen\"}"
+              "text": "{\"age\":32,\"hobbies\":[\"photography\",\"rock climbing\",\"cooking\"],\"name\":\"Elena Martinez\"}"
             }
           ],
           "role": "assistant"
@@ -72,15 +72,15 @@
         "cacheWriteInputTokenCount": 0,
         "cacheWriteInputTokens": 0,
         "inputTokens": 236,
-        "outputTokens": 25,
+        "outputTokens": 26,
         "serverToolUsage": {},
-        "totalTokens": 261
+        "totalTokens": 262
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:05 GMT"
+        "Tue, 14 Apr 2026 15:22:21 GMT"
       ],
       [
         "content-type",
@@ -88,11 +88,11 @@
       ],
       [
         "content-length",
-        "403"
+        "415"
       ],
       [
         "x-amzn-requestid",
-        "71197544-95b4-4cc2-b99f-bc0f93f15ae9"
+        "007ef447-aea3-40cf-bcd6-d2ced9665061"
       ]
     ],
     "status": 200

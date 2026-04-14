@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-12T12:36:43.673251Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:20.649043Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -63,20 +63,20 @@
           "logprobs": null,
           "message": {
             "annotations": [],
-            "content": "That's great! Do you need any information or assistance for your trip to London?",
+            "content": "That sounds exciting! How can I assist you with your trip to London?",
             "refusal": null,
             "role": "assistant"
           }
         }
       ],
-      "created": 1773319003,
-      "id": "chatcmpl-DIZZL5f4hcupCVL86eAIIgA3FlCjp",
+      "created": 1776180140,
+      "id": "chatcmpl-DUZsiWRB8Q5LjuyhzgL2BlJSF8bCE",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
       "system_fingerprint": null,
       "usage": {
-        "completion_tokens": 18,
+        "completion_tokens": 16,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "audio_tokens": 0,
@@ -88,17 +88,37 @@
           "audio_tokens": 0,
           "cached_tokens": 0
         },
-        "total_tokens": 87
+        "total_tokens": 85
       }
     },
     "headers": [
       [
         "date",
-        "Thu, 12 Mar 2026 12:36:43 GMT"
+        "Tue, 14 Apr 2026 15:22:20 GMT"
       ],
       [
         "content-type",
         "application/json"
+      ],
+      [
+        "cf-ray",
+        "9ec3b4898c3fae1d-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
       ],
       [
         "access-control-expose-headers",
@@ -110,7 +130,7 @@
       ],
       [
         "openai-processing-ms",
-        "748"
+        "1929"
       ],
       [
         "openai-project",
@@ -121,8 +141,8 @@
         "2020-10-01"
       ],
       [
-        "server",
-        "cloudflare"
+        "x-openai-proxy-wasm",
+        "v0.1"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -134,7 +154,7 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "8999"
+        "8998"
       ],
       [
         "x-ratelimit-remaining-tokens",
@@ -150,31 +170,11 @@
       ],
       [
         "x-request-id",
-        "req_ff31144867e244d1aa60d37ab811df58"
-      ],
-      [
-        "x-openai-proxy-wasm",
-        "v0.1"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_96664a7dcca9445b8db23e65ab9e9fc7"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9db2d895292ffb83-AMS"
       ],
       [
         "alt-svc",

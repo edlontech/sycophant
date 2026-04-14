@@ -2,8 +2,8 @@
   "metadata": {
     "model": "google/gemini-2.5-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-10T18:35:02.439407Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:20.884207Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -51,11 +51,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1773167702,
-      "created_at": 1773167701,
+      "completed_at": 1776180140,
+      "created_at": 1776180140,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1773167701-uAiL3ieFBzvvgEJZ0syb",
+      "id": "gen-1776180140-Sjhys9MRQIPC7QvRu4jI",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -66,8 +66,8 @@
       "output": [
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "tool_get_weather_TGOxDXw1ZoIt7k8Fm8tW",
-          "id": "fc_tmp_msp8aax71hi",
+          "call_id": "tool_get_weather_sQ2gkVkBzoq4TK6DNNfW",
+          "id": "fc_tmp_wmnficd7xoq",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -129,13 +129,12 @@
           "reasoning_tokens": 0
         },
         "total_tokens": 33
-      },
-      "user": null
+      }
     },
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:02 GMT"
+        "Tue, 14 Apr 2026 15:22:20 GMT"
       ],
       [
         "content-type",
@@ -143,11 +142,19 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=6,cfOrigin;dur=0,cfWorker;dur=771"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=456"
       ],
       [
         "access-control-allow-origin",
         "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180140-Sjhys9MRQIPC7QvRu4jI"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -167,7 +174,7 @@
       ],
       [
         "cf-ray",
-        "9da46ab748fc6568-AMS"
+        "9ec3b49578dbf97e-PRG"
       ]
     ],
     "status": 200

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-03-10T18:35:04.071665Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:25.136849Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -24,7 +24,7 @@
               "description": "Get current weather for a city",
               "inputSchema": {
                 "json": {
-                  "additionalProperties": true,
+                  "additionalProperties": false,
                   "properties": {
                     "city": {
                       "type": "string"
@@ -53,7 +53,7 @@
       ],
       [
         "x-amz-date",
-        "20260310T183501Z"
+        "20260414T152223Z"
       ],
       [
         "content-type",
@@ -66,7 +66,7 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 1723
+        "latencyMs": 1440
       },
       "output": {
         "message": {
@@ -77,7 +77,7 @@
                   "city": "Paris"
                 },
                 "name": "get_weather",
-                "toolUseId": "tooluse_t1Niyt99mQXgehW173XUi1",
+                "toolUseId": "tooluse_ozU5i0g18VrOGW69TBk6HP",
                 "type": "tool_use"
               }
             }
@@ -100,7 +100,7 @@
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:04 GMT"
+        "Tue, 14 Apr 2026 15:22:25 GMT"
       ],
       [
         "content-type",
@@ -112,7 +112,7 @@
       ],
       [
         "x-amzn-requestid",
-        "751eaf12-4f6d-433b-8d8f-45909626e71f"
+        "f5b6cacf-a3a5-4966-86ee-2c099343198a"
       ]
     ],
     "status": 200

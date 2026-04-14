@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-03-10T18:35:03.668236Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:22.909855Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -27,7 +27,7 @@
       ],
       [
         "x-amz-date",
-        "20260310T183503Z"
+        "20260414T152222Z"
       ],
       [
         "content-type",
@@ -1581,7 +1581,7 @@
           ]
         ]
       },
-      "id": "f057ff88-282c-4a68-82f1-85ba1599ea6d",
+      "id": "b78026a7-7c2c-45ad-a694-a7ae968a1b4b",
       "response_type": "embeddings_by_type",
       "texts": [
         "The quick brown fox jumps over the lazy dog"
@@ -1590,7 +1590,7 @@
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:03 GMT"
+        "Tue, 14 Apr 2026 15:22:22 GMT"
       ],
       [
         "content-type",
@@ -1602,11 +1602,11 @@
       ],
       [
         "x-amzn-requestid",
-        "f057ff88-282c-4a68-82f1-85ba1599ea6d"
+        "b78026a7-7c2c-45ad-a694-a7ae968a1b4b"
       ],
       [
         "x-amzn-bedrock-invocation-latency",
-        "124"
+        "122"
       ],
       [
         "x-amzn-bedrock-input-token-count",

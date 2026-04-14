@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5-mini",
     "provider": "azure",
-    "recorded_at": "2026-03-10T18:35:16.006577Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:47.770890Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -38,50 +38,13 @@
         "verbosity": "medium"
       },
       "top_logprobs": 0,
-      "content_filters": [
-        {
-          "blocked": false,
-          "content_filter_offsets": {
-            "check_offset": 0,
-            "end_offset": 529,
-            "start_offset": 0
-          },
-          "content_filter_raw": [],
-          "content_filter_results": {
-            "hate": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "protected_material_code": {
-              "detected": false,
-              "filtered": false
-            },
-            "protected_material_text": {
-              "detected": false,
-              "filtered": false
-            },
-            "self_harm": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "sexual": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "violence": {
-              "filtered": false,
-              "severity": "safe"
-            }
-          },
-          "source_type": "completion"
-        }
-      ],
+      "content_filters": null,
       "previous_response_id": null,
       "tool_choice": "auto",
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_0442899db14b290f0069b064619d9c81969bd56546c8b39b54",
+      "id": "resp_0cbe193be4b0794d0069de5bc2003c81968bcfdbb668a32852",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -93,18 +56,18 @@
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 128,
+        "output_tokens": 152,
         "output_tokens_details": {
-          "reasoning_tokens": 64
+          "reasoning_tokens": 128
         },
-        "total_tokens": 142
+        "total_tokens": 166
       },
       "safety_identifier": null,
       "object": "response",
       "parallel_tool_calls": true,
       "output": [
         {
-          "id": "rs_0442899db14b290f0069b064620f2481968d8fd4f0c5dc1ba8",
+          "id": "rs_0cbe193be4b0794d0069de5bc28b388196a0627a2b536f829d",
           "summary": [],
           "type": "reasoning"
         },
@@ -117,7 +80,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_0442899db14b290f0069b0646345f88196ad7ee077e8ca3bf0",
+          "id": "msg_0cbe193be4b0794d0069de5bc6f80c8196904b3579afc4e09b",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -131,19 +94,19 @@
         "effort": "medium",
         "summary": null
       },
-      "completed_at": 1773167715,
+      "completed_at": 1776180167,
       "truncation": "disabled",
       "top_p": 1.0,
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1773167713,
+      "created_at": 1776180162,
       "max_tool_calls": null
     },
     "headers": [
       [
         "content-length",
-        "2476"
+        "1640"
       ],
       [
         "content-type",
@@ -154,44 +117,52 @@
         "true"
       ],
       [
+        "x-ms-is-spilled-over",
+        "false"
+      ],
+      [
+        "x-ratelimit-remaining-requests",
+        "149"
+      ],
+      [
+        "x-ratelimit-reset-requests",
+        "400"
+      ],
+      [
         "x-ratelimit-limit-requests",
         "150"
+      ],
+      [
+        "x-ratelimit-renewalperiod-requests",
+        "60"
+      ],
+      [
+        "x-ratelimit-abusepenalty-active",
+        "False"
+      ],
+      [
+        "x-ratelimit-remaining-tokens",
+        "149993"
+      ],
+      [
+        "x-ratelimit-reset-tokens",
+        "2"
       ],
       [
         "x-ratelimit-limit-tokens",
         "150000"
       ],
       [
-        "x-ratelimit-remaining-requests",
-        "150"
-      ],
-      [
-        "x-ratelimit-remaining-tokens",
-        "150000"
-      ],
-      [
-        "x-ratelimit-reset-requests",
-        "0"
-      ],
-      [
-        "x-ratelimit-reset-tokens",
-        "0"
-      ],
-      [
-        "azureai-requested-tier",
-        "default"
-      ],
-      [
-        "azureai-processed-tier",
-        "default"
+        "x-ratelimit-renewalperiod-tokens",
+        "60"
       ],
       [
         "x-request-id",
-        "8f7e0c5f-9a24-4b1d-866d-7f930faa2043"
+        "b6c0df5d-8bed-4947-abf2-22642890771a"
       ],
       [
         "apim-request-id",
-        "5ae4d26e-6382-4450-a72f-684ae604d1aa"
+        "54e0c19c-0f84-4cf3-96c2-d5d0981bc63e"
       ],
       [
         "strict-transport-security",
@@ -211,7 +182,7 @@
       ],
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:15 GMT"
+        "Tue, 14 Apr 2026 15:22:47 GMT"
       ]
     ],
     "status": 200

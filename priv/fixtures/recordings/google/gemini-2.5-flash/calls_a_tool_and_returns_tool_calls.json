@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-03-10T18:35:02.496620Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:21.319726Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -65,7 +65,7 @@
                   },
                   "name": "get_weather"
                 },
-                "thoughtSignature": "CsMBAb4+9vtAHH5YTG2VyBdKc/GLot80HCgFNT20EdeE3ahKob9XeUQYzgCmgEEKwqtAYwRCJNkrkjR8cEX4YvBh49aa8f7ocQLnd1TY6Z7ssmUMqQ9xMGgB5sW9JDq5BLjh/QI3SbfX9lrJBTbTjElWUkjV/2Y5tjG0+t2fqyxthncIWveFDh2jPaqYKo55EOtNso7lzE9nLHqenBo6USLLC2hGuDE1deuapjJkX70rd5EZVnECtLtYOrkCsWHEyTAiP1Co"
+                "thoughtSignature": "CsIBAb4+9vt1inxZvBT9qfuLKkqKkxpFsiCz1KrX+ygzVdBq2b3K2WfWpj/qGcjaKMPGS8FislUhBrnXsMDct7qJb0KJe7qXT2QFMaBM0mkKI8+7Jibf61ghQ9u7vN7UUgBnhSwFW+7AymDaQW6WklIEYkXvSt45KljmELYptnF4eTNKgDgMr5zDEN6WdCJ+hech9cej6YG+9yb0A3y8+lIx4BxUiCGVA6NFQFFjltaOIBHUqyr1f2YryeHag2mlJuTrSd8="
               }
             ],
             "role": "model"
@@ -76,7 +76,7 @@
         }
       ],
       "modelVersion": "gemini-2.5-flash",
-      "responseId": "VWSwacS9Kojp7M8P7KjSyAc",
+      "responseId": "rFveaayZGNzlxN8PvYO66A0",
       "usageMetadata": {
         "candidatesTokenCount": 15,
         "promptTokenCount": 54,
@@ -91,6 +91,10 @@
       }
     },
     "headers": [
+      [
+        "x-gemini-service-tier",
+        "standard"
+      ],
       [
         "content-type",
         "application/json; charset=UTF-8"
@@ -109,7 +113,7 @@
       ],
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:02 GMT"
+        "Tue, 14 Apr 2026 15:22:21 GMT"
       ],
       [
         "server",
@@ -129,7 +133,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=828"
+        "gfet4t7; dur=968"
       ],
       [
         "alt-svc",

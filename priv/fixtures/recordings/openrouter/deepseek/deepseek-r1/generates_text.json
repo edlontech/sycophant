@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-10T18:27:44.626317Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:46.132141Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -31,11 +31,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1773167264,
-      "created_at": 1773167261,
+      "completed_at": 1776180166,
+      "created_at": 1776180159,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1773167261-cPioxXYu2boYDELlMrXC",
+      "id": "gen-1776180159-979XVqrDqH6s7hIQPhmr",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -47,12 +47,12 @@
         {
           "content": [
             {
-              "text": "Okay, the user wants me to simply say 'hello' and nothing else. Let me check the instructions again. Yes, they specified to respond with 'hello' and nothing else. I need to make sure there's no extra text. Just the word 'hello'. Alright, I'll keep it straightforward. No greetings, explanations, or additional words. Just 'hello' as per the request. Got it.\n",
+              "text": "First, the user said: \"Say 'hello' and nothing else.\" So, I need to follow this instruction exactly.\n\nMy role is to be a helpful Assistant. I should respond with just 'hello' and nothing more. That means no additional text, no explanations, no greetings beyond the word 'hello'.\n\nThe instruction is clear: \"Say 'hello' and nothing else.\" So, my response should be solely the word \"hello\".\n\nI should ensure that my output is minimal and precise. No extra characters, no formatting unless specified, but since it's a text response, I'll just type \"hello\".\n\nFinally, confirm that I'm adhering to the user's request. Yes, by saying only 'hello', I'm complying.",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_u0kt7mqmtq",
+          "id": "rs_tmp_evstfde5uuv",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
@@ -66,7 +66,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_78h3mr9liqy",
+          "id": "msg_tmp_wkkry25u6bg",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -93,29 +93,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 2.241e-4,
+        "cost": 3.926e-4,
         "cost_details": {
-          "upstream_inference_cost": 2.241e-4,
-          "upstream_inference_input_cost": 9.1e-6,
-          "upstream_inference_output_cost": 2.15e-4
+          "upstream_inference_cost": 3.926e-4,
+          "upstream_inference_input_cost": 1.26e-5,
+          "upstream_inference_output_cost": 3.8e-4
         },
-        "input_tokens": 13,
+        "input_tokens": 18,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 86,
+        "output_tokens": 152,
         "output_tokens_details": {
-          "reasoning_tokens": 85
+          "reasoning_tokens": 149
         },
-        "total_tokens": 99
-      },
-      "user": null
+        "total_tokens": 170
+      }
     },
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:27:42 GMT"
+        "Tue, 14 Apr 2026 15:22:40 GMT"
       ],
       [
         "content-type",
@@ -123,11 +122,19 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=988"
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1396"
       ],
       [
         "access-control-allow-origin",
         "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180159-979XVqrDqH6s7hIQPhmr"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -147,7 +154,7 @@
       ],
       [
         "cf-ray",
-        "9da45ff83c1b6622-AMS"
+        "9ec3b50d7cb6f97e-PRG"
       ]
     ],
     "status": 200

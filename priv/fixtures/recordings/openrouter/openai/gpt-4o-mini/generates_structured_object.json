@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-4o-mini",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-10T18:35:02.834437Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:20.139267Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -61,11 +61,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1773167702,
-      "created_at": 1773167702,
+      "completed_at": 1776180140,
+      "created_at": 1776180138,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1773167702-UgNdEMWNXr6FF1mjioJI",
+      "id": "gen-1776180138-NNWYXwiWfaHimbDzAWtj",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -79,11 +79,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "{\"age\":29,\"hobbies\":[\"hiking\",\"playing guitar\",\"cooking\"],\"name\":\"Lila Thompson\"}",
+              "text": "{\"age\":29,\"hobbies\":[\"playing guitar\",\"hiking\",\"photography\"],\"name\":\"Lucas Monroe\"}",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_2zrvqlwm7w7",
+          "id": "msg_tmp_jfypw2r9vgd",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -151,13 +151,12 @@
           "reasoning_tokens": 0
         },
         "total_tokens": 101
-      },
-      "user": null
+      }
     },
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:02 GMT"
+        "Tue, 14 Apr 2026 15:22:20 GMT"
       ],
       [
         "content-type",
@@ -165,11 +164,19 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=6,cfOrigin;dur=0,cfWorker;dur=831"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=1568"
       ],
       [
         "access-control-allow-origin",
         "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180138-NNWYXwiWfaHimbDzAWtj"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -189,7 +196,7 @@
       ],
       [
         "cf-ray",
-        "9da46ab7490e6568-AMS"
+        "9ec3b4896927f97e-PRG"
       ]
     ],
     "status": 200

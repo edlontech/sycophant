@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-10T18:35:15.934832Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:22.909896Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -51,11 +51,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1773167715,
-      "created_at": 1773167706,
+      "completed_at": 1776180142,
+      "created_at": 1776180138,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1773167706-CYJRQT16d5IJg7J9oxdY",
+      "id": "gen-1776180138-EY0cilRhHfoCMk3Tkdeh",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -67,20 +67,20 @@
         {
           "content": [
             {
-              "text": "好的，我现在需要处理用户的问题：“What's the weather in Paris? Use the get_weather tool.”。首先，我应该确认用户的需求是什么。用户明确询问巴黎的天气，并且已经指定要使用get_weather工具。接下来，我需要回忆可用的工具列表，确认是否有对应的工具可以使用。根据提供的工具列表，确实有一个名为get_weather的函数，其功能是获取当前城市的天气，返回温度和天气状况。参数需要城市名称，类型是字符串，必填项是城市。\n\n用户的问题中已经明确指出城市是巴黎，所以参数部分应该填写\"city\": \"Paris\"。我需要生成正确的JSON格式参数，确保没有遗漏必填项。此外，根据输出格式的要求，单次调用工具时，需要用特定的标签包裹函数名称和参数。这里只需要调用一次工具，所以格式应该是：\n\n<tool_calls_begin><tool_call_begin>function<tool_sep>get_weather\n```json\n{\"city\": \"Paris\"}\n```<tool_call_end><tool_calls_end>\n\n我需要检查是否有拼写错误，确认函数名称是否正确，参数是否符合要求。用户明确要求使用工具，所以不需要额外回复内容，直接调用即可。确保JSON格式正确，没有多余的逗号或括号问题。最后，确保输出的格式严格按照用户提供的示例，避免添加额外的说明或文本。\n",
+              "text": "The user asks for the weather in Paris and explicitly says to use the get_weather tool. I'll call get_weather with city Paris.",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_zsxzwc9gq8",
+          "id": "rs_tmp_vdmw4kkp5mo",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
         },
         {
           "arguments": "{\"city\": \"Paris\"}",
-          "call_id": "e6fd64a799f9462ea80532e0301f5955",
-          "id": "fc_tmp_uqrpy7pd7fp",
+          "call_id": "7efa70f056ee4eea9c986c7a4c0b908c",
+          "id": "fc_tmp_0rusiy74n5i",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -126,29 +126,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 0.0010561,
+        "cost": 4.178e-4,
         "cost_details": {
-          "upstream_inference_cost": 0.0010561,
-          "upstream_inference_input_cost": 2.611e-4,
-          "upstream_inference_output_cost": 7.95e-4
+          "upstream_inference_cost": 4.178e-4,
+          "upstream_inference_input_cost": 2.303e-4,
+          "upstream_inference_output_cost": 1.875e-4
         },
-        "input_tokens": 373,
+        "input_tokens": 329,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 318,
+        "output_tokens": 75,
         "output_tokens_details": {
-          "reasoning_tokens": 276
+          "reasoning_tokens": 29
         },
-        "total_tokens": 691
-      },
-      "user": null
+        "total_tokens": 404
+      }
     },
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:08 GMT"
+        "Tue, 14 Apr 2026 15:22:20 GMT"
       ],
       [
         "content-type",
@@ -156,11 +155,19 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=10,cfOrigin;dur=0,cfWorker;dur=1192"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=2366"
       ],
       [
         "access-control-allow-origin",
         "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180138-EY0cilRhHfoCMk3Tkdeh"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -180,7 +187,7 @@
       ],
       [
         "cf-ray",
-        "9da46ad87e466568-AMS"
+        "9ec3b4896924f97e-PRG"
       ]
     ],
     "status": 200

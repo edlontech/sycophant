@@ -2,8 +2,8 @@
   "metadata": {
     "model": "anthropic/claude-haiku-4.5",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-12T12:36:47.138717Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:30.801380Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -52,11 +52,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1773319007,
-      "created_at": 1773319002,
+      "completed_at": 1776180150,
+      "created_at": 1776180138,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1773319002-a1GIhTiUf8pHURf4dhcL",
+      "id": "gen-1776180138-kNv81AvVx7MdFro8MApv",
       "incomplete_details": null,
       "instructions": "You are a helpful assistant. Be concise.",
       "max_output_tokens": null,
@@ -70,11 +70,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "That sounds exciting! I'd be happy to help you plan your trip to London. Here are some things I can assist with:\n\n1. **Weather**: I can check the current weather in London to help you pack appropriately\n2. **General advice**: I can offer tips on attractions, neighborhoods, transportation, and activities\n\nWould you like me to check the current weather in London for you? Also, it would help to know:\n- When are you planning to visit?\n- How long will you be staying?\n- What are you most interested in (museums, food, history, shopping, etc.)?\n- Do you have specific questions about the trip?\n\nLet me know how I can best help!",
+              "text": "That sounds exciting! I'd be happy to help with your London trip planning. Here are some things I can assist with:\n\n1. **Weather** - I can check the current weather in London to help you pack appropriately\n2. **General advice** - I can offer tips on attractions, neighborhoods, transportation, dining, and more\n\nWould you like me to check the current weather in London first? Or do you have specific questions about your trip, such as:\n- Where to stay?\n- What attractions to visit?\n- How to get around?\n- Best times to visit?\n- Restaurant recommendations?\n\nLet me know what would be most helpful!",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_ixe27h8omai",
+          "id": "msg_tmp_aot8r4l6gwh",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -120,29 +120,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 0.001345,
+        "cost": 0.001295,
         "cost_details": {
-          "upstream_inference_cost": 0.001345,
+          "upstream_inference_cost": 0.001295,
           "upstream_inference_input_cost": 5.9e-4,
-          "upstream_inference_output_cost": 7.55e-4
+          "upstream_inference_output_cost": 7.05e-4
         },
         "input_tokens": 590,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 151,
+        "output_tokens": 141,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 741
-      },
-      "user": null
+        "total_tokens": 731
+      }
     },
     "headers": [
       [
         "date",
-        "Thu, 12 Mar 2026 12:36:46 GMT"
+        "Tue, 14 Apr 2026 15:22:28 GMT"
       ],
       [
         "content-type",
@@ -150,11 +149,19 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=3752"
+        "cfEdge;dur=2,cfOrigin;dur=0,cfWorker;dur=10505"
       ],
       [
         "access-control-allow-origin",
         "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180138-kNv81AvVx7MdFro8MApv"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -174,7 +181,7 @@
       ],
       [
         "cf-ray",
-        "9db2d894fdd56567-AMS"
+        "9ec3b489898bf97e-PRG"
       ]
     ],
     "status": 200

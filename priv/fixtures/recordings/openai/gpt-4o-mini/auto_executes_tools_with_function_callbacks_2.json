@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-10T18:35:04.270790Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:20.438698Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -20,12 +20,12 @@
         },
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "call_btiEbuFYDdltNIkyUsAg1J4E",
+          "call_id": "call_GWnshTRfHX4N31lzf0ErzXu5",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "call_btiEbuFYDdltNIkyUsAg1J4E",
+          "call_id": "call_GWnshTRfHX4N31lzf0ErzXu5",
           "output": "Paris: 22C, sunny",
           "type": "function_call_output"
         }
@@ -99,7 +99,7 @@
           "type": "function"
         }
       ],
-      "id": "resp_0b0e0ae050ef714c0069b06457982c819699607b7e5025b76b",
+      "id": "resp_05de15abb7c715020069de5bab77e48193a6badb00c71bdf9a",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -130,7 +130,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_0b0e0ae050ef714c0069b06457df008196a5acf3aaebdb0a82",
+          "id": "msg_05de15abb7c715020069de5babf2bc8193b4bdf41d556405c0",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -144,7 +144,7 @@
         "effort": null,
         "summary": null
       },
-      "completed_at": 1773167704,
+      "completed_at": 1776180140,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -153,13 +153,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1773167703,
+      "created_at": 1776180139,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:04 GMT"
+        "Tue, 14 Apr 2026 15:22:20 GMT"
       ],
       [
         "content-type",
@@ -187,7 +187,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "149999702"
+        "149999700"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -211,11 +211,11 @@
       ],
       [
         "x-request-id",
-        "req_55e57e8e8a2b42489c1534f7bd1774f6"
+        "req_0ea30cb045d04eadb619c9b91eb93762"
       ],
       [
         "openai-processing-ms",
-        "624"
+        "919"
       ],
       [
         "cf-cache-status",
@@ -235,7 +235,7 @@
       ],
       [
         "cf-ray",
-        "9da46ac2e9f4fba4-AMS"
+        "9ec3b48f088eae1d-PRG"
       ],
       [
         "alt-svc",

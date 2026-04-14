@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-12T12:36:46.538091Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:22.115916Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -17,7 +17,7 @@
           "role": "user"
         },
         {
-          "content": "That's great! Do you need any information or assistance for your trip to London?",
+          "content": "That sounds exciting! How can I assist you with your trip to London?",
           "role": "assistant"
         },
         {
@@ -33,7 +33,7 @@
                 "arguments": "{\"city\":\"London\"}",
                 "name": "get_weather"
               },
-              "id": "call_JNe0lCotIuAgAvzswA33hY9A",
+              "id": "call_55v16PjI5eyiVOqAAbLFxFL9",
               "type": "function"
             }
           ]
@@ -41,7 +41,7 @@
         {
           "content": "London: 18C, cloudy",
           "role": "tool",
-          "tool_call_id": "call_JNe0lCotIuAgAvzswA33hY9A"
+          "tool_call_id": "call_55v16PjI5eyiVOqAAbLFxFL9"
         }
       ],
       "model": "gpt-3.5-turbo",
@@ -90,42 +90,62 @@
           "logprobs": null,
           "message": {
             "annotations": [],
-            "content": "The current weather in London is 18°C and cloudy. If you need any more details or assistance with your trip, feel free to ask!",
+            "content": "The current weather in London is 18°C and cloudy.",
             "refusal": null,
             "role": "assistant"
           }
         }
       ],
-      "created": 1773319006,
-      "id": "chatcmpl-DIZZOJp0WDD5Orw6TzBO7ET8iXlrw",
+      "created": 1776180141,
+      "id": "chatcmpl-DUZsjWNh7UNPG1Pa2kzzbn2deO1c7",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
       "system_fingerprint": null,
       "usage": {
-        "completion_tokens": 30,
+        "completion_tokens": 13,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "audio_tokens": 0,
           "reasoning_tokens": 0,
           "rejected_prediction_tokens": 0
         },
-        "prompt_tokens": 137,
+        "prompt_tokens": 135,
         "prompt_tokens_details": {
           "audio_tokens": 0,
           "cached_tokens": 0
         },
-        "total_tokens": 167
+        "total_tokens": 148
       }
     },
     "headers": [
       [
         "date",
-        "Thu, 12 Mar 2026 12:36:46 GMT"
+        "Tue, 14 Apr 2026 15:22:22 GMT"
       ],
       [
         "content-type",
         "application/json"
+      ],
+      [
+        "cf-ray",
+        "9ec3b49c5bb8ae1d-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
       ],
       [
         "access-control-expose-headers",
@@ -137,7 +157,7 @@
       ],
       [
         "openai-processing-ms",
-        "724"
+        "481"
       ],
       [
         "openai-project",
@@ -148,8 +168,8 @@
         "2020-10-01"
       ],
       [
-        "server",
-        "cloudflare"
+        "x-openai-proxy-wasm",
+        "v0.1"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -161,11 +181,11 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "8998"
+        "8999"
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "1999934"
+        "1999937"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -177,31 +197,11 @@
       ],
       [
         "x-request-id",
-        "req_0d68bf8cba8e4fa295dcfce662dc8b3b"
-      ],
-      [
-        "x-openai-proxy-wasm",
-        "v0.1"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_2cfa11b7edd144b28dca99da0f94908e"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9db2d8a76dc2fb83-AMS"
       ],
       [
         "alt-svc",

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-03-12T12:36:46.003270Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:21.582954Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -29,7 +29,7 @@
               "description": "Get current weather for a city. Returns temperature and conditions.",
               "inputSchema": {
                 "json": {
-                  "additionalProperties": true,
+                  "additionalProperties": false,
                   "properties": {
                     "city": {
                       "type": "string"
@@ -58,7 +58,7 @@
       ],
       [
         "x-amz-date",
-        "20260312T123642Z"
+        "20260414T152219Z"
       ],
       [
         "content-type",
@@ -71,13 +71,13 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 2716
+        "latencyMs": 2020
       },
       "output": {
         "message": {
           "content": [
             {
-              "text": "Hello! How exciting that you're planning a trip to London! How can I help you with your trip? \n\nWould you like me to check the current weather in London, or is there something else you'd like to know?"
+              "text": "Hello! That's exciting that you're planning a trip to London! \n\nWould you like me to check the current weather in London for you? I can help you get an idea of what conditions are like there right now."
             }
           ],
           "role": "assistant"
@@ -90,15 +90,15 @@
         "cacheWriteInputTokenCount": 0,
         "cacheWriteInputTokens": 0,
         "inputTokens": 590,
-        "outputTokens": 50,
+        "outputTokens": 49,
         "serverToolUsage": {},
-        "totalTokens": 640
+        "totalTokens": 639
       }
     },
     "headers": [
       [
         "date",
-        "Thu, 12 Mar 2026 12:36:45 GMT"
+        "Tue, 14 Apr 2026 15:22:21 GMT"
       ],
       [
         "content-type",
@@ -106,11 +106,11 @@
       ],
       [
         "content-length",
-        "517"
+        "518"
       ],
       [
         "x-amzn-requestid",
-        "50ec27c4-0997-492f-8c19-3e1b7a38105d"
+        "32e70439-f5ab-4289-abbb-7789054fe5a6"
       ]
     ],
     "status": 200

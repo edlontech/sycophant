@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-4o-mini",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-10T18:35:05.997762Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:25.319611Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -31,11 +31,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1773167705,
-      "created_at": 1773167705,
+      "completed_at": 1776180145,
+      "created_at": 1776180144,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1773167705-VCSWWyoApKp4L8dKDPn4",
+      "id": "gen-1776180144-m2AGpVzTg66jGsbPx9TX",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -53,7 +53,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_nrihrigede",
+          "id": "msg_tmp_ol279liutwa",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -96,13 +96,12 @@
           "reasoning_tokens": 0
         },
         "total_tokens": 17
-      },
-      "user": null
+      }
     },
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:05 GMT"
+        "Tue, 14 Apr 2026 15:22:25 GMT"
       ],
       [
         "content-type",
@@ -110,11 +109,19 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=7,cfOrigin;dur=0,cfWorker;dur=334"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=464"
       ],
       [
         "access-control-allow-origin",
         "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180144-m2AGpVzTg66jGsbPx9TX"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -134,7 +141,7 @@
       ],
       [
         "cf-ray",
-        "9da46acf6e806568-AMS"
+        "9ec3b4b10d52f97e-PRG"
       ]
     ],
     "status": 200

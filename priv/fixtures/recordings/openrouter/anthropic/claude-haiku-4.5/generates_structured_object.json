@@ -2,8 +2,8 @@
   "metadata": {
     "model": "anthropic/claude-haiku-4.5",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-10T18:35:05.256270Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:31.797159Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -61,11 +61,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1773167705,
-      "created_at": 1773167702,
+      "completed_at": 1776180151,
+      "created_at": 1776180139,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1773167702-0BS7A5vrDQeZFXXjeOUl",
+      "id": "gen-1776180139-pcjfHoq5mGAo7U5MSgtW",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -79,11 +79,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "{\"age\": 34, \"hobbies\": [\"painting\", \"rock climbing\", \"cooking\"], \"name\": \"Sophie Chen\"}",
+              "text": "{\"age\":34,\"hobbies\":[\"rock climbing\",\"photography\",\"cooking\"],\"name\":\"Marcus Chen\"}",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_04yrml3uyd6h",
+          "id": "msg_tmp_un3fexy7dy",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -95,7 +95,7 @@
       "prompt_cache_key": null,
       "reasoning": null,
       "safety_identifier": null,
-      "service_tier": "auto",
+      "service_tier": "standard",
       "status": "completed",
       "store": false,
       "temperature": 1,
@@ -135,29 +135,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 3.91e-4,
+        "cost": 3.66e-4,
         "cost_details": {
-          "upstream_inference_cost": 3.91e-4,
+          "upstream_inference_cost": 3.66e-4,
           "upstream_inference_input_cost": 2.36e-4,
-          "upstream_inference_output_cost": 1.55e-4
+          "upstream_inference_output_cost": 1.3e-4
         },
         "input_tokens": 236,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 31,
+        "output_tokens": 26,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 267
-      },
-      "user": null
+        "total_tokens": 262
+      }
     },
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:04 GMT"
+        "Tue, 14 Apr 2026 15:22:29 GMT"
       ],
       [
         "content-type",
@@ -165,11 +164,19 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=3296"
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=10679"
       ],
       [
         "access-control-allow-origin",
         "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180139-pcjfHoq5mGAo7U5MSgtW"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -189,7 +196,7 @@
       ],
       [
         "cf-ray",
-        "9da46ab7490d6568-AMS"
+        "9ec3b4896917f97e-PRG"
       ]
     ],
     "status": 200

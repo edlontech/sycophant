@@ -2,9 +2,9 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-03-10T18:35:07.557483Z",
+    "recorded_at": "2026-04-14T15:22:23.139408Z",
     "streaming": true,
-    "sycophant_version": "0.1.0"
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -17,7 +17,7 @@
         {
           "content": [
             {
-              "id": "toolu_011uGpwGzQb54U6cT2jwHipy",
+              "id": "toolu_01JEKbKceBJrCuTcWQNhJgbj",
               "input": {
                 "city": "Paris"
               },
@@ -31,7 +31,7 @@
           "content": [
             {
               "content": "Paris: 22C, sunny",
-              "tool_use_id": "toolu_011uGpwGzQb54U6cT2jwHipy",
+              "tool_use_id": "toolu_01JEKbKceBJrCuTcWQNhJgbj",
               "type": "tool_result"
             }
           ],
@@ -44,7 +44,7 @@
         {
           "description": "Get current weather for a city. Returns temperature and conditions.",
           "input_schema": {
-            "additionalProperties": true,
+            "additionalProperties": false,
             "properties": {
               "city": {
                 "type": "string"
@@ -77,11 +77,11 @@
     "url": "https://api.anthropic.com/v1/messages"
   },
   "response": {
-    "body": "event: message_start\ndata: {\"type\":\"message_start\",\"message\":{\"model\":\"claude-haiku-4-5-20251001\",\"id\":\"msg_01PqozdmDV6Djmwe6WmDSf3i\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[],\"stop_reason\":null,\"stop_sequence\":null,\"usage\":{\"input_tokens\":656,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":6,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"}}              }\n\nevent: content_block_start\ndata: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"text\",\"text\":\"\"}        }\n\nevent: ping\ndata: {\"type\": \"ping\"}\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\"The weather in Paris is currently\"}         }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\" **\"}              }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\"22°C (\"}   }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\"about\"}      }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\" 72°F)\"}          }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\" and\"}         }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\" sunny**. It's\"}     }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\" a nice\"}   }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\" day in Paris!\"}        }\n\nevent: content_block_stop\ndata: {\"type\":\"content_block_stop\",\"index\":0             }\n\nevent: message_delta\ndata: {\"type\":\"message_delta\",\"delta\":{\"stop_reason\":\"end_turn\",\"stop_sequence\":null},\"usage\":{\"input_tokens\":656,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"output_tokens\":32}           }\n\nevent: message_stop\ndata: {\"type\":\"message_stop\"       }\n\n",
+    "body": "event: message_start\ndata: {\"type\":\"message_start\",\"message\":{\"model\":\"claude-haiku-4-5-20251001\",\"id\":\"msg_01TA5yRYuXBZKw2iWLmsPz3S\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":656,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":6,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"}} }\n\nevent: content_block_start\ndata: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"text\",\"text\":\"\"}   }\n\nevent: ping\ndata: {\"type\": \"ping\"}\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\"The weather in Paris is currently\"}   }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\" **22°C (72°F)** and **sunny**! It's a beautiful\"}      }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\" day there.\"}  }\n\nevent: content_block_stop\ndata: {\"type\":\"content_block_stop\",\"index\":0        }\n\nevent: message_delta\ndata: {\"type\":\"message_delta\",\"delta\":{\"stop_reason\":\"end_turn\",\"stop_sequence\":null,\"stop_details\":null},\"usage\":{\"input_tokens\":656,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"output_tokens\":31}               }\n\nevent: message_stop\ndata: {\"type\":\"message_stop\"    }\n\n",
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:06 GMT"
+        "Tue, 14 Apr 2026 15:22:22 GMT"
       ],
       [
         "content-type",
@@ -101,7 +101,7 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-03-10T18:35:06Z"
+        "2026-04-14T15:22:22Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
@@ -113,7 +113,7 @@
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-03-10T18:35:06Z"
+        "2026-04-14T15:22:22Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
@@ -125,7 +125,7 @@
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-03-10T18:35:06Z"
+        "2026-04-14T15:22:22Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
@@ -137,11 +137,11 @@
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-03-10T18:35:06Z"
+        "2026-04-14T15:22:22Z"
       ],
       [
         "request-id",
-        "req_011CYut6LmzAmy1b9W2ihWH8"
+        "req_011Ca3thyPdDEyitBUNsBem6"
       ],
       [
         "strict-transport-security",
@@ -157,27 +157,31 @@
       ],
       [
         "x-envoy-upstream-service-time",
-        "353"
+        "582"
       ],
       [
-        "vary",
-        "Accept-Encoding"
-      ],
-      [
-        "x-robots-tag",
-        "none"
-      ],
-      [
-        "content-security-policy",
-        "default-src 'none'; frame-ancestors 'none'"
+        "server-timing",
+        "x-originResponse;dur=583"
       ],
       [
         "cf-cache-status",
         "DYNAMIC"
       ],
       [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "content-security-policy",
+        "default-src 'none'; frame-ancestors 'none'"
+      ],
+      [
+        "x-robots-tag",
+        "none"
+      ],
+      [
         "cf-ray",
-        "9da46ad1bb063466-AMS"
+        "9ec3b4a06c779947-PRG"
       ]
     ],
     "status": 200

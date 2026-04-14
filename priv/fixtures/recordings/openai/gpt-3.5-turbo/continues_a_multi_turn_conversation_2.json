@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-10T18:35:04.395788Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:25.349119Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -13,7 +13,7 @@
           "role": "user"
         },
         {
-          "content": "Sure, I will remember your name, Sycophant. Nice to meet you.",
+          "content": "Hello Sycophant, nice to meet you. How can I assist you today?",
           "role": "assistant"
         },
         {
@@ -51,8 +51,8 @@
           }
         }
       ],
-      "created": 1773167703,
-      "id": "chatcmpl-DHwD1LnFaiI5x5TVFOMNGgTwhGo8v",
+      "created": 1776180144,
+      "id": "chatcmpl-DUZsmds2OGFNgci6bk8eDpCFHhLVo",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -76,11 +76,31 @@
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:04 GMT"
+        "Tue, 14 Apr 2026 15:22:25 GMT"
       ],
       [
         "content-type",
         "application/json"
+      ],
+      [
+        "cf-ray",
+        "9ec3b4aaee4dae1d-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
       ],
       [
         "access-control-expose-headers",
@@ -92,7 +112,7 @@
       ],
       [
         "openai-processing-ms",
-        "582"
+        "383"
       ],
       [
         "openai-project",
@@ -103,8 +123,8 @@
         "2020-10-01"
       ],
       [
-        "server",
-        "cloudflare"
+        "x-openai-proxy-wasm",
+        "v0.1"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -116,7 +136,7 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "8998"
+        "8999"
       ],
       [
         "x-ratelimit-remaining-tokens",
@@ -132,31 +152,11 @@
       ],
       [
         "x-request-id",
-        "req_f4789b9f6a3a4b3f869808b11df6205e"
-      ],
-      [
-        "x-openai-proxy-wasm",
-        "v0.1"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_73d7af31789744988c0b5068ae9d9c03"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9da46ac41d02fba4-AMS"
       ],
       [
         "alt-svc",

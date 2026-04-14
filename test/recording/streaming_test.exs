@@ -39,7 +39,7 @@ defmodule Sycophant.Recording.StreamingTest do
       name: "get_weather",
       description: "Get current weather for a city. Returns temperature and conditions.",
       parameters: Zoi.map(%{city: Zoi.string()}),
-      function: fn %{"city" => city} -> "#{city}: 22C, sunny" end
+      function: fn %{city: city} -> "#{city}: 22C, sunny" end
     }
 
     messages = [Message.user("What's the weather in Paris? Use the get_weather tool.")]
@@ -53,7 +53,11 @@ defmodule Sycophant.Recording.StreamingTest do
 
     assert response.tool_calls == []
     assert is_binary(response.text)
-    assert response.text =~ ~r/22|sunny|Paris/i
+    assert response.text =~ "22"
+
+    tool_result = Enum.find(Sycophant.Response.messages(response), &(&1.role == :tool_result))
+    assert tool_result, "expected tool_result message in conversation history"
+    assert tool_result.content == "Paris: 22C, sunny"
 
     assert_received {:chunk, %Sycophant.StreamChunk{type: :text_delta}}
   end

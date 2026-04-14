@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-12T12:37:09.578783Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:38.252195Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -15,7 +15,29 @@
         {
           "content": [
             {
-              "text": "Hello! London is a fantastic destination with so much to see and do. To help you plan your trip better, would you like me to check the current weather in London? This could be useful for deciding what to pack and which activities to prioritize.",
+              "text": "The user mentions they're planning a trip to London. I should offer relevant help. Since I have a weather tool, I can get the current weather for London, which could be useful for trip planning. Let's check the weather.",
+              "type": "output_text"
+            }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "arguments": "{\"city\":\"London\"}",
+          "call_id": "dc1414a1ab8e436896818c194ee302a4",
+          "name": "get_weather",
+          "type": "function_call"
+        },
+        {
+          "call_id": "dc1414a1ab8e436896818c194ee302a4",
+          "output": "London: 18C, cloudy",
+          "type": "function_call_output"
+        },
+        {
+          "content": [
+            {
+              "text": "London currently has 18°C and cloudy skies. Let me know if you need other travel info!",
               "type": "output_text"
             }
           ],
@@ -30,7 +52,7 @@
         {
           "content": [
             {
-              "text": "\n\n",
+              "text": "The user is asking for the current weather in London and specifically says to use the get_weather tool. I already used it earlier and got the response: London: 18C, cloudy. But maybe they want me to use the tool again? Since the tool likely provides current data, I could call it again to ensure fresh information. However, the system might be stateless; the tool call might return the same result. It's fine to call it again; that's what the user explicitly requested. Let's use the tool.",
               "type": "output_text"
             }
           ],
@@ -40,29 +62,14 @@
         },
         {
           "arguments": "{\"city\":\"London\"}",
-          "call_id": "72a93322ba0e4bd3935e1ea86054b09e",
+          "call_id": "960ea793776a48349d7c4553dee318a3",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "72a93322ba0e4bd3935e1ea86054b09e",
+          "call_id": "960ea793776a48349d7c4553dee318a3",
           "output": "London: 18C, cloudy",
           "type": "function_call_output"
-        },
-        {
-          "content": [
-            {
-              "text": "The current weather in London is **18°C with cloudy conditions**. Let me know if you need further help planning your trip! 😊",
-              "type": "output_text"
-            }
-          ],
-          "role": "assistant",
-          "status": "completed",
-          "type": "message"
-        },
-        {
-          "content": "Thanks! Should I bring an umbrella?",
-          "role": "user"
         }
       ],
       "instructions": "You are a helpful assistant. Be concise.",
@@ -104,11 +111,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1773319029,
-      "created_at": 1773319021,
+      "completed_at": 1776180158,
+      "created_at": 1776180154,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1773319021-uAhj6jFD2qwjfqONdlJA",
+      "id": "gen-1776180154-8dZXV1JCbysC18IEb4jz",
       "incomplete_details": null,
       "instructions": "You are a helpful assistant. Be concise.",
       "max_output_tokens": null,
@@ -120,12 +127,12 @@
         {
           "content": [
             {
-              "text": "Okay, the user asked if they should bring an umbrella to London. Let me check the weather again. Earlier, I told them it's 18°C and cloudy. But cloudy doesn't necessarily mean rain. Wait, did the previous tool response mention any precipitation? No, it just said cloudy. But maybe the cloudiness could lead to rain later? Hmm, the get_weather tool only provides current temperature and conditions. So right now, it's cloudy, but no rain mentioned.\n\nThe user is planning a trip, so they want to be prepared. Even though it's cloudy, I can't confirm if it will rain. I should advise them based on the current information. Since it's cloudy, there's a chance of rain, but it's not certain. Maybe suggest bringing a light umbrella just in case, as the weather can be unpredictable. Also, checking a weather forecast for the next few days might help, but I only have the current data. Let me make sure not to assume future conditions beyond the current data. So my recommendation would be to pack an umbrella as a precaution.\n",
+              "text": "Now I have the weather info: London: 18°C, cloudy. I should respond with that information. The user asked for the current weather in London, and I used the tool. I'll give the result. Since they said \"Use the get_weather tool,\" I should mention that I did. I'll keep it concise.",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_0nqsqo4h3bmf",
+          "id": "rs_tmp_dzcv8sj0ai6",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
@@ -135,11 +142,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Based on the current **cloudy** conditions in London, it's a good idea to carry a compact umbrella just in case. The weather can change quickly, and it’s better to be prepared! Enjoy your trip! 🌂✨",
+              "text": "London currently has 18°C and cloudy skies.",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_9riqhut76lb",
+          "id": "msg_tmp_3odrz8sdxkw",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -185,29 +192,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 0.0010584,
+        "cost": 6.656e-4,
         "cost_details": {
-          "upstream_inference_cost": 0.0010584,
-          "upstream_inference_input_cost": 3.759e-4,
-          "upstream_inference_output_cost": 6.825e-4
+          "upstream_inference_cost": 6.656e-4,
+          "upstream_inference_input_cost": 4.606e-4,
+          "upstream_inference_output_cost": 2.05e-4
         },
-        "input_tokens": 537,
+        "input_tokens": 658,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 273,
+        "output_tokens": 82,
         "output_tokens_details": {
-          "reasoning_tokens": 225
+          "reasoning_tokens": 69
         },
-        "total_tokens": 810
-      },
-      "user": null
+        "total_tokens": 740
+      }
     },
     "headers": [
       [
         "date",
-        "Thu, 12 Mar 2026 12:37:02 GMT"
+        "Tue, 14 Apr 2026 15:22:36 GMT"
       ],
       [
         "content-type",
@@ -215,11 +221,19 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=1216"
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1858"
       ],
       [
         "access-control-allow-origin",
         "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180154-8dZXV1JCbysC18IEb4jz"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -239,7 +253,7 @@
       ],
       [
         "cf-ray",
-        "9db2d909da526567-AMS"
+        "9ec3b4eb9a30f97e-PRG"
       ]
     ],
     "status": 200

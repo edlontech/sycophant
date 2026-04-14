@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-4o-mini",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-12T12:36:44.629971Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:21.003077Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "That sounds exciting! When are you planning to go, and do you need any specific information about London?",
+              "text": "That sounds exciting! What information or assistance do you need for your trip to London?",
               "type": "output_text"
             }
           ],
@@ -67,11 +67,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1773319004,
-      "created_at": 1773319004,
+      "completed_at": 1776180140,
+      "created_at": 1776180140,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1773319004-bKNTFIpdCv32b2nTILuq",
+      "id": "gen-1776180140-yv1UkxBohzj9Rfk1mbLo",
       "incomplete_details": null,
       "instructions": "You are a helpful assistant. Be concise.",
       "max_output_tokens": null,
@@ -82,8 +82,8 @@
       "output": [
         {
           "arguments": "{\"city\":\"London\"}",
-          "call_id": "call_tqvqszAmBviE9LopqvRKx4uj",
-          "id": "fc_tmp_81ofx1xb7ql",
+          "call_id": "call_66ExkskN9DNjBp2v9XGbtakF",
+          "id": "fc_tmp_bs5e6jb3vat",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -129,13 +129,13 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 2.475e-5,
+        "cost": 2.415e-5,
         "cost_details": {
-          "upstream_inference_cost": 2.475e-5,
-          "upstream_inference_input_cost": 1.635e-5,
+          "upstream_inference_cost": 2.415e-5,
+          "upstream_inference_input_cost": 1.575e-5,
           "upstream_inference_output_cost": 8.4e-6
         },
-        "input_tokens": 109,
+        "input_tokens": 105,
         "input_tokens_details": {
           "cached_tokens": 0
         },
@@ -144,14 +144,13 @@
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 123
-      },
-      "user": null
+        "total_tokens": 119
+      }
     },
     "headers": [
       [
         "date",
-        "Thu, 12 Mar 2026 12:36:44 GMT"
+        "Tue, 14 Apr 2026 15:22:20 GMT"
       ],
       [
         "content-type",
@@ -159,11 +158,19 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=437"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=746"
       ],
       [
         "access-control-allow-origin",
         "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180140-yv1UkxBohzj9Rfk1mbLo"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -183,7 +190,7 @@
       ],
       [
         "cf-ray",
-        "9db2d89f4e5b6567-AMS"
+        "9ec3b493fbd0f97e-PRG"
       ]
     ],
     "status": 200

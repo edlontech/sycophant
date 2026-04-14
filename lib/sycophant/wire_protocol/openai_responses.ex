@@ -202,6 +202,10 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     {:ok, nil, [chunk]}
   end
 
+  def decode_stream_chunk(_state, %{event: "response.reasoning_text.delta", data: data}) do
+    {:ok, nil, [%StreamChunk{type: :text_delta, data: data["delta"]}]}
+  end
+
   def decode_stream_chunk(_state, %{event: "response.reasoning_summary_text.delta", data: data}) do
     {:ok, nil, [%StreamChunk{type: :reasoning_delta, data: data["delta"]}]}
   end
@@ -234,13 +238,12 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
       end
     end)
     |> then(fn
-      {:ok, texts, tcs, reasoning} ->
-        text =
-          case Enum.reverse(texts) do
-            [] -> nil
-            parts -> Enum.join(parts, "")
-          end
+      {:ok, [], tcs, reasoning} ->
+        text = extract_reasoning_content_text(items)
+        {:ok, text, Enum.reverse(tcs), reasoning}
 
+      {:ok, texts, tcs, reasoning} ->
+        text = texts |> Enum.reverse() |> Enum.join("")
         {:ok, text, Enum.reverse(tcs), reasoning}
 
       {:error, _} = err ->
@@ -316,6 +319,22 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
 
   defp process_output_item(_other) do
     :skip
+  end
+
+  defp extract_reasoning_content_text(items) do
+    texts =
+      Enum.flat_map(items, fn
+        %{"type" => "reasoning", "content" => content} when is_list(content) ->
+          for %{"type" => "reasoning_text", "text" => text} <- content, do: text
+
+        _ ->
+          []
+      end)
+
+    case texts do
+      [] -> nil
+      parts -> Enum.join(parts, "")
+    end
   end
 
   defp decode_usage(%{"input_tokens" => input, "output_tokens" => output} = usage) do

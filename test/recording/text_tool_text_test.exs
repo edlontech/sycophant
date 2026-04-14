@@ -11,7 +11,7 @@ defmodule Sycophant.Recording.TextToolTextTest do
       name: "get_weather",
       description: "Get current weather for a city. Returns temperature and conditions.",
       parameters: Zoi.map(%{city: Zoi.string()}),
-      function: fn %{"city" => city} -> "#{city}: 18C, cloudy" end
+      function: fn %{city: city} -> "#{city}: 18C, cloudy" end
     }
 
     # Turn 1: plain text exchange
@@ -35,7 +35,11 @@ defmodule Sycophant.Recording.TextToolTextTest do
     {:ok, resp2} = Sycophant.generate_text(model, ctx, recording_opts(tools: [tool]))
 
     assert is_binary(resp2.text)
-    assert resp2.text =~ ~r/18|cloudy|London/i
+    assert resp2.text =~ "18"
+
+    tool_result = Enum.find(Sycophant.Response.messages(resp2), &(&1.role == :tool_result))
+    assert tool_result, "expected tool_result message in conversation history"
+    assert tool_result.content == "London: 18C, cloudy"
 
     # Turn 3: follow-up text without tool use
     ctx2 =

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-10T18:35:26.193674Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:26.370216Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -13,19 +13,24 @@
           "role": "user"
         },
         {
-          "content": [],
+          "content": [
+            {
+              "text": "The user asks for the weather in Paris and explicitly says to use the get_weather tool. I'll call get_weather with city Paris.",
+              "type": "output_text"
+            }
+          ],
           "role": "assistant",
           "status": "completed",
           "type": "message"
         },
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "e6fd64a799f9462ea80532e0301f5955",
+          "call_id": "7efa70f056ee4eea9c986c7a4c0b908c",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "e6fd64a799f9462ea80532e0301f5955",
+          "call_id": "7efa70f056ee4eea9c986c7a4c0b908c",
           "output": "Paris: 22C, sunny",
           "type": "function_call_output"
         }
@@ -68,11 +73,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1773167726,
-      "created_at": 1773167715,
+      "completed_at": 1776180146,
+      "created_at": 1776180142,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1773167715-yW2jjcIrb2xuXGWkz3hg",
+      "id": "gen-1776180142-z3QCpKggdrUVc5ipLgza",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -84,29 +89,15 @@
         {
           "content": [
             {
-              "text": "好的，我需要回答用户关于巴黎天气的问题。用户之前已经调用了get_weather工具，返回结果是巴黎22度，晴天。现在用户只是把这个结果展示出来，看起来像是工具调用后的反馈信息。因此，我应该根据这个结果生成一个自然友好的回复给用户。\n\n首先，我需要确认用户的问题已经被工具正确回答。用户之前使用了正确的工具，参数是巴黎，所以结果可靠。接下来，我需要将工具返回的数据转化为易于理解的句子。温度是22度，天气状况晴朗，用英文表达的话应该是sunny，但用户可能希望用中文回复，所以翻译成“晴朗”或者“阳光明媚”更合适。\n\n然后，要注意回复的语气。用户可能是在询问天气以便安排活动，所以回复可以简洁明了，同时包含温度和天气状况。例如，“巴黎现在的天气是22摄氏度，晴朗。”这样既准确又直接。不需要添加额外信息，因为用户没有提出其他需求。\n\n另外，是否需要检查是否有其他工具需要调用？根据工具列表，只有get_weather可用，而且用户的问题已经解决，所以不需要再调用其他工具。确保回复符合用户的要求，并且正确使用工具的结果。同时，避免使用任何格式或标记，保持自然对话。\n\n最后，确认回复中没有错误。温度值正确，城市名称无误，天气情况和数据对应。这样用户可以得到准确的信息，不会有混淆。总结一下，就是用用户提供的工具结果，转换成自然的中文回答，保持简洁友好。\n",
+              "text": "I have the weather information: Paris is 22°C and sunny. I'll respond directly with that.\n\n<｜DSML｜function_calls>\n<｜DSML｜invoke name=\"get_weather\">\n<｜DSML｜parameter name=\"city\" string=\"true\">Paris</｜DSML｜parameter>\n</｜DSML｜invoke>\n</｜DSML｜function_calls>",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_w6dyd3geiuc",
+          "id": "rs_tmp_xwgtyccxvo",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
-        },
-        {
-          "content": [
-            {
-              "annotations": [],
-              "logprobs": [],
-              "text": "巴黎现在的天气是22摄氏度，晴朗。",
-              "type": "output_text"
-            }
-          ],
-          "id": "msg_tmp_t8q3hffznpj",
-          "role": "assistant",
-          "status": "completed",
-          "type": "message"
         }
       ],
       "parallel_tool_calls": true,
@@ -149,29 +140,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 0.001065,
+        "cost": 4.632e-4,
         "cost_details": {
-          "upstream_inference_cost": 0.001065,
-          "upstream_inference_input_cost": 2.975e-4,
-          "upstream_inference_output_cost": 7.675e-4
+          "upstream_inference_cost": 4.632e-4,
+          "upstream_inference_input_cost": 2.982e-4,
+          "upstream_inference_output_cost": 1.65e-4
         },
-        "input_tokens": 425,
+        "input_tokens": 426,
         "input_tokens_details": {
-          "cached_tokens": 384
+          "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 307,
+        "output_tokens": 66,
         "output_tokens_details": {
-          "reasoning_tokens": 297
+          "reasoning_tokens": 66
         },
-        "total_tokens": 732
-      },
-      "user": null
+        "total_tokens": 492
+      }
     },
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:17 GMT"
+        "Tue, 14 Apr 2026 15:22:24 GMT"
       ],
       [
         "content-type",
@@ -179,11 +169,19 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=7,cfOrigin;dur=0,cfWorker;dur=1162"
+        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=1644"
       ],
       [
         "access-control-allow-origin",
         "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180142-z3QCpKggdrUVc5ipLgza"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -203,7 +201,7 @@
       ],
       [
         "cf-ray",
-        "9da46b10b9336568-AMS"
+        "9ec3b4a55922f97e-PRG"
       ]
     ],
     "status": 200

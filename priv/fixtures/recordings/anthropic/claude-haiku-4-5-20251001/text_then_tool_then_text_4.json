@@ -2,8 +2,8 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-03-12T12:36:48.663004Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:26.794339Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -14,7 +14,7 @@
           "role": "user"
         },
         {
-          "content": "That sounds like a great trip! London is a wonderful city with lots to offer. I'd be happy to help you plan!\n\nHere are some things I can assist with:\n\n- **Weather**: I can check the current weather in London to help you pack appropriately\n- **Attractions**: Popular sites like Big Ben, Tower of London, British Museum, Buckingham Palace, Tower Bridge, etc.\n- **Getting around**: Information about the London Underground, buses, and taxis\n- **Neighborhoods**: Different areas to explore like Westminster, Soho, Kensington, Camden, etc.\n- **Dining**: Recommendations for restaurants and cafes\n- **Accommodations**: Tips on where to stay\n\nWould you like me to check the current weather in London? Or is there something specific about your trip you'd like help with - like the dates you're planning to travel, what you'd like to see, or how long you'll be staying?",
+          "content": "That sounds exciting! I'd be happy to help you plan your trip to London. Here are some things I can assist with:\n\n**Weather & Packing:**\n- I can check the current weather in London to help you pack appropriately\n\n**Trip Planning Tips:**\n- **Best time to visit:** Spring (April-May) and fall (September-October) offer pleasant weather and fewer crowds\n- **Main attractions:** Big Ben & Houses of Parliament, Tower of London, Buckingham Palace, London Eye, museums like the British Museum and National Gallery\n- **Getting around:** The Underground (Tube) is fast and efficient; buses are also great for sightseeing\n- **Neighborhoods:** Explore areas like Westminster, South Bank, Soho, Camden, and Notting Hill\n- **Food:** Try fish & chips, afternoon tea, and explore diverse dining options across the city\n\n**What would you like help with?**\n- Would you like me to check the current weather in London?\n- Do you have specific questions about attractions, neighborhoods, or logistics?\n- What time period are you planning to visit?\n\nLet me know how I can best help with your London trip!",
           "role": "assistant"
         },
         {
@@ -24,7 +24,7 @@
         {
           "content": [
             {
-              "id": "toolu_01KLE1H3rue5vAYbMNaZY9cd",
+              "id": "toolu_0181yEeZT5qhntAcD2qZwshx",
               "input": {
                 "city": "London"
               },
@@ -38,14 +38,14 @@
           "content": [
             {
               "content": "London: 18C, cloudy",
-              "tool_use_id": "toolu_01KLE1H3rue5vAYbMNaZY9cd",
+              "tool_use_id": "toolu_0181yEeZT5qhntAcD2qZwshx",
               "type": "tool_result"
             }
           ],
           "role": "user"
         },
         {
-          "content": "The current weather in London is **18°C (64°F) and cloudy**. \n\nIt's fairly mild, so you'll want to bring:\n- A light jacket or sweater\n- An umbrella or rain jacket (cloudy weather often brings rain in London)\n- Comfortable walking shoes\n\nThis is typical London weather, so pack layers that you can adjust throughout the day!",
+          "content": "The current weather in London is **18°C (about 64°F) and cloudy**. \n\nThis is mild weather, so I'd recommend:\n- Bringing a light jacket or sweater\n- Having an umbrella or rain jacket handy (cloudy weather often brings rain in London)\n- Wearing layers so you can adjust as needed throughout the day\n\nIs there anything else you'd like to know about your London trip?",
           "role": "assistant"
         },
         {
@@ -59,7 +59,7 @@
         {
           "description": "Get current weather for a city. Returns temperature and conditions.",
           "input_schema": {
-            "additionalProperties": true,
+            "additionalProperties": false,
             "properties": {
               "city": {
                 "type": "string"
@@ -95,13 +95,14 @@
     "body": {
       "content": [
         {
-          "text": "Absolutely! I'd definitely recommend bringing an umbrella. Here's why:\n\n1. **Cloudy conditions**: As the forecast shows, it's currently cloudy in London, which often leads to rain\n2. **London's reputation**: London is known for frequent drizzle and rain, especially during certain seasons\n3. **Be prepared**: Even if rain isn't forecast, it's better to have an umbrella and not need it than the other way around\n\n**Pro tip**: Consider bringing a compact umbrella that's easy to carry in a backpack or bag, since you'll likely be doing a lot of walking and sightseeing. Many visitors also opt for a lightweight rain jacket as an alternative or additional layer.\n\nHave a great trip to London!",
+          "text": "Yes, absolutely! I'd definitely recommend bringing an umbrella. Here's why:\n\n1. **Current conditions:** It's currently cloudy in London, which often leads to rain\n2. **London's reputation:** The city is known for frequent, unpredictable rainfall throughout the year\n3. **Better safe than sorry:** Even if rain isn't forecast, it's wise to be prepared—an umbrella is compact and lightweight to pack\n\n**Additional tips:**\n- A compact/foldable umbrella is ideal for traveling\n- Consider a waterproof jacket as a backup, especially if you'll be doing lots of outdoor sightseeing\n- Waterproof shoes or boots are also a good idea if you plan to walk around the city a lot\n\nLondon's weather can be changeable, so being prepared will let you enjoy your trip without weather interruptions!",
           "type": "text"
         }
       ],
-      "id": "msg_01MQiGc7dZDhfzLbxPZsoHet",
+      "id": "msg_01RyHkrsp1rVq8NYad2RMtZv",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
+      "stop_details": null,
       "stop_reason": "end_turn",
       "stop_sequence": null,
       "type": "message",
@@ -113,15 +114,15 @@
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "inference_geo": "not_available",
-        "input_tokens": 987,
-        "output_tokens": 163,
+        "input_tokens": 1047,
+        "output_tokens": 186,
         "service_tier": "standard"
       }
     },
     "headers": [
       [
         "date",
-        "Thu, 12 Mar 2026 12:36:48 GMT"
+        "Tue, 14 Apr 2026 15:22:26 GMT"
       ],
       [
         "content-type",
@@ -137,7 +138,7 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-03-12T12:36:47Z"
+        "2026-04-14T15:22:24Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
@@ -149,7 +150,7 @@
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-03-12T12:36:48Z"
+        "2026-04-14T15:22:26Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
@@ -161,7 +162,7 @@
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-03-12T12:36:46Z"
+        "2026-04-14T15:22:24Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
@@ -173,11 +174,11 @@
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-03-12T12:36:47Z"
+        "2026-04-14T15:22:24Z"
       ],
       [
         "request-id",
-        "req_011CYyCPNHbzv9sqUy11qEN3"
+        "req_011Ca3ti86kTFG6Dkr1hQfBE"
       ],
       [
         "strict-transport-security",
@@ -193,27 +194,35 @@
       ],
       [
         "x-envoy-upstream-service-time",
-        "1901"
-      ],
-      [
-        "content-security-policy",
-        "default-src 'none'; frame-ancestors 'none'"
-      ],
-      [
-        "vary",
-        "Accept-Encoding"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
+        "2494"
       ],
       [
         "x-robots-tag",
         "none"
       ],
       [
+        "vary",
+        "Accept-Encoding"
+      ],
+      [
+        "server-timing",
+        "x-originResponse;dur=2496"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "content-security-policy",
+        "default-src 'none'; frame-ancestors 'none'"
+      ],
+      [
         "cf-ray",
-        "9db2d8afabdefb99-AMS"
+        "9ec3b4ad39469947-PRG"
       ]
     ],
     "status": 200

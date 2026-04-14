@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-4o-mini",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-10T18:35:08.308772Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:20.639224Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -20,12 +20,12 @@
         },
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "call_J46aWHDZydekxGNV3rrMp2Ly",
+          "call_id": "call_tLmhSR17BcckY75MRQN7um1g",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "call_J46aWHDZydekxGNV3rrMp2Ly",
+          "call_id": "call_tLmhSR17BcckY75MRQN7um1g",
           "output": "Paris: 22C, sunny",
           "type": "function_call_output"
         }
@@ -68,11 +68,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1773167708,
-      "created_at": 1773167707,
+      "completed_at": 1776180140,
+      "created_at": 1776180139,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1773167707-4B2e2JPZhlAW9ebDGQii",
+      "id": "gen-1776180139-DjCk3bqlkbNtRNs0CFB0",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -86,11 +86,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "The weather in Paris is 22°C and sunny.",
+              "text": "The weather in Paris is currently 22°C and sunny.",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_ug1wghmrj3",
+          "id": "msg_tmp_m3qauw75wlq",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -136,29 +136,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 2.07e-5,
+        "cost": 2.13e-5,
         "cost_details": {
-          "upstream_inference_cost": 2.07e-5,
+          "upstream_inference_cost": 2.13e-5,
           "upstream_inference_input_cost": 1.35e-5,
-          "upstream_inference_output_cost": 7.2e-6
+          "upstream_inference_output_cost": 7.8e-6
         },
         "input_tokens": 90,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 12,
+        "output_tokens": 13,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 102
-      },
-      "user": null
+        "total_tokens": 103
+      }
     },
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:08 GMT"
+        "Tue, 14 Apr 2026 15:22:20 GMT"
       ],
       [
         "content-type",
@@ -166,11 +165,19 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=13,cfOrigin;dur=0,cfWorker;dur=531"
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=479"
       ],
       [
         "access-control-allow-origin",
         "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180139-DjCk3bqlkbNtRNs0CFB0"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -190,7 +197,7 @@
       ],
       [
         "cf-ray",
-        "9da46adc9a206568-AMS"
+        "9ec3b492af63f97e-PRG"
       ]
     ],
     "status": 200

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "anthropic/claude-haiku-4.5",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-10T18:35:13.755897Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:24.631218Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -32,11 +32,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1773167713,
-      "created_at": 1773167712,
+      "completed_at": 1776180144,
+      "created_at": 1776180142,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1773167712-9HwYeqTZ7RLC1zgRtYWY",
+      "id": "gen-1776180142-EBYB3ji7Jpc2v8atCCxX",
       "incomplete_details": null,
       "instructions": "You are a calculator. Only respond with numbers.",
       "max_output_tokens": null,
@@ -54,7 +54,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_0wp3p6xlh6x",
+          "id": "msg_tmp_ngsz3xigzbo",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -97,13 +97,12 @@
           "reasoning_tokens": 0
         },
         "total_tokens": 31
-      },
-      "user": null
+      }
     },
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:13 GMT"
+        "Tue, 14 Apr 2026 15:22:24 GMT"
       ],
       [
         "content-type",
@@ -111,11 +110,19 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=1118"
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1795"
       ],
       [
         "access-control-allow-origin",
         "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180142-EBYB3ji7Jpc2v8atCCxX"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -135,7 +142,7 @@
       ],
       [
         "cf-ray",
-        "9da46afb4e906568-AMS"
+        "9ec3b4a3bc70f97e-PRG"
       ]
     ],
     "status": 200

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "mistral-medium-2505",
     "provider": "azure",
-    "recorded_at": "2026-03-10T18:35:11.838149Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:40.996322Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -32,73 +32,29 @@
     "body": {
       "choices": [
         {
-          "content_filter_results": {
-            "hate": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "protected_material_code": {
-              "detected": false,
-              "filtered": false
-            },
-            "protected_material_text": {
-              "detected": false,
-              "filtered": false
-            },
-            "self_harm": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "sexual": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "violence": {
-              "filtered": false,
-              "severity": "safe"
+          "content_filter_result": {
+            "error": {
+              "code": "content_filter_error",
+              "message": "The contents are not filtered"
             }
           },
           "finish_reason": "stop",
           "index": 0,
+          "logprobs": null,
           "message": {
             "content": "hello",
             "role": "assistant",
             "tool_calls": null
-          }
+          },
+          "stop_reason": null
         }
       ],
-      "created": 1773167706,
-      "id": "4f58cdef8c2c4c578bd54283c984afa9",
+      "created": 1776180160,
+      "id": "b57d4a753e4d4063a078be97f3cedf3c",
       "model": "mistral-medium-2505",
       "object": "chat.completion",
-      "prompt_filter_results": [
-        {
-          "content_filter_results": {
-            "hate": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "jailbreak": {
-              "detected": false,
-              "filtered": false
-            },
-            "self_harm": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "sexual": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "violence": {
-              "filtered": false,
-              "severity": "safe"
-            }
-          },
-          "prompt_index": 0
-        }
-      ],
       "usage": {
+        "audio_prompt_tokens": 0,
         "completion_tokens": 2,
         "prompt_tokens": 11,
         "total_tokens": 13
@@ -107,15 +63,11 @@
     "headers": [
       [
         "content-length",
-        "948"
+        "470"
       ],
       [
         "content-type",
         "application/json"
-      ],
-      [
-        "vary",
-        "Accept-Encoding"
       ],
       [
         "request-context",
@@ -130,8 +82,44 @@
         "2"
       ],
       [
+        "x-ms-rai-invoked",
+        "true"
+      ],
+      [
+        "x-request-id",
+        "bb61fda3-fabc-4e6d-a10f-4967c6a46b00"
+      ],
+      [
+        "x-ms-client-request-id",
+        "Not-Set"
+      ],
+      [
+        "azureml-model-session",
+        "dep-eus2-mismed3-260331023015"
+      ],
+      [
+        "azureai-requested-tier",
+        "default"
+      ],
+      [
+        "azureai-processed-tier",
+        "default"
+      ],
+      [
+        "x-ms-is-spilled-over",
+        "false"
+      ],
+      [
         "apim-request-id",
-        "1ac5fe7d-05c5-457a-afec-08cee1a82bd7"
+        "78c370be-cf33-4e65-b60e-afc621c0b46f"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-ms-deployment-name",
+        "mistral-medium-2505"
       ],
       [
         "x-content-type-options",
@@ -142,12 +130,8 @@
         "East US"
       ],
       [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
         "date",
-        "Tue, 10 Mar 2026 18:35:11 GMT"
+        "Tue, 14 Apr 2026 15:22:40 GMT"
       ]
     ],
     "status": 200

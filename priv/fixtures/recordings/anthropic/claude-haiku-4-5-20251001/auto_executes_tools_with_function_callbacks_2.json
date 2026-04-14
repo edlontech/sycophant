@@ -2,8 +2,8 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-03-10T18:35:06.621010Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:20.307035Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -16,7 +16,7 @@
         {
           "content": [
             {
-              "id": "toolu_01QKREcjRa4KPfhBWb5kbdcg",
+              "id": "toolu_01WEu4HffeHEswqWfpxGMNur",
               "input": {
                 "city": "Paris"
               },
@@ -30,7 +30,7 @@
           "content": [
             {
               "content": "Paris: 22C, sunny",
-              "tool_use_id": "toolu_01QKREcjRa4KPfhBWb5kbdcg",
+              "tool_use_id": "toolu_01WEu4HffeHEswqWfpxGMNur",
               "type": "tool_result"
             }
           ],
@@ -42,7 +42,7 @@
         {
           "description": "Get current weather for a city. Returns temperature and conditions.",
           "input_schema": {
-            "additionalProperties": true,
+            "additionalProperties": false,
             "properties": {
               "city": {
                 "type": "string"
@@ -78,13 +78,14 @@
     "body": {
       "content": [
         {
-          "text": "The weather in Paris is currently **22°C (about 72°F) and sunny**. It's a nice day there!",
+          "text": "The weather in Paris is currently **22°C (about 72°F) and sunny**. It's a beautiful day there!",
           "type": "text"
         }
       ],
-      "id": "msg_01VNxTqwuv4HVptJwccaatgL",
+      "id": "msg_01D6QXETzhg9mhu9Raagxgp6",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
+      "stop_details": null,
       "stop_reason": "end_turn",
       "stop_sequence": null,
       "type": "message",
@@ -104,7 +105,7 @@
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:06 GMT"
+        "Tue, 14 Apr 2026 15:22:20 GMT"
       ],
       [
         "content-type",
@@ -120,7 +121,7 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-03-10T18:35:05Z"
+        "2026-04-14T15:22:20Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
@@ -132,7 +133,7 @@
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-03-10T18:35:06Z"
+        "2026-04-14T15:22:20Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
@@ -144,7 +145,7 @@
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-03-10T18:35:05Z"
+        "2026-04-14T15:22:19Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
@@ -156,11 +157,11 @@
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-03-10T18:35:05Z"
+        "2026-04-14T15:22:20Z"
       ],
       [
         "request-id",
-        "req_011CYut6Gos7SMRdXCJQMxB5"
+        "req_011Ca3thmmsWuiDUZtK3JCLE"
       ],
       [
         "strict-transport-security",
@@ -176,27 +177,35 @@
       ],
       [
         "x-envoy-upstream-service-time",
-        "1495"
-      ],
-      [
-        "vary",
-        "Accept-Encoding"
+        "762"
       ],
       [
         "x-robots-tag",
         "none"
       ],
       [
-        "content-security-policy",
-        "default-src 'none'; frame-ancestors 'none'"
+        "vary",
+        "Accept-Encoding"
+      ],
+      [
+        "server-timing",
+        "x-originResponse;dur=765"
       ],
       [
         "cf-cache-status",
         "DYNAMIC"
       ],
       [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "content-security-policy",
+        "default-src 'none'; frame-ancestors 'none'"
+      ],
+      [
         "cf-ray",
-        "9da46acc6c4f3466-AMS"
+        "9ec3b48f79529947-PRG"
       ]
     ],
     "status": 200

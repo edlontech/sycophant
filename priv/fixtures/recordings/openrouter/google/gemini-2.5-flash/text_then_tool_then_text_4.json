@@ -2,8 +2,8 @@
   "metadata": {
     "model": "google/gemini-2.5-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-12T12:36:44.679508Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:22.651049Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "Great! How can I help with your trip to London?\n",
+              "text": "Sounds fun! Do you want to know what the weather is like there?",
               "type": "output_text"
             }
           ],
@@ -35,12 +35,12 @@
         },
         {
           "arguments": "{\"city\":\"London\"}",
-          "call_id": "tool_get_weather_EtEBCcwdkeqCkfj4tiOO",
+          "call_id": "tool_get_weather_KJFdbzPndQG8g4x7cLEM",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "tool_get_weather_EtEBCcwdkeqCkfj4tiOO",
+          "call_id": "tool_get_weather_KJFdbzPndQG8g4x7cLEM",
           "output": "London: 18C, cloudy",
           "type": "function_call_output"
         },
@@ -99,11 +99,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1773319004,
-      "created_at": 1773319004,
+      "completed_at": 1776180142,
+      "created_at": 1776180141,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1773319004-1VfhN7bqL3Ur27l9iXem",
+      "id": "gen-1776180141-iJV1zo1KtVcStndQAsgS",
       "incomplete_details": null,
       "instructions": "You are a helpful assistant. Be concise.",
       "max_output_tokens": null,
@@ -117,11 +117,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "The weather in London is currently cloudy, so it would be a good idea to bring an umbrella just in case!",
+              "text": "Given it's cloudy, it wouldn't hurt to bring one!",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_5ubtl289jl6",
+          "id": "msg_tmp_yf2ym2r684",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -167,29 +167,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 9.32e-5,
+        "cost": 7.53e-5,
         "cost_details": {
-          "upstream_inference_cost": 9.32e-5,
-          "upstream_inference_input_cost": 3.57e-5,
-          "upstream_inference_output_cost": 5.75e-5
+          "upstream_inference_cost": 7.53e-5,
+          "upstream_inference_input_cost": 3.78e-5,
+          "upstream_inference_output_cost": 3.75e-5
         },
-        "input_tokens": 119,
+        "input_tokens": 126,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 23,
+        "output_tokens": 15,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 142
-      },
-      "user": null
+        "total_tokens": 141
+      }
     },
     "headers": [
       [
         "date",
-        "Thu, 12 Mar 2026 12:36:44 GMT"
+        "Tue, 14 Apr 2026 15:22:22 GMT"
       ],
       [
         "content-type",
@@ -197,11 +196,19 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=396"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=632"
       ],
       [
         "access-control-allow-origin",
         "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180141-iJV1zo1KtVcStndQAsgS"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -221,7 +228,7 @@
       ],
       [
         "cf-ray",
-        "9db2d8a02f166567-AMS"
+        "9ec3b49dca9ef97e-PRG"
       ]
     ],
     "status": 200

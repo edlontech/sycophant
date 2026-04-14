@@ -2,8 +2,8 @@
   "metadata": {
     "model": "mistral-medium-2505",
     "provider": "azure",
-    "recorded_at": "2026-03-10T18:35:12.231481Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:41.788060Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -36,73 +36,23 @@
     "body": {
       "choices": [
         {
-          "content_filter_results": {
-            "hate": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "protected_material_code": {
-              "detected": false,
-              "filtered": false
-            },
-            "protected_material_text": {
-              "detected": false,
-              "filtered": false
-            },
-            "self_harm": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "sexual": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "violence": {
-              "filtered": false,
-              "severity": "safe"
-            }
-          },
           "finish_reason": "stop",
           "index": 0,
+          "logprobs": null,
           "message": {
             "content": "4",
             "role": "assistant",
             "tool_calls": null
-          }
+          },
+          "stop_reason": null
         }
       ],
-      "created": 1773167711,
-      "id": "300bc08d0b9c4d9192bffad339d3bcf0",
+      "created": 1776180161,
+      "id": "748a594d12a4432d8055ff72cc1c3bb6",
       "model": "mistral-medium-2505",
       "object": "chat.completion",
-      "prompt_filter_results": [
-        {
-          "content_filter_results": {
-            "hate": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "jailbreak": {
-              "detected": false,
-              "filtered": false
-            },
-            "self_harm": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "sexual": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "violence": {
-              "filtered": false,
-              "severity": "safe"
-            }
-          },
-          "prompt_index": 0
-        }
-      ],
       "usage": {
+        "audio_prompt_tokens": 0,
         "completion_tokens": 2,
         "prompt_tokens": 23,
         "total_tokens": 25
@@ -111,15 +61,11 @@
     "headers": [
       [
         "content-length",
-        "944"
+        "358"
       ],
       [
         "content-type",
         "application/json"
-      ],
-      [
-        "vary",
-        "Accept-Encoding"
       ],
       [
         "request-context",
@@ -134,8 +80,44 @@
         "2"
       ],
       [
+        "x-ms-rai-invoked",
+        "true"
+      ],
+      [
+        "x-request-id",
+        "33b8590f-c79f-47a2-92a0-088f11e6c105"
+      ],
+      [
+        "x-ms-client-request-id",
+        "Not-Set"
+      ],
+      [
+        "azureml-model-session",
+        "dep-sdc-mis-md2505-260331163043"
+      ],
+      [
+        "azureai-requested-tier",
+        "default"
+      ],
+      [
+        "azureai-processed-tier",
+        "default"
+      ],
+      [
+        "x-ms-is-spilled-over",
+        "false"
+      ],
+      [
         "apim-request-id",
-        "bbb1ad79-5ae9-45b8-9f8d-2b4978c16001"
+        "50e14a6a-93c5-410e-9f7a-2341b2d002ff"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-ms-deployment-name",
+        "mistral-medium-2505"
       ],
       [
         "x-content-type-options",
@@ -146,12 +128,8 @@
         "East US"
       ],
       [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
         "date",
-        "Tue, 10 Mar 2026 18:35:11 GMT"
+        "Tue, 14 Apr 2026 15:22:41 GMT"
       ]
     ],
     "status": 200

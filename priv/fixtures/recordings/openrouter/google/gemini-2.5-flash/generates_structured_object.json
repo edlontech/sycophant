@@ -2,8 +2,8 @@
   "metadata": {
     "model": "google/gemini-2.5-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-10T18:35:02.651825Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:20.017465Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -61,11 +61,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1773167702,
-      "created_at": 1773167701,
+      "completed_at": 1776180139,
+      "created_at": 1776180139,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1773167701-9kWpzc26LAu9Nb0nLjhP",
+      "id": "gen-1776180138-0eHDPpIUO62jyCuDH3Tc",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -79,11 +79,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "{\n  \"name\": \"Evelyn Reed\",\n  \"age\": 28,\n  \"hobbies\": [\n    \"painting\",\n    \"hiking\",\n    \"reading\"\n  ]\n}",
+              "text": "{\n  \"name\": \"Alice Wonderland\",\n  \"age\": 28,\n  \"hobbies\": [\"gardening\", \"photography\", \"hiking\"]\n}",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_xv6q10zair",
+          "id": "msg_tmp_eahhm4aw7xn",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -135,29 +135,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 1.26e-4,
+        "cost": 9.85e-5,
         "cost_details": {
-          "upstream_inference_cost": 1.26e-4,
+          "upstream_inference_cost": 9.85e-5,
           "upstream_inference_input_cost": 6.0e-6,
-          "upstream_inference_output_cost": 1.2e-4
+          "upstream_inference_output_cost": 9.25e-5
         },
         "input_tokens": 20,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 48,
+        "output_tokens": 37,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 68
-      },
-      "user": null
+        "total_tokens": 57
+      }
     },
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:02 GMT"
+        "Tue, 14 Apr 2026 15:22:19 GMT"
       ],
       [
         "content-type",
@@ -165,11 +164,19 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=6,cfOrigin;dur=0,cfWorker;dur=735"
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1243"
       ],
       [
         "access-control-allow-origin",
         "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180138-0eHDPpIUO62jyCuDH3Tc"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -189,7 +196,7 @@
       ],
       [
         "cf-ray",
-        "9da46ab749076568-AMS"
+        "9ec3b4896921f97e-PRG"
       ]
     ],
     "status": 200

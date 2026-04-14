@@ -2,8 +2,8 @@
   "metadata": {
     "model": "anthropic/claude-haiku-4.5",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-12T12:36:54.235302Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:37.584827Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "That sounds exciting! I'd be happy to help you plan your trip to London. Here are some things I can assist with:\n\n1. **Weather**: I can check the current weather in London to help you pack appropriately\n2. **General advice**: I can offer tips on attractions, neighborhoods, transportation, and activities\n\nWould you like me to check the current weather in London for you? Also, it would help to know:\n- When are you planning to visit?\n- How long will you be staying?\n- What are you most interested in (museums, food, history, shopping, etc.)?\n- Do you have specific questions about the trip?\n\nLet me know how I can best help!",
+              "text": "That sounds exciting! I'd be happy to help with your London trip planning. Here are some things I can assist with:\n\n1. **Weather** - I can check the current weather in London to help you pack appropriately\n2. **General advice** - I can offer tips on attractions, neighborhoods, transportation, dining, and more\n\nWould you like me to check the current weather in London first? Or do you have specific questions about your trip, such as:\n- Where to stay?\n- What attractions to visit?\n- How to get around?\n- Best times to visit?\n- Restaurant recommendations?\n\nLet me know what would be most helpful!",
               "type": "output_text"
             }
           ],
@@ -35,19 +35,19 @@
         },
         {
           "arguments": "{\"city\":\"London\"}",
-          "call_id": "toolu_bdrk_01Ntkx6QwuGNrV3EoN7JeTxs",
+          "call_id": "toolu_bdrk_01ACEMCwWVzYKQac5Ahqn3jB",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "toolu_bdrk_01Ntkx6QwuGNrV3EoN7JeTxs",
+          "call_id": "toolu_bdrk_01ACEMCwWVzYKQac5Ahqn3jB",
           "output": "London: 18C, cloudy",
           "type": "function_call_output"
         },
         {
           "content": [
             {
-              "text": "The current weather in London is **18°C (about 64°F) and cloudy**. \n\nThis is mild weather, so I'd recommend:\n- Bringing a light jacket or sweater\n- Packing layers since it can be changeable\n- An umbrella or rain jacket, as cloudy weather in London often means rain isn't far off\n\nIs there anything else you'd like to know about planning your London trip?",
+              "text": "The current weather in London is **18°C (64°F) and cloudy**. \n\nIt's mild and cool, so I'd recommend bringing:\n- A light jacket or sweater\n- An umbrella or rain jacket (since it's cloudy, rain is possible)\n- Comfortable walking shoes\n\nThis is typical London weather! Is there anything else you'd like to know about your trip?",
               "type": "output_text"
             }
           ],
@@ -99,11 +99,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1773319014,
-      "created_at": 1773319011,
+      "completed_at": 1776180157,
+      "created_at": 1776180155,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1773319011-25NE1KIIS33YjRUKDZrE",
+      "id": "gen-1776180155-HfF368jSx31oDzAWZp1S",
       "incomplete_details": null,
       "instructions": "You are a helpful assistant. Be concise.",
       "max_output_tokens": null,
@@ -117,11 +117,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Yes, definitely bring an umbrella! Here's why:\n\n1. **Cloudy conditions**: The current weather is cloudy, which often leads to rain in London\n2. **London's reputation**: London is famous for rainy weather, especially during autumn and winter months\n3. **Unpredictable weather**: Even on cloudy days, rain can come unexpectedly\n\nA compact, lightweight umbrella is ideal for travel since it takes up minimal space in your luggage. You might also consider a waterproof jacket as a backup.\n\nThe combination of 18°C and cloudy skies is perfect umbrella weather, so I'd definitely pack one!",
+              "text": "Yes, definitely bring an umbrella! Here's why:\n\n1. **Cloudy conditions** - With cloudy skies, rain is quite likely in London\n2. **London's reputation** - The city is known for frequent drizzle and rain throughout the year\n3. **Better safe than sorry** - Even if it doesn't rain during your visit, an umbrella is compact and lightweight to pack, so it's worth having just in case\n\nA compact, travel-friendly umbrella would be ideal since you'll likely be walking around exploring. This way you can enjoy your sightseeing without worrying about getting caught in a sudden downpour!\n\nIs there anything else you'd like help with for your London trip?",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_6qk9s7gcdla",
+          "id": "msg_tmp_h1b26k4i5ls",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -167,29 +167,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 0.001662,
+        "cost": 0.00171,
         "cost_details": {
-          "upstream_inference_cost": 0.001662,
-          "upstream_inference_input_cost": 9.42e-4,
-          "upstream_inference_output_cost": 7.2e-4
+          "upstream_inference_cost": 0.00171,
+          "upstream_inference_input_cost": 9.25e-4,
+          "upstream_inference_output_cost": 7.85e-4
         },
-        "input_tokens": 942,
+        "input_tokens": 925,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 144,
+        "output_tokens": 157,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 1086
-      },
-      "user": null
+        "total_tokens": 1082
+      }
     },
     "headers": [
       [
         "date",
-        "Thu, 12 Mar 2026 12:36:52 GMT"
+        "Tue, 14 Apr 2026 15:22:36 GMT"
       ],
       [
         "content-type",
@@ -197,11 +196,19 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=1574"
+        "cfEdge;dur=6,cfOrigin;dur=0,cfWorker;dur=1050"
       ],
       [
         "access-control-allow-origin",
         "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180155-HfF368jSx31oDzAWZp1S"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -221,7 +228,7 @@
       ],
       [
         "cf-ray",
-        "9db2d8cbce3d6567-AMS"
+        "9ec3b4f238c0f97e-PRG"
       ]
     ],
     "status": 200

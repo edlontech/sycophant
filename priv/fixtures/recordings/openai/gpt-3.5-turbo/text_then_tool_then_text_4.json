@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-03-12T12:36:47.771044Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:22.998448Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -17,7 +17,7 @@
           "role": "user"
         },
         {
-          "content": "That's great! Do you need any information or assistance for your trip to London?",
+          "content": "That sounds exciting! How can I assist you with your trip to London?",
           "role": "assistant"
         },
         {
@@ -33,7 +33,7 @@
                 "arguments": "{\"city\":\"London\"}",
                 "name": "get_weather"
               },
-              "id": "call_JNe0lCotIuAgAvzswA33hY9A",
+              "id": "call_55v16PjI5eyiVOqAAbLFxFL9",
               "type": "function"
             }
           ]
@@ -41,10 +41,10 @@
         {
           "content": "London: 18C, cloudy",
           "role": "tool",
-          "tool_call_id": "call_JNe0lCotIuAgAvzswA33hY9A"
+          "tool_call_id": "call_55v16PjI5eyiVOqAAbLFxFL9"
         },
         {
-          "content": "The current weather in London is 18°C and cloudy. If you need any more details or assistance with your trip, feel free to ask!",
+          "content": "The current weather in London is 18°C and cloudy.",
           "role": "assistant"
         },
         {
@@ -98,42 +98,62 @@
           "logprobs": null,
           "message": {
             "annotations": [],
-            "content": "Since it's currently cloudy in London, it might be a good idea to bring an umbrella just in case it rains. Have a great trip to London!",
+            "content": "Yes, it might be a good idea to bring an umbrella since it is currently cloudy in London.",
             "refusal": null,
             "role": "assistant"
           }
         }
       ],
-      "created": 1773319007,
-      "id": "chatcmpl-DIZZP9MhCS1eAMYAFNqasgiN5iIVQ",
+      "created": 1776180142,
+      "id": "chatcmpl-DUZskXtwgSJomUjQrffkbMwpfZ4Fa",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
       "system_fingerprint": null,
       "usage": {
-        "completion_tokens": 32,
+        "completion_tokens": 21,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "audio_tokens": 0,
           "reasoning_tokens": 0,
           "rejected_prediction_tokens": 0
         },
-        "prompt_tokens": 182,
+        "prompt_tokens": 163,
         "prompt_tokens_details": {
           "audio_tokens": 0,
           "cached_tokens": 0
         },
-        "total_tokens": 214
+        "total_tokens": 184
       }
     },
     "headers": [
       [
         "date",
-        "Thu, 12 Mar 2026 12:36:47 GMT"
+        "Tue, 14 Apr 2026 15:22:22 GMT"
       ],
       [
         "content-type",
         "application/json"
+      ],
+      [
+        "cf-ray",
+        "9ec3b4a06ebdae1d-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
       ],
       [
         "access-control-expose-headers",
@@ -145,7 +165,7 @@
       ],
       [
         "openai-processing-ms",
-        "729"
+        "682"
       ],
       [
         "openai-project",
@@ -156,8 +176,8 @@
         "2020-10-01"
       ],
       [
-        "server",
-        "cloudflare"
+        "x-openai-proxy-wasm",
+        "v0.1"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -173,7 +193,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "1999891"
+        "1999913"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -181,35 +201,15 @@
       ],
       [
         "x-ratelimit-reset-tokens",
-        "3ms"
+        "2ms"
       ],
       [
         "x-request-id",
-        "req_06635d75254c4b9290dec81a3d7f5896"
-      ],
-      [
-        "x-openai-proxy-wasm",
-        "v0.1"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_211c4e7afe404a3c9f80e9a61db768bd"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9db2d8aef915fb83-AMS"
       ],
       [
         "alt-svc",

@@ -2,9 +2,9 @@
   "metadata": {
     "model": "google/gemini-2.5-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-10T18:35:08.767433Z",
+    "recorded_at": "2026-04-14T15:22:22.171173Z",
     "streaming": true,
-    "sycophant_version": "0.1.0"
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -21,12 +21,12 @@
         },
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "tool_get_weather_wHnh9nKLlKBCNq7bzdHj",
+          "call_id": "tool_get_weather_6itTpMRu06Lr3nwHA0ym",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "tool_get_weather_wHnh9nKLlKBCNq7bzdHj",
+          "call_id": "tool_get_weather_6itTpMRu06Lr3nwHA0ym",
           "output": "Paris: 22C, sunny",
           "type": "function_call_output"
         }
@@ -68,11 +68,11 @@
     "url": "https://openrouter.ai/api/v1/responses"
   },
   "response": {
-    "body": "data: {\"type\":\"response.created\",\"response\":{\"id\":\"gen-1773167708-wTKc5XKLTtfJvZ8N0eDs\",\"object\":\"response\",\"created_at\":1773167708,\"model\":\"google/gemini-2.5-flash\",\"status\":\"in_progress\",\"completed_at\":null,\"output\":[],\"error\":null,\"incomplete_details\":null,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"strict\":true,\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"}}],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"auto\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":null,\"safety_identifier\":null,\"prompt_cache_key\":null,\"user\":null,\"usage\":null},\"sequence_number\":0}\n\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"gen-1773167708-wTKc5XKLTtfJvZ8N0eDs\",\"object\":\"response\",\"created_at\":1773167708,\"model\":\"google/gemini-2.5-flash\",\"status\":\"in_progress\",\"completed_at\":null,\"output\":[],\"error\":null,\"incomplete_details\":null,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"strict\":true,\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"}}],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"auto\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":null,\"safety_identifier\":null,\"prompt_cache_key\":null,\"user\":null,\"usage\":null},\"sequence_number\":1}\n\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"id\":\"msg_tmp_4okr5y5oczn\",\"type\":\"message\",\"status\":\"in_progress\",\"role\":\"assistant\",\"content\":[]},\"sequence_number\":2}\n\ndata: {\"type\":\"response.content_part.added\",\"output_index\":0,\"item_id\":\"msg_tmp_4okr5y5oczn\",\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"\",\"annotations\":[],\"logprobs\":[]},\"sequence_number\":3}\n\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"item_id\":\"msg_tmp_4okr5y5oczn\",\"content_index\":0,\"delta\":\"The weather in Paris is \",\"logprobs\":[],\"sequence_number\":4}\n\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"item_id\":\"msg_tmp_4okr5y5oczn\",\"content_index\":0,\"delta\":\"22 degrees Celsius and sunny.\",\"logprobs\":[],\"sequence_number\":5}\n\ndata: {\"type\":\"response.output_text.done\",\"output_index\":0,\"item_id\":\"msg_tmp_4okr5y5oczn\",\"content_index\":0,\"text\":\"The weather in Paris is 22 degrees Celsius and sunny.\",\"logprobs\":[],\"sequence_number\":6}\n\ndata: {\"type\":\"response.content_part.done\",\"output_index\":0,\"item_id\":\"msg_tmp_4okr5y5oczn\",\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"The weather in Paris is 22 degrees Celsius and sunny.\",\"annotations\":[],\"logprobs\":[]},\"sequence_number\":7}\n\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"id\":\"msg_tmp_4okr5y5oczn\",\"type\":\"message\",\"status\":\"completed\",\"role\":\"assistant\",\"content\":[{\"type\":\"output_text\",\"text\":\"The weather in Paris is 22 degrees Celsius and sunny.\",\"annotations\":[],\"logprobs\":[]}]},\"sequence_number\":8}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"gen-1773167708-wTKc5XKLTtfJvZ8N0eDs\",\"object\":\"response\",\"created_at\":1773167708,\"model\":\"google/gemini-2.5-flash\",\"status\":\"completed\",\"completed_at\":1773167708,\"output\":[{\"id\":\"msg_tmp_4okr5y5oczn\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"The weather in Paris is 22 degrees Celsius and sunny.\",\"annotations\":[],\"logprobs\":[]}]}],\"error\":null,\"incomplete_details\":null,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"strict\":true,\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"}}],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"auto\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":null,\"safety_identifier\":null,\"prompt_cache_key\":null,\"user\":null,\"usage\":{\"input_tokens\":70,\"input_tokens_details\":{\"cached_tokens\":0},\"output_tokens\":13,\"output_tokens_details\":{\"reasoning_tokens\":0},\"total_tokens\":83,\"cost\":0.0000535,\"is_byok\":false,\"cost_details\":{\"upstream_inference_cost\":0.0000535,\"upstream_inference_input_cost\":0.000021,\"upstream_inference_output_cost\":0.0000325}}},\"sequence_number\":9}\n\ndata: [DONE]\n\n",
+    "body": "data: {\"type\":\"response.created\",\"response\":{\"id\":\"gen-1776180141-OYc4ZXsq0jukYHYN3S2M\",\"object\":\"response\",\"created_at\":1776180141,\"model\":\"google/gemini-2.5-flash\",\"status\":\"in_progress\",\"completed_at\":null,\"output\":[],\"error\":null,\"incomplete_details\":null,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"strict\":true,\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"}}],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"auto\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":null,\"safety_identifier\":null,\"prompt_cache_key\":null,\"usage\":null},\"sequence_number\":0}\n\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"gen-1776180141-OYc4ZXsq0jukYHYN3S2M\",\"object\":\"response\",\"created_at\":1776180141,\"model\":\"google/gemini-2.5-flash\",\"status\":\"in_progress\",\"completed_at\":null,\"output\":[],\"error\":null,\"incomplete_details\":null,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"strict\":true,\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"}}],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"auto\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":null,\"safety_identifier\":null,\"prompt_cache_key\":null,\"usage\":null},\"sequence_number\":1}\n\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"id\":\"msg_tmp_kpvgvqmncc\",\"type\":\"message\",\"status\":\"in_progress\",\"role\":\"assistant\",\"content\":[]},\"sequence_number\":2}\n\ndata: {\"type\":\"response.content_part.added\",\"output_index\":0,\"item_id\":\"msg_tmp_kpvgvqmncc\",\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"\",\"annotations\":[],\"logprobs\":[]},\"sequence_number\":3}\n\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"item_id\":\"msg_tmp_kpvgvqmncc\",\"content_index\":0,\"delta\":\"The weather in Paris is \",\"logprobs\":[],\"sequence_number\":4}\n\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"item_id\":\"msg_tmp_kpvgvqmncc\",\"content_index\":0,\"delta\":\"22 degrees Celsius and sunny.\",\"logprobs\":[],\"sequence_number\":5}\n\ndata: {\"type\":\"response.output_text.done\",\"output_index\":0,\"item_id\":\"msg_tmp_kpvgvqmncc\",\"content_index\":0,\"text\":\"The weather in Paris is 22 degrees Celsius and sunny.\",\"logprobs\":[],\"sequence_number\":6}\n\ndata: {\"type\":\"response.content_part.done\",\"output_index\":0,\"item_id\":\"msg_tmp_kpvgvqmncc\",\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"The weather in Paris is 22 degrees Celsius and sunny.\",\"annotations\":[],\"logprobs\":[]},\"sequence_number\":7}\n\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"id\":\"msg_tmp_kpvgvqmncc\",\"type\":\"message\",\"status\":\"completed\",\"role\":\"assistant\",\"content\":[{\"type\":\"output_text\",\"text\":\"The weather in Paris is 22 degrees Celsius and sunny.\",\"annotations\":[],\"logprobs\":[]}]},\"sequence_number\":8}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"gen-1776180141-OYc4ZXsq0jukYHYN3S2M\",\"object\":\"response\",\"created_at\":1776180141,\"model\":\"google/gemini-2.5-flash\",\"status\":\"completed\",\"completed_at\":1776180142,\"output\":[{\"id\":\"msg_tmp_kpvgvqmncc\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"The weather in Paris is 22 degrees Celsius and sunny.\",\"annotations\":[],\"logprobs\":[]}]}],\"error\":null,\"incomplete_details\":null,\"tools\":[{\"type\":\"function\",\"name\":\"get_weather\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"strict\":true,\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"}}],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"auto\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":null,\"safety_identifier\":null,\"prompt_cache_key\":null,\"usage\":{\"input_tokens\":67,\"input_tokens_details\":{\"cached_tokens\":0},\"output_tokens\":13,\"output_tokens_details\":{\"reasoning_tokens\":0},\"total_tokens\":80,\"cost\":0.0000526,\"is_byok\":false,\"cost_details\":{\"upstream_inference_cost\":0.0000526,\"upstream_inference_input_cost\":0.0000201,\"upstream_inference_output_cost\":0.0000325}}},\"sequence_number\":9}\n\ndata: [DONE]\n\n",
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:08 GMT"
+        "Tue, 14 Apr 2026 15:22:22 GMT"
       ],
       [
         "content-type",
@@ -80,7 +80,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=10,cfOrigin;dur=0,cfWorker;dur=438"
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=384"
       ],
       [
         "access-control-allow-origin",
@@ -89,6 +89,14 @@
       [
         "cache-control",
         "no-cache"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180141-OYc4ZXsq0jukYHYN3S2M"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -108,7 +116,7 @@
       ],
       [
         "cf-ray",
-        "9da46ae09dcf6568-AMS"
+        "9ec3b49d9a1bf97e-PRG"
       ]
     ],
     "status": 200

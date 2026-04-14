@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-03-10T18:35:17.458378Z",
-    "sycophant_version": "0.1.0"
+    "recorded_at": "2026-04-14T15:22:34.325488Z",
+    "sycophant_version": "0.2.0"
   },
   "request": {
     "body": {
@@ -31,11 +31,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1773167717,
-      "created_at": 1773167705,
+      "completed_at": 1776180154,
+      "created_at": 1776180147,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1773167705-EvB4CSS3QzMa3pJJcmVz",
+      "id": "gen-1776180147-KfcZTRsjXhnF0XO2A3vW",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -47,12 +47,12 @@
         {
           "content": [
             {
-              "text": "Okay, the user just said, \"My name is Sycophant. Remember it.\" Hmm, Sycophant... that's an interesting name. Wait, isn't \"sycophant\" actually a word in English? Let me think. Yeah, a sycophant is someone who acts obsequiously toward someone important to gain advantage. So it's like a flatterer or a yes-man. But the user is using it as their name. Maybe they chose it intentionally for its meaning, or maybe they just like the sound of it.\n\nFirst, I need to acknowledge their name. But since \"sycophant\" has a negative connotation, should I mention that? Maybe they're aware of it and it's a playful username. I don't want to offend them by pointing out the meaning if they're using it as a name. Alternatively, they might not know the meaning. But since they capitalized it, treating it as a proper noun, maybe it's just a username they chose. \n\nSo, my response should be friendly and confirm that I'll remember their name. But perhaps add a lighthearted comment about the word's meaning, but in a way that's not assuming they don't know. Maybe something like, \"got it, Sycophant! I'll remember. Just so you know, 'sycophant' has an interesting definition, but I'll think of it as your unique name!\" But wait, maybe that's overstepping. They didn't ask for the definition. Alternatively, just confirm that I'll remember. Let me check previous interactions where users have unusual names. Normally, the best practice is to acknowledge the name without commentary unless the user brings it up. So maybe safer to just say, \"Got it, Sycophant! I'll remember your name. How can I assist you today?\" Keep it simple. But the user might be testing if I recognize the term. Alternatively, they might be using it ironically. Hmm. Maybe it's better to acknowledge the name and offer assistance. Let me go with that.\n",
+              "text": "Hmm, the user just introduced themselves as \"Sycophant\" and explicitly asked me to remember it. This seems straightforward - they want me to acknowledge and store their chosen identifier for future interactions. \n\nThe name \"Sycophant\" carries interesting connotations historically (informer/flatterer) but I should simply accept it at face value as their preferred name. A professional acknowledgment with a slight personal touch would work best here - confirm I've registered the name, express readiness to assist, and optionally invite them to proceed with their actual request. \n\nKeeping it clean: use their given name, maintain my standard helpful tone, and leave the conversation open for their real query. No need to overanalyze the name choice unless they later bring it up themselves.",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_smp7wsaujxm",
+          "id": "rs_tmp_vzfb4x66s9h",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
@@ -62,11 +62,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Got it, Sycophant! I'll remember your name. How can I assist you today?",
+              "text": "Understood. I'll remember that your name is Sycophant. How can I assist you today?",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_yrjlcimecgm",
+          "id": "msg_tmp_kas1xwmztj",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -93,29 +93,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 0.0011412,
+        "cost": 4.597e-4,
         "cost_details": {
-          "upstream_inference_cost": 0.0011412,
-          "upstream_inference_input_cost": 1.12e-5,
-          "upstream_inference_output_cost": 0.00113
+          "upstream_inference_cost": 4.597e-4,
+          "upstream_inference_input_cost": 1.47e-5,
+          "upstream_inference_output_cost": 4.45e-4
         },
-        "input_tokens": 16,
+        "input_tokens": 21,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 452,
+        "output_tokens": 178,
         "output_tokens_details": {
-          "reasoning_tokens": 430
+          "reasoning_tokens": 154
         },
-        "total_tokens": 468
-      },
-      "user": null
+        "total_tokens": 199
+      }
     },
     "headers": [
       [
         "date",
-        "Tue, 10 Mar 2026 18:35:06 GMT"
+        "Tue, 14 Apr 2026 15:22:28 GMT"
       ],
       [
         "content-type",
@@ -123,11 +122,19 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=774,cfOrigin;dur=0,cfWorker;dur=1714"
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1905"
       ],
       [
         "access-control-allow-origin",
         "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1776180147-KfcZTRsjXhnF0XO2A3vW"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
       ],
       [
         "permissions-policy",
@@ -147,7 +154,7 @@
       ],
       [
         "cf-ray",
-        "9da46ac63eb36568-AMS"
+        "9ec3b4bf0f3cf97e-PRG"
       ]
     ],
     "status": 200
