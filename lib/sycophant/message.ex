@@ -31,7 +31,11 @@ defmodule Sycophant.Message do
   alias Sycophant.Message.Content
   alias Sycophant.ToolCall
 
-  @type content_part() :: Content.Text.t() | Content.Image.t()
+  @type content_part() ::
+          Content.Text.t()
+          | Content.Image.t()
+          | Content.Thinking.t()
+          | Content.RedactedThinking.t()
 
   typedstruct do
     field :role, :user | :assistant | :system | :tool_result, enforce: true

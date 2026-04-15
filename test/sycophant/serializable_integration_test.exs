@@ -16,7 +16,9 @@ defmodule Sycophant.SerializableIntegrationTest do
       text: "The weather in NYC is sunny, 72F",
       model: "claude-sonnet-4-20250514",
       usage: %Usage{input_tokens: 150, output_tokens: 50, cache_read_input_tokens: 30},
-      reasoning: %Reasoning{summary: "User asked about weather, used tool"},
+      reasoning: %Reasoning{
+        content: [%Content.Thinking{text: "User asked about weather, used tool"}]
+      },
       tool_calls: [],
       context: %Context{
         messages: [

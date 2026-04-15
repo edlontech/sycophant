@@ -158,7 +158,7 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
           reasoning:
             if(state.thinking == "",
               do: nil,
-              else: %Reasoning{summary: state.thinking}
+              else: %Reasoning{content: [%Content.Thinking{text: state.thinking}]}
             ),
           finish_reason: map_finish_reason(reason),
           usage: state.usage,
@@ -179,22 +179,7 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
 
   defp process_parts(parts) do
     {texts, tool_calls, reasonings, _tc_index} =
-      Enum.reduce(parts, {[], [], [], 0}, fn part, {texts, tcs, reasons, idx} ->
-        case part do
-          %{"text" => text, "thought" => true} ->
-            {texts, tcs, [text | reasons], idx}
-
-          %{"text" => text} ->
-            {[text | texts], tcs, reasons, idx}
-
-          %{"functionCall" => %{"name" => name, "args" => args}} ->
-            tc = %ToolCall{id: "gemini_call_#{idx}", name: name, arguments: args}
-            {texts, [tc | tcs], reasons, idx + 1}
-
-          _ ->
-            {texts, tcs, reasons, idx}
-        end
-      end)
+      Enum.reduce(parts, {[], [], [], 0}, &classify_part/2)
 
     text =
       case Enum.reverse(texts) do
@@ -205,11 +190,33 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
     reasoning =
       case Enum.reverse(reasonings) do
         [] -> nil
-        parts -> %Reasoning{summary: Enum.join(parts, "")}
+        parts -> %Reasoning{content: parts}
       end
 
     {text, Enum.reverse(tool_calls), reasoning}
   end
+
+  defp classify_part(%{"text" => text, "thought" => true}, {texts, tcs, reasons, idx}),
+    do: {texts, tcs, [%Content.Thinking{text: text} | reasons], idx}
+
+  defp classify_part(%{"text" => text}, {texts, tcs, reasons, idx}),
+    do: {[text | texts], tcs, reasons, idx}
+
+  defp classify_part(
+         %{"functionCall" => %{"name" => name, "args" => args}} = part,
+         {texts, tcs, reasons, idx}
+       ) do
+    metadata =
+      case part["thoughtSignature"] do
+        nil -> %{}
+        sig -> %{thought_signature: sig}
+      end
+
+    tc = %ToolCall{id: "gemini_call_#{idx}", name: name, arguments: args, metadata: metadata}
+    {texts, [tc | tcs], reasons, idx + 1}
+  end
+
+  defp classify_part(_, acc), do: acc
 
   defp decode_usage(%{"promptTokenCount" => input, "candidatesTokenCount" => output} = meta) do
     %Usage{
@@ -256,14 +263,13 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
           st = %{st | text: st.text <> text}
           {st, chunks ++ [%StreamChunk{type: :text_delta, data: text}]}
 
-        %{"functionCall" => %{"name" => name, "args" => args}} ->
+        %{"functionCall" => %{"name" => name, "args" => args}} = fc_part ->
           idx = map_size(st.tool_calls)
           id = "gemini_call_#{idx}"
+          sig = fc_part["thoughtSignature"]
 
-          st = %{
-            st
-            | tool_calls: Map.put(st.tool_calls, idx, %{id: id, name: name, arguments: args})
-          }
+          tc_data = %{id: id, name: name, arguments: args, thought_signature: sig}
+          st = %{st | tool_calls: Map.put(st.tool_calls, idx, tc_data)}
 
           chunk = %StreamChunk{
             type: :tool_call_delta,
@@ -284,7 +290,13 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
       state.tool_calls
       |> Enum.sort_by(fn {index, _} -> index end)
       |> Enum.map(fn {_index, tc} ->
-        %ToolCall{id: tc.id, name: tc.name, arguments: tc.arguments}
+        metadata =
+          case tc[:thought_signature] do
+            nil -> %{}
+            sig -> %{thought_signature: sig}
+          end
+
+        %ToolCall{id: tc.id, name: tc.name, arguments: tc.arguments, metadata: metadata}
       end)
 
     text = if state.text == "", do: nil, else: state.text
@@ -338,15 +350,20 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
        when is_list(tool_calls) and tool_calls != [] do
     text_parts =
       case content do
-        nil -> []
-        "" -> []
-        text when is_binary(text) -> [%{"text" => text}]
+        nil ->
+          []
+
+        "" ->
+          []
+
+        text when is_binary(text) ->
+          [%{"text" => text}]
+
+        parts when is_list(parts) ->
+          parts |> Enum.map(&encode_content_part/1) |> Enum.reject(&is_nil/1)
       end
 
-    tool_parts =
-      Enum.map(tool_calls, fn %ToolCall{name: name, arguments: args} ->
-        %{"functionCall" => %{"name" => name, "args" => args}}
-      end)
+    tool_parts = Enum.map(tool_calls, &encode_function_call_part/1)
 
     %{"role" => "model", "parts" => text_parts ++ tool_parts}
   end
@@ -362,10 +379,15 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
   defp encode_parts(nil), do: []
 
   defp encode_parts(parts) when is_list(parts) do
-    Enum.map(parts, &encode_content_part/1)
+    parts |> Enum.map(&encode_content_part/1) |> Enum.reject(&is_nil/1)
   end
 
   defp encode_content_part(%Content.Text{text: text}), do: %{"text" => text}
+
+  defp encode_content_part(%Content.Thinking{text: text}),
+    do: %{"text" => text, "thought" => true}
+
+  defp encode_content_part(%Content.RedactedThinking{}), do: nil
 
   defp encode_content_part(%Content.Image{url: url}) when is_binary(url) do
     %{"fileData" => %{"fileUri" => url, "mimeType" => "image/*"}}
@@ -374,6 +396,15 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
   defp encode_content_part(%Content.Image{data: data, media_type: media_type})
        when is_binary(data) do
     %{"inlineData" => %{"mimeType" => media_type, "data" => data}}
+  end
+
+  defp encode_function_call_part(%ToolCall{name: name, arguments: args, metadata: metadata}) do
+    part = %{"functionCall" => %{"name" => name, "args" => args}}
+
+    case metadata[:thought_signature] do
+      nil -> part
+      sig -> Map.put(part, "thoughtSignature", sig)
+    end
   end
 
   # --- Private: Tool Encoding ---
@@ -439,20 +470,21 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
   defp maybe_put_tool_choice(payload, _), do: payload
 
   defp maybe_put_generation_config(payload, request) do
-    with {:ok, config} <- build_generation_config(request.params, request.response_schema) do
+    with {:ok, config} <-
+           build_generation_config(request.params, request.response_schema, request.model) do
       if config == %{},
         do: {:ok, payload},
         else: {:ok, Map.put(payload, "generationConfig", config)}
     end
   end
 
-  defp build_generation_config(params, response_schema)
+  defp build_generation_config(params, response_schema, _model)
        when map_size(params) == 0 and is_nil(response_schema),
        do: {:ok, %{}}
 
-  defp build_generation_config(params, response_schema) do
+  defp build_generation_config(params, response_schema, model) do
     config = translate_params(params)
-    config = maybe_put_thinking_config(config, params)
+    config = maybe_put_thinking_config(config, params, model)
     maybe_put_response_schema_config(config, response_schema)
   end
 
@@ -486,10 +518,21 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
     xhigh: "HIGH"
   }
 
-  defp maybe_put_thinking_config(config, params) do
+  @thinking_budgets %{
+    minimal: 1024,
+    low: 1024,
+    medium: 4096,
+    high: 16_384,
+    xhigh: 32_768
+  }
+
+  # Models before gemini-3 use thinkingBudget; gemini-3+ use thinkingLevel
+  @legacy_thinking_prefixes ~w(gemini-1 gemini-2)
+
+  defp maybe_put_thinking_config(config, params, model) do
     thinking_config =
       params
-      |> build_thinking_level()
+      |> build_thinking_level(model)
       |> maybe_include_thoughts(params)
 
     if thinking_config == %{},
@@ -497,14 +540,22 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
       else: Map.put(config, "thinkingConfig", thinking_config)
   end
 
-  defp build_thinking_level(%{reasoning: :none}), do: %{"thinkingBudget" => 0}
+  defp build_thinking_level(%{reasoning: :none}, _model), do: %{"thinkingBudget" => 0}
 
-  defp build_thinking_level(%{reasoning: level})
+  defp build_thinking_level(%{reasoning: level}, model)
        when is_map_key(@thinking_levels, level) do
-    %{"thinkingLevel" => Map.fetch!(@thinking_levels, level)}
+    if legacy_thinking_model?(model) do
+      %{"thinkingBudget" => Map.fetch!(@thinking_budgets, level)}
+    else
+      %{"thinkingLevel" => Map.fetch!(@thinking_levels, level)}
+    end
   end
 
-  defp build_thinking_level(_), do: %{}
+  defp build_thinking_level(_, _model), do: %{}
+
+  defp legacy_thinking_model?(model) do
+    Enum.any?(@legacy_thinking_prefixes, &String.starts_with?(model, &1))
+  end
 
   defp maybe_include_thoughts(thinking_config, %{reasoning_summary: value})
        when value not in [nil, :none] do

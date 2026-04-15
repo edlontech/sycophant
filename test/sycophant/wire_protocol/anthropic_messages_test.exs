@@ -473,7 +473,10 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
 
       body = anthropic_response(content: content)
       assert {:ok, resp} = AnthropicMessages.decode_response(body)
-      assert resp.reasoning == %Reasoning{summary: "Let me reason about this..."}
+
+      assert [%Sycophant.Message.Content.Thinking{text: "Let me reason about this..."}] =
+               resp.reasoning.content
+
       assert resp.text == "The answer is 42."
     end
 
@@ -777,7 +780,10 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
                AnthropicMessages.decode_stream_chunk(state, event8)
 
       assert response.text == "42"
-      assert response.reasoning == %Reasoning{summary: "Let me think..."}
+
+      assert [%Sycophant.Message.Content.Thinking{text: "Let me think..."}] =
+               response.reasoning.content
+
       assert response.finish_reason == :stop
     end
 

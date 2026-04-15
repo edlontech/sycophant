@@ -414,7 +414,7 @@ defmodule Sycophant.Pipeline do
   defp attach_context(response, messages, params, opts) do
     assistant_msg = %Message{
       role: :assistant,
-      content: response.text,
+      content: build_assistant_content(response),
       tool_calls: if(response.tool_calls in [nil, []], do: nil, else: response.tool_calls)
     }
 
@@ -426,6 +426,27 @@ defmodule Sycophant.Pipeline do
     }
 
     %{response | context: context}
+  end
+
+  defp build_assistant_content(%{reasoning: nil, text: text}), do: text
+
+  defp build_assistant_content(%{reasoning: %{content: [], encrypted_content: nil}, text: text}),
+    do: text
+
+  defp build_assistant_content(%{reasoning: reasoning, text: text}) do
+    thinking_parts = reasoning.content
+
+    encrypted_parts =
+      if reasoning.encrypted_content,
+        do: [%Message.Content.RedactedThinking{data: reasoning.encrypted_content}],
+        else: []
+
+    text_parts =
+      if text,
+        do: [%Message.Content.Text{text: text}],
+        else: []
+
+    thinking_parts ++ encrypted_parts ++ text_parts
   end
 
   defp validate_params(opts, wire_adapter, model_info) do

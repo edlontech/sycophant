@@ -77,6 +77,12 @@ defmodule Sycophant.Serializable.Decoder do
   def from_map(%{"__type__" => "Image"} = data, _opts),
     do: Sycophant.Message.Content.Image.from_map(data)
 
+  def from_map(%{"__type__" => "Thinking"} = data, _opts),
+    do: Sycophant.Message.Content.Thinking.from_map(data)
+
+  def from_map(%{"__type__" => "RedactedThinking"} = data, _opts),
+    do: Sycophant.Message.Content.RedactedThinking.from_map(data)
+
   def from_map(%{"__type__" => "ToolCall"} = data, _opts), do: Sycophant.ToolCall.from_map(data)
   def from_map(%{"__type__" => "Usage"} = data, _opts), do: Sycophant.Usage.from_map(data)
   def from_map(%{"__type__" => "Reasoning"} = data, _opts), do: Sycophant.Reasoning.from_map(data)

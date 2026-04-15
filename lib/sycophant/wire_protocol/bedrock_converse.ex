@@ -14,6 +14,7 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
   alias Sycophant.Message
   alias Sycophant.Message.Content
   alias Sycophant.ParamDefs
+  alias Sycophant.Reasoning
   alias Sycophant.Request
   alias Sycophant.Response
   alias Sycophant.StreamChunk
@@ -26,6 +27,9 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
     @type t :: %__MODULE__{}
     defstruct text: "",
               tool_calls: %{},
+              thinking: "",
+              thinking_signature: nil,
+              encrypted_thinking: nil,
               usage: nil,
               model: nil,
               current_block: nil,
@@ -39,9 +43,18 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
                     :top_p,
                     :stop,
                     :tool_choice,
-                    :parallel_tool_calls
+                    :parallel_tool_calls,
+                    :reasoning
                   ])
                 )
+
+  @reasoning_budgets %{
+    minimal: 1024,
+    low: 1024,
+    medium: 4096,
+    high: 16_384,
+    xhigh: 32_768
+  }
 
   @type t :: unquote(Zoi.type_spec(@param_schema))
 
@@ -97,11 +110,12 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
 
   @impl true
   def decode_response(%{"output" => %{"message" => %{"content" => content}}} = body) do
-    {text, tool_calls} = process_content_blocks(content)
+    {text, tool_calls, reasoning} = process_content_blocks(content)
 
     response = %Response{
       text: text,
       tool_calls: tool_calls,
+      reasoning: reasoning,
       finish_reason: map_finish_reason(body["stopReason"]),
       usage: decode_usage(body["usage"]),
       model: nil,
@@ -145,6 +159,21 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
         payload: %{"contentBlockIndex" => index}
       }) do
     {:ok, %{state | current_block: {:text, index}}, []}
+  end
+
+  def decode_stream_chunk(state, %{
+        event_type: "contentBlockDelta",
+        payload: %{"delta" => %{"reasoningContent" => %{"text" => text}}}
+      }) do
+    state = %{state | thinking: state.thinking <> text}
+    {:ok, state, [%StreamChunk{type: :reasoning_delta, data: text}]}
+  end
+
+  def decode_stream_chunk(state, %{
+        event_type: "contentBlockDelta",
+        payload: %{"delta" => %{"reasoningContent" => %{"signature" => sig}}}
+      }) do
+    {:ok, %{state | thinking_signature: sig}, []}
   end
 
   def decode_stream_chunk(state, %{
@@ -196,9 +225,26 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
     tool_calls = assemble_tool_calls(state.tool_calls)
     text = if state.text == "", do: nil, else: state.text
 
+    reasoning =
+      case {state.thinking, state.encrypted_thinking} do
+        {"", nil} ->
+          nil
+
+        {thinking, encrypted} ->
+          %Reasoning{
+            content:
+              if(thinking == "",
+                do: [],
+                else: [%Content.Thinking{text: thinking, signature: state.thinking_signature}]
+              ),
+            encrypted_content: encrypted
+          }
+      end
+
     %Response{
       text: text,
       tool_calls: tool_calls,
+      reasoning: reasoning,
       finish_reason: map_finish_reason(state.stop_reason),
       usage: state.usage,
       model: state.model,
@@ -222,29 +268,46 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
   # --- Private: Response Decoding ---
 
   defp process_content_blocks(content) do
-    Enum.reduce(content, {[], []}, fn block, {texts, tcs} ->
-      case block do
-        %{"text" => text} ->
-          {[text | texts], tcs}
+    {texts, tcs, thinking, encrypted} =
+      Enum.reduce(content, {[], [], [], nil}, &classify_content_block/2)
 
-        %{"toolUse" => %{"toolUseId" => id, "name" => name, "input" => input}} ->
-          tc = %ToolCall{id: id, name: name, arguments: input}
-          {texts, [tc | tcs]}
-
-        _ ->
-          {texts, tcs}
+    text =
+      case Enum.reverse(texts) do
+        [] -> nil
+        parts -> Enum.join(parts, "")
       end
-    end)
-    |> then(fn {texts, tcs} ->
-      text =
-        case Enum.reverse(texts) do
-          [] -> nil
-          parts -> Enum.join(parts, "")
-        end
 
-      {text, Enum.reverse(tcs)}
-    end)
+    reasoning =
+      case {thinking, encrypted} do
+        {[], nil} -> nil
+        _ -> %Reasoning{content: Enum.reverse(thinking), encrypted_content: encrypted}
+      end
+
+    {text, Enum.reverse(tcs), reasoning}
   end
+
+  defp classify_content_block(%{"text" => text}, {texts, tcs, th, enc}),
+    do: {[text | texts], tcs, th, enc}
+
+  defp classify_content_block(
+         %{"toolUse" => %{"toolUseId" => id, "name" => name, "input" => input}},
+         {texts, tcs, th, enc}
+       ),
+       do: {texts, [%ToolCall{id: id, name: name, arguments: input} | tcs], th, enc}
+
+  defp classify_content_block(
+         %{"reasoningContent" => %{"reasoningText" => %{"text" => t} = rt}},
+         {texts, tcs, th, enc}
+       ),
+       do: {texts, tcs, [%Content.Thinking{text: t, signature: rt["signature"]} | th], enc}
+
+  defp classify_content_block(
+         %{"reasoningContent" => %{"redactedContent" => data}},
+         {texts, tcs, th, _enc}
+       ),
+       do: {texts, tcs, th, data}
+
+  defp classify_content_block(_, acc), do: acc
 
   defp decode_usage(%{"inputTokens" => input, "outputTokens" => output}) do
     %Usage{input_tokens: input, output_tokens: output}
@@ -294,19 +357,14 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
 
   defp encode_message(%Message{role: :assistant, content: content, tool_calls: tool_calls})
        when is_list(tool_calls) and tool_calls != [] do
-    text_blocks =
-      case content do
-        nil -> []
-        "" -> []
-        text when is_binary(text) -> [%{"text" => text}]
-      end
+    content_blocks = encode_assistant_content_blocks(content)
 
     tool_use_blocks =
       Enum.map(tool_calls, fn %ToolCall{id: id, name: name, arguments: args} ->
         %{"toolUse" => %{"toolUseId" => id, "name" => name, "input" => args}}
       end)
 
-    %{"role" => "assistant", "content" => text_blocks ++ tool_use_blocks}
+    %{"role" => "assistant", "content" => content_blocks ++ tool_use_blocks}
   end
 
   defp encode_message(%Message{role: role, content: content}) do
@@ -327,11 +385,30 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
     %{"text" => text}
   end
 
+  defp encode_content_part(%Content.Thinking{text: text, signature: signature}) do
+    block = %{"text" => text}
+    block = if signature, do: Map.put(block, "signature", signature), else: block
+    %{"reasoningContent" => %{"reasoningText" => block}}
+  end
+
+  defp encode_content_part(%Content.RedactedThinking{data: data}) do
+    %{"reasoningContent" => %{"redactedContent" => data}}
+  end
+
   defp encode_content_part(%Content.Image{data: data, media_type: media_type})
        when is_binary(data) do
     format = media_type_to_format(media_type)
     %{"image" => %{"format" => format, "source" => %{"bytes" => data}}}
   end
+
+  defp encode_assistant_content_blocks(nil), do: []
+  defp encode_assistant_content_blocks(""), do: []
+
+  defp encode_assistant_content_blocks(text) when is_binary(text),
+    do: [%{"text" => text}]
+
+  defp encode_assistant_content_blocks(parts) when is_list(parts),
+    do: Enum.map(parts, &encode_content_part/1)
 
   defp media_type_to_format("image/" <> format), do: format
   defp media_type_to_format(format), do: format
@@ -393,6 +470,8 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
           payload
         end
 
+      payload = maybe_put_thinking(payload, request.params)
+
       {:ok, payload}
     end
   end
@@ -440,6 +519,25 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
     tool_config = maybe_put_tool_choice(tool_config, params)
     {:ok, Map.put(payload, "toolConfig", tool_config)}
   end
+
+  # --- Private: Thinking ---
+
+  defp maybe_put_thinking(payload, %{reasoning: :none}) do
+    Map.put(payload, "additionalModelRequestFields", %{
+      "thinking" => %{"type" => "disabled"}
+    })
+  end
+
+  defp maybe_put_thinking(payload, %{reasoning: level})
+       when is_map_key(@reasoning_budgets, level) do
+    budget = Map.fetch!(@reasoning_budgets, level)
+
+    Map.put(payload, "additionalModelRequestFields", %{
+      "thinking" => %{"type" => "enabled", "budget_tokens" => budget}
+    })
+  end
+
+  defp maybe_put_thinking(payload, _), do: payload
 
   # --- Finish Reason Mapping ---
 

@@ -191,7 +191,7 @@ defmodule Sycophant.MixProject do
       {:ex_doc, "~> 0.34", only: :dev, runtime: false},
       {:gen_state_machine, "~> 3.0"},
       {:jason, "~> 1.4"},
-      {:llm_db, "~> 2026.3"},
+      {:llm_db, "~> 2026.4.2"},
       {:mimic, "~> 2.0", only: :test},
       {:mix_audit, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:opentelemetry_telemetry, "~> 1.1", optional: true},

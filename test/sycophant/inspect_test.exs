@@ -19,9 +19,11 @@ defmodule Sycophant.InspectTest do
   end
 
   describe "Reasoning" do
-    test "truncates summary and redacts encrypted content" do
+    test "truncates content text and redacts encrypted content" do
       reasoning = %Sycophant.Reasoning{
-        summary: String.duplicate("a", 60),
+        content: [
+          %Sycophant.Message.Content.Thinking{text: String.duplicate("a", 60)}
+        ],
         encrypted_content: "secret-data"
       }
 
@@ -32,7 +34,10 @@ defmodule Sycophant.InspectTest do
     end
 
     test "omits nil encrypted_content" do
-      reasoning = %Sycophant.Reasoning{summary: "short"}
+      reasoning = %Sycophant.Reasoning{
+        content: [%Sycophant.Message.Content.Thinking{text: "short"}]
+      }
+
       result = inspect(reasoning)
       refute result =~ "encrypted_content"
     end

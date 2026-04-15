@@ -16,18 +16,32 @@ defmodule Sycophant.ToolCall do
     field :id, String.t(), enforce: true
     field :name, String.t(), enforce: true
     field :arguments, map(), enforce: true
+    field :metadata, map(), default: %{}
   end
 
   @doc "Reconstructs a ToolCall struct from a serialized map."
   @spec from_map(map()) :: t()
-  def from_map(%{"id" => id, "name" => name, "arguments" => arguments}) do
-    %__MODULE__{id: id, name: name, arguments: arguments}
+  def from_map(%{"id" => id, "name" => name, "arguments" => arguments} = data) do
+    %__MODULE__{
+      id: id,
+      name: name,
+      arguments: arguments,
+      metadata: data["metadata"] || %{}
+    }
   end
 end
 
 defimpl Sycophant.Serializable, for: Sycophant.ToolCall do
-  def to_map(%{id: id, name: name, arguments: arguments}) do
-    %{"__type__" => "ToolCall", "id" => id, "name" => name, "arguments" => arguments}
+  import Sycophant.Serializable.Helpers
+
+  def to_map(%{id: id, name: name, arguments: arguments, metadata: metadata}) do
+    compact(%{
+      "__type__" => "ToolCall",
+      "id" => id,
+      "name" => name,
+      "arguments" => arguments,
+      "metadata" => if(map_size(metadata) > 0, do: metadata)
+    })
   end
 end
 

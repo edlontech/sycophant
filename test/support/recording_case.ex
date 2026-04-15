@@ -66,8 +66,15 @@ defmodule Sycophant.RecordingCase do
 
     for entry <- entries do
       model = entry.model
+
       %{model: model, fixture_prefix: String.replace(model, ":", "/")}
+      |> maybe_put_flag(entry, :reasoning)
+      |> maybe_put_flag(entry, :structured_output)
     end
+  end
+
+  defp maybe_put_flag(map, entry, key) do
+    if Map.get(entry, key), do: Map.put(map, key, true), else: map
   end
 
   @doc """

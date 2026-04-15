@@ -588,7 +588,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
 
       assert {:ok, resp} = OpenAIResponses.decode_response(body)
       assert resp.text == "The answer is 42"
-      assert resp.reasoning.summary == "Thinking about the meaning of life"
+      assert [%{summary: "Thinking about the meaning of life"}] = resp.reasoning.content
     end
 
     test "returns nil reasoning when no reasoning items" do
@@ -695,7 +695,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
       assert {:ok, resp} = OpenAIResponses.decode_response(body)
       assert resp.text == "Here's what I found"
       assert length(resp.tool_calls) == 1
-      assert resp.reasoning.summary == "Let me think"
+      assert [%{summary: "Let me think"}] = resp.reasoning.content
     end
   end
 

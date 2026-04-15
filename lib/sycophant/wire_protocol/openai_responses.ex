@@ -203,7 +203,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   end
 
   def decode_stream_chunk(_state, %{event: "response.reasoning_text.delta", data: data}) do
-    {:ok, nil, [%StreamChunk{type: :text_delta, data: data["delta"]}]}
+    {:ok, nil, [%StreamChunk{type: :reasoning_delta, data: data["delta"]}]}
   end
 
   def decode_stream_chunk(_state, %{event: "response.reasoning_summary_text.delta", data: data}) do
@@ -239,8 +239,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     end)
     |> then(fn
       {:ok, [], tcs, reasoning} ->
-        text = extract_reasoning_content_text(items)
-        {:ok, text, Enum.reverse(tcs), reasoning}
+        {:ok, nil, Enum.reverse(tcs), reasoning}
 
       {:ok, texts, tcs, reasoning} ->
         text = texts |> Enum.reverse() |> Enum.join("")
@@ -292,49 +291,49 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     {:error, ResponseInvalid.exception(errors: ["Malformed function_call: #{inspect(tc)}"])}
   end
 
-  defp process_output_item(%{"type" => "reasoning", "summary" => summary})
-       when is_list(summary) do
-    summary_text =
-      summary
-      |> Enum.filter(&(&1["type"] == "summary_text"))
-      |> Enum.map_join("", & &1["text"])
+  defp process_output_item(%{"type" => "reasoning"} = item) do
+    content_text = extract_reasoning_text(item["content"])
+    summary_text = extract_summary_text(item["summary"])
+    encrypted = item["encrypted_content"]
 
-    reasoning =
-      if summary_text == "" do
-        nil
-      else
-        %Reasoning{summary: summary_text}
+    thinking =
+      if content_text || summary_text do
+        %Content.Thinking{text: content_text, summary: summary_text}
       end
 
-    {:reasoning, reasoning}
-  end
+    content = if thinking, do: [thinking], else: []
 
-  defp process_output_item(%{"type" => "reasoning", "encrypted_content" => encrypted}) do
-    {:reasoning, %Reasoning{encrypted_content: encrypted}}
-  end
-
-  defp process_output_item(%{"type" => "reasoning"}) do
-    :skip
+    if content != [] || encrypted do
+      {:reasoning, %Reasoning{content: content, encrypted_content: encrypted}}
+    else
+      :skip
+    end
   end
 
   defp process_output_item(_other) do
     :skip
   end
 
-  defp extract_reasoning_content_text(items) do
-    texts =
-      Enum.flat_map(items, fn
-        %{"type" => "reasoning", "content" => content} when is_list(content) ->
-          for %{"type" => "reasoning_text", "text" => text} <- content, do: text
+  defp extract_reasoning_text(nil), do: nil
 
-        _ ->
-          []
-      end)
+  defp extract_reasoning_text(items) when is_list(items) do
+    text =
+      items
+      |> Enum.filter(&(&1["type"] == "reasoning_text"))
+      |> Enum.map_join("", & &1["text"])
 
-    case texts do
-      [] -> nil
-      parts -> Enum.join(parts, "")
-    end
+    if text == "", do: nil, else: text
+  end
+
+  defp extract_summary_text(nil), do: nil
+
+  defp extract_summary_text(items) when is_list(items) do
+    text =
+      items
+      |> Enum.filter(&(&1["type"] == "summary_text"))
+      |> Enum.map_join("", & &1["text"])
+
+    if text == "", do: nil, else: text
   end
 
   defp decode_usage(%{"input_tokens" => input, "output_tokens" => output} = usage) do
@@ -412,7 +411,8 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
 
   defp encode_input_item(%Message{role: :assistant, content: content, tool_calls: tool_calls})
        when is_list(tool_calls) and tool_calls != [] do
-    assistant_item = encode_assistant_item(content)
+    {reasoning_items, message_content} = split_reasoning_content(content)
+    assistant_item = encode_assistant_item(message_content)
 
     function_call_items =
       Enum.map(tool_calls, fn %ToolCall{id: id, name: name, arguments: args} ->
@@ -424,11 +424,12 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
         }
       end)
 
-    [assistant_item | function_call_items]
+    reasoning_items ++ [assistant_item | function_call_items]
   end
 
   defp encode_input_item(%Message{role: :assistant, content: content}) do
-    [encode_assistant_item(content)]
+    {reasoning_items, message_content} = split_reasoning_content(content)
+    reasoning_items ++ [encode_assistant_item(message_content)]
   end
 
   defp encode_input_item(%Message{role: :tool_result, content: content, tool_call_id: id}) do
@@ -449,11 +450,16 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   end
 
   defp encode_assistant_item(parts) when is_list(parts) do
+    content =
+      parts
+      |> Enum.map(&encode_assistant_content_part/1)
+      |> Enum.reject(&is_nil/1)
+
     %{
       "type" => "message",
       "role" => "assistant",
       "status" => "completed",
-      "content" => Enum.map(parts, &encode_assistant_content_part/1)
+      "content" => content
     }
   end
 
@@ -472,6 +478,54 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
 
   defp encode_assistant_content_part(%Content.Text{text: text}) do
     %{"type" => "output_text", "text" => text}
+  end
+
+  defp split_reasoning_content(content) when is_binary(content), do: {[], content}
+  defp split_reasoning_content(nil), do: {[], nil}
+
+  defp split_reasoning_content(parts) when is_list(parts) do
+    {reasoning_parts, message_parts} =
+      Enum.split_with(parts, fn
+        %Content.Thinking{} -> true
+        %Content.RedactedThinking{} -> true
+        _ -> false
+      end)
+
+    reasoning_items = encode_reasoning_input_items(reasoning_parts)
+
+    message_content =
+      case message_parts do
+        [] -> nil
+        _ -> message_parts
+      end
+
+    {reasoning_items, message_content}
+  end
+
+  defp encode_reasoning_input_items([]), do: []
+
+  defp encode_reasoning_input_items(parts) do
+    content =
+      Enum.flat_map(parts, fn
+        %Content.Thinking{text: text} ->
+          [%{"type" => "reasoning_text", "text" => text}]
+
+        %Content.RedactedThinking{} ->
+          []
+      end)
+
+    encrypted =
+      Enum.find_value(parts, fn
+        %Content.RedactedThinking{data: data} -> data
+        _ -> nil
+      end)
+
+    item =
+      %{"type" => "reasoning"}
+      |> then(fn i -> if content != [], do: Map.put(i, "content", content), else: i end)
+      |> then(fn i -> if encrypted, do: Map.put(i, "encrypted_content", encrypted), else: i end)
+
+    [item]
   end
 
   # --- Tool Encoding ---

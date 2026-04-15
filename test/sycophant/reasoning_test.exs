@@ -1,28 +1,31 @@
 defmodule Sycophant.ReasoningTest do
   use ExUnit.Case, async: true
 
+  alias Sycophant.Message.Content.Thinking
   alias Sycophant.Reasoning
 
   describe "struct" do
-    test "creates with all fields" do
+    test "creates with content and encrypted_content" do
       reasoning = %Reasoning{
-        summary: "The user asked about weather",
+        content: [%Thinking{text: "step 1"}, %Thinking{text: "step 2"}],
         encrypted_content: "encrypted_blob_here"
       }
 
-      assert reasoning.summary == "The user asked about weather"
+      assert [%Thinking{text: "step 1"}, %Thinking{text: "step 2"}] = reasoning.content
       assert reasoning.encrypted_content == "encrypted_blob_here"
     end
 
-    test "creates with summary only" do
-      reasoning = %Reasoning{summary: "Thinking about the answer"}
-      assert reasoning.summary == "Thinking about the answer"
-      assert reasoning.encrypted_content == nil
+    test "creates with thinking that has summary" do
+      reasoning = %Reasoning{
+        content: [%Thinking{summary: "concise summary"}]
+      }
+
+      assert [%Thinking{summary: "concise summary", text: nil}] = reasoning.content
     end
 
-    test "creates with all nil fields" do
+    test "creates with defaults" do
       reasoning = %Reasoning{}
-      assert reasoning.summary == nil
+      assert reasoning.content == []
       assert reasoning.encrypted_content == nil
     end
   end

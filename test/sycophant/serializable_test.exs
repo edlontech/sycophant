@@ -65,12 +65,28 @@ defmodule Sycophant.SerializableTest do
 
   describe "Reasoning" do
     test "round-trips through JSON" do
-      original = %Sycophant.Reasoning{summary: "thought about it", encrypted_content: "enc123"}
+      original = %Sycophant.Reasoning{
+        content: [%Sycophant.Message.Content.Thinking{text: "thought about it"}],
+        encrypted_content: "enc123"
+      }
+
+      assert original == original |> Decoder.encode() |> Decoder.decode()
+    end
+
+    test "round-trips thinking with summary" do
+      original = %Sycophant.Reasoning{
+        content: [%Sycophant.Message.Content.Thinking{summary: "concise summary"}]
+      }
+
       assert original == original |> Decoder.encode() |> Decoder.decode()
     end
 
     test "compacts nil fields" do
-      map = Serializable.to_map(%Sycophant.Reasoning{summary: "hi"})
+      map =
+        Serializable.to_map(%Sycophant.Reasoning{
+          content: [%Sycophant.Message.Content.Thinking{text: "hi"}]
+        })
+
       refute Map.has_key?(map, "encrypted_content")
     end
   end
@@ -205,7 +221,9 @@ defmodule Sycophant.SerializableTest do
         text: "Hello there",
         model: "claude-sonnet-4-20250514",
         usage: %Sycophant.Usage{input_tokens: 10, output_tokens: 20},
-        reasoning: %Sycophant.Reasoning{summary: "thought about it"},
+        reasoning: %Sycophant.Reasoning{
+          content: [%Sycophant.Message.Content.Thinking{text: "thought about it"}]
+        },
         tool_calls: [],
         context: %Sycophant.Context{
           messages: [
@@ -218,7 +236,7 @@ defmodule Sycophant.SerializableTest do
       decoded = response |> Decoder.encode() |> Decoder.decode()
       assert decoded.text == "Hello there"
       assert decoded.usage.input_tokens == 10
-      assert decoded.reasoning.summary == "thought about it"
+      assert [%{text: "thought about it"}] = decoded.reasoning.content
       assert length(decoded.context.messages) == 2
     end
 

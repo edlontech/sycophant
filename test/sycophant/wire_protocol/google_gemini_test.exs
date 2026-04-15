@@ -6,7 +6,6 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
   alias Sycophant.Error.Provider.ServerError
   alias Sycophant.Message
   alias Sycophant.Message.Content
-  alias Sycophant.Reasoning
   alias Sycophant.Request
   alias Sycophant.Response
   alias Sycophant.StreamChunk
@@ -276,28 +275,47 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
   end
 
   describe "encode_request/1 - thinking" do
-    test "maps reasoning :low to thinkingConfig LOW" do
-      request = build_request([Message.user("hi")], params: %{reasoning: :low})
-      assert {:ok, payload} = GoogleGemini.encode_request(request)
+    test "gemini-3+ uses thinkingLevel" do
+      request =
+        build_request([Message.user("hi")], model: "gemini-3.0-flash", params: %{reasoning: :low})
 
-      config = payload["generationConfig"]
-      assert config["thinkingConfig"] == %{"thinkingLevel" => "LOW"}
+      assert {:ok, payload} = GoogleGemini.encode_request(request)
+      assert payload["generationConfig"]["thinkingConfig"] == %{"thinkingLevel" => "LOW"}
     end
 
-    test "maps reasoning :medium to thinkingConfig MEDIUM" do
-      request = build_request([Message.user("hi")], params: %{reasoning: :medium})
-      assert {:ok, payload} = GoogleGemini.encode_request(request)
+    test "gemini-3+ maps reasoning levels" do
+      for {level, expected} <- [medium: "MEDIUM", high: "HIGH", xhigh: "HIGH"] do
+        request =
+          build_request([Message.user("hi")],
+            model: "gemini-3.1-flash",
+            params: %{reasoning: level}
+          )
 
-      config = payload["generationConfig"]
-      assert config["thinkingConfig"] == %{"thinkingLevel" => "MEDIUM"}
+        assert {:ok, payload} = GoogleGemini.encode_request(request)
+        assert payload["generationConfig"]["thinkingConfig"] == %{"thinkingLevel" => expected}
+      end
     end
 
-    test "maps reasoning :high to thinkingConfig HIGH" do
-      request = build_request([Message.user("hi")], params: %{reasoning: :high})
-      assert {:ok, payload} = GoogleGemini.encode_request(request)
+    test "gemini-2.x uses thinkingBudget" do
+      request =
+        build_request([Message.user("hi")], params: %{reasoning: :low})
 
-      config = payload["generationConfig"]
-      assert config["thinkingConfig"] == %{"thinkingLevel" => "HIGH"}
+      assert {:ok, payload} = GoogleGemini.encode_request(request)
+      assert payload["generationConfig"]["thinkingConfig"] == %{"thinkingBudget" => 1024}
+    end
+
+    test "gemini-2.x maps reasoning levels to budgets" do
+      for {level, expected} <- [medium: 4096, high: 16_384, xhigh: 32_768] do
+        request = build_request([Message.user("hi")], params: %{reasoning: level})
+        assert {:ok, payload} = GoogleGemini.encode_request(request)
+        assert payload["generationConfig"]["thinkingConfig"] == %{"thinkingBudget" => expected}
+      end
+    end
+
+    test "reasoning :none sets thinkingBudget to 0" do
+      request = build_request([Message.user("hi")], params: %{reasoning: :none})
+      assert {:ok, payload} = GoogleGemini.encode_request(request)
+      assert payload["generationConfig"]["thinkingConfig"] == %{"thinkingBudget" => 0}
     end
 
     test "no thinkingConfig when reasoning is nil" do
@@ -512,7 +530,10 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
 
       body = gemini_response(parts: parts)
       assert {:ok, resp} = GoogleGemini.decode_response(body)
-      assert resp.reasoning == %Reasoning{summary: "Let me reason..."}
+
+      assert [%Sycophant.Message.Content.Thinking{text: "Let me reason..."}] =
+               resp.reasoning.content
+
       assert resp.text == "The answer is 42"
     end
 
@@ -732,7 +753,10 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
                GoogleGemini.decode_stream_chunk(state, event2)
 
       assert response.text == "The answer is 42"
-      assert response.reasoning == %Reasoning{summary: "Let me think..."}
+
+      assert [%Sycophant.Message.Content.Thinking{text: "Let me think..."}] =
+               response.reasoning.content
+
       assert response.finish_reason == :stop
     end
 

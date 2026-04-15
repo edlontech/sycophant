@@ -311,19 +311,18 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
 
   defp encode_message(%Message{role: :assistant, content: content, tool_calls: tool_calls})
        when is_list(tool_calls) and tool_calls != [] do
-    text_blocks =
-      case content do
-        nil -> []
-        "" -> []
-        text when is_binary(text) -> [%{"type" => "text", "text" => text}]
-      end
+    content_blocks = encode_assistant_content_blocks(content)
 
     tool_use_blocks =
       Enum.map(tool_calls, fn %ToolCall{id: id, name: name, arguments: args} ->
         %{"type" => "tool_use", "id" => id, "name" => name, "input" => args}
       end)
 
-    %{"role" => "assistant", "content" => text_blocks ++ tool_use_blocks}
+    %{"role" => "assistant", "content" => content_blocks ++ tool_use_blocks}
+  end
+
+  defp encode_message(%Message{role: :assistant, content: content}) do
+    %{"role" => "assistant", "content" => encode_content(content)}
   end
 
   defp encode_message(%Message{role: role, content: content}) do
@@ -344,6 +343,15 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
     %{"type" => "text", "text" => text}
   end
 
+  defp encode_content_part(%Content.Thinking{text: text, signature: signature}) do
+    block = %{"type" => "thinking", "thinking" => text}
+    if signature, do: Map.put(block, "signature", signature), else: block
+  end
+
+  defp encode_content_part(%Content.RedactedThinking{data: data}) do
+    %{"type" => "redacted_thinking", "data" => data}
+  end
+
   defp encode_content_part(%Content.Image{url: url}) when is_binary(url) do
     %{"type" => "image", "source" => %{"type" => "url", "url" => url}}
   end
@@ -356,6 +364,15 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
     }
   end
 
+  defp encode_assistant_content_blocks(nil), do: []
+  defp encode_assistant_content_blocks(""), do: []
+
+  defp encode_assistant_content_blocks(text) when is_binary(text),
+    do: [%{"type" => "text", "text" => text}]
+
+  defp encode_assistant_content_blocks(parts) when is_list(parts),
+    do: Enum.map(parts, &encode_content_part/1)
+
   # --- Private: Tool Encoding ---
 
   defp encode_tool(%Tool{name: name, description: description, parameters: parameters}) do
@@ -365,35 +382,46 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
   # --- Private: Response Decoding ---
 
   defp process_content_blocks(content) do
-    Enum.reduce(content, {[], [], nil}, fn block, {texts, tcs, reasoning} ->
-      case block do
-        %{"type" => "text", "text" => text} ->
-          {[text | texts], tcs, reasoning}
+    {texts, tcs, thinking, encrypted} =
+      Enum.reduce(content, {[], [], [], nil}, &classify_content_block/2)
 
-        %{"type" => "tool_use", "id" => id, "name" => name, "input" => input} ->
-          tc = %ToolCall{id: id, name: name, arguments: input}
-          {texts, [tc | tcs], reasoning}
-
-        %{"type" => "thinking", "thinking" => thinking} ->
-          {texts, tcs, %Reasoning{summary: thinking}}
-
-        %{"type" => "redacted_thinking", "data" => data} ->
-          {texts, tcs, %Reasoning{encrypted_content: data}}
-
-        _ ->
-          {texts, tcs, reasoning}
+    text =
+      case Enum.reverse(texts) do
+        [] -> nil
+        parts -> Enum.join(parts, "")
       end
-    end)
-    |> then(fn {texts, tcs, reasoning} ->
-      text =
-        case Enum.reverse(texts) do
-          [] -> nil
-          parts -> Enum.join(parts, "")
-        end
 
-      {text, Enum.reverse(tcs), reasoning}
-    end)
+    reasoning =
+      case {thinking, encrypted} do
+        {[], nil} -> nil
+        _ -> %Reasoning{content: Enum.reverse(thinking), encrypted_content: encrypted}
+      end
+
+    {text, Enum.reverse(tcs), reasoning}
   end
+
+  defp classify_content_block(%{"type" => "text", "text" => text}, {texts, tcs, th, enc}),
+    do: {[text | texts], tcs, th, enc}
+
+  defp classify_content_block(
+         %{"type" => "tool_use", "id" => id, "name" => name, "input" => input},
+         {texts, tcs, th, enc}
+       ),
+       do: {texts, [%ToolCall{id: id, name: name, arguments: input} | tcs], th, enc}
+
+  defp classify_content_block(
+         %{"type" => "thinking", "thinking" => t} = b,
+         {texts, tcs, th, enc}
+       ),
+       do: {texts, tcs, [%Content.Thinking{text: t, signature: b["signature"]} | th], enc}
+
+  defp classify_content_block(
+         %{"type" => "redacted_thinking", "data" => data},
+         {texts, tcs, th, _}
+       ),
+       do: {texts, tcs, th, data}
+
+  defp classify_content_block(_, acc), do: acc
 
   defp decode_usage(%{"input_tokens" => input, "output_tokens" => output} = usage) do
     %Usage{
@@ -535,15 +563,19 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
     text = if state.text == "", do: nil, else: state.text
 
     reasoning =
-      cond do
-        state.encrypted_thinking != nil ->
-          %Reasoning{encrypted_content: state.encrypted_thinking}
-
-        state.thinking != "" ->
-          %Reasoning{summary: state.thinking}
-
-        true ->
+      case {state.thinking, state.encrypted_thinking} do
+        {"", nil} ->
           nil
+
+        {thinking, encrypted} ->
+          %Reasoning{
+            content:
+              if(thinking == "",
+                do: [],
+                else: [%Content.Thinking{text: thinking}]
+              ),
+            encrypted_content: encrypted
+          }
       end
 
     %Response{

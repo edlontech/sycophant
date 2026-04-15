@@ -649,10 +649,9 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
 
     test "excludes shared params not in subset" do
       schema = BedrockConverse.param_schema()
-      assert {:ok, result} = Zoi.parse(schema, %{temperature: 0.5, top_k: 40, reasoning: :high})
+      assert {:ok, result} = Zoi.parse(schema, %{temperature: 0.5, top_k: 40})
       assert result.temperature == 0.5
       refute Map.has_key?(result, :top_k)
-      refute Map.has_key?(result, :reasoning)
     end
 
     test "accepts subset params" do
