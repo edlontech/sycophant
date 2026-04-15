@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-5-nano",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T10:59:05.488105Z",
+    "recorded_at": "2026-04-15T11:57:22.656743Z",
     "sycophant_version": "0.3.0"
   },
   "request": {
@@ -99,7 +99,7 @@
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_03a9165809ae90af0069df6f7460c88193a1ee38caa19cd1fc",
+      "id": "resp_005f5f55cb94bcf00069df7d1c949c8190a8747ca54e4c4a63",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -111,18 +111,18 @@
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 562,
+        "output_tokens": 537,
         "output_tokens_details": {
-          "reasoning_tokens": 512
+          "reasoning_tokens": 448
         },
-        "total_tokens": 631
+        "total_tokens": 606
       },
       "safety_identifier": null,
       "object": "response",
       "parallel_tool_calls": true,
       "output": [
         {
-          "id": "rs_03a9165809ae90af0069df6f74911c8193b2282224186e32db",
+          "id": "rs_005f5f55cb94bcf00069df7d1cc3ec81909650d0aef882f3b1",
           "summary": [],
           "type": "reasoning"
         },
@@ -131,11 +131,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "{\"age\":26,\"hobbies\":[\"gardening\",\"kayaking\",\"coding\"],\"name\":\"Lena Armitage\"}",
+              "text": "{\"age\":29,\"hobbies\":[\"urban sketching\",\"piano improvisation\",\"stargazing\"],\"name\":\"Lena Arcadia\"}",
               "type": "output_text"
             }
           ],
-          "id": "msg_03a9165809ae90af0069df6f78ed248193974c86d6bf8d8bd0",
+          "id": "msg_005f5f55cb94bcf00069df7d2208d48190b72ad8f13f5ef5a1",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -149,7 +149,7 @@
         "effort": "medium",
         "summary": null
       },
-      "completed_at": 1776250745,
+      "completed_at": 1776254242,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -158,13 +158,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776250740,
+      "created_at": 1776254236,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:05 GMT"
+        "Wed, 15 Apr 2026 11:57:22 GMT"
       ],
       [
         "content-type",
@@ -172,7 +172,7 @@
       ],
       [
         "content-length",
-        "2307"
+        "2327"
       ],
       [
         "server",
@@ -188,15 +188,15 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "29999"
+        "29998"
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "179999658"
+        "179999679"
       ],
       [
         "x-ratelimit-reset-requests",
-        "2ms"
+        "3ms"
       ],
       [
         "x-ratelimit-reset-tokens",
@@ -216,11 +216,11 @@
       ],
       [
         "x-request-id",
-        "req_84f857570520477786b3b22c0b9ba990"
+        "req_b0fe53e67bc948b283f4155b4820c3f5"
       ],
       [
         "openai-processing-ms",
-        "5056"
+        "6023"
       ],
       [
         "cf-cache-status",
@@ -240,7 +240,7 @@
       ],
       [
         "cf-ray",
-        "9eca7036c83a710c-PRG"
+        "9ecac58fcbd1d935-PRG"
       ],
       [
         "alt-svc",

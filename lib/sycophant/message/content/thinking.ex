@@ -19,6 +19,7 @@ defmodule Sycophant.Message.Content.Thinking do
   use TypedStruct
 
   typedstruct do
+    field :id, String.t()
     field :text, String.t()
     field :summary, String.t()
     field :signature, String.t()
@@ -27,17 +28,23 @@ defmodule Sycophant.Message.Content.Thinking do
   @doc "Deserializes a thinking content part from a plain map."
   @spec from_map(map()) :: t()
   def from_map(data) do
-    %__MODULE__{text: data["text"], summary: data["summary"], signature: data["signature"]}
+    %__MODULE__{
+      id: data["id"],
+      text: data["text"],
+      summary: data["summary"],
+      signature: data["signature"]
+    }
   end
 end
 
 defimpl Sycophant.Serializable, for: Sycophant.Message.Content.Thinking do
   import Sycophant.Serializable.Helpers
 
-  def to_map(%{text: text, summary: summary, signature: signature}) do
+  def to_map(%{id: id, text: text, summary: summary, signature: signature}) do
     compact(%{
       "__type__" => "Thinking",
       "type" => "thinking",
+      "id" => id,
       "text" => text,
       "summary" => summary,
       "signature" => signature

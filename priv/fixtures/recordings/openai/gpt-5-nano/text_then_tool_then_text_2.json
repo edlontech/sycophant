@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-5-nano",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T10:59:22.835111Z",
+    "recorded_at": "2026-04-15T11:57:36.424563Z",
     "sycophant_version": "0.3.0"
   },
   "request": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "Fantastic—London has so much to offer. To tailor a plan, could you share:\n- When are you visiting and how long you’ll stay?\n- Budget and lodging style (hotel, apartment, budget, mid-range)?\n- Your interests (history, art/museums, theater, food/markets, shopping, parks)?\n- Pace and any must-see attractions or any mobility constraints?\n- Do you want day trips outside central London?\n\nIf you want a quick starter, here are two solid options:\n\nOption A: 3–4 days (classic highlights)\n- Day 1: Westminster area (Big Ben, Parliament, Westminster Abbey), Buckingham Palace and St James’s Park; optional changing of the guard; South Bank stroll in the evening.\n- Day 2: The British Museum or The National Gallery (choose one), Covent Garden for lunch, optional West End show.\n- Day 3: Tower of London and Tower Bridge, stroll along the Thames to the Shard or London Eye (optional view), Borough Market for food.\n- Optional Day 4: Greenwich (Royal Observatory, Cutty Sark) or Kensington museums (Natural History, V&A, Science).\n\nOption B: 5–7 days (deep dive)\n- Central landmarks + neighborhoods: Westminster, Covent Garden, Soho, Mayfair, and the South Bank.\n- Museums: pick two in South Kensington (Natural History, Science, or V&A) and/or Tate Modern.\n- River & bridges: Thames cruise, Millennium Bridge, St Paul’s Cathedral.\n- Tower area + markets: Tower of London, Tower Bridge, Borough Market.\n- Day trip options: Windsor Castle, Bath, Oxford, or Greenwich.\n- Evening: West End show, a bite at a market or in Chinatown, or a rooftop bar.\n\nPractical tips\n- Getting around: Get an Oyster card or use contactless payment (fast and easy for Tube, trains, buses). Central London is very walkable; use buses to see the city from above ground.\n- Tickets: Book popular attractions (London Eye, Westminster Abbey, Buckingham Palace State Rooms) in advance. Many museums are free (don’t miss the British Museum, Natural History/Science/V&A if you’re in Kensington).\n- Neighborhoods to consider staying in: Covent Garden, South Bank, Bloomsbury, Marylebone, or Notting Hill for a different vibe.\n- Food: Borough Market for casual meals, Neal’s Yard for lunch spots, Chinatown for dinners, and afternoon tea if you want a classic experience.\n- Weather and packing: Pack an umbrella and layers; London weather is changeable. Comfortable walking shoes are key.\n- Safety/p tips: Keep an eye on belongings in crowds; use licensed taxis or rideshares at night.\n\nIf you share your dates, length of stay, and interests, I’ll craft a detailed day-by-day plan with a sensible route, timed entries, and packing checklist.",
+              "text": "Fantastic—London has something for everyone. To tailor advice, could you share:\n- Your travel dates and how many days you have\n- Budget and pace (relaxed vs. packed)\n- Interests (history, art, markets, food, nightlife, family-friendly)\n- Will you use public transport or drive?\n\nIn the meantime, a quick starter plan and tips:\n\n3-day starter itinerary (central-focused)\n- Day 1: Westminster area — Big Ben, Parliament, Westminster Abbey, Buckingham Palace, St James’s Park. Optional Thames cruise in the evening.\n- Day 2: Museums & Covent Garden — choose two of the Natural History Museum, V&A, or British Museum; explore Covent Garden, maybe catch a West End show.\n- Day 3: The City & South Bank — St Paul’s Cathedral, Millennium Bridge, Tate Modern or Shard views, Borough Market, Southbank stroll. Consider the London Eye for a view.\n\nTop neighborhoods to consider staying or exploring\n- Bloomsbury, Covent Garden, South Bank (central, good transit)\n- Notting Hill, Notting Hill Market\n- Shoreditch (creative, food, nightlife)\n\nTransport essentials\n- Get an Oyster card or use contactless payment; zones 1–2 cover most central sights\n- Walking is often faster than driving; central areas are very walkable\n- Many major museums are free; book major paid attractions in advance if needed\n\nTips\n- Museums like the British Museum, National Gallery, Natural History Museum, and V&A are free (special exhibitions may cost)\n- Plan for weather: layers and a compact umbrella\n- Book popular attractions in advance if you have specific times\n\nWould you like me to pull a weather forecast for your dates, or build a detailed day-by-day plan once you share your trip details?",
               "type": "output_text"
             }
           ],
@@ -98,7 +98,7 @@
           "type": "function"
         }
       ],
-      "id": "resp_03e1937e2b5b5ded0069df6f88d9f081968f35d06702e29abb",
+      "id": "resp_0de32ce56ce492640069df7d2c2b788197ae68c53e6fb48b22",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -106,29 +106,29 @@
       "error": null,
       "model": "gpt-5-nano-2025-08-07",
       "usage": {
-        "input_tokens": 685,
+        "input_tokens": 463,
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 160,
+        "output_tokens": 240,
         "output_tokens_details": {
-          "reasoning_tokens": 128
+          "reasoning_tokens": 192
         },
-        "total_tokens": 845
+        "total_tokens": 703
       },
       "safety_identifier": null,
       "object": "response",
       "parallel_tool_calls": true,
       "output": [
         {
-          "id": "rs_03e1937e2b5b5ded0069df6f890bf081969c3ad360d19fd2c5",
+          "id": "rs_0de32ce56ce492640069df7d2c738c8197bc795b30d59ecadc",
           "summary": [],
           "type": "reasoning"
         },
         {
           "arguments": "{\"city\":\"London\"}",
-          "call_id": "call_RnApgErM5CoW5CJ1AXBeqBFr",
-          "id": "fc_03e1937e2b5b5ded0069df6f8a6f6081968d1e46d44b8d8d80",
+          "call_id": "call_DAuNkkPBj9gnAvT3hsZU6mnV",
+          "id": "fc_0de32ce56ce492640069df7d2fe890819780e220ee8db1c872",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -142,7 +142,7 @@
         "effort": "medium",
         "summary": null
       },
-      "completed_at": 1776250762,
+      "completed_at": 1776254256,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -151,13 +151,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776250760,
+      "created_at": 1776254252,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:22 GMT"
+        "Wed, 15 Apr 2026 11:57:36 GMT"
       ],
       [
         "content-type",
@@ -209,11 +209,11 @@
       ],
       [
         "x-request-id",
-        "req_51835be639d5414081ae23741fe224f2"
+        "req_b0b9aac311dc42c4bb2667da78e396c8"
       ],
       [
         "openai-processing-ms",
-        "1924"
+        "4178"
       ],
       [
         "cf-cache-status",
@@ -233,7 +233,7 @@
       ],
       [
         "cf-ray",
-        "9eca70b6bc14710c-PRG"
+        "9ecac5f35c10d935-PRG"
       ],
       [
         "alt-svc",

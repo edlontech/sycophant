@@ -26,6 +26,7 @@ defmodule Sycophant.Reasoning do
   alias Sycophant.Message.Content
 
   typedstruct do
+    field :id, String.t()
     field :content, [Content.Thinking.t()], default: []
     field :encrypted_content, String.t()
   end
@@ -34,6 +35,7 @@ defmodule Sycophant.Reasoning do
   @spec from_map(map()) :: t()
   def from_map(data) do
     %__MODULE__{
+      id: data["id"],
       content: decode_content(data["content"]),
       encrypted_content: data["encrypted_content"]
     }
@@ -52,6 +54,7 @@ defimpl Sycophant.Serializable, for: Sycophant.Reasoning do
   def to_map(r) do
     compact(%{
       "__type__" => "Reasoning",
+      "id" => r.id,
       "content" => encode_content(r.content),
       "encrypted_content" => r.encrypted_content
     })

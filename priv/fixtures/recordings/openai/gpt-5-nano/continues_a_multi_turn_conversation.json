@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-5-nano",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T10:59:18.089106Z",
+    "recorded_at": "2026-04-15T11:57:24.346974Z",
     "sycophant_version": "0.3.0"
   },
   "request": {
@@ -43,7 +43,7 @@
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_0f4d75f6e8761d260069df6f7f98c481968e0b40ecde09f2bc",
+      "id": "resp_037756b94c58d4930069df7d1c95c08195ad74b6d95907ef10",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -55,18 +55,18 @@
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 656,
+        "output_tokens": 560,
         "output_tokens_details": {
-          "reasoning_tokens": 576
+          "reasoning_tokens": 512
         },
-        "total_tokens": 673
+        "total_tokens": 577
       },
       "safety_identifier": null,
       "object": "response",
       "parallel_tool_calls": true,
       "output": [
         {
-          "id": "rs_0f4d75f6e8761d260069df6f8077a48196add02ab5b3772768",
+          "id": "rs_037756b94c58d4930069df7d1cc8808195b504a28dc35c2b4d",
           "summary": [],
           "type": "reasoning"
         },
@@ -75,11 +75,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Nice to meet you, Sycophant. I’ll remember that name for this chat session. If you want me to keep remembering it across future conversations, I’d need memory features enabled by the platform. What can I help you with right now?",
+              "text": "Nice to meet you, Sycophant. I’ll use that name for this conversation. If you want me to remember it across future chats, tell me and we can set memory (if supported).",
               "type": "output_text"
             }
           ],
-          "id": "msg_0f4d75f6e8761d260069df6f854ad48196905b6abe8dc74074",
+          "id": "msg_037756b94c58d4930069df7d21f3f881959f44ccc868fe62d0",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -93,7 +93,7 @@
         "effort": "medium",
         "summary": null
       },
-      "completed_at": 1776250757,
+      "completed_at": 1776254244,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -102,13 +102,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776250751,
+      "created_at": 1776254236,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:18 GMT"
+        "Wed, 15 Apr 2026 11:57:24 GMT"
       ],
       [
         "content-type",
@@ -116,7 +116,7 @@
       ],
       [
         "content-length",
-        "1902"
+        "1836"
       ],
       [
         "server",
@@ -136,7 +136,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "179999562"
+        "179999658"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -160,11 +160,11 @@
       ],
       [
         "x-request-id",
-        "req_7ab5285ac7ea460488a125c0587359e9"
+        "req_ebff96737a14472b906b23919b8e80d4"
       ],
       [
         "openai-processing-ms",
-        "6438"
+        "7707"
       ],
       [
         "cf-cache-status",
@@ -184,7 +184,7 @@
       ],
       [
         "cf-ray",
-        "9eca707ceaf2710c-PRG"
+        "9ecac58fcbd9d935-PRG"
       ],
       [
         "alt-svc",

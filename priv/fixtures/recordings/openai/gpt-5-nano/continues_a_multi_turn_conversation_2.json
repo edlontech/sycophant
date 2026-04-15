@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-5-nano",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T10:59:25.145072Z",
+    "recorded_at": "2026-04-15T11:57:28.640043Z",
     "sycophant_version": "0.3.0"
   },
   "request": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "Nice to meet you, Sycophant. I’ll remember that name for this chat session. If you want me to keep remembering it across future conversations, I’d need memory features enabled by the platform. What can I help you with right now?",
+              "text": "Nice to meet you, Sycophant. I’ll use that name for this conversation. If you want me to remember it across future chats, tell me and we can set memory (if supported).",
               "type": "output_text"
             }
           ],
@@ -58,7 +58,7 @@
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_0fc4683ac04b41910069df6f8636548197b5c6cba53d63c628",
+      "id": "resp_0a2292e81e41ad490069df7d247888819583cdba27f72ef93a",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -66,22 +66,22 @@
       "error": null,
       "model": "gpt-5-nano-2025-08-07",
       "usage": {
-        "input_tokens": 83,
+        "input_tokens": 73,
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 389,
+        "output_tokens": 381,
         "output_tokens_details": {
           "reasoning_tokens": 320
         },
-        "total_tokens": 472
+        "total_tokens": 454
       },
       "safety_identifier": null,
       "object": "response",
       "parallel_tool_calls": true,
       "output": [
         {
-          "id": "rs_0fc4683ac04b41910069df6f8688d08197b36a4e985af7dc55",
+          "id": "rs_0a2292e81e41ad490069df7d24ba3c81958f99ddee831db8c9",
           "summary": [],
           "type": "reasoning"
         },
@@ -90,11 +90,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Your name is Sycophant. In this chat, I’ll keep it in mind. I won’t carry it to new chats unless memory features are enabled.",
+              "text": "Your name is Sycophant. For this conversation, I’ll call you Sycophant. If you want me to remember it across future chats, tell me and we can enable memory (if supported).",
               "type": "output_text"
             }
           ],
-          "id": "msg_0fc4683ac04b41910069df6f8ca2a48197aba5fd02940914d6",
+          "id": "msg_0a2292e81e41ad490069df7d281b8881958457db90a2920af3",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -108,7 +108,7 @@
         "effort": "medium",
         "summary": null
       },
-      "completed_at": 1776250764,
+      "completed_at": 1776254248,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -117,13 +117,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776250758,
+      "created_at": 1776254244,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:25 GMT"
+        "Wed, 15 Apr 2026 11:57:28 GMT"
       ],
       [
         "content-type",
@@ -131,7 +131,7 @@
       ],
       [
         "content-length",
-        "1799"
+        "1840"
       ],
       [
         "server",
@@ -151,7 +151,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "179999829"
+        "179999835"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -175,11 +175,11 @@
       ],
       [
         "x-request-id",
-        "req_479de42832d44457ba8d1b33aa259117"
+        "req_21f7a93a8c5c4d698c2acdf81b0b32c2"
       ],
       [
         "openai-processing-ms",
-        "6848"
+        "4110"
       ],
       [
         "cf-cache-status",
@@ -199,7 +199,7 @@
       ],
       [
         "cf-ray",
-        "9eca70a6389f710c-PRG"
+        "9ecac5c35f09d935-PRG"
       ],
       [
         "alt-svc",

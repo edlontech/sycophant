@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-5-nano",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T10:59:06.720395Z",
+    "recorded_at": "2026-04-15T11:57:24.341385Z",
     "sycophant_version": "0.3.0"
   },
   "request": {
@@ -20,12 +20,12 @@
         },
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "call_V6e4WgYA7WEPOWTOO2pn0Xgc",
+          "call_id": "call_eiGtrgbs3HMsWumKkrL2G9vF",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "call_V6e4WgYA7WEPOWTOO2pn0Xgc",
+          "call_id": "call_eiGtrgbs3HMsWumKkrL2G9vF",
           "output": "Paris: 22C, sunny",
           "type": "function_call_output"
         }
@@ -99,7 +99,7 @@
           "type": "function"
         }
       ],
-      "id": "resp_0e961fbd099353770069df6f76dc148193beb43319ce851d1f",
+      "id": "resp_02d7ff82abcf01370069df7d209470819092eeaa16ee17915a",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -111,18 +111,18 @@
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 338,
+        "output_tokens": 247,
         "output_tokens_details": {
-          "reasoning_tokens": 256
+          "reasoning_tokens": 192
         },
-        "total_tokens": 431
+        "total_tokens": 340
       },
       "safety_identifier": null,
       "object": "response",
       "parallel_tool_calls": true,
       "output": [
         {
-          "id": "rs_0e961fbd099353770069df6f77146c819381d040ae525da430",
+          "id": "rs_02d7ff82abcf01370069df7d21312081908ac793e511e87367",
           "summary": [],
           "type": "reasoning"
         },
@@ -131,11 +131,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Paris is currently 22°C and sunny (about 72°F). Want a short forecast for the next few days or more details (humidity, wind, etc.)?",
+              "text": "Paris is currently 22°C and sunny. Want a forecast or more details (humidity, wind, etc.)?",
               "type": "output_text"
             }
           ],
-          "id": "msg_0e961fbd099353770069df6f7a24fc8193ae4970b76b777ec9",
+          "id": "msg_02d7ff82abcf01370069df7d23b58c8190882bac7e6c226c69",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -149,7 +149,7 @@
         "effort": "medium",
         "summary": null
       },
-      "completed_at": 1776250746,
+      "completed_at": 1776254244,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -158,13 +158,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776250742,
+      "created_at": 1776254240,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:06 GMT"
+        "Wed, 15 Apr 2026 11:57:24 GMT"
       ],
       [
         "content-type",
@@ -172,7 +172,7 @@
       ],
       [
         "content-length",
-        "2229"
+        "2183"
       ],
       [
         "server",
@@ -216,11 +216,11 @@
       ],
       [
         "x-request-id",
-        "req_52f03a6f911c4a1a82e5fdf91fe2b65b"
+        "req_fa49ebce4b9949819eb9adbc9b664c69"
       ],
       [
         "openai-processing-ms",
-        "3791"
+        "3666"
       ],
       [
         "cf-cache-status",
@@ -240,7 +240,7 @@
       ],
       [
         "cf-ray",
-        "9eca70464ae5710c-PRG"
+        "9ecac5aaf8a4d935-PRG"
       ],
       [
         "alt-svc",

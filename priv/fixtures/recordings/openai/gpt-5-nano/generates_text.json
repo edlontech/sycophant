@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-5-nano",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T10:59:11.482588Z",
+    "recorded_at": "2026-04-15T11:57:30.809512Z",
     "sycophant_version": "0.3.0"
   },
   "request": {
@@ -43,7 +43,7 @@
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_0c143a268040d1f90069df6f7cea108196aaac9108cd1637e7",
+      "id": "resp_0d7c5f1d1dea87430069df7d28c24c81979cfea0aec40d8471",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -55,18 +55,18 @@
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 190,
+        "output_tokens": 150,
         "output_tokens_details": {
           "reasoning_tokens": 128
         },
-        "total_tokens": 204
+        "total_tokens": 164
       },
       "safety_identifier": null,
       "object": "response",
       "parallel_tool_calls": true,
       "output": [
         {
-          "id": "rs_0c143a268040d1f90069df6f7d6fc08196b0479f34200a072f",
+          "id": "rs_0d7c5f1d1dea87430069df7d2903108197afa1c7a461248142",
           "summary": [],
           "type": "reasoning"
         },
@@ -79,7 +79,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_0c143a268040d1f90069df6f7f0de08196a3a583f8a3167899",
+          "id": "msg_0d7c5f1d1dea87430069df7d2a677c8197aeabbf48ca696fac",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -93,7 +93,7 @@
         "effort": "medium",
         "summary": null
       },
-      "completed_at": 1776250751,
+      "completed_at": 1776254250,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -102,13 +102,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776250748,
+      "created_at": 1776254248,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:11 GMT"
+        "Wed, 15 Apr 2026 11:57:30 GMT"
       ],
       [
         "content-type",
@@ -160,11 +160,11 @@
       ],
       [
         "x-request-id",
-        "req_0c8b587e969e4ebb95414c814c358509"
+        "req_9d5cf7ea97984d999204c1179c6457f4"
       ],
       [
         "openai-processing-ms",
-        "2519"
+        "1993"
       ],
       [
         "cf-cache-status",
@@ -184,7 +184,7 @@
       ],
       [
         "cf-ray",
-        "9eca706c180a710c-PRG"
+        "9ecac5de2eacd935-PRG"
       ],
       [
         "alt-svc",

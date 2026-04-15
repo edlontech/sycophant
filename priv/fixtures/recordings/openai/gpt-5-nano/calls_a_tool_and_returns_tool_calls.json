@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-5-nano",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T10:59:08.385329Z",
+    "recorded_at": "2026-04-15T11:57:18.330690Z",
     "sycophant_version": "0.3.0"
   },
   "request": {
@@ -82,7 +82,7 @@
           "type": "function"
         }
       ],
-      "id": "resp_053d2a65d0f407810069df6f7ad5808194a1ee6d22bb13b282",
+      "id": "resp_0669ec2c40f4ff420069df7d1c821c8190bd4407503221c3dd",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -94,25 +94,25 @@
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 123,
+        "output_tokens": 152,
         "output_tokens_details": {
-          "reasoning_tokens": 64
+          "reasoning_tokens": 128
         },
-        "total_tokens": 178
+        "total_tokens": 207
       },
       "safety_identifier": null,
       "object": "response",
       "parallel_tool_calls": true,
       "output": [
         {
-          "id": "rs_053d2a65d0f407810069df6f7b05ac8194b51030aa21eace5a",
+          "id": "rs_0669ec2c40f4ff420069df7d1cc09081909defb055000a5665",
           "summary": [],
           "type": "reasoning"
         },
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "call_4PTu2DC1TsM9vbSyt35pLNrh",
-          "id": "fc_053d2a65d0f407810069df6f7bdf8481948ee69e068fa488b7",
+          "call_id": "call_oP2jBgvT7xc25QO0svfpgC3o",
+          "id": "fc_0669ec2c40f4ff420069df7d1ddf588190a7e5e6edfee0014f",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -126,7 +126,7 @@
         "effort": "medium",
         "summary": null
       },
-      "completed_at": 1776250748,
+      "completed_at": 1776254238,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -135,13 +135,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776250746,
+      "created_at": 1776254236,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:08 GMT"
+        "Wed, 15 Apr 2026 11:57:18 GMT"
       ],
       [
         "content-type",
@@ -149,7 +149,7 @@
       ],
       [
         "content-length",
-        "1993"
+        "1994"
       ],
       [
         "server",
@@ -193,11 +193,11 @@
       ],
       [
         "x-request-id",
-        "req_6df2a0b538ef4924af3603eed2b75624"
+        "req_fe1855d6009c40cba3fdb2cf2966fbc3"
       ],
       [
         "openai-processing-ms",
-        "1482"
+        "1768"
       ],
       [
         "cf-cache-status",
@@ -217,7 +217,7 @@
       ],
       [
         "cf-ray",
-        "9eca705f285d710c-PRG"
+        "9ecac58fcbd2d935-PRG"
       ],
       [
         "alt-svc",

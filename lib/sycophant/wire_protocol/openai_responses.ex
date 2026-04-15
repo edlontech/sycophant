@@ -304,7 +304,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     content = if thinking, do: [thinking], else: []
 
     if content != [] || encrypted do
-      {:reasoning, %Reasoning{content: content, encrypted_content: encrypted}}
+      {:reasoning, %Reasoning{id: item["id"], content: content, encrypted_content: encrypted}}
     else
       :skip
     end
@@ -520,8 +520,15 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
         _ -> nil
       end)
 
+    id =
+      Enum.find_value(parts, fn
+        %Content.Thinking{id: id} when is_binary(id) -> id
+        _ -> nil
+      end)
+
     item =
       %{"type" => "reasoning"}
+      |> then(fn i -> if id, do: Map.put(i, "id", id), else: i end)
       |> then(fn i -> if content != [], do: Map.put(i, "content", content), else: i end)
       |> then(fn i -> if encrypted, do: Map.put(i, "encrypted_content", encrypted), else: i end)
 

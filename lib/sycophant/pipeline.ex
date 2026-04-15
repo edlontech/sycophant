@@ -434,7 +434,7 @@ defmodule Sycophant.Pipeline do
     do: text
 
   defp build_assistant_content(%{reasoning: reasoning, text: text}) do
-    thinking_parts = reasoning.content
+    thinking_parts = stamp_reasoning_id(reasoning)
 
     encrypted_parts =
       if reasoning.encrypted_content,
@@ -448,6 +448,14 @@ defmodule Sycophant.Pipeline do
 
     thinking_parts ++ encrypted_parts ++ text_parts
   end
+
+  defp stamp_reasoning_id(%{id: nil, content: content}), do: content
+
+  defp stamp_reasoning_id(%{id: id, content: [first | rest]}) do
+    [%{first | id: id} | rest]
+  end
+
+  defp stamp_reasoning_id(%{content: content}), do: content
 
   defp validate_params(opts, wire_adapter, model_info) do
     raw = opts |> Keyword.drop(@meta_keys) |> Map.new()
