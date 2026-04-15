@@ -563,7 +563,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   defp maybe_put_reasoning(payload, params) do
     reasoning =
       %{}
-      |> maybe_put("effort", Map.get(params, :reasoning))
+      |> maybe_put("effort", Map.get(params, :reasoning_effort))
       |> maybe_put("summary", Map.get(params, :reasoning_summary))
 
     if map_size(reasoning) > 0 do

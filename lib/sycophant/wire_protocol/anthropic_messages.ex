@@ -512,11 +512,11 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
 
   defp maybe_put_tool_choice(payload, _), do: payload
 
-  defp maybe_put_thinking(payload, %{reasoning: :none}) do
+  defp maybe_put_thinking(payload, %{reasoning_effort: :none}) do
     Map.put(payload, "thinking", %{"type" => "disabled"})
   end
 
-  defp maybe_put_thinking(payload, %{reasoning: level})
+  defp maybe_put_thinking(payload, %{reasoning_effort: level})
        when is_map_key(@reasoning_budgets, level) do
     budget = Map.fetch!(@reasoning_budgets, level)
     Map.put(payload, "thinking", %{"type" => "enabled", "budget_tokens" => budget})

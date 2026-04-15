@@ -51,7 +51,7 @@ defmodule Sycophant do
   are applied automatically.
 
   Common shared params: `:temperature`, `:max_tokens`, `:top_p`, `:top_k`,
-  `:stop`, `:reasoning`, `:reasoning_summary`, `:service_tier`, `:tool_choice`,
+  `:stop`, `:reasoning_effort`, `:reasoning_summary`, `:service_tier`, `:tool_choice`,
   `:parallel_tool_calls`.
 
   Wire-specific params are passed as flat keywords alongside shared ones. For

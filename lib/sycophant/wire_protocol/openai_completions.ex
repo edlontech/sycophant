@@ -400,7 +400,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
     |> maybe_put_reasoning_summary(params)
   end
 
-  defp maybe_put_reasoning_effort(payload, %{reasoning: level}) when not is_nil(level),
+  defp maybe_put_reasoning_effort(payload, %{reasoning_effort: level}) when not is_nil(level),
     do: Map.put(payload, "reasoning_effort", stringify_atom(level))
 
   defp maybe_put_reasoning_effort(payload, _), do: payload

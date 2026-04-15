@@ -37,7 +37,7 @@ defmodule Sycophant.ParamDefs do
       stop:
         Zoi.list(Zoi.string(), description: "Stop sequences")
         |> Zoi.optional(),
-      reasoning:
+      reasoning_effort:
         Zoi.enum([:none, :minimal, :low, :medium, :high, :xhigh],
           description: "Extended thinking effort level"
         )

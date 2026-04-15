@@ -44,7 +44,7 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
                     :stop,
                     :tool_choice,
                     :parallel_tool_calls,
-                    :reasoning
+                    :reasoning_effort
                   ])
                 )
 
@@ -522,13 +522,13 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
 
   # --- Private: Thinking ---
 
-  defp maybe_put_thinking(payload, %{reasoning: :none}) do
+  defp maybe_put_thinking(payload, %{reasoning_effort: :none}) do
     Map.put(payload, "additionalModelRequestFields", %{
       "thinking" => %{"type" => "disabled"}
     })
   end
 
-  defp maybe_put_thinking(payload, %{reasoning: level})
+  defp maybe_put_thinking(payload, %{reasoning_effort: level})
        when is_map_key(@reasoning_budgets, level) do
     budget = Map.fetch!(@reasoning_budgets, level)
 

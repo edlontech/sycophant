@@ -2,7 +2,7 @@ defmodule Sycophant.Reasoning do
   @moduledoc """
   Reasoning output from an LLM response.
 
-  When a model supports extended thinking (e.g. with the `:reasoning` parameter),
+  When a model supports extended thinking (e.g. with the `:reasoning_effort` parameter),
   the chain-of-thought is available in `response.reasoning.content` as a list
   of `Content.Thinking` structs. Each thinking block may carry `:text` (raw
   chain-of-thought), `:summary` (condensed summary), or both, depending on

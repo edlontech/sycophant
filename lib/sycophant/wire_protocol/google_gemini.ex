@@ -37,7 +37,7 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
                       :top_p,
                       :top_k,
                       :stop,
-                      :reasoning,
+                      :reasoning_effort,
                       :reasoning_summary,
                       :tool_choice,
                       :parallel_tool_calls
@@ -540,9 +540,10 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
       else: Map.put(config, "thinkingConfig", thinking_config)
   end
 
-  defp build_thinking_level(%{reasoning: :none}, _model), do: %{"thinkingBudget" => 0}
+  defp build_thinking_level(%{reasoning_effort: :none}, _model),
+    do: %{"thinkingBudget" => 0}
 
-  defp build_thinking_level(%{reasoning: level}, model)
+  defp build_thinking_level(%{reasoning_effort: level}, model)
        when is_map_key(@thinking_levels, level) do
     if legacy_thinking_model?(model) do
       %{"thinkingBudget" => Map.fetch!(@thinking_budgets, level)}
