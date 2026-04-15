@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-14T15:22:20.396131Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:02.413455Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -21,7 +21,7 @@
                 "arguments": "{\"city\":\"Paris\"}",
                 "name": "get_weather"
               },
-              "id": "call_YuXfn3BdGBU56jlgpmsp93NS",
+              "id": "call_G78xnk79SXfXaUDFzW44xdkp",
               "type": "function"
             }
           ]
@@ -29,7 +29,7 @@
         {
           "content": "Paris: 22C, sunny",
           "role": "tool",
-          "tool_call_id": "call_YuXfn3BdGBU56jlgpmsp93NS"
+          "tool_call_id": "call_G78xnk79SXfXaUDFzW44xdkp"
         }
       ],
       "model": "gpt-3.5-turbo",
@@ -78,14 +78,14 @@
           "logprobs": null,
           "message": {
             "annotations": [],
-            "content": "The weather in Paris is currently 22°C and sunny.",
+            "content": "The current weather in Paris is 22°C and sunny.",
             "refusal": null,
             "role": "assistant"
           }
         }
       ],
-      "created": 1776180139,
-      "id": "chatcmpl-DUZshyEnZXZt94bBgaSK6WbfVDT7P",
+      "created": 1776250741,
+      "id": "chatcmpl-DUsFRHrqBMJXpxRCs7W0fii6p3bbC",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -109,7 +109,7 @@
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:20 GMT"
+        "Wed, 15 Apr 2026 10:59:02 GMT"
       ],
       [
         "content-type",
@@ -117,7 +117,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b490e9daae1d-PRG"
+        "9eca703da80c710c-PRG"
       ],
       [
         "cf-cache-status",
@@ -145,7 +145,7 @@
       ],
       [
         "openai-processing-ms",
-        "576"
+        "474"
       ],
       [
         "openai-project",
@@ -185,7 +185,7 @@
       ],
       [
         "x-request-id",
-        "req_82f3ca938d784b86864f0960a0361e17"
+        "req_d910e509bf3946aa94d29b171f259939"
       ],
       [
         "set-cookie",

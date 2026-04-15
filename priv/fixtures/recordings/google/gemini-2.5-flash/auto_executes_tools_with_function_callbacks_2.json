@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-04-14T15:22:20.324893Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:03.102746Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -24,7 +24,8 @@
                   "city": "Paris"
                 },
                 "name": "get_weather"
-              }
+              },
+              "thoughtSignature": "CpQCAb4+9vu8yAtiIZuFXlXRXkeMwhAghM9aR5v7XOBEH4FzALwDc4IfG5DlHfvMrxZUjpklvQLKvTaA1JmR4kRoYjV2I05steOUwGgT/fKggId6k54Eqm++FTRemL1XA6Dqm9moXbIi50fo/DO5LuronODkfVEdhLn/1qN5ZemCluHBnIBBSgW8xsBTHTVNkw+PlNXqIMb7FEkeltVVEKfU86MgbItwo2uZo3asLfLb591375V8PaN9VtTuVO18wMsBgQxBPWvDBT66Df124BOik1IlQ759LXfbq4QaNjL+s5VXdF7KXe+lHM1V+jqd94J+OW2y2dPbcw3AnoJMWNui6bvucxQj3sI92XcaMrzdbvv12FsG"
             }
           ],
           "role": "model"
@@ -85,7 +86,7 @@
           "content": {
             "parts": [
               {
-                "text": "The weather in Paris is 22C and sunny."
+                "text": "The weather in Paris is 22 degrees Celsius and sunny."
               }
             ],
             "role": "model"
@@ -95,9 +96,9 @@
         }
       ],
       "modelVersion": "gemini-2.5-flash",
-      "responseId": "q1veae7uJarmxN8PxqybiA8",
+      "responseId": "dm_faeHJHNelkdUPy9nKeA",
       "usageMetadata": {
-        "candidatesTokenCount": 12,
+        "candidatesTokenCount": 13,
         "promptTokenCount": 97,
         "promptTokensDetails": [
           {
@@ -105,7 +106,7 @@
             "tokenCount": 97
           }
         ],
-        "totalTokenCount": 109
+        "totalTokenCount": 110
       }
     },
     "headers": [
@@ -131,7 +132,7 @@
       ],
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:20 GMT"
+        "Wed, 15 Apr 2026 10:59:03 GMT"
       ],
       [
         "server",
@@ -151,7 +152,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=756"
+        "gfet4t7; dur=683"
       ],
       [
         "alt-svc",

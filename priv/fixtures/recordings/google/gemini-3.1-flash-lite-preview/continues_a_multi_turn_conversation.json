@@ -1,0 +1,121 @@
+{
+  "metadata": {
+    "model": "unknown",
+    "provider": "generativelanguage.googleapis.com",
+    "recorded_at": "2026-04-15T10:59:12.798079Z",
+    "sycophant_version": "0.3.0"
+  },
+  "request": {
+    "body": {
+      "contents": [
+        {
+          "parts": [
+            {
+              "text": "My name is Sycophant. Remember it."
+            }
+          ],
+          "role": "user"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "x-goog-api-key",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite-preview:generateContent"
+  },
+  "response": {
+    "body": {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "Understood, Sycophant. I have noted your name. How can I assist you today?",
+                "thoughtSignature": "EjQKMgG+Pvb7IiZq5chDgfkrEnjh/dCdiE+Hiiri96bNuILd+3CsOeTsdHi67FEk7Fvb/R1C"
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "STOP",
+          "index": 0
+        }
+      ],
+      "modelVersion": "gemini-3.1-flash-lite-preview",
+      "responseId": "gG_faeKLLLL6nsEPusS6oA0",
+      "usageMetadata": {
+        "candidatesTokenCount": 21,
+        "promptTokenCount": 12,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 12
+          }
+        ],
+        "totalTokenCount": 33
+      }
+    },
+    "headers": [
+      [
+        "x-gemini-service-tier",
+        "standard"
+      ],
+      [
+        "content-type",
+        "application/json; charset=UTF-8"
+      ],
+      [
+        "vary",
+        "X-Origin"
+      ],
+      [
+        "vary",
+        "Referer"
+      ],
+      [
+        "vary",
+        "Origin,Accept-Encoding"
+      ],
+      [
+        "date",
+        "Wed, 15 Apr 2026 10:59:12 GMT"
+      ],
+      [
+        "server",
+        "scaffolding on HTTPServer2"
+      ],
+      [
+        "x-xss-protection",
+        "0"
+      ],
+      [
+        "x-frame-options",
+        "SAMEORIGIN"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server-timing",
+        "gfet4t7; dur=1703"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+      ],
+      [
+        "accept-ranges",
+        "none"
+      ]
+    ],
+    "status": 200
+  }
+}

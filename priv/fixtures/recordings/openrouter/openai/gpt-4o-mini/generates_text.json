@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-4o-mini",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-14T15:22:25.319611Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:08.357229Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -31,11 +31,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776180145,
-      "created_at": 1776180144,
+      "completed_at": 1776250748,
+      "created_at": 1776250747,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776180144-m2AGpVzTg66jGsbPx9TX",
+      "id": "gen-1776250747-5lgYGfyqd2Q9QWxglb6U",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -53,7 +53,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_ol279liutwa",
+          "id": "msg_tmp_c16k7urbwtr",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -80,28 +80,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 3.45e-6,
+        "cost": 4.05e-6,
         "cost_details": {
-          "upstream_inference_cost": 3.45e-6,
+          "upstream_inference_cost": 4.05e-6,
           "upstream_inference_input_cost": 2.25e-6,
-          "upstream_inference_output_cost": 1.2e-6
+          "upstream_inference_output_cost": 1.8e-6
         },
         "input_tokens": 15,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 2,
+        "output_tokens": 3,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 17
+        "total_tokens": 18
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:25 GMT"
+        "Wed, 15 Apr 2026 10:59:08 GMT"
       ],
       [
         "content-type",
@@ -109,7 +109,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=464"
+        "cfEdge;dur=6,cfOrigin;dur=0,cfWorker;dur=353"
       ],
       [
         "access-control-allow-origin",
@@ -117,7 +117,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776180144-m2AGpVzTg66jGsbPx9TX"
+        "gen-1776250747-5lgYGfyqd2Q9QWxglb6U"
       ],
       [
         "access-control-expose-headers",
@@ -141,7 +141,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4b10d52f97e-PRG"
+        "9eca70660ebac1bb-PRG"
       ]
     ],
     "status": 200

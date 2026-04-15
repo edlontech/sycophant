@@ -2,8 +2,8 @@
   "metadata": {
     "model": "anthropic/claude-haiku-4.5",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-14T15:22:24.100900Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:03.134617Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -20,12 +20,12 @@
         },
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "toolu_bdrk_01N6kKeKeu8bBvfbt6mN4VqF",
+          "call_id": "toolu_bdrk_01PJXa9UoyfeG3hQpgzoTLXr",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "toolu_bdrk_01N6kKeKeu8bBvfbt6mN4VqF",
+          "call_id": "toolu_bdrk_01PJXa9UoyfeG3hQpgzoTLXr",
           "output": "Paris: 22C, sunny",
           "type": "function_call_output"
         }
@@ -68,11 +68,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776180144,
-      "created_at": 1776180140,
+      "completed_at": 1776250743,
+      "created_at": 1776250741,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776180140-ngXpCURoMTv8wFdodiFv",
+      "id": "gen-1776250741-WE9Xv42ecq91u2ewRECN",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -86,11 +86,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "The weather in Paris is currently **22°C (about 72°F) and sunny**. It's a nice day!",
+              "text": "The weather in Paris is currently **22°C (about 72°F) and sunny**. It's a beautiful day!",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_kv28trqxvv",
+          "id": "msg_tmp_xw3v8xlbwsm",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -157,7 +157,7 @@
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:23 GMT"
+        "Wed, 15 Apr 2026 10:59:02 GMT"
       ],
       [
         "content-type",
@@ -165,7 +165,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=2723"
+        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=993"
       ],
       [
         "access-control-allow-origin",
@@ -173,7 +173,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776180140-ngXpCURoMTv8wFdodiFv"
+        "gen-1776250741-WE9Xv42ecq91u2ewRECN"
       ],
       [
         "access-control-expose-headers",
@@ -197,7 +197,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b498babef97e-PRG"
+        "9eca70403dd7c1bb-PRG"
       ]
     ],
     "status": 200

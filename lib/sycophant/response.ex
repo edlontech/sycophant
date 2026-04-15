@@ -71,6 +71,17 @@ defmodule Sycophant.Response do
   @spec messages(t()) :: [Sycophant.Message.t()]
   def messages(%__MODULE__{context: context}), do: context.messages
 
+  @doc "Returns the response text."
+  @spec text(t()) :: String.t() | nil
+  def text(%__MODULE__{text: text}), do: text
+
+  @doc "Returns the first reasoning content text, if present."
+  @spec reasoning_text(t()) :: String.t() | nil
+  def reasoning_text(%__MODULE__{reasoning: %Reasoning{content: [%{text: t} | _]}})
+      when is_binary(t), do: t
+
+  def reasoning_text(_), do: nil
+
   @doc """
   Reconstructs a `Response` from a serialized map produced by `Sycophant.Serializable`.
   """

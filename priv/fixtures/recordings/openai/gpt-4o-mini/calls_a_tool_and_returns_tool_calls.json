@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-14T15:22:21.562925Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:03.198661Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -82,7 +82,7 @@
           "type": "function"
         }
       ],
-      "id": "resp_00f4c0efdccc15ba0069de5bac903081968c059be9c40afae9",
+      "id": "resp_0bb3df63e8b5fe3b0069df6f7675008193a41adbdb47cea704",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -106,8 +106,8 @@
       "output": [
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "call_LczSLjtaTykcodY2MBdMBVW5",
-          "id": "fc_00f4c0efdccc15ba0069de5bad448c81969b66aa1ed03bfb87",
+          "call_id": "call_RHfxbaafWIZS3kXRtVDhis9V",
+          "id": "fc_0bb3df63e8b5fe3b0069df6f76f66081938bd1cbff79f7d6bf",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -121,7 +121,7 @@
         "effort": null,
         "summary": null
       },
-      "completed_at": 1776180141,
+      "completed_at": 1776250743,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -130,13 +130,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776180140,
+      "created_at": 1776250742,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:21 GMT"
+        "Wed, 15 Apr 2026 10:59:03 GMT"
       ],
       [
         "content-type",
@@ -164,7 +164,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "149999735"
+        "149999732"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -188,11 +188,11 @@
       ],
       [
         "x-request-id",
-        "req_235724bf746e4dc2b6236ed654f6d7c8"
+        "req_81305075d8324a9ea858c980764ed1af"
       ],
       [
         "openai-processing-ms",
-        "937"
+        "691"
       ],
       [
         "cf-cache-status",
@@ -212,7 +212,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b495ee12ae1d-PRG"
+        "9eca7043cfdb710c-PRG"
       ],
       [
         "alt-svc",

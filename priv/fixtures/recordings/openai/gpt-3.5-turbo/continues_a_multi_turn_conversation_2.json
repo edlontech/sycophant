@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-14T15:22:25.349119Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:09.948693Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -13,7 +13,7 @@
           "role": "user"
         },
         {
-          "content": "Hello Sycophant, nice to meet you. How can I assist you today?",
+          "content": "I will remember your name, Sycophant. How may I assist you today?",
           "role": "assistant"
         },
         {
@@ -51,8 +51,8 @@
           }
         }
       ],
-      "created": 1776180144,
-      "id": "chatcmpl-DUZsmds2OGFNgci6bk8eDpCFHhLVo",
+      "created": 1776250748,
+      "id": "chatcmpl-DUsFYL4cpmFco3Nlr6FTMDYz47PDU",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -76,7 +76,7 @@
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:25 GMT"
+        "Wed, 15 Apr 2026 10:59:09 GMT"
       ],
       [
         "content-type",
@@ -84,7 +84,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4aaee4dae1d-PRG"
+        "9eca706adebe710c-PRG"
       ],
       [
         "cf-cache-status",
@@ -112,7 +112,7 @@
       ],
       [
         "openai-processing-ms",
-        "383"
+        "1181"
       ],
       [
         "openai-project",
@@ -140,7 +140,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "1999968"
+        "1999967"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -152,7 +152,7 @@
       ],
       [
         "x-request-id",
-        "req_73d7af31789744988c0b5068ae9d9c03"
+        "req_a236b206e26e4c1aa0e9532d62872d5f"
       ],
       [
         "set-cookie",

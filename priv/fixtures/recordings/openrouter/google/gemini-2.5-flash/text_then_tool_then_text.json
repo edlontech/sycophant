@@ -2,8 +2,8 @@
   "metadata": {
     "model": "google/gemini-2.5-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-14T15:22:19.788923Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:03.743400Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -52,11 +52,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776180139,
-      "created_at": 1776180139,
+      "completed_at": 1776250743,
+      "created_at": 1776250743,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776180139-eTRkGUbuXqvuZy7mECPO",
+      "id": "gen-1776250743-CvF9ruGRMJk4VkqDOJNW",
       "incomplete_details": null,
       "instructions": "You are a helpful assistant. Be concise.",
       "max_output_tokens": null,
@@ -70,11 +70,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Sounds fun! Do you want to know what the weather is like there?",
+              "text": "Great! How can I help you with your trip to London? For example, I can tell you the current weather there.\n",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_thawomtjaam",
+          "id": "msg_tmp_6mi8jgpbi18",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -120,28 +120,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 4.92e-5,
+        "cost": 7.67e-5,
         "cost_details": {
-          "upstream_inference_cost": 4.92e-5,
+          "upstream_inference_cost": 7.67e-5,
           "upstream_inference_input_cost": 1.17e-5,
-          "upstream_inference_output_cost": 3.75e-5
+          "upstream_inference_output_cost": 6.5e-5
         },
         "input_tokens": 39,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 15,
+        "output_tokens": 26,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 54
+        "total_tokens": 65
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:19 GMT"
+        "Wed, 15 Apr 2026 10:59:03 GMT"
       ],
       [
         "content-type",
@@ -149,7 +149,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1133"
+        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=426"
       ],
       [
         "access-control-allow-origin",
@@ -157,7 +157,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776180139-eTRkGUbuXqvuZy7mECPO"
+        "gen-1776250743-CvF9ruGRMJk4VkqDOJNW"
       ],
       [
         "access-control-expose-headers",
@@ -181,7 +181,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b489692cf97e-PRG"
+        "9eca7047ed9ec1bb-PRG"
       ]
     ],
     "status": 200

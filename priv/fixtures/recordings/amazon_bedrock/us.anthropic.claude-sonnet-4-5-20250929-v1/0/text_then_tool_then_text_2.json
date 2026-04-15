@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-04-14T15:22:23.758845Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:09.712756Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -19,7 +19,7 @@
         {
           "content": [
             {
-              "text": "Hello! That's exciting that you're planning a trip to London! \n\nWould you like me to check the current weather in London for you? I can help you get an idea of what conditions are like there right now."
+              "text": "Hello! How exciting that you're planning a trip to London! \n\nWould you like me to check the current weather in London for you? I can help you get an idea of what conditions are like there. Just let me know if you'd like that information or if there's anything else I can help you with for your trip planning!"
             }
           ],
           "role": "assistant"
@@ -74,7 +74,7 @@
       ],
       [
         "x-amz-date",
-        "20260414T152221Z"
+        "20260415T105907Z"
       ],
       [
         "content-type",
@@ -87,7 +87,7 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 1965
+        "latencyMs": 1671
       },
       "output": {
         "message": {
@@ -98,7 +98,7 @@
                   "city": "London"
                 },
                 "name": "get_weather",
-                "toolUseId": "tooluse_4VlzcAsbLjOtPTkxi2Bvha",
+                "toolUseId": "tooluse_UxNhqHSky8NHqRmH3bAvGm",
                 "type": "tool_use"
               }
             }
@@ -112,16 +112,16 @@
         "cacheReadInputTokens": 0,
         "cacheWriteInputTokenCount": 0,
         "cacheWriteInputTokens": 0,
-        "inputTokens": 657,
+        "inputTokens": 680,
         "outputTokens": 53,
         "serverToolUsage": {},
-        "totalTokens": 710
+        "totalTokens": 733
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:23 GMT"
+        "Wed, 15 Apr 2026 10:59:09 GMT"
       ],
       [
         "content-type",
@@ -133,7 +133,7 @@
       ],
       [
         "x-amzn-requestid",
-        "704cd3da-ab4a-44a0-a498-23bee3149dbd"
+        "58d6c024-91cf-4481-acf6-9d97fd73ab7b"
       ]
     ],
     "status": 200

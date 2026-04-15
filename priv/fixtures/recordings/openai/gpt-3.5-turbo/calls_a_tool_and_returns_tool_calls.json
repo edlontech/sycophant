@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-14T15:22:21.212445Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:03.144514Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -68,15 +68,15 @@
                   "arguments": "{\"city\":\"Paris\"}",
                   "name": "get_weather"
                 },
-                "id": "call_VdvoVfoUpGrqKVTbVyKaYCHO",
+                "id": "call_iE84RH1GiGPbkZLnH3vYUuAv",
                 "type": "function"
               }
             ]
           }
         }
       ],
-      "created": 1776180140,
-      "id": "chatcmpl-DUZsi2hJ58l2wInfwySsFfISHb6WI",
+      "created": 1776250742,
+      "id": "chatcmpl-DUsFSqdkem15kkh2M1PuDnCula17o",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -100,7 +100,7 @@
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:21 GMT"
+        "Wed, 15 Apr 2026 10:59:03 GMT"
       ],
       [
         "content-type",
@@ -108,7 +108,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b495add6ae1d-PRG"
+        "9eca7044486f710c-PRG"
       ],
       [
         "cf-cache-status",
@@ -136,7 +136,7 @@
       ],
       [
         "openai-processing-ms",
-        "637"
+        "491"
       ],
       [
         "openai-project",
@@ -176,7 +176,7 @@
       ],
       [
         "x-request-id",
-        "req_8506dbc7e17943b898a60697809a44ec"
+        "req_93c93d61813c471d977e9b0fe8d0bcc7"
       ],
       [
         "set-cookie",

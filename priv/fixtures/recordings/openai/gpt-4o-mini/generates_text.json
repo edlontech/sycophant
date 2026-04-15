@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-14T15:22:26.752230Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:08.656676Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -43,7 +43,7 @@
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_0117a0f3637dd95b0069de5bb217e48190b2ca1dd9ebb3fc8a",
+      "id": "resp_0b32ced4ba1913ac0069df6f7bf0f081968e710a8708518a60",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -74,7 +74,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_0117a0f3637dd95b0069de5bb28e0c8190b95f247af12d45dc",
+          "id": "msg_0b32ced4ba1913ac0069df6f7c708481968678f8513c0e6bd0",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -88,7 +88,7 @@
         "effort": null,
         "summary": null
       },
-      "completed_at": 1776180146,
+      "completed_at": 1776250748,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -97,13 +97,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776180146,
+      "created_at": 1776250747,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:26 GMT"
+        "Wed, 15 Apr 2026 10:59:08 GMT"
       ],
       [
         "content-type",
@@ -131,7 +131,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "149999967"
+        "149999965"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -155,11 +155,11 @@
       ],
       [
         "x-request-id",
-        "req_a66b1c158c354cf89480652984f11176"
+        "req_b984270b189a420c9a7a0b6cda05f8e0"
       ],
       [
         "openai-processing-ms",
-        "603"
+        "663"
       ],
       [
         "cf-cache-status",
@@ -179,7 +179,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4b888faae1d-PRG"
+        "9eca70660932710c-PRG"
       ],
       [
         "alt-svc",

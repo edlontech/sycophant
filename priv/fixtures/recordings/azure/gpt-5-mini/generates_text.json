@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5-mini",
     "provider": "azure",
-    "recorded_at": "2026-04-14T15:22:47.770890Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:18.666268Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -44,7 +44,7 @@
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_0cbe193be4b0794d0069de5bc2003c81968bcfdbb668a32852",
+      "id": "resp_008b244f4a1f8dad0069df6f828cd48195877816bd055e1f55",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -56,18 +56,18 @@
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 152,
+        "output_tokens": 132,
         "output_tokens_details": {
-          "reasoning_tokens": 128
+          "reasoning_tokens": 64
         },
-        "total_tokens": 166
+        "total_tokens": 146
       },
       "safety_identifier": null,
       "object": "response",
       "parallel_tool_calls": true,
       "output": [
         {
-          "id": "rs_0cbe193be4b0794d0069de5bc28b388196a0627a2b536f829d",
+          "id": "rs_008b244f4a1f8dad0069df6f8306188195aedf85acafce175c",
           "summary": [],
           "type": "reasoning"
         },
@@ -80,7 +80,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_0cbe193be4b0794d0069de5bc6f80c8196904b3579afc4e09b",
+          "id": "msg_008b244f4a1f8dad0069df6f8671ac819581264319f69172c9",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -94,19 +94,19 @@
         "effort": "medium",
         "summary": null
       },
-      "completed_at": 1776180167,
+      "completed_at": 1776250758,
       "truncation": "disabled",
       "top_p": 1.0,
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776180162,
+      "created_at": 1776250754,
       "max_tool_calls": null
     },
     "headers": [
       [
         "content-length",
-        "1640"
+        "1639"
       ],
       [
         "content-type",
@@ -158,11 +158,11 @@
       ],
       [
         "x-request-id",
-        "b6c0df5d-8bed-4947-abf2-22642890771a"
+        "5965f461-e0f5-448d-9f58-7c7e85b94cbb"
       ],
       [
         "apim-request-id",
-        "54e0c19c-0f84-4cf3-96c2-d5d0981bc63e"
+        "4fe4e3b6-9c60-4f9f-93f8-174790873dde"
       ],
       [
         "strict-transport-security",
@@ -182,7 +182,7 @@
       ],
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:47 GMT"
+        "Wed, 15 Apr 2026 10:59:17 GMT"
       ]
     ],
     "status": 200

@@ -3,9 +3,9 @@
     "binary_streaming": true,
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-04-14T15:22:26.608840Z",
+    "recorded_at": "2026-04-15T10:59:12.021783Z",
     "streaming": true,
-    "sycophant_version": "0.2.0"
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -31,7 +31,7 @@
       ],
       [
         "x-amz-date",
-        "20260414T152224Z"
+        "20260415T105910Z"
       ],
       [
         "content-type",
@@ -46,11 +46,11 @@
     "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-5-20250929-v1%3A0/converse-stream"
   },
   "response": {
-    "body": "AAAAkAAAAFIxQcihCzpldmVudC10eXBlBwAMbWVzc2FnZVN0YXJ0DTpjb250ZW50LXR5cGUHABBhcHBsaWNhdGlvbi9qc29uDTptZXNzYWdlLXR5cGUHAAVldmVudHsicCI6ImFiY2RlZmdoaWprbG1ub3BxcnMiLCJyb2xlIjoiYXNzaXN0YW50In0RduqwAAAAwwAAAFc+mIk1CzpldmVudC10eXBlBwARY29udGVudEJsb2NrRGVsdGENOmNvbnRlbnQtdHlwZQcAEGFwcGxpY2F0aW9uL2pzb24NOm1lc3NhZ2UtdHlwZQcABWV2ZW50eyJjb250ZW50QmxvY2tJbmRleCI6MCwiZGVsdGEiOnsidGV4dCI6ImhlbGxvIn0sInAiOiJhYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ekFCQ0RFRkdISUpLIn0BoOEkAAAAtwAAAFZFzf+sCzpldmVudC10eXBlBwAQY29udGVudEJsb2NrU3RvcA06Y29udGVudC10eXBlBwAQYXBwbGljYXRpb24vanNvbg06bWVzc2FnZS10eXBlBwAFZXZlbnR7ImNvbnRlbnRCbG9ja0luZGV4IjowLCJwIjoiYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXpBQkNERUZHSElKS0xNTk9QUVJTVFVWV1hZIn1MsdSRAAAAhwAAAFF6iNKJCzpldmVudC10eXBlBwALbWVzc2FnZVN0b3ANOmNvbnRlbnQtdHlwZQcAEGFwcGxpY2F0aW9uL2pzb24NOm1lc3NhZ2UtdHlwZQcABWV2ZW50eyJwIjoiYWJjZGVmIiwic3RvcFJlYXNvbiI6ImVuZF90dXJuIn3DeQdUAAAA9gAAAE4zMhYDCzpldmVudC10eXBlBwAIbWV0YWRhdGENOmNvbnRlbnQtdHlwZQcAEGFwcGxpY2F0aW9uL2pzb24NOm1lc3NhZ2UtdHlwZQcABWV2ZW50eyJtZXRyaWNzIjp7ImxhdGVuY3lNcyI6MTcwN30sInAiOiJhYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ekFCQ0RFRkciLCJ1c2FnZSI6eyJpbnB1dFRva2VucyI6MTYsIm91dHB1dFRva2VucyI6MSwic2VydmVyVG9vbFVzYWdlIjp7fSwidG90YWxUb2tlbnMiOjE3fX3xB+83",
+    "body": "AAAAmgAAAFJ78dAACzpldmVudC10eXBlBwAMbWVzc2FnZVN0YXJ0DTpjb250ZW50LXR5cGUHABBhcHBsaWNhdGlvbi9qc29uDTptZXNzYWdlLXR5cGUHAAVldmVudHsicCI6ImFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6QUJDIiwicm9sZSI6ImFzc2lzdGFudCJ92EeA9QAAANsAAABXbghVdgs6ZXZlbnQtdHlwZQcAEWNvbnRlbnRCbG9ja0RlbHRhDTpjb250ZW50LXR5cGUHABBhcHBsaWNhdGlvbi9qc29uDTptZXNzYWdlLXR5cGUHAAVldmVudHsiY29udGVudEJsb2NrSW5kZXgiOjAsImRlbHRhIjp7InRleHQiOiJoZWxsbyJ9LCJwIjoiYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXpBQkNERUZHSElKS0xNTk9QUVJTVFVWV1hZWjAxMjM0NTY3OCJ9+xhv/gAAAKQAAABWYo0S/gs6ZXZlbnQtdHlwZQcAEGNvbnRlbnRCbG9ja1N0b3ANOmNvbnRlbnQtdHlwZQcAEGFwcGxpY2F0aW9uL2pzb24NOm1lc3NhZ2UtdHlwZQcABWV2ZW50eyJjb250ZW50QmxvY2tJbmRleCI6MCwicCI6ImFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6QUJDREVGIn07lyU5AAAAiAAAAFH42EVYCzpldmVudC10eXBlBwALbWVzc2FnZVN0b3ANOmNvbnRlbnQtdHlwZQcAEGFwcGxpY2F0aW9uL2pzb24NOm1lc3NhZ2UtdHlwZQcABWV2ZW50eyJwIjoiYWJjZGVmZyIsInN0b3BSZWFzb24iOiJlbmRfdHVybiJ9rwP92gAAAOAAAABO3JJ0IQs6ZXZlbnQtdHlwZQcACG1ldGFkYXRhDTpjb250ZW50LXR5cGUHABBhcHBsaWNhdGlvbi9qc29uDTptZXNzYWdlLXR5cGUHAAVldmVudHsibWV0cmljcyI6eyJsYXRlbmN5TXMiOjEyNzB9LCJwIjoiYWJjZGVmZ2hpamsiLCJ1c2FnZSI6eyJpbnB1dFRva2VucyI6MTYsIm91dHB1dFRva2VucyI6MSwic2VydmVyVG9vbFVzYWdlIjp7fSwidG90YWxUb2tlbnMiOjE3fX3kGPQZ",
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:26 GMT"
+        "Wed, 15 Apr 2026 10:59:11 GMT"
       ],
       [
         "content-type",
@@ -58,7 +58,7 @@
       ],
       [
         "x-amzn-requestid",
-        "28f777a7-ac07-4c51-b311-97841d736fc5"
+        "22cddedc-b87b-4d43-abb4-a883510cf83c"
       ]
     ],
     "status": 200

@@ -1,0 +1,103 @@
+{
+  "metadata": {
+    "model": "unknown",
+    "provider": "bedrock-runtime.us-east-1.amazonaws.com",
+    "recorded_at": "2026-04-15T10:59:14.652966Z",
+    "sycophant_version": "0.3.0"
+  },
+  "request": {
+    "body": {
+      "additionalModelRequestFields": {
+        "thinking": {
+          "budget_tokens": 1024,
+          "type": "enabled"
+        }
+      },
+      "messages": [
+        {
+          "content": [
+            {
+              "text": "A farmer has 3 fields. The first field produces 2.5 times more wheat than the second. The third produces 40% less than the first. If the second field produces 120 tons, how many tons does the farmer produce in total? Show your reasoning."
+            }
+          ],
+          "role": "user"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "Authorization",
+        "[REDACTED]"
+      ],
+      [
+        "host",
+        "bedrock-runtime.us-east-1.amazonaws.com"
+      ],
+      [
+        "x-amz-date",
+        "20260415T105859Z"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ]
+    ],
+    "method": "post",
+    "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-5-20250929-v1%3A0/converse"
+  },
+  "response": {
+    "body": {
+      "metrics": {
+        "latencyMs": 13540
+      },
+      "output": {
+        "message": {
+          "content": [
+            {
+              "reasoningContent": {
+                "reasoningText": {
+                  "signature": "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",
+                  "text": "Let me work through this step by step.\n\nGiven information:\n- Second field produces 120 tons\n- First field produces 2.5 times more wheat than the second\n- Third field produces 40% less than the first\n\nLet me calculate each field:\n\nSecond field: 120 tons\n\nFirst field: \"2.5 times more\" than the second\nThis means: First = Second + 2.5 × Second = 3.5 × Second\nFirst = 3.5 × 120 = 420 tons\n\nWait, let me reconsider. \"2.5 times more\" could mean:\n- Option 1: 2.5 times as much (First = 2.5 × Second)\n- Option 2: 2.5 times MORE (First = Second + 2.5 × Second = 3.5 × Second)\n\nThe phrase \"2.5 times more\" typically means 2.5 times the additional amount, so First = Second + 2.5 × Second = 3.5 × Second.\n\nHowever, in many contexts, people say \"times more\" when they mean \"times as much.\" Let me consider both interpretations and go with the more common mathematical interpretation of \"2.5 times more\" meaning an additional 2.5 times.\n\nFirst = 120 + 2.5 × 120 = 120 + 300 = 420 tons\n\nThird field: 40% less than the first\nThird = First - 0.40 × First = 0.60 × First\nThird = 0.60 × 420 = 252 tons\n\nTotal = 120 + 420 + 252 = 792 tons\n\nActually, let me reconsider the first field calculation. \"2.5 times more\" is ambiguous. Let me solve it the other way too:\n\nIf \"2.5 times more\" means \"2.5 times as much\":\n"
+                }
+              }
+            },
+            {
+              "text": "# Farmer's Wheat Production Calculation\n\nLet me work through this step-by-step:\n\n## Given Information:\n- Second field: **120 tons**\n- First field: 2.5 times more than the second\n- Third field: 40% less than the first\n\n## Calculations:\n\n**Second field:** 120 tons ✓\n\n**First field:** \nThe phrase \"2.5 times more\" means the second field's amount PLUS an additional 2.5 times that amount:\n- First = 120 + (2.5 × 120)\n- First = 120 + 300\n- First = **420 tons**\n\n**Third field:**\n40% less than the first means it produces 60% of what the first produces:\n- Third = 420 × 0.60\n- Third = **252 tons**\n\n## Total Production:\n120 + 420 + 252 = **792 tons**\n\n---\n\n**Note:** If \"2.5 times more\" was meant as \"2.5 times as much\" (a common colloquial usage), then:\n- First = 300 tons\n- Third = 180 tons  \n- Total = 600 tons\n\nBut using the strict mathematical interpretation of \"times more,\" the answer is **792 tons**."
+            }
+          ],
+          "role": "assistant"
+        }
+      },
+      "stopReason": "end_turn",
+      "usage": {
+        "cacheReadInputTokenCount": 0,
+        "cacheReadInputTokens": 0,
+        "cacheWriteInputTokenCount": 0,
+        "cacheWriteInputTokens": 0,
+        "inputTokens": 95,
+        "outputTokens": 861,
+        "serverToolUsage": {},
+        "totalTokens": 956
+      }
+    },
+    "headers": [
+      [
+        "date",
+        "Wed, 15 Apr 2026 10:59:14 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-length",
+        "5024"
+      ],
+      [
+        "x-amzn-requestid",
+        "1a3de8d1-8a0a-4fe6-a7f1-5ee01a4734ef"
+      ]
+    ],
+    "status": 200
+  }
+}

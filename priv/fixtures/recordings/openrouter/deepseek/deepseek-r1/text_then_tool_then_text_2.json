@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-14T15:22:26.150972Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:11.062785Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -15,22 +15,26 @@
         {
           "content": [
             {
-              "text": "The user mentions they're planning a trip to London. I should offer relevant help. Since I have a weather tool, I can get the current weather for London, which could be useful for trip planning. Let's check the weather.",
-              "type": "output_text"
+              "text": "The user mentions planning a trip to London. They might want to know the weather in London. I can offer to check the weather for them. Let's use the tool.",
+              "type": "reasoning_text"
             }
           ],
+          "type": "reasoning"
+        },
+        {
+          "content": [],
           "role": "assistant",
           "status": "completed",
           "type": "message"
         },
         {
           "arguments": "{\"city\":\"London\"}",
-          "call_id": "dc1414a1ab8e436896818c194ee302a4",
+          "call_id": "ec896562dcc14297a5247e4eb8f062e7",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "dc1414a1ab8e436896818c194ee302a4",
+          "call_id": "ec896562dcc14297a5247e4eb8f062e7",
           "output": "London: 18C, cloudy",
           "type": "function_call_output"
         }
@@ -74,11 +78,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776180146,
-      "created_at": 1776180143,
+      "completed_at": 1776250751,
+      "created_at": 1776250747,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776180143-lkiwU5vgSBj98HAcxE8M",
+      "id": "gen-1776250747-KHi7LZX3VJPEW6lFs3VQ",
       "incomplete_details": null,
       "instructions": "You are a helpful assistant. Be concise.",
       "max_output_tokens": null,
@@ -90,12 +94,12 @@
         {
           "content": [
             {
-              "text": "Now I can respond with the weather info and offer further assistance. The response should be concise.",
+              "text": "The current weather in London is 18°C and cloudy. This is mild weather, so you might want to bring a light jacket or layers. Have a great trip!",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_xaazu8irhd",
+          "id": "rs_tmp_qonzz198rj",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
@@ -105,11 +109,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "London currently has 18°C and cloudy skies. Let me know if you need other travel info!",
+              "text": "Currently, London is 18°C and cloudy—pleasant weather for exploring. Enjoy your trip!",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_hzl4h3r7n75",
+          "id": "msg_tmp_i3akubs7z0d",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -155,28 +159,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 4.151e-4,
+        "cost": 4.204e-4,
         "cost_details": {
-          "upstream_inference_cost": 4.151e-4,
-          "upstream_inference_input_cost": 3.101e-4,
-          "upstream_inference_output_cost": 1.05e-4
+          "upstream_inference_cost": 4.204e-4,
+          "upstream_inference_input_cost": 2.779e-4,
+          "upstream_inference_output_cost": 1.425e-4
         },
-        "input_tokens": 443,
+        "input_tokens": 397,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 42,
+        "output_tokens": 57,
         "output_tokens_details": {
-          "reasoning_tokens": 19
+          "reasoning_tokens": 35
         },
-        "total_tokens": 485
+        "total_tokens": 454
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:25 GMT"
+        "Wed, 15 Apr 2026 10:59:09 GMT"
       ],
       [
         "content-type",
@@ -184,7 +188,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=1656"
+        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=1778"
       ],
       [
         "access-control-allow-origin",
@@ -192,7 +196,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776180143-lkiwU5vgSBj98HAcxE8M"
+        "gen-1776250747-KHi7LZX3VJPEW6lFs3VQ"
       ],
       [
         "access-control-expose-headers",
@@ -216,7 +220,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4a80a12f97e-PRG"
+        "9eca70621a88c1bb-PRG"
       ]
     ],
     "status": 200

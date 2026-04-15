@@ -1,0 +1,197 @@
+{
+  "metadata": {
+    "model": "gpt-5-nano",
+    "provider": "api.openai.com",
+    "recorded_at": "2026-04-15T10:59:08.786889Z",
+    "sycophant_version": "0.3.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "What is 2 + 2?",
+          "role": "user"
+        }
+      ],
+      "instructions": "You are a calculator. Only respond with numbers.",
+      "model": "gpt-5-nano"
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "top_logprobs": 0,
+      "previous_response_id": null,
+      "tool_choice": "auto",
+      "service_tier": "default",
+      "status": "completed",
+      "tools": [],
+      "id": "resp_06586a9044edb62b0069df6f7b45b48194bc042a169abf1ba2",
+      "temperature": 1.0,
+      "max_output_tokens": null,
+      "user": null,
+      "frequency_penalty": 0.0,
+      "error": null,
+      "model": "gpt-5-nano-2025-08-07",
+      "usage": {
+        "input_tokens": 28,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 110,
+        "output_tokens_details": {
+          "reasoning_tokens": 64
+        },
+        "total_tokens": 138
+      },
+      "safety_identifier": null,
+      "object": "response",
+      "parallel_tool_calls": true,
+      "output": [
+        {
+          "id": "rs_06586a9044edb62b0069df6f7b81ac8194b97ef33092c0e100",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "4",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_06586a9044edb62b0069df6f7c5f848194a7e473fd2947c8f2",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "instructions": "You are a calculator. Only respond with numbers.",
+      "store": true,
+      "presence_penalty": 0.0,
+      "incomplete_details": null,
+      "reasoning": {
+        "effort": "medium",
+        "summary": null
+      },
+      "completed_at": 1776250748,
+      "truncation": "disabled",
+      "top_p": 1.0,
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": null,
+      "metadata": {},
+      "prompt_cache_key": null,
+      "created_at": 1776250747,
+      "max_tool_calls": null
+    },
+    "headers": [
+      [
+        "date",
+        "Wed, 15 Apr 2026 10:59:08 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-length",
+        "1710"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "x-ratelimit-limit-requests",
+        "30000"
+      ],
+      [
+        "x-ratelimit-limit-tokens",
+        "180000000"
+      ],
+      [
+        "x-ratelimit-remaining-requests",
+        "29999"
+      ],
+      [
+        "x-ratelimit-remaining-tokens",
+        "180000000"
+      ],
+      [
+        "x-ratelimit-reset-requests",
+        "2ms"
+      ],
+      [
+        "x-ratelimit-reset-tokens",
+        "0s"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "x-request-id",
+        "req_b87f3a4627ef4f7b999da37080582df4"
+      ],
+      [
+        "openai-processing-ms",
+        "1460"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "cf-ray",
+        "9eca7061dbff710c-PRG"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}

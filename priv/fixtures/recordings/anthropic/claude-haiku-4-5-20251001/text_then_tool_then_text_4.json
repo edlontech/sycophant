@@ -2,8 +2,8 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-04-14T15:22:26.794339Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:09.737062Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -14,7 +14,7 @@
           "role": "user"
         },
         {
-          "content": "That sounds exciting! I'd be happy to help you plan your trip to London. Here are some things I can assist with:\n\n**Weather & Packing:**\n- I can check the current weather in London to help you pack appropriately\n\n**Trip Planning Tips:**\n- **Best time to visit:** Spring (April-May) and fall (September-October) offer pleasant weather and fewer crowds\n- **Main attractions:** Big Ben & Houses of Parliament, Tower of London, Buckingham Palace, London Eye, museums like the British Museum and National Gallery\n- **Getting around:** The Underground (Tube) is fast and efficient; buses are also great for sightseeing\n- **Neighborhoods:** Explore areas like Westminster, South Bank, Soho, Camden, and Notting Hill\n- **Food:** Try fish & chips, afternoon tea, and explore diverse dining options across the city\n\n**What would you like help with?**\n- Would you like me to check the current weather in London?\n- Do you have specific questions about attractions, neighborhoods, or logistics?\n- What time period are you planning to visit?\n\nLet me know how I can best help with your London trip!",
+          "content": "That sounds exciting! I'd be happy to help with your London trip planning.\n\nHere are some ways I can assist you:\n\n1. **Weather Information** - I can check the current weather in London to help you pack appropriately\n2. **General Travel Tips** - I can offer suggestions about popular attractions, neighborhoods, transportation, etc.\n\nWould you like me to check the current weather in London? Or do you have specific questions about your trip - like what to see, where to stay, how to get around, or when you're planning to visit?",
           "role": "assistant"
         },
         {
@@ -24,7 +24,7 @@
         {
           "content": [
             {
-              "id": "toolu_0181yEeZT5qhntAcD2qZwshx",
+              "id": "toolu_01KpDRXvr2wnE9n4PodMcK4U",
               "input": {
                 "city": "London"
               },
@@ -38,14 +38,14 @@
           "content": [
             {
               "content": "London: 18C, cloudy",
-              "tool_use_id": "toolu_0181yEeZT5qhntAcD2qZwshx",
+              "tool_use_id": "toolu_01KpDRXvr2wnE9n4PodMcK4U",
               "type": "tool_result"
             }
           ],
           "role": "user"
         },
         {
-          "content": "The current weather in London is **18°C (about 64°F) and cloudy**. \n\nThis is mild weather, so I'd recommend:\n- Bringing a light jacket or sweater\n- Having an umbrella or rain jacket handy (cloudy weather often brings rain in London)\n- Wearing layers so you can adjust as needed throughout the day\n\nIs there anything else you'd like to know about your London trip?",
+          "content": "The current weather in London is:\n- **Temperature:** 18°C (about 64°F)\n- **Conditions:** Cloudy\n\nIt's mild and cool, so you might want to pack layers, a light jacket, or a sweater. An umbrella could also be handy just in case! Is there anything else you'd like to know about your London trip?",
           "role": "assistant"
         },
         {
@@ -95,11 +95,11 @@
     "body": {
       "content": [
         {
-          "text": "Yes, absolutely! I'd definitely recommend bringing an umbrella. Here's why:\n\n1. **Current conditions:** It's currently cloudy in London, which often leads to rain\n2. **London's reputation:** The city is known for frequent, unpredictable rainfall throughout the year\n3. **Better safe than sorry:** Even if rain isn't forecast, it's wise to be prepared—an umbrella is compact and lightweight to pack\n\n**Additional tips:**\n- A compact/foldable umbrella is ideal for traveling\n- Consider a waterproof jacket as a backup, especially if you'll be doing lots of outdoor sightseeing\n- Waterproof shoes or boots are also a good idea if you plan to walk around the city a lot\n\nLondon's weather can be changeable, so being prepared will let you enjoy your trip without weather interruptions!",
+          "text": "Yes, I'd recommend bringing an umbrella! Here's why:\n\n1. **Cloudy conditions** - The current forecast shows cloudy skies, which often precedes rain in London\n2. **London's reputation** - London is known for frequent rainfall throughout the year, even if it's not always heavy\n3. **Better safe than sorry** - An umbrella is lightweight and compact to pack, so it's worth having just in case\n\nEven if it doesn't rain during your entire trip, you'll likely appreciate having one on hand. Many visitors find an umbrella essential for London visits. Plus, the cool 18°C weather combined with potential rain makes a compact umbrella a practical choice alongside your layers and light jacket.\n\nEnjoy your trip to London!",
           "type": "text"
         }
       ],
-      "id": "msg_01RyHkrsp1rVq8NYad2RMtZv",
+      "id": "msg_016MNUeakvXwCvxx3fJzVRXS",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
       "stop_details": null,
@@ -114,15 +114,15 @@
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "inference_geo": "not_available",
-        "input_tokens": 1047,
-        "output_tokens": 186,
+        "input_tokens": 898,
+        "output_tokens": 165,
         "service_tier": "standard"
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:26 GMT"
+        "Wed, 15 Apr 2026 10:59:09 GMT"
       ],
       [
         "content-type",
@@ -138,7 +138,7 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-04-14T15:22:24Z"
+        "2026-04-15T10:59:07Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
@@ -150,7 +150,7 @@
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-04-14T15:22:26Z"
+        "2026-04-15T10:59:09Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
@@ -162,7 +162,7 @@
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-04-14T15:22:24Z"
+        "2026-04-15T10:59:07Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
@@ -174,11 +174,11 @@
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-04-14T15:22:24Z"
+        "2026-04-15T10:59:07Z"
       ],
       [
         "request-id",
-        "req_011Ca3ti86kTFG6Dkr1hQfBE"
+        "req_011Ca5SSaRK59vDu78HdvUGu"
       ],
       [
         "strict-transport-security",
@@ -194,11 +194,11 @@
       ],
       [
         "x-envoy-upstream-service-time",
-        "2494"
+        "2404"
       ],
       [
-        "x-robots-tag",
-        "none"
+        "content-security-policy",
+        "default-src 'none'; frame-ancestors 'none'"
       ],
       [
         "vary",
@@ -206,23 +206,23 @@
       ],
       [
         "server-timing",
-        "x-originResponse;dur=2496"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
+        "x-originResponse;dur=2405"
       ],
       [
         "set-cookie",
         "[REDACTED]"
       ],
       [
-        "content-security-policy",
-        "default-src 'none'; frame-ancestors 'none'"
+        "x-robots-tag",
+        "none"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
       ],
       [
         "cf-ray",
-        "9ec3b4ad39469947-PRG"
+        "9eca70622be6f98a-PRG"
       ]
     ],
     "status": 200

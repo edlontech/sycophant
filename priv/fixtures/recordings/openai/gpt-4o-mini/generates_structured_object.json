@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-14T15:22:19.611764Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:01.593949Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -99,7 +99,7 @@
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_0c89705ccc027dc50069de5baa9aac819487ede2004b851533",
+      "id": "resp_0654cd1bc98f2ece0069df6f74b11c8197b90844b2a5c2134b",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -111,11 +111,11 @@
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 25,
+        "output_tokens": 24,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 96
+        "total_tokens": 95
       },
       "safety_identifier": null,
       "object": "response",
@@ -126,11 +126,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "{\"age\":29,\"hobbies\":[\"photography\",\"hiking\",\"cooking\"],\"name\":\"Elena Rodriguez\"}",
+              "text": "{\"age\":28,\"hobbies\":[\"photography\",\"hiking\",\"reading\"],\"name\":\"Lena Carter\"}",
               "type": "output_text"
             }
           ],
-          "id": "msg_0c89705ccc027dc50069de5bab02fc8194aac703d66468927b",
+          "id": "msg_0654cd1bc98f2ece0069df6f7521e0819792c6b678d7b28101",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -144,7 +144,7 @@
         "effort": null,
         "summary": null
       },
-      "completed_at": 1776180139,
+      "completed_at": 1776250741,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -153,13 +153,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776180138,
+      "created_at": 1776250740,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:19 GMT"
+        "Wed, 15 Apr 2026 10:59:01 GMT"
       ],
       [
         "content-type",
@@ -167,7 +167,7 @@
       ],
       [
         "content-length",
-        "2174"
+        "2170"
       ],
       [
         "server",
@@ -187,7 +187,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "149999910"
+        "149999907"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -211,11 +211,11 @@
       ],
       [
         "x-request-id",
-        "req_c0d99936519e48338504a602306fb41e"
+        "req_87e1f3cb3cc0452e9bb061b17a4199b8"
       ],
       [
         "openai-processing-ms",
-        "947"
+        "851"
       ],
       [
         "cf-cache-status",
@@ -235,7 +235,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b489ac66ae1d-PRG"
+        "9eca7036c835710c-PRG"
       ],
       [
         "alt-svc",

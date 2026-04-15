@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-14T15:22:21.466397Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:03.088334Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -17,7 +17,7 @@
           "role": "user"
         },
         {
-          "content": "That sounds exciting! How can I assist you with your trip to London?",
+          "content": "That's great! How can I assist you with your trip to London?",
           "role": "assistant"
         },
         {
@@ -80,15 +80,15 @@
                   "arguments": "{\"city\":\"London\"}",
                   "name": "get_weather"
                 },
-                "id": "call_55v16PjI5eyiVOqAAbLFxFL9",
+                "id": "call_Z2tEhHuZPyiRmOPeFDa2dkO0",
                 "type": "function"
               }
             ]
           }
         }
       ],
-      "created": 1776180140,
-      "id": "chatcmpl-DUZsiLzfnq6fn3om2PqCPBaDXzMTu",
+      "created": 1776250742,
+      "id": "chatcmpl-DUsFSuyBoBa6YvRKz9v3svTzxbLXu",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -112,7 +112,7 @@
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:21 GMT"
+        "Wed, 15 Apr 2026 10:59:03 GMT"
       ],
       [
         "content-type",
@@ -120,7 +120,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4976f34ae1d-PRG"
+        "9eca7044c916710c-PRG"
       ],
       [
         "cf-cache-status",
@@ -148,7 +148,7 @@
       ],
       [
         "openai-processing-ms",
-        "606"
+        "407"
       ],
       [
         "openai-project",
@@ -172,11 +172,11 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "8998"
+        "8999"
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "1999943"
+        "1999945"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -188,7 +188,7 @@
       ],
       [
         "x-request-id",
-        "req_c253c5e8f47b9018aa029b1aa4c3088c"
+        "req_0b577cbf58d949cb85c6d29b9199837d"
       ],
       [
         "set-cookie",

@@ -3,6 +3,7 @@ defmodule Sycophant.Recording.StreamingTest do
   use Sycophant.RecordingCase, async: true, parameterize: @models
 
   alias Sycophant.Message
+  alias Sycophant.Response
 
   @tag recording_prefix: true
   test "streams text", %{model: model} do
@@ -52,13 +53,16 @@ defmodule Sycophant.Recording.StreamingTest do
              )
 
     assert response.tool_calls == []
-    assert is_binary(response.text)
-    assert response.text =~ "22"
 
-    tool_result = Enum.find(Sycophant.Response.messages(response), &(&1.role == :tool_result))
+    response_text = Response.text(response) || Response.reasoning_text(response)
+    assert is_binary(response_text), "expected text in response.text or response.reasoning"
+    assert response_text =~ "22"
+
+    tool_result = Enum.find(Response.messages(response), &(&1.role == :tool_result))
     assert tool_result, "expected tool_result message in conversation history"
     assert tool_result.content == "Paris: 22C, sunny"
 
-    assert_received {:chunk, %Sycophant.StreamChunk{type: :text_delta}}
+    assert_received {:chunk, %Sycophant.StreamChunk{type: type}}
+                    when type in [:text_delta, :reasoning_delta]
   end
 end

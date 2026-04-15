@@ -2,8 +2,8 @@
   "metadata": {
     "model": "anthropic/claude-haiku-4.5",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-14T15:22:35.205427Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:08.496062Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "That sounds exciting! I'd be happy to help with your London trip planning. Here are some things I can assist with:\n\n1. **Weather** - I can check the current weather in London to help you pack appropriately\n2. **General advice** - I can offer tips on attractions, neighborhoods, transportation, dining, and more\n\nWould you like me to check the current weather in London first? Or do you have specific questions about your trip, such as:\n- Where to stay?\n- What attractions to visit?\n- How to get around?\n- Best times to visit?\n- Restaurant recommendations?\n\nLet me know what would be most helpful!",
+              "text": "That's exciting! I'd be happy to help you plan your trip to London. Here are some things I can assist with:\n\n1. **Weather**: I can check the current weather in London to help you pack appropriately\n2. **General tips**: I can suggest popular attractions, neighborhoods, transportation options, and travel advice\n\nWhat would you like to know? Would you like me to check the current weather in London first, or do you have specific questions about planning your trip?",
               "type": "output_text"
             }
           ],
@@ -35,12 +35,12 @@
         },
         {
           "arguments": "{\"city\":\"London\"}",
-          "call_id": "toolu_bdrk_01ACEMCwWVzYKQac5Ahqn3jB",
+          "call_id": "toolu_bdrk_01Mzk4uCPsMtebgevptSapBr",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "toolu_bdrk_01ACEMCwWVzYKQac5Ahqn3jB",
+          "call_id": "toolu_bdrk_01Mzk4uCPsMtebgevptSapBr",
           "output": "London: 18C, cloudy",
           "type": "function_call_output"
         }
@@ -84,11 +84,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776180155,
-      "created_at": 1776180153,
+      "completed_at": 1776250748,
+      "created_at": 1776250746,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776180153-PRVgX4Pv1H9K1TvexopW",
+      "id": "gen-1776250746-c0r1GYoRiORkDgp2EY1J",
       "incomplete_details": null,
       "instructions": "You are a helpful assistant. Be concise.",
       "max_output_tokens": null,
@@ -102,11 +102,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "The current weather in London is **18°C (64°F) and cloudy**. \n\nIt's mild and cool, so I'd recommend bringing:\n- A light jacket or sweater\n- An umbrella or rain jacket (since it's cloudy, rain is possible)\n- Comfortable walking shoes\n\nThis is typical London weather! Is there anything else you'd like to know about your trip?",
+              "text": "The current weather in London is **18°C (64°F) and cloudy**. \n\nThis is fairly mild weather, so I'd recommend packing:\n- A light jacket or sweater\n- An umbrella or rain jacket (just in case)\n- Layers so you can adjust to temperature changes\n\nIs there anything else you'd like to know about your London trip?",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_lzz8tyjy92g",
+          "id": "msg_tmp_77bgdc9wh7",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -152,28 +152,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 0.001273,
+        "cost": 0.001209,
         "cost_details": {
-          "upstream_inference_cost": 0.001273,
-          "upstream_inference_input_cost": 8.23e-4,
-          "upstream_inference_output_cost": 4.5e-4
+          "upstream_inference_cost": 0.001209,
+          "upstream_inference_input_cost": 7.84e-4,
+          "upstream_inference_output_cost": 4.25e-4
         },
-        "input_tokens": 823,
+        "input_tokens": 784,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 90,
+        "output_tokens": 85,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 913
+        "total_tokens": 869
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:34 GMT"
+        "Wed, 15 Apr 2026 10:59:07 GMT"
       ],
       [
         "content-type",
@@ -181,7 +181,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=793"
+        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=1470"
       ],
       [
         "access-control-allow-origin",
@@ -189,7 +189,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776180153-PRVgX4Pv1H9K1TvexopW"
+        "gen-1776250746-c0r1GYoRiORkDgp2EY1J"
       ],
       [
         "access-control-expose-headers",
@@ -213,7 +213,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4e80e07f97e-PRG"
+        "9eca705bdb24c1bb-PRG"
       ]
     ],
     "status": 200

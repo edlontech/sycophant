@@ -2,9 +2,9 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-04-14T15:22:23.139408Z",
+    "recorded_at": "2026-04-15T10:59:08.162649Z",
     "streaming": true,
-    "sycophant_version": "0.2.0"
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -17,7 +17,7 @@
         {
           "content": [
             {
-              "id": "toolu_01JEKbKceBJrCuTcWQNhJgbj",
+              "id": "toolu_01WJhqsWP9tAnoKHHdqnAh5J",
               "input": {
                 "city": "Paris"
               },
@@ -31,7 +31,7 @@
           "content": [
             {
               "content": "Paris: 22C, sunny",
-              "tool_use_id": "toolu_01JEKbKceBJrCuTcWQNhJgbj",
+              "tool_use_id": "toolu_01WJhqsWP9tAnoKHHdqnAh5J",
               "type": "tool_result"
             }
           ],
@@ -77,11 +77,11 @@
     "url": "https://api.anthropic.com/v1/messages"
   },
   "response": {
-    "body": "event: message_start\ndata: {\"type\":\"message_start\",\"message\":{\"model\":\"claude-haiku-4-5-20251001\",\"id\":\"msg_01TA5yRYuXBZKw2iWLmsPz3S\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":656,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":6,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"}} }\n\nevent: content_block_start\ndata: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"text\",\"text\":\"\"}   }\n\nevent: ping\ndata: {\"type\": \"ping\"}\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\"The weather in Paris is currently\"}   }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\" **22°C (72°F)** and **sunny**! It's a beautiful\"}      }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\" day there.\"}  }\n\nevent: content_block_stop\ndata: {\"type\":\"content_block_stop\",\"index\":0        }\n\nevent: message_delta\ndata: {\"type\":\"message_delta\",\"delta\":{\"stop_reason\":\"end_turn\",\"stop_sequence\":null,\"stop_details\":null},\"usage\":{\"input_tokens\":656,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"output_tokens\":31}               }\n\nevent: message_stop\ndata: {\"type\":\"message_stop\"    }\n\n",
+    "body": "event: message_start\ndata: {\"type\":\"message_start\",\"message\":{\"model\":\"claude-haiku-4-5-20251001\",\"id\":\"msg_014617TVeQYZ7isMpJeJ8uZ5\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":656,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":6,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"}} }\n\nevent: content_block_start\ndata: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"text\",\"text\":\"\"}      }\n\nevent: ping\ndata: {\"type\": \"ping\"}\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\"The weather in Paris is currently\"}   }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\" **22°C (approximately 72°F) and sunny**. It's a beautiful\"}     }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\" day!\"}           }\n\nevent: content_block_stop\ndata: {\"type\":\"content_block_stop\",\"index\":0          }\n\nevent: message_delta\ndata: {\"type\":\"message_delta\",\"delta\":{\"stop_reason\":\"end_turn\",\"stop_sequence\":null,\"stop_details\":null},\"usage\":{\"input_tokens\":656,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"output_tokens\":30}               }\n\nevent: message_stop\ndata: {\"type\":\"message_stop\"        }\n\n",
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:22 GMT"
+        "Wed, 15 Apr 2026 10:59:07 GMT"
       ],
       [
         "content-type",
@@ -101,7 +101,7 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-04-14T15:22:22Z"
+        "2026-04-15T10:59:07Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
@@ -113,7 +113,7 @@
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-04-14T15:22:22Z"
+        "2026-04-15T10:59:07Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
@@ -125,7 +125,7 @@
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-04-14T15:22:22Z"
+        "2026-04-15T10:59:07Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
@@ -137,11 +137,11 @@
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-04-14T15:22:22Z"
+        "2026-04-15T10:59:07Z"
       ],
       [
         "request-id",
-        "req_011Ca3thyPdDEyitBUNsBem6"
+        "req_011Ca5SSZp6fMzn44giZEsSF"
       ],
       [
         "strict-transport-security",
@@ -157,31 +157,35 @@
       ],
       [
         "x-envoy-upstream-service-time",
-        "582"
-      ],
-      [
-        "server-timing",
-        "x-originResponse;dur=583"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "set-cookie",
-        "[REDACTED]"
+        "634"
       ],
       [
         "content-security-policy",
         "default-src 'none'; frame-ancestors 'none'"
       ],
       [
+        "vary",
+        "Accept-Encoding"
+      ],
+      [
+        "server-timing",
+        "x-originResponse;dur=636"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
         "x-robots-tag",
         "none"
       ],
       [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
         "cf-ray",
-        "9ec3b4a06c779947-PRG"
+        "9eca706148def98a-PRG"
       ]
     ],
     "status": 200

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-04-14T15:22:28.842991Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:15.364391Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -19,7 +19,7 @@
         {
           "content": [
             {
-              "text": "Hello! That's exciting that you're planning a trip to London! \n\nWould you like me to check the current weather in London for you? I can help you get an idea of what conditions are like there right now."
+              "text": "Hello! How exciting that you're planning a trip to London! \n\nWould you like me to check the current weather in London for you? I can help you get an idea of what conditions are like there. Just let me know if you'd like that information or if there's anything else I can help you with for your trip planning!"
             }
           ],
           "role": "assistant"
@@ -40,7 +40,7 @@
                   "city": "London"
                 },
                 "name": "get_weather",
-                "toolUseId": "tooluse_4VlzcAsbLjOtPTkxi2Bvha"
+                "toolUseId": "tooluse_UxNhqHSky8NHqRmH3bAvGm"
               }
             }
           ],
@@ -55,7 +55,7 @@
                     "text": "London: 18C, cloudy"
                   }
                 ],
-                "toolUseId": "tooluse_4VlzcAsbLjOtPTkxi2Bvha"
+                "toolUseId": "tooluse_UxNhqHSky8NHqRmH3bAvGm"
               }
             }
           ],
@@ -64,7 +64,7 @@
         {
           "content": [
             {
-              "text": "The current weather in London is 18°C (64°F) and cloudy. Perfect conditions for sightseeing! You might want to bring a light jacket."
+              "text": "The current weather in London is 18°C and cloudy. You might want to bring a light jacket and perhaps an umbrella just in case!"
             }
           ],
           "role": "assistant"
@@ -119,7 +119,7 @@
       ],
       [
         "x-amz-date",
-        "20260414T152225Z"
+        "20260415T105912Z"
       ],
       [
         "content-type",
@@ -132,13 +132,13 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 2895
+        "latencyMs": 2705
       },
       "output": {
         "message": {
           "content": [
             {
-              "text": "Yes, it would be wise to bring an umbrella! London is known for its unpredictable weather and occasional rain showers, even when it's just cloudy. The weather can change quickly, so having a compact umbrella with you is always a good idea when visiting London."
+              "text": "Yes, I'd recommend bringing an umbrella! London is known for its unpredictable weather and occasional rain showers, and with cloudy conditions currently, there's always a chance of rain. A compact, travel-sized umbrella would be a smart addition to your packing list."
             }
           ],
           "role": "assistant"
@@ -150,16 +150,16 @@
         "cacheReadInputTokens": 0,
         "cacheWriteInputTokenCount": 0,
         "cacheWriteInputTokens": 0,
-        "inputTokens": 782,
-        "outputTokens": 62,
+        "inputTokens": 800,
+        "outputTokens": 63,
         "serverToolUsage": {},
-        "totalTokens": 844
+        "totalTokens": 863
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:28 GMT"
+        "Wed, 15 Apr 2026 10:59:15 GMT"
       ],
       [
         "content-type",
@@ -167,11 +167,11 @@
       ],
       [
         "content-length",
-        "575"
+        "582"
       ],
       [
         "x-amzn-requestid",
-        "340eb869-25c8-4426-8ed7-853c1e1dd36e"
+        "72f5c514-f041-4633-969f-b4483a2bd997"
       ]
     ],
     "status": 200

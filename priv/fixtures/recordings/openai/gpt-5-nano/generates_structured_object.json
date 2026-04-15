@@ -1,0 +1,252 @@
+{
+  "metadata": {
+    "model": "gpt-5-nano",
+    "provider": "api.openai.com",
+    "recorded_at": "2026-04-15T10:59:05.488105Z",
+    "sycophant_version": "0.3.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "Generate a fictional person with name, age, and 2-3 hobbies. Return only JSON.",
+          "role": "user"
+        }
+      ],
+      "model": "gpt-5-nano",
+      "text": {
+        "format": {
+          "name": "response",
+          "schema": {
+            "additionalProperties": false,
+            "properties": {
+              "age": {
+                "type": "integer"
+              },
+              "hobbies": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "age",
+              "hobbies"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "json_schema"
+        }
+      }
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "text": {
+        "format": {
+          "description": null,
+          "name": "response",
+          "schema": {
+            "additionalProperties": false,
+            "properties": {
+              "age": {
+                "type": "integer"
+              },
+              "hobbies": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "age",
+              "hobbies"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "json_schema"
+        },
+        "verbosity": "medium"
+      },
+      "top_logprobs": 0,
+      "previous_response_id": null,
+      "tool_choice": "auto",
+      "service_tier": "default",
+      "status": "completed",
+      "tools": [],
+      "id": "resp_03a9165809ae90af0069df6f7460c88193a1ee38caa19cd1fc",
+      "temperature": 1.0,
+      "max_output_tokens": null,
+      "user": null,
+      "frequency_penalty": 0.0,
+      "error": null,
+      "model": "gpt-5-nano-2025-08-07",
+      "usage": {
+        "input_tokens": 69,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 562,
+        "output_tokens_details": {
+          "reasoning_tokens": 512
+        },
+        "total_tokens": 631
+      },
+      "safety_identifier": null,
+      "object": "response",
+      "parallel_tool_calls": true,
+      "output": [
+        {
+          "id": "rs_03a9165809ae90af0069df6f74911c8193b2282224186e32db",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "{\"age\":26,\"hobbies\":[\"gardening\",\"kayaking\",\"coding\"],\"name\":\"Lena Armitage\"}",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_03a9165809ae90af0069df6f78ed248193974c86d6bf8d8bd0",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "instructions": null,
+      "store": true,
+      "presence_penalty": 0.0,
+      "incomplete_details": null,
+      "reasoning": {
+        "effort": "medium",
+        "summary": null
+      },
+      "completed_at": 1776250745,
+      "truncation": "disabled",
+      "top_p": 1.0,
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": null,
+      "metadata": {},
+      "prompt_cache_key": null,
+      "created_at": 1776250740,
+      "max_tool_calls": null
+    },
+    "headers": [
+      [
+        "date",
+        "Wed, 15 Apr 2026 10:59:05 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-length",
+        "2307"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "x-ratelimit-limit-requests",
+        "30000"
+      ],
+      [
+        "x-ratelimit-limit-tokens",
+        "180000000"
+      ],
+      [
+        "x-ratelimit-remaining-requests",
+        "29999"
+      ],
+      [
+        "x-ratelimit-remaining-tokens",
+        "179999658"
+      ],
+      [
+        "x-ratelimit-reset-requests",
+        "2ms"
+      ],
+      [
+        "x-ratelimit-reset-tokens",
+        "0s"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "x-request-id",
+        "req_84f857570520477786b3b22c0b9ba990"
+      ],
+      [
+        "openai-processing-ms",
+        "5056"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "cf-ray",
+        "9eca7036c83a710c-PRG"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}

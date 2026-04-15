@@ -1,0 +1,206 @@
+{
+  "metadata": {
+    "model": "gpt-5.2",
+    "provider": "api.openai.com",
+    "recorded_at": "2026-04-15T10:59:11.370844Z",
+    "sycophant_version": "0.3.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "My name is Sycophant. Remember it.",
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "I can’t permanently remember details like your name across chats. For this conversation, I can refer to you as **Sycophant**.",
+              "type": "output_text"
+            }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "content": "What is my name?",
+          "role": "user"
+        }
+      ],
+      "model": "gpt-5.2"
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "top_logprobs": 0,
+      "previous_response_id": null,
+      "tool_choice": "auto",
+      "service_tier": "default",
+      "status": "completed",
+      "tools": [],
+      "id": "resp_0190aa63bf8456860069df6f7e687c81979282525a4d48774c",
+      "temperature": 1.0,
+      "max_output_tokens": null,
+      "user": null,
+      "frequency_penalty": 0.0,
+      "error": null,
+      "model": "gpt-5.2-2025-12-11",
+      "usage": {
+        "input_tokens": 61,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 14,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 75
+      },
+      "safety_identifier": null,
+      "object": "response",
+      "parallel_tool_calls": true,
+      "output": [
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Your name is **Sycophant**.",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_0190aa63bf8456860069df6f7ec2288197ab5d4478df937467",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "instructions": null,
+      "store": true,
+      "presence_penalty": 0.0,
+      "incomplete_details": null,
+      "reasoning": {
+        "effort": "none",
+        "summary": null
+      },
+      "completed_at": 1776250751,
+      "truncation": "disabled",
+      "top_p": 0.98,
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": null,
+      "metadata": {},
+      "prompt_cache_key": null,
+      "created_at": 1776250750,
+      "max_tool_calls": null
+    },
+    "headers": [
+      [
+        "date",
+        "Wed, 15 Apr 2026 10:59:11 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-length",
+        "1554"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "x-ratelimit-limit-requests",
+        "15000"
+      ],
+      [
+        "x-ratelimit-limit-tokens",
+        "40000000"
+      ],
+      [
+        "x-ratelimit-remaining-requests",
+        "14999"
+      ],
+      [
+        "x-ratelimit-remaining-tokens",
+        "40000000"
+      ],
+      [
+        "x-ratelimit-reset-requests",
+        "4ms"
+      ],
+      [
+        "x-ratelimit-reset-tokens",
+        "0s"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "x-request-id",
+        "req_905e293a82a4954d9d9322856545f976"
+      ],
+      [
+        "openai-processing-ms",
+        "926"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "cf-ray",
+        "9eca70753a60710c-PRG"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}

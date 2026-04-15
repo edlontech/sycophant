@@ -2,8 +2,8 @@
   "metadata": {
     "model": "anthropic/claude-haiku-4.5",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-14T15:22:26.601545Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:04.203374Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -51,11 +51,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776180146,
-      "created_at": 1776180144,
+      "completed_at": 1776250744,
+      "created_at": 1776250743,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776180144-B4oIe6bDsRTC6CayA6hR",
+      "id": "gen-1776250743-kE0v22OaqUiXtVEQ7nUF",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -66,8 +66,8 @@
       "output": [
         {
           "arguments": "{\"city\": \"Paris\"}",
-          "call_id": "toolu_bdrk_01TMzpdxm6aTB1UszC21dtZp",
-          "id": "fc_tmp_x2qosy9jsxn",
+          "call_id": "toolu_bdrk_01Pgg4JRHyWz9F39MqdkgUdp",
+          "id": "fc_tmp_rqe9up98q",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -134,7 +134,7 @@
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:26 GMT"
+        "Wed, 15 Apr 2026 10:59:04 GMT"
       ],
       [
         "content-type",
@@ -142,7 +142,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=2145"
+        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=929"
       ],
       [
         "access-control-allow-origin",
@@ -150,7 +150,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776180144-B4oIe6bDsRTC6CayA6hR"
+        "gen-1776250743-kE0v22OaqUiXtVEQ7nUF"
       ],
       [
         "access-control-expose-headers",
@@ -174,7 +174,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4acc91af97e-PRG"
+        "9eca7048ce52c1bb-PRG"
       ]
     ],
     "status": 200

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-04-14T15:22:19.434936Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:01.241212Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -63,7 +63,7 @@
           "content": {
             "parts": [
               {
-                "text": "{\"name\":\"Alice Smith\",\"age\":30,\"hobbies\":[\"reading\",\"hiking\"]}"
+                "text": "{\"name\":\"Alice Wonderland\",\"age\":28,\"hobbies\":[\"reading\",\"hiking\",\"photography\"]}"
               }
             ],
             "role": "model"
@@ -73,9 +73,9 @@
         }
       ],
       "modelVersion": "gemini-2.5-flash",
-      "responseId": "qlveafiEJb-5xN8PvoOzkA8",
+      "responseId": "dG_faYWbFvKHnsEP6rWQqA4",
       "usageMetadata": {
-        "candidatesTokenCount": 18,
+        "candidatesTokenCount": 20,
         "promptTokenCount": 21,
         "promptTokensDetails": [
           {
@@ -83,7 +83,7 @@
             "tokenCount": 21
           }
         ],
-        "thoughtsTokenCount": 69,
+        "thoughtsTokenCount": 67,
         "totalTokenCount": 108
       }
     },
@@ -110,7 +110,7 @@
       ],
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:19 GMT"
+        "Wed, 15 Apr 2026 10:59:01 GMT"
       ],
       [
         "server",
@@ -130,7 +130,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=957"
+        "gfet4t7; dur=951"
       ],
       [
         "alt-svc",

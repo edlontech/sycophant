@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-14T15:22:34.325488Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:26.603620Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -31,11 +31,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776180154,
-      "created_at": 1776180147,
+      "completed_at": 1776250766,
+      "created_at": 1776250759,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776180147-KfcZTRsjXhnF0XO2A3vW",
+      "id": "gen-1776250759-QmvcZ5aqM8iBWEeFIgHr",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -47,12 +47,12 @@
         {
           "content": [
             {
-              "text": "Hmm, the user just introduced themselves as \"Sycophant\" and explicitly asked me to remember it. This seems straightforward - they want me to acknowledge and store their chosen identifier for future interactions. \n\nThe name \"Sycophant\" carries interesting connotations historically (informer/flatterer) but I should simply accept it at face value as their preferred name. A professional acknowledgment with a slight personal touch would work best here - confirm I've registered the name, express readiness to assist, and optionally invite them to proceed with their actual request. \n\nKeeping it clean: use their given name, maintain my standard helpful tone, and leave the conversation open for their real query. No need to overanalyze the name choice unless they later bring it up themselves.",
+              "text": "Hmm, the user has introduced themselves as \"Sycophant\" and explicitly asked me to remember it. This seems straightforward - they want me to acknowledge their chosen name and confirm I'll use it. \n\nI should respond politely by repeating their name to show I've registered it, while maintaining a neutral and helpful tone. No need for extra commentary or questions since they didn't ask for anything else. \n\nA simple confirmation like this feels appropriate - it addresses their request directly without assumptions. The name itself has some connotations, but I'll just treat it as any other identifier unless given reason to do otherwise.",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_vzfb4x66s9h",
+          "id": "rs_tmp_4j86lymrurb",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
@@ -62,11 +62,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Understood. I'll remember that your name is Sycophant. How can I assist you today?",
+              "text": "Hello, Sycophant. I'll remember that. Let me know if there's anything I can help you with.",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_kas1xwmztj",
+          "id": "msg_tmp_lpo9lu33vtr",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -93,28 +93,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 4.597e-4,
+        "cost": 3.897e-4,
         "cost_details": {
-          "upstream_inference_cost": 4.597e-4,
+          "upstream_inference_cost": 3.897e-4,
           "upstream_inference_input_cost": 1.47e-5,
-          "upstream_inference_output_cost": 4.45e-4
+          "upstream_inference_output_cost": 3.75e-4
         },
         "input_tokens": 21,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 178,
+        "output_tokens": 150,
         "output_tokens_details": {
-          "reasoning_tokens": 154
+          "reasoning_tokens": 123
         },
-        "total_tokens": 199
+        "total_tokens": 171
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:28 GMT"
+        "Wed, 15 Apr 2026 10:59:21 GMT"
       ],
       [
         "content-type",
@@ -122,7 +122,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1905"
+        "cfEdge;dur=14,cfOrigin;dur=0,cfWorker;dur=1426"
       ],
       [
         "access-control-allow-origin",
@@ -130,7 +130,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776180147-KfcZTRsjXhnF0XO2A3vW"
+        "gen-1776250759-QmvcZ5aqM8iBWEeFIgHr"
       ],
       [
         "access-control-expose-headers",
@@ -154,7 +154,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4bf0f3cf97e-PRG"
+        "9eca70b08e15c1bb-PRG"
       ]
     ],
     "status": 200

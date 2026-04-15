@@ -1,0 +1,192 @@
+{
+  "metadata": {
+    "model": "unknown",
+    "provider": "generativelanguage.googleapis.com",
+    "recorded_at": "2026-04-15T10:59:07.805538Z",
+    "sycophant_version": "0.3.0"
+  },
+  "request": {
+    "body": {
+      "contents": [
+        {
+          "parts": [
+            {
+              "text": "Hi! I'm planning a trip to London."
+            }
+          ],
+          "role": "user"
+        },
+        {
+          "parts": [
+            {
+              "text": "That sounds exciting! London is a fantastic city.\n\nTo help you with your planning, could you let me know:\n\n*   **When** are you planning to visit?\n*   **How long** will you be staying?\n*   **What are you most interested in?** (e.g., history/museums, food/dining, theatre, shopping, or local neighborhoods)\n\nIf you'd like to check the current weather there now to get an idea of the climate, just let me know!"
+            }
+          ],
+          "role": "model"
+        },
+        {
+          "parts": [
+            {
+              "text": "What's the current weather in London? Use the get_weather tool."
+            }
+          ],
+          "role": "user"
+        },
+        {
+          "parts": [
+            {
+              "functionCall": {
+                "args": {
+                  "city": "London"
+                },
+                "name": "get_weather"
+              },
+              "thoughtSignature": "EjQKMgG+Pvb7053cKoKWX2vxqsWNqiMmxGUf0H15EDlMs9PV++UO/2PyHxGt+LLAmLh9TVHT"
+            }
+          ],
+          "role": "model"
+        },
+        {
+          "parts": [
+            {
+              "functionResponse": {
+                "name": "get_weather",
+                "response": {
+                  "content": "London: 18C, cloudy"
+                }
+              }
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "system_instruction": {
+        "parts": [
+          {
+            "text": "You are a helpful assistant. Be concise."
+          }
+        ]
+      },
+      "tools": [
+        {
+          "functionDeclarations": [
+            {
+              "description": "Get current weather for a city. Returns temperature and conditions.",
+              "name": "get_weather",
+              "parameters": {
+                "properties": {
+                  "city": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "city"
+                ],
+                "type": "object"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "x-goog-api-key",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite-preview:generateContent"
+  },
+  "response": {
+    "body": {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "The current weather in London is 18°C and cloudy.",
+                "thoughtSignature": "EjQKMgG+Pvb7cWPqlzw8S25nWEH8fYV6BlccLyforAKjWLgDH1eHbKVecKe6GyVmeVgqcHPH"
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "STOP",
+          "index": 0
+        }
+      ],
+      "modelVersion": "gemini-3.1-flash-lite-preview",
+      "responseId": "e2_faZiGK-XonsEPlI_DuA4",
+      "usageMetadata": {
+        "candidatesTokenCount": 14,
+        "promptTokenCount": 233,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 233
+          }
+        ],
+        "totalTokenCount": 247
+      }
+    },
+    "headers": [
+      [
+        "x-gemini-service-tier",
+        "standard"
+      ],
+      [
+        "content-type",
+        "application/json; charset=UTF-8"
+      ],
+      [
+        "vary",
+        "X-Origin"
+      ],
+      [
+        "vary",
+        "Referer"
+      ],
+      [
+        "vary",
+        "Origin,Accept-Encoding"
+      ],
+      [
+        "date",
+        "Wed, 15 Apr 2026 10:59:07 GMT"
+      ],
+      [
+        "server",
+        "scaffolding on HTTPServer2"
+      ],
+      [
+        "x-xss-protection",
+        "0"
+      ],
+      [
+        "x-frame-options",
+        "SAMEORIGIN"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server-timing",
+        "gfet4t7; dur=1232"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+      ],
+      [
+        "accept-ranges",
+        "none"
+      ]
+    ],
+    "status": 200
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "metadata": {
+    "model": "unknown",
+    "provider": "generativelanguage.googleapis.com",
+    "recorded_at": "2026-04-15T10:59:08.263966Z",
+    "streaming": true,
+    "sycophant_version": "0.3.0"
+  },
+  "request": {
+    "body": {
+      "contents": [
+        {
+          "parts": [
+            {
+              "text": "What's the weather in Paris? Use the get_weather tool."
+            }
+          ],
+          "role": "user"
+        },
+        {
+          "parts": [
+            {
+              "functionCall": {
+                "args": {
+                  "city": "Paris"
+                },
+                "name": "get_weather"
+              },
+              "thoughtSignature": "EjQKMgG+Pvb7fiYy/E/yrF1u70nCLYgjeQ35QwnCR4YUaDeCNjsDjKeztybCXBQyP5c+fJ92"
+            }
+          ],
+          "role": "model"
+        },
+        {
+          "parts": [
+            {
+              "functionResponse": {
+                "name": "get_weather",
+                "response": {
+                  "content": "Paris: 22C, sunny"
+                }
+              }
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "tools": [
+        {
+          "functionDeclarations": [
+            {
+              "description": "Get current weather for a city. Returns temperature and conditions.",
+              "name": "get_weather",
+              "parameters": {
+                "properties": {
+                  "city": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "city"
+                ],
+                "type": "object"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "x-goog-api-key",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite-preview:streamGenerateContent?alt=sse"
+  },
+  "response": {
+    "body": "data: {\"candidates\": [{\"content\": {\"parts\": [{\"text\": \"The weather\"}],\"role\": \"model\"},\"index\": 0}],\"usageMetadata\": {\"promptTokenCount\": 102,\"candidatesTokenCount\": 2,\"totalTokenCount\": 104,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\": 102}]},\"modelVersion\": \"gemini-3.1-flash-lite-preview\",\"responseId\": \"fG_fabi6DOSlkdUP0uDowQ4\"}\r\n\r\ndata: {\"candidates\": [{\"content\": {\"parts\": [{\"text\": \" in Paris is currently 22°C and sunny.\"}],\"role\": \"model\"},\"index\": 0}],\"usageMetadata\": {\"promptTokenCount\": 102,\"candidatesTokenCount\": 14,\"totalTokenCount\": 116,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\": 102}]},\"modelVersion\": \"gemini-3.1-flash-lite-preview\",\"responseId\": \"fG_fabi6DOSlkdUP0uDowQ4\"}\r\n\r\ndata: {\"candidates\": [{\"content\": {\"parts\": [{\"text\": \"\",\"thoughtSignature\": \"EjQKMgG+Pvb7qnSJh9Oz8oezmlvws+Xv56EcQfe+JHUbMj8cruJnWstbWQ7NIc39nCyIZJjT\"}],\"role\": \"model\"},\"finishReason\": \"STOP\",\"index\": 0}],\"usageMetadata\": {\"promptTokenCount\": 102,\"candidatesTokenCount\": 14,\"totalTokenCount\": 116,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\": 102}]},\"modelVersion\": \"gemini-3.1-flash-lite-preview\",\"responseId\": \"fG_fabi6DOSlkdUP0uDowQ4\"}\r\n\r\n",
+    "headers": [
+      [
+        "content-type",
+        "text/event-stream"
+      ],
+      [
+        "content-disposition",
+        "attachment"
+      ],
+      [
+        "vary",
+        "Origin"
+      ],
+      [
+        "vary",
+        "X-Origin"
+      ],
+      [
+        "vary",
+        "Referer"
+      ],
+      [
+        "date",
+        "Wed, 15 Apr 2026 10:59:08 GMT"
+      ],
+      [
+        "server",
+        "scaffolding on HTTPServer2"
+      ],
+      [
+        "x-xss-protection",
+        "0"
+      ],
+      [
+        "x-frame-options",
+        "SAMEORIGIN"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server-timing",
+        "gfet4t7; dur=582"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+      ]
+    ],
+    "status": 200
+  }
+}

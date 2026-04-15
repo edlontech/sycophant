@@ -1,0 +1,268 @@
+{
+  "metadata": {
+    "model": "gpt-5-nano",
+    "provider": "api.openai.com",
+    "recorded_at": "2026-04-15T10:59:27.091061Z",
+    "sycophant_version": "0.3.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "Hi! I'm planning a trip to London.",
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "Fantastic—London has so much to offer. To tailor a plan, could you share:\n- When are you visiting and how long you’ll stay?\n- Budget and lodging style (hotel, apartment, budget, mid-range)?\n- Your interests (history, art/museums, theater, food/markets, shopping, parks)?\n- Pace and any must-see attractions or any mobility constraints?\n- Do you want day trips outside central London?\n\nIf you want a quick starter, here are two solid options:\n\nOption A: 3–4 days (classic highlights)\n- Day 1: Westminster area (Big Ben, Parliament, Westminster Abbey), Buckingham Palace and St James’s Park; optional changing of the guard; South Bank stroll in the evening.\n- Day 2: The British Museum or The National Gallery (choose one), Covent Garden for lunch, optional West End show.\n- Day 3: Tower of London and Tower Bridge, stroll along the Thames to the Shard or London Eye (optional view), Borough Market for food.\n- Optional Day 4: Greenwich (Royal Observatory, Cutty Sark) or Kensington museums (Natural History, V&A, Science).\n\nOption B: 5–7 days (deep dive)\n- Central landmarks + neighborhoods: Westminster, Covent Garden, Soho, Mayfair, and the South Bank.\n- Museums: pick two in South Kensington (Natural History, Science, or V&A) and/or Tate Modern.\n- River & bridges: Thames cruise, Millennium Bridge, St Paul’s Cathedral.\n- Tower area + markets: Tower of London, Tower Bridge, Borough Market.\n- Day trip options: Windsor Castle, Bath, Oxford, or Greenwich.\n- Evening: West End show, a bite at a market or in Chinatown, or a rooftop bar.\n\nPractical tips\n- Getting around: Get an Oyster card or use contactless payment (fast and easy for Tube, trains, buses). Central London is very walkable; use buses to see the city from above ground.\n- Tickets: Book popular attractions (London Eye, Westminster Abbey, Buckingham Palace State Rooms) in advance. Many museums are free (don’t miss the British Museum, Natural History/Science/V&A if you’re in Kensington).\n- Neighborhoods to consider staying in: Covent Garden, South Bank, Bloomsbury, Marylebone, or Notting Hill for a different vibe.\n- Food: Borough Market for casual meals, Neal’s Yard for lunch spots, Chinatown for dinners, and afternoon tea if you want a classic experience.\n- Weather and packing: Pack an umbrella and layers; London weather is changeable. Comfortable walking shoes are key.\n- Safety/p tips: Keep an eye on belongings in crowds; use licensed taxis or rideshares at night.\n\nIf you share your dates, length of stay, and interests, I’ll craft a detailed day-by-day plan with a sensible route, timed entries, and packing checklist.",
+              "type": "output_text"
+            }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "content": "What's the current weather in London? Use the get_weather tool.",
+          "role": "user"
+        },
+        {
+          "content": [],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "arguments": "{\"city\":\"London\"}",
+          "call_id": "call_RnApgErM5CoW5CJ1AXBeqBFr",
+          "name": "get_weather",
+          "type": "function_call"
+        },
+        {
+          "call_id": "call_RnApgErM5CoW5CJ1AXBeqBFr",
+          "output": "London: 18C, cloudy",
+          "type": "function_call_output"
+        }
+      ],
+      "instructions": "You are a helpful assistant. Be concise.",
+      "model": "gpt-5-nano",
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "top_logprobs": 0,
+      "previous_response_id": null,
+      "tool_choice": "auto",
+      "service_tier": "default",
+      "status": "completed",
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ],
+      "id": "resp_053658a5defb537c0069df6f8af6b081968a8e1f1b6df71c14",
+      "temperature": 1.0,
+      "max_output_tokens": null,
+      "user": null,
+      "frequency_penalty": 0.0,
+      "error": null,
+      "model": "gpt-5-nano-2025-08-07",
+      "usage": {
+        "input_tokens": 718,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 360,
+        "output_tokens_details": {
+          "reasoning_tokens": 320
+        },
+        "total_tokens": 1078
+      },
+      "safety_identifier": null,
+      "object": "response",
+      "parallel_tool_calls": true,
+      "output": [
+        {
+          "id": "rs_053658a5defb537c0069df6f8b5acc8196b3af9d0cea28a7f3",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Current weather in London: 18°C and cloudy.\n\nWould you like a short forecast for the next couple of days or tips for rain-friendly plans?",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_053658a5defb537c0069df6f8e0fe8819680f9fc0729b62475",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "instructions": "You are a helpful assistant. Be concise.",
+      "store": true,
+      "presence_penalty": 0.0,
+      "incomplete_details": null,
+      "reasoning": {
+        "effort": "medium",
+        "summary": null
+      },
+      "completed_at": 1776250766,
+      "truncation": "disabled",
+      "top_p": 1.0,
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": null,
+      "metadata": {},
+      "prompt_cache_key": null,
+      "created_at": 1776250762,
+      "max_tool_calls": null
+    },
+    "headers": [
+      [
+        "date",
+        "Wed, 15 Apr 2026 10:59:27 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-length",
+        "2272"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "x-ratelimit-limit-requests",
+        "30000"
+      ],
+      [
+        "x-ratelimit-limit-tokens",
+        "180000000"
+      ],
+      [
+        "x-ratelimit-remaining-requests",
+        "29999"
+      ],
+      [
+        "x-ratelimit-remaining-tokens",
+        "180000000"
+      ],
+      [
+        "x-ratelimit-reset-requests",
+        "2ms"
+      ],
+      [
+        "x-ratelimit-reset-tokens",
+        "0s"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "x-request-id",
+        "req_ffd790aa35534b518ea47446f14d6f56"
+      ],
+      [
+        "openai-processing-ms",
+        "4061"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "cf-ray",
+        "9eca70c3eb37710c-PRG"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}

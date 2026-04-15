@@ -2,8 +2,8 @@
   "metadata": {
     "model": "google/gemini-2.5-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-14T15:22:25.831085Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:09.409974Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -31,11 +31,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776180145,
-      "created_at": 1776180144,
+      "completed_at": 1776250749,
+      "created_at": 1776250748,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776180144-ZsCKrOJtUuQR5vSJvmrp",
+      "id": "gen-1776250748-uSlSXPdoYH3KvnfgglN6",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -49,11 +49,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Hello.",
+              "text": "hello",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_gumixtjvn3u",
+          "id": "msg_tmp_3ponyi9zzhq",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -80,28 +80,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 7.4e-6,
+        "cost": 4.9e-6,
         "cost_details": {
-          "upstream_inference_cost": 7.4e-6,
+          "upstream_inference_cost": 4.9e-6,
           "upstream_inference_input_cost": 2.4e-6,
-          "upstream_inference_output_cost": 5.0e-6
+          "upstream_inference_output_cost": 2.5e-6
         },
         "input_tokens": 8,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 2,
+        "output_tokens": 1,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 10
+        "total_tokens": 9
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:25 GMT"
+        "Wed, 15 Apr 2026 10:59:09 GMT"
       ],
       [
         "content-type",
@@ -109,7 +109,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1012"
+        "cfEdge;dur=7,cfOrigin;dur=0,cfWorker;dur=445"
       ],
       [
         "access-control-allow-origin",
@@ -117,7 +117,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776180144-ZsCKrOJtUuQR5vSJvmrp"
+        "gen-1776250748-uSlSXPdoYH3KvnfgglN6"
       ],
       [
         "access-control-expose-headers",
@@ -141,7 +141,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4b0cc64f97e-PRG"
+        "9eca706cbf1ec1bb-PRG"
       ]
     ],
     "status": 200

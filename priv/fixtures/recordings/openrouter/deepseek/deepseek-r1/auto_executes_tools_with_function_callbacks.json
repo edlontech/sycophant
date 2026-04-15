@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-14T15:22:22.909896Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:04.247860Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -51,11 +51,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776180142,
-      "created_at": 1776180138,
+      "completed_at": 1776250744,
+      "created_at": 1776250740,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776180138-EY0cilRhHfoCMk3Tkdeh",
+      "id": "gen-1776250740-GHZ5hfhnaJC30qO7g7Zf",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -67,20 +67,20 @@
         {
           "content": [
             {
-              "text": "The user asks for the weather in Paris and explicitly says to use the get_weather tool. I'll call get_weather with city Paris.",
+              "text": "The user asks for the weather in Paris and requests using the get_weather tool. I'll call get_weather with city Paris.",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_vdmw4kkp5mo",
+          "id": "rs_tmp_gfvr7ihfa2i",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
         },
         {
           "arguments": "{\"city\": \"Paris\"}",
-          "call_id": "7efa70f056ee4eea9c986c7a4c0b908c",
-          "id": "fc_tmp_0rusiy74n5i",
+          "call_id": "a7f8a69f9d0c42e2be84ad14bc314467",
+          "id": "fc_tmp_ohakci4o6z",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -126,28 +126,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 4.178e-4,
+        "cost": 4.128e-4,
         "cost_details": {
-          "upstream_inference_cost": 4.178e-4,
+          "upstream_inference_cost": 4.128e-4,
           "upstream_inference_input_cost": 2.303e-4,
-          "upstream_inference_output_cost": 1.875e-4
+          "upstream_inference_output_cost": 1.825e-4
         },
         "input_tokens": 329,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 75,
+        "output_tokens": 73,
         "output_tokens_details": {
-          "reasoning_tokens": 29
+          "reasoning_tokens": 27
         },
-        "total_tokens": 404
+        "total_tokens": 402
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:20 GMT"
+        "Wed, 15 Apr 2026 10:59:02 GMT"
       ],
       [
         "content-type",
@@ -155,7 +155,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=2366"
+        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=1758"
       ],
       [
         "access-control-allow-origin",
@@ -163,7 +163,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776180138-EY0cilRhHfoCMk3Tkdeh"
+        "gen-1776250740-GHZ5hfhnaJC30qO7g7Zf"
       ],
       [
         "access-control-expose-headers",
@@ -187,7 +187,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4896924f97e-PRG"
+        "9eca70372ce5c1bb-PRG"
       ]
     ],
     "status": 200

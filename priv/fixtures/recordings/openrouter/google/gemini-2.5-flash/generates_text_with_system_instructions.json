@@ -2,8 +2,8 @@
   "metadata": {
     "model": "google/gemini-2.5-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-14T15:22:23.194651Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:08.885594Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -32,11 +32,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776180143,
-      "created_at": 1776180142,
+      "completed_at": 1776250748,
+      "created_at": 1776250748,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776180142-BCMw5ChN1EPba7fXJkpM",
+      "id": "gen-1776250748-vKHS7gzwcRIlPuO21Yl8",
       "incomplete_details": null,
       "instructions": "You are a calculator. Only respond with numbers.",
       "max_output_tokens": null,
@@ -54,7 +54,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_622g8vj43m",
+          "id": "msg_tmp_pxizi0k21z",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -102,7 +102,7 @@
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:23 GMT"
+        "Wed, 15 Apr 2026 10:59:08 GMT"
       ],
       [
         "content-type",
@@ -110,7 +110,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=471"
+        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=440"
       ],
       [
         "access-control-allow-origin",
@@ -118,7 +118,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776180142-BCMw5ChN1EPba7fXJkpM"
+        "gen-1776250748-vKHS7gzwcRIlPuO21Yl8"
       ],
       [
         "access-control-expose-headers",
@@ -142,7 +142,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4a3bcabf97e-PRG"
+        "9eca70699b2fc1bb-PRG"
       ]
     ],
     "status": 200

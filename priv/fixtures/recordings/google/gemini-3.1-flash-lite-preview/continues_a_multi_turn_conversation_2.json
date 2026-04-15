@@ -1,0 +1,137 @@
+{
+  "metadata": {
+    "model": "unknown",
+    "provider": "generativelanguage.googleapis.com",
+    "recorded_at": "2026-04-15T10:59:13.818130Z",
+    "sycophant_version": "0.3.0"
+  },
+  "request": {
+    "body": {
+      "contents": [
+        {
+          "parts": [
+            {
+              "text": "My name is Sycophant. Remember it."
+            }
+          ],
+          "role": "user"
+        },
+        {
+          "parts": [
+            {
+              "text": "Understood, Sycophant. I have noted your name. How can I assist you today?"
+            }
+          ],
+          "role": "model"
+        },
+        {
+          "parts": [
+            {
+              "text": "What is my name?"
+            }
+          ],
+          "role": "user"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "x-goog-api-key",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite-preview:generateContent"
+  },
+  "response": {
+    "body": {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "Your name is Sycophant.",
+                "thoughtSignature": "EjQKMgG+Pvb7OhfWIFHzXwf+UheZX4Lu44m4XVe1EOBbn9IWtGZ1o9EAfHLnquS/SxreBqAN"
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "STOP",
+          "index": 0
+        }
+      ],
+      "modelVersion": "gemini-3.1-flash-lite-preview",
+      "responseId": "gW_fadSDLeSlkdUPxuDowQ4",
+      "usageMetadata": {
+        "candidatesTokenCount": 8,
+        "promptTokenCount": 40,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 40
+          }
+        ],
+        "totalTokenCount": 48
+      }
+    },
+    "headers": [
+      [
+        "x-gemini-service-tier",
+        "standard"
+      ],
+      [
+        "content-type",
+        "application/json; charset=UTF-8"
+      ],
+      [
+        "vary",
+        "X-Origin"
+      ],
+      [
+        "vary",
+        "Referer"
+      ],
+      [
+        "vary",
+        "Origin,Accept-Encoding"
+      ],
+      [
+        "date",
+        "Wed, 15 Apr 2026 10:59:13 GMT"
+      ],
+      [
+        "server",
+        "scaffolding on HTTPServer2"
+      ],
+      [
+        "x-xss-protection",
+        "0"
+      ],
+      [
+        "x-frame-options",
+        "SAMEORIGIN"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server-timing",
+        "gfet4t7; dur=995"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+      ],
+      [
+        "accept-ranges",
+        "none"
+      ]
+    ],
+    "status": 200
+  }
+}

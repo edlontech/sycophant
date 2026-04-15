@@ -1,0 +1,156 @@
+{
+  "metadata": {
+    "model": "gpt-5-nano",
+    "provider": "api.openai.com",
+    "recorded_at": "2026-04-15T10:59:11.555685Z",
+    "streaming": true,
+    "sycophant_version": "0.3.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "role": "user"
+        },
+        {
+          "content": [],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "arguments": "{\"city\":\"Paris\"}",
+          "call_id": "call_fNnxvG1N2cbrFMmQaNtmj2bv",
+          "name": "get_weather",
+          "type": "function_call"
+        },
+        {
+          "call_id": "call_fNnxvG1N2cbrFMmQaNtmj2bv",
+          "output": "Paris: 22C, sunny",
+          "type": "function_call_output"
+        }
+      ],
+      "model": "gpt-5-nano",
+      "stream": true,
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": "event: response.created\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"resp_0db3e66ba7db4af40069df6f7c2f5c8190a2633269b674eb1e\",\"object\":\"response\",\"created_at\":1776250748,\"status\":\"in_progress\",\"background\":false,\"completed_at\":null,\"error\":null,\"frequency_penalty\":0.0,\"incomplete_details\":null,\"instructions\":null,\"max_output_tokens\":null,\"max_tool_calls\":null,\"model\":\"gpt-5-nano-2025-08-07\",\"output\":[],\"parallel_tool_calls\":true,\"presence_penalty\":0.0,\"previous_response_id\":null,\"prompt_cache_key\":null,\"prompt_cache_retention\":null,\"reasoning\":{\"effort\":\"medium\",\"summary\":null},\"safety_identifier\":null,\"service_tier\":\"auto\",\"store\":true,\"temperature\":1.0,\"text\":{\"format\":{\"type\":\"text\"},\"verbosity\":\"medium\"},\"tool_choice\":\"auto\",\"tools\":[{\"type\":\"function\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"name\":\"get_weather\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"},\"strict\":true}],\"top_logprobs\":0,\"top_p\":1.0,\"truncation\":\"disabled\",\"usage\":null,\"user\":null,\"metadata\":{}},\"sequence_number\":0}\n\nevent: response.in_progress\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"resp_0db3e66ba7db4af40069df6f7c2f5c8190a2633269b674eb1e\",\"object\":\"response\",\"created_at\":1776250748,\"status\":\"in_progress\",\"background\":false,\"completed_at\":null,\"error\":null,\"frequency_penalty\":0.0,\"incomplete_details\":null,\"instructions\":null,\"max_output_tokens\":null,\"max_tool_calls\":null,\"model\":\"gpt-5-nano-2025-08-07\",\"output\":[],\"parallel_tool_calls\":true,\"presence_penalty\":0.0,\"previous_response_id\":null,\"prompt_cache_key\":null,\"prompt_cache_retention\":null,\"reasoning\":{\"effort\":\"medium\",\"summary\":null},\"safety_identifier\":null,\"service_tier\":\"auto\",\"store\":true,\"temperature\":1.0,\"text\":{\"format\":{\"type\":\"text\"},\"verbosity\":\"medium\"},\"tool_choice\":\"auto\",\"tools\":[{\"type\":\"function\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"name\":\"get_weather\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"},\"strict\":true}],\"top_logprobs\":0,\"top_p\":1.0,\"truncation\":\"disabled\",\"usage\":null,\"user\":null,\"metadata\":{}},\"sequence_number\":1}\n\nevent: response.output_item.added\ndata: {\"type\":\"response.output_item.added\",\"item\":{\"id\":\"rs_0db3e66ba7db4af40069df6f7c6afc81908f64cb4b0902f973\",\"type\":\"reasoning\",\"summary\":[]},\"output_index\":0,\"sequence_number\":2}\n\nevent: response.output_item.done\ndata: {\"type\":\"response.output_item.done\",\"item\":{\"id\":\"rs_0db3e66ba7db4af40069df6f7c6afc81908f64cb4b0902f973\",\"type\":\"reasoning\",\"summary\":[]},\"output_index\":0,\"sequence_number\":3}\n\nevent: response.output_item.added\ndata: {\"type\":\"response.output_item.added\",\"item\":{\"id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"type\":\"message\",\"status\":\"in_progress\",\"content\":[],\"role\":\"assistant\"},\"output_index\":1,\"sequence_number\":4}\n\nevent: response.content_part.added\ndata: {\"type\":\"response.content_part.added\",\"content_index\":0,\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"output_index\":1,\"part\":{\"type\":\"output_text\",\"annotations\":[],\"logprobs\":[],\"text\":\"\"},\"sequence_number\":5}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\"Paris\",\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"obfuscation\":\"lsAF2xprMRF\",\"output_index\":1,\"sequence_number\":6}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" is\",\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"obfuscation\":\"URalIqnb4WP9e\",\"output_index\":1,\"sequence_number\":7}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" \",\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"obfuscation\":\"cr83seeryZUzWEv\",\"output_index\":1,\"sequence_number\":8}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\"22\",\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"obfuscation\":\"fvxIKpbzUE2mLW\",\"output_index\":1,\"sequence_number\":9}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\"°C\",\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"obfuscation\":\"Cmeb8ZbZYKLv28\",\"output_index\":1,\"sequence_number\":10}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" and\",\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"obfuscation\":\"dn51HR0rXzLc\",\"output_index\":1,\"sequence_number\":11}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" sunny\",\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"obfuscation\":\"o5OkZgoPwh\",\"output_index\":1,\"sequence_number\":12}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" right\",\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"obfuscation\":\"Vn7WrQkoby\",\"output_index\":1,\"sequence_number\":13}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" now\",\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"obfuscation\":\"asrvN34qXOt1\",\"output_index\":1,\"sequence_number\":14}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\".\",\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"obfuscation\":\"q5JCUxBS7xGWazk\",\"output_index\":1,\"sequence_number\":15}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" Want\",\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"obfuscation\":\"ii6bnBqnV3U\",\"output_index\":1,\"sequence_number\":16}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" an\",\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"obfuscation\":\"yuJqKK26tac48\",\"output_index\":1,\"sequence_number\":17}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" hourly\",\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"obfuscation\":\"KJtlXdSVl\",\"output_index\":1,\"sequence_number\":18}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" forecast\",\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"obfuscation\":\"E5aLjlC\",\"output_index\":1,\"sequence_number\":19}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" or\",\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"obfuscation\":\"DcUfUjHIpm7OA\",\"output_index\":1,\"sequence_number\":20}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" the\",\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"obfuscation\":\"Wxif6nKwvoiF\",\"output_index\":1,\"sequence_number\":21}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" next\",\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"obfuscation\":\"QZOmvWh6XFU\",\"output_index\":1,\"sequence_number\":22}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" few\",\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"obfuscation\":\"2GLqqwp5Zqk2\",\"output_index\":1,\"sequence_number\":23}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" days\",\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"obfuscation\":\"8gj7ErkaBJN\",\"output_index\":1,\"sequence_number\":24}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\"?\",\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"obfuscation\":\"nMPjIiRm8uM33t8\",\"output_index\":1,\"sequence_number\":25}\n\nevent: response.output_text.done\ndata: {\"type\":\"response.output_text.done\",\"content_index\":0,\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"logprobs\":[],\"output_index\":1,\"sequence_number\":26,\"text\":\"Paris is 22°C and sunny right now. Want an hourly forecast or the next few days?\"}\n\nevent: response.content_part.done\ndata: {\"type\":\"response.content_part.done\",\"content_index\":0,\"item_id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"output_index\":1,\"part\":{\"type\":\"output_text\",\"annotations\":[],\"logprobs\":[],\"text\":\"Paris is 22°C and sunny right now. Want an hourly forecast or the next few days?\"},\"sequence_number\":27}\n\nevent: response.output_item.done\ndata: {\"type\":\"response.output_item.done\",\"item\":{\"id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"type\":\"message\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"annotations\":[],\"logprobs\":[],\"text\":\"Paris is 22°C and sunny right now. Want an hourly forecast or the next few days?\"}],\"role\":\"assistant\"},\"output_index\":1,\"sequence_number\":28}\n\nevent: response.completed\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_0db3e66ba7db4af40069df6f7c2f5c8190a2633269b674eb1e\",\"object\":\"response\",\"created_at\":1776250748,\"status\":\"completed\",\"background\":false,\"completed_at\":1776250751,\"error\":null,\"frequency_penalty\":0.0,\"incomplete_details\":null,\"instructions\":null,\"max_output_tokens\":null,\"max_tool_calls\":null,\"model\":\"gpt-5-nano-2025-08-07\",\"output\":[{\"id\":\"rs_0db3e66ba7db4af40069df6f7c6afc81908f64cb4b0902f973\",\"type\":\"reasoning\",\"summary\":[]},{\"id\":\"msg_0db3e66ba7db4af40069df6f7f26a081908b47ad4e4d096fdd\",\"type\":\"message\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"annotations\":[],\"logprobs\":[],\"text\":\"Paris is 22°C and sunny right now. Want an hourly forecast or the next few days?\"}],\"role\":\"assistant\"}],\"parallel_tool_calls\":true,\"presence_penalty\":0.0,\"previous_response_id\":null,\"prompt_cache_key\":null,\"prompt_cache_retention\":null,\"reasoning\":{\"effort\":\"medium\",\"summary\":null},\"safety_identifier\":null,\"service_tier\":\"default\",\"store\":true,\"temperature\":1.0,\"text\":{\"format\":{\"type\":\"text\"},\"verbosity\":\"medium\"},\"tool_choice\":\"auto\",\"tools\":[{\"type\":\"function\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"name\":\"get_weather\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"},\"strict\":true}],\"top_logprobs\":0,\"top_p\":1.0,\"truncation\":\"disabled\",\"usage\":{\"input_tokens\":93,\"input_tokens_details\":{\"cached_tokens\":0},\"output_tokens\":311,\"output_tokens_details\":{\"reasoning_tokens\":256},\"total_tokens\":404},\"user\":null,\"metadata\":{}},\"sequence_number\":29}\n\n",
+    "headers": [
+      [
+        "date",
+        "Wed, 15 Apr 2026 10:59:08 GMT"
+      ],
+      [
+        "content-type",
+        "text/event-stream; charset=utf-8"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "x-ratelimit-limit-requests",
+        "30000"
+      ],
+      [
+        "x-ratelimit-limit-tokens",
+        "180000000"
+      ],
+      [
+        "x-ratelimit-remaining-requests",
+        "29999"
+      ],
+      [
+        "x-ratelimit-remaining-tokens",
+        "179999418"
+      ],
+      [
+        "x-ratelimit-reset-requests",
+        "2ms"
+      ],
+      [
+        "x-ratelimit-reset-tokens",
+        "0s"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "x-request-id",
+        "req_40ad39258cbf49909568078080fbbf84"
+      ],
+      [
+        "openai-processing-ms",
+        "107"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "cf-ray",
+        "9eca70678afe710c-PRG"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}

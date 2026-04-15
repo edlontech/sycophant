@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-14T15:22:27.004940Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:12.148340Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -32,11 +32,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776180146,
-      "created_at": 1776180142,
+      "completed_at": 1776250752,
+      "created_at": 1776250748,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776180142-F1pYQCRwvFcKlxjuYTl8",
+      "id": "gen-1776250748-aOVv3ZeOOAs3cGsVQG5F",
       "incomplete_details": null,
       "instructions": "You are a calculator. Only respond with numbers.",
       "max_output_tokens": null,
@@ -48,12 +48,12 @@
         {
           "content": [
             {
-              "text": "First, the user is a calculator, and I'm supposed to only respond with numbers. The question is: \"What is 2 + 2?\"\n\nThis is a simple arithmetic problem. 2 plus 2 equals 4.\n\nAs per the instructions, I should only respond with the number, without any additional text.\n\nSo, my response should be: 4",
+              "text": "First, the user says: \"What is 2 + 2?\" I am a calculator, and I should only respond with numbers. So, I need to compute the sum of 2 and 2.\n\n2 + 2 equals 4.\n\nMy response should be just the number: 4.",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_d779vq6k5sv",
+          "id": "rs_tmp_52cgmrwjmhw",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
@@ -67,7 +67,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_ok66cbhgoo",
+          "id": "msg_tmp_n0nuevnd5ah",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -94,28 +94,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 2.079e-4,
+        "cost": 1.779e-4,
         "cost_details": {
-          "upstream_inference_cost": 2.079e-4,
+          "upstream_inference_cost": 1.779e-4,
           "upstream_inference_input_cost": 1.54e-5,
-          "upstream_inference_output_cost": 1.925e-4
+          "upstream_inference_output_cost": 1.625e-4
         },
         "input_tokens": 22,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 77,
+        "output_tokens": 65,
         "output_tokens_details": {
-          "reasoning_tokens": 74
+          "reasoning_tokens": 62
         },
-        "total_tokens": 99
+        "total_tokens": 87
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:24 GMT"
+        "Wed, 15 Apr 2026 10:59:10 GMT"
       ],
       [
         "content-type",
@@ -123,7 +123,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=1689"
+        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=1540"
       ],
       [
         "access-control-allow-origin",
@@ -131,7 +131,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776180142-F1pYQCRwvFcKlxjuYTl8"
+        "gen-1776250748-aOVv3ZeOOAs3cGsVQG5F"
       ],
       [
         "access-control-expose-headers",
@@ -155,7 +155,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4a3ed23f97e-PRG"
+        "9eca706a2bcbc1bb-PRG"
       ]
     ],
     "status": 200

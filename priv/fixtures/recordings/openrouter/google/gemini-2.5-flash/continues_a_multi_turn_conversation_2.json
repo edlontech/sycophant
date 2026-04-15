@@ -2,8 +2,8 @@
   "metadata": {
     "model": "google/gemini-2.5-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-14T15:22:24.729502Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:10.485349Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "Alright, Sycophant, I've got your name noted. How can I help you today?",
+              "text": "Okay, Sycophant, I've noted that. How can I help you today?",
               "type": "output_text"
             }
           ],
@@ -46,11 +46,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776180144,
-      "created_at": 1776180144,
+      "completed_at": 1776250750,
+      "created_at": 1776250750,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776180144-YjCr4ITjXtIMEe2avOLd",
+      "id": "gen-1776250750-JItZewmHepVsWJpkgBf6",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -68,7 +68,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_f9e2nv19udd",
+          "id": "msg_tmp_v4cqzpqi1b",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -95,13 +95,13 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 3.14e-5,
+        "cost": 3.08e-5,
         "cost_details": {
-          "upstream_inference_cost": 3.14e-5,
-          "upstream_inference_input_cost": 1.14e-5,
+          "upstream_inference_cost": 3.08e-5,
+          "upstream_inference_input_cost": 1.08e-5,
           "upstream_inference_output_cost": 2.0e-5
         },
-        "input_tokens": 38,
+        "input_tokens": 36,
         "input_tokens_details": {
           "cached_tokens": 0
         },
@@ -110,13 +110,13 @@
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 46
+        "total_tokens": 44
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:24 GMT"
+        "Wed, 15 Apr 2026 10:59:10 GMT"
       ],
       [
         "content-type",
@@ -124,7 +124,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=599"
+        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=401"
       ],
       [
         "access-control-allow-origin",
@@ -132,7 +132,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776180144-YjCr4ITjXtIMEe2avOLd"
+        "gen-1776250750-JItZewmHepVsWJpkgBf6"
       ],
       [
         "access-control-expose-headers",
@@ -156,7 +156,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4ac0ecff97e-PRG"
+        "9eca70734f4fc1bb-PRG"
       ]
     ],
     "status": 200

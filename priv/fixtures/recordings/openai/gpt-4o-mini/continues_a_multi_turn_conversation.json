@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-14T15:22:24.974125Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:09.657219Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -43,7 +43,7 @@
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_0239df27991e9a4d0069de5baeb4a0819493316fc5bc251012",
+      "id": "resp_054a4657389707ab0069df6f7cc65881949ef972748d319fca",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -55,11 +55,11 @@
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 16,
+        "output_tokens": 18,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 34
+        "total_tokens": 36
       },
       "safety_identifier": null,
       "object": "response",
@@ -70,11 +70,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Got it, Sycophant! How can I assist you today?",
+              "text": "Nice to meet you, Sycophant! How can I assist you today?",
               "type": "output_text"
             }
           ],
-          "id": "msg_0239df27991e9a4d0069de5bb054808194815384a19a5a0378",
+          "id": "msg_054a4657389707ab0069df6f7d2c608194aa3d3be94a516c90",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -88,7 +88,7 @@
         "effort": null,
         "summary": null
       },
-      "completed_at": 1776180144,
+      "completed_at": 1776250749,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -97,13 +97,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776180142,
+      "created_at": 1776250748,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:24 GMT"
+        "Wed, 15 Apr 2026 10:59:09 GMT"
       ],
       [
         "content-type",
@@ -111,7 +111,7 @@
       ],
       [
         "content-length",
-        "1574"
+        "1584"
       ],
       [
         "server",
@@ -155,11 +155,11 @@
       ],
       [
         "x-request-id",
-        "req_f748c42b965f4c18ba2dc7e710fc2b80"
+        "req_12a730c7747540448dd4f978558537a7"
       ],
       [
         "openai-processing-ms",
-        "2213"
+        "829"
       ],
       [
         "cf-cache-status",
@@ -179,7 +179,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4a358d5ae1d-PRG"
+        "9eca706b4f40710c-PRG"
       ],
       [
         "alt-svc",

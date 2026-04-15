@@ -2,8 +2,8 @@
   "metadata": {
     "model": "embed-v-4-0",
     "provider": "azure",
-    "recorded_at": "2026-04-14T15:22:26.039908Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:20.529093Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -1572,7 +1572,7 @@
           "object": "embedding"
         }
       ],
-      "id": "b229eeab-a549-40d7-8932-a5477d384728",
+      "id": "5b4368f7-74b4-44fd-94ed-63ede014e24b",
       "model": "embed-v4.0",
       "object": "list",
       "usage": {
@@ -1624,7 +1624,7 @@
       ],
       [
         "apim-request-id",
-        "56c3163f-055c-471c-86d9-e301038ea6c1"
+        "71d8c4b2-2e8c-48af-83cb-0d9cdaef88d5"
       ],
       [
         "x-content-type-options",
@@ -1648,7 +1648,7 @@
       ],
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:25 GMT"
+        "Wed, 15 Apr 2026 10:59:20 GMT"
       ]
     ],
     "status": 200

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-14T15:22:22.115916Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:04.102337Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -17,7 +17,7 @@
           "role": "user"
         },
         {
-          "content": "That sounds exciting! How can I assist you with your trip to London?",
+          "content": "That's great! How can I assist you with your trip to London?",
           "role": "assistant"
         },
         {
@@ -33,7 +33,7 @@
                 "arguments": "{\"city\":\"London\"}",
                 "name": "get_weather"
               },
-              "id": "call_55v16PjI5eyiVOqAAbLFxFL9",
+              "id": "call_Z2tEhHuZPyiRmOPeFDa2dkO0",
               "type": "function"
             }
           ]
@@ -41,7 +41,7 @@
         {
           "content": "London: 18C, cloudy",
           "role": "tool",
-          "tool_call_id": "call_55v16PjI5eyiVOqAAbLFxFL9"
+          "tool_call_id": "call_Z2tEhHuZPyiRmOPeFDa2dkO0"
         }
       ],
       "model": "gpt-3.5-turbo",
@@ -96,8 +96,8 @@
           }
         }
       ],
-      "created": 1776180141,
-      "id": "chatcmpl-DUZsjWNh7UNPG1Pa2kzzbn2deO1c7",
+      "created": 1776250743,
+      "id": "chatcmpl-DUsFTGAoTIVyyWCeP7u1iDI1bWG5M",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -121,7 +121,7 @@
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:22 GMT"
+        "Wed, 15 Apr 2026 10:59:04 GMT"
       ],
       [
         "content-type",
@@ -129,7 +129,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b49c5bb8ae1d-PRG"
+        "9eca70487da1710c-PRG"
       ],
       [
         "cf-cache-status",
@@ -157,7 +157,7 @@
       ],
       [
         "openai-processing-ms",
-        "481"
+        "824"
       ],
       [
         "openai-project",
@@ -181,11 +181,11 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "8999"
+        "8998"
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "1999937"
+        "1999939"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -197,7 +197,7 @@
       ],
       [
         "x-request-id",
-        "req_2cfa11b7edd144b28dca99da0f94908e"
+        "req_066710476b404c2aaf9873fd2f53d9af"
       ],
       [
         "set-cookie",

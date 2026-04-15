@@ -2,9 +2,9 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-04-14T15:22:24.080502Z",
+    "recorded_at": "2026-04-15T10:59:09.134381Z",
     "streaming": true,
-    "sycophant_version": "0.2.0"
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -33,7 +33,7 @@
     "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse"
   },
   "response": {
-    "body": "data: {\"candidates\": [{\"content\": {\"parts\": [{\"text\": \"hello\"}],\"role\": \"model\"},\"finishReason\": \"STOP\",\"index\": 0}],\"usageMetadata\": {\"promptTokenCount\": 9,\"candidatesTokenCount\": 1,\"totalTokenCount\": 32,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\": 9}],\"thoughtsTokenCount\": 22},\"modelVersion\": \"gemini-2.5-flash\",\"responseId\": \"r1veabeFI6vnxs0Pyuay4QQ\"}\r\n\r\n",
+    "body": "data: {\"candidates\": [{\"content\": {\"parts\": [{\"text\": \"hello\"}],\"role\": \"model\"},\"finishReason\": \"STOP\",\"index\": 0}],\"usageMetadata\": {\"promptTokenCount\": 9,\"candidatesTokenCount\": 1,\"totalTokenCount\": 30,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\": 9}],\"thoughtsTokenCount\": 20},\"modelVersion\": \"gemini-2.5-flash\",\"responseId\": \"fG_fadrxLPnMnsEPi6e_kQE\"}\r\n\r\n",
     "headers": [
       [
         "content-type",
@@ -57,7 +57,7 @@
       ],
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:24 GMT"
+        "Wed, 15 Apr 2026 10:59:09 GMT"
       ],
       [
         "server",
@@ -77,7 +77,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=546"
+        "gfet4t7; dur=439"
       ],
       [
         "alt-svc",

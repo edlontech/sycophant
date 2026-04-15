@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-04-14T15:22:19.494753Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:02.394884Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -65,7 +65,7 @@
                   },
                   "name": "get_weather"
                 },
-                "thoughtSignature": "CuUBAb4+9vshlusYU6uHNwOcFw4MKYlreqrxemoE0rClPrhsvzKCYZpZVyX5gtRguiS+IKSjIxt1ATfKez5fL3L55gLGYLzCOm7jKhT2qOKlgXQ2b4EXkQ+D6ffqRzMh7NOJZGKnj+g3HC/VlMIPxpIFeYLNoaW+b9s68PIjAAfzSBOSBkugmghHgNnaDCx1GrU2cu2gUcKlD5vpsN0FMGwvPHylGCBOFIazwpcR95oO/h5moCrSxVClIw/QJYrBjlX3j4ilnRxK25PKLEptxPtxAsVeCMzMSg6tn30H47F4QOMs9aOWUg=="
+                "thoughtSignature": "CpQCAb4+9vu8yAtiIZuFXlXRXkeMwhAghM9aR5v7XOBEH4FzALwDc4IfG5DlHfvMrxZUjpklvQLKvTaA1JmR4kRoYjV2I05steOUwGgT/fKggId6k54Eqm++FTRemL1XA6Dqm9moXbIi50fo/DO5LuronODkfVEdhLn/1qN5ZemCluHBnIBBSgW8xsBTHTVNkw+PlNXqIMb7FEkeltVVEKfU86MgbItwo2uZo3asLfLb591375V8PaN9VtTuVO18wMsBgQxBPWvDBT66Df124BOik1IlQ759LXfbq4QaNjL+s5VXdF7KXe+lHM1V+jqd94J+OW2y2dPbcw3AnoJMWNui6bvucxQj3sI92XcaMrzdbvv12FsG"
               }
             ],
             "role": "model"
@@ -76,7 +76,7 @@
         }
       ],
       "modelVersion": "gemini-2.5-flash",
-      "responseId": "qlveaYGRIfiIvdIPnt6x4Qs",
+      "responseId": "dW_faaGnFN_qkdUPlseE2Aw",
       "usageMetadata": {
         "candidatesTokenCount": 15,
         "promptTokenCount": 60,
@@ -86,8 +86,8 @@
             "tokenCount": 60
           }
         ],
-        "thoughtsTokenCount": 49,
-        "totalTokenCount": 124
+        "thoughtsTokenCount": 61,
+        "totalTokenCount": 136
       }
     },
     "headers": [
@@ -113,7 +113,7 @@
       ],
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:19 GMT"
+        "Wed, 15 Apr 2026 10:59:02 GMT"
       ],
       [
         "server",
@@ -133,7 +133,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=1016"
+        "gfet4t7; dur=1128"
       ],
       [
         "alt-svc",

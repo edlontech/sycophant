@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-14T15:22:26.370216Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:06.520653Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -15,22 +15,26 @@
         {
           "content": [
             {
-              "text": "The user asks for the weather in Paris and explicitly says to use the get_weather tool. I'll call get_weather with city Paris.",
-              "type": "output_text"
+              "text": "The user asks for the weather in Paris and requests using the get_weather tool. I'll call get_weather with city Paris.",
+              "type": "reasoning_text"
             }
           ],
+          "type": "reasoning"
+        },
+        {
+          "content": [],
           "role": "assistant",
           "status": "completed",
           "type": "message"
         },
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "7efa70f056ee4eea9c986c7a4c0b908c",
+          "call_id": "a7f8a69f9d0c42e2be84ad14bc314467",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "7efa70f056ee4eea9c986c7a4c0b908c",
+          "call_id": "a7f8a69f9d0c42e2be84ad14bc314467",
           "output": "Paris: 22C, sunny",
           "type": "function_call_output"
         }
@@ -73,11 +77,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776180146,
-      "created_at": 1776180142,
+      "completed_at": 1776250746,
+      "created_at": 1776250744,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776180142-z3QCpKggdrUVc5ipLgza",
+      "id": "gen-1776250744-X8UZQWuKsHBLtjv38bp8",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -89,12 +93,12 @@
         {
           "content": [
             {
-              "text": "I have the weather information: Paris is 22°C and sunny. I'll respond directly with that.\n\n<｜DSML｜function_calls>\n<｜DSML｜invoke name=\"get_weather\">\n<｜DSML｜parameter name=\"city\" string=\"true\">Paris</｜DSML｜parameter>\n</｜DSML｜invoke>\n</｜DSML｜function_calls>",
+              "text": "The weather in Paris is 22°C and sunny.",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_xwgtyccxvo",
+          "id": "rs_tmp_o7ahdvmhi9",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
@@ -140,28 +144,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 4.632e-4,
+        "cost": 3.111e-4,
         "cost_details": {
-          "upstream_inference_cost": 4.632e-4,
-          "upstream_inference_input_cost": 2.982e-4,
-          "upstream_inference_output_cost": 1.65e-4
+          "upstream_inference_cost": 3.111e-4,
+          "upstream_inference_input_cost": 2.786e-4,
+          "upstream_inference_output_cost": 3.25e-5
         },
-        "input_tokens": 426,
+        "input_tokens": 398,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 66,
+        "output_tokens": 13,
         "output_tokens_details": {
-          "reasoning_tokens": 66
+          "reasoning_tokens": 13
         },
-        "total_tokens": 492
+        "total_tokens": 411
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:24 GMT"
+        "Wed, 15 Apr 2026 10:59:06 GMT"
       ],
       [
         "content-type",
@@ -169,7 +173,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=1644"
+        "cfEdge;dur=6,cfOrigin;dur=0,cfWorker;dur=1847"
       ],
       [
         "access-control-allow-origin",
@@ -177,7 +181,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776180142-z3QCpKggdrUVc5ipLgza"
+        "gen-1776250744-X8UZQWuKsHBLtjv38bp8"
       ],
       [
         "access-control-expose-headers",
@@ -201,7 +205,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4a55922f97e-PRG"
+        "9eca704fbdddc1bb-PRG"
       ]
     ],
     "status": 200

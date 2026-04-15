@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-14T15:22:22.998448Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:04.895948Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -17,7 +17,7 @@
           "role": "user"
         },
         {
-          "content": "That sounds exciting! How can I assist you with your trip to London?",
+          "content": "That's great! How can I assist you with your trip to London?",
           "role": "assistant"
         },
         {
@@ -33,7 +33,7 @@
                 "arguments": "{\"city\":\"London\"}",
                 "name": "get_weather"
               },
-              "id": "call_55v16PjI5eyiVOqAAbLFxFL9",
+              "id": "call_Z2tEhHuZPyiRmOPeFDa2dkO0",
               "type": "function"
             }
           ]
@@ -41,7 +41,7 @@
         {
           "content": "London: 18C, cloudy",
           "role": "tool",
-          "tool_call_id": "call_55v16PjI5eyiVOqAAbLFxFL9"
+          "tool_call_id": "call_Z2tEhHuZPyiRmOPeFDa2dkO0"
         },
         {
           "content": "The current weather in London is 18°C and cloudy.",
@@ -98,20 +98,20 @@
           "logprobs": null,
           "message": {
             "annotations": [],
-            "content": "Yes, it might be a good idea to bring an umbrella since it is currently cloudy in London.",
+            "content": "Yes, it's a good idea to bring an umbrella with you to London as it is currently cloudy.",
             "refusal": null,
             "role": "assistant"
           }
         }
       ],
-      "created": 1776180142,
-      "id": "chatcmpl-DUZskXtwgSJomUjQrffkbMwpfZ4Fa",
+      "created": 1776250744,
+      "id": "chatcmpl-DUsFUcxoRKG1fJ3q9HHlmXv9UdB76",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
       "system_fingerprint": null,
       "usage": {
-        "completion_tokens": 21,
+        "completion_tokens": 22,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "audio_tokens": 0,
@@ -123,13 +123,13 @@
           "audio_tokens": 0,
           "cached_tokens": 0
         },
-        "total_tokens": 184
+        "total_tokens": 185
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:22 GMT"
+        "Wed, 15 Apr 2026 10:59:04 GMT"
       ],
       [
         "content-type",
@@ -137,7 +137,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4a06ebdae1d-PRG"
+        "9eca704ecd8a710c-PRG"
       ],
       [
         "cf-cache-status",
@@ -165,7 +165,7 @@
       ],
       [
         "openai-processing-ms",
-        "682"
+        "618"
       ],
       [
         "openai-project",
@@ -193,7 +193,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "1999913"
+        "1999914"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -205,7 +205,7 @@
       ],
       [
         "x-request-id",
-        "req_211c4e7afe404a3c9f80e9a61db768bd"
+        "req_99caa914b5ac4a38a07633105ec99003"
       ],
       [
         "set-cookie",

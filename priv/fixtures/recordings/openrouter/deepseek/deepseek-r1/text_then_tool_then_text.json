@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-14T15:22:23.332582Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:07.187069Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -52,11 +52,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776180143,
-      "created_at": 1776180138,
+      "completed_at": 1776250747,
+      "created_at": 1776250743,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776180138-3OE7kfoOVztyS7eTVJrd",
+      "id": "gen-1776250743-dddNQvpPeZ0a7xR3h2oq",
       "incomplete_details": null,
       "instructions": "You are a helpful assistant. Be concise.",
       "max_output_tokens": null,
@@ -68,20 +68,20 @@
         {
           "content": [
             {
-              "text": "The user mentions they're planning a trip to London. I should offer relevant help. Since I have a weather tool, I can get the current weather for London, which could be useful for trip planning. Let's check the weather.",
+              "text": "The user mentions planning a trip to London. They might want to know the weather in London. I can offer to check the weather for them. Let's use the tool.",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_guq7i6cj00r",
+          "id": "rs_tmp_3ctrgg0p8vt",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
         },
         {
           "arguments": "{\"city\": \"London\"}",
-          "call_id": "dc1414a1ab8e436896818c194ee302a4",
-          "id": "fc_tmp_s3ol790p10f",
+          "call_id": "ec896562dcc14297a5247e4eb8f062e7",
+          "id": "fc_tmp_vdbgtsc3m0g",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -127,28 +127,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 4.621e-4,
+        "cost": 4.321e-4,
         "cost_details": {
-          "upstream_inference_cost": 4.621e-4,
+          "upstream_inference_cost": 4.321e-4,
           "upstream_inference_input_cost": 2.296e-4,
-          "upstream_inference_output_cost": 2.325e-4
+          "upstream_inference_output_cost": 2.025e-4
         },
         "input_tokens": 328,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 93,
+        "output_tokens": 81,
         "output_tokens_details": {
-          "reasoning_tokens": 47
+          "reasoning_tokens": 35
         },
-        "total_tokens": 421
+        "total_tokens": 409
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:20 GMT"
+        "Wed, 15 Apr 2026 10:59:04 GMT"
       ],
       [
         "content-type",
@@ -156,7 +156,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=2208"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=1660"
       ],
       [
         "access-control-allow-origin",
@@ -164,7 +164,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776180138-3OE7kfoOVztyS7eTVJrd"
+        "gen-1776250743-dddNQvpPeZ0a7xR3h2oq"
       ],
       [
         "access-control-expose-headers",
@@ -188,7 +188,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b489692af97e-PRG"
+        "9eca70484de4c1bb-PRG"
       ]
     ],
     "status": 200

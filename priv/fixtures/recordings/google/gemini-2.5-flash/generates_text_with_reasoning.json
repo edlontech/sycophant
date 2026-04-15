@@ -1,0 +1,131 @@
+{
+  "metadata": {
+    "model": "unknown",
+    "provider": "generativelanguage.googleapis.com",
+    "recorded_at": "2026-04-15T10:59:08.980330Z",
+    "sycophant_version": "0.3.0"
+  },
+  "request": {
+    "body": {
+      "contents": [
+        {
+          "parts": [
+            {
+              "text": "A farmer has 3 fields. The first field produces 2.5 times more wheat than the second. The third produces 40% less than the first. If the second field produces 120 tons, how many tons does the farmer produce in total? Show your reasoning."
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "generationConfig": {
+        "thinkingConfig": {
+          "includeThoughts": true,
+          "thinkingBudget": 1024
+        }
+      }
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "x-goog-api-key",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
+  },
+  "response": {
+    "body": {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "**My Thought Process: Wheat Production Calculation**\n\nOkay, here's how I approached this wheat production problem. My primary objective is to determine the *total* wheat yield across all three fields. The provided information is key: knowing the output of Field 2 is our launchpad.\n\nI immediately broke the problem down. I understood that I have three fields with inter-related yields. I know F1's yield is related to F2's, and F3's is related to F1's. Field 2 produces 120 tons, a fundamental starting point.\n\nMy strategy felt intuitive: a step-by-step, or backwards, process. I'll leverage the known quantity, F2's yield, and I'll work forward. I'll calculate F1's yield from F2's, and then calculate F3's yield from F1's. Finally, I'll sum the outputs of all the fields to get the total.\n\nLet me calculate Field 1's production. The phrase \"2.5 times *more* than\" is a multiplier plus itself. It means multiplying F2's yield by 3.5. This calculation should be 120 tons * 3.5. Breaking it down: 120 times 3, plus 120 times 0.5. That gives me 360 plus 60, or 420 tons. A quick self-check: if it was just 2.5 times *as much*, it would be 300, but \"more than\" means adding the original, so the 3.5 multiplier makes sense.\n\nNow for Field 3. It produces 40% *less* than Field 1. This means I'm calculating 60% of F1's yield: 420 tons * 0.60. Which gives me 42 * 6, or 252 tons.\n\nFinally, the total. I'll simply add up the yields from all three fields: 420 tons + 120 tons + 252 tons. The sum is 792 tons.\n\nI'll quickly review the result. Is the answer within a realistic range? Absolutely. The individual field productions were logically determined according to the given percentages. Does the result answer the given question? Yes. I clearly show my work in the form of calculations. All checks out.\n",
+                "thought": true
+              },
+              {
+                "text": "Let's break down the production for each field step-by-step:\n\n1.  **Second Field's Production:**\n    *   The problem states that the second field produces 120 tons.\n\n2.  **First Field's Production:**\n    *   The first field produces 2.5 times *more* wheat than the second. This means it produces its own amount (1 times) plus an additional 2.5 times, totaling 3.5 times the second field's production.\n    *   First field production = 120 tons * (1 + 2.5)\n    *   First field production = 120 tons * 3.5\n    *   First field production = 420 tons\n\n3.  **Third Field's Production:**\n    *   The third field produces 40% *less* than the first. If it produces 40% less, it produces 100% - 40% = 60% of the first field's production.\n    *   Third field production = 420 tons * 0.60\n    *   Third field production = 252 tons\n\n4.  **Total Production:**\n    *   Now, add the production from all three fields:\n    *   Total production = (First field) + (Second field) + (Third field)\n    *   Total production = 420 tons + 120 tons + 252 tons\n    *   Total production = 792 tons\n\nThe farmer produces a total of **792 tons** of wheat."
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "STOP",
+          "index": 0
+        }
+      ],
+      "modelVersion": "gemini-2.5-flash",
+      "responseId": "dG_fadX7GYSBkdUPxfnAsQE",
+      "usageMetadata": {
+        "candidatesTokenCount": 354,
+        "promptTokenCount": 60,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 60
+          }
+        ],
+        "thoughtsTokenCount": 834,
+        "totalTokenCount": 1248
+      }
+    },
+    "headers": [
+      [
+        "x-gemini-service-tier",
+        "standard"
+      ],
+      [
+        "content-type",
+        "application/json; charset=UTF-8"
+      ],
+      [
+        "vary",
+        "X-Origin"
+      ],
+      [
+        "vary",
+        "Referer"
+      ],
+      [
+        "vary",
+        "Origin,Accept-Encoding"
+      ],
+      [
+        "date",
+        "Wed, 15 Apr 2026 10:59:08 GMT"
+      ],
+      [
+        "server",
+        "scaffolding on HTTPServer2"
+      ],
+      [
+        "x-xss-protection",
+        "0"
+      ],
+      [
+        "x-frame-options",
+        "SAMEORIGIN"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server-timing",
+        "gfet4t7; dur=8688"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+      ],
+      [
+        "accept-ranges",
+        "none"
+      ]
+    ],
+    "status": 200
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "metadata": {
+    "model": "gpt-5.2",
+    "provider": "api.openai.com",
+    "recorded_at": "2026-04-15T10:59:10.246134Z",
+    "sycophant_version": "0.3.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "My name is Sycophant. Remember it.",
+          "role": "user"
+        }
+      ],
+      "model": "gpt-5.2"
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "top_logprobs": 0,
+      "previous_response_id": null,
+      "tool_choice": "auto",
+      "service_tier": "default",
+      "status": "completed",
+      "tools": [],
+      "id": "resp_00178ddd6754ac990069df6f7cf60c8195b4e476517a14c4e9",
+      "temperature": 1.0,
+      "max_output_tokens": null,
+      "user": null,
+      "frequency_penalty": 0.0,
+      "error": null,
+      "model": "gpt-5.2-2025-12-11",
+      "usage": {
+        "input_tokens": 17,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 33,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 50
+      },
+      "safety_identifier": null,
+      "object": "response",
+      "parallel_tool_calls": true,
+      "output": [
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "I can’t permanently remember details like your name across chats. For this conversation, I can refer to you as **Sycophant**.",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_00178ddd6754ac990069df6f7d49ec81959077f74de9b89289",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "instructions": null,
+      "store": true,
+      "presence_penalty": 0.0,
+      "incomplete_details": null,
+      "reasoning": {
+        "effort": "none",
+        "summary": null
+      },
+      "completed_at": 1776250750,
+      "truncation": "disabled",
+      "top_p": 0.98,
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": null,
+      "metadata": {},
+      "prompt_cache_key": null,
+      "created_at": 1776250748,
+      "max_tool_calls": null
+    },
+    "headers": [
+      [
+        "date",
+        "Wed, 15 Apr 2026 10:59:10 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-length",
+        "1657"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "x-ratelimit-limit-requests",
+        "15000"
+      ],
+      [
+        "x-ratelimit-limit-tokens",
+        "40000000"
+      ],
+      [
+        "x-ratelimit-remaining-requests",
+        "14999"
+      ],
+      [
+        "x-ratelimit-remaining-tokens",
+        "40000000"
+      ],
+      [
+        "x-ratelimit-reset-requests",
+        "4ms"
+      ],
+      [
+        "x-ratelimit-reset-tokens",
+        "0s"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "x-request-id",
+        "req_94cf6a785f8c4889ab054dda17dde824"
+      ],
+      [
+        "openai-processing-ms",
+        "1243"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "cf-ray",
+        "9eca706c5850710c-PRG"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}

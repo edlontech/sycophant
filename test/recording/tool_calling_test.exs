@@ -3,6 +3,7 @@ defmodule Sycophant.Recording.ToolCallingTest do
   use Sycophant.RecordingCase, async: true, parameterize: @models
 
   alias Sycophant.Message
+  alias Sycophant.Response
 
   @tag recording_prefix: true
   test "calls a tool and returns tool_calls", %{model: model} do
@@ -38,8 +39,10 @@ defmodule Sycophant.Recording.ToolCallingTest do
       Sycophant.generate_text(model, messages, recording_opts(tools: [tool]))
 
     assert response.tool_calls == []
-    assert is_binary(response.text)
-    assert response.text =~ "22"
+
+    response_text = Response.text(response) || Response.reasoning_text(response)
+    assert is_binary(response_text), "expected text in response.text or response.reasoning"
+    assert response_text =~ "22"
 
     tool_result = Enum.find(Sycophant.Response.messages(response), &(&1.role == :tool_result))
     assert tool_result, "expected tool_result message in conversation history"

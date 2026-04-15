@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-14T15:22:25.975092Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:10.396680Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "Got it, Sycophant! How can I assist you today?",
+              "text": "Nice to meet you, Sycophant! How can I assist you today?",
               "type": "output_text"
             }
           ],
@@ -58,7 +58,7 @@
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_00c29429be386f790069de5bb117f4819386bbe1e4d8bca0b7",
+      "id": "resp_0b560349557a98630069df6f7dc7188193b6270618493615f5",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -66,7 +66,7 @@
       "error": null,
       "model": "gpt-4o-mini-2024-07-18",
       "usage": {
-        "input_tokens": 46,
+        "input_tokens": 48,
         "input_tokens_details": {
           "cached_tokens": 0
         },
@@ -74,7 +74,7 @@
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 55
+        "total_tokens": 57
       },
       "safety_identifier": null,
       "object": "response",
@@ -89,7 +89,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_00c29429be386f790069de5bb1a8dc81938b952b8099ae6962",
+          "id": "msg_0b560349557a98630069df6f7e1fdc819389b5376d364701e6",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -103,7 +103,7 @@
         "effort": null,
         "summary": null
       },
-      "completed_at": 1776180145,
+      "completed_at": 1776250750,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -112,13 +112,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776180145,
+      "created_at": 1776250749,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:25 GMT"
+        "Wed, 15 Apr 2026 10:59:10 GMT"
       ],
       [
         "content-type",
@@ -146,7 +146,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "149999935"
+        "149999932"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -170,11 +170,11 @@
       ],
       [
         "x-request-id",
-        "req_c347a8a02ce743b4b73d6a39d8a85d36"
+        "req_7a1c7171c4c448c5805b184d8b52d5ff"
       ],
       [
         "openai-processing-ms",
-        "815"
+        "565"
       ],
       [
         "cf-cache-status",
@@ -194,7 +194,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4b24bedae1d-PRG"
+        "9eca70718edb710c-PRG"
       ],
       [
         "alt-svc",

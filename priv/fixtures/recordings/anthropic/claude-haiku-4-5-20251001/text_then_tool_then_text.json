@@ -2,8 +2,8 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-04-14T15:22:21.535100Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:04.977148Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -56,11 +56,11 @@
     "body": {
       "content": [
         {
-          "text": "That sounds exciting! I'd be happy to help you plan your trip to London. Here are some things I can assist with:\n\n**Weather & Packing:**\n- I can check the current weather in London to help you pack appropriately\n\n**Trip Planning Tips:**\n- **Best time to visit:** Spring (April-May) and fall (September-October) offer pleasant weather and fewer crowds\n- **Main attractions:** Big Ben & Houses of Parliament, Tower of London, Buckingham Palace, London Eye, museums like the British Museum and National Gallery\n- **Getting around:** The Underground (Tube) is fast and efficient; buses are also great for sightseeing\n- **Neighborhoods:** Explore areas like Westminster, South Bank, Soho, Camden, and Notting Hill\n- **Food:** Try fish & chips, afternoon tea, and explore diverse dining options across the city\n\n**What would you like help with?**\n- Would you like me to check the current weather in London?\n- Do you have specific questions about attractions, neighborhoods, or logistics?\n- What time period are you planning to visit?\n\nLet me know how I can best help with your London trip!",
+          "text": "That sounds exciting! I'd be happy to help with your London trip planning.\n\nHere are some ways I can assist you:\n\n1. **Weather Information** - I can check the current weather in London to help you pack appropriately\n2. **General Travel Tips** - I can offer suggestions about popular attractions, neighborhoods, transportation, etc.\n\nWould you like me to check the current weather in London? Or do you have specific questions about your trip - like what to see, where to stay, how to get around, or when you're planning to visit?",
           "type": "text"
         }
       ],
-      "id": "msg_01EpL7cbzueUSsSoeyxrJzhd",
+      "id": "msg_01W8g72sy93krx5kHJrzNBnX",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
       "stop_details": null,
@@ -76,18 +76,22 @@
         "cache_read_input_tokens": 0,
         "inference_geo": "not_available",
         "input_tokens": 590,
-        "output_tokens": 256,
+        "output_tokens": 119,
         "service_tier": "standard"
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:21 GMT"
+        "Wed, 15 Apr 2026 10:59:04 GMT"
       ],
       [
         "content-type",
         "application/json"
+      ],
+      [
+        "content-length",
+        "994"
       ],
       [
         "anthropic-ratelimit-input-tokens-limit",
@@ -99,7 +103,7 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-04-14T15:22:19Z"
+        "2026-04-15T10:59:03Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
@@ -111,7 +115,7 @@
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-04-14T15:22:21Z"
+        "2026-04-15T10:59:04Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
@@ -123,7 +127,7 @@
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-04-14T15:22:18Z"
+        "2026-04-15T10:59:03Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
@@ -135,11 +139,11 @@
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-04-14T15:22:19Z"
+        "2026-04-15T10:59:03Z"
       ],
       [
         "request-id",
-        "req_011Ca3thiBKnVxzkrp69SqTo"
+        "req_011Ca5SSH81RzNiLyi9nX7BB"
       ],
       [
         "strict-transport-security",
@@ -155,27 +159,23 @@
       ],
       [
         "x-envoy-upstream-service-time",
-        "2824"
+        "1700"
+      ],
+      [
+        "server-timing",
+        "x-originResponse;dur=1702"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
       ],
       [
         "x-robots-tag",
         "none"
       ],
       [
-        "vary",
-        "Accept-Encoding"
-      ],
-      [
-        "server-timing",
-        "x-originResponse;dur=2832"
-      ],
-      [
         "cf-cache-status",
         "DYNAMIC"
-      ],
-      [
-        "set-cookie",
-        "[REDACTED]"
       ],
       [
         "content-security-policy",
@@ -183,7 +183,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4896d979947-PRG"
+        "9eca7048dac3f98a-PRG"
       ]
     ],
     "status": 200

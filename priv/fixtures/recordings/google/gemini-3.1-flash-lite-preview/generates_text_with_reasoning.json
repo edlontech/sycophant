@@ -1,0 +1,132 @@
+{
+  "metadata": {
+    "model": "unknown",
+    "provider": "generativelanguage.googleapis.com",
+    "recorded_at": "2026-04-15T10:59:04.070592Z",
+    "sycophant_version": "0.3.0"
+  },
+  "request": {
+    "body": {
+      "contents": [
+        {
+          "parts": [
+            {
+              "text": "A farmer has 3 fields. The first field produces 2.5 times more wheat than the second. The third produces 40% less than the first. If the second field produces 120 tons, how many tons does the farmer produce in total? Show your reasoning."
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "generationConfig": {
+        "thinkingConfig": {
+          "includeThoughts": true,
+          "thinkingLevel": "LOW"
+        }
+      }
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "x-goog-api-key",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite-preview:generateContent"
+  },
+  "response": {
+    "body": {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "**My Approach to the Wheat Production Problem**\n\nOkay, here's how I'm breaking down this wheat production problem. My goal is clear: figure out the total tons of wheat from all three fields. The information I have gives me production figures for Field 2 and relates the others to it. Let's see, what do I have...\n\nFirst, I need to get a clear picture of what's provided. I'm given that Field 2 produced 120 tons. That's my base. Field 1's production is defined as 2.5 times Field 2's. And then Field 3 produced less than Field 1, specifically 40% less.\n\nNow, let's craft a step-by-step strategy. Seems logical. I'll take it one piece at a time.\n\n\n",
+                "thought": true
+              },
+              {
+                "text": "Here is the step-by-step breakdown to find the total production:\n\n**1. Find the production of the first field:**\nWe know the second field produces 120 tons and the first produces 2.5 times that amount.\n*   Calculation: 120 tons × 2.5 = **300 tons** (Field 1)\n\n**2. Find the production of the third field:**\nThe third field produces 40% less than the first field (300 tons).\n*   First, find 40% of 300: 300 × 0.40 = 120 tons.\n*   Then, subtract that amount from the first field's total: 300 - 120 = **180 tons** (Field 3)\n\n**3. Calculate the total production:**\nAdd the production of all three fields together.\n*   Field 1: 300 tons\n*   Field 2: 120 tons\n*   Field 3: 180 tons\n\n300 + 120 + 180 = **600 tons**\n\nThe farmer produces a total of **600 tons** of wheat.",
+                "thoughtSignature": "EuUDCuIDAb4+9vvUV+LnseT66gxVmRbGt65OebzTY6ZB3NaFZRI6QH4AuElWT+eUBG1bdjw4PttbhFo8b1HsyImiZaCyODoqhVBre8whSkfDGDtuD0BIM1h4zBIE7PGS1GOrn1NZrXm86LIqRkLu6TFolwT9Y8zpMN77UxtW+H6oEzyydCLWx0NQQqgw8pRCrPp2K7lc7TzBbvhuL9zMZv6bUZ+rYUZ6RyPUH1Qt0HVZdwTw7Sj+8iMC9M42xJgy0PNQWFHDcydBC+99qgIql6QRebHULYUfGFOgP5zzOlLQBRWyaXN+xUlvZK68/jDByvomDam6jZVbB0ODQUIaBr8qQn4/lYe0ZYLtWjIhYrYTQfnAxwfw5R2K7fs8aBPmzKN+rMcf80IpH0bmc4afjlbhy/9gJOe2KOqUDk6XRXfbTKcNchBoVAR5oa7rsDUDZ1MES9LG6ESpNfxV+J60JmRX1J/dg4d7f8T5ptt3atOl0MSyyVnmIkrNpexuSna/Cj2lZiZN2RFuemZtQAAkf8DGpSJULC02t9szYvIgej6Df+v3iCwJ20Cgf2VecZ1B2FyOIQxsS+AtEqaulD/lO4EzaPOvO+Kwcu68xzvxiSnfvqRsquVHyFlaqjngR7ZqLtXTeXHEc9U="
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "STOP",
+          "index": 0
+        }
+      ],
+      "modelVersion": "gemini-3.1-flash-lite-preview",
+      "responseId": "eG_faYU1-ruewQ-_srXYDw",
+      "usageMetadata": {
+        "candidatesTokenCount": 272,
+        "promptTokenCount": 60,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 60
+          }
+        ],
+        "thoughtsTokenCount": 119,
+        "totalTokenCount": 451
+      }
+    },
+    "headers": [
+      [
+        "x-gemini-service-tier",
+        "standard"
+      ],
+      [
+        "content-type",
+        "application/json; charset=UTF-8"
+      ],
+      [
+        "vary",
+        "X-Origin"
+      ],
+      [
+        "vary",
+        "Referer"
+      ],
+      [
+        "vary",
+        "Origin,Accept-Encoding"
+      ],
+      [
+        "date",
+        "Wed, 15 Apr 2026 10:59:04 GMT"
+      ],
+      [
+        "server",
+        "scaffolding on HTTPServer2"
+      ],
+      [
+        "x-xss-protection",
+        "0"
+      ],
+      [
+        "x-frame-options",
+        "SAMEORIGIN"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server-timing",
+        "gfet4t7; dur=3778"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+      ],
+      [
+        "accept-ranges",
+        "none"
+      ]
+    ],
+    "status": 200
+  }
+}

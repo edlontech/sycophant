@@ -2,8 +2,8 @@
   "metadata": {
     "model": "google/gemini-2.5-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-14T15:22:19.773197Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:01.537477Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -51,11 +51,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776180139,
-      "created_at": 1776180139,
+      "completed_at": 1776250741,
+      "created_at": 1776250740,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776180139-WNk5UtTZD3uPfQ9BT6Mf",
+      "id": "gen-1776250740-RzH6CKymzALbcIpvIk4F",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -66,8 +66,8 @@
       "output": [
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "tool_get_weather_zKLBs6Y4OEnDlW2MgIVu",
-          "id": "fc_tmp_qmkejro2u1",
+          "call_id": "tool_get_weather_JFYCgPzYbtBLR1HQk9G2",
+          "id": "fc_tmp_wsvhcczxqz",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -134,7 +134,7 @@
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:19 GMT"
+        "Wed, 15 Apr 2026 10:59:01 GMT"
       ],
       [
         "content-type",
@@ -142,7 +142,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1176"
+        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=1169"
       ],
       [
         "access-control-allow-origin",
@@ -150,7 +150,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776180139-WNk5UtTZD3uPfQ9BT6Mf"
+        "gen-1776250740-RzH6CKymzALbcIpvIk4F"
       ],
       [
         "access-control-expose-headers",
@@ -174,7 +174,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b489692ff97e-PRG"
+        "9eca7036dc94c1bb-PRG"
       ]
     ],
     "status": 200

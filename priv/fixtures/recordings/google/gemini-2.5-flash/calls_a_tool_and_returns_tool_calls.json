@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-04-14T15:22:21.319726Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:04.070592Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -65,7 +65,7 @@
                   },
                   "name": "get_weather"
                 },
-                "thoughtSignature": "CsIBAb4+9vt1inxZvBT9qfuLKkqKkxpFsiCz1KrX+ygzVdBq2b3K2WfWpj/qGcjaKMPGS8FislUhBrnXsMDct7qJb0KJe7qXT2QFMaBM0mkKI8+7Jibf61ghQ9u7vN7UUgBnhSwFW+7AymDaQW6WklIEYkXvSt45KljmELYptnF4eTNKgDgMr5zDEN6WdCJ+hech9cej6YG+9yb0A3y8+lIx4BxUiCGVA6NFQFFjltaOIBHUqyr1f2YryeHag2mlJuTrSd8="
+                "thoughtSignature": "CvUBAb4+9vsx4zKujWvyzEHoPEOGbtiE6j1yZXHzBdUiYTf717vRmeK+hKUkkieY0KRV93M5Npsnuiunm4uHA+VhmEl6B9xAal+kaDIQstTOwdjru6BWVHC48ijHeclx9dUzYxFDOhe6z5dwvCOp5HCOpfldtyZ0VD2JbWqA95/KMJQZC1IeUX7fygb/mnqeU/8QJZ33fceQbexb/Q1En/sNnQ+aJb/wkyqfNRenFFkkwaPTxuCUgof1PY530wRAv/6/uhkEZKuZmZaJywZ3SWbkCXEo8huTHZo3B5rdZsltFmwazOyb11AsQP+imnmhIDRpgh7TKeo="
               }
             ],
             "role": "model"
@@ -76,7 +76,7 @@
         }
       ],
       "modelVersion": "gemini-2.5-flash",
-      "responseId": "rFveaayZGNzlxN8PvYO66A0",
+      "responseId": "d2_fadaiC8yfkdUPpcW7kAw",
       "usageMetadata": {
         "candidatesTokenCount": 15,
         "promptTokenCount": 54,
@@ -86,8 +86,8 @@
             "tokenCount": 54
           }
         ],
-        "thoughtsTokenCount": 40,
-        "totalTokenCount": 109
+        "thoughtsTokenCount": 55,
+        "totalTokenCount": 124
       }
     },
     "headers": [
@@ -113,7 +113,7 @@
       ],
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:21 GMT"
+        "Wed, 15 Apr 2026 10:59:04 GMT"
       ],
       [
         "server",
@@ -133,7 +133,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=968"
+        "gfet4t7; dur=944"
       ],
       [
         "alt-svc",

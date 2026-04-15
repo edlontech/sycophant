@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-14T15:22:19.409893Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:02.745298Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -83,7 +83,7 @@
           "type": "function"
         }
       ],
-      "id": "resp_0e8c0fbea6c930020069de5baa9b588190ae75d5b79496d691",
+      "id": "resp_08c4c3b1a30af0690069df6f75d4ec8197b916c66f01c8a324",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -95,11 +95,11 @@
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 17,
+        "output_tokens": 25,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 82
+        "total_tokens": 90
       },
       "safety_identifier": null,
       "object": "response",
@@ -110,11 +110,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "That sounds exciting! What information do you need for your trip to London?",
+              "text": "That sounds exciting! When are you planning to go, and do you have any specific places or activities in mind?",
               "type": "output_text"
             }
           ],
-          "id": "msg_0e8c0fbea6c930020069de5bab05fc8190951416c50366194d",
+          "id": "msg_08c4c3b1a30af0690069df6f764b60819782d75bc5b2fd217e",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -128,7 +128,7 @@
         "effort": null,
         "summary": null
       },
-      "completed_at": 1776180139,
+      "completed_at": 1776250742,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -137,13 +137,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776180138,
+      "created_at": 1776250741,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:19 GMT"
+        "Wed, 15 Apr 2026 10:59:02 GMT"
       ],
       [
         "content-type",
@@ -151,7 +151,7 @@
       ],
       [
         "content-length",
-        "2065"
+        "2099"
       ],
       [
         "server",
@@ -195,11 +195,11 @@
       ],
       [
         "x-request-id",
-        "req_083f03c86fd343938ef6a7a55f1b20f3"
+        "req_fad52e827585497ca17b1489f5cc09d5"
       ],
       [
         "openai-processing-ms",
-        "726"
+        "851"
       ],
       [
         "cf-cache-status",
@@ -219,7 +219,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b489ac62ae1d-PRG"
+        "9eca703fda6d710c-PRG"
       ],
       [
         "alt-svc",

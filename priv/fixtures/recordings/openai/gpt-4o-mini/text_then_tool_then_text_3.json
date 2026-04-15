@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-14T15:22:21.844562Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:04.764929Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "That sounds exciting! What information do you need for your trip to London?",
+              "text": "That sounds exciting! When are you planning to go, and do you have any specific places or activities in mind?",
               "type": "output_text"
             }
           ],
@@ -35,12 +35,12 @@
         },
         {
           "arguments": "{\"city\":\"London\"}",
-          "call_id": "call_pQfkBIHhZ0XZDYRipQH2gSu0",
+          "call_id": "call_w8aaoJfPwHq9a33i0DqZt2RT",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "call_pQfkBIHhZ0XZDYRipQH2gSu0",
+          "call_id": "call_w8aaoJfPwHq9a33i0DqZt2RT",
           "output": "London: 18C, cloudy",
           "type": "function_call_output"
         }
@@ -115,7 +115,7 @@
           "type": "function"
         }
       ],
-      "id": "resp_02150d083223c3190069de5baca90081959338942b1b048f22",
+      "id": "resp_01f13ed13a58af360069df6f77dbb08195a10b67a46411826c",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -123,15 +123,15 @@
       "error": null,
       "model": "gpt-4o-mini-2024-07-18",
       "usage": {
-        "input_tokens": 128,
+        "input_tokens": 136,
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 30,
+        "output_tokens": 14,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 158
+        "total_tokens": 150
       },
       "safety_identifier": null,
       "object": "response",
@@ -142,11 +142,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "The current weather in London is 18°C and cloudy. If you need more information or tips for your trip, feel free to ask!",
+              "text": "The current weather in London is 18°C and cloudy.",
               "type": "output_text"
             }
           ],
-          "id": "msg_02150d083223c3190069de5bad24908195b566765fb619210a",
+          "id": "msg_01f13ed13a58af360069df6f7861c88195a49b371966984637",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -160,7 +160,7 @@
         "effort": null,
         "summary": null
       },
-      "completed_at": 1776180141,
+      "completed_at": 1776250744,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -169,13 +169,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776180140,
+      "created_at": 1776250743,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:21 GMT"
+        "Wed, 15 Apr 2026 10:59:04 GMT"
       ],
       [
         "content-type",
@@ -183,7 +183,7 @@
       ],
       [
         "content-length",
-        "2116"
+        "2046"
       ],
       [
         "server",
@@ -203,7 +203,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "149999655"
+        "149999647"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -227,11 +227,11 @@
       ],
       [
         "x-request-id",
-        "req_b44c9a03cbf549378b8db754a880d6e0"
+        "req_3d09075121e44a00a0e63b51a8d8b5e4"
       ],
       [
         "openai-processing-ms",
-        "1119"
+        "855"
       ],
       [
         "cf-cache-status",
@@ -251,7 +251,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4968e90ae1d-PRG"
+        "9eca704c8ae2710c-PRG"
       ],
       [
         "alt-svc",

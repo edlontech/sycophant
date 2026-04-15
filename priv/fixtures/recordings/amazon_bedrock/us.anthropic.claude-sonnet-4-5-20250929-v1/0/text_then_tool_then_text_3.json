@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-04-14T15:22:25.805477Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:12.528629Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -19,7 +19,7 @@
         {
           "content": [
             {
-              "text": "Hello! That's exciting that you're planning a trip to London! \n\nWould you like me to check the current weather in London for you? I can help you get an idea of what conditions are like there right now."
+              "text": "Hello! How exciting that you're planning a trip to London! \n\nWould you like me to check the current weather in London for you? I can help you get an idea of what conditions are like there. Just let me know if you'd like that information or if there's anything else I can help you with for your trip planning!"
             }
           ],
           "role": "assistant"
@@ -40,7 +40,7 @@
                   "city": "London"
                 },
                 "name": "get_weather",
-                "toolUseId": "tooluse_4VlzcAsbLjOtPTkxi2Bvha"
+                "toolUseId": "tooluse_UxNhqHSky8NHqRmH3bAvGm"
               }
             }
           ],
@@ -55,7 +55,7 @@
                     "text": "London: 18C, cloudy"
                   }
                 ],
-                "toolUseId": "tooluse_4VlzcAsbLjOtPTkxi2Bvha"
+                "toolUseId": "tooluse_UxNhqHSky8NHqRmH3bAvGm"
               }
             }
           ],
@@ -103,7 +103,7 @@
       ],
       [
         "x-amz-date",
-        "20260414T152223Z"
+        "20260415T105909Z"
       ],
       [
         "content-type",
@@ -116,13 +116,13 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 1923
+        "latencyMs": 2620
       },
       "output": {
         "message": {
           "content": [
             {
-              "text": "The current weather in London is 18°C (64°F) and cloudy. Perfect conditions for sightseeing! You might want to bring a light jacket."
+              "text": "The current weather in London is 18°C and cloudy. You might want to bring a light jacket and perhaps an umbrella just in case!"
             }
           ],
           "role": "assistant"
@@ -134,16 +134,16 @@
         "cacheReadInputTokens": 0,
         "cacheWriteInputTokenCount": 0,
         "cacheWriteInputTokens": 0,
-        "inputTokens": 731,
-        "outputTokens": 39,
+        "inputTokens": 754,
+        "outputTokens": 34,
         "serverToolUsage": {},
-        "totalTokens": 770
+        "totalTokens": 788
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:25 GMT"
+        "Wed, 15 Apr 2026 10:59:12 GMT"
       ],
       [
         "content-type",
@@ -151,11 +151,11 @@
       ],
       [
         "content-length",
-        "449"
+        "442"
       ],
       [
         "x-amzn-requestid",
-        "fd7e2cb2-2315-4e82-a53a-74e28d168840"
+        "5b8955d8-94b6-41da-8ad2-1612eb44a4df"
       ]
     ],
     "status": 200

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-14T15:22:19.340712Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:01.433565Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -82,7 +82,7 @@
           "type": "function"
         }
       ],
-      "id": "resp_0a8a430f5b8b3b730069de5baa96f48195971081ce42e00f4e",
+      "id": "resp_02cb86eb570810860069df6f7464c4819597e9f21825618ffe",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -106,8 +106,8 @@
       "output": [
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "call_GWnshTRfHX4N31lzf0ErzXu5",
-          "id": "fc_0a8a430f5b8b3b730069de5bab1ae0819592892124541f258d",
+          "call_id": "call_mVHryW4QHzwUzTPJLIK1tKU7",
+          "id": "fc_02cb86eb570810860069df6f751bc881959d2da288fd9f390f",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -121,7 +121,7 @@
         "effort": null,
         "summary": null
       },
-      "completed_at": 1776180139,
+      "completed_at": 1776250741,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -130,13 +130,13 @@
       "prompt_cache_retention": null,
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776180138,
+      "created_at": 1776250740,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:19 GMT"
+        "Wed, 15 Apr 2026 10:59:01 GMT"
       ],
       [
         "content-type",
@@ -188,11 +188,11 @@
       ],
       [
         "x-request-id",
-        "req_8792547987b341af81c7afd2a89581da"
+        "req_2c98595543a942749348231aadba2102"
       ],
       [
         "openai-processing-ms",
-        "694"
+        "985"
       ],
       [
         "cf-cache-status",
@@ -212,7 +212,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4898c3eae1d-PRG"
+        "9eca7036c83b710c-PRG"
       ],
       [
         "alt-svc",

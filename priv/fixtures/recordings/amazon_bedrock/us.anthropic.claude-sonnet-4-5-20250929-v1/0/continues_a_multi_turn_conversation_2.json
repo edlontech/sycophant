@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-04-14T15:22:30.532964Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:20.534218Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -19,7 +19,7 @@
         {
           "content": [
             {
-              "text": "Got it—your name is Sycophant. I'll remember that for our conversation."
+              "text": "Got it – your name is Sycophant. I'll remember that for our conversation."
             }
           ],
           "role": "assistant"
@@ -45,7 +45,7 @@
       ],
       [
         "x-amz-date",
-        "20260414T152228Z"
+        "20260415T105919Z"
       ],
       [
         "content-type",
@@ -58,7 +58,7 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 1943
+        "latencyMs": 1086
       },
       "output": {
         "message": {
@@ -85,7 +85,7 @@
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:30 GMT"
+        "Wed, 15 Apr 2026 10:59:20 GMT"
       ],
       [
         "content-type",
@@ -97,7 +97,7 @@
       ],
       [
         "x-amzn-requestid",
-        "b698254a-60ad-4118-b38a-143266107bed"
+        "0d8cee1c-90e2-48ca-a27d-a8ac12b9dcdc"
       ]
     ],
     "status": 200

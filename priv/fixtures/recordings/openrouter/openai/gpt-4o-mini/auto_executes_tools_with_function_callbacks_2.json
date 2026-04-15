@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-4o-mini",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-14T15:22:20.639224Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:02.312152Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -20,12 +20,12 @@
         },
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "call_tLmhSR17BcckY75MRQN7um1g",
+          "call_id": "call_BMmJhr1qnl6dHqVMi2o3UAZH",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "call_tLmhSR17BcckY75MRQN7um1g",
+          "call_id": "call_BMmJhr1qnl6dHqVMi2o3UAZH",
           "output": "Paris: 22C, sunny",
           "type": "function_call_output"
         }
@@ -68,11 +68,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776180140,
-      "created_at": 1776180139,
+      "completed_at": 1776250742,
+      "created_at": 1776250741,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776180139-DjCk3bqlkbNtRNs0CFB0",
+      "id": "gen-1776250741-SDw3y3pCYYlYASwGYz6h",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -90,7 +90,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_m3qauw75wlq",
+          "id": "msg_tmp_2ylc9qi9cbf",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -157,7 +157,7 @@
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:20 GMT"
+        "Wed, 15 Apr 2026 10:59:02 GMT"
       ],
       [
         "content-type",
@@ -165,7 +165,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=479"
+        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=419"
       ],
       [
         "access-control-allow-origin",
@@ -173,7 +173,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776180139-DjCk3bqlkbNtRNs0CFB0"
+        "gen-1776250741-SDw3y3pCYYlYASwGYz6h"
       ],
       [
         "access-control-expose-headers",
@@ -197,7 +197,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b492af63f97e-PRG"
+        "9eca703fbd60c1bb-PRG"
       ]
     ],
     "status": 200

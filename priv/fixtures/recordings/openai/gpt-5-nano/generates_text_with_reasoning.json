@@ -1,0 +1,205 @@
+{
+  "metadata": {
+    "model": "gpt-5-nano",
+    "provider": "api.openai.com",
+    "recorded_at": "2026-04-15T10:59:06.892674Z",
+    "sycophant_version": "0.3.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "A farmer has 3 fields. The first field produces 2.5 times more wheat than the second. The third produces 40% less than the first. If the second field produces 120 tons, how many tons does the farmer produce in total? Show your reasoning.",
+          "role": "user"
+        }
+      ],
+      "model": "gpt-5-nano",
+      "reasoning": {
+        "effort": "low",
+        "summary": "detailed"
+      }
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "top_logprobs": 0,
+      "previous_response_id": null,
+      "tool_choice": "auto",
+      "service_tier": "default",
+      "status": "completed",
+      "tools": [],
+      "id": "resp_01f2a092905ad24d0069df6f745ffc81959fbfdcc30949dbca",
+      "temperature": 1.0,
+      "max_output_tokens": null,
+      "user": null,
+      "frequency_penalty": 0.0,
+      "error": null,
+      "model": "gpt-5-nano-2025-08-07",
+      "usage": {
+        "input_tokens": 62,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 586,
+        "output_tokens_details": {
+          "reasoning_tokens": 384
+        },
+        "total_tokens": 648
+      },
+      "safety_identifier": null,
+      "object": "response",
+      "parallel_tool_calls": true,
+      "output": [
+        {
+          "id": "rs_01f2a092905ad24d0069df6f74af4c8195a2944f6ef6039870",
+          "summary": [
+            {
+              "text": "**Clarifying math interpretations**\n\nI'm thinking about the calculation. If the third is 40% less than the first, it would be 252 tons. So adding those together gives a total of 792 tons. But there's more to this! The phrase \"2.5 times more wheat than the second\" is ambiguous. Typically, school problems want it interpreted as 2.5 times as much, which leads to a total of 600 tons instead. I should note these interpretations in my solution and provide the steps clearly.",
+              "type": "summary_text"
+            }
+          ],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Let the second field produce 120 tons.\n\n- If the first field produces 2.5 times as much as the second (i.e., first = 2.5 × 120 = 300 tons).\n- The third field produces 40% less than the first, so third = 0.6 × first = 0.6 × 300 = 180 tons.\n- Total production = 120 + 300 + 180 = 600 tons.\n\nNote on wording: \"2.5 times more than the second\" can be read ambiguously. If it means the first is 3.5 times the second (second + 2.5 times more), then first = 3.5 × 120 = 420, and the total would be 120 + 420 + 0.6 × 420 = 792 tons. The common interpretation in many problems is \"2.5 times as much,\" giving 600 tons.",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_01f2a092905ad24d0069df6f7a61dc8195bef403a21ee2467f",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "instructions": null,
+      "store": true,
+      "presence_penalty": 0.0,
+      "incomplete_details": null,
+      "reasoning": {
+        "effort": "low",
+        "summary": "detailed"
+      },
+      "completed_at": 1776250746,
+      "truncation": "disabled",
+      "top_p": 1.0,
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": null,
+      "metadata": {},
+      "prompt_cache_key": null,
+      "created_at": 1776250740,
+      "max_tool_calls": null
+    },
+    "headers": [
+      [
+        "date",
+        "Wed, 15 Apr 2026 10:59:06 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-length",
+        "2867"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "x-ratelimit-limit-requests",
+        "30000"
+      ],
+      [
+        "x-ratelimit-limit-tokens",
+        "180000000"
+      ],
+      [
+        "x-ratelimit-remaining-requests",
+        "29999"
+      ],
+      [
+        "x-ratelimit-remaining-tokens",
+        "179999631"
+      ],
+      [
+        "x-ratelimit-reset-requests",
+        "2ms"
+      ],
+      [
+        "x-ratelimit-reset-tokens",
+        "0s"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "x-request-id",
+        "req_6247939584f442469a6ab5ab9dd8a0e3"
+      ],
+      [
+        "openai-processing-ms",
+        "6467"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "cf-ray",
+        "9eca7036c837710c-PRG"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}

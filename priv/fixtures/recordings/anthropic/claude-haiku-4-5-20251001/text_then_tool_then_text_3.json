@@ -2,8 +2,8 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-04-14T15:22:24.168728Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:07.195119Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -14,7 +14,7 @@
           "role": "user"
         },
         {
-          "content": "That sounds exciting! I'd be happy to help you plan your trip to London. Here are some things I can assist with:\n\n**Weather & Packing:**\n- I can check the current weather in London to help you pack appropriately\n\n**Trip Planning Tips:**\n- **Best time to visit:** Spring (April-May) and fall (September-October) offer pleasant weather and fewer crowds\n- **Main attractions:** Big Ben & Houses of Parliament, Tower of London, Buckingham Palace, London Eye, museums like the British Museum and National Gallery\n- **Getting around:** The Underground (Tube) is fast and efficient; buses are also great for sightseeing\n- **Neighborhoods:** Explore areas like Westminster, South Bank, Soho, Camden, and Notting Hill\n- **Food:** Try fish & chips, afternoon tea, and explore diverse dining options across the city\n\n**What would you like help with?**\n- Would you like me to check the current weather in London?\n- Do you have specific questions about attractions, neighborhoods, or logistics?\n- What time period are you planning to visit?\n\nLet me know how I can best help with your London trip!",
+          "content": "That sounds exciting! I'd be happy to help with your London trip planning.\n\nHere are some ways I can assist you:\n\n1. **Weather Information** - I can check the current weather in London to help you pack appropriately\n2. **General Travel Tips** - I can offer suggestions about popular attractions, neighborhoods, transportation, etc.\n\nWould you like me to check the current weather in London? Or do you have specific questions about your trip - like what to see, where to stay, how to get around, or when you're planning to visit?",
           "role": "assistant"
         },
         {
@@ -24,7 +24,7 @@
         {
           "content": [
             {
-              "id": "toolu_0181yEeZT5qhntAcD2qZwshx",
+              "id": "toolu_01KpDRXvr2wnE9n4PodMcK4U",
               "input": {
                 "city": "London"
               },
@@ -38,7 +38,7 @@
           "content": [
             {
               "content": "London: 18C, cloudy",
-              "tool_use_id": "toolu_0181yEeZT5qhntAcD2qZwshx",
+              "tool_use_id": "toolu_01KpDRXvr2wnE9n4PodMcK4U",
               "type": "tool_result"
             }
           ],
@@ -87,11 +87,11 @@
     "body": {
       "content": [
         {
-          "text": "The current weather in London is **18°C (about 64°F) and cloudy**. \n\nThis is mild weather, so I'd recommend:\n- Bringing a light jacket or sweater\n- Having an umbrella or rain jacket handy (cloudy weather often brings rain in London)\n- Wearing layers so you can adjust as needed throughout the day\n\nIs there anything else you'd like to know about your London trip?",
+          "text": "The current weather in London is:\n- **Temperature:** 18°C (about 64°F)\n- **Conditions:** Cloudy\n\nIt's mild and cool, so you might want to pack layers, a light jacket, or a sweater. An umbrella could also be handy just in case! Is there anything else you'd like to know about your London trip?",
           "type": "text"
         }
       ],
-      "id": "msg_015BPJULHcnozzfKvmJSYPa1",
+      "id": "msg_01Wbmm5gTgk8rSxTrt7YB1Fe",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
       "stop_details": null,
@@ -106,19 +106,23 @@
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "inference_geo": "not_available",
-        "input_tokens": 938,
-        "output_tokens": 97,
+        "input_tokens": 801,
+        "output_tokens": 85,
         "service_tier": "standard"
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:24 GMT"
+        "Wed, 15 Apr 2026 10:59:07 GMT"
       ],
       [
         "content-type",
         "application/json"
+      ],
+      [
+        "content-length",
+        "756"
       ],
       [
         "anthropic-ratelimit-input-tokens-limit",
@@ -130,7 +134,7 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-04-14T15:22:23Z"
+        "2026-04-15T10:59:06Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
@@ -142,7 +146,7 @@
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-04-14T15:22:24Z"
+        "2026-04-15T10:59:07Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
@@ -154,7 +158,7 @@
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-04-14T15:22:22Z"
+        "2026-04-15T10:59:05Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
@@ -166,11 +170,11 @@
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-04-14T15:22:23Z"
+        "2026-04-15T10:59:06Z"
       ],
       [
         "request-id",
-        "req_011Ca3ti2DXtPa14bSbb3X98"
+        "req_011Ca5SSU9HQqBetUNY39WPq"
       ],
       [
         "strict-transport-security",
@@ -186,27 +190,23 @@
       ],
       [
         "x-envoy-upstream-service-time",
-        "1249"
+        "1342"
+      ],
+      [
+        "server-timing",
+        "x-originResponse;dur=1344"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
       ],
       [
         "x-robots-tag",
         "none"
       ],
       [
-        "vary",
-        "Accept-Encoding"
-      ],
-      [
-        "server-timing",
-        "x-originResponse;dur=1253"
-      ],
-      [
         "cf-cache-status",
         "DYNAMIC"
-      ],
-      [
-        "set-cookie",
-        "[REDACTED]"
       ],
       [
         "content-security-policy",
@@ -214,7 +214,7 @@
       ],
       [
         "cf-ray",
-        "9ec3b4a49b8b9947-PRG"
+        "9eca7058fb56f98a-PRG"
       ]
     ],
     "status": 200

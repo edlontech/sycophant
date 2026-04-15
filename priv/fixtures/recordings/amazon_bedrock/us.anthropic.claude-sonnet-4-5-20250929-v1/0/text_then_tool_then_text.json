@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-04-14T15:22:21.582954Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:07.909583Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -58,7 +58,7 @@
       ],
       [
         "x-amz-date",
-        "20260414T152219Z"
+        "20260415T105903Z"
       ],
       [
         "content-type",
@@ -71,13 +71,13 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 2020
+        "latencyMs": 3918
       },
       "output": {
         "message": {
           "content": [
             {
-              "text": "Hello! That's exciting that you're planning a trip to London! \n\nWould you like me to check the current weather in London for you? I can help you get an idea of what conditions are like there right now."
+              "text": "Hello! How exciting that you're planning a trip to London! \n\nWould you like me to check the current weather in London for you? I can help you get an idea of what conditions are like there. Just let me know if you'd like that information or if there's anything else I can help you with for your trip planning!"
             }
           ],
           "role": "assistant"
@@ -90,15 +90,15 @@
         "cacheWriteInputTokenCount": 0,
         "cacheWriteInputTokens": 0,
         "inputTokens": 590,
-        "outputTokens": 49,
+        "outputTokens": 72,
         "serverToolUsage": {},
-        "totalTokens": 639
+        "totalTokens": 662
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:21 GMT"
+        "Wed, 15 Apr 2026 10:59:07 GMT"
       ],
       [
         "content-type",
@@ -106,11 +106,11 @@
       ],
       [
         "content-length",
-        "518"
+        "625"
       ],
       [
         "x-amzn-requestid",
-        "32e70439-f5ab-4289-abbb-7789054fe5a6"
+        "7d435621-f8d2-4847-96af-bcf4792b96e0"
       ]
     ],
     "status": 200

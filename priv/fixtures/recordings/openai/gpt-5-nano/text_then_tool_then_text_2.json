@@ -1,0 +1,245 @@
+{
+  "metadata": {
+    "model": "gpt-5-nano",
+    "provider": "api.openai.com",
+    "recorded_at": "2026-04-15T10:59:22.835111Z",
+    "sycophant_version": "0.3.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "Hi! I'm planning a trip to London.",
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "Fantastic—London has so much to offer. To tailor a plan, could you share:\n- When are you visiting and how long you’ll stay?\n- Budget and lodging style (hotel, apartment, budget, mid-range)?\n- Your interests (history, art/museums, theater, food/markets, shopping, parks)?\n- Pace and any must-see attractions or any mobility constraints?\n- Do you want day trips outside central London?\n\nIf you want a quick starter, here are two solid options:\n\nOption A: 3–4 days (classic highlights)\n- Day 1: Westminster area (Big Ben, Parliament, Westminster Abbey), Buckingham Palace and St James’s Park; optional changing of the guard; South Bank stroll in the evening.\n- Day 2: The British Museum or The National Gallery (choose one), Covent Garden for lunch, optional West End show.\n- Day 3: Tower of London and Tower Bridge, stroll along the Thames to the Shard or London Eye (optional view), Borough Market for food.\n- Optional Day 4: Greenwich (Royal Observatory, Cutty Sark) or Kensington museums (Natural History, V&A, Science).\n\nOption B: 5–7 days (deep dive)\n- Central landmarks + neighborhoods: Westminster, Covent Garden, Soho, Mayfair, and the South Bank.\n- Museums: pick two in South Kensington (Natural History, Science, or V&A) and/or Tate Modern.\n- River & bridges: Thames cruise, Millennium Bridge, St Paul’s Cathedral.\n- Tower area + markets: Tower of London, Tower Bridge, Borough Market.\n- Day trip options: Windsor Castle, Bath, Oxford, or Greenwich.\n- Evening: West End show, a bite at a market or in Chinatown, or a rooftop bar.\n\nPractical tips\n- Getting around: Get an Oyster card or use contactless payment (fast and easy for Tube, trains, buses). Central London is very walkable; use buses to see the city from above ground.\n- Tickets: Book popular attractions (London Eye, Westminster Abbey, Buckingham Palace State Rooms) in advance. Many museums are free (don’t miss the British Museum, Natural History/Science/V&A if you’re in Kensington).\n- Neighborhoods to consider staying in: Covent Garden, South Bank, Bloomsbury, Marylebone, or Notting Hill for a different vibe.\n- Food: Borough Market for casual meals, Neal’s Yard for lunch spots, Chinatown for dinners, and afternoon tea if you want a classic experience.\n- Weather and packing: Pack an umbrella and layers; London weather is changeable. Comfortable walking shoes are key.\n- Safety/p tips: Keep an eye on belongings in crowds; use licensed taxis or rideshares at night.\n\nIf you share your dates, length of stay, and interests, I’ll craft a detailed day-by-day plan with a sensible route, timed entries, and packing checklist.",
+              "type": "output_text"
+            }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "content": "What's the current weather in London? Use the get_weather tool.",
+          "role": "user"
+        }
+      ],
+      "instructions": "You are a helpful assistant. Be concise.",
+      "model": "gpt-5-nano",
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "top_logprobs": 0,
+      "previous_response_id": null,
+      "tool_choice": "auto",
+      "service_tier": "default",
+      "status": "completed",
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ],
+      "id": "resp_03e1937e2b5b5ded0069df6f88d9f081968f35d06702e29abb",
+      "temperature": 1.0,
+      "max_output_tokens": null,
+      "user": null,
+      "frequency_penalty": 0.0,
+      "error": null,
+      "model": "gpt-5-nano-2025-08-07",
+      "usage": {
+        "input_tokens": 685,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 160,
+        "output_tokens_details": {
+          "reasoning_tokens": 128
+        },
+        "total_tokens": 845
+      },
+      "safety_identifier": null,
+      "object": "response",
+      "parallel_tool_calls": true,
+      "output": [
+        {
+          "id": "rs_03e1937e2b5b5ded0069df6f890bf081969c3ad360d19fd2c5",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "arguments": "{\"city\":\"London\"}",
+          "call_id": "call_RnApgErM5CoW5CJ1AXBeqBFr",
+          "id": "fc_03e1937e2b5b5ded0069df6f8a6f6081968d1e46d44b8d8d80",
+          "name": "get_weather",
+          "status": "completed",
+          "type": "function_call"
+        }
+      ],
+      "instructions": "You are a helpful assistant. Be concise.",
+      "store": true,
+      "presence_penalty": 0.0,
+      "incomplete_details": null,
+      "reasoning": {
+        "effort": "medium",
+        "summary": null
+      },
+      "completed_at": 1776250762,
+      "truncation": "disabled",
+      "top_p": 1.0,
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": null,
+      "metadata": {},
+      "prompt_cache_key": null,
+      "created_at": 1776250760,
+      "max_tool_calls": null
+    },
+    "headers": [
+      [
+        "date",
+        "Wed, 15 Apr 2026 10:59:22 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-length",
+        "2071"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "x-ratelimit-limit-requests",
+        "30000"
+      ],
+      [
+        "x-ratelimit-limit-tokens",
+        "180000000"
+      ],
+      [
+        "x-ratelimit-remaining-requests",
+        "29999"
+      ],
+      [
+        "x-ratelimit-remaining-tokens",
+        "180000000"
+      ],
+      [
+        "x-ratelimit-reset-requests",
+        "2ms"
+      ],
+      [
+        "x-ratelimit-reset-tokens",
+        "0s"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "x-request-id",
+        "req_51835be639d5414081ae23741fe224f2"
+      ],
+      [
+        "openai-processing-ms",
+        "1924"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "cf-ray",
+        "9eca70b6bc14710c-PRG"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}

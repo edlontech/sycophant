@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-04-14T15:22:23.556100Z",
-    "sycophant_version": "0.2.0"
+    "recorded_at": "2026-04-15T10:59:09.385065Z",
+    "sycophant_version": "0.3.0"
   },
   "request": {
     "body": {
@@ -55,7 +55,7 @@
         }
       ],
       "modelVersion": "gemini-2.5-flash",
-      "responseId": "r1veafv1A8iP28oPudyAwAY",
+      "responseId": "fW_fadX4AoLHnsEP5JTtuAE",
       "usageMetadata": {
         "candidatesTokenCount": 1,
         "promptTokenCount": 19,
@@ -65,8 +65,7 @@
             "tokenCount": 19
           }
         ],
-        "thoughtsTokenCount": 25,
-        "totalTokenCount": 45
+        "totalTokenCount": 20
       }
     },
     "headers": [
@@ -92,7 +91,7 @@
       ],
       [
         "date",
-        "Tue, 14 Apr 2026 15:22:23 GMT"
+        "Wed, 15 Apr 2026 10:59:09 GMT"
       ],
       [
         "server",
@@ -112,7 +111,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=527"
+        "gfet4t7; dur=383"
       ],
       [
         "alt-svc",
