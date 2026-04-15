@@ -49,6 +49,7 @@ defmodule Sycophant.Config do
     use ZoiDefstruct
 
     defstruct adapter: Zoi.optional(Zoi.any()),
+              timeout: Zoi.integer() |> Zoi.positive() |> Zoi.optional(),
               middlewares: Zoi.list(Zoi.any()) |> Zoi.default([])
   end
 

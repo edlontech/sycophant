@@ -6,6 +6,7 @@ defmodule Sycophant.TransportTest do
   alias Sycophant.Error.Provider.ModelNotFound
   alias Sycophant.Error.Provider.RateLimited
   alias Sycophant.Error.Provider.ServerError
+  alias Sycophant.Error.Provider.Timeout
   alias Sycophant.Error.Unknown.Unknown
   alias Sycophant.Transport
 
@@ -85,8 +86,28 @@ defmodule Sycophant.TransportTest do
   end
 
   describe "call/2 connection errors" do
-    test "wraps connection errors as Unknown" do
+    test "maps :timeout to Timeout" do
       adapter = fn _env -> {:error, :timeout} end
+      assert {:error, %Timeout{reason: :timeout}} = call_with(adapter)
+    end
+
+    test "maps :connect_timeout to Timeout" do
+      adapter = fn _env -> {:error, :connect_timeout} end
+      assert {:error, %Timeout{reason: :connect_timeout}} = call_with(adapter)
+    end
+
+    test "maps :checkout_timeout to Timeout" do
+      adapter = fn _env -> {:error, :checkout_timeout} end
+      assert {:error, %Timeout{reason: :checkout_timeout}} = call_with(adapter)
+    end
+
+    test "maps {:timeout, detail} tuples to Timeout" do
+      adapter = fn _env -> {:error, {:timeout, :recv}} end
+      assert {:error, %Timeout{reason: {:timeout, :recv}}} = call_with(adapter)
+    end
+
+    test "wraps other connection errors as Unknown" do
+      adapter = fn _env -> {:error, :econnrefused} end
       assert {:error, %Unknown{}} = call_with(adapter)
     end
   end
@@ -173,8 +194,15 @@ defmodule Sycophant.TransportTest do
       assert {:error, %ServerError{status: 500}} = Transport.stream(%{}, opts, on_event)
     end
 
-    test "wraps connection errors as Unknown" do
+    test "maps timeout to Timeout" do
       adapter = fn _env -> {:error, :timeout} end
+      on_event = fn _ -> flunk("should not be called") end
+      opts = @base_opts |> Keyword.put(:adapter, adapter)
+      assert {:error, %Timeout{reason: :timeout}} = Transport.stream(%{}, opts, on_event)
+    end
+
+    test "wraps other connection errors as Unknown" do
+      adapter = fn _env -> {:error, :econnrefused} end
       on_event = fn _ -> flunk("should not be called") end
       opts = @base_opts |> Keyword.put(:adapter, adapter)
       assert {:error, %Unknown{}} = Transport.stream(%{}, opts, on_event)

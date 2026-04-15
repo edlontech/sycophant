@@ -32,7 +32,7 @@ defmodule Sycophant.Transport do
         map_error(env)
 
       {:error, reason} ->
-        {:error, Error.Unknown.Unknown.exception(error: reason)}
+        map_connection_error(reason)
     end
   end
 
@@ -51,7 +51,7 @@ defmodule Sycophant.Transport do
         map_error(env)
 
       {:error, reason} ->
-        {:error, Error.Unknown.Unknown.exception(error: reason)}
+        map_connection_error(reason)
     end
   end
 
@@ -71,7 +71,7 @@ defmodule Sycophant.Transport do
         map_error(env)
 
       {:error, reason} ->
-        {:error, Error.Unknown.Unknown.exception(error: reason)}
+        map_connection_error(reason)
     end
   end
 
@@ -91,7 +91,7 @@ defmodule Sycophant.Transport do
         map_error(env)
 
       {:error, reason} ->
-        {:error, Error.Unknown.Unknown.exception(error: reason)}
+        map_connection_error(reason)
     end
   end
 
@@ -114,6 +114,7 @@ defmodule Sycophant.Transport do
         Tesla.Middleware.JSON
       ] ++
         Keyword.get(opts, :auth_middlewares, []) ++
+        timeout_middleware(tesla_config) ++
         Keyword.get(opts, :middlewares, tesla_config.middlewares)
 
     Tesla.client(middlewares, adapter)
@@ -144,6 +145,7 @@ defmodule Sycophant.Transport do
         Tesla.Middleware.SSE
       ] ++
         Keyword.get(opts, :auth_middlewares, []) ++
+        timeout_middleware(tesla_config) ++
         Keyword.get(opts, :middlewares, tesla_config.middlewares)
 
     Tesla.client(middlewares, adapter)
@@ -174,6 +176,7 @@ defmodule Sycophant.Transport do
          [{"content-type", "application/json"}, {"accept", "application/vnd.amazon.eventstream"}]}
       ] ++
         Keyword.get(opts, :auth_middlewares, []) ++
+        timeout_middleware(tesla_config) ++
         Keyword.get(opts, :middlewares, tesla_config.middlewares)
 
     Tesla.client(middlewares, adapter)
@@ -214,4 +217,24 @@ defmodule Sycophant.Transport do
   end
 
   defp parse_retry_after(value), do: value
+
+  defp timeout_middleware(%{timeout: timeout}) when is_integer(timeout) do
+    [{Tesla.Middleware.Timeout, timeout: timeout}]
+  end
+
+  defp timeout_middleware(_), do: []
+
+  @timeout_reasons [:timeout, :connect_timeout, :checkout_timeout]
+
+  defp map_connection_error(reason) when reason in @timeout_reasons do
+    {:error, Error.Provider.Timeout.exception(reason: reason)}
+  end
+
+  defp map_connection_error({:timeout, detail}) do
+    {:error, Error.Provider.Timeout.exception(reason: {:timeout, detail})}
+  end
+
+  defp map_connection_error(reason) do
+    {:error, Error.Unknown.Unknown.exception(error: reason)}
+  end
 end

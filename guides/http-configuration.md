@@ -128,7 +128,7 @@ Sycophant maps HTTP status codes to typed errors regardless of adapter:
 | 400-499 | `BadRequest` |
 | 500+ | `ServerError` |
 
-Connection failures and timeouts surface as `Unknown` errors.
+Timeouts surface as `Timeout` errors. Other connection failures surface as `Unknown` errors.
 
 ## Logging Requests
 
