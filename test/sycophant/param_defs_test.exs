@@ -4,7 +4,7 @@ defmodule Sycophant.ParamDefsTest do
   alias Sycophant.ParamDefs
 
   describe "shared/0" do
-    test "returns a map with all 10 expected keys" do
+    test "returns a map with all 11 expected keys" do
       shared = ParamDefs.shared()
 
       expected_keys = [
@@ -14,13 +14,14 @@ defmodule Sycophant.ParamDefsTest do
         :top_k,
         :stop,
         :reasoning_effort,
+        :reasoning_budget,
         :reasoning_summary,
         :service_tier,
         :tool_choice,
         :parallel_tool_calls
       ]
 
-      assert map_size(shared) == 10
+      assert map_size(shared) == 11
       for key <- expected_keys, do: assert(Map.has_key?(shared, key), "missing key: #{key}")
     end
   end

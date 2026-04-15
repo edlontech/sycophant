@@ -42,6 +42,10 @@ defmodule Sycophant.ParamDefs do
           description: "Extended thinking effort level"
         )
         |> Zoi.optional(),
+      reasoning_budget:
+        Zoi.integer(description: "Explicit reasoning token budget")
+        |> Zoi.positive()
+        |> Zoi.optional(),
       reasoning_summary:
         Zoi.enum([:auto, :concise, :detailed, :none],
           description: "How to summarize reasoning"

@@ -345,6 +345,34 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
       config = payload["generationConfig"]
       refute Map.has_key?(config, "thinkingConfig")
     end
+
+    test "reasoning_budget sets thinkingBudget directly" do
+      request =
+        build_request([Message.user("hi")],
+          model: "gemini-3.0-flash",
+          params: %{reasoning_budget: 8192}
+        )
+
+      assert {:ok, payload} = GoogleGemini.encode_request(request)
+      assert payload["generationConfig"]["thinkingConfig"] == %{"thinkingBudget" => 8192}
+    end
+
+    test "reasoning_budget works on legacy models" do
+      request = build_request([Message.user("hi")], params: %{reasoning_budget: 2048})
+      assert {:ok, payload} = GoogleGemini.encode_request(request)
+      assert payload["generationConfig"]["thinkingConfig"] == %{"thinkingBudget" => 2048}
+    end
+
+    test "reasoning_budget takes precedence over reasoning_effort" do
+      request =
+        build_request([Message.user("hi")],
+          model: "gemini-3.0-flash",
+          params: %{reasoning_effort: :low, reasoning_budget: 12_000}
+        )
+
+      assert {:ok, payload} = GoogleGemini.encode_request(request)
+      assert payload["generationConfig"]["thinkingConfig"] == %{"thinkingBudget" => 12_000}
+    end
   end
 
   describe "encode_request/1 - response schema" do

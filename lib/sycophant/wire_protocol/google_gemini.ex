@@ -38,6 +38,7 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
                       :top_k,
                       :stop,
                       :reasoning_effort,
+                      :reasoning_budget,
                       :reasoning_summary,
                       :tool_choice,
                       :parallel_tool_calls
@@ -552,6 +553,10 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
       do: config,
       else: Map.put(config, "thinkingConfig", thinking_config)
   end
+
+  defp build_thinking_level(%{reasoning_budget: budget}, _model)
+       when is_integer(budget),
+       do: %{"thinkingBudget" => budget}
 
   defp build_thinking_level(%{reasoning_effort: :none}, _model),
     do: %{"thinkingBudget" => 0}
