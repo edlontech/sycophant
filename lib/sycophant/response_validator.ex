@@ -41,8 +41,11 @@ defmodule Sycophant.ResponseValidator do
       {:ok, decoded} ->
         {:ok, decoded}
 
-      {:error, _} ->
-        {:error, InvalidResponse.exception(errors: ["invalid JSON in response"])}
+      {:error, error} ->
+        {:error,
+         InvalidResponse.exception(
+           errors: ["invalid JSON in response: #{inspect(error)}\n\nPayload: #{text}"]
+         )}
     end
   end
 end
