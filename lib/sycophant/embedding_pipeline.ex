@@ -61,7 +61,9 @@ defmodule Sycophant.EmbeddingPipeline do
 
       {:error, errors} ->
         {:error,
-         Error.Invalid.InvalidParams.exception(errors: Enum.map(errors, &to_string(&1.message)))}
+         Error.Invalid.InvalidParams.exception(
+           errors: Enum.map(errors, &Zoi.prettify_errors([&1]))
+         )}
     end
   end
 
@@ -74,7 +76,9 @@ defmodule Sycophant.EmbeddingPipeline do
 
       {:error, errors} ->
         {:error,
-         Error.Invalid.InvalidParams.exception(errors: Enum.map(errors, &to_string(&1.message)))}
+         Error.Invalid.InvalidParams.exception(
+           errors: Enum.map(errors, &Zoi.prettify_errors([&1]))
+         )}
     end
   end
 
