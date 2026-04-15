@@ -62,6 +62,24 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
       assert {:ok, payload} = BedrockConverse.encode_request(request)
       refute Map.has_key?(payload, "system")
     end
+
+    test "extracts text blocks from system message content parts" do
+      request =
+        build_request([
+          Message.system([
+            %Content.Text{text: "be helpful"},
+            %Content.Text{text: "be concise"}
+          ]),
+          Message.user("hi")
+        ])
+
+      assert {:ok, payload} = BedrockConverse.encode_request(request)
+
+      assert payload["system"] == [
+               %{"text" => "be helpful"},
+               %{"text" => "be concise"}
+             ]
+    end
   end
 
   describe "encode_request/1 - messages" do

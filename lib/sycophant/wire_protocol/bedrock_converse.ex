@@ -322,18 +322,27 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
 
     blocks =
       system_msgs
-      |> Enum.map(&system_content_block/1)
+      |> Enum.flat_map(&system_content_blocks/1)
       |> Enum.reject(&is_nil/1)
 
     {blocks, rest}
   end
 
-  defp system_content_block(%Message{content: content})
+  defp system_content_blocks(%Message{content: content})
        when is_binary(content) and content != "" do
-    %{"text" => content}
+    [%{"text" => content}]
   end
 
-  defp system_content_block(_), do: nil
+  defp system_content_blocks(%Message{content: parts}) when is_list(parts) do
+    parts
+    |> Enum.map(fn
+      %Content.Text{text: text} when text != "" -> %{"text" => text}
+      _ -> nil
+    end)
+    |> Enum.reject(&is_nil/1)
+  end
+
+  defp system_content_blocks(_), do: []
 
   # --- Private: Message Encoding ---
 

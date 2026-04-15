@@ -46,6 +46,20 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
       refute Map.has_key?(payload, "system")
     end
+
+    test "extracts text from system message content parts" do
+      request =
+        build_request([
+          Message.system([
+            %Content.Text{text: "be helpful"},
+            %Content.Text{text: "be concise"}
+          ]),
+          Message.user("hi")
+        ])
+
+      assert {:ok, payload} = AnthropicMessages.encode_request(request)
+      assert payload["system"] == "be helpful\nbe concise"
+    end
   end
 
   describe "encode_request/1 - messages" do
@@ -245,28 +259,28 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
   end
 
   describe "encode_request/1 - thinking" do
-    test "maps reasoning :low to thinking with budget_tokens 1024" do
-      request = build_request([Message.user("hi")], params: %{reasoning: :low})
+    test "maps reasoning_effort :low to thinking with budget_tokens 1024" do
+      request = build_request([Message.user("hi")], params: %{reasoning_effort: :low})
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
 
       assert payload["thinking"] == %{"type" => "enabled", "budget_tokens" => 1024}
     end
 
-    test "maps reasoning :medium to thinking with budget_tokens 4096" do
-      request = build_request([Message.user("hi")], params: %{reasoning: :medium})
+    test "maps reasoning_effort :medium to thinking with budget_tokens 4096" do
+      request = build_request([Message.user("hi")], params: %{reasoning_effort: :medium})
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
 
       assert payload["thinking"] == %{"type" => "enabled", "budget_tokens" => 4096}
     end
 
-    test "maps reasoning :high to thinking with budget_tokens 16384" do
-      request = build_request([Message.user("hi")], params: %{reasoning: :high})
+    test "maps reasoning_effort :high to thinking with budget_tokens 16384" do
+      request = build_request([Message.user("hi")], params: %{reasoning_effort: :high})
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
 
       assert payload["thinking"] == %{"type" => "enabled", "budget_tokens" => 16_384}
     end
 
-    test "no thinking field when reasoning is nil" do
+    test "no thinking field when reasoning_effort is nil" do
       request = build_request([Message.user("hi")])
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
       refute Map.has_key?(payload, "thinking")
@@ -862,7 +876,7 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
                  top_p: 0.9,
                  top_k: 40,
                  stop: ["END"],
-                 reasoning: :medium,
+                 reasoning_effort: :medium,
                  reasoning_summary: :auto,
                  service_tier: "default",
                  tool_choice: :auto,

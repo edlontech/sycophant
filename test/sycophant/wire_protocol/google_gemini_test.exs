@@ -59,6 +59,23 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
       assert {:ok, payload} = GoogleGemini.encode_request(request)
       refute Map.has_key?(payload, "system_instruction")
     end
+
+    test "extracts text from system message content parts" do
+      request =
+        build_request([
+          Message.system([
+            %Content.Text{text: "be helpful"},
+            %Content.Text{text: "be concise"}
+          ]),
+          Message.user("hi")
+        ])
+
+      assert {:ok, payload} = GoogleGemini.encode_request(request)
+
+      assert payload["system_instruction"] == %{
+               "parts" => [%{"text" => "be helpful\nbe concise"}]
+             }
+    end
   end
 
   describe "encode_request/1 - messages" do
@@ -277,7 +294,10 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
   describe "encode_request/1 - thinking" do
     test "gemini-3+ uses thinkingLevel" do
       request =
-        build_request([Message.user("hi")], model: "gemini-3.0-flash", params: %{reasoning: :low})
+        build_request([Message.user("hi")],
+          model: "gemini-3.0-flash",
+          params: %{reasoning_effort: :low}
+        )
 
       assert {:ok, payload} = GoogleGemini.encode_request(request)
       assert payload["generationConfig"]["thinkingConfig"] == %{"thinkingLevel" => "LOW"}
@@ -288,7 +308,7 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
         request =
           build_request([Message.user("hi")],
             model: "gemini-3.1-flash",
-            params: %{reasoning: level}
+            params: %{reasoning_effort: level}
           )
 
         assert {:ok, payload} = GoogleGemini.encode_request(request)
@@ -298,7 +318,7 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
 
     test "gemini-2.x uses thinkingBudget" do
       request =
-        build_request([Message.user("hi")], params: %{reasoning: :low})
+        build_request([Message.user("hi")], params: %{reasoning_effort: :low})
 
       assert {:ok, payload} = GoogleGemini.encode_request(request)
       assert payload["generationConfig"]["thinkingConfig"] == %{"thinkingBudget" => 1024}
@@ -306,19 +326,19 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
 
     test "gemini-2.x maps reasoning levels to budgets" do
       for {level, expected} <- [medium: 4096, high: 16_384, xhigh: 32_768] do
-        request = build_request([Message.user("hi")], params: %{reasoning: level})
+        request = build_request([Message.user("hi")], params: %{reasoning_effort: level})
         assert {:ok, payload} = GoogleGemini.encode_request(request)
         assert payload["generationConfig"]["thinkingConfig"] == %{"thinkingBudget" => expected}
       end
     end
 
-    test "reasoning :none sets thinkingBudget to 0" do
-      request = build_request([Message.user("hi")], params: %{reasoning: :none})
+    test "reasoning_effort :none sets thinkingBudget to 0" do
+      request = build_request([Message.user("hi")], params: %{reasoning_effort: :none})
       assert {:ok, payload} = GoogleGemini.encode_request(request)
       assert payload["generationConfig"]["thinkingConfig"] == %{"thinkingBudget" => 0}
     end
 
-    test "no thinkingConfig when reasoning is nil" do
+    test "no thinkingConfig when reasoning_effort is nil" do
       request = build_request([Message.user("hi")], params: %{temperature: 0.5})
       assert {:ok, payload} = GoogleGemini.encode_request(request)
 
@@ -888,7 +908,7 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
       refute Map.has_key?(result, :service_tier)
     end
 
-    test "accepts subset params including top_k and reasoning" do
+    test "accepts subset params including top_k and reasoning_effort" do
       schema = GoogleGemini.param_schema()
 
       assert {:ok, result} =
@@ -898,14 +918,14 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
                  top_p: 0.9,
                  top_k: 40,
                  stop: ["END"],
-                 reasoning: :high,
+                 reasoning_effort: :high,
                  tool_choice: :auto,
                  parallel_tool_calls: true
                })
 
       assert result.temperature == 0.5
       assert result.top_k == 40
-      assert result.reasoning == :high
+      assert result.reasoning_effort == :high
     end
   end
 

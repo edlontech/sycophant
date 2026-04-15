@@ -43,7 +43,7 @@ defmodule Sycophant.SerializableIntegrationTest do
           ),
           Message.assistant("The weather in NYC is sunny, 72F")
         ],
-        params: %{temperature: 0.7, reasoning: :high, stop: ["END"]},
+        params: %{temperature: 0.7, reasoning_effort: :high, stop: ["END"]},
         tools: [
           %Tool{
             name: "get_weather",
@@ -66,7 +66,7 @@ defmodule Sycophant.SerializableIntegrationTest do
     assert decoded.reasoning == response.reasoning
     assert length(decoded.context.messages) == 5
     assert decoded.context.params.temperature == 0.7
-    assert decoded.context.params.reasoning in [:high, "high"]
+    assert decoded.context.params.reasoning_effort in [:high, "high"]
 
     [tool] = decoded.context.tools
     assert tool.name == "get_weather"

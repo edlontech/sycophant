@@ -13,7 +13,7 @@ defmodule Sycophant.ParamDefsTest do
         :top_p,
         :top_k,
         :stop,
-        :reasoning,
+        :reasoning_effort,
         :reasoning_summary,
         :service_tier,
         :tool_choice,
@@ -67,18 +67,18 @@ defmodule Sycophant.ParamDefsTest do
       assert {:error, _} = Zoi.parse(schema, %{top_p: 1.5})
     end
 
-    test "rejects invalid reasoning enum value" do
+    test "rejects invalid reasoning_effort enum value" do
       schema = Zoi.object(ParamDefs.shared())
 
-      assert {:error, _} = Zoi.parse(schema, %{reasoning: :extreme})
+      assert {:error, _} = Zoi.parse(schema, %{reasoning_effort: :extreme})
     end
 
-    test "accepts valid reasoning enum values" do
+    test "accepts valid reasoning_effort enum values" do
       schema = Zoi.object(ParamDefs.shared())
 
       for level <- [:low, :medium, :high] do
-        assert {:ok, result} = Zoi.parse(schema, %{reasoning: level})
-        assert result.reasoning == level
+        assert {:ok, result} = Zoi.parse(schema, %{reasoning_effort: level})
+        assert result.reasoning_effort == level
       end
     end
 

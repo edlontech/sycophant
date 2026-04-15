@@ -161,8 +161,8 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
       refute Map.has_key?(payload, "safety_identifier")
     end
 
-    test "translates reasoning to reasoning_effort as string" do
-      params = %{reasoning: :medium}
+    test "translates reasoning_effort to reasoning_effort as string" do
+      params = %{reasoning_effort: :medium}
       request = build_request([Message.user("hi")], params: params)
       assert {:ok, payload} = OpenAICompletions.encode_request(request)
 

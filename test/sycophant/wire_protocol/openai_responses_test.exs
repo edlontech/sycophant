@@ -48,6 +48,20 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
       refute Map.has_key?(payload, "instructions")
     end
+
+    test "extracts text from system message content parts" do
+      messages = [
+        Message.system([
+          %Content.Text{text: "be helpful"},
+          %Content.Text{text: "be concise"}
+        ]),
+        Message.user("hello")
+      ]
+
+      request = build_request(messages)
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+      assert payload["instructions"] == "be helpful\nbe concise"
+    end
   end
 
   describe "encode_request/1 - user messages" do
@@ -184,7 +198,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
     end
 
     test "nests reasoning params into reasoning object" do
-      params = %{reasoning: :medium, reasoning_summary: :concise}
+      params = %{reasoning_effort: :medium, reasoning_summary: :concise}
       request = build_request([Message.user("hi")], params: params)
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
 
@@ -192,7 +206,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
     end
 
     test "nests reasoning effort alone" do
-      params = %{reasoning: :high}
+      params = %{reasoning_effort: :high}
       request = build_request([Message.user("hi")], params: params)
       assert {:ok, payload} = OpenAIResponses.encode_request(request)
 

@@ -18,7 +18,7 @@ defmodule Sycophant.Recording.ReasoningTest do
              Sycophant.generate_text(
                model,
                messages,
-               recording_opts(reasoning: :low, reasoning_summary: :detailed)
+               recording_opts(reasoning_effort: :low, reasoning_summary: :detailed)
              )
 
     assert is_binary(response.text)

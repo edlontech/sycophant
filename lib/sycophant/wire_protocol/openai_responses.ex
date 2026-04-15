@@ -385,7 +385,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
         msgs ->
           joined =
             msgs
-            |> Enum.map(& &1.content)
+            |> Enum.map(&system_message_text/1)
             |> Enum.reject(&(&1 == "" or is_nil(&1)))
             |> Enum.join("\n")
 
@@ -393,6 +393,19 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
       end
 
     {instructions, rest}
+  end
+
+  defp system_message_text(%Message{content: content}) when is_binary(content), do: content
+  defp system_message_text(%Message{content: nil}), do: nil
+
+  defp system_message_text(%Message{content: parts}) when is_list(parts) do
+    parts
+    |> Enum.map(fn
+      %Content.Text{text: text} -> text
+      _ -> nil
+    end)
+    |> Enum.reject(&(&1 == "" or is_nil(&1)))
+    |> Enum.join("\n")
   end
 
   # --- Input Encoding ---
