@@ -418,6 +418,24 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
       assert encoded["parameters"]["properties"]["city"]["type"] == "string"
     end
 
+    test "encodes tool with strict false" do
+      tools = [
+        %Tool{
+          name: "get_weather",
+          description: "Get current weather",
+          strict: false,
+          parameters: %{
+            "type" => "object",
+            "properties" => %{"city" => %{"type" => "string"}},
+            "required" => ["city"]
+          }
+        }
+      ]
+
+      assert {:ok, [encoded]} = OpenAIResponses.encode_tools(tools)
+      assert encoded["strict"] == false
+    end
+
     test "does not nest in function wrapper" do
       tools = [
         %Tool{

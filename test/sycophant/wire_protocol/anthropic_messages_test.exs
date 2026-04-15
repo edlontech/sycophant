@@ -344,6 +344,24 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
       assert encoded["input_schema"]["type"] == "object"
       assert encoded["input_schema"]["properties"]["city"]["type"] == "string"
       refute Map.has_key?(encoded, "type")
+      assert encoded["strict"] == true
+    end
+
+    test "encodes tool with strict false omits strict key" do
+      tools = [
+        %Tool{
+          name: "get_weather",
+          description: "Get current weather",
+          strict: false,
+          parameters: %{
+            "type" => "object",
+            "properties" => %{"city" => %{"type" => "string"}},
+            "required" => ["city"]
+          }
+        }
+      ]
+
+      assert {:ok, [encoded]} = AnthropicMessages.encode_tools(tools)
       refute Map.has_key?(encoded, "strict")
     end
 

@@ -388,8 +388,14 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
 
   # --- Private: Tool Encoding ---
 
-  defp encode_tool(%Tool{name: name, description: description, parameters: parameters}) do
-    {:ok, %{"name" => name, "description" => description, "input_schema" => parameters}}
+  defp encode_tool(%Tool{
+         name: name,
+         description: description,
+         parameters: parameters,
+         strict: strict
+       }) do
+    tool = %{"name" => name, "description" => description, "input_schema" => parameters}
+    {:ok, if(strict, do: Map.put(tool, "strict", true), else: tool)}
   end
 
   # --- Private: Response Decoding ---

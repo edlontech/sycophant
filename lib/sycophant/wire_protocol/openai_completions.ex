@@ -371,7 +371,12 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
 
   # --- Tool Encoding ---
 
-  defp encode_tool(%Tool{name: name, description: description, parameters: parameters}) do
+  defp encode_tool(%Tool{
+         name: name,
+         description: description,
+         parameters: parameters,
+         strict: strict
+       }) do
     {:ok,
      %{
        "type" => "function",
@@ -379,7 +384,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
          "name" => name,
          "description" => description,
          "parameters" => set_strict_additional_properties(parameters),
-         "strict" => true
+         "strict" => strict
        }
      }}
   end

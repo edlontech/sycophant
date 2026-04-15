@@ -46,6 +46,7 @@ defmodule Sycophant.Tool do
     field :description, String.t(), enforce: true
     field :parameters, Zoi.schema() | map(), enforce: true
     field :function, (map() -> String.t())
+    field :strict, boolean(), default: true
     field :schema_source, :zoi | :json_schema | nil
     field :resolved_schema, Sycophant.Schema.NormalizedSchema.t()
   end
@@ -75,10 +76,13 @@ defmodule Sycophant.Tool do
           nil
       end
 
+    strict = Map.get(data, "strict", true)
+
     %__MODULE__{
       name: name,
       description: data["description"],
       parameters: params,
+      strict: strict,
       function: Map.get(tool_registry, name),
       schema_source: source,
       resolved_schema: resolved
@@ -87,7 +91,13 @@ defmodule Sycophant.Tool do
 end
 
 defimpl Sycophant.Serializable, for: Sycophant.Tool do
-  def to_map(%{name: name, description: desc, parameters: params, schema_source: source}) do
+  def to_map(%{
+        name: name,
+        description: desc,
+        parameters: params,
+        strict: strict,
+        schema_source: source
+      }) do
     json_schema =
       case Sycophant.Schema.JsonSchema.to_json_schema(params) do
         {:ok, schema} -> schema
@@ -98,7 +108,8 @@ defimpl Sycophant.Serializable, for: Sycophant.Tool do
       "__type__" => "Tool",
       "name" => name,
       "description" => desc,
-      "parameters" => json_schema
+      "parameters" => json_schema,
+      "strict" => strict
     }
 
     if source, do: Map.put(map, "schema_source", Atom.to_string(source)), else: map

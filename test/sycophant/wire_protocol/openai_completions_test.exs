@@ -209,6 +209,24 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
       assert encoded["function"]["parameters"]["properties"]["city"]["type"] == "string"
     end
 
+    test "encodes tool with strict false" do
+      tools = [
+        %Tool{
+          name: "get_weather",
+          description: "Get current weather",
+          strict: false,
+          parameters: %{
+            "type" => "object",
+            "properties" => %{"city" => %{"type" => "string"}},
+            "required" => ["city"]
+          }
+        }
+      ]
+
+      assert {:ok, [encoded]} = OpenAICompletions.encode_tools(tools)
+      assert encoded["function"]["strict"] == false
+    end
+
     test "encodes tools in request payload" do
       tools = [
         %Tool{

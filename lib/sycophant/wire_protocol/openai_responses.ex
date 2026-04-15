@@ -550,14 +550,19 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
 
   # --- Tool Encoding ---
 
-  defp encode_tool(%Tool{name: name, description: description, parameters: parameters}) do
+  defp encode_tool(%Tool{
+         name: name,
+         description: description,
+         parameters: parameters,
+         strict: strict
+       }) do
     {:ok,
      %{
        "type" => "function",
        "name" => name,
        "description" => description,
        "parameters" => set_strict_additional_properties(parameters),
-       "strict" => true
+       "strict" => strict
      }}
   end
 
