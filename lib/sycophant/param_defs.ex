@@ -44,7 +44,7 @@ defmodule Sycophant.ParamDefs do
         |> Zoi.optional(),
       reasoning_budget:
         Zoi.integer(description: "Explicit reasoning token budget")
-        |> Zoi.positive()
+        |> Zoi.min(0)
         |> Zoi.optional(),
       reasoning_summary:
         Zoi.enum([:auto, :concise, :detailed, :none],
