@@ -37,6 +37,12 @@ defmodule Sycophant.StreamChunkTest do
       assert chunk.data.input_tokens == 10
     end
 
+    test "creates done chunk with accumulator data" do
+      chunk = %StreamChunk{type: :done, data: ["world", "hello"]}
+      assert chunk.type == :done
+      assert chunk.data == ["world", "hello"]
+    end
+
     test "enforces type field" do
       assert_raise ArgumentError, fn ->
         struct!(StreamChunk, data: "Hello")

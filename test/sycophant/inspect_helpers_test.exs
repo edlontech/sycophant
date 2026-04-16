@@ -57,5 +57,9 @@ defmodule Sycophant.InspectHelpersTest do
       assert InspectHelpers.fn_label(fn _x -> :ok end) == "fn/1"
       assert InspectHelpers.fn_label(&Enum.map/2) == "fn/2"
     end
+
+    test "returns tuple label for stream accumulator tuple" do
+      assert InspectHelpers.fn_label({[], fn _chunk, acc -> acc end}) == "{acc, fn/2}"
+    end
   end
 end

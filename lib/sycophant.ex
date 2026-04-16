@@ -76,10 +76,22 @@ defmodule Sycophant do
 
   ## Streaming
 
-  Pass a callback function via the `:stream` option to receive chunks as they arrive:
+  Pass a callback via the `:stream` option to receive chunks as they arrive:
 
       Sycophant.generate_text("openai:gpt-4o-mini", messages,
         stream: fn chunk -> IO.write(chunk.data) end
+      )
+
+  Use the accumulator form to build up state across chunks:
+
+      Sycophant.generate_text("openai:gpt-4o-mini", messages,
+        stream: {[], fn
+          %Sycophant.StreamChunk{type: :text_delta, data: text}, acc ->
+            IO.write(text)
+            [text | acc]
+          _chunk, acc ->
+            acc
+        end}
       )
 
   ## Tool Use
@@ -140,7 +152,8 @@ defmodule Sycophant do
 
     * `:credentials` - Per-request credentials map (optional)
     * `:tools` - List of `Sycophant.Tool` structs (optional)
-    * `:stream` - Callback function receiving `StreamChunk` structs (optional)
+    * `:stream` - Stream callback: either a `function/1` receiving `StreamChunk` structs,
+      or a `{initial_acc, function/2}` tuple for accumulator-style streaming (optional)
     * `:max_steps` - Maximum tool execution loop iterations (default: 10)
     * `:temperature`, `:max_tokens`, `:top_p`, etc. - LLM parameters validated
       against the resolved wire protocol's param schema.

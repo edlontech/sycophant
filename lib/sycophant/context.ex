@@ -24,7 +24,7 @@ defmodule Sycophant.Context do
     field :messages, [Sycophant.Message.t()], default: []
     field :params, map(), default: %{}
     field :tools, [Sycophant.Tool.t()], default: []
-    field :stream, (term() -> term())
+    field :stream, (term() -> term()) | {term(), (term(), term() -> term())}
   end
 
   @doc "Creates an empty context."

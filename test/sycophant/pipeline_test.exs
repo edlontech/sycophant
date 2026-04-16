@@ -1038,13 +1038,76 @@ defmodule Sycophant.PipelineTest do
                Pipeline.call(default_messages(), default_opts())
     end
 
-    test "returns InvalidParams when stream is not a function/1" do
+    test "returns InvalidParams when stream is not a function/1 or tuple" do
       stub_happy_path()
 
       opts = default_opts() ++ [stream: true]
 
       assert {:error, %Error.Invalid.InvalidParams{}} =
                Pipeline.call(default_messages(), opts)
+    end
+
+    test "accumulator threads through stream chunks with tuple form" do
+      stub_stream_happy_path()
+
+      stream =
+        {[],
+         fn
+           %Sycophant.StreamChunk{type: :text_delta, data: text}, acc -> [text | acc]
+           %Sycophant.StreamChunk{type: :done}, _acc -> :ok
+           _chunk, acc -> acc
+         end}
+
+      opts = default_opts() ++ [stream: stream]
+
+      assert {:ok, %Response{text: "Hello World"}} =
+               Pipeline.call(default_messages(), opts)
+    end
+
+    test "emits :done chunk as last event for tuple form" do
+      stub_stream_happy_path()
+      test_pid = self()
+
+      stream =
+        {nil,
+         fn chunk, acc ->
+           send(test_pid, {:chunk, chunk.type})
+           acc
+         end}
+
+      opts = default_opts() ++ [stream: stream]
+
+      assert {:ok, _} = Pipeline.call(default_messages(), opts)
+
+      assert_received {:chunk, :text_delta}
+      assert_received {:chunk, :text_delta}
+      assert_received {:chunk, :done}
+    end
+
+    test "emits :done chunk for legacy 1-arity callback" do
+      stub_stream_happy_path()
+      test_pid = self()
+
+      callback = fn chunk -> send(test_pid, {:chunk, chunk.type}) end
+      opts = default_opts() ++ [stream: callback]
+
+      assert {:ok, _} = Pipeline.call(default_messages(), opts)
+
+      assert_received {:chunk, :text_delta}
+      assert_received {:chunk, :text_delta}
+      assert_received {:chunk, :done}
+    end
+
+    test "stream context preserves tuple callback for continuation" do
+      stub_stream_happy_path()
+
+      stream = {[], fn _chunk, acc -> acc end}
+      opts = default_opts() ++ [stream: stream]
+
+      assert {:ok, %Response{context: context}} =
+               Pipeline.call(default_messages(), opts)
+
+      assert context.stream == stream
     end
 
     test "propagates transport error from Transport.stream" do

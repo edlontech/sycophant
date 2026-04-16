@@ -423,9 +423,9 @@ defmodule Sycophant.AgentTest do
 
       Sycophant
       |> expect(:generate_text, fn _model, _ctx, opts ->
-        stream_fn = opts[:stream]
-        stream_fn.(%Sycophant.StreamChunk{type: :text_delta, data: "hel"})
-        stream_fn.(%Sycophant.StreamChunk{type: :text_delta, data: "lo"})
+        {_acc, stream_fn} = opts[:stream]
+        stream_fn.(%Sycophant.StreamChunk{type: :text_delta, data: "hel"}, nil)
+        stream_fn.(%Sycophant.StreamChunk{type: :text_delta, data: "lo"}, nil)
         {:ok, response}
       end)
 
@@ -446,8 +446,8 @@ defmodule Sycophant.AgentTest do
 
       Sycophant
       |> expect(:generate_text, fn _model, _ctx, opts ->
-        stream_fn = opts[:stream]
-        stream_fn.(%Sycophant.StreamChunk{type: :text_delta, data: "x"})
+        {_acc, stream_fn} = opts[:stream]
+        stream_fn.(%Sycophant.StreamChunk{type: :text_delta, data: "x"}, nil)
         send(test_pid, :stream_started)
         Process.sleep(200)
         {:ok, response}
@@ -496,8 +496,8 @@ defmodule Sycophant.AgentTest do
 
       Sycophant
       |> expect(:generate_text, fn _model, _ctx, opts ->
-        stream_fn = opts[:stream]
-        stream_fn.(%Sycophant.StreamChunk{type: :text_delta, data: "x"})
+        {_acc, stream_fn} = opts[:stream]
+        stream_fn.(%Sycophant.StreamChunk{type: :text_delta, data: "x"}, nil)
         send(test_pid, :streaming)
         Process.sleep(500)
         {:ok, response}
@@ -554,9 +554,9 @@ defmodule Sycophant.AgentTest do
 
       Sycophant
       |> expect(:generate_text, fn _model, _ctx, opts ->
-        stream_fn = opts[:stream]
-        stream_fn.(%Sycophant.StreamChunk{type: :text_delta, data: "boom"})
-        stream_fn.(%Sycophant.StreamChunk{type: :text_delta, data: "ok"})
+        {_acc, stream_fn} = opts[:stream]
+        stream_fn.(%Sycophant.StreamChunk{type: :text_delta, data: "boom"}, nil)
+        stream_fn.(%Sycophant.StreamChunk{type: :text_delta, data: "ok"}, nil)
         {:ok, response}
       end)
 
@@ -566,6 +566,95 @@ defmodule Sycophant.AgentTest do
             %{data: "boom"} -> raise "callback exploded"
             _chunk -> :ok
           end
+        )
+
+      assert {:ok, %Response{text: "done"}} = Agent.chat(agent, "hi")
+      assert Agent.status(agent) == :idle
+      Agent.stop(agent)
+    end
+
+    test "accumulator threads through agent stream chunks with tuple form" do
+      test_pid = self()
+      response = build_response("hello")
+
+      Sycophant
+      |> expect(:generate_text, fn _model, _ctx, opts ->
+        {_acc, stream_fn} = opts[:stream]
+        stream_fn.(%Sycophant.StreamChunk{type: :text_delta, data: "hel"}, nil)
+        stream_fn.(%Sycophant.StreamChunk{type: :text_delta, data: "lo"}, nil)
+        stream_fn.(%Sycophant.StreamChunk{type: :done, data: nil}, nil)
+        {:ok, response}
+      end)
+
+      {:ok, agent} =
+        Agent.start_link(@model,
+          stream:
+            {[],
+             fn
+               %Sycophant.StreamChunk{type: :text_delta, data: text}, acc ->
+                 [text | acc]
+
+               %Sycophant.StreamChunk{type: :done}, acc ->
+                 send(test_pid, {:final_acc, acc})
+                 acc
+
+               _chunk, acc ->
+                 acc
+             end}
+        )
+
+      {:ok, _response} = Agent.chat(agent, "hi")
+      assert_receive {:final_acc, ["lo", "hel"]}
+      Agent.stop(agent)
+    end
+
+    test "agent forwards :done chunk for tuple form" do
+      test_pid = self()
+      response = build_response("done")
+
+      Sycophant
+      |> expect(:generate_text, fn _model, _ctx, opts ->
+        {_acc, stream_fn} = opts[:stream]
+        stream_fn.(%Sycophant.StreamChunk{type: :text_delta, data: "x"}, nil)
+        stream_fn.(%Sycophant.StreamChunk{type: :done, data: nil}, nil)
+        {:ok, response}
+      end)
+
+      {:ok, agent} =
+        Agent.start_link(@model,
+          stream:
+            {nil,
+             fn chunk, acc ->
+               send(test_pid, {:chunk, chunk.type})
+               acc
+             end}
+        )
+
+      {:ok, _response} = Agent.chat(agent, "hi")
+      assert_receive {:chunk, :text_delta}
+      assert_receive {:chunk, :done}
+      Agent.stop(agent)
+    end
+
+    test "agent survives tuple stream callback crash" do
+      response = build_response("done")
+
+      Sycophant
+      |> expect(:generate_text, fn _model, _ctx, opts ->
+        {_acc, stream_fn} = opts[:stream]
+        stream_fn.(%Sycophant.StreamChunk{type: :text_delta, data: "boom"}, nil)
+        stream_fn.(%Sycophant.StreamChunk{type: :text_delta, data: "ok"}, nil)
+        {:ok, response}
+      end)
+
+      {:ok, agent} =
+        Agent.start_link(@model,
+          stream:
+            {nil,
+             fn
+               %{data: "boom"}, _acc -> raise "callback exploded"
+               _chunk, acc -> acc
+             end}
         )
 
       assert {:ok, %Response{text: "done"}} = Agent.chat(agent, "hi")

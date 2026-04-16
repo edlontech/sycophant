@@ -28,8 +28,10 @@ defmodule Sycophant.InspectHelpers do
   def redact(_), do: "**REDACTED**"
 
   @doc false
-  @spec fn_label(function() | nil) :: String.t() | nil
+  @spec fn_label(function() | {term(), function()} | nil) :: String.t() | nil
   def fn_label(nil), do: nil
+
+  def fn_label({_acc, fun}) when is_function(fun), do: "{acc, fn/2}"
 
   def fn_label(fun) when is_function(fun) do
     {:arity, arity} = Function.info(fun, :arity)

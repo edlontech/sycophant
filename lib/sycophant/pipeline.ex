@@ -28,6 +28,7 @@ defmodule Sycophant.Pipeline do
   alias Sycophant.ResponseValidator
   alias Sycophant.Schema.NormalizedSchema
   alias Sycophant.Schema.Normalizer
+  alias Sycophant.StreamChunk
   alias Sycophant.Telemetry
   alias Sycophant.Tool
   alias Sycophant.ToolExecutor
@@ -114,19 +115,35 @@ defmodule Sycophant.Pipeline do
       false ->
         single_call(messages, params, opts, model_info, adapter, credentials)
 
+      {_acc, callback} when is_function(callback, 2) ->
+        stream_call(messages, params, opts, model_info, adapter, credentials)
+
       callback when is_function(callback, 1) ->
         stream_call(messages, params, opts, model_info, adapter, credentials)
 
       other ->
         {:error,
          Error.Invalid.InvalidParams.exception(
-           errors: [":stream must be a function/1, got: #{inspect(other)}"]
+           errors: [
+             ":stream must be a function/1 or {initial_acc, function/2} tuple, got: #{inspect(other)}"
+           ]
          )}
     end
   end
 
+  defp normalize_stream_opt({acc, callback}) when is_function(callback, 2),
+    do: {acc, callback}
+
+  defp normalize_stream_opt(callback) when is_function(callback, 1),
+    do:
+      {nil,
+       fn chunk, acc ->
+         callback.(chunk)
+         acc
+       end}
+
   defp stream_call(messages, params, opts, model_info, adapter, credentials) do
-    callback = opts[:stream]
+    {acc, callback} = normalize_stream_opt(opts[:stream])
 
     with {:ok, request} <- build_request(messages, params, opts, model_info),
          {:ok, payload} <- adapter.encode_request(request) do
@@ -138,10 +155,10 @@ defmodule Sycophant.Pipeline do
       result =
         case transport_type do
           :sse ->
-            sse_stream(payload, request, model_info, credentials, adapter, callback)
+            sse_stream(payload, request, model_info, credentials, adapter, acc, callback)
 
           :event_stream ->
-            binary_stream(payload, request, model_info, credentials, adapter, callback)
+            binary_stream(payload, request, model_info, credentials, adapter, acc, callback)
         end
 
       case result do
@@ -151,7 +168,7 @@ defmodule Sycophant.Pipeline do
         {:ok, {:error, _} = error} ->
           error
 
-        {:ok, {:ok, _state}} ->
+        {:ok, {:ok, _state, _acc}} ->
           {:error,
            Error.Provider.ResponseInvalid.exception(
              errors: ["Stream ended without a completed response"]
@@ -163,37 +180,37 @@ defmodule Sycophant.Pipeline do
     end
   end
 
-  defp sse_stream(payload, request, model_info, credentials, adapter, callback) do
+  defp sse_stream(payload, request, model_info, credentials, adapter, acc, callback) do
     Transport.stream(
       payload,
       transport_opts(model_info, credentials, request),
       fn event_stream ->
         initial_state = adapter.init_stream()
-        process_event_stream(event_stream, initial_state, adapter, callback)
+        process_event_stream(event_stream, initial_state, adapter, acc, callback)
       end
     )
   end
 
-  defp binary_stream(payload, request, model_info, credentials, adapter, callback) do
+  defp binary_stream(payload, request, model_info, credentials, adapter, acc, callback) do
     Transport.stream_binary(
       payload,
       transport_opts(model_info, credentials, request),
       fn binary_stream ->
         initial_state = adapter.init_stream()
-        process_binary_stream(binary_stream, <<>>, initial_state, adapter, callback)
+        process_binary_stream(binary_stream, <<>>, initial_state, adapter, acc, callback)
       end
     )
   end
 
-  defp process_binary_stream(binary_stream, buffer, state, adapter, callback) do
+  defp process_binary_stream(binary_stream, buffer, state, adapter, acc, callback) do
     stream = if is_binary(binary_stream), do: [binary_stream], else: binary_stream
 
-    Enum.reduce_while(stream, {:ok, buffer, state}, fn chunk, {:ok, buf, st} ->
+    Enum.reduce_while(stream, {:ok, buffer, state, acc}, fn chunk, {:ok, buf, st, acc} ->
       data = buf <> chunk
 
-      case process_event_frames(data, st, adapter, callback) do
-        {:ok, rest, new_state} ->
-          {:cont, {:ok, rest, new_state}}
+      case process_event_frames(data, st, adapter, acc, callback) do
+        {:ok, rest, new_state, new_acc} ->
+          {:cont, {:ok, rest, new_state, new_acc}}
 
         {:done, response} ->
           {:halt, {:done, response}}
@@ -203,27 +220,29 @@ defmodule Sycophant.Pipeline do
       end
     end)
     |> case do
-      {:ok, _buf, final_state} -> {:ok, final_state}
+      {:ok, _buf, final_state, final_acc} -> {:ok, final_state, final_acc}
       {:done, _} = done -> done
       {:error, _} = error -> error
     end
   end
 
-  defp process_event_frames(data, state, adapter, callback) do
+  defp process_event_frames(data, state, adapter, acc, callback) do
     case Sycophant.AWS.EventStream.decode_frame(data) do
       {:ok, raw_event, rest} ->
         event = decode_event_stream_frame(raw_event)
 
         case adapter.decode_stream_chunk(state, event) do
           {:ok, new_state, chunks} ->
-            fire_stream_events(chunks, callback)
-            process_event_frames(rest, new_state, adapter, callback)
+            new_acc = fire_stream_events(chunks, acc, callback)
+            process_event_frames(rest, new_state, adapter, new_acc, callback)
 
           {:done, response} ->
+            emit_done(acc, callback)
             {:done, response}
 
           {:done, response, chunks} ->
-            fire_stream_events(chunks, callback)
+            new_acc = fire_stream_events(chunks, acc, callback)
+            emit_done(new_acc, callback)
             {:done, response}
 
           {:error, _} = error ->
@@ -231,7 +250,7 @@ defmodule Sycophant.Pipeline do
         end
 
       {:incomplete, rest} ->
-        {:ok, rest, state}
+        {:ok, rest, state, acc}
 
       {:error, _} = error ->
         error
@@ -256,13 +275,13 @@ defmodule Sycophant.Pipeline do
     %{event_type: event_type, payload: parsed_payload}
   end
 
-  defp process_event_stream(event_stream, initial_state, adapter, callback) do
-    Enum.reduce_while(event_stream, {:ok, initial_state}, fn event, {:ok, state} ->
+  defp process_event_stream(event_stream, initial_state, adapter, acc, callback) do
+    Enum.reduce_while(event_stream, {:ok, initial_state, acc}, fn event, {:ok, state, acc} ->
       case decode_sse_data(event) do
         {:ok, decoded_event} ->
           decoded_event
           |> then(&adapter.decode_stream_chunk(state, &1))
-          |> handle_stream_chunk(callback)
+          |> handle_stream_chunk(acc, callback)
 
         {:error, _} = error ->
           {:halt, error}
@@ -270,19 +289,28 @@ defmodule Sycophant.Pipeline do
     end)
   end
 
-  defp handle_stream_chunk({:ok, new_state, chunks}, callback) do
-    fire_stream_events(chunks, callback)
-    {:cont, {:ok, new_state}}
+  defp handle_stream_chunk({:ok, new_state, chunks}, acc, callback) do
+    new_acc = fire_stream_events(chunks, acc, callback)
+    {:cont, {:ok, new_state, new_acc}}
   end
 
-  defp handle_stream_chunk({:done, response}, _callback), do: {:halt, {:done, response}}
-
-  defp handle_stream_chunk({:done, response, chunks}, callback) do
-    fire_stream_events(chunks, callback)
+  defp handle_stream_chunk({:done, response}, acc, callback) do
+    emit_done(acc, callback)
     {:halt, {:done, response}}
   end
 
-  defp handle_stream_chunk({:error, _} = error, _callback), do: {:halt, error}
+  defp handle_stream_chunk({:done, response, chunks}, acc, callback) do
+    new_acc = fire_stream_events(chunks, acc, callback)
+    emit_done(new_acc, callback)
+    {:halt, {:done, response}}
+  end
+
+  defp handle_stream_chunk({:error, _} = error, _acc, _callback), do: {:halt, error}
+
+  defp emit_done(acc, callback) do
+    Telemetry.stream_chunk(%StreamChunk{type: :done, data: acc})
+    callback.(%StreamChunk{type: :done, data: acc}, acc)
+  end
 
   defp decode_sse_data(%{data: "[DONE]"} = event), do: {:ok, event}
 
@@ -299,10 +327,10 @@ defmodule Sycophant.Pipeline do
 
   defp decode_sse_data(event), do: {:ok, event}
 
-  defp fire_stream_events(chunks, callback) do
-    Enum.each(chunks, fn chunk ->
+  defp fire_stream_events(chunks, acc, callback) do
+    Enum.reduce(chunks, acc, fn chunk, acc ->
       Telemetry.stream_chunk(chunk)
-      callback.(chunk)
+      callback.(chunk, acc)
     end)
   end
 

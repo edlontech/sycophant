@@ -11,8 +11,11 @@ defmodule Sycophant.StreamChunk do
     * `:tool_call_delta` - `data` is `%{id: String.t(), name: String.t() | nil, arguments_delta: String.t()}`
     * `:reasoning_delta` - `data` is a string fragment of reasoning text
     * `:usage` - `data` is a `%Sycophant.Usage{}` struct with final token counts
+    * `:done` - `data` is the final accumulator value; always the last chunk emitted
 
   ## Examples
+
+  Simple 1-arity callback (no accumulator):
 
       Sycophant.generate_text("openai:gpt-4o-mini", messages,
         stream: fn
@@ -20,6 +23,15 @@ defmodule Sycophant.StreamChunk do
           %Sycophant.StreamChunk{type: :usage, data: usage} -> IO.inspect(usage)
           _other -> :ok
         end
+      )
+
+  2-arity accumulator callback (`{initial_acc, fun}`):
+
+      Sycophant.generate_text("openai:gpt-4o-mini", messages,
+        stream: {[], fn
+          %Sycophant.StreamChunk{type: :text_delta, data: text}, acc -> [text | acc]
+          _chunk, acc -> acc
+        end}
       )
   """
   use TypedStruct

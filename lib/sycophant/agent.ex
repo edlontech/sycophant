@@ -214,12 +214,20 @@ defmodule Sycophant.Agent do
 
   def streaming(:info, {:stream_chunk, chunk}, data) do
     try do
-      data.stream.(chunk)
-    rescue
-      e -> Logger.warning("Stream callback raised: #{Exception.message(e)}")
-    end
+      case data.stream do
+        {acc, callback} when is_function(callback, 2) ->
+          new_acc = callback.(chunk, acc)
+          {:keep_state, %{data | stream: {new_acc, callback}}}
 
-    {:keep_state, data}
+        callback when is_function(callback, 1) ->
+          callback.(chunk)
+          {:keep_state, data}
+      end
+    rescue
+      e ->
+        Logger.warning("Stream callback raised: #{Exception.message(e)}")
+        {:keep_state, data}
+    end
   end
 
   def streaming(:info, {ref, {:ok, response}}, %{task_ref: ref} = data) do
@@ -325,9 +333,9 @@ defmodule Sycophant.Agent do
 
   defp pipeline_opts(%{stream: nil, opts: opts}), do: opts
 
-  defp pipeline_opts(%{stream: _stream, opts: opts}) do
+  defp pipeline_opts(%{stream: _, opts: opts}) do
     agent = self()
-    internal = fn chunk -> send(agent, {:stream_chunk, chunk}) end
+    internal = {nil, fn chunk, _acc -> send(agent, {:stream_chunk, chunk}) end}
     Keyword.put(opts, :stream, internal)
   end
 

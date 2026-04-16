@@ -22,7 +22,7 @@ defmodule Sycophant.Agent.State do
     field :max_retries, non_neg_integer(), default: 3
     field :retry_count, non_neg_integer(), default: 0
     field :task_ref, reference()
-    field :stream, function()
+    field :stream, (term() -> term()) | {term(), (term(), term() -> term())}
   end
 
   @doc "Creates a new State from keyword options, requiring `:model`."
