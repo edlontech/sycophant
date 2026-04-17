@@ -824,6 +824,24 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
       event = %{event: "ping", data: %{}}
       assert {:ok, ^state, []} = AnthropicMessages.decode_stream_chunk(state, event)
     end
+
+    test "message_stop with max_tokens stop_reason terminates with :incomplete" do
+      state = %{AnthropicMessages.init_stream() | stop_reason: "max_tokens"}
+      event = %{event: "message_stop", data: %{}}
+
+      assert {:terminate, :incomplete, %Sycophant.Error.Provider.ResponseInvalid{}} =
+               AnthropicMessages.decode_stream_chunk(state, event)
+    end
+
+    test "error event terminates with :failed" do
+      event = %{
+        event: "error",
+        data: %{"error" => %{"type" => "overloaded_error", "message" => "busy"}}
+      }
+
+      assert {:terminate, :failed, %Sycophant.Error.Provider.ServerError{body: "busy"}} =
+               AnthropicMessages.decode_stream_chunk(AnthropicMessages.init_stream(), event)
+    end
   end
 
   describe "map_finish_reason/1" do

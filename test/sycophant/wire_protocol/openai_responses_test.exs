@@ -1109,6 +1109,75 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
       assert {:done, response} = OpenAIResponses.decode_stream_chunk(nil, event)
       assert response.text == "Final answer"
     end
+
+    test "response.incomplete terminates with :incomplete" do
+      event = %{
+        event: "response.incomplete",
+        data: %{
+          "response" => %{
+            "status" => "incomplete",
+            "incomplete_details" => %{"reason" => "max_output_tokens"}
+          }
+        }
+      }
+
+      assert {:terminate, :incomplete, %Sycophant.Error.Provider.ResponseInvalid{} = err} =
+               OpenAIResponses.decode_stream_chunk(nil, event)
+
+      assert err.errors == ["Response incomplete: max_output_tokens"]
+    end
+
+    test "response.failed terminates with :failed" do
+      event = %{
+        event: "response.failed",
+        data: %{
+          "response" => %{
+            "status" => "failed",
+            "error" => %{"code" => "server_error", "message" => "boom"}
+          }
+        }
+      }
+
+      assert {:terminate, :failed, %Sycophant.Error.Provider.ServerError{body: "boom"}} =
+               OpenAIResponses.decode_stream_chunk(nil, event)
+    end
+
+    test "response.cancelled terminates with :cancelled" do
+      event = %{event: "response.cancelled", data: %{}}
+
+      assert {:terminate, :cancelled, %Sycophant.Error.Provider.ResponseInvalid{} = err} =
+               OpenAIResponses.decode_stream_chunk(nil, event)
+
+      assert err.errors == ["Response cancelled"]
+    end
+
+    test "error event terminates with :failed" do
+      event = %{
+        event: "error",
+        data: %{
+          "code" => "rate_limit_exceeded",
+          "message" => "too many requests",
+          "param" => nil
+        }
+      }
+
+      assert {:terminate, :failed, %Sycophant.Error.Provider.RateLimited{}} =
+               OpenAIResponses.decode_stream_chunk(nil, event)
+    end
+
+    test "response.incomplete delivered via data type (no event key)" do
+      event = %{
+        data: %{
+          "type" => "response.incomplete",
+          "response" => %{
+            "status" => "incomplete",
+            "incomplete_details" => %{"reason" => "content_filter"}
+          }
+        }
+      }
+
+      assert {:terminate, :incomplete, _err} = OpenAIResponses.decode_stream_chunk(nil, event)
+    end
   end
 
   describe "encode_request/1 - tool_choice" do

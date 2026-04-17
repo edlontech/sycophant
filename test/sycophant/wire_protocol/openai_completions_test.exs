@@ -852,6 +852,19 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
     end
   end
 
+  describe "decode_stream_chunk/2 - error payload" do
+    test "error object in SSE data terminates with :failed" do
+      event = %{
+        data: %{
+          "error" => %{"type" => "server_error", "message" => "internal error"}
+        }
+      }
+
+      assert {:terminate, :failed, %Sycophant.Error.Provider.ServerError{body: "internal error"}} =
+               OpenAICompletions.decode_stream_chunk(OpenAICompletions.init_stream(), event)
+    end
+  end
+
   describe "decode_stream_chunk/2 - usage" do
     test "captures usage from chunk with usage field" do
       state = OpenAICompletions.init_stream()

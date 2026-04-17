@@ -169,12 +169,25 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
 
         {:done, response, chunks}
 
+      reason when is_binary(reason) ->
+        {:terminate, terminate_type_for(reason),
+         ResponseInvalid.exception(errors: ["Gemini stream terminated: #{reason}"])}
+
       _ ->
         {:ok, state, chunks}
     end
   end
 
   def decode_stream_chunk(state, _event), do: {:ok, state, []}
+
+  defp terminate_type_for("RECITATION"), do: :failed
+  defp terminate_type_for("BLOCKLIST"), do: :failed
+  defp terminate_type_for("PROHIBITED_CONTENT"), do: :failed
+  defp terminate_type_for("SPII"), do: :failed
+  defp terminate_type_for("IMAGE_SAFETY"), do: :failed
+  defp terminate_type_for("MALFORMED_FUNCTION_CALL"), do: :failed
+  defp terminate_type_for("OTHER"), do: :incomplete
+  defp terminate_type_for(_), do: :failed
 
   # --- Private: Response Decoding ---
 

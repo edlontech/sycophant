@@ -838,6 +838,44 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
 
       assert response.finish_reason == :max_tokens
     end
+
+    test "RECITATION finishReason terminates with :failed" do
+      state = GoogleGemini.init_stream()
+
+      event = %{
+        data: %{
+          "candidates" => [
+            %{
+              "content" => %{"parts" => [%{"text" => "partial"}], "role" => "model"},
+              "finishReason" => "RECITATION"
+            }
+          ]
+        }
+      }
+
+      assert {:terminate, :failed, %Sycophant.Error.Provider.ResponseInvalid{} = err} =
+               GoogleGemini.decode_stream_chunk(state, event)
+
+      assert err.errors == ["Gemini stream terminated: RECITATION"]
+    end
+
+    test "OTHER finishReason terminates with :incomplete" do
+      state = GoogleGemini.init_stream()
+
+      event = %{
+        data: %{
+          "candidates" => [
+            %{
+              "content" => %{"parts" => [%{"text" => "partial"}], "role" => "model"},
+              "finishReason" => "OTHER"
+            }
+          ]
+        }
+      }
+
+      assert {:terminate, :incomplete, _err} =
+               GoogleGemini.decode_stream_chunk(state, event)
+    end
   end
 
   describe "map_finish_reason/1" do

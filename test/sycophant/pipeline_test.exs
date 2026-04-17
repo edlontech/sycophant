@@ -1098,6 +1098,83 @@ defmodule Sycophant.PipelineTest do
       assert_received {:chunk, :done}
     end
 
+    test "emits :incomplete chunk and returns error when response.incomplete arrives" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      incomplete_events = [
+        %{event: "response.output_text.delta", data: JSON.encode!(%{"delta" => "partial"})},
+        %{
+          event: "response.incomplete",
+          data:
+            JSON.encode!(%{
+              "response" => %{
+                "status" => "incomplete",
+                "incomplete_details" => %{"reason" => "max_output_tokens"}
+              }
+            })
+        }
+      ]
+
+      stub(Sycophant.Transport, :stream, fn _payload, _opts, on_event ->
+        {:ok, on_event.(incomplete_events)}
+      end)
+
+      test_pid = self()
+      callback = fn chunk -> send(test_pid, {:chunk, chunk.type}) end
+      opts = default_opts() ++ [stream: callback]
+
+      assert {:error, %Sycophant.Error.Provider.ResponseInvalid{}} =
+               Pipeline.call(default_messages(), opts)
+
+      assert_received {:chunk, :text_delta}
+      assert_received {:chunk, :incomplete}
+      refute_received {:chunk, :done}
+    end
+
+    test "emits :failed chunk when response.failed arrives" do
+      model = build_model()
+      provider = build_provider()
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      failed_events = [
+        %{
+          event: "response.failed",
+          data:
+            JSON.encode!(%{
+              "response" => %{
+                "status" => "failed",
+                "error" => %{"code" => "server_error", "message" => "boom"}
+              }
+            })
+        }
+      ]
+
+      stub(Sycophant.Transport, :stream, fn _payload, _opts, on_event ->
+        {:ok, on_event.(failed_events)}
+      end)
+
+      test_pid = self()
+
+      callback = fn chunk ->
+        send(test_pid, {:chunk, chunk.type, chunk.data})
+      end
+
+      opts = default_opts() ++ [stream: callback]
+
+      assert {:error, %Sycophant.Error.Provider.ServerError{body: "boom"}} =
+               Pipeline.call(default_messages(), opts)
+
+      assert_received {:chunk, :failed, %Sycophant.Error.Provider.ServerError{body: "boom"}}
+    end
+
     test "stream context preserves tuple callback for continuation" do
       stub_stream_happy_path()
 

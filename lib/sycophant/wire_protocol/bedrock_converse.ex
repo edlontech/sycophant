@@ -217,7 +217,31 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
     {:done, build_streamed_response(%{state | usage: usage})}
   end
 
+  def decode_stream_chunk(_state, %{event_type: event_type, payload: payload})
+      when event_type in [
+             "internalServerException",
+             "modelStreamErrorException",
+             "validationException",
+             "throttlingException",
+             "serviceUnavailableException"
+           ] do
+    message = Map.get(payload, "message", event_type)
+    {:terminate, terminate_type_for(event_type), stream_exception(event_type, message)}
+  end
+
   def decode_stream_chunk(state, _event), do: {:ok, state, []}
+
+  defp terminate_type_for("throttlingException"), do: :failed
+  defp terminate_type_for(_), do: :failed
+
+  defp stream_exception("throttlingException", _msg),
+    do: Sycophant.Error.Provider.RateLimited.exception([])
+
+  defp stream_exception("validationException", msg),
+    do: Sycophant.Error.Provider.BadRequest.exception(body: msg)
+
+  defp stream_exception(_type, msg),
+    do: Sycophant.Error.Provider.ServerError.exception(body: msg)
 
   # --- Private: Streaming ---
 

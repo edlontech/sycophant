@@ -11,7 +11,10 @@ defmodule Sycophant.StreamChunk do
     * `:tool_call_delta` - `data` is `%{id: String.t(), name: String.t() | nil, arguments_delta: String.t()}`
     * `:reasoning_delta` - `data` is a string fragment of reasoning text
     * `:usage` - `data` is a `%Sycophant.Usage{}` struct with final token counts
-    * `:done` - `data` is the final accumulator value; always the last chunk emitted
+    * `:failed` - `data` is the `Splode.Error` terminating the stream; emitted immediately before the stream halts with an error (provider failure, refusal, transport error)
+    * `:incomplete` - `data` is the `Splode.Error` describing why generation stopped short (token limit, content filter, truncation); emitted immediately before the stream halts
+    * `:cancelled` - `data` is the `Splode.Error` describing the cancellation reason; emitted immediately before the stream halts when the provider cancels the in-flight response
+    * `:done` - `data` is the final accumulator value; always the last chunk emitted on success
 
   ## Examples
 

@@ -245,8 +245,13 @@ defmodule Sycophant.Pipeline do
             emit_done(new_acc, callback)
             {:done, response}
 
-          {:error, _} = error ->
-            error
+          {:terminate, type, error} ->
+            emit_terminate(type, error, acc, callback)
+            {:error, error}
+
+          {:error, error} = result ->
+            emit_terminate(:failed, error, acc, callback)
+            result
         end
 
       {:incomplete, rest} ->
@@ -305,11 +310,26 @@ defmodule Sycophant.Pipeline do
     {:halt, {:done, response}}
   end
 
-  defp handle_stream_chunk({:error, _} = error, _acc, _callback), do: {:halt, error}
+  defp handle_stream_chunk({:terminate, type, error}, acc, callback) do
+    emit_terminate(type, error, acc, callback)
+    {:halt, {:error, error}}
+  end
+
+  defp handle_stream_chunk({:error, error} = result, acc, callback) do
+    emit_terminate(:failed, error, acc, callback)
+    {:halt, result}
+  end
 
   defp emit_done(acc, callback) do
     Telemetry.stream_chunk(%StreamChunk{type: :done, data: acc})
     callback.(%StreamChunk{type: :done, data: acc}, acc)
+  end
+
+  defp emit_terminate(type, error, acc, callback)
+       when type in [:failed, :incomplete, :cancelled] do
+    chunk = %StreamChunk{type: type, data: error}
+    Telemetry.stream_chunk(chunk)
+    callback.(chunk, acc)
   end
 
   defp decode_sse_data(%{data: "[DONE]"} = event), do: {:ok, event}

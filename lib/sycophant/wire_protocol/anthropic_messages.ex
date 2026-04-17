@@ -244,7 +244,21 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
   end
 
   def decode_stream_chunk(state, %{event: "message_stop", data: _}) do
-    {:done, build_streamed_response(state)}
+    case state.stop_reason do
+      "max_tokens" ->
+        {:terminate, :incomplete,
+         ResponseInvalid.exception(errors: ["Response incomplete: max_tokens"])}
+
+      "refusal" ->
+        {:terminate, :failed, ResponseInvalid.exception(errors: ["Response refused by model"])}
+
+      _ ->
+        {:done, build_streamed_response(state)}
+    end
+  end
+
+  def decode_stream_chunk(_state, %{event: "error", data: %{"error" => error}}) do
+    {:terminate, :failed, decode_api_error(error)}
   end
 
   def decode_stream_chunk(state, _event), do: {:ok, state, []}

@@ -141,6 +141,10 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
   @impl true
   def decode_stream_chunk(state, %{data: "[DONE]"}), do: {:ok, state, []}
 
+  def decode_stream_chunk(_state, %{data: %{"error" => error}}) when is_map(error) do
+    {:terminate, :failed, decode_stream_error(error)}
+  end
+
   def decode_stream_chunk(state, %{
         data: %{"choices" => [%{"delta" => delta} = choice | _]} = body
       }) do
@@ -485,6 +489,26 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
   defp set_strict_additional_properties(schema), do: schema
 
   # --- Finish Reason Mapping ---
+
+  defp decode_stream_error(%{"type" => "server_error", "message" => msg}) do
+    Sycophant.Error.Provider.ServerError.exception(body: msg)
+  end
+
+  defp decode_stream_error(%{"code" => "rate_limit_exceeded"}) do
+    Sycophant.Error.Provider.RateLimited.exception([])
+  end
+
+  defp decode_stream_error(%{"type" => type, "message" => msg}) do
+    ResponseInvalid.exception(errors: ["#{type}: #{msg}"])
+  end
+
+  defp decode_stream_error(%{"message" => msg}) do
+    ResponseInvalid.exception(errors: [msg])
+  end
+
+  defp decode_stream_error(error) do
+    ResponseInvalid.exception(errors: ["Stream error: #{inspect(error)}"])
+  end
 
   defp map_finish_reason("stop"), do: :stop
   defp map_finish_reason("tool_calls"), do: :tool_use

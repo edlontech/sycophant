@@ -30,6 +30,7 @@ defmodule Sycophant.WireProtocol do
               {:ok, term(), [Sycophant.StreamChunk.t()]}
               | {:done, Sycophant.Response.t()}
               | {:done, Sycophant.Response.t(), [Sycophant.StreamChunk.t()]}
+              | {:terminate, :failed | :incomplete | :cancelled, Splode.Error.t()}
               | {:error, Splode.Error.t()}
 
   @callback encode_tools([Sycophant.Tool.t()]) ::

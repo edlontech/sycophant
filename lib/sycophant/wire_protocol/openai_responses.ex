@@ -216,6 +216,33 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     end
   end
 
+  def decode_stream_chunk(_state, %{event: "response.failed", data: %{"response" => response}}) do
+    error = response |> Map.get("error") |> decode_api_error()
+    {:terminate, :failed, error}
+  end
+
+  def decode_stream_chunk(_state, %{
+        event: "response.incomplete",
+        data: %{"response" => response}
+      }) do
+    reason =
+      case response["incomplete_details"] do
+        %{"reason" => r} -> r
+        _ -> "unknown"
+      end
+
+    {:terminate, :incomplete,
+     ResponseInvalid.exception(errors: ["Response incomplete: #{reason}"])}
+  end
+
+  def decode_stream_chunk(_state, %{event: "response.cancelled"}) do
+    {:terminate, :cancelled, ResponseInvalid.exception(errors: ["Response cancelled"])}
+  end
+
+  def decode_stream_chunk(_state, %{event: "error", data: data}) do
+    {:terminate, :failed, decode_api_error(data)}
+  end
+
   def decode_stream_chunk(state, %{data: %{"type" => type}} = event)
       when not is_map_key(event, :event) do
     decode_stream_chunk(state, Map.put(event, :event, type))

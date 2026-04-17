@@ -587,6 +587,36 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
 
       assert {:ok, ^state, []} = BedrockConverse.decode_stream_chunk(state, %{})
     end
+
+    test "throttlingException terminates with :failed (RateLimited)" do
+      state = BedrockConverse.init_stream()
+
+      assert {:terminate, :failed, %Sycophant.Error.Provider.RateLimited{}} =
+               BedrockConverse.decode_stream_chunk(state, %{
+                 event_type: "throttlingException",
+                 payload: %{"message" => "slow down"}
+               })
+    end
+
+    test "modelStreamErrorException terminates with :failed (ServerError)" do
+      state = BedrockConverse.init_stream()
+
+      assert {:terminate, :failed, %Sycophant.Error.Provider.ServerError{body: "boom"}} =
+               BedrockConverse.decode_stream_chunk(state, %{
+                 event_type: "modelStreamErrorException",
+                 payload: %{"message" => "boom"}
+               })
+    end
+
+    test "validationException terminates with :failed (BadRequest)" do
+      state = BedrockConverse.init_stream()
+
+      assert {:terminate, :failed, %Sycophant.Error.Provider.BadRequest{body: "bad input"}} =
+               BedrockConverse.decode_stream_chunk(state, %{
+                 event_type: "validationException",
+                 payload: %{"message" => "bad input"}
+               })
+    end
   end
 
   describe "map_finish_reason/1" do
