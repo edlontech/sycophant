@@ -2,31 +2,42 @@ defmodule Sycophant.Agent.Stats do
   @moduledoc """
   Tracks token usage and cost across agent turns.
   """
-  use TypedStruct
-
   defmodule Turn do
     @moduledoc """
     Usage snapshot for a single LLM call within an agent run.
     """
-    use TypedStruct
+    defstruct [
+      :cost,
+      :timestamp,
+      :finish_reason,
+      input_tokens: 0,
+      output_tokens: 0,
+      reasoning_tokens: 0
+    ]
 
-    typedstruct do
-      field :input_tokens, non_neg_integer(), default: 0
-      field :output_tokens, non_neg_integer(), default: 0
-      field :reasoning_tokens, non_neg_integer(), default: 0
-      field :cost, float()
-      field :timestamp, DateTime.t()
-      field :finish_reason, atom()
-    end
+    @type t :: %__MODULE__{
+            input_tokens: non_neg_integer(),
+            output_tokens: non_neg_integer(),
+            reasoning_tokens: non_neg_integer(),
+            cost: float() | nil,
+            timestamp: DateTime.t() | nil,
+            finish_reason: atom() | nil
+          }
   end
 
-  typedstruct do
-    field :turns, [Turn.t()], default: []
-    field :total_input_tokens, non_neg_integer(), default: 0
-    field :total_output_tokens, non_neg_integer(), default: 0
-    field :total_reasoning_tokens, non_neg_integer(), default: 0
-    field :total_cost, float(), default: 0.0
-  end
+  defstruct turns: [],
+            total_input_tokens: 0,
+            total_output_tokens: 0,
+            total_reasoning_tokens: 0,
+            total_cost: 0.0
+
+  @type t :: %__MODULE__{
+          turns: [Turn.t()],
+          total_input_tokens: non_neg_integer(),
+          total_output_tokens: non_neg_integer(),
+          total_reasoning_tokens: non_neg_integer(),
+          total_cost: float()
+        }
 
   @doc "Creates a new empty Stats."
   @spec new() :: t()

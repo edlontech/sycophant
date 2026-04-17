@@ -17,13 +17,13 @@ defmodule Sycophant.Message.Content.Image do
         media_type: "image/png"
       }
   """
-  use TypedStruct
+  defstruct [:url, :data, :media_type]
 
-  typedstruct do
-    field :url, String.t()
-    field :data, String.t()
-    field :media_type, String.t()
-  end
+  @type t :: %__MODULE__{
+          url: String.t() | nil,
+          data: String.t() | nil,
+          media_type: String.t() | nil
+        }
 
   @doc "Deserializes an image content part from a plain map."
   @spec from_map(map()) :: t()

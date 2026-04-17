@@ -12,11 +12,10 @@ defmodule Sycophant.Message.Content.RedactedThinking do
       iex> %Sycophant.Message.Content.RedactedThinking{data: "encrypted_blob"}
       #Sycophant.Message.Content.RedactedThinking<%{data: "**REDACTED**"}>
   """
-  use TypedStruct
+  @enforce_keys [:data]
+  defstruct [:data]
 
-  typedstruct do
-    field :data, String.t(), enforce: true
-  end
+  @type t :: %__MODULE__{data: String.t()}
 
   @doc "Deserializes a redacted thinking content part from a plain map."
   @spec from_map(map()) :: t()

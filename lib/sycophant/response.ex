@@ -28,8 +28,6 @@ defmodule Sycophant.Response do
       json = Sycophant.Serializable.Decoder.encode(response)
       restored = Sycophant.Serializable.Decoder.decode(json)
   """
-  use TypedStruct
-
   alias Sycophant.Context
   alias Sycophant.Reasoning
   alias Sycophant.Serializable.Decoder
@@ -49,18 +47,32 @@ defmodule Sycophant.Response do
 
   @valid_finish_reasons ~w(stop tool_use max_tokens content_filter recitation error incomplete unknown)a
 
-  typedstruct do
-    field :text, String.t()
-    field :object, map()
-    field :tool_calls, [ToolCall.t()], default: []
-    field :usage, Usage.t()
-    field :model, String.t()
-    field :raw, map()
-    field :reasoning, Reasoning.t()
-    field :finish_reason, finish_reason()
-    field :context, Context.t(), enforce: true
-    field :metadata, map(), default: %{}
-  end
+  @enforce_keys [:context]
+  defstruct [
+    :text,
+    :object,
+    :usage,
+    :model,
+    :raw,
+    :reasoning,
+    :finish_reason,
+    :context,
+    tool_calls: [],
+    metadata: %{}
+  ]
+
+  @type t :: %__MODULE__{
+          text: String.t() | nil,
+          object: map() | nil,
+          tool_calls: [ToolCall.t()],
+          usage: Usage.t() | nil,
+          model: String.t() | nil,
+          raw: map() | nil,
+          reasoning: Reasoning.t() | nil,
+          finish_reason: finish_reason(),
+          context: Context.t(),
+          metadata: map()
+        }
 
   @doc """
   Returns the full conversation message history from the response context.

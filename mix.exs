@@ -202,7 +202,6 @@ defmodule Sycophant.MixProject do
       {:tesla, "~> 1.16"},
       {:tesla_aws_sigv4, "~> 0.1"},
       {:tidewave, "~> 0.5", only: :dev, runtime: false},
-      {:typedstruct, "~> 0.5"},
       {:zoi, "~> 0.11"},
       {:zoi_defstruct, "~> 0.2"}
     ]

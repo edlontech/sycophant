@@ -7,19 +7,30 @@ defmodule Sycophant.Request do
   provider-specific JSON payloads. This is not part of the public API.
   """
 
-  use TypedStruct
+  @enforce_keys [:messages]
+  defstruct [
+    :messages,
+    :model,
+    :resolved_model,
+    :wire_protocol,
+    :stream,
+    :response_schema,
+    params: %{},
+    tools: [],
+    credentials: %{}
+  ]
 
-  typedstruct do
-    field :messages, [Sycophant.Message.t()], enforce: true
-    field :model, String.t()
-    field :resolved_model, term()
-    field :wire_protocol, atom()
-    field :params, map(), default: %{}
-    field :tools, [Sycophant.Tool.t()], default: []
-    field :credentials, map(), default: %{}
-    field :stream, (term() -> term()) | {term(), (term(), term() -> term())}
-    field :response_schema, map() | nil
-  end
+  @type t :: %__MODULE__{
+          messages: [Sycophant.Message.t()],
+          model: String.t() | nil,
+          resolved_model: term() | nil,
+          wire_protocol: atom() | nil,
+          params: map(),
+          tools: [Sycophant.Tool.t()],
+          credentials: map(),
+          stream: (term() -> term()) | {term(), (term(), term() -> term())} | nil,
+          response_schema: map() | nil
+        }
 end
 
 defimpl Inspect, for: Sycophant.Request do

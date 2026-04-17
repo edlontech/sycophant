@@ -20,19 +20,20 @@ defmodule Sycophant.EmbeddingRequest do
         params: %Sycophant.EmbeddingParams{dimensions: 256, embedding_types: [:float, :int8]}
       }
   """
-  use TypedStruct
-
   alias Sycophant.EmbeddingParams
   alias Sycophant.Message.Content
 
   @type input :: String.t() | Content.Image.t() | [String.t() | Content.Image.t()]
 
-  typedstruct do
-    field :inputs, [input()], enforce: true
-    field :model, String.t(), enforce: true
-    field :params, EmbeddingParams.t()
-    field :provider_params, map(), default: %{}
-  end
+  @enforce_keys [:inputs, :model]
+  defstruct [:inputs, :model, :params, provider_params: %{}]
+
+  @type t :: %__MODULE__{
+          inputs: [input()],
+          model: String.t(),
+          params: EmbeddingParams.t() | nil,
+          provider_params: map()
+        }
 
   @doc "Reconstructs an EmbeddingRequest struct from a serialized map."
   @spec from_map(map()) :: t()

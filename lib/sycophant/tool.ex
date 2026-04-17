@@ -39,17 +39,26 @@ defmodule Sycophant.Tool do
         tools: [weather_tool, search_tool]
       )
   """
-  use TypedStruct
+  @enforce_keys [:name, :description, :parameters]
+  defstruct [
+    :name,
+    :description,
+    :parameters,
+    :function,
+    :schema_source,
+    :resolved_schema,
+    strict: true
+  ]
 
-  typedstruct do
-    field :name, String.t(), enforce: true
-    field :description, String.t(), enforce: true
-    field :parameters, Zoi.schema() | map(), enforce: true
-    field :function, (map() -> String.t())
-    field :strict, boolean(), default: true
-    field :schema_source, :zoi | :json_schema | nil
-    field :resolved_schema, Sycophant.Schema.NormalizedSchema.t()
-  end
+  @type t :: %__MODULE__{
+          name: String.t(),
+          description: String.t(),
+          parameters: Zoi.schema() | map(),
+          function: (map() -> String.t()) | nil,
+          strict: boolean(),
+          schema_source: :zoi | :json_schema | nil,
+          resolved_schema: Sycophant.Schema.NormalizedSchema.t() | nil
+        }
 
   @doc "Reconstructs a Tool struct from a serialized map."
   @spec from_map(map()) :: t()

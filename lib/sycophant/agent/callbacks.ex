@@ -4,8 +4,6 @@ defmodule Sycophant.Agent.Callbacks do
 
   All callbacks are optional. When nil, the agent uses default behavior.
   """
-  use TypedStruct
-
   alias Sycophant.Context
   alias Sycophant.Message
   alias Sycophant.Response
@@ -21,12 +19,14 @@ defmodule Sycophant.Agent.Callbacks do
              | {:stop, term()})
   @type on_max_steps :: (non_neg_integer(), Context.t() -> :continue | :stop)
 
-  typedstruct do
-    field :on_response, on_response()
-    field :on_tool_call, on_tool_call()
-    field :on_error, on_error()
-    field :on_max_steps, on_max_steps()
-  end
+  defstruct [:on_response, :on_tool_call, :on_error, :on_max_steps]
+
+  @type t :: %__MODULE__{
+          on_response: on_response() | nil,
+          on_tool_call: on_tool_call() | nil,
+          on_error: on_error() | nil,
+          on_max_steps: on_max_steps() | nil
+        }
 
   @doc "Creates a new Callbacks struct from keyword options."
   @spec new(keyword()) :: t()

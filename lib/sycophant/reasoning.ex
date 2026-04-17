@@ -21,15 +21,15 @@ defmodule Sycophant.Reasoning do
       iex> %Sycophant.Reasoning{content: [%Thinking{text: "Let me think..."}]}
       #Sycophant.Reasoning<%{content: [%{text: "Let me think..."}]}>
   """
-  use TypedStruct
-
   alias Sycophant.Message.Content
 
-  typedstruct do
-    field :id, String.t()
-    field :content, [Content.Thinking.t()], default: []
-    field :encrypted_content, String.t()
-  end
+  defstruct [:id, :encrypted_content, content: []]
+
+  @type t :: %__MODULE__{
+          id: String.t() | nil,
+          content: [Content.Thinking.t()],
+          encrypted_content: String.t() | nil
+        }
 
   @doc "Deserializes reasoning output from a plain map."
   @spec from_map(map()) :: t()

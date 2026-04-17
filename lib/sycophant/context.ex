@@ -16,16 +16,16 @@ defmodule Sycophant.Context do
 
       opts = Context.to_opts(ctx)
   """
-  use TypedStruct
-
   alias Sycophant.Serializable.Decoder
 
-  typedstruct do
-    field :messages, [Sycophant.Message.t()], default: []
-    field :params, map(), default: %{}
-    field :tools, [Sycophant.Tool.t()], default: []
-    field :stream, (term() -> term()) | {term(), (term(), term() -> term())}
-  end
+  defstruct messages: [], params: %{}, tools: [], stream: nil
+
+  @type t :: %__MODULE__{
+          messages: [Sycophant.Message.t()],
+          params: map(),
+          tools: [Sycophant.Tool.t()],
+          stream: (term() -> term()) | {term(), (term(), term() -> term())} | nil
+        }
 
   @doc "Creates an empty context."
   @spec new() :: t()

@@ -16,14 +16,14 @@ defmodule Sycophant.Message.Content.Thinking do
       iex> %Sycophant.Message.Content.Thinking{text: "Let me think about this..."}
       #Sycophant.Message.Content.Thinking<"Let me think about this...">
   """
-  use TypedStruct
+  defstruct [:id, :text, :summary, :signature]
 
-  typedstruct do
-    field :id, String.t()
-    field :text, String.t()
-    field :summary, String.t()
-    field :signature, String.t()
-  end
+  @type t :: %__MODULE__{
+          id: String.t() | nil,
+          text: String.t() | nil,
+          summary: String.t() | nil,
+          signature: String.t() | nil
+        }
 
   @doc "Deserializes a thinking content part from a plain map."
   @spec from_map(map()) :: t()

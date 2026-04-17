@@ -19,16 +19,17 @@ defmodule Sycophant.EmbeddingResponse do
       response.embeddings
       #=> %{float: [[0.1, ...], [0.2, ...]], int8: [[12, ...], [34, ...]]}
   """
-  use TypedStruct
-
   alias Sycophant.Usage
 
-  typedstruct do
-    field :embeddings, %{atom() => [[number()]]}, enforce: true
-    field :model, String.t()
-    field :usage, Usage.t()
-    field :raw, map()
-  end
+  @enforce_keys [:embeddings]
+  defstruct [:embeddings, :model, :usage, :raw]
+
+  @type t :: %__MODULE__{
+          embeddings: %{atom() => [[number()]]},
+          model: String.t() | nil,
+          usage: Usage.t() | nil,
+          raw: map() | nil
+        }
 
   @allowed_types ~w(float int8 uint8 binary ubinary)
 

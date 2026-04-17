@@ -37,13 +37,14 @@ defmodule Sycophant.StreamChunk do
         end}
       )
   """
-  use TypedStruct
+  @enforce_keys [:type]
+  defstruct [:type, :data, :index]
 
-  typedstruct do
-    field :type, atom(), enforce: true
-    field :data, term()
-    field :index, non_neg_integer()
-  end
+  @type t :: %__MODULE__{
+          type: atom(),
+          data: term(),
+          index: non_neg_integer() | nil
+        }
 end
 
 defimpl Inspect, for: Sycophant.StreamChunk do

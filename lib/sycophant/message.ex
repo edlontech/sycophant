@@ -26,8 +26,6 @@ defmodule Sycophant.Message do
         %Sycophant.Message.Content.Image{url: "https://example.com/photo.jpg"}
       ])
   """
-  use TypedStruct
-
   alias Sycophant.Message.Content
   alias Sycophant.ToolCall
 
@@ -37,14 +35,17 @@ defmodule Sycophant.Message do
           | Content.Thinking.t()
           | Content.RedactedThinking.t()
 
-  typedstruct do
-    field :role, :user | :assistant | :system | :tool_result, enforce: true
-    field :content, String.t() | [content_part()]
-    field :tool_call_id, String.t()
-    field :tool_calls, [ToolCall.t()]
-    field :metadata, map(), default: %{}
-    field :wire_protocol, atom()
-  end
+  @enforce_keys [:role]
+  defstruct [:role, :content, :tool_call_id, :tool_calls, :wire_protocol, metadata: %{}]
+
+  @type t :: %__MODULE__{
+          role: :user | :assistant | :system | :tool_result,
+          content: String.t() | [content_part()] | nil,
+          tool_call_id: String.t() | nil,
+          tool_calls: [ToolCall.t()] | nil,
+          metadata: map(),
+          wire_protocol: atom() | nil
+        }
 
   @doc """
   Creates a user message with the given content.

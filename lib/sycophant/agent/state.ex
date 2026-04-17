@@ -2,28 +2,43 @@ defmodule Sycophant.Agent.State do
   @moduledoc """
   Internal state for the agent GenStateMachine process.
   """
-  use TypedStruct
-
   alias Sycophant.Agent.Callbacks
   alias Sycophant.Agent.Stats
   alias Sycophant.Context
   alias Sycophant.Error
 
-  typedstruct do
-    field :model, String.t(), enforce: true
-    field :context, Context.t(), default: %Context{}
-    field :opts, keyword(), default: []
-    field :callbacks, Callbacks.t(), default: %Callbacks{}
-    field :stats, Stats.t(), default: %Stats{}
-    field :from, {pid(), term()}
-    field :last_error, term()
-    field :current_step, non_neg_integer(), default: 0
-    field :max_steps, pos_integer(), default: 10
-    field :max_retries, non_neg_integer(), default: 3
-    field :retry_count, non_neg_integer(), default: 0
-    field :task_ref, reference()
-    field :stream, (term() -> term()) | {term(), (term(), term() -> term())}
-  end
+  @enforce_keys [:model]
+  defstruct [
+    :model,
+    :from,
+    :last_error,
+    :task_ref,
+    :stream,
+    context: %Context{},
+    opts: [],
+    callbacks: %Callbacks{},
+    stats: %Stats{},
+    current_step: 0,
+    max_steps: 10,
+    max_retries: 3,
+    retry_count: 0
+  ]
+
+  @type t :: %__MODULE__{
+          model: String.t(),
+          context: Context.t(),
+          opts: keyword(),
+          callbacks: Callbacks.t(),
+          stats: Stats.t(),
+          from: {pid(), term()} | nil,
+          last_error: term() | nil,
+          current_step: non_neg_integer(),
+          max_steps: pos_integer(),
+          max_retries: non_neg_integer(),
+          retry_count: non_neg_integer(),
+          task_ref: reference() | nil,
+          stream: (term() -> term()) | {term(), (term(), term() -> term())} | nil
+        }
 
   @doc "Creates a new State from keyword options, requiring `:model`."
   @spec new(keyword()) :: {:ok, t()} | {:error, Exception.t()}

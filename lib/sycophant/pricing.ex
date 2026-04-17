@@ -5,14 +5,14 @@ defmodule Sycophant.Pricing do
   Attached to `Sycophant.Usage` as reference data after cost calculation.
   Contains the currency and all pricing components (tokens, tools, images, storage).
   """
-  use TypedStruct
-
   alias Sycophant.Pricing.Component
 
-  typedstruct do
-    field :currency, String.t()
-    field :components, [Component.t()], default: []
-  end
+  defstruct [:currency, components: []]
+
+  @type t :: %__MODULE__{
+          currency: String.t() | nil,
+          components: [Component.t()]
+        }
 
   @doc "Converts an LLMDB pricing map (atom-keyed) into a Pricing struct."
   @spec from_llmdb(map()) :: t()
@@ -65,19 +65,19 @@ defmodule Sycophant.Pricing.Component do
   - `"image"` -- per-image rates by size/quality
   - `"storage"` -- per-unit storage rates
   """
-  use TypedStruct
+  defstruct [:id, :kind, :unit, :per, :rate, :tool, :meter, :size_class, :notes]
 
-  typedstruct do
-    field :id, String.t()
-    field :kind, String.t()
-    field :unit, String.t()
-    field :per, pos_integer()
-    field :rate, number()
-    field :tool, String.t()
-    field :meter, String.t()
-    field :size_class, String.t()
-    field :notes, String.t()
-  end
+  @type t :: %__MODULE__{
+          id: String.t() | nil,
+          kind: String.t() | nil,
+          unit: String.t() | nil,
+          per: pos_integer() | nil,
+          rate: number() | nil,
+          tool: String.t() | nil,
+          meter: String.t() | nil,
+          size_class: String.t() | nil,
+          notes: String.t() | nil
+        }
 
   @fields [:id, :kind, :unit, :per, :rate, :tool, :meter, :size_class, :notes]
 

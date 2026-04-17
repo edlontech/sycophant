@@ -6,11 +6,12 @@ defmodule Sycophant.Schema.NormalizedSchema do
   Validation uses `resolved` (an `ExJsonSchema.Schema.Root`).
   Key coercion to atoms is applied only when `source` is `:zoi`.
   """
-  use TypedStruct
+  @enforce_keys [:json_schema, :resolved, :source]
+  defstruct [:json_schema, :resolved, :source]
 
-  typedstruct do
-    field :json_schema, map(), enforce: true
-    field :resolved, ExJsonSchema.Schema.Root.t(), enforce: true
-    field :source, :zoi | :json_schema, enforce: true
-  end
+  @type t :: %__MODULE__{
+          json_schema: map(),
+          resolved: ExJsonSchema.Schema.Root.t(),
+          source: :zoi | :json_schema
+        }
 end

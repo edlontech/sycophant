@@ -10,24 +10,37 @@ defmodule Sycophant.Usage do
       iex> %Sycophant.Usage{input_tokens: 10, output_tokens: 25}
       #Sycophant.Usage<%{in: 10, out: 25}>
   """
-  use TypedStruct
-
   alias Sycophant.Pricing
 
-  typedstruct do
-    field :input_tokens, non_neg_integer()
-    field :output_tokens, non_neg_integer()
-    field :cache_creation_input_tokens, non_neg_integer()
-    field :cache_read_input_tokens, non_neg_integer()
-    field :reasoning_tokens, non_neg_integer()
-    field :input_cost, float()
-    field :output_cost, float()
-    field :cache_read_cost, float()
-    field :cache_write_cost, float()
-    field :reasoning_cost, float()
-    field :total_cost, float()
-    field :pricing, Pricing.t()
-  end
+  defstruct [
+    :input_tokens,
+    :output_tokens,
+    :cache_creation_input_tokens,
+    :cache_read_input_tokens,
+    :reasoning_tokens,
+    :input_cost,
+    :output_cost,
+    :cache_read_cost,
+    :cache_write_cost,
+    :reasoning_cost,
+    :total_cost,
+    :pricing
+  ]
+
+  @type t :: %__MODULE__{
+          input_tokens: non_neg_integer() | nil,
+          output_tokens: non_neg_integer() | nil,
+          cache_creation_input_tokens: non_neg_integer() | nil,
+          cache_read_input_tokens: non_neg_integer() | nil,
+          reasoning_tokens: non_neg_integer() | nil,
+          input_cost: float() | nil,
+          output_cost: float() | nil,
+          cache_read_cost: float() | nil,
+          cache_write_cost: float() | nil,
+          reasoning_cost: float() | nil,
+          total_cost: float() | nil,
+          pricing: Pricing.t() | nil
+        }
 
   @doc "Reconstructs a Usage struct from a serialized map."
   @spec from_map(map()) :: t()

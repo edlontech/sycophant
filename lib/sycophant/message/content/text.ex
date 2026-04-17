@@ -11,11 +11,10 @@ defmodule Sycophant.Message.Content.Text do
       iex> %Sycophant.Message.Content.Text{text: "Describe this image"}
       #Sycophant.Message.Content.Text<"Describe this image">
   """
-  use TypedStruct
+  @enforce_keys [:text]
+  defstruct [:text]
 
-  typedstruct do
-    field :text, String.t(), enforce: true
-  end
+  @type t :: %__MODULE__{text: String.t()}
 
   @doc "Deserializes a text content part from a plain map."
   @spec from_map(map()) :: t()

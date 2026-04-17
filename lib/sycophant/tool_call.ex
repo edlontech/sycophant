@@ -10,14 +10,15 @@ defmodule Sycophant.ToolCall do
 
       %Sycophant.ToolCall{id: "call_abc", name: "get_weather", arguments: %{"city" => "Paris"}}
   """
-  use TypedStruct
+  @enforce_keys [:id, :name, :arguments]
+  defstruct [:id, :name, :arguments, metadata: %{}]
 
-  typedstruct do
-    field :id, String.t(), enforce: true
-    field :name, String.t(), enforce: true
-    field :arguments, map(), enforce: true
-    field :metadata, map(), default: %{}
-  end
+  @type t :: %__MODULE__{
+          id: String.t(),
+          name: String.t(),
+          arguments: map(),
+          metadata: map()
+        }
 
   @doc "Reconstructs a ToolCall struct from a serialized map."
   @spec from_map(map()) :: t()
