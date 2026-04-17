@@ -1,5 +1,37 @@
 # Changelog
 
+## [0.4.0](https://github.com/edlontech/sycophant/compare/sycophant-v0.3.0...sycophant-v0.4.0) (2026-04-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* Rename reasoning param to reasoning_effort
+
+### Features
+
+* Add auto_execute_tools option to disable tool auto-execution ([053ee00](https://github.com/edlontech/sycophant/commit/053ee000fb6fee2da67f22af09b8fda303cfe316))
+* Add configurable strict mode for tools ([88ef880](https://github.com/edlontech/sycophant/commit/88ef880a0f20280da450abbabbf2873c91704eb6))
+* Add support to accumulator in the streams ([19a331c](https://github.com/edlontech/sycophant/commit/19a331c47ed453ed21e3704dbf300a14f02898ee))
+* Added reasoning_budget to the shared params ([e568a59](https://github.com/edlontech/sycophant/commit/e568a598b6722502482d9e1736f07aafaa7ce8a8))
+* Map timeout errors to Provider.Timeout and add configurable timeout ([a7b9130](https://github.com/edlontech/sycophant/commit/a7b913059d65c51c29d6704e314391ece4ff30fd))
+* Refactor the reasoning processing ([3053590](https://github.com/edlontech/sycophant/commit/3053590e0e6e5e01f405f10de616e58ccc141115))
+
+
+### Bug Fixes
+
+* Added failed states to streams ([7c57f6a](https://github.com/edlontech/sycophant/commit/7c57f6a30d20d7143920af719521e4b569ae3211))
+* Fixes the issue when joining multiple system messages ([78ec197](https://github.com/edlontech/sycophant/commit/78ec197b5c1476abb6c9e3748d4b3a71fff319ee))
+* Include error and payload in ResponseValidator JSON parse failure ([a011c8e](https://github.com/edlontech/sycophant/commit/a011c8ebe3bc65ee5f3cace8f3925b369133b779))
+* Include parameter path in validation error messages ([0f34d07](https://github.com/edlontech/sycophant/commit/0f34d07b095b3fbb7a7bb24510ab08886584953c))
+* normalize tool return values before wire encoding ([6bb8687](https://github.com/edlontech/sycophant/commit/6bb8687af849f881e82020798b7a2c3ae1122a49))
+* Propagate reasoning id for OpenAI Responses thinking ([17c42c6](https://github.com/edlontech/sycophant/commit/17c42c6b41b45c503fcacf9b732414fa689544d1))
+* Reasoning budget can be 0 ([e482eb8](https://github.com/edlontech/sycophant/commit/e482eb8fa99bc8e4623161bb74c35572d89aca1d))
+
+
+### Code Refactoring
+
+* Rename reasoning param to reasoning_effort ([1354a30](https://github.com/edlontech/sycophant/commit/1354a3055437d9df3eba401d3e321db72decd354))
+
 ## [0.3.0](https://github.com/edlontech/sycophant/compare/sycophant-v0.2.0...sycophant-v0.3.0) (2026-04-14)
 
 ### Features
