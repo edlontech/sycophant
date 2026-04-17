@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/edlontech/sycophant/compare/sycophant-v0.4.0...sycophant-v0.4.1) (2026-04-17)
+
+
+### Bug Fixes
+
+* Removed typedstruct ([56cee69](https://github.com/edlontech/sycophant/commit/56cee69e7be24475345601b01ab382d082e482bb))
+
 ## [0.4.0](https://github.com/edlontech/sycophant/compare/sycophant-v0.3.0...sycophant-v0.4.0) (2026-04-17)
 
 
