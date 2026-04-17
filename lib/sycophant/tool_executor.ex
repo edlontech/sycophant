@@ -81,7 +81,7 @@ defmodule Sycophant.ToolExecutor do
     case validate_and_coerce(tool, tool_call.arguments) do
       {:ok, coerced_args} ->
         result = safe_execute(tool.function, coerced_args)
-        Message.tool_result(tool_call, result)
+        Message.tool_result(tool_call, normalize_result(result))
 
       {:error, error} ->
         Message.tool_result(tool_call, "Validation error: #{Exception.message(error)}")
@@ -99,6 +99,24 @@ defmodule Sycophant.ToolExecutor do
   rescue
     e -> Exception.message(e)
   end
+
+  # Coerce arbitrary tool return values into a string that can safely flow
+  # through wire-protocol serialization. Without this, a map or list would
+  # reach `to_string/1` in the wire encoder and crash.
+  defp normalize_result(result) when is_binary(result), do: result
+  defp normalize_result({:ok, value}), do: normalize_result(value)
+  defp normalize_result({:error, reason}) when is_binary(reason), do: "Error: #{reason}"
+  defp normalize_result({:error, reason}), do: "Error: #{inspect(reason)}"
+  defp normalize_result(nil), do: ""
+  defp normalize_result(result) when is_atom(result) or is_number(result), do: to_string(result)
+
+  defp normalize_result(result) when is_map(result) or is_list(result) do
+    JSON.encode!(result)
+  rescue
+    _ -> inspect(result)
+  end
+
+  defp normalize_result(result), do: inspect(result)
 
   defp build_messages(response, tool_results) do
     Response.messages(response) ++ tool_results

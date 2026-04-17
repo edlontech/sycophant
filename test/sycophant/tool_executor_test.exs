@@ -379,6 +379,175 @@ defmodule Sycophant.ToolExecutorTest do
       assert {:ok, ^final_response} = ToolExecutor.run(response, [tool], [], call_fn)
     end
 
+    test "coerces map return value to JSON string" do
+      tool_call = %ToolCall{id: "call_1", name: "weather", arguments: %{"city" => "Paris"}}
+
+      response =
+        build_response(%{
+          tool_calls: [tool_call],
+          context: %Context{
+            messages: [
+              Message.user("Weather?"),
+              %Message{role: :assistant, content: nil, tool_calls: [tool_call]}
+            ]
+          }
+        })
+
+      final_response = build_response(%{text: "ok", tool_calls: []})
+      tools = [build_tool("weather", fn _args -> %{temp: 72, cond: "sunny"} end)]
+
+      call_fn = fn messages ->
+        tool_result_msg = List.last(messages)
+        assert is_binary(tool_result_msg.content)
+        assert {:ok, %{"temp" => 72, "cond" => "sunny"}} = JSON.decode(tool_result_msg.content)
+        {:ok, final_response}
+      end
+
+      assert {:ok, ^final_response} = ToolExecutor.run(response, tools, [], call_fn)
+    end
+
+    test "coerces list return value to JSON string" do
+      tool_call = %ToolCall{id: "call_1", name: "list", arguments: %{}}
+
+      response =
+        build_response(%{
+          tool_calls: [tool_call],
+          context: %Context{
+            messages: [
+              Message.user("list"),
+              %Message{role: :assistant, content: nil, tool_calls: [tool_call]}
+            ]
+          }
+        })
+
+      final_response = build_response(%{text: "ok", tool_calls: []})
+      tools = [build_tool("list", fn _args -> [1, 2, 3] end)]
+
+      call_fn = fn messages ->
+        tool_result_msg = List.last(messages)
+        assert tool_result_msg.content == "[1,2,3]"
+        {:ok, final_response}
+      end
+
+      assert {:ok, ^final_response} = ToolExecutor.run(response, tools, [], call_fn)
+    end
+
+    test "coerces tuple return value via inspect" do
+      tool_call = %ToolCall{id: "call_1", name: "pair", arguments: %{}}
+
+      response =
+        build_response(%{
+          tool_calls: [tool_call],
+          context: %Context{
+            messages: [
+              Message.user("pair"),
+              %Message{role: :assistant, content: nil, tool_calls: [tool_call]}
+            ]
+          }
+        })
+
+      final_response = build_response(%{text: "ok", tool_calls: []})
+      tools = [build_tool("pair", fn _args -> {1, 2} end)]
+
+      call_fn = fn messages ->
+        tool_result_msg = List.last(messages)
+        assert tool_result_msg.content == "{1, 2}"
+        {:ok, final_response}
+      end
+
+      assert {:ok, ^final_response} = ToolExecutor.run(response, tools, [], call_fn)
+    end
+
+    test "unwraps {:ok, value} return convention" do
+      tool_call = %ToolCall{id: "call_1", name: "fetch", arguments: %{}}
+
+      response =
+        build_response(%{
+          tool_calls: [tool_call],
+          context: %Context{
+            messages: [
+              Message.user("fetch"),
+              %Message{role: :assistant, content: nil, tool_calls: [tool_call]}
+            ]
+          }
+        })
+
+      final_response = build_response(%{text: "ok", tool_calls: []})
+      tools = [build_tool("fetch", fn _args -> {:ok, %{id: 1}} end)]
+
+      call_fn = fn messages ->
+        tool_result_msg = List.last(messages)
+        assert {:ok, %{"id" => 1}} = JSON.decode(tool_result_msg.content)
+        {:ok, final_response}
+      end
+
+      assert {:ok, ^final_response} = ToolExecutor.run(response, tools, [], call_fn)
+    end
+
+    test "stringifies {:error, reason} return convention" do
+      tc1 = %ToolCall{id: "c1", name: "fail_atom", arguments: %{}}
+      tc2 = %ToolCall{id: "c2", name: "fail_str", arguments: %{}}
+
+      response =
+        build_response(%{
+          tool_calls: [tc1, tc2],
+          context: %Context{
+            messages: [
+              Message.user("go"),
+              %Message{role: :assistant, content: nil, tool_calls: [tc1, tc2]}
+            ]
+          }
+        })
+
+      final_response = build_response(%{text: "ok", tool_calls: []})
+
+      tools = [
+        build_tool("fail_atom", fn _ -> {:error, :not_found} end),
+        build_tool("fail_str", fn _ -> {:error, "db down"} end)
+      ]
+
+      call_fn = fn messages ->
+        [_user, _assistant, a, b] = messages
+        assert a.content == "Error: :not_found"
+        assert b.content == "Error: db down"
+        {:ok, final_response}
+      end
+
+      assert {:ok, ^final_response} = ToolExecutor.run(response, tools, [], call_fn)
+    end
+
+    test "coerces atom and number return values to strings" do
+      tc1 = %ToolCall{id: "c1", name: "atom_t", arguments: %{}}
+      tc2 = %ToolCall{id: "c2", name: "num_t", arguments: %{}}
+
+      response =
+        build_response(%{
+          tool_calls: [tc1, tc2],
+          context: %Context{
+            messages: [
+              Message.user("go"),
+              %Message{role: :assistant, content: nil, tool_calls: [tc1, tc2]}
+            ]
+          }
+        })
+
+      final_response = build_response(%{text: "ok", tool_calls: []})
+
+      tools = [
+        build_tool("atom_t", fn _ -> :ok end),
+        build_tool("num_t", fn _ -> 42 end)
+      ]
+
+      call_fn = fn messages ->
+        [_user, _assistant, atom_msg, num_msg] = messages
+        assert atom_msg.content == "ok"
+        assert num_msg.content == "42"
+        {:ok, final_response}
+      end
+
+      assert {:ok, ^final_response} = ToolExecutor.run(response, tools, [], call_fn)
+    end
+
     test "validation failure returns error string as tool result" do
       tool_call = %ToolCall{id: "call_1", name: "weather", arguments: %{"city" => 123}}
 
