@@ -43,7 +43,8 @@ defmodule Sycophant.Pipeline do
     :response_schema,
     :normalized_response_schema,
     :validate,
-    :max_steps
+    :max_steps,
+    :auto_execute_tools
   ]
 
   @doc "Executes a full LLM request pipeline: resolves model, validates params, encodes, transports, and decodes."
@@ -95,8 +96,9 @@ defmodule Sycophant.Pipeline do
 
   defp maybe_tool_loop(response, opts, params, model_info, adapter, credentials) do
     tools = opts[:tools] || []
+    auto_execute? = Keyword.get(opts, :auto_execute_tools, true)
 
-    if has_executable_tools?(tools) and response.tool_calls != [] do
+    if auto_execute? and has_executable_tools?(tools) and response.tool_calls != [] do
       call_fn = fn msgs ->
         dispatch_call(msgs, params, opts, model_info, adapter, credentials)
       end

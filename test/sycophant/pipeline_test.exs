@@ -551,6 +551,51 @@ defmodule Sycophant.PipelineTest do
       assert length(tool_calls) == 1
       assert hd(tool_calls).name == "weather"
     end
+
+    test "auto_execute_tools: false skips tool loop even when tools have :function" do
+      model = build_model()
+      provider = build_provider()
+      counter = :counters.new(1, [:atomics])
+
+      stub(LLMDB, :model, fn "openai:gpt-4o" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+      stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
+
+      stub(Sycophant.Transport, :call, fn _payload, _opts ->
+        :counters.add(counter, 1, 1)
+
+        {:ok,
+         %{
+           "id" => "resp-123",
+           "output" => [
+             %{
+               "type" => "function_call",
+               "id" => "fc_1",
+               "name" => "weather",
+               "arguments" => ~s({"city":"Paris"}),
+               "call_id" => "call_1"
+             }
+           ],
+           "usage" => %{"input_tokens" => 10, "output_tokens" => 5}
+         }}
+      end)
+
+      tool = %Sycophant.Tool{
+        name: "weather",
+        description: "Get weather",
+        parameters: Zoi.map(%{}),
+        function: fn _args ->
+          flunk("function must not be executed when auto_execute_tools: false")
+        end
+      }
+
+      opts = default_opts() ++ [tools: [tool], auto_execute_tools: false]
+
+      assert {:ok, %Response{tool_calls: [%{name: "weather"}]}} =
+               Pipeline.call(default_messages(), opts)
+
+      assert :counters.get(counter, 1) == 1
+    end
   end
 
   describe "call/2 response validation" do

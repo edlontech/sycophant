@@ -155,6 +155,9 @@ defmodule Sycophant do
     * `:stream` - Stream callback: either a `function/1` receiving `StreamChunk` structs,
       or a `{initial_acc, function/2}` tuple for accumulator-style streaming (optional)
     * `:max_steps` - Maximum tool execution loop iterations (default: 10)
+    * `:auto_execute_tools` - When `true` (default), tool calls are auto-executed
+      via tool `:function` callbacks in a loop. Set to `false` to disable the loop
+      and return the raw `tool_calls` in the response for manual handling.
     * `:temperature`, `:max_tokens`, `:top_p`, etc. - LLM parameters validated
       against the resolved wire protocol's param schema.
 

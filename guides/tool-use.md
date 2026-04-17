@@ -182,3 +182,23 @@ Sycophant.generate_text("openai:gpt-4o-mini", messages,
   max_steps: 3
 )
 ```
+
+## Disabling Auto-execution
+
+Even when tools have a `:function` set, you can opt out of the auto-execution
+loop by passing `auto_execute_tools: false`. The LLM's tool calls are returned
+raw in `response.tool_calls` for you to inspect, dispatch, or confirm before
+running:
+
+```elixir
+{:ok, response} = Sycophant.generate_text("openai:gpt-4o-mini", messages,
+  tools: [weather_tool],
+  auto_execute_tools: false
+)
+
+response.tool_calls
+#=> [%Sycophant.ToolCall{name: "get_weather", arguments: %{"city" => "Paris"}, ...}]
+```
+
+This is useful for human-in-the-loop flows, audit logging, or running tool
+calls in a different process/supervisor than the request pipeline.

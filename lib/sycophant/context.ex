@@ -44,7 +44,9 @@ defmodule Sycophant.Context do
   def new(messages, opts) when is_list(messages) and is_list(opts) do
     {tools, opts} = Keyword.pop(opts, :tools, [])
     {stream, opts} = Keyword.pop(opts, :stream)
-    params = opts |> Keyword.drop([:credentials, :max_steps]) |> Map.new()
+
+    params =
+      opts |> Keyword.drop([:credentials, :max_steps, :auto_execute_tools]) |> Map.new()
 
     %__MODULE__{
       messages: messages,
