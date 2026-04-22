@@ -638,8 +638,11 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
   # --- Private: Finish Reason Mapping ---
 
   defp map_finish_reason("end_turn"), do: :stop
+  defp map_finish_reason("stop_sequence"), do: :stop
+  defp map_finish_reason("pause_turn"), do: :stop
   defp map_finish_reason("tool_use"), do: :tool_use
   defp map_finish_reason("max_tokens"), do: :max_tokens
+  defp map_finish_reason("refusal"), do: :content_filter
   defp map_finish_reason(nil), do: nil
   defp map_finish_reason(_), do: :unknown
 end

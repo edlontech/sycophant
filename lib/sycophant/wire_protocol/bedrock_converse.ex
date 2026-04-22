@@ -575,8 +575,11 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
   # --- Finish Reason Mapping ---
 
   defp map_finish_reason("end_turn"), do: :stop
+  defp map_finish_reason("stop_sequence"), do: :stop
   defp map_finish_reason("tool_use"), do: :tool_use
   defp map_finish_reason("max_tokens"), do: :max_tokens
+  defp map_finish_reason("guardrail_intervened"), do: :content_filter
+  defp map_finish_reason("content_filtered"), do: :content_filter
   defp map_finish_reason(nil), do: nil
   defp map_finish_reason(_), do: :unknown
 end
