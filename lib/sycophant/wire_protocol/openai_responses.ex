@@ -154,18 +154,13 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     {:error, decode_api_error(error)}
   end
 
-  def decode_response(%{"status" => "incomplete", "incomplete_details" => details}) do
-    reason = if details, do: details["reason"], else: "unknown"
-    {:error, ResponseInvalid.exception(errors: ["Response incomplete: #{reason}"])}
-  end
-
   def decode_response(%{"output" => output} = body) when is_list(output) do
     with {:ok, text, tool_calls, reasoning} <- process_output_items(output) do
       response = %Response{
         text: text,
         tool_calls: tool_calls,
         reasoning: reasoning,
-        finish_reason: map_finish_reason(body["status"]),
+        finish_reason: decode_finish_reason(body),
         usage: decode_usage(body["usage"]),
         model: body["model"],
         raw: body,
@@ -225,14 +220,9 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
         event: "response.incomplete",
         data: %{"response" => response}
       }) do
-    reason =
-      case response["incomplete_details"] do
-        %{"reason" => r} -> r
-        _ -> "unknown"
-      end
-
-    {:terminate, :incomplete,
-     ResponseInvalid.exception(errors: ["Response incomplete: #{reason}"])}
+    with {:ok, response} <- decode_response(response) do
+      {:done, response}
+    end
   end
 
   def decode_stream_chunk(_state, %{event: "response.cancelled"}) do
@@ -723,9 +713,16 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
 
   # --- Finish Reason Mapping ---
 
-  defp map_finish_reason("completed"), do: :stop
-  defp map_finish_reason("failed"), do: :error
-  defp map_finish_reason("incomplete"), do: :incomplete
-  defp map_finish_reason(nil), do: nil
-  defp map_finish_reason(_), do: :unknown
+  defp decode_finish_reason(body) do
+    case {body["status"], get_in(body, ["incomplete_details", "reason"])} do
+      {"completed", _} -> :stop
+      {"failed", _} -> :error
+      {status, "max_output_tokens"} when status in ["incomplete", "cancelled"] -> :max_tokens
+      {status, "content_filter"} when status in ["incomplete", "cancelled"] -> :content_filter
+      {"incomplete", _} -> :incomplete
+      {"cancelled", _} -> :incomplete
+      {nil, _} -> nil
+      {_, _} -> :unknown
+    end
+  end
 end

@@ -680,7 +680,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
       assert {:error, %RateLimited{}} = OpenAIResponses.decode_response(body)
     end
 
-    test "returns error for incomplete status" do
+    test "maps incomplete status with max_output_tokens to :max_tokens" do
       body = %{
         "id" => "resp_123",
         "status" => "incomplete",
@@ -688,9 +688,31 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
         "output" => []
       }
 
-      assert {:error, %ResponseInvalid{errors: [msg]}} = OpenAIResponses.decode_response(body)
-      assert msg =~ "incomplete"
-      assert msg =~ "max_output_tokens"
+      assert {:ok, resp} = OpenAIResponses.decode_response(body)
+      assert resp.finish_reason == :max_tokens
+    end
+
+    test "maps incomplete status with content_filter to :content_filter" do
+      body = %{
+        "id" => "resp_123",
+        "status" => "incomplete",
+        "incomplete_details" => %{"reason" => "content_filter"},
+        "output" => []
+      }
+
+      assert {:ok, resp} = OpenAIResponses.decode_response(body)
+      assert resp.finish_reason == :content_filter
+    end
+
+    test "maps cancelled status to :incomplete" do
+      body = %{
+        "id" => "resp_123",
+        "status" => "cancelled",
+        "output" => []
+      }
+
+      assert {:ok, resp} = OpenAIResponses.decode_response(body)
+      assert resp.finish_reason == :incomplete
     end
 
     test "handles missing usage gracefully" do
@@ -801,12 +823,13 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
     end
   end
 
-  describe "map_finish_reason/1" do
+  describe "decode_finish_reason/1" do
     test "maps provider-specific values to canonical atoms" do
       for {status, expected_atom} <- [
             {"completed", :stop},
             {"failed", :error},
-            {"incomplete", :incomplete}
+            {"incomplete", :incomplete},
+            {"cancelled", :incomplete}
           ] do
         body = %{responses_api_response(text: "hi") | "status" => status}
         assert {:ok, resp} = OpenAIResponses.decode_response(body)
@@ -1110,21 +1133,20 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
       assert response.text == "Final answer"
     end
 
-    test "response.incomplete terminates with :incomplete" do
+    test "response.incomplete completes with :max_tokens finish_reason" do
       event = %{
         event: "response.incomplete",
         data: %{
           "response" => %{
             "status" => "incomplete",
-            "incomplete_details" => %{"reason" => "max_output_tokens"}
+            "incomplete_details" => %{"reason" => "max_output_tokens"},
+            "output" => []
           }
         }
       }
 
-      assert {:terminate, :incomplete, %Sycophant.Error.Provider.ResponseInvalid{} = err} =
-               OpenAIResponses.decode_stream_chunk(nil, event)
-
-      assert err.errors == ["Response incomplete: max_output_tokens"]
+      assert {:done, response} = OpenAIResponses.decode_stream_chunk(nil, event)
+      assert response.finish_reason == :max_tokens
     end
 
     test "response.failed terminates with :failed" do
@@ -1171,12 +1193,14 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
           "type" => "response.incomplete",
           "response" => %{
             "status" => "incomplete",
-            "incomplete_details" => %{"reason" => "content_filter"}
+            "incomplete_details" => %{"reason" => "content_filter"},
+            "output" => []
           }
         }
       }
 
-      assert {:terminate, :incomplete, _err} = OpenAIResponses.decode_stream_chunk(nil, event)
+      assert {:done, response} = OpenAIResponses.decode_stream_chunk(nil, event)
+      assert response.finish_reason == :content_filter
     end
   end
 

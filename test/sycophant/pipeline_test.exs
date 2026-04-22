@@ -1143,7 +1143,7 @@ defmodule Sycophant.PipelineTest do
       assert_received {:chunk, :done}
     end
 
-    test "emits :incomplete chunk and returns error when response.incomplete arrives" do
+    test "emits :done chunk with :max_tokens finish_reason when response.incomplete arrives" do
       model = build_model()
       provider = build_provider()
 
@@ -1159,7 +1159,8 @@ defmodule Sycophant.PipelineTest do
             JSON.encode!(%{
               "response" => %{
                 "status" => "incomplete",
-                "incomplete_details" => %{"reason" => "max_output_tokens"}
+                "incomplete_details" => %{"reason" => "max_output_tokens"},
+                "output" => []
               }
             })
         }
@@ -1173,12 +1174,12 @@ defmodule Sycophant.PipelineTest do
       callback = fn chunk -> send(test_pid, {:chunk, chunk.type}) end
       opts = default_opts() ++ [stream: callback]
 
-      assert {:error, %Sycophant.Error.Provider.ResponseInvalid{}} =
-               Pipeline.call(default_messages(), opts)
+      assert {:ok, response} = Pipeline.call(default_messages(), opts)
+      assert response.finish_reason == :max_tokens
 
       assert_received {:chunk, :text_delta}
-      assert_received {:chunk, :incomplete}
-      refute_received {:chunk, :done}
+      assert_received {:chunk, :done}
+      refute_received {:chunk, :incomplete}
     end
 
     test "emits :failed chunk when response.failed arrives" do
