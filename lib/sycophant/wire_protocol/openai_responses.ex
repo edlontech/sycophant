@@ -705,6 +705,10 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     |> Map.put("additionalProperties", false)
   end
 
+  defp set_strict_additional_properties(%{"type" => "object"} = schema) do
+    Map.put(schema, "additionalProperties", false)
+  end
+
   defp set_strict_additional_properties(%{"type" => "array", "items" => items} = schema) do
     Map.put(schema, "items", set_strict_additional_properties(items))
   end

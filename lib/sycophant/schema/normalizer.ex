@@ -47,7 +47,7 @@ defmodule Sycophant.Schema.Normalizer do
 
   defp ensure_additional_properties_false(schema) when is_map(schema) do
     schema =
-      if schema["type"] == "object" and is_map(schema["properties"]) do
+      if schema["type"] == "object" do
         Map.put(schema, "additionalProperties", false)
       else
         schema

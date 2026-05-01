@@ -209,6 +209,27 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
       assert encoded["function"]["parameters"]["properties"]["city"]["type"] == "string"
     end
 
+    test "stamps additionalProperties: false on object nodes without properties" do
+      tools = [
+        %Tool{
+          name: "tag",
+          description: "Tag with arbitrary metadata",
+          parameters: %{
+            "type" => "object",
+            "properties" => %{
+              "metadata" => %{"type" => "object"}
+            },
+            "required" => ["metadata"]
+          }
+        }
+      ]
+
+      assert {:ok, [encoded]} = OpenAICompletions.encode_tools(tools)
+      params = encoded["function"]["parameters"]
+      assert params["additionalProperties"] == false
+      assert params["properties"]["metadata"]["additionalProperties"] == false
+    end
+
     test "encodes tool with strict false" do
       tools = [
         %Tool{

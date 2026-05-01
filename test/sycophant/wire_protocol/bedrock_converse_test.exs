@@ -322,6 +322,36 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
     end
   end
 
+  describe "encode_request/1 - response schema" do
+    test "stamps additionalProperties: false on object nodes without properties" do
+      schema = %{
+        "type" => "object",
+        "properties" => %{
+          "metadata" => %{"type" => "object"}
+        },
+        "required" => ["metadata"]
+      }
+
+      request = %Request{
+        messages: [Message.user("hi")],
+        model: "test-model",
+        params: %{},
+        tools: [],
+        response_schema: schema
+      }
+
+      assert {:ok, payload} = BedrockConverse.encode_request(request)
+
+      encoded =
+        payload
+        |> get_in(["outputConfig", "textFormat", "structure", "jsonSchema", "schema"])
+        |> JSON.decode!()
+
+      assert encoded["additionalProperties"] == false
+      assert encoded["properties"]["metadata"]["additionalProperties"] == false
+    end
+  end
+
   describe "encode_request/1 - empty params" do
     test "handles empty params map" do
       request = build_request([Message.user("hi")])

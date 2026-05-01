@@ -436,6 +436,26 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
       assert encoded["strict"] == false
     end
 
+    test "stamps additionalProperties: false on object nodes without properties" do
+      tools = [
+        %Tool{
+          name: "tag",
+          description: "Tag with arbitrary metadata",
+          parameters: %{
+            "type" => "object",
+            "properties" => %{
+              "metadata" => %{"type" => "object"}
+            },
+            "required" => ["metadata"]
+          }
+        }
+      ]
+
+      assert {:ok, [encoded]} = OpenAIResponses.encode_tools(tools)
+      assert encoded["parameters"]["additionalProperties"] == false
+      assert encoded["parameters"]["properties"]["metadata"]["additionalProperties"] == false
+    end
+
     test "does not nest in function wrapper" do
       tools = [
         %Tool{
