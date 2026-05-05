@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.4.2](https://github.com/edlontech/sycophant/compare/sycophant-v0.4.1...sycophant-v0.4.2) (2026-05-05)
+
+
+### Features
+
+* Implemented Copilot Provider ([f75548f](https://github.com/edlontech/sycophant/commit/f75548f73afce265e4b917573361cdff0aba612e))
+
+
+### Bug Fixes
+
+* Fixed OpenAI Responses incomplete responses parsing ([09a3a2a](https://github.com/edlontech/sycophant/commit/09a3a2a614719fd3eb6c34034210b3058bb574ab))
+* Fixed OpenAI Strict additionalProperties for Responses wire object nesting ([c84ad35](https://github.com/edlontech/sycophant/commit/c84ad3566df5c16970d043c5f1480083781e2610))
+* Fixed response_schema check ([834de99](https://github.com/edlontech/sycophant/commit/834de99dedf937fd1e89d640915834fa0d4377d7))
+* Mapping missing stop reasons for anthropic/bedrock ([d3cdfc6](https://github.com/edlontech/sycophant/commit/d3cdfc6323084923216fd94e63890ba735e87c29))
+
 ## [Unreleased]
 
 ### Added
