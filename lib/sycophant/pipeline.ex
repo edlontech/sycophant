@@ -61,7 +61,7 @@ defmodule Sycophant.Pipeline do
 
     with {:ok, opts} <- normalize_schemas(opts),
          {:ok, params} <- validate_params(opts, adapter, model_info),
-         :ok <- validate_response_schema_support(opts, model_info),
+         :ok <- validate_response_schema_support(opts, adapter, model_info),
          {:ok, credentials} <- Credentials.resolve(model_info.provider, opts[:credentials]),
          {:ok, credentials} <- Auth.prepare_credentials_for(model_info.provider, credentials) do
       telemetry_metadata = build_telemetry_metadata(model_info, opts, params)
@@ -72,7 +72,7 @@ defmodule Sycophant.Pipeline do
     end
   end
 
-  defp validate_response_schema_support(opts, model_info) do
+  defp validate_response_schema_support(opts, Sycophant.WireProtocol.CopilotChat, model_info) do
     schema = opts[:response_schema]
 
     json_schema_supported? =
@@ -94,6 +94,8 @@ defmodule Sycophant.Pipeline do
         :ok
     end
   end
+
+  defp validate_response_schema_support(_opts, _adapter, _model_info), do: :ok
 
   defp run_pipeline(messages, params, opts, model_info, adapter, credentials) do
     with {:ok, response} <-

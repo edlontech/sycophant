@@ -14,19 +14,12 @@ defmodule Sycophant.Recording.GithubCopilotTest do
     {:ok, response} =
       Sycophant.generate_text(
         model,
-        [
-          %Message{
-            role: :system,
-            content:
-              "You are an echo bot. Reply with exactly the text the user sends, nothing else."
-          },
-          %Message{role: :user, content: "PING"}
-        ],
+        [%Message{role: :user, content: "Say 'hello' and nothing else."}],
         recording_opts([])
       )
 
     assert is_binary(response.text)
-    assert response.text =~ ~r/PING/i
+    assert response.text =~ ~r/hello/i
   end
 
   @tag recording_prefix: true
