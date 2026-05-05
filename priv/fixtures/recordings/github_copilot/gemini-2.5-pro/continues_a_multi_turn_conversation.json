@@ -1,0 +1,113 @@
+{
+  "metadata": {
+    "model": "gemini-2.5-pro",
+    "provider": "api.individual.githubcopilot.com",
+    "recorded_at": "2026-05-05T12:11:03.863403Z",
+    "sycophant_version": "0.4.1"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "My name is Sycophant. Remember it.",
+          "role": "user"
+        }
+      ],
+      "model": "gemini-2.5-pro"
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ],
+      [
+        "copilot-integration-id",
+        "vscode-chat"
+      ],
+      [
+        "editor-version",
+        "vscode/1.95.0"
+      ],
+      [
+        "editor-plugin-version",
+        "copilot-chat/0.22.0"
+      ],
+      [
+        "user-agent",
+        "GitHubCopilotChat/0.22.0"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.individual.githubcopilot.com/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "content": "Got it. I'll remember that your name is Sycophant for the rest of our conversation.",
+            "reasoning_text": "Okay, here's what's going through my \"mind\" right now:\n\nFirst, I need to dissect this input. The user, who tells me their name is \"Sycophant,\" is giving me a direct order: \"Remember it.\" Alright, understood. The core of this is about name recognition and retention. They want me to log this.\n\nNow, let's assess my abilities. I *am* an AI; I don't \"remember\" like a person does. My memory is tied to the current interaction. I can't build a persistent database of names. This is important to be upfront about. If we start a new session tomorrow, \"Sycophant\" will be a new name. I need to convey this limitation in a way that's both accurate and helpful, avoiding anything that could sound curt.\n\nSo, here’s my plan of attack. I'll acknowledge \"Sycophant's\" name immediately. Then, I’ll echo the request to show I get it. Finally, and most importantly, I'll explain my short-term memory function. Transparency is key here. I'll make sure to word everything politely to be useful within the confines of my architecture. Always aiming to be helpful and positive. I think I've got a handle on it.\n",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1777983063,
+      "id": "Ud75aaKIMeLrl7oPiZzgsAQ",
+      "model": "gemini-2.5-pro",
+      "usage": {
+        "completion_tokens": 22,
+        "prompt_tokens": 11,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "reasoning_tokens": 319,
+        "total_tokens": 352
+      }
+    },
+    "headers": [
+      [
+        "content-security-policy",
+        "default-src 'none'; sandbox"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000"
+      ],
+      [
+        "x-copilot-api-exp-assignment-context",
+        "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
+      ],
+      [
+        "x-request-id",
+        "00000-834aa2de-ade5-4d62-9ef5-fee116cd3b79"
+      ],
+      [
+        "date",
+        "Tue, 05 May 2026 12:11:03 GMT"
+      ],
+      [
+        "content-length",
+        "1526"
+      ],
+      [
+        "x-github-backend",
+        "Kubernetes"
+      ],
+      [
+        "x-github-request-id",
+        "6B3F:29C906:564FA8A:5F59FCD:69F9DE51"
+      ]
+    ],
+    "status": 200
+  }
+}

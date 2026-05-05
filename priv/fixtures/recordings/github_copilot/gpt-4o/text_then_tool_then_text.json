@@ -1,0 +1,184 @@
+{
+  "metadata": {
+    "model": "gpt-4o",
+    "provider": "api.individual.githubcopilot.com",
+    "recorded_at": "2026-05-05T12:10:58.735510Z",
+    "sycophant_version": "0.4.1"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "You are a helpful assistant. Be concise.",
+          "role": "system"
+        },
+        {
+          "content": "Hi! I'm planning a trip to London.",
+          "role": "user"
+        }
+      ],
+      "model": "gpt-4o",
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather for a city. Returns temperature and conditions.",
+            "name": "get_weather",
+            "parameters": {
+              "additionalProperties": false,
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ],
+      [
+        "copilot-integration-id",
+        "vscode-chat"
+      ],
+      [
+        "editor-version",
+        "vscode/1.95.0"
+      ],
+      [
+        "editor-plugin-version",
+        "copilot-chat/0.22.0"
+      ],
+      [
+        "user-agent",
+        "GitHubCopilotChat/0.22.0"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.individual.githubcopilot.com/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "content_filter_results": {
+            "hate": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "self_harm": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "sexual": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "violence": {
+              "filtered": false,
+              "severity": "safe"
+            }
+          },
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "content": "That sounds exciting! Let me know how I can assist—do you need help with weather updates, attractions, or anything else?",
+            "padding": "abcdefghijklmnopqrstuvwxyz",
+            "role": "assistant"
+          }
+        }
+      ],
+      "id": "chatcmpl-Dc8u2L6YUHYwiLUiBhFYpSSja0lPc",
+      "model": "gpt-4o-2024-11-20",
+      "prompt_filter_results": [
+        {
+          "content_filter_results": {
+            "hate": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "self_harm": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "sexual": {
+              "filtered": false,
+              "severity": "safe"
+            },
+            "violence": {
+              "filtered": false,
+              "severity": "safe"
+            }
+          },
+          "prompt_index": 0
+        }
+      ],
+      "system_fingerprint": "fp_23ef75ba80",
+      "usage": {
+        "completion_tokens": 28,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 0,
+          "rejected_prediction_tokens": 0
+        },
+        "prompt_tokens": 67,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "total_tokens": 95
+      }
+    },
+    "headers": [
+      [
+        "content-security-policy",
+        "default-src 'none'; sandbox"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000"
+      ],
+      [
+        "x-copilot-api-exp-assignment-context",
+        "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
+      ],
+      [
+        "x-request-id",
+        "00000-2c81d26a-d3ea-4500-8be3-f6896cceadce"
+      ],
+      [
+        "date",
+        "Tue, 05 May 2026 12:10:58 GMT"
+      ],
+      [
+        "content-length",
+        "1065"
+      ],
+      [
+        "x-github-backend",
+        "Kubernetes"
+      ],
+      [
+        "x-github-request-id",
+        "6B3F:29C906:564FA8A:5F59FCB:69F9DE51"
+      ]
+    ],
+    "status": 200
+  }
+}

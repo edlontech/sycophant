@@ -41,4 +41,39 @@ defmodule Sycophant.Config.ProviderTest do
       assert is_nil(provider.base_url)
     end
   end
+
+  describe "Provider — Copilot fields" do
+    test "parses github_token, copilot_token, github_host, editor_*, integration_id" do
+      Application.put_env(:sycophant, :providers,
+        github_copilot: [
+          github_token: "ghp_x",
+          copilot_token: "tid=y",
+          github_host: "ghe.example.com",
+          editor_version: "vscode/1.95.0",
+          editor_plugin_version: "copilot-chat/0.22.0",
+          integration_id: "vscode-chat"
+        ]
+      )
+
+      {:ok, config} = Sycophant.Config.provider(:github_copilot)
+      assert config.github_token == "ghp_x"
+      assert config.copilot_token == "tid=y"
+      assert config.github_host == "ghe.example.com"
+      assert config.editor_version == "vscode/1.95.0"
+      assert config.editor_plugin_version == "copilot-chat/0.22.0"
+      assert config.integration_id == "vscode-chat"
+    end
+
+    test "Inspect redacts github_token and copilot_token" do
+      Application.put_env(:sycophant, :providers,
+        github_copilot: [github_token: "ghp_secret", copilot_token: "tid=secret"]
+      )
+
+      {:ok, config} = Sycophant.Config.provider(:github_copilot)
+      rendered = inspect(config)
+      assert rendered =~ "REDACTED"
+      refute rendered =~ "ghp_secret"
+      refute rendered =~ "tid=secret"
+    end
+  end
 end

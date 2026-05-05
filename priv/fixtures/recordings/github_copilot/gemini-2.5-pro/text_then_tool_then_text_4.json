@@ -1,0 +1,181 @@
+{
+  "metadata": {
+    "model": "gemini-2.5-pro",
+    "provider": "api.individual.githubcopilot.com",
+    "recorded_at": "2026-05-05T12:11:14.616667Z",
+    "sycophant_version": "0.4.1"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "You are a helpful assistant. Be concise.",
+          "role": "system"
+        },
+        {
+          "content": "Hi! I'm planning a trip to London.",
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "London is a great city! Would you like to know the current weather to help you pack?",
+              "type": "text"
+            }
+          ],
+          "role": "assistant"
+        },
+        {
+          "content": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer.",
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "",
+              "type": "text"
+            }
+          ],
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "function": {
+                "arguments": "{\"city\":\"London\"}",
+                "name": "get_weather"
+              },
+              "id": "call_MHxWNjJMdGNXY1VISFR3OGJ6V2E",
+              "type": "function"
+            }
+          ]
+        },
+        {
+          "content": "London: 18C, cloudy",
+          "role": "tool",
+          "tool_call_id": "call_MHxWNjJMdGNXY1VISFR3OGJ6V2E"
+        },
+        {
+          "content": "Currently, it's 18°C and cloudy in London. \n",
+          "role": "assistant"
+        },
+        {
+          "content": "Thanks! Should I bring an umbrella?",
+          "role": "user"
+        }
+      ],
+      "model": "gemini-2.5-pro",
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather for a city. Returns temperature and conditions.",
+            "name": "get_weather",
+            "parameters": {
+              "additionalProperties": false,
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ],
+      [
+        "copilot-integration-id",
+        "vscode-chat"
+      ],
+      [
+        "editor-version",
+        "vscode/1.95.0"
+      ],
+      [
+        "editor-plugin-version",
+        "copilot-chat/0.22.0"
+      ],
+      [
+        "user-agent",
+        "GitHubCopilotChat/0.22.0"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.individual.githubcopilot.com/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "content": "Given that it's cloudy, bringing an umbrella would be a good idea.",
+            "reasoning_opaque": "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",
+            "reasoning_text": "Okay, let's break this down. First, I see the user is asking about an umbrella. It's a weather-related question – essentially a follow-up to the weather information I just provided. The query itself doesn't offer anything *new* in terms of parameters for another function call, like `get_weather`. I already have the weather data.\n\nNow, do I need to re-fetch the weather? Probably not. Seconds ago, I gave them \"cloudy.\"  Unless the weather's flipped on a dime, which is unlikely, that's still the key piece of information.\n\nThe real trick here is making a *judgement call*. This is where my abilities as a helpful assistant kick in.  The user is indirectly asking for advice based on the weather. Cloudy weather often leads to rain, right? Therefore, the right move is pretty obvious. I'm going to leverage my existing knowledge, the “cloudy” condition I previously determined, and give a helpful inference.\n\nSo, the response is clear: \"Given that it's cloudy, bringing an umbrella would be a good idea.\" Simple, direct, and helpful.  No need to overcomplicate things with another tool call. I'm operating on what I *already* know and providing the assistance the user is implicitly asking for.\n",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1777983074,
+      "id": "XN75acS2D9SNl7oP0oKi8QQ",
+      "model": "gemini-2.5-pro",
+      "usage": {
+        "completion_tokens": 16,
+        "prompt_tokens": 110,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "reasoning_tokens": 273,
+        "total_tokens": 399
+      }
+    },
+    "headers": [
+      [
+        "content-security-policy",
+        "default-src 'none'; sandbox"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000"
+      ],
+      [
+        "x-copilot-api-exp-assignment-context",
+        "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
+      ],
+      [
+        "x-request-id",
+        "00000-3cd0c663-f8e6-429e-9e37-72233795dcb2"
+      ],
+      [
+        "date",
+        "Tue, 05 May 2026 12:11:14 GMT"
+      ],
+      [
+        "x-github-backend",
+        "Kubernetes"
+      ],
+      [
+        "x-github-request-id",
+        "6B3F:29C906:5653DEB:5F5E81F:69F9DE5B"
+      ]
+    ],
+    "status": 200
+  }
+}

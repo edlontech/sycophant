@@ -458,6 +458,129 @@ defmodule Sycophant.Tesla.RecorderMiddlewareTest do
     end
   end
 
+  describe "path-scoped body redaction" do
+    @tag :tmp_dir
+    test "redacts token field on /copilot_internal/v2/token responses", %{tmp_dir: tmp_dir} do
+      name = "test/copilot/exchange"
+      fixture_path = Path.join([tmp_dir, "#{name}.json"])
+
+      RecorderMiddleware.set_recording(name)
+      on_exit(fn -> RecorderMiddleware.clear_recording() end)
+
+      env = %Tesla.Env{
+        method: :get,
+        url: "https://api.github.com/copilot_internal/v2/token",
+        headers: [{"authorization", "token ghp_secret"}],
+        body: nil
+      }
+
+      response_body =
+        JSON.encode!(%{
+          "token" => "tid=secret",
+          "expires_at" => 1_729_000_000,
+          "endpoints" => %{"api" => "https://x"}
+        })
+
+      next = [
+        {:fn,
+         fn %Tesla.Env{} = env ->
+           {:ok,
+            %{
+              env
+              | status: 200,
+                body: response_body,
+                headers: [{"content-type", "application/json"}]
+            }}
+         end}
+      ]
+
+      assert {:ok, %Tesla.Env{status: 200}} =
+               RecorderMiddleware.call(env, next, fixtures_path: tmp_dir, record: :force)
+
+      assert File.exists?(fixture_path)
+
+      fixture = fixture_path |> File.read!() |> JSON.decode!()
+      assert fixture["response"]["body"]["token"] == "[REDACTED]"
+      assert fixture["response"]["body"]["expires_at"] == 1_729_000_000
+      assert fixture["response"]["body"]["endpoints"]["api"] == "https://x"
+    end
+
+    @tag :tmp_dir
+    test "does not redact token field on unrelated paths", %{tmp_dir: tmp_dir} do
+      name = "test/other/keep"
+      fixture_path = Path.join([tmp_dir, "#{name}.json"])
+
+      RecorderMiddleware.set_recording(name)
+      on_exit(fn -> RecorderMiddleware.clear_recording() end)
+
+      env = %Tesla.Env{
+        method: :post,
+        url: "https://api.example.com/something",
+        headers: [],
+        body: nil
+      }
+
+      response_body = JSON.encode!(%{"token" => "keep-me", "other" => 1})
+
+      next = [
+        {:fn,
+         fn %Tesla.Env{} = env ->
+           {:ok,
+            %{
+              env
+              | status: 200,
+                body: response_body,
+                headers: [{"content-type", "application/json"}]
+            }}
+         end}
+      ]
+
+      assert {:ok, %Tesla.Env{status: 200}} =
+               RecorderMiddleware.call(env, next, fixtures_path: tmp_dir, record: :force)
+
+      fixture = fixture_path |> File.read!() |> JSON.decode!()
+      assert fixture["response"]["body"]["token"] == "keep-me"
+      assert fixture["response"]["body"]["other"] == 1
+    end
+
+    @tag :tmp_dir
+    test "redacts token on GHE host with same path suffix", %{tmp_dir: tmp_dir} do
+      name = "test/copilot/ghe_exchange"
+      fixture_path = Path.join([tmp_dir, "#{name}.json"])
+
+      RecorderMiddleware.set_recording(name)
+      on_exit(fn -> RecorderMiddleware.clear_recording() end)
+
+      env = %Tesla.Env{
+        method: :get,
+        url: "https://ghe.example.com/api/v3/copilot_internal/v2/token",
+        headers: [],
+        body: nil
+      }
+
+      response_body = JSON.encode!(%{"token" => "ghe-secret", "expires_at" => 1})
+
+      next = [
+        {:fn,
+         fn %Tesla.Env{} = env ->
+           {:ok,
+            %{
+              env
+              | status: 200,
+                body: response_body,
+                headers: [{"content-type", "application/json"}]
+            }}
+         end}
+      ]
+
+      assert {:ok, _} =
+               RecorderMiddleware.call(env, next, fixtures_path: tmp_dir, record: :force)
+
+      fixture = fixture_path |> File.read!() |> JSON.decode!()
+      assert fixture["response"]["body"]["token"] == "[REDACTED]"
+    end
+  end
+
   describe "replay streaming fixture" do
     @tag :tmp_dir
     test "returns raw body without JSON encoding", %{tmp_dir: tmp_dir} do

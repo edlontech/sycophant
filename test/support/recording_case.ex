@@ -129,7 +129,9 @@ defmodule Sycophant.RecordingCase do
             api_key: "recorded",
             access_key_id: "recorded",
             secret_access_key: "recorded",
-            region: "us-east-1"
+            region: "us-east-1",
+            copilot_token: "recorded",
+            base_url: "https://api.githubcopilot.com"
           })
         end
       end

@@ -47,6 +47,7 @@ defmodule Sycophant.MixProject do
         {"guides/agent-mode.md", title: "Agent Mode"},
         {"guides/serialization.md", title: "Serialization"},
         {"guides/http-configuration.md", title: "HTTP Configuration"},
+        {"guides/github-copilot.md", title: "GitHub Copilot"},
         {"guides/custom-providers.md", title: "Custom Providers"},
         {"guides/recording-tests.md", title: "Recording Tests"},
         {"CHANGELOG.md", title: "Changelog"},
@@ -62,7 +63,8 @@ defmodule Sycophant.MixProject do
           "guides/pricing.md",
           "guides/agent-mode.md",
           "guides/serialization.md",
-          "guides/http-configuration.md"
+          "guides/http-configuration.md",
+          "guides/github-copilot.md"
         ],
         "Extending Sycophant": [
           "guides/custom-providers.md",
@@ -120,7 +122,8 @@ defmodule Sycophant.MixProject do
           Sycophant.Auth.Anthropic,
           Sycophant.Auth.Google,
           Sycophant.Auth.Bedrock,
-          Sycophant.Auth.Azure
+          Sycophant.Auth.Azure,
+          Sycophant.Auth.GithubCopilot
         ],
         "Telemetry & Observability": [
           Sycophant.Telemetry,

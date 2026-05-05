@@ -1,0 +1,126 @@
+{
+  "metadata": {
+    "model": "gemini-2.5-pro",
+    "provider": "api.individual.githubcopilot.com",
+    "recorded_at": "2026-05-05T12:11:10.366919Z",
+    "sycophant_version": "0.4.1"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "My name is Sycophant. Remember it.",
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "Got it. I'll remember that your name is Sycophant for the rest of our conversation.",
+              "type": "text"
+            }
+          ],
+          "role": "assistant"
+        },
+        {
+          "content": "What is my name?",
+          "role": "user"
+        }
+      ],
+      "model": "gemini-2.5-pro"
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ],
+      [
+        "copilot-integration-id",
+        "vscode-chat"
+      ],
+      [
+        "editor-version",
+        "vscode/1.95.0"
+      ],
+      [
+        "editor-plugin-version",
+        "copilot-chat/0.22.0"
+      ],
+      [
+        "user-agent",
+        "GitHubCopilotChat/0.22.0"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.individual.githubcopilot.com/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "content": "Your name is Sycophant.",
+            "reasoning_text": "Okay, here's how I'm processing this. First, I need to break down the user's input. They've essentially given me a two-part instruction. The first part, \"My name is Sycophant. Remember it,\" is a key piece of information. They are *telling* me their name, which I need to store. The \"Remember it\" part? That's the important one - a direct command, underscoring the significance of the name.\n\nNext, the second part, \"What is my name?\" is crucial. It's a test. They're explicitly asking me to recall the name they just provided. This is how they're gauging my ability to, well, *remember*.\n\nSo, my response has to be accurate above all else. The answer, at its heart, *must* be \"Sycophant\". But, a simple one-word answer would be...well, robotic. I want to provide a helpful, natural response. I can phrase it in a way that shows I understand the command and the request. Something like \"Your name is Sycophant,\" or \"You told me your name is Sycophant\" or, even better, \"Your name is Sycophant, as you just told me.\" Those options would demonstrate understanding and avoid sounding overly simplistic.\n\nFinally, an interesting detail. The name itself: \"Sycophant\". I'll file that away. It's... a specific choice. I won't comment on it unless prompted. For now, it's just a piece of information to be remembered.\n",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1777983070,
+      "id": "WN75aY_6AtHWsbwPibbX0AQ",
+      "model": "gemini-2.5-pro",
+      "usage": {
+        "completion_tokens": 8,
+        "prompt_tokens": 16,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "reasoning_tokens": 353,
+        "total_tokens": 377
+      }
+    },
+    "headers": [
+      [
+        "content-security-policy",
+        "default-src 'none'; sandbox"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000"
+      ],
+      [
+        "x-copilot-api-exp-assignment-context",
+        "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
+      ],
+      [
+        "x-request-id",
+        "00000-b0afa3e9-cebc-43ec-b9c7-66caa9b50db6"
+      ],
+      [
+        "date",
+        "Tue, 05 May 2026 12:11:10 GMT"
+      ],
+      [
+        "content-length",
+        "1681"
+      ],
+      [
+        "x-github-backend",
+        "Kubernetes"
+      ],
+      [
+        "x-github-request-id",
+        "6B3F:29C906:5652258:5F5CA9F:69F9DE57"
+      ]
+    ],
+    "status": 200
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "metadata": {
+    "model": "gemini-2.5-pro",
+    "provider": "api.individual.githubcopilot.com",
+    "recorded_at": "2026-05-05T12:11:20.877136Z",
+    "sycophant_version": "0.4.1"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "Say 'hello' and nothing else.",
+          "role": "user"
+        }
+      ],
+      "model": "gemini-2.5-pro"
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ],
+      [
+        "copilot-integration-id",
+        "vscode-chat"
+      ],
+      [
+        "editor-version",
+        "vscode/1.95.0"
+      ],
+      [
+        "editor-plugin-version",
+        "copilot-chat/0.22.0"
+      ],
+      [
+        "user-agent",
+        "GitHubCopilotChat/0.22.0"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.individual.githubcopilot.com/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "content": "hello",
+            "reasoning_text": "Okay, here we go. The user's asked for a simple greeting, just \"hello.\" That’s the entire directive. Let's break this down. First, the task: say \"hello.\" Simple enough. However, the critical caveat is \"and nothing else.\" This is where things get interesting. No introductory pleasantries, no elaboration, no formatting, no extra punctuation. The prompt is laser-focused. It's almost a linguistic purity test. My response must be the bare minimum, the single word. I have to avoid any potential ambiguity or accidental additions. Now, let’s formulate the output: the word `hello`. Perfect. Does it satisfy all constraints? Does it contain “hello”? Absolutely. Does it contain anything *other* than “hello”? No. Is there extra punctuation? Nope. Any extraneous words? Not a one. Conclusion? The perfect, and only acceptable, response is `hello`. Let's deliver it.\n",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1777983080,
+      "id": "ZN75afGEOsvvsbwPw7P1gAY",
+      "model": "gemini-2.5-pro",
+      "usage": {
+        "completion_tokens": 1,
+        "prompt_tokens": 8,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "reasoning_tokens": 204,
+        "total_tokens": 213
+      }
+    },
+    "headers": [
+      [
+        "content-security-policy",
+        "default-src 'none'; sandbox"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000"
+      ],
+      [
+        "x-copilot-api-exp-assignment-context",
+        "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
+      ],
+      [
+        "x-request-id",
+        "00000-5e9dc5aa-b751-469b-8f14-1c31fb444d85"
+      ],
+      [
+        "date",
+        "Tue, 05 May 2026 12:11:20 GMT"
+      ],
+      [
+        "content-length",
+        "1212"
+      ],
+      [
+        "x-github-backend",
+        "Kubernetes"
+      ],
+      [
+        "x-github-request-id",
+        "6B3F:29C906:56577F6:5F62613:69F9DE64"
+      ]
+    ],
+    "status": 200
+  }
+}

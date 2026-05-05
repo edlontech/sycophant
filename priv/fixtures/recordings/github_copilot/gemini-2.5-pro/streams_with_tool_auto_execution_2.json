@@ -1,0 +1,135 @@
+{
+  "metadata": {
+    "model": "gemini-2.5-pro",
+    "provider": "api.individual.githubcopilot.com",
+    "recorded_at": "2026-05-05T12:11:01.956767Z",
+    "streaming": true,
+    "sycophant_version": "0.4.1"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "role": "user"
+        },
+        {
+          "content": null,
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "function": {
+                "arguments": "{\"city\":\"Paris\"}",
+                "name": "get_weather"
+              },
+              "id": "call_MHxSQjlKY3hWZlpFcW9xRlVMM2I",
+              "type": "function"
+            }
+          ]
+        },
+        {
+          "content": "Paris: 22C, sunny",
+          "role": "tool",
+          "tool_call_id": "call_MHxSQjlKY3hWZlpFcW9xRlVMM2I"
+        }
+      ],
+      "model": "gemini-2.5-pro",
+      "stream": true,
+      "stream_options": {
+        "include_usage": true
+      },
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather for a city. Returns temperature and conditions.",
+            "name": "get_weather",
+            "parameters": {
+              "additionalProperties": false,
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ],
+      [
+        "copilot-integration-id",
+        "vscode-chat"
+      ],
+      [
+        "editor-version",
+        "vscode/1.95.0"
+      ],
+      [
+        "editor-plugin-version",
+        "copilot-chat/0.22.0"
+      ],
+      [
+        "user-agent",
+        "GitHubCopilotChat/0.22.0"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.individual.githubcopilot.com/chat/completions"
+  },
+  "response": {
+    "body": "data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"The weather in Paris is 22\",\"role\":\"assistant\"}}],\"created\":1777983061,\"id\":\"Vd75abbqD4Wzl7oP2LqQyQU\",\"usage\":{\"completion_tokens\":0,\"prompt_tokens\":0,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":0,\"reasoning_tokens\":0},\"model\":\"gemini-2.5-pro\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"delta\":{\"content\":\" degrees Celsius and sunny. \\n\",\"role\":\"assistant\"}}],\"created\":1777983061,\"id\":\"Vd75abbqD4Wzl7oP2LqQyQU\",\"usage\":{\"completion_tokens\":15,\"prompt_tokens\":55,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":70,\"reasoning_tokens\":0},\"model\":\"gemini-2.5-pro\"}\n\ndata: [DONE]\n\n",
+    "headers": [
+      [
+        "cache-control",
+        "no-cache"
+      ],
+      [
+        "content-security-policy",
+        "default-src 'none'; sandbox"
+      ],
+      [
+        "content-type",
+        "text/event-stream"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000"
+      ],
+      [
+        "x-copilot-api-exp-assignment-context",
+        "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
+      ],
+      [
+        "x-request-id",
+        "00000-5a7f342c-fd60-44e5-bd5f-42f41d7eb496"
+      ],
+      [
+        "date",
+        "Tue, 05 May 2026 12:11:01 GMT"
+      ],
+      [
+        "x-github-backend",
+        "Kubernetes"
+      ],
+      [
+        "x-github-request-id",
+        "6B3F:29C906:5651092:5F5B750:69F9DE55"
+      ]
+    ],
+    "status": 200
+  }
+}

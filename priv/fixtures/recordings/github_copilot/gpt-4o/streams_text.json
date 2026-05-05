@@ -1,0 +1,94 @@
+{
+  "metadata": {
+    "model": "gpt-4o",
+    "provider": "api.individual.githubcopilot.com",
+    "recorded_at": "2026-05-05T12:11:00.762759Z",
+    "streaming": true,
+    "sycophant_version": "0.4.1"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "Say 'hello' and nothing else.",
+          "role": "user"
+        }
+      ],
+      "model": "gpt-4o",
+      "stream": true,
+      "stream_options": {
+        "include_usage": true
+      }
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ],
+      [
+        "copilot-integration-id",
+        "vscode-chat"
+      ],
+      [
+        "editor-version",
+        "vscode/1.95.0"
+      ],
+      [
+        "editor-plugin-version",
+        "copilot-chat/0.22.0"
+      ],
+      [
+        "user-agent",
+        "GitHubCopilotChat/0.22.0"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.individual.githubcopilot.com/chat/completions"
+  },
+  "response": {
+    "body": "data: {\"choices\":[],\"created\":0,\"id\":\"\",\"model\":\"gpt-4o-2024-11-20\",\"prompt_filter_results\":[{\"content_filter_results\":{\"hate\":{\"filtered\":false,\"severity\":\"safe\"},\"self_harm\":{\"filtered\":false,\"severity\":\"safe\"},\"sexual\":{\"filtered\":false,\"severity\":\"safe\"},\"violence\":{\"filtered\":false,\"severity\":\"safe\"}},\"prompt_index\":0}]}\n\ndata: {\"choices\":[{\"index\":0,\"content_filter_results\":{},\"delta\":{\"content\":\"\",\"role\":\"assistant\"}}],\"created\":1777983060,\"id\":\"chatcmpl-Dc8u4xzufWfm8OkBNvuTU8FEUZxed\",\"model\":\"gpt-4o-2024-11-20\",\"system_fingerprint\":\"fp_23ef75ba80\"}\n\ndata: {\"choices\":[{\"index\":0,\"content_filter_results\":{},\"delta\":{\"content\":\"Hello\"}}],\"created\":1777983060,\"id\":\"chatcmpl-Dc8u4xzufWfm8OkBNvuTU8FEUZxed\",\"model\":\"gpt-4o-2024-11-20\",\"system_fingerprint\":\"fp_23ef75ba80\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"content_filter_results\":{},\"delta\":{\"content\":null}}],\"created\":1777983060,\"id\":\"chatcmpl-Dc8u4xzufWfm8OkBNvuTU8FEUZxed\",\"usage\":{\"completion_tokens\":2,\"completion_tokens_details\":{\"accepted_prediction_tokens\":0,\"rejected_prediction_tokens\":0},\"prompt_tokens\":15,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":17,\"reasoning_tokens\":0},\"model\":\"gpt-4o-2024-11-20\",\"system_fingerprint\":\"fp_23ef75ba80\"}\n\ndata: [DONE]\n\n",
+    "headers": [
+      [
+        "cache-control",
+        "no-cache"
+      ],
+      [
+        "content-security-policy",
+        "default-src 'none'; sandbox"
+      ],
+      [
+        "content-type",
+        "text/event-stream"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000"
+      ],
+      [
+        "x-copilot-api-exp-assignment-context",
+        "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
+      ],
+      [
+        "x-request-id",
+        "00000-15179500-24a0-4b5e-ac22-d6bb4790ee00"
+      ],
+      [
+        "date",
+        "Tue, 05 May 2026 12:11:00 GMT"
+      ],
+      [
+        "x-github-backend",
+        "Kubernetes"
+      ],
+      [
+        "x-github-request-id",
+        "6B3F:29C906:565081A:5F5AE98:69F9DE53"
+      ]
+    ],
+    "status": 200
+  }
+}

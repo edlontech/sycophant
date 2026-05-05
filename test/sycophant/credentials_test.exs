@@ -129,4 +129,18 @@ defmodule Sycophant.CredentialsTest do
       assert {:error, %MissingCredentials{}} = Credentials.resolve(:openai)
     end
   end
+
+  describe "GITHUB_TOKEN env var" do
+    setup do
+      System.put_env("GITHUB_TOKEN", "ghp_test123")
+      on_exit(fn -> System.delete_env("GITHUB_TOKEN") end)
+    end
+
+    test "resolves to :github_token (not :token) for github_copilot provider" do
+      Application.delete_env(:sycophant, :providers)
+      {:ok, creds} = Sycophant.Credentials.resolve(:github_copilot)
+      assert %{github_token: "ghp_test123"} = creds
+      refute Map.has_key?(creds, :token)
+    end
+  end
 end

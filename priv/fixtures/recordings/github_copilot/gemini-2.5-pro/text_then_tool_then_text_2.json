@@ -1,0 +1,160 @@
+{
+  "metadata": {
+    "model": "gemini-2.5-pro",
+    "provider": "api.individual.githubcopilot.com",
+    "recorded_at": "2026-05-05T12:11:07.000706Z",
+    "sycophant_version": "0.4.1"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "You are a helpful assistant. Be concise.",
+          "role": "system"
+        },
+        {
+          "content": "Hi! I'm planning a trip to London.",
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "London is a great city! Would you like to know the current weather to help you pack?",
+              "type": "text"
+            }
+          ],
+          "role": "assistant"
+        },
+        {
+          "content": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer.",
+          "role": "user"
+        }
+      ],
+      "model": "gemini-2.5-pro",
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather for a city. Returns temperature and conditions.",
+            "name": "get_weather",
+            "parameters": {
+              "additionalProperties": false,
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ],
+      [
+        "copilot-integration-id",
+        "vscode-chat"
+      ],
+      [
+        "editor-version",
+        "vscode/1.95.0"
+      ],
+      [
+        "editor-plugin-version",
+        "copilot-chat/0.22.0"
+      ],
+      [
+        "user-agent",
+        "GitHubCopilotChat/0.22.0"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.individual.githubcopilot.com/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "tool_calls",
+          "index": 0,
+          "message": {
+            "content": "",
+            "reasoning_opaque": "6Ve8UHj82qjfhLMV3qmTyXfc0OQPUL0TP2AhgzrYIgJ9/bMWLlMy2in56o80qbK+w7oHtUCBm9gpxfNKMaA5UYkCYl88PF9kpLsXMtQwTsHdTYd6zfEkRM4SkyFj1ZEdXCBuBHWQ8pbCjZh/2oejz9wjUIHh716gUqK0p4P5KMlbGcZUB0BYu/61IRCNn6B8yCIRHJHWDlfAfaTcuEb6i1skPpNbAT3RlCnTPPdihWja9Xho3kFYbg7wCW8WbUqQyttOxqxdFcUVwJFAqa8rqi6AfVDVHTqfl+xikU2dvXzyYS536si4FWVue9UDh1TczYExsABOHgI19rq4Px0+GxZ7F+6FrHnoLOseS6n1kwHc2EanW47KB3A7UMX+O7xf32orjLc76PT2dIVjHt/51FTA1mWmnrr++MPRh751nkX+AoyBS+haulWS6iA4OnT2N42T0n1jesVfCDsMYuedMyplv1GCYYuAaIqvEL2SFoHjzm3GstQVtB4qMgvwiWxNGDj5psmWwh6CEWpxOt/l7sDKu+kYNDeWNTkMqObStRuv5Fz+xRzAAcOwFq+T1idqEAHov8OrVBtev6TZSbINIY3QFkB1gnfCcu/SMlR/JekEmhcwrh1bkHXXujF5KQY2irWY+3Bui2cIqJp4dLUYwCwNJQ7GYg2IWtBU86t+w/Dv9JMJvIbUKZV9xPLKYpccFpm3ErXioaJwRwBS3Zw2RHVIS79Avm8o0cacXi2tYO2NDrkUGlji4hWOE8A+euEYzdabl1P/JO2z9MtdghyUbA9OLqPetTUfgAGWBZkmQJMbrptFe918q1BbdvAlFeLrBcDytrhichdjhb9xdR6H+9ukDEYg+T4oR4sN4NA6aZ77lADmhHIhBIJXdr4sTRgF2mdhmZRa7AADgn0WtWyxoy5jxEZLf9tpEhjFfzoHRwEebt31yakcwLzG3p6/NC7/q19qQy4zLypEP5talPnwY0bs6Dpov5Hobg9O7u57DK+0lH3nhBpiNcsmlfdvcceBIvPkJdzIHQff5QoF1GYeTjLV6Ugd5psEzrUfrbKhghnmQyuIcfACK+q2wgO674FW73MrmW7f/Ckv5QrZa4o8hSMK5NgeAWluCucLaY/HK5tjBFQPIvEGtSI/EQ3tebkLBs8iimQ2PCzWhdKWe+PwoyVlDADM4Vtf3tPFD5iGezMxtnUadf2BU7Pmdq9rh1caL/VxtXYyksxMHFO6CChuKYvtkDiFA+4vSKuFb9UB5CaAzKC2Em/Dq5QN5x5HtXSEdRUUOZtD7HaURvV8tx0NrtsnuhIea+teHy2CmICke22SjqOa/OZ4PO1yVEYHI9Ux3JnHfTdDC0crDQPwEltAanixSdOFsj30U5HcT4zhTFs0FLWZYD9X+Wy7wWKEh04QpVSHlxJeBpEtUnBd4/HUBrRNKetJZTOtP+w/mqAKJtnMD2wYxVeOv9G36cl6H91QLwk4Panypjt0AZN1fmYywsRdUR/z73L3K7X5+kU7pKmJ2adEm5lTXVz6vuepVoDoxUhU66HFLA7O0j8aHYj7x2RT0J0/0l+R1CDgG56mWoLT/5jB/G/z1L8JpRrBJw9NQJUp2n6rYH5c2Flbc5Q7czBdXUj/sZc3OOlpSZlYiQuWpbnz8xhJZEGRmfXdfAPkC41o2lF3gyhfYeIpKrgpiNBLs3wsxPpXZyMZluZfpMCfCyC/srmfh+JBgv/95rNiueIWZl8hYGyQ/oq+6F5o0haI/HaOY4QMg4zkKo964yJO2x8eGXmSyfDfBmCHTzA9x6+ZCcYPIWPm++c=",
+            "reasoning_text": "Alright, let's break this down. First thing's first, I need the current weather for London. I've been specifically instructed to use the `get_weather` tool, and that's precisely what I'll do. \n\nNow, the `get_weather` tool is pretty straightforward; it takes a `city` parameter. Luckily, the prompt has explicitly given me that: \"London\". So, step two, confirm that the required parameters are met. Check!\n\nTherefore, the function call should be `get_weather(city=\"London\")`. It's a clean match to the user's need and the tool's requirements. \n\nFinally, I just need to format it for execution.  I need to `print` the function call correctly. That's `print(functions.get_weather(city=\"London\"))`.  Perfect! This should trigger the `get_weather` tool with the specified city, and the output will be displayed. Simple and effective.\n",
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "function": {
+                  "arguments": "{\"city\":\"London\"}",
+                  "name": "get_weather"
+                },
+                "id": "call_MHxWNjJMdGNXY1VISFR3OGJ6V2E",
+                "index": 0,
+                "type": "function"
+              }
+            ]
+          }
+        }
+      ],
+      "created": 1777983066,
+      "id": "Vt75aamfLuCfsbwPtoP7kAI",
+      "model": "gemini-2.5-pro",
+      "usage": {
+        "completion_tokens": 5,
+        "prompt_tokens": 64,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "reasoning_tokens": 163,
+        "total_tokens": 232
+      }
+    },
+    "headers": [
+      [
+        "content-security-policy",
+        "default-src 'none'; sandbox"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000"
+      ],
+      [
+        "x-copilot-api-exp-assignment-context",
+        "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
+      ],
+      [
+        "x-request-id",
+        "00000-f25ae2f0-101b-4d07-b5c2-868c3faf19a4"
+      ],
+      [
+        "date",
+        "Tue, 05 May 2026 12:11:06 GMT"
+      ],
+      [
+        "x-github-backend",
+        "Kubernetes"
+      ],
+      [
+        "x-github-request-id",
+        "6B3F:29C906:5651957:5F5C153:69F9DE56"
+      ]
+    ],
+    "status": 200
+  }
+}

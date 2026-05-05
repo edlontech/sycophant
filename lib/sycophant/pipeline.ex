@@ -61,12 +61,37 @@ defmodule Sycophant.Pipeline do
 
     with {:ok, opts} <- normalize_schemas(opts),
          {:ok, params} <- validate_params(opts, adapter, model_info),
-         {:ok, credentials} <- Credentials.resolve(model_info.provider, opts[:credentials]) do
+         :ok <- validate_response_schema_support(opts, model_info),
+         {:ok, credentials} <- Credentials.resolve(model_info.provider, opts[:credentials]),
+         {:ok, credentials} <- Auth.prepare_credentials_for(model_info.provider, credentials) do
       telemetry_metadata = build_telemetry_metadata(model_info, opts, params)
 
       Telemetry.span(telemetry_metadata, fn ->
         run_pipeline(messages, params, opts, model_info, adapter, credentials)
       end)
+    end
+  end
+
+  defp validate_response_schema_support(opts, model_info) do
+    schema = opts[:response_schema]
+
+    json_schema_supported? =
+      get_in(model_info, [:model_struct, Access.key(:capabilities, %{}), :json, :schema])
+
+    cond do
+      is_nil(schema) ->
+        :ok
+
+      json_schema_supported? == false ->
+        {:error,
+         Error.Invalid.InvalidParams.exception(
+           errors: [
+             "Model #{model_info.model_id} does not support structured outputs (response_schema)"
+           ]
+         )}
+
+      true ->
+        :ok
     end
   end
 
@@ -529,8 +554,8 @@ defmodule Sycophant.Pipeline do
   end
 
   defp apply_model_constraints(params, model_info) do
-    constraints =
-      get_in(model_info, [:model_struct, Access.key(:extra, %{}), :constraints]) || %{}
+    extra = get_in(model_info, [:model_struct, Access.key(:extra, %{})]) || %{}
+    constraints = Map.get(extra, :constraints, %{}) || %{}
 
     {final, dropped} =
       Enum.reduce(constraints, {params, []}, fn
@@ -541,12 +566,24 @@ defmodule Sycophant.Pipeline do
           acc
       end)
 
+    {final, dropped} = maybe_drop_temperature(final, extra, dropped)
+
     if dropped != [] do
       Logger.warning("Params unsupported by model #{model_info.model_id}: #{inspect(dropped)}")
     end
 
     final
   end
+
+  defp maybe_drop_temperature(params, %{temperature: false}, dropped) do
+    if Map.has_key?(params, :temperature) do
+      {Map.delete(params, :temperature), [:temperature | dropped]}
+    else
+      {params, dropped}
+    end
+  end
+
+  defp maybe_drop_temperature(params, _extra, dropped), do: {params, dropped}
 
   defp build_request(messages, params, opts, model_info) do
     model_id = resolve_model_id(model_info, opts)

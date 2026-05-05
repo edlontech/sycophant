@@ -1,0 +1,136 @@
+{
+  "metadata": {
+    "model": "gemini-2.5-pro",
+    "provider": "api.individual.githubcopilot.com",
+    "recorded_at": "2026-05-05T12:11:02.531366Z",
+    "sycophant_version": "0.4.1"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "You are a helpful assistant. Be concise.",
+          "role": "system"
+        },
+        {
+          "content": "Hi! I'm planning a trip to London.",
+          "role": "user"
+        }
+      ],
+      "model": "gemini-2.5-pro",
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather for a city. Returns temperature and conditions.",
+            "name": "get_weather",
+            "parameters": {
+              "additionalProperties": false,
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ],
+      [
+        "copilot-integration-id",
+        "vscode-chat"
+      ],
+      [
+        "editor-version",
+        "vscode/1.95.0"
+      ],
+      [
+        "editor-plugin-version",
+        "copilot-chat/0.22.0"
+      ],
+      [
+        "user-agent",
+        "GitHubCopilotChat/0.22.0"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.individual.githubcopilot.com/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "content": "London is a great city! Would you like to know the current weather to help you pack?",
+            "reasoning_opaque": "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",
+            "reasoning_text": "Okay, here's how I'd approach this, thinking as a system with expert-level understanding:\n\n\"Right, the user is planning a trip to London. Okay, *London*... that's the key.  I know I have a `get_weather` function. Let's see... the intent here is *travel planning*. Hmm, I bet they're wondering about the weather. That's a reasonable assumption, it’s a typical consideration when planning a trip. Packing, what to wear... it all hinges on the forecast.\n\nSo, I'll leverage that `get_weather` tool. The best response here would be proactive and helpful. I'll acknowledge London, of course – it’s a great starting point for a chat. Then, directly offer the weather information. It’s relevant, and it directly addresses a potential need. Let's build a response that's both friendly and provides value.\"\n",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1777983062,
+      "id": "Ud75acvDMJaVl7oPxuLZoA4",
+      "model": "gemini-2.5-pro",
+      "usage": {
+        "completion_tokens": 19,
+        "prompt_tokens": 39,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "reasoning_tokens": 215,
+        "total_tokens": 273
+      }
+    },
+    "headers": [
+      [
+        "content-security-policy",
+        "default-src 'none'; sandbox"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000"
+      ],
+      [
+        "x-copilot-api-exp-assignment-context",
+        "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
+      ],
+      [
+        "x-request-id",
+        "00000-6af90651-47ca-4b3d-8476-b4e24e1cfc05"
+      ],
+      [
+        "date",
+        "Tue, 05 May 2026 12:11:02 GMT"
+      ],
+      [
+        "x-github-backend",
+        "Kubernetes"
+      ],
+      [
+        "x-github-request-id",
+        "6B3F:29C906:564FA8A:5F59FCA:69F9DE51"
+      ]
+    ],
+    "status": 200
+  }
+}

@@ -29,6 +29,10 @@ defmodule Sycophant.Credentials do
 
   alias Sycophant.Error.Invalid.MissingCredentials
 
+  @env_overrides %{
+    github_copilot: %{"GITHUB_TOKEN" => :github_token}
+  }
+
   @doc """
   Resolves credentials for the given provider using a three-layer strategy.
 
@@ -72,7 +76,7 @@ defmodule Sycophant.Credentials do
     case LLMDB.provider(provider) do
       {:ok, %{env: env_vars} = llmdb_provider}
       when is_list(env_vars) and env_vars != [] ->
-        case resolve_env_vars(env_vars) do
+        case resolve_env_vars(provider, env_vars) do
           {:ok, _} = ok -> ok
           :error -> {:error, llmdb_provider}
         end
@@ -85,10 +89,15 @@ defmodule Sycophant.Credentials do
     end
   end
 
-  defp resolve_env_vars(env_vars) do
+  defp resolve_env_vars(provider, env_vars) do
+    override = Map.get(@env_overrides, provider, %{})
+
     resolved =
       env_vars
-      |> Enum.map(fn var -> {env_key_to_atom(var), System.get_env(var)} end)
+      |> Enum.map(fn var ->
+        key = Map.get(override, var, env_key_to_atom(var))
+        {key, System.get_env(var)}
+      end)
       |> Enum.reject(fn {_, v} -> is_nil(v) end)
       |> Map.new()
 

@@ -1,0 +1,156 @@
+{
+  "metadata": {
+    "model": "gemini-2.5-pro",
+    "provider": "api.individual.githubcopilot.com",
+    "recorded_at": "2026-05-05T12:11:32.561573Z",
+    "sycophant_version": "0.4.1"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "What's the weather in Tokyo?",
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "",
+              "type": "text"
+            }
+          ],
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "function": {
+                "arguments": "{\"city\":\"Tokyo\"}",
+                "name": "get_weather"
+              },
+              "id": "call_MHxUdjdCcno3UDJweGFRMGpxSjM",
+              "type": "function"
+            }
+          ]
+        },
+        {
+          "content": "It is sunny in Tokyo.",
+          "role": "tool",
+          "tool_call_id": "call_MHxUdjdCcno3UDJweGFRMGpxSjM"
+        }
+      ],
+      "model": "gemini-2.5-pro",
+      "tools": [
+        {
+          "function": {
+            "description": "Returns the weather for a city",
+            "name": "get_weather",
+            "parameters": {
+              "additionalProperties": false,
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ],
+      [
+        "copilot-integration-id",
+        "vscode-chat"
+      ],
+      [
+        "editor-version",
+        "vscode/1.95.0"
+      ],
+      [
+        "editor-plugin-version",
+        "copilot-chat/0.22.0"
+      ],
+      [
+        "user-agent",
+        "GitHubCopilotChat/0.22.0"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.individual.githubcopilot.com/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "content": "I'm not sure what the weather is like in Tokyo, but I can look it up for you.\nIt's sunny in Tokyo",
+            "reasoning_opaque": "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",
+            "reasoning_text": "Okay, here's how I'm thinking through this, given my expertise in prompt engineering and tool usage:\n\nFirst, a user wants to know about the weather in Tokyo. Simple enough. I see a tool called `get_weather(city)` that looks like the perfect solution.\n\nThe user's clearly specified \"Tokyo,\" so that's the city parameter. I can just feed \"Tokyo\" into the `get_weather` function call.\n\n*Click* – The tool has been successfully called: `get_weather(city='Tokyo')`.\n\nThe tool's response is \"It is sunny in Tokyo.\" Perfect! That's precisely what I need.\n\nThe initial, unhelpful canned response (\"I'm not sure... but I can look it up\") is completely wrong, a serious misfire given the tool's immediate and correct answer. I need to override that.\n\nThe ideal output, the right response, is the tool output itself: \"It is sunny in Tokyo.\"  That's the direct answer, the factual statement, and the complete solution to the user's initial question. Time to correct that initial error and give the user the precise information they requested.\n",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1777983092,
+      "id": "bt75acTjA72zl7oP86u5sAk",
+      "model": "gemini-2.5-pro",
+      "usage": {
+        "completion_tokens": 29,
+        "prompt_tokens": 40,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "reasoning_tokens": 315,
+        "total_tokens": 384
+      }
+    },
+    "headers": [
+      [
+        "content-security-policy",
+        "default-src 'none'; sandbox"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000"
+      ],
+      [
+        "x-copilot-api-exp-assignment-context",
+        "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
+      ],
+      [
+        "x-request-id",
+        "00000-b14d20f4-3c6d-4bfd-83af-b5ef052caa3b"
+      ],
+      [
+        "date",
+        "Tue, 05 May 2026 12:11:32 GMT"
+      ],
+      [
+        "x-github-backend",
+        "Kubernetes"
+      ],
+      [
+        "x-github-request-id",
+        "6B3F:29C906:565B34F:5F665E1:69F9DE6D"
+      ]
+    ],
+    "status": 200
+  }
+}

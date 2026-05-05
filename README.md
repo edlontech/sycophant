@@ -10,13 +10,13 @@
 > stable. Expect breaking changes between versions until 1.0.
 
 Sycophant abstracts the differences between OpenAI, Anthropic, Google Gemini,
-AWS Bedrock, Azure AI Foundry, and OpenRouter behind a single composable API.
-Provider-specific wire protocols, authentication, and parameter validation are
-handled automatically based on the model identifier.
+AWS Bedrock, Azure AI Foundry, OpenRouter, and GitHub Copilot behind a single
+composable API. Provider-specific wire protocols, authentication, and
+parameter validation are handled automatically based on the model identifier.
 
 ## Features
 
-- **Multi-provider** -- OpenAI, Anthropic, Google Gemini, AWS Bedrock, Azure, OpenRouter
+- **Multi-provider** -- OpenAI, Anthropic, Google Gemini, AWS Bedrock, Azure, OpenRouter, GitHub Copilot
 - **Text generation** -- synchronous and streaming responses
 - **Structured output** -- validated against Zoi or JSON Schema
 - **Tool use** -- auto-execution loop or manual handling
@@ -125,6 +125,7 @@ API reference.
 | AWS Bedrock | `amazon_bedrock:` | AWS SigV4 | Converse |
 | Azure AI Foundry | `azure:` | Bearer / API key | OpenAI Completions |
 | OpenRouter | `openrouter:` | Bearer token | OpenAI Completions |
+| GitHub Copilot | `github_copilot:` | GitHub token (managed exchange) | OpenAI Completions |
 
 ## Acknowledgements
 

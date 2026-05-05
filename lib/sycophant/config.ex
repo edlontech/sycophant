@@ -41,7 +41,13 @@ defmodule Sycophant.Config do
               secret_access_key: Zoi.optional(Zoi.string()),
               base_url: Zoi.optional(Zoi.string()),
               deployment_name: Zoi.optional(Zoi.string()),
-              api_version: Zoi.optional(Zoi.string())
+              api_version: Zoi.optional(Zoi.string()),
+              github_token: Zoi.optional(Zoi.string()),
+              copilot_token: Zoi.optional(Zoi.string()),
+              github_host: Zoi.optional(Zoi.string()),
+              editor_version: Zoi.optional(Zoi.string()),
+              editor_plugin_version: Zoi.optional(Zoi.string()),
+              integration_id: Zoi.optional(Zoi.string())
   end
 
   defmodule Tesla do
@@ -88,7 +94,8 @@ defmodule Sycophant.Config do
     anthropic: %{chat: :anthropic_messages},
     google: %{chat: :google_gemini},
     amazon_bedrock: %{chat: :bedrock_converse, embedding: :bedrock_embed},
-    azure: %{embedding: :openai_embed}
+    azure: %{embedding: :openai_embed},
+    github_copilot: %{chat: :copilot_chat}
   }
 
   @spec wire_protocol_defaults() :: map()
@@ -130,10 +137,16 @@ defimpl Inspect, for: Sycophant.Config.Provider do
           api_secret: InspectHelpers.redact(provider.api_secret),
           access_key_id: InspectHelpers.redact(provider.access_key_id),
           secret_access_key: InspectHelpers.redact(provider.secret_access_key),
+          github_token: InspectHelpers.redact(provider.github_token),
+          copilot_token: InspectHelpers.redact(provider.copilot_token),
           region: provider.region,
           base_url: provider.base_url,
           deployment_name: provider.deployment_name,
-          api_version: provider.api_version
+          api_version: provider.api_version,
+          github_host: provider.github_host,
+          editor_version: provider.editor_version,
+          editor_plugin_version: provider.editor_plugin_version,
+          integration_id: provider.integration_id
         ],
         fn {_, v} -> is_nil(v) end
       )

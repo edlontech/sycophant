@@ -29,7 +29,9 @@ defmodule Sycophant.Recording.TextToolTextTest do
     ctx =
       Context.add(
         resp1.context,
-        Message.user("What's the current weather in London? Use the get_weather tool.")
+        Message.user(
+          "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer."
+        )
       )
 
     {:ok, resp2} = Sycophant.generate_text(model, ctx, recording_opts(tools: [tool]))

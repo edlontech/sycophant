@@ -1,0 +1,116 @@
+{
+  "metadata": {
+    "model": "gemini-2.5-pro",
+    "provider": "api.individual.githubcopilot.com",
+    "recorded_at": "2026-05-05T12:11:00.972407Z",
+    "streaming": true,
+    "sycophant_version": "0.4.1"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "role": "user"
+        }
+      ],
+      "model": "gemini-2.5-pro",
+      "stream": true,
+      "stream_options": {
+        "include_usage": true
+      },
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather for a city. Returns temperature and conditions.",
+            "name": "get_weather",
+            "parameters": {
+              "additionalProperties": false,
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ],
+      [
+        "copilot-integration-id",
+        "vscode-chat"
+      ],
+      [
+        "editor-version",
+        "vscode/1.95.0"
+      ],
+      [
+        "editor-plugin-version",
+        "copilot-chat/0.22.0"
+      ],
+      [
+        "user-agent",
+        "GitHubCopilotChat/0.22.0"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.individual.githubcopilot.com/chat/completions"
+  },
+  "response": {
+    "body": "data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":null,\"role\":\"assistant\",\"reasoning_text\":\"**Defining Tool Use**\\n\\nI've identified the core task: retrieving weather information. The user's query explicitly requests weather data for Paris, and the `get_weather` tool is a direct fit. Now, I'm focusing on the necessary parameters. The tool clearly specifies a 'city' parameter, which aligns perfectly with the user's request for Paris.\\n\\n\\n\"}}],\"created\":1777983060,\"id\":\"Ud75aaqgN4mNl7oP1P_XiAU\",\"usage\":{\"completion_tokens\":0,\"prompt_tokens\":0,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":0,\"reasoning_tokens\":0},\"model\":\"gemini-2.5-pro\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":null,\"role\":\"assistant\",\"reasoning_text\":\"**Mapping the Request**\\n\\nOkay, the path is clear. My assessment is that the \\\"get_weather\\\" tool is precisely what is needed. The input from the user provides the city name, Paris, which perfectly matches the required \\\"city\\\" parameter. Now, I'm generating the precise function call: `get_weather(city='Paris')`. Next, I will print it to confirm.\\n\\n\\n\"}}],\"created\":1777983060,\"id\":\"Ud75aaqgN4mNl7oP1P_XiAU\",\"usage\":{\"completion_tokens\":0,\"prompt_tokens\":0,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":0,\"reasoning_tokens\":0},\"model\":\"gemini-2.5-pro\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"delta\":{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"city\\\":\\\"Paris\\\"}\",\"name\":\"get_weather\"},\"id\":\"call_MHxSQjlKY3hWZlpFcW9xRlVMM2I\",\"index\":0,\"type\":\"function\"}],\"reasoning_opaque\":\"YctHpD+5ts9rX8QLUfqE37AHgxDre4qB+S9J3ScY8Jc31u4082bTBREz/8ztespcoLm9ppjRmiHfa7Eu+w6VWUXX5BmIyCobHYFzKsOT+sfWFAld2hN027bNQc7xLrp/YwVMO47OZJUx9PU56lbZVNICTzMwiA4ZnHWXN7UIeg1PU0cvG6Tdi/rw3eAVDp4/9AuVMR/SRf7HgyAHih7f8B5+wUu1t5EVyCQbVNqexxDiTu42loSRdHK4uFKIV/RZO4Czzjn63Tpn6o8hj5hi050sUV9uBd5tZ3f95SlImLQneSePVhkmVKuJl4aAy8ra4zwER1iO+FUWN32xJyInO9zjem02eRzi4ZxE4diy88gvFJnwWEGboOSE+Loh2Ks9N5nOmDlgmS/cALGjCbdPNoOXHqaStVNkfpJYZ5FfeRIHmcpZdov5qz52VXpknOQtsRVrNLwK6u6MCLQPubt3shz/nhm4Ikbtoarvo99QCuYCcBoXUJYEtFCrGBjxF2Q3mJ6fXz6TrfiTtMEwvHNpEDkKClZOGrpe4MsTMpzykboy7dyM8IW6HsvluxWsvIRhLdhdTDgVaAQFCT0Ohl1yAZlbz4el40P2HHjr7md/lb1KWVVvQ2VmqwOCfkIpjfQ/ynl5+EMYQhAt/il4he0Ozv1Pkifc228qCrKpls0euKDOEz2dmKOHfGYYKAFrQ7zvFaZ9iuOYzsS0MyfLeKquspnJ+R2n2tScFbyQ/YG0LxhcOYdFgdzDYZfYY1Ursouq79ET/cl05krYVhFjow5wHYTNjhrvqNY/qMBqXknZ70kFmxGeQWaMtJufSU3z7b57h2YQgUCy6zyJ62HFTs9kuQnawMobpi92MZnxPOLbL7s3CedsoTQ8qYbwBxBDbb49ZgC3+1S2t9Gd3gzxeIYk3g3DioLM1LLDAy1bzh9fIgLBICvFdLd4Hf7AEBboXaJZcDQprqo3F7gWpUz2YzT7EnHTMiUBdMw1BH70xjPGAqyCJT18GykfkjmDepCYL0QY/cOi1gRIJ7x5y1XILaGjPci8jx7tDC/GXgt+3Ot7kLEc2wUiZMOfUEhBNAJ2z+oNTPSvl522pKXO2YjaLjHZS4H0xQBSmZqJuORy41wPPX7uU4CLA/+Zhogs2zzdP28a8ASehHdN+rTmsBsx3+GTCFWqcVMvTxr6Kw40Z1NpN2D1JRjaWOb+wFadePLcyRTWz0OR1Yodo/roSbpxFYV1MZKmf4zgWkIiWp+i+8+b3yrtFoF15IaJSsYt9rAD5aKaO8DeGF9Dlv/Xd/QhsAqqN5H+gw2pnoXSrqevpDvGtHsm9o0+GSJp9DaK8CMGNYmdsTEEpcp/+QeSFYc5d32nbrRvXW+gxqC/mMl+AP7y36GU35HNrT8xBRfJwL96wURXPHCbWa4okNXbcBrUicme8HrIv3IVeLBiq7WlFkVQ21ltFfFnC3lYCHcwy0XsYAe9TUZ2H8tNjF3uLXOFTuvFLWQW4KbWK+yjrVrUwOCxiMarLHogWRQHKzUwm3Od4WJlUVbThMezT8lDklwJtrSI1pdV4iQ4QMoo+0hkwvYeaH/O4AzqeYacT1EeXcDeE7EW/NipQbR24450sfIZ0DGDphFYRELCSERD5L0eRcZPsJKoZGmz5dNsfOmT0mluaiJqU8BS+Rs2zVemSHsmYOp7\"}}],\"created\":1777983060,\"id\":\"Ud75aaqgN4mNl7oP1P_XiAU\",\"usage\":{\"completion_tokens\":5,\"prompt_tokens\":34,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":152,\"reasoning_tokens\":113},\"model\":\"gemini-2.5-pro\"}\n\ndata: [DONE]\n\n",
+    "headers": [
+      [
+        "cache-control",
+        "no-cache"
+      ],
+      [
+        "content-security-policy",
+        "default-src 'none'; sandbox"
+      ],
+      [
+        "content-type",
+        "text/event-stream"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000"
+      ],
+      [
+        "x-copilot-api-exp-assignment-context",
+        "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
+      ],
+      [
+        "x-request-id",
+        "00000-413e9342-6ba2-49c3-9995-c7bf11d33d25"
+      ],
+      [
+        "date",
+        "Tue, 05 May 2026 12:11:00 GMT"
+      ],
+      [
+        "x-github-backend",
+        "Kubernetes"
+      ],
+      [
+        "x-github-request-id",
+        "6B3F:29C906:564FA8A:5F59FCE:69F9DE51"
+      ]
+    ],
+    "status": 200
+  }
+}

@@ -9,7 +9,8 @@ defmodule Sycophant.Application do
     google: ["*"],
     amazon_bedrock: ["*"],
     openrouter: ["*"],
-    azure: ["*"]
+    azure: ["*"],
+    github_copilot: ["*"]
   }
 
   @doc false
@@ -18,7 +19,10 @@ defmodule Sycophant.Application do
     load_llmdb()
     Sycophant.Registry.init()
 
-    children = quiver_children() ++ dev_children()
+    children =
+      quiver_children() ++
+        [Sycophant.Auth.GithubCopilot.TokenCache] ++
+        dev_children()
 
     opts = [strategy: :one_for_one, name: Sycophant.Supervisor]
     Supervisor.start_link(children, opts)

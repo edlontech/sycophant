@@ -1,0 +1,117 @@
+{
+  "metadata": {
+    "model": "gemini-2.5-pro",
+    "provider": "api.individual.githubcopilot.com",
+    "recorded_at": "2026-05-05T12:11:16.768014Z",
+    "sycophant_version": "0.4.1"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "You are a calculator. Only respond with numbers.",
+          "role": "system"
+        },
+        {
+          "content": "What is 2 + 2?",
+          "role": "user"
+        }
+      ],
+      "model": "gemini-2.5-pro"
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ],
+      [
+        "copilot-integration-id",
+        "vscode-chat"
+      ],
+      [
+        "editor-version",
+        "vscode/1.95.0"
+      ],
+      [
+        "editor-plugin-version",
+        "copilot-chat/0.22.0"
+      ],
+      [
+        "user-agent",
+        "GitHubCopilotChat/0.22.0"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.individual.githubcopilot.com/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "content": "4",
+            "reasoning_text": "Okay, let's break this down. First, I'm being treated as a \"calculator.\" Hmm. That means the user expects a purely computational response. No fluff, no explanation. Just the number, the answer. Right.\n\nThe request itself is ridiculously simple: \"What is 2 + 2?\". Classic, elementary arithmetic. No problem there.\n\nNow, the instructions... \"Only respond with numbers.\" This is key. No caveats, no extra characters, just the numerical answer. So, the output must be concise and purely numerical. This is all about precision.\n\nCalculating 2 + 2... easy. That's 4.\n\nFormatting the response... simple. The instruction is \"Only respond with numbers\". So, it's just `4`.\n\nDouble-checking: Does it satisfy the constraints? Yes. Is it a number? Absolutely. Nothing else is there. Is it accurate? Of course. Does it fit the persona? A calculator displays `4`. Perfect.\n\nMy final output: `4`.\n",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1777983076,
+      "id": "Xt75abraIdvBsbwP8I_xMA",
+      "model": "gemini-2.5-pro",
+      "usage": {
+        "completion_tokens": 1,
+        "prompt_tokens": 18,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "reasoning_tokens": 322,
+        "total_tokens": 341
+      }
+    },
+    "headers": [
+      [
+        "content-security-policy",
+        "default-src 'none'; sandbox"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000"
+      ],
+      [
+        "x-copilot-api-exp-assignment-context",
+        "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
+      ],
+      [
+        "x-request-id",
+        "00000-90306485-7347-4db9-ab2a-a9ba28bb2e53"
+      ],
+      [
+        "date",
+        "Tue, 05 May 2026 12:11:16 GMT"
+      ],
+      [
+        "content-length",
+        "1230"
+      ],
+      [
+        "x-github-backend",
+        "Kubernetes"
+      ],
+      [
+        "x-github-request-id",
+        "6B3F:29C906:5654CB2:5F5F80F:69F9DE5E"
+      ]
+    ],
+    "status": 200
+  }
+}

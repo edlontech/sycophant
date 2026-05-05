@@ -199,7 +199,7 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
     {response_body, binary_stream?} =
       cond do
         not streaming? ->
-          {safe_decode(response_env.body), false}
+          {redact_response_body(safe_decode(response_env.body), request_env.url), false}
 
         String.valid?(response_env.body) ->
           {response_env.body, false}
@@ -313,4 +313,24 @@ defmodule Sycophant.Tesla.RecorderMiddleware do
 
   defp safe_decode(body) when is_map(body), do: body
   defp safe_decode(body), do: body
+
+  @token_redaction_paths ["/copilot_internal/v2/token"]
+
+  defp redact_response_body(body, url) when is_map(body) do
+    if redact_token_path?(url),
+      do: Map.put(body, "token", "[REDACTED]"),
+      else: body
+  end
+
+  defp redact_response_body(body, _url), do: body
+
+  defp redact_token_path?(url) when is_binary(url) do
+    case URI.parse(url) do
+      %URI{path: path} when is_binary(path) ->
+        Enum.any?(@token_redaction_paths, &String.ends_with?(path, &1))
+
+      _ ->
+        false
+    end
+  end
 end

@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- GitHub Copilot provider with managed token-exchange caching, GHE support,
+  and an escape hatch for pre-exchanged Copilot tokens.
+- `Sycophant.Auth.prepare_credentials_for/2` and the optional
+  `prepare_credentials/1` callback on the `Sycophant.Auth` behaviour.
+
 ## [0.4.1](https://github.com/edlontech/sycophant/compare/sycophant-v0.4.0...sycophant-v0.4.1) (2026-04-17)
 
 

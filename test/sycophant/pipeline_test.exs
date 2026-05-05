@@ -1394,4 +1394,90 @@ defmodule Sycophant.PipelineTest do
                        %{chunk_type: :text_delta}}
     end
   end
+
+  describe "github_copilot - capability gating" do
+    setup do
+      Mimic.copy(Sycophant.Auth.GithubCopilot.TokenCache)
+
+      stub(Sycophant.Auth.GithubCopilot.TokenCache, :fetch, fn _host, _token ->
+        {:ok,
+         %Sycophant.Auth.GithubCopilot.TokenCache.Entry{
+           copilot_token: "tid=test",
+           expires_at: DateTime.add(DateTime.utc_now(), 1500, :second),
+           endpoints: %{api: "https://api.individual.githubcopilot.com"},
+           fetched_at: DateTime.utc_now()
+         }}
+      end)
+
+      :ok
+    end
+
+    defp copilot_messages, do: [%Message{role: :user, content: "hi"}]
+
+    defp fake_openai_response do
+      %{
+        "id" => "chatcmpl-test",
+        "model" => "gpt-4o",
+        "choices" => [
+          %{
+            "message" => %{"role" => "assistant", "content" => "hello"},
+            "finish_reason" => "stop"
+          }
+        ],
+        "usage" => %{"prompt_tokens" => 1, "completion_tokens" => 1, "total_tokens" => 2}
+      }
+    end
+
+    test "drops temperature for models flagged extra.temperature == false (gpt-5.1)" do
+      expect(Sycophant.Transport, :call, fn payload, _opts ->
+        refute Map.has_key?(payload, "temperature")
+        {:ok, fake_openai_response()}
+      end)
+
+      assert {:ok, _} =
+               Pipeline.call(copilot_messages(),
+                 model: "github_copilot:gpt-5.1",
+                 temperature: 0.7,
+                 credentials: %{github_token: "ghp_x"}
+               )
+    end
+
+    test "preserves temperature for models flagged extra.temperature == true (gpt-4o)" do
+      expect(Sycophant.Transport, :call, fn payload, _opts ->
+        assert payload["temperature"] == 0.7
+        {:ok, fake_openai_response()}
+      end)
+
+      assert {:ok, _} =
+               Pipeline.call(copilot_messages(),
+                 model: "github_copilot:gpt-4o",
+                 temperature: 0.7,
+                 credentials: %{github_token: "ghp_x"}
+               )
+    end
+
+    test "rejects response_schema for Copilot (json.schema == false)" do
+      schema = %{type: :object, properties: %{x: %{type: :string}}, required: [:x]}
+
+      assert {:error, %Error.Invalid.InvalidParams{}} =
+               Pipeline.call(copilot_messages(),
+                 model: "github_copilot:gpt-4o",
+                 response_schema: schema,
+                 credentials: %{github_token: "ghp_x"}
+               )
+    end
+
+    test "calls Auth.prepare_credentials_for and uses base_url from token exchange" do
+      expect(Sycophant.Transport, :call, fn _payload, opts ->
+        assert opts[:base_url] == "https://api.individual.githubcopilot.com"
+        {:ok, fake_openai_response()}
+      end)
+
+      assert {:ok, _} =
+               Pipeline.call(copilot_messages(),
+                 model: "github_copilot:gpt-4o",
+                 credentials: %{github_token: "ghp_x"}
+               )
+    end
+  end
 end

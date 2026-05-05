@@ -20,7 +20,9 @@ config :sycophant, :test_models, [
     model: "amazon_bedrock:us.anthropic.claude-sonnet-4-5-20250929-v1:0",
     structured_output: true,
     reasoning: true
-  }
+  },
+  %{model: "github_copilot:gpt-4o", reasoning: false, structured_output: false},
+  %{model: "github_copilot:gemini-2.5-pro", reasoning: false, structured_output: false}
 ]
 
 config :sycophant, :test_embedding_models, [

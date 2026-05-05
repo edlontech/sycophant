@@ -364,3 +364,24 @@ When adding a new provider:
 5. Add model metadata to LLMDB pointing to your wire protocol name
 6. Add credentials configuration
 7. Write recording tests (see [Recording Tests](recording-tests.md))
+
+## Optional `prepare_credentials/1`
+
+`Sycophant.Auth` supports an optional `prepare_credentials/1` callback for
+strategies that need side-effecting work before transport assembly -- typically
+token exchange. It receives the resolved credentials map and returns an
+augmented map or a Splode error.
+
+```elixir
+@callback prepare_credentials(map()) :: {:ok, map()} | {:error, Splode.Error.t()}
+```
+
+The pipeline invokes this callback between `Credentials.resolve/2` and
+`transport_opts/3`, so any `:base_url` or auth-relevant field set here flows
+naturally into the upstream Tesla middleware stack. Anything written into
+`:base_url` ends up in `Tesla.Middleware.BaseUrl`, which is how
+`Sycophant.Auth.GithubCopilot` discovers the dynamic chat host returned by
+GitHub's token-exchange response.
+
+See [GitHub Copilot](github-copilot.md) for a worked example and
+`Sycophant.Auth.GithubCopilot` for the implementation.

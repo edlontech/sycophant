@@ -13,7 +13,11 @@ defmodule Sycophant.Recording.ToolCallingTest do
       parameters: Zoi.map(%{city: Zoi.string()})
     }
 
-    messages = [Message.user("What's the weather in Paris? Use the get_weather tool.")]
+    messages = [
+      Message.user(
+        "What's the weather in Paris? You must call the get_weather tool with city=\"Paris\" to answer."
+      )
+    ]
 
     {:ok, response} =
       Sycophant.generate_text(model, messages, recording_opts(tools: [tool]))
@@ -33,7 +37,11 @@ defmodule Sycophant.Recording.ToolCallingTest do
       function: fn %{city: city} -> "#{city}: 22C, sunny" end
     }
 
-    messages = [Message.user("What's the weather in Paris? Use the get_weather tool.")]
+    messages = [
+      Message.user(
+        "What's the weather in Paris? You must call the get_weather tool with city=\"Paris\" to answer."
+      )
+    ]
 
     {:ok, response} =
       Sycophant.generate_text(model, messages, recording_opts(tools: [tool]))

@@ -22,6 +22,7 @@ defmodule Sycophant.Registry do
     amazon_bedrock: Sycophant.Auth.Bedrock,
     anthropic: Sycophant.Auth.Anthropic,
     azure: Sycophant.Auth.Azure,
+    github_copilot: Sycophant.Auth.GithubCopilot,
     google: Sycophant.Auth.Google
   }
 
@@ -32,6 +33,7 @@ defmodule Sycophant.Registry do
     {:chat, :anthropic_messages} => Sycophant.WireProtocol.AnthropicMessages,
     {:chat, :google_gemini} => Sycophant.WireProtocol.GoogleGemini,
     {:chat, :bedrock_converse} => Sycophant.WireProtocol.BedrockConverse,
+    {:chat, :copilot_chat} => Sycophant.WireProtocol.CopilotChat,
     {:embedding, :openai_embed} => Sycophant.EmbeddingWireProtocol.OpenAIEmbed,
     {:embedding, :bedrock_embed} => Sycophant.EmbeddingWireProtocol.BedrockEmbed
   }
