@@ -14,7 +14,9 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
   @impl true
   def stream_transport, do: :sse
 
+  alias Sycophant.Citation
   alias Sycophant.Context
+  alias Sycophant.Error.Invalid.InvalidParams
   alias Sycophant.Error.Provider.RateLimited
   alias Sycophant.Error.Provider.ResponseInvalid
   alias Sycophant.Error.Provider.ServerError
@@ -118,12 +120,13 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
   end
 
   def decode_response(%{"type" => "message", "content" => content} = body) do
-    {text, tool_calls, reasoning} = process_content_blocks(content)
+    {text, tool_calls, reasoning, citations} = process_content_blocks(content)
 
     response = %Response{
       text: text,
       tool_calls: tool_calls,
       reasoning: reasoning,
+      citations: citations,
       finish_reason: map_finish_reason(body["stop_reason"]),
       usage: decode_usage(body["usage"]),
       model: body["model"],
@@ -302,7 +305,23 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
   # --- Private: Message Encoding ---
 
   defp encode_messages(messages) do
-    {:ok, messages |> group_tool_results() |> Enum.map(&encode_message/1)}
+    messages
+    |> group_tool_results()
+    |> reduce_ok(&encode_message/1)
+  end
+
+  defp reduce_ok(items, fun) do
+    items
+    |> Enum.reduce_while({:ok, []}, fn item, {:ok, acc} ->
+      case fun.(item) do
+        {:ok, encoded} -> {:cont, {:ok, [encoded | acc]}}
+        {:error, _} = err -> {:halt, err}
+      end
+    end)
+    |> case do
+      {:ok, list} -> {:ok, Enum.reverse(list)}
+      {:error, _} = err -> err
+    end
   end
 
   defp group_tool_results(messages) do
@@ -333,72 +352,135 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
         %{"type" => "tool_result", "tool_use_id" => id, "content" => to_string(c)}
       end)
 
-    %{"role" => "user", "content" => content}
+    {:ok, %{"role" => "user", "content" => content}}
   end
 
   defp encode_message(%Message{role: :assistant, content: content, tool_calls: tool_calls})
        when is_list(tool_calls) and tool_calls != [] do
-    content_blocks = encode_assistant_content_blocks(content)
+    with {:ok, content_blocks} <- encode_assistant_content_blocks(content) do
+      tool_use_blocks =
+        Enum.map(tool_calls, fn %ToolCall{id: id, name: name, arguments: args} ->
+          %{"type" => "tool_use", "id" => id, "name" => name, "input" => args}
+        end)
 
-    tool_use_blocks =
-      Enum.map(tool_calls, fn %ToolCall{id: id, name: name, arguments: args} ->
-        %{"type" => "tool_use", "id" => id, "name" => name, "input" => args}
-      end)
-
-    %{"role" => "assistant", "content" => content_blocks ++ tool_use_blocks}
+      {:ok, %{"role" => "assistant", "content" => content_blocks ++ tool_use_blocks}}
+    end
   end
 
   defp encode_message(%Message{role: :assistant, content: content}) do
-    %{"role" => "assistant", "content" => encode_content(content)}
+    with {:ok, encoded} <- encode_content(content) do
+      {:ok, %{"role" => "assistant", "content" => encoded}}
+    end
   end
 
   defp encode_message(%Message{role: role, content: content}) do
-    %{"role" => encode_role(role), "content" => encode_content(content)}
+    with {:ok, encoded} <- encode_content(content) do
+      {:ok, %{"role" => encode_role(role), "content" => encoded}}
+    end
   end
 
   defp encode_role(:user), do: "user"
   defp encode_role(:assistant), do: "assistant"
 
-  defp encode_content(content) when is_binary(content), do: content
-  defp encode_content(nil), do: nil
+  defp encode_content(content) when is_binary(content), do: {:ok, content}
+  defp encode_content(nil), do: {:ok, nil}
 
-  defp encode_content(parts) when is_list(parts) do
-    Enum.map(parts, &encode_content_part/1)
-  end
+  defp encode_content(parts) when is_list(parts),
+    do: reduce_ok(parts, &encode_content_part/1)
 
   defp encode_content_part(%Content.Text{text: text}) do
-    %{"type" => "text", "text" => text}
+    {:ok, %{"type" => "text", "text" => text}}
   end
 
   defp encode_content_part(%Content.Thinking{text: text, signature: signature}) do
     block = %{"type" => "thinking", "thinking" => text}
-    if signature, do: Map.put(block, "signature", signature), else: block
+    {:ok, if(signature, do: Map.put(block, "signature", signature), else: block)}
   end
 
   defp encode_content_part(%Content.RedactedThinking{data: data}) do
-    %{"type" => "redacted_thinking", "data" => data}
+    {:ok, %{"type" => "redacted_thinking", "data" => data}}
   end
 
   defp encode_content_part(%Content.Image{url: url}) when is_binary(url) do
-    %{"type" => "image", "source" => %{"type" => "url", "url" => url}}
+    {:ok, %{"type" => "image", "source" => %{"type" => "url", "url" => url}}}
   end
 
   defp encode_content_part(%Content.Image{data: data, media_type: media_type})
        when is_binary(data) do
-    %{
-      "type" => "image",
-      "source" => %{"type" => "base64", "media_type" => media_type, "data" => data}
-    }
+    {:ok,
+     %{
+       "type" => "image",
+       "source" => %{"type" => "base64", "media_type" => media_type, "data" => data}
+     }}
   end
 
-  defp encode_assistant_content_blocks(nil), do: []
-  defp encode_assistant_content_blocks(""), do: []
+  defp encode_content_part(%Content.Document{} = doc), do: encode_document(doc)
+
+  defp encode_assistant_content_blocks(nil), do: {:ok, []}
+  defp encode_assistant_content_blocks(""), do: {:ok, []}
 
   defp encode_assistant_content_blocks(text) when is_binary(text),
-    do: [%{"type" => "text", "text" => text}]
+    do: {:ok, [%{"type" => "text", "text" => text}]}
 
   defp encode_assistant_content_blocks(parts) when is_list(parts),
-    do: Enum.map(parts, &encode_content_part/1)
+    do: reduce_ok(parts, &encode_content_part/1)
+
+  defp encode_document(%Content.Document{data: data, media_type: "application/pdf"} = doc)
+       when is_binary(data) do
+    source = %{"type" => "base64", "media_type" => "application/pdf", "data" => data}
+    {:ok, document_block(source, doc)}
+  end
+
+  defp encode_document(%Content.Document{data: data} = doc) when is_binary(data) do
+    case Base.decode64(data) do
+      {:ok, decoded} ->
+        source = %{"type" => "text", "media_type" => "text/plain", "data" => decoded}
+        {:ok, document_block(source, doc)}
+
+      :error ->
+        {:error,
+         InvalidParams.exception(
+           errors: ["anthropic_messages document :data must be base64-encoded"]
+         )}
+    end
+  end
+
+  defp encode_document(%Content.Document{url: url, media_type: media_type})
+       when is_binary(url) and media_type not in [nil, "application/pdf"] do
+    {:error,
+     InvalidParams.exception(
+       errors: [
+         "anthropic_messages :url document sources are PDF-only; got media_type #{inspect(media_type)}"
+       ]
+     )}
+  end
+
+  defp encode_document(%Content.Document{url: url} = doc) when is_binary(url) do
+    {:ok, document_block(%{"type" => "url", "url" => url}, doc)}
+  end
+
+  defp encode_document(%Content.Document{file_id: file_id} = doc) when is_binary(file_id) do
+    {:ok, document_block(%{"type" => "file", "file_id" => file_id}, doc)}
+  end
+
+  defp encode_document(%Content.Document{}) do
+    {:error,
+     InvalidParams.exception(
+       errors: ["document content part requires one of :data, :url, or :file_id"]
+     )}
+  end
+
+  defp document_block(source, doc) do
+    %{"type" => "document", "source" => source}
+    |> maybe_put_title(doc.name)
+    |> maybe_put_citations(doc.citations)
+  end
+
+  defp maybe_put_title(block, nil), do: block
+  defp maybe_put_title(block, name), do: Map.put(block, "title", name)
+
+  defp maybe_put_citations(block, true), do: Map.put(block, "citations", %{"enabled" => true})
+  defp maybe_put_citations(block, _), do: block
 
   # --- Private: Tool Encoding ---
 
@@ -415,8 +497,8 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
   # --- Private: Response Decoding ---
 
   defp process_content_blocks(content) do
-    {texts, tcs, thinking, encrypted} =
-      Enum.reduce(content, {[], [], [], nil}, &classify_content_block/2)
+    {texts, tcs, thinking, encrypted, citations} =
+      Enum.reduce(content, {[], [], [], nil, []}, &classify_content_block/2)
 
     text =
       case Enum.reverse(texts) do
@@ -430,31 +512,99 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
         _ -> %Reasoning{content: Enum.reverse(thinking), encrypted_content: encrypted}
       end
 
-    {text, Enum.reverse(tcs), reasoning}
+    {text, Enum.reverse(tcs), reasoning, Enum.reverse(citations)}
   end
 
-  defp classify_content_block(%{"type" => "text", "text" => text}, {texts, tcs, th, enc}),
-    do: {[text | texts], tcs, th, enc}
+  defp classify_content_block(
+         %{"type" => "text", "text" => text} = block,
+         {texts, tcs, th, enc, cites}
+       ) do
+    block_cites = block |> Map.get("citations") |> decode_block_citations()
+    {[text | texts], tcs, th, enc, Enum.reverse(block_cites) ++ cites}
+  end
 
   defp classify_content_block(
          %{"type" => "tool_use", "id" => id, "name" => name, "input" => input},
-         {texts, tcs, th, enc}
+         {texts, tcs, th, enc, cites}
        ),
-       do: {texts, [%ToolCall{id: id, name: name, arguments: input} | tcs], th, enc}
+       do: {texts, [%ToolCall{id: id, name: name, arguments: input} | tcs], th, enc, cites}
 
   defp classify_content_block(
          %{"type" => "thinking", "thinking" => t} = b,
-         {texts, tcs, th, enc}
+         {texts, tcs, th, enc, cites}
        ),
-       do: {texts, tcs, [%Content.Thinking{text: t, signature: b["signature"]} | th], enc}
+       do: {texts, tcs, [%Content.Thinking{text: t, signature: b["signature"]} | th], enc, cites}
 
   defp classify_content_block(
          %{"type" => "redacted_thinking", "data" => data},
-         {texts, tcs, th, _}
+         {texts, tcs, th, _, cites}
        ),
-       do: {texts, tcs, th, data}
+       do: {texts, tcs, th, data, cites}
 
   defp classify_content_block(_, acc), do: acc
+
+  defp decode_block_citations(nil), do: []
+  defp decode_block_citations(list) when is_list(list), do: Enum.map(list, &decode_citation/1)
+
+  defp decode_citation(%{"type" => "page_location"} = c) do
+    %Citation{
+      type: :page_location,
+      unit: :page,
+      cited_text: c["cited_text"],
+      document_index: c["document_index"],
+      document_title: c["document_title"],
+      file_id: c["file_id"],
+      start_index: c["start_page_number"],
+      end_index: c["end_page_number"]
+    }
+  end
+
+  defp decode_citation(%{"type" => "char_location"} = c) do
+    %Citation{
+      type: :char_location,
+      unit: :char,
+      cited_text: c["cited_text"],
+      document_index: c["document_index"],
+      document_title: c["document_title"],
+      file_id: c["file_id"],
+      start_index: c["start_char_index"],
+      end_index: c["end_char_index"]
+    }
+  end
+
+  defp decode_citation(%{"type" => "content_block_location"} = c) do
+    %Citation{
+      type: :content_block_location,
+      unit: :block,
+      cited_text: c["cited_text"],
+      document_index: c["document_index"],
+      document_title: c["document_title"],
+      file_id: c["file_id"],
+      start_index: c["start_block_index"],
+      end_index: c["end_block_index"]
+    }
+  end
+
+  defp decode_citation(%{"type" => "web_search_result_location"} = c) do
+    %Citation{
+      type: :web_search_result_location,
+      cited_text: c["cited_text"],
+      url: c["url"],
+      title: c["title"]
+    }
+  end
+
+  defp decode_citation(%{"type" => "search_result_location"} = c) do
+    %Citation{
+      type: :search_result_location,
+      unit: :block,
+      cited_text: c["cited_text"],
+      source: c["source"],
+      title: c["title"],
+      start_index: c["start_block_index"],
+      end_index: c["end_block_index"]
+    }
+  end
 
   defp decode_usage(%{"input_tokens" => input, "output_tokens" => output} = usage) do
     %Usage{

@@ -10,6 +10,7 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
   @behaviour Sycophant.WireProtocol
 
   alias Sycophant.Context
+  alias Sycophant.Error.Invalid.InvalidParams
   alias Sycophant.Error.Provider.ResponseInvalid
   alias Sycophant.Message
   alias Sycophant.Message.Content
@@ -370,78 +371,167 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
 
   # --- Private: Message Encoding ---
 
-  defp encode_messages(messages) do
-    {:ok, Enum.map(messages, &encode_message/1)}
+  defp encode_messages(messages), do: reduce_ok(messages, &encode_message/1)
+
+  defp reduce_ok(items, fun) do
+    items
+    |> Enum.reduce_while({:ok, []}, fn item, {:ok, acc} ->
+      case fun.(item) do
+        {:ok, encoded} -> {:cont, {:ok, [encoded | acc]}}
+        {:error, _} = err -> {:halt, err}
+      end
+    end)
+    |> case do
+      {:ok, list} -> {:ok, Enum.reverse(list)}
+      {:error, _} = err -> err
+    end
   end
 
   defp encode_message(%Message{role: :tool_result, tool_call_id: id, content: content}) do
-    %{
-      "role" => "user",
-      "content" => [
-        %{
-          "toolResult" => %{
-            "toolUseId" => id,
-            "content" => [%{"text" => to_string(content)}]
-          }
-        }
-      ]
-    }
+    {:ok,
+     %{
+       "role" => "user",
+       "content" => [
+         %{
+           "toolResult" => %{
+             "toolUseId" => id,
+             "content" => [%{"text" => to_string(content)}]
+           }
+         }
+       ]
+     }}
   end
 
   defp encode_message(%Message{role: :assistant, content: content, tool_calls: tool_calls})
        when is_list(tool_calls) and tool_calls != [] do
-    content_blocks = encode_assistant_content_blocks(content)
+    with {:ok, content_blocks} <- encode_assistant_content_blocks(content) do
+      tool_use_blocks =
+        Enum.map(tool_calls, fn %ToolCall{id: id, name: name, arguments: args} ->
+          %{"toolUse" => %{"toolUseId" => id, "name" => name, "input" => args}}
+        end)
 
-    tool_use_blocks =
-      Enum.map(tool_calls, fn %ToolCall{id: id, name: name, arguments: args} ->
-        %{"toolUse" => %{"toolUseId" => id, "name" => name, "input" => args}}
-      end)
-
-    %{"role" => "assistant", "content" => content_blocks ++ tool_use_blocks}
+      {:ok, %{"role" => "assistant", "content" => content_blocks ++ tool_use_blocks}}
+    end
   end
 
   defp encode_message(%Message{role: role, content: content}) do
-    %{"role" => encode_role(role), "content" => encode_content(content)}
+    with {:ok, encoded} <- encode_content(content) do
+      {:ok, %{"role" => encode_role(role), "content" => encoded}}
+    end
   end
 
   defp encode_role(:user), do: "user"
   defp encode_role(:assistant), do: "assistant"
 
-  defp encode_content(content) when is_binary(content), do: [%{"text" => content}]
-  defp encode_content(nil), do: []
+  defp encode_content(content) when is_binary(content), do: {:ok, [%{"text" => content}]}
+  defp encode_content(nil), do: {:ok, []}
 
-  defp encode_content(parts) when is_list(parts) do
-    Enum.map(parts, &encode_content_part/1)
-  end
+  defp encode_content(parts) when is_list(parts),
+    do: reduce_ok(parts, &encode_content_part/1)
 
   defp encode_content_part(%Content.Text{text: text}) do
-    %{"text" => text}
+    {:ok, %{"text" => text}}
   end
 
   defp encode_content_part(%Content.Thinking{text: text, signature: signature}) do
     block = %{"text" => text}
     block = if signature, do: Map.put(block, "signature", signature), else: block
-    %{"reasoningContent" => %{"reasoningText" => block}}
+    {:ok, %{"reasoningContent" => %{"reasoningText" => block}}}
   end
 
   defp encode_content_part(%Content.RedactedThinking{data: data}) do
-    %{"reasoningContent" => %{"redactedContent" => data}}
+    {:ok, %{"reasoningContent" => %{"redactedContent" => data}}}
   end
 
   defp encode_content_part(%Content.Image{data: data, media_type: media_type})
        when is_binary(data) do
     format = media_type_to_format(media_type)
-    %{"image" => %{"format" => format, "source" => %{"bytes" => data}}}
+    {:ok, %{"image" => %{"format" => format, "source" => %{"bytes" => data}}}}
   end
 
-  defp encode_assistant_content_blocks(nil), do: []
-  defp encode_assistant_content_blocks(""), do: []
+  defp encode_content_part(%Content.Document{} = doc), do: encode_document(doc)
+
+  @bedrock_doc_formats %{
+    "application/pdf" => "pdf",
+    "text/csv" => "csv",
+    "text/plain" => "txt",
+    "text/html" => "html",
+    "text/markdown" => "md",
+    "application/msword" => "doc",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document" => "docx",
+    "application/vnd.ms-excel" => "xls",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" => "xlsx"
+  }
+
+  @bedrock_ext_formats ~w(pdf csv txt html md doc docx xls xlsx)
+
+  defp encode_document(%Content.Document{data: data} = doc) when is_binary(data) do
+    with {:ok, name} <- require_name(doc),
+         {:ok, format} <- document_format(doc) do
+      {:ok,
+       %{"document" => %{"format" => format, "name" => name, "source" => %{"bytes" => data}}}}
+    end
+  end
+
+  defp encode_document(%Content.Document{url: url}) when is_binary(url) do
+    {:error,
+     InvalidParams.exception(
+       errors: ["bedrock_converse does not support :url document sources; use :data (base64)"]
+     )}
+  end
+
+  defp encode_document(%Content.Document{file_id: file_id}) when is_binary(file_id) do
+    {:error,
+     InvalidParams.exception(
+       errors: ["bedrock_converse does not support :file_id document sources; use :data (base64)"]
+     )}
+  end
+
+  defp encode_document(%Content.Document{}) do
+    {:error,
+     InvalidParams.exception(
+       errors: ["document content part requires one of :data, :url, or :file_id"]
+     )}
+  end
+
+  defp require_name(%Content.Document{name: name}) when is_binary(name) and name != "",
+    do: {:ok, name}
+
+  defp require_name(%Content.Document{}) do
+    {:error,
+     InvalidParams.exception(errors: ["bedrock_converse document sources require a :name"])}
+  end
+
+  defp document_format(%Content.Document{media_type: media_type} = doc) do
+    case Map.get(@bedrock_doc_formats, media_type) do
+      nil -> format_from_name(doc.name)
+      format -> {:ok, format}
+    end
+  end
+
+  defp format_from_name(name) when is_binary(name) do
+    ext = name |> Path.extname() |> String.trim_leading(".") |> String.downcase()
+
+    if ext in @bedrock_ext_formats do
+      {:ok, ext}
+    else
+      {:error,
+       InvalidParams.exception(
+         errors: [
+           "bedrock_converse could not derive a document format from media_type or name #{inspect(name)}"
+         ]
+       )}
+    end
+  end
+
+  defp encode_assistant_content_blocks(nil), do: {:ok, []}
+  defp encode_assistant_content_blocks(""), do: {:ok, []}
 
   defp encode_assistant_content_blocks(text) when is_binary(text),
-    do: [%{"text" => text}]
+    do: {:ok, [%{"text" => text}]}
 
   defp encode_assistant_content_blocks(parts) when is_list(parts),
-    do: Enum.map(parts, &encode_content_part/1)
+    do: reduce_ok(parts, &encode_content_part/1)
 
   defp media_type_to_format("image/" <> format), do: format
   defp media_type_to_format(format), do: format

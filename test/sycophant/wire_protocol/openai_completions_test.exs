@@ -1008,4 +1008,40 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
                "/chat/completions"
     end
   end
+
+  describe "encode_request/1 - documents" do
+    test "encodes base64 document as a file data URL" do
+      parts = [%Content.Document{data: "Ym9keQ==", media_type: "application/pdf", name: "r.pdf"}]
+      request = build_request([Message.user(parts)])
+      assert {:ok, payload} = OpenAICompletions.encode_request(request)
+
+      [msg] = payload["messages"]
+
+      assert [
+               %{
+                 "type" => "file",
+                 "file" => %{
+                   "filename" => "r.pdf",
+                   "file_data" => "data:application/pdf;base64,Ym9keQ=="
+                 }
+               }
+             ] = msg["content"]
+    end
+
+    test "encodes a file_id document" do
+      parts = [%Content.Document{file_id: "file_123"}]
+      request = build_request([Message.user(parts)])
+      assert {:ok, payload} = OpenAICompletions.encode_request(request)
+
+      [msg] = payload["messages"]
+      assert [%{"type" => "file", "file" => %{"file_id" => "file_123"}}] = msg["content"]
+    end
+
+    test "rejects url document sources" do
+      parts = [%Content.Document{url: "https://x/r.pdf", media_type: "application/pdf"}]
+      request = build_request([Message.user(parts)])
+      assert {:error, error} = OpenAICompletions.encode_request(request)
+      assert Exception.message(error) =~ ":url"
+    end
+  end
 end

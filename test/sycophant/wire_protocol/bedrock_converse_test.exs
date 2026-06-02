@@ -750,6 +750,76 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
     end
   end
 
+  describe "encode_request/1 - documents" do
+    test "encodes base64 document with format from media_type" do
+      parts = [%Content.Document{data: "Ym9keQ==", media_type: "application/pdf", name: "r.pdf"}]
+      request = build_request([Message.user(parts)])
+      assert {:ok, payload} = BedrockConverse.encode_request(request)
+
+      [msg] = payload["messages"]
+
+      assert [
+               %{
+                 "document" => %{
+                   "format" => "pdf",
+                   "name" => "r.pdf",
+                   "source" => %{"bytes" => "Ym9keQ=="}
+                 }
+               }
+             ] = msg["content"]
+    end
+
+    test "derives format from the name extension when media_type is unknown" do
+      parts = [
+        %Content.Document{
+          data: "Ym9keQ==",
+          media_type: "application/octet-stream",
+          name: "data.csv"
+        }
+      ]
+
+      request = build_request([Message.user(parts)])
+      assert {:ok, payload} = BedrockConverse.encode_request(request)
+
+      [msg] = payload["messages"]
+      assert [%{"document" => %{"format" => "csv", "name" => "data.csv"}}] = msg["content"]
+    end
+
+    test "rejects documents without a name" do
+      parts = [%Content.Document{data: "Ym9keQ==", media_type: "application/pdf"}]
+      request = build_request([Message.user(parts)])
+      assert {:error, error} = BedrockConverse.encode_request(request)
+      assert Exception.message(error) =~ "require a :name"
+    end
+
+    test "rejects an underivable format" do
+      parts = [
+        %Content.Document{data: "Ym9keQ==", media_type: "application/octet-stream", name: "blob"}
+      ]
+
+      request = build_request([Message.user(parts)])
+      assert {:error, error} = BedrockConverse.encode_request(request)
+      assert Exception.message(error) =~ "could not derive"
+    end
+
+    test "rejects url document sources" do
+      parts = [
+        %Content.Document{url: "https://x/r.pdf", media_type: "application/pdf", name: "r.pdf"}
+      ]
+
+      request = build_request([Message.user(parts)])
+      assert {:error, error} = BedrockConverse.encode_request(request)
+      assert Exception.message(error) =~ ":url"
+    end
+
+    test "rejects file_id document sources" do
+      parts = [%Content.Document{file_id: "file_1", name: "r.pdf"}]
+      request = build_request([Message.user(parts)])
+      assert {:error, error} = BedrockConverse.encode_request(request)
+      assert Exception.message(error) =~ ":file_id"
+    end
+  end
+
   defp build_request(messages, opts \\ []) do
     %Request{
       messages: messages,

@@ -995,6 +995,46 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
     end
   end
 
+  describe "encode_request/1 - documents" do
+    test "encodes base64 document as inlineData" do
+      parts = [%Content.Document{data: "Ym9keQ==", media_type: "application/pdf"}]
+      request = build_request([Message.user(parts)])
+      assert {:ok, payload} = GoogleGemini.encode_request(request)
+
+      [content] = payload["contents"]
+
+      assert [%{"inlineData" => %{"mimeType" => "application/pdf", "data" => "Ym9keQ=="}}] =
+               content["parts"]
+    end
+
+    test "encodes url document as fileData" do
+      parts = [%Content.Document{url: "https://x/r.pdf", media_type: "application/pdf"}]
+      request = build_request([Message.user(parts)])
+      assert {:ok, payload} = GoogleGemini.encode_request(request)
+
+      [content] = payload["contents"]
+
+      assert [%{"fileData" => %{"fileUri" => "https://x/r.pdf", "mimeType" => "application/pdf"}}] =
+               content["parts"]
+    end
+
+    test "defaults url mimeType to application/pdf when media_type absent" do
+      parts = [%Content.Document{url: "https://x/r.pdf"}]
+      request = build_request([Message.user(parts)])
+      assert {:ok, payload} = GoogleGemini.encode_request(request)
+
+      [content] = payload["contents"]
+      assert [%{"fileData" => %{"mimeType" => "application/pdf"}}] = content["parts"]
+    end
+
+    test "rejects file_id document sources" do
+      parts = [%Content.Document{file_id: "file_1"}]
+      request = build_request([Message.user(parts)])
+      assert {:error, error} = GoogleGemini.encode_request(request)
+      assert Exception.message(error) =~ ":file_id"
+    end
+  end
+
   # --- Helpers ---
 
   defp build_request(messages, opts \\ []) do

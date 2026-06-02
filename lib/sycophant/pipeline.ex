@@ -505,12 +505,28 @@ defmodule Sycophant.Pipeline do
     %{response | context: context}
   end
 
-  defp build_assistant_content(%{reasoning: nil, text: text}), do: text
+  defp build_assistant_content(%{reasoning: nil, text: text, citations: []}), do: text
 
-  defp build_assistant_content(%{reasoning: %{content: [], encrypted_content: nil}, text: text}),
-    do: text
+  defp build_assistant_content(%{
+         reasoning: %{content: [], encrypted_content: nil},
+         text: text,
+         citations: []
+       }),
+       do: text
 
-  defp build_assistant_content(%{reasoning: reasoning, text: text}) do
+  defp build_assistant_content(%{reasoning: reasoning, text: text, citations: citations}) do
+    text_parts =
+      if text,
+        do: [%Message.Content.Text{text: text, citations: empty_to_nil(citations)}],
+        else: []
+
+    reasoning_parts(reasoning) ++ text_parts
+  end
+
+  defp reasoning_parts(nil), do: []
+  defp reasoning_parts(%{content: [], encrypted_content: nil}), do: []
+
+  defp reasoning_parts(reasoning) do
     thinking_parts = stamp_reasoning_id(reasoning)
 
     encrypted_parts =
@@ -518,13 +534,11 @@ defmodule Sycophant.Pipeline do
         do: [%Message.Content.RedactedThinking{data: reasoning.encrypted_content}],
         else: []
 
-    text_parts =
-      if text,
-        do: [%Message.Content.Text{text: text}],
-        else: []
-
-    thinking_parts ++ encrypted_parts ++ text_parts
+    thinking_parts ++ encrypted_parts
   end
+
+  defp empty_to_nil([]), do: nil
+  defp empty_to_nil(list), do: list
 
   defp stamp_reasoning_id(%{id: nil, content: content}), do: content
 

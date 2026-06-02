@@ -39,6 +39,79 @@ defmodule Sycophant.SerializableTest do
     end
   end
 
+  describe "Content.Document" do
+    test "round-trips each source kind through the Decoder" do
+      for doc <- [
+            %Sycophant.Message.Content.Document{
+              data: "JVBERi0=",
+              media_type: "application/pdf",
+              name: "r.pdf"
+            },
+            %Sycophant.Message.Content.Document{
+              url: "https://example.com/r.pdf",
+              media_type: "application/pdf",
+              citations: true
+            },
+            %Sycophant.Message.Content.Document{file_id: "file_1", media_type: "text/csv"}
+          ] do
+        assert doc == doc |> Decoder.encode() |> Decoder.decode()
+      end
+    end
+  end
+
+  describe "Content.Text citations" do
+    test "round-trips text with citations through the Decoder" do
+      original = %Sycophant.Message.Content.Text{
+        text: "Paris.",
+        citations: [
+          %Sycophant.Citation{type: :page_location, unit: :page, start_index: 1, end_index: 2}
+        ]
+      }
+
+      assert original == original |> Decoder.encode() |> Decoder.decode()
+    end
+
+    test "to_map omits empty/nil citations" do
+      nil_map = Serializable.to_map(%Sycophant.Message.Content.Text{text: "hi"})
+      refute Map.has_key?(nil_map, "citations")
+
+      empty_map = Serializable.to_map(%Sycophant.Message.Content.Text{text: "hi", citations: []})
+      refute Map.has_key?(empty_map, "citations")
+    end
+  end
+
+  describe "Citation" do
+    test "round-trips through the Decoder" do
+      citation = %Sycophant.Citation{
+        type: :page_location,
+        unit: :page,
+        cited_text: "x",
+        document_index: 0,
+        start_index: 1,
+        end_index: 2
+      }
+
+      assert citation == citation |> Decoder.encode() |> Decoder.decode()
+    end
+  end
+
+  describe "Message with Document part" do
+    test "round-trips a user message carrying a Document" do
+      original = %Sycophant.Message{
+        role: :user,
+        content: [
+          %Sycophant.Message.Content.Text{text: "summarize"},
+          %Sycophant.Message.Content.Document{
+            url: "https://example.com/r.pdf",
+            media_type: "application/pdf"
+          }
+        ]
+      }
+
+      assert original == original |> Decoder.encode() |> Decoder.decode()
+    end
+  end
+
   describe "ToolCall" do
     test "round-trips through JSON" do
       original = %Sycophant.ToolCall{

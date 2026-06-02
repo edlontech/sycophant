@@ -924,6 +924,307 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
     end
   end
 
+  describe "encode_request/1 - documents" do
+    test "encodes a base64 PDF" do
+      parts = [%Content.Document{data: "JVBERi0=", media_type: "application/pdf", name: "r.pdf"}]
+      request = build_request([Message.user(parts)])
+      assert {:ok, payload} = AnthropicMessages.encode_request(request)
+
+      [msg] = payload["messages"]
+
+      assert [
+               %{
+                 "type" => "document",
+                 "source" => %{
+                   "type" => "base64",
+                   "media_type" => "application/pdf",
+                   "data" => "JVBERi0="
+                 },
+                 "title" => "r.pdf"
+               }
+             ] = msg["content"]
+    end
+
+    test "encodes a non-PDF data document as decoded plain text" do
+      data = Base.encode64("col1,col2\n1,2")
+      parts = [%Content.Document{data: data, media_type: "text/csv"}]
+      request = build_request([Message.user(parts)])
+      assert {:ok, payload} = AnthropicMessages.encode_request(request)
+
+      [msg] = payload["messages"]
+
+      assert [%{"type" => "document", "source" => source}] = msg["content"]
+
+      assert source == %{
+               "type" => "text",
+               "media_type" => "text/plain",
+               "data" => "col1,col2\n1,2"
+             }
+    end
+
+    test "rejects non-base64 data" do
+      parts = [%Content.Document{data: "not valid base64!!", media_type: "text/csv"}]
+      request = build_request([Message.user(parts)])
+      assert {:error, error} = AnthropicMessages.encode_request(request)
+      assert Exception.message(error) =~ "base64"
+    end
+
+    test "encodes a PDF url" do
+      parts = [%Content.Document{url: "https://x/r.pdf", media_type: "application/pdf"}]
+      request = build_request([Message.user(parts)])
+      assert {:ok, payload} = AnthropicMessages.encode_request(request)
+
+      [msg] = payload["messages"]
+
+      assert [%{"type" => "document", "source" => %{"type" => "url", "url" => "https://x/r.pdf"}}] =
+               msg["content"]
+    end
+
+    test "rejects a non-PDF url" do
+      parts = [%Content.Document{url: "https://x/data.csv", media_type: "text/csv"}]
+      request = build_request([Message.user(parts)])
+      assert {:error, error} = AnthropicMessages.encode_request(request)
+      assert Exception.message(error) =~ "PDF-only"
+    end
+
+    test "accepts a url with no media_type (treated as PDF)" do
+      parts = [%Content.Document{url: "https://x/r.pdf"}]
+      request = build_request([Message.user(parts)])
+      assert {:ok, payload} = AnthropicMessages.encode_request(request)
+
+      [msg] = payload["messages"]
+
+      assert [%{"type" => "document", "source" => %{"type" => "url", "url" => "https://x/r.pdf"}}] =
+               msg["content"]
+    end
+
+    test "encodes a file_id source" do
+      parts = [%Content.Document{file_id: "file_123"}]
+      request = build_request([Message.user(parts)])
+      assert {:ok, payload} = AnthropicMessages.encode_request(request)
+
+      [msg] = payload["messages"]
+
+      assert [%{"type" => "document", "source" => %{"type" => "file", "file_id" => "file_123"}}] =
+               msg["content"]
+    end
+
+    test "adds citations flag when requested" do
+      parts = [
+        %Content.Document{url: "https://x/r.pdf", media_type: "application/pdf", citations: true}
+      ]
+
+      request = build_request([Message.user(parts)])
+      assert {:ok, payload} = AnthropicMessages.encode_request(request)
+
+      [msg] = payload["messages"]
+      assert [%{"citations" => %{"enabled" => true}}] = msg["content"]
+    end
+  end
+
+  describe "decode_response/1 - citations" do
+    test "decodes page_location citations onto Response.citations and joins text" do
+      content = [
+        %{
+          "type" => "text",
+          "text" => "Paris is the capital. ",
+          "citations" => [
+            %{
+              "type" => "page_location",
+              "cited_text" => "Paris is the capital",
+              "document_index" => 0,
+              "document_title" => "France",
+              "start_page_number" => 1,
+              "end_page_number" => 2
+            }
+          ]
+        },
+        %{"type" => "text", "text" => "It is in Europe."}
+      ]
+
+      body = anthropic_response(content: content)
+      assert {:ok, resp} = AnthropicMessages.decode_response(body)
+
+      assert resp.text == "Paris is the capital. It is in Europe."
+
+      assert [
+               %Sycophant.Citation{
+                 type: :page_location,
+                 unit: :page,
+                 cited_text: "Paris is the capital",
+                 document_index: 0,
+                 document_title: "France",
+                 start_index: 1,
+                 end_index: 2
+               }
+             ] = resp.citations
+    end
+
+    test "decodes char_location citations" do
+      content = [
+        %{
+          "type" => "text",
+          "text" => "x",
+          "citations" => [
+            %{
+              "type" => "char_location",
+              "cited_text" => "y",
+              "document_index" => 0,
+              "start_char_index" => 5,
+              "end_char_index" => 9
+            }
+          ]
+        }
+      ]
+
+      assert {:ok, resp} = AnthropicMessages.decode_response(anthropic_response(content: content))
+
+      assert [
+               %Sycophant.Citation{
+                 type: :char_location,
+                 unit: :char,
+                 start_index: 5,
+                 end_index: 9
+               }
+             ] =
+               resp.citations
+    end
+
+    test "decodes web_search_result_location citations" do
+      content = [
+        %{
+          "type" => "text",
+          "text" => "x",
+          "citations" => [
+            %{
+              "type" => "web_search_result_location",
+              "cited_text" => "y",
+              "url" => "https://example.com",
+              "title" => "Example"
+            }
+          ]
+        }
+      ]
+
+      assert {:ok, resp} = AnthropicMessages.decode_response(anthropic_response(content: content))
+
+      assert [
+               %Sycophant.Citation{
+                 type: :web_search_result_location,
+                 url: "https://example.com",
+                 title: "Example"
+               }
+             ] = resp.citations
+    end
+
+    test "decodes content_block_location citations" do
+      content = [
+        %{
+          "type" => "text",
+          "text" => "x",
+          "citations" => [
+            %{
+              "type" => "content_block_location",
+              "cited_text" => "y",
+              "document_index" => 1,
+              "start_block_index" => 2,
+              "end_block_index" => 3
+            }
+          ]
+        }
+      ]
+
+      assert {:ok, resp} = AnthropicMessages.decode_response(anthropic_response(content: content))
+
+      assert [
+               %Sycophant.Citation{
+                 type: :content_block_location,
+                 unit: :block,
+                 document_index: 1,
+                 start_index: 2,
+                 end_index: 3
+               }
+             ] = resp.citations
+    end
+
+    test "decodes search_result_location citations" do
+      content = [
+        %{
+          "type" => "text",
+          "text" => "x",
+          "citations" => [
+            %{
+              "type" => "search_result_location",
+              "cited_text" => "y",
+              "source" => "kb://doc/1",
+              "title" => "KB Doc",
+              "start_block_index" => 0,
+              "end_block_index" => 1
+            }
+          ]
+        }
+      ]
+
+      assert {:ok, resp} = AnthropicMessages.decode_response(anthropic_response(content: content))
+
+      assert [
+               %Sycophant.Citation{
+                 type: :search_result_location,
+                 unit: :block,
+                 source: "kb://doc/1",
+                 title: "KB Doc",
+                 start_index: 0,
+                 end_index: 1
+               }
+             ] = resp.citations
+    end
+
+    test "aggregates citations across multiple text blocks in document order" do
+      content = [
+        %{
+          "type" => "text",
+          "text" => "a",
+          "citations" => [
+            %{
+              "type" => "char_location",
+              "cited_text" => "A",
+              "start_char_index" => 0,
+              "end_char_index" => 1
+            },
+            %{
+              "type" => "char_location",
+              "cited_text" => "B",
+              "start_char_index" => 1,
+              "end_char_index" => 2
+            }
+          ]
+        },
+        %{
+          "type" => "text",
+          "text" => "b",
+          "citations" => [
+            %{
+              "type" => "char_location",
+              "cited_text" => "C",
+              "start_char_index" => 2,
+              "end_char_index" => 3
+            }
+          ]
+        }
+      ]
+
+      assert {:ok, resp} = AnthropicMessages.decode_response(anthropic_response(content: content))
+
+      assert ["A", "B", "C"] = Enum.map(resp.citations, & &1.cited_text)
+    end
+
+    test "citation-free responses keep citations empty" do
+      body = anthropic_response(content: [%{"type" => "text", "text" => "hi"}])
+      assert {:ok, resp} = AnthropicMessages.decode_response(body)
+      assert resp.citations == []
+    end
+  end
+
   # --- Helpers ---
 
   defp build_request(messages, opts \\ []) do

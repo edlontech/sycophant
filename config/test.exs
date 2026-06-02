@@ -6,20 +6,31 @@ config :sycophant, :tesla,
 
 config :sycophant, :test_models, [
   %{model: "openai:gpt-3.5-turbo", structured_output: false},
-  %{model: "openai:gpt-4o-mini", structured_output: true},
+  %{model: "openai:gpt-4o-mini", structured_output: true, document: true},
   %{model: "openai:gpt-5.2", structured_output: true},
   %{model: "openai:gpt-5-nano", structured_output: true, reasoning: true},
-  %{model: "openrouter:openai/gpt-4o-mini", structured_output: true},
+  %{model: "openrouter:openai/gpt-4o-mini", structured_output: true, document: true},
   %{model: "openrouter:anthropic/claude-haiku-4.5", structured_output: true},
   %{model: "openrouter:google/gemini-2.5-flash", structured_output: true},
   %{model: "openrouter:deepseek/deepseek-r1", structured_output: false},
-  %{model: "anthropic:claude-haiku-4-5-20251001", structured_output: true, reasoning: true},
-  %{model: "google:gemini-2.5-flash", structured_output: true, reasoning: true},
+  %{
+    model: "anthropic:claude-haiku-4-5-20251001",
+    structured_output: true,
+    reasoning: true,
+    document: true
+  },
+  %{
+    model: "google:gemini-2.5-flash",
+    structured_output: true,
+    reasoning: true,
+    document: true
+  },
   %{model: "google:gemini-3.1-flash-lite-preview", structured_output: true, reasoning: true},
   %{
     model: "amazon_bedrock:us.anthropic.claude-sonnet-4-5-20250929-v1:0",
     structured_output: true,
-    reasoning: true
+    reasoning: true,
+    document: true
   },
   %{model: "github_copilot:gpt-4o", reasoning: false, structured_output: false},
   %{model: "github_copilot:gemini-2.5-pro", reasoning: false, structured_output: false}

@@ -1,0 +1,159 @@
+{
+  "metadata": {
+    "model": "openai/gpt-4o-mini",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-06-02T09:56:19.334102Z",
+    "sycophant_version": "0.4.2"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": [
+            {
+              "text": "According to this PDF, which product is the best seller? Reply with only the product name.",
+              "type": "input_text"
+            },
+            {
+              "file_data": "data:application/pdf;base64,JVBERi0xLjQKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3ggWzAgMCA2MTIgNzkyXSAvUmVzb3VyY2VzIDw8IC9Gb250IDw8IC9GMSA1IDAgUiA+PiA+PiAvQ29udGVudHMgNCAwIFIgPj4KZW5kb2JqCjQgMCBvYmoKPDwgL0xlbmd0aCAxMzQgPj4Kc3RyZWFtCkJUCi9GMSAxOCBUZgo3MiA3MjAgVGQKKFF1YXJ0ZXJseSBTYWxlcyBSZXBvcnQuIEJlc3Qgc2VsbGVyOiBHYWRnZXQuIFJldmVudWUgYnkgcHJvZHVjdDogV2lkZ2V0IDI0MDAsIEdhZGdldCAyNzAwLCBHaXptbyAxMzUwLikgVGoKRVQKZW5kc3RyZWFtCmVuZG9iago1IDAgb2JqCjw8IC9UeXBlIC9Gb250IC9TdWJ0eXBlIC9UeXBlMSAvQmFzZUZvbnQgL0hlbHZldGljYSA+PgplbmRvYmoKeHJlZgowIDYKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDA5IDAwMDAwIG4gCjAwMDAwMDAwNTggMDAwMDAgbiAKMDAwMDAwMDExNSAwMDAwMCBuIAowMDAwMDAwMjQxIDAwMDAwIG4gCjAwMDAwMDA0MjUgMDAwMDAgbiAKdHJhaWxlcgo8PCAvU2l6ZSA2IC9Sb290IDEgMCBSID4+CnN0YXJ0eHJlZgo0OTUKJSVFT0YK",
+              "filename": "sales-report",
+              "type": "input_file"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "model": "openai/gpt-4o-mini"
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "completed_at": 1780394179,
+      "created_at": 1780394178,
+      "error": null,
+      "frequency_penalty": 0,
+      "id": "gen-1780394178-CsUNdIL79fqsqhtj4tJo",
+      "incomplete_details": null,
+      "instructions": null,
+      "max_output_tokens": null,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "openai/gpt-4o-mini",
+      "object": "response",
+      "output": [
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Gadget",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_tmp_emq7trnr21",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "presence_penalty": 0,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": null,
+      "safety_identifier": null,
+      "service_tier": "auto",
+      "status": "completed",
+      "store": false,
+      "temperature": 1,
+      "text": {
+        "format": {
+          "type": "text"
+        }
+      },
+      "tool_choice": "auto",
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1,
+      "truncation": "disabled",
+      "usage": {
+        "cost": 4.2e-5,
+        "cost_details": {
+          "upstream_inference_cost": 4.2e-5,
+          "upstream_inference_input_cost": 4.08e-5,
+          "upstream_inference_output_cost": 1.2e-6
+        },
+        "input_tokens": 272,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "is_byok": false,
+        "output_tokens": 2,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 274
+      }
+    },
+    "headers": [
+      [
+        "date",
+        "Tue, 02 Jun 2026 09:56:19 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=980"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1780394178-CsUNdIL79fqsqhtj4tJo"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,cf-ray"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "a055965e6b2fdd73-PRG"
+      ]
+    ],
+    "status": 200
+  }
+}

@@ -17,6 +17,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   def stream_transport, do: :sse
 
   alias Sycophant.Context
+  alias Sycophant.Error.Invalid.InvalidParams
   alias Sycophant.Error.Provider.ContentFiltered
   alias Sycophant.Error.Provider.RateLimited
   alias Sycophant.Error.Provider.ResponseInvalid
@@ -428,15 +429,41 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   # --- Input Encoding ---
 
   defp encode_input(messages) do
-    {:ok, Enum.flat_map(messages, &encode_input_item/1)}
+    messages
+    |> Enum.reduce_while({:ok, []}, fn msg, {:ok, acc} ->
+      case encode_input_item(msg) do
+        {:ok, items} -> {:cont, {:ok, [items | acc]}}
+        {:error, _} = err -> {:halt, err}
+      end
+    end)
+    |> case do
+      {:ok, lists} -> {:ok, lists |> Enum.reverse() |> Enum.concat()}
+      {:error, _} = err -> err
+    end
+  end
+
+  defp reduce_ok(items, fun) do
+    items
+    |> Enum.reduce_while({:ok, []}, fn item, {:ok, acc} ->
+      case fun.(item) do
+        {:ok, encoded} -> {:cont, {:ok, [encoded | acc]}}
+        {:error, _} = err -> {:halt, err}
+      end
+    end)
+    |> case do
+      {:ok, list} -> {:ok, Enum.reverse(list)}
+      {:error, _} = err -> err
+    end
   end
 
   defp encode_input_item(%Message{role: :user, content: content}) when is_binary(content) do
-    [%{"role" => "user", "content" => content}]
+    {:ok, [%{"role" => "user", "content" => content}]}
   end
 
   defp encode_input_item(%Message{role: :user, content: parts}) when is_list(parts) do
-    [%{"role" => "user", "content" => Enum.map(parts, &encode_user_content_part/1)}]
+    with {:ok, encoded} <- reduce_ok(parts, &encode_user_content_part/1) do
+      {:ok, [%{"role" => "user", "content" => encoded}]}
+    end
   end
 
   defp encode_input_item(%Message{role: :assistant, content: content, tool_calls: tool_calls})
@@ -454,16 +481,16 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
         }
       end)
 
-    reasoning_items ++ [assistant_item | function_call_items]
+    {:ok, reasoning_items ++ [assistant_item | function_call_items]}
   end
 
   defp encode_input_item(%Message{role: :assistant, content: content}) do
     {reasoning_items, message_content} = split_reasoning_content(content)
-    reasoning_items ++ [encode_assistant_item(message_content)]
+    {:ok, reasoning_items ++ [encode_assistant_item(message_content)]}
   end
 
   defp encode_input_item(%Message{role: :tool_result, content: content, tool_call_id: id}) do
-    [%{"type" => "function_call_output", "call_id" => id, "output" => to_string(content)}]
+    {:ok, [%{"type" => "function_call_output", "call_id" => id, "output" => to_string(content)}]}
   end
 
   defp encode_assistant_item(nil) do
@@ -494,16 +521,44 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   end
 
   defp encode_user_content_part(%Content.Text{text: text}) do
-    %{"type" => "input_text", "text" => text}
+    {:ok, %{"type" => "input_text", "text" => text}}
   end
 
   defp encode_user_content_part(%Content.Image{url: url}) when is_binary(url) do
-    %{"type" => "input_image", "image_url" => url}
+    {:ok, %{"type" => "input_image", "image_url" => url}}
   end
 
   defp encode_user_content_part(%Content.Image{data: data, media_type: media_type})
        when is_binary(data) do
-    %{"type" => "input_image", "image_url" => "data:#{media_type};base64,#{data}"}
+    {:ok, %{"type" => "input_image", "image_url" => "data:#{media_type};base64,#{data}"}}
+  end
+
+  defp encode_user_content_part(%Content.Document{} = doc), do: encode_document(doc)
+
+  defp encode_document(%Content.Document{data: data, media_type: media_type, name: name})
+       when is_binary(data) do
+    {:ok,
+     %{
+       "type" => "input_file",
+       "filename" => name,
+       "file_data" => "data:#{media_type};base64,#{data}"
+     }}
+  end
+
+  defp encode_document(%Content.Document{url: url, name: name}) when is_binary(url) do
+    file = %{"type" => "input_file", "file_url" => url}
+    {:ok, if(name, do: Map.put(file, "filename", name), else: file)}
+  end
+
+  defp encode_document(%Content.Document{file_id: file_id}) when is_binary(file_id) do
+    {:ok, %{"type" => "input_file", "file_id" => file_id}}
+  end
+
+  defp encode_document(%Content.Document{}) do
+    {:error,
+     InvalidParams.exception(
+       errors: ["document content part requires one of :data, :url, or :file_id"]
+     )}
   end
 
   defp encode_assistant_content_part(%Content.Text{text: text}) do

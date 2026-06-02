@@ -32,6 +32,7 @@ defmodule Sycophant.Message do
   @type content_part() ::
           Content.Text.t()
           | Content.Image.t()
+          | Content.Document.t()
           | Content.Thinking.t()
           | Content.RedactedThinking.t()
 

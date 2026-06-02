@@ -9,6 +9,7 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
   @behaviour Sycophant.WireProtocol
 
   alias Sycophant.Context
+  alias Sycophant.Error.Invalid.InvalidParams
   alias Sycophant.Error.Provider.RateLimited
   alias Sycophant.Error.Provider.ResponseInvalid
   alias Sycophant.Error.Provider.ServerError
@@ -355,74 +356,109 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
 
   # --- Private: Content Encoding ---
 
-  defp encode_contents(messages) do
-    {:ok, Enum.map(messages, &encode_message/1)}
+  defp encode_contents(messages), do: reduce_ok(messages, &encode_message/1)
+
+  defp reduce_ok(items, fun) do
+    items
+    |> Enum.reduce_while({:ok, []}, fn item, {:ok, acc} ->
+      case fun.(item) do
+        {:ok, encoded} -> {:cont, {:ok, [encoded | acc]}}
+        {:error, _} = err -> {:halt, err}
+      end
+    end)
+    |> case do
+      {:ok, list} -> {:ok, Enum.reverse(list)}
+      {:error, _} = err -> err
+    end
   end
 
   defp encode_message(%Message{role: :tool_result, content: content} = msg) do
-    %{
-      "role" => "user",
-      "parts" => [
-        %{
-          "functionResponse" => %{
-            "name" => find_tool_name(msg),
-            "response" => %{"content" => to_string(content)}
-          }
-        }
-      ]
-    }
+    {:ok,
+     %{
+       "role" => "user",
+       "parts" => [
+         %{
+           "functionResponse" => %{
+             "name" => find_tool_name(msg),
+             "response" => %{"content" => to_string(content)}
+           }
+         }
+       ]
+     }}
   end
 
   defp encode_message(%Message{role: :assistant, content: content, tool_calls: tool_calls})
        when is_list(tool_calls) and tool_calls != [] do
-    text_parts =
-      case content do
-        nil ->
-          []
-
-        "" ->
-          []
-
-        text when is_binary(text) ->
-          [%{"text" => text}]
-
-        parts when is_list(parts) ->
-          parts |> Enum.map(&encode_content_part/1) |> Enum.reject(&is_nil/1)
-      end
-
-    tool_parts = Enum.map(tool_calls, &encode_function_call_part/1)
-
-    %{"role" => "model", "parts" => text_parts ++ tool_parts}
+    with {:ok, text_parts} <- encode_assistant_text_parts(content) do
+      tool_parts = Enum.map(tool_calls, &encode_function_call_part/1)
+      {:ok, %{"role" => "model", "parts" => text_parts ++ tool_parts}}
+    end
   end
 
   defp encode_message(%Message{role: role, content: content}) do
-    %{"role" => encode_role(role), "parts" => encode_parts(content)}
+    with {:ok, parts} <- encode_parts(content) do
+      {:ok, %{"role" => encode_role(role), "parts" => parts}}
+    end
   end
+
+  defp encode_assistant_text_parts(nil), do: {:ok, []}
+  defp encode_assistant_text_parts(""), do: {:ok, []}
+  defp encode_assistant_text_parts(text) when is_binary(text), do: {:ok, [%{"text" => text}]}
+  defp encode_assistant_text_parts(parts) when is_list(parts), do: encode_parts(parts)
 
   defp encode_role(:user), do: "user"
   defp encode_role(:assistant), do: "model"
 
-  defp encode_parts(content) when is_binary(content), do: [%{"text" => content}]
-  defp encode_parts(nil), do: []
+  defp encode_parts(content) when is_binary(content), do: {:ok, [%{"text" => content}]}
+  defp encode_parts(nil), do: {:ok, []}
 
   defp encode_parts(parts) when is_list(parts) do
-    parts |> Enum.map(&encode_content_part/1) |> Enum.reject(&is_nil/1)
+    with {:ok, encoded} <- reduce_ok(parts, &encode_content_part/1) do
+      {:ok, Enum.reject(encoded, &is_nil/1)}
+    end
   end
 
-  defp encode_content_part(%Content.Text{text: text}), do: %{"text" => text}
+  defp encode_content_part(%Content.Text{text: text}), do: {:ok, %{"text" => text}}
 
   defp encode_content_part(%Content.Thinking{text: text}),
-    do: %{"text" => text, "thought" => true}
+    do: {:ok, %{"text" => text, "thought" => true}}
 
-  defp encode_content_part(%Content.RedactedThinking{}), do: nil
+  defp encode_content_part(%Content.RedactedThinking{}), do: {:ok, nil}
 
   defp encode_content_part(%Content.Image{url: url}) when is_binary(url) do
-    %{"fileData" => %{"fileUri" => url, "mimeType" => "image/*"}}
+    {:ok, %{"fileData" => %{"fileUri" => url, "mimeType" => "image/*"}}}
   end
 
   defp encode_content_part(%Content.Image{data: data, media_type: media_type})
        when is_binary(data) do
-    %{"inlineData" => %{"mimeType" => media_type, "data" => data}}
+    {:ok, %{"inlineData" => %{"mimeType" => media_type, "data" => data}}}
+  end
+
+  defp encode_content_part(%Content.Document{} = doc), do: encode_document(doc)
+
+  defp encode_document(%Content.Document{data: data, media_type: media_type})
+       when is_binary(data) do
+    {:ok, %{"inlineData" => %{"mimeType" => media_type, "data" => data}}}
+  end
+
+  defp encode_document(%Content.Document{url: url, media_type: media_type}) when is_binary(url) do
+    {:ok, %{"fileData" => %{"fileUri" => url, "mimeType" => media_type || "application/pdf"}}}
+  end
+
+  defp encode_document(%Content.Document{file_id: file_id}) when is_binary(file_id) do
+    {:error,
+     InvalidParams.exception(
+       errors: [
+         "google_gemini does not support :file_id document sources; use :data (base64) or :url"
+       ]
+     )}
+  end
+
+  defp encode_document(%Content.Document{}) do
+    {:error,
+     InvalidParams.exception(
+       errors: ["document content part requires one of :data, :url, or :file_id"]
+     )}
   end
 
   defp encode_function_call_part(%ToolCall{name: name, arguments: args, metadata: metadata}) do

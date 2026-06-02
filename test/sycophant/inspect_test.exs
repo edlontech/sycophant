@@ -75,6 +75,24 @@ defmodule Sycophant.InspectTest do
     end
   end
 
+  describe "Content.Text citations" do
+    test "shows citation count when present" do
+      text = %Sycophant.Message.Content.Text{
+        text: "Paris.",
+        citations: [%Sycophant.Citation{type: :page_location}]
+      }
+
+      result = inspect(text)
+      assert result =~ "#Sycophant.Message.Content.Text<"
+      assert result =~ "1 citations"
+    end
+
+    test "no citation annotation when absent" do
+      text = %Sycophant.Message.Content.Text{text: "Paris."}
+      assert inspect(text) == ~s(#Sycophant.Message.Content.Text<"Paris.">)
+    end
+  end
+
   describe "Content.Image" do
     test "redacts base64 data" do
       img = %Sycophant.Message.Content.Image{data: "iVBORw0KGgo...", media_type: "image/png"}

@@ -1290,4 +1290,42 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
       assert OpenAIResponses.request_path(%Sycophant.Request{messages: []}) == "/responses"
     end
   end
+
+  describe "encode_request/1 - documents" do
+    test "encodes base64 document as input_file data URL" do
+      parts = [%Content.Document{data: "Ym9keQ==", media_type: "application/pdf", name: "r.pdf"}]
+      request = build_request([Message.user(parts)])
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+
+      [item] = payload["input"]
+
+      assert [
+               %{
+                 "type" => "input_file",
+                 "filename" => "r.pdf",
+                 "file_data" => "data:application/pdf;base64,Ym9keQ=="
+               }
+             ] = item["content"]
+    end
+
+    test "encodes url document as input_file with file_url and filename" do
+      parts = [%Content.Document{url: "https://x/r.pdf", name: "r.pdf"}]
+      request = build_request([Message.user(parts)])
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+
+      [item] = payload["input"]
+
+      assert [%{"type" => "input_file", "file_url" => "https://x/r.pdf", "filename" => "r.pdf"}] =
+               item["content"]
+    end
+
+    test "encodes a file_id document" do
+      parts = [%Content.Document{file_id: "file_123"}]
+      request = build_request([Message.user(parts)])
+      assert {:ok, payload} = OpenAIResponses.encode_request(request)
+
+      [item] = payload["input"]
+      assert [%{"type" => "input_file", "file_id" => "file_123"}] = item["content"]
+    end
+  end
 end

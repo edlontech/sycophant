@@ -209,6 +209,22 @@ defmodule Sycophant.WireProtocol.CopilotChatTest do
     end
   end
 
+  describe "encode_request/1 - documents" do
+    test "rejects any document content part" do
+      parts = [
+        %Sycophant.Message.Content.Document{
+          data: "Ym9keQ==",
+          media_type: "application/pdf",
+          name: "r.pdf"
+        }
+      ]
+
+      request = build_request([Message.user(parts)])
+      assert {:error, error} = CopilotChat.encode_request(request)
+      assert Exception.message(error) =~ "copilot_chat does not support document"
+    end
+  end
+
   defp build_request(messages) do
     %Request{
       messages: messages,

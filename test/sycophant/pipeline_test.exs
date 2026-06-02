@@ -454,6 +454,86 @@ defmodule Sycophant.PipelineTest do
     end
   end
 
+  describe "call/2 citations in context" do
+    test "attaches a cited Content.Text to the assistant message" do
+      model =
+        build_model(%{
+          id: "claude-haiku-4-5-20251001",
+          name: "Claude Haiku",
+          provider: :anthropic,
+          extra: %{wire: %{protocol: "anthropic_messages"}}
+        })
+
+      provider =
+        build_provider(%{
+          id: :anthropic,
+          name: "Anthropic",
+          base_url: "https://api.anthropic.com/v1",
+          env: ["ANTHROPIC_API_KEY"]
+        })
+
+      stub(LLMDB, :model, fn "anthropic:claude-haiku-4-5-20251001" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :anthropic -> {:ok, provider} end)
+
+      stub(Sycophant.Transport, :call, fn _payload, _opts ->
+        {:ok,
+         %{
+           "type" => "message",
+           "role" => "assistant",
+           "model" => "claude-haiku-4-5-20251001",
+           "stop_reason" => "end_turn",
+           "content" => [
+             %{
+               "type" => "text",
+               "text" => "The capital is Paris.",
+               "citations" => [
+                 %{
+                   "type" => "page_location",
+                   "cited_text" => "Paris is the capital",
+                   "document_index" => 0,
+                   "start_page_number" => 1,
+                   "end_page_number" => 2
+                 }
+               ]
+             }
+           ],
+           "usage" => %{"input_tokens" => 10, "output_tokens" => 5}
+         }}
+      end)
+
+      opts = [
+        model: "anthropic:claude-haiku-4-5-20251001",
+        credentials: %{api_key: "sk-ant-test"}
+      ]
+
+      assert {:ok, response} = Pipeline.call([Message.user("Capital of France?")], opts)
+
+      assert response.text == "The capital is Paris."
+      assert [%Sycophant.Citation{type: :page_location}] = response.citations
+
+      assistant_msg = List.last(response.context.messages)
+      assert assistant_msg.role == :assistant
+
+      assert [
+               %Sycophant.Message.Content.Text{
+                 text: "The capital is Paris.",
+                 citations: [
+                   %Sycophant.Citation{type: :page_location, start_index: 1, end_index: 2}
+                 ]
+               }
+             ] = assistant_msg.content
+    end
+
+    test "non-cited responses keep plain-string assistant content" do
+      stub_happy_path()
+
+      assert {:ok, %Response{context: context}} =
+               Pipeline.call([Message.user("Hi")], default_opts())
+
+      assert List.last(context.messages).content == "Hello!"
+    end
+  end
+
   describe "call/2 tool auto-execution" do
     test "auto-executes tools with :function and loops until text response" do
       model = build_model()

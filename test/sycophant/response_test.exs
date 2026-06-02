@@ -94,6 +94,40 @@ defmodule Sycophant.ResponseTest do
     end
   end
 
+  describe "citations field" do
+    test "defaults to empty list" do
+      assert %Sycophant.Response{citations: []} =
+               %Sycophant.Response{context: %Sycophant.Context{messages: []}}
+    end
+
+    test "round-trips citations through to_map/from_map" do
+      original = %Sycophant.Response{
+        text: "Paris.",
+        citations: [
+          %Sycophant.Citation{type: :page_location, unit: :page, start_index: 1, end_index: 2}
+        ],
+        context: %Sycophant.Context{messages: []}
+      }
+
+      restored =
+        original
+        |> Sycophant.Serializable.to_map()
+        |> Sycophant.Response.from_map()
+
+      assert [%Sycophant.Citation{type: :page_location, start_index: 1}] = restored.citations
+    end
+
+    test "to_map drops empty citations (compact)" do
+      map =
+        Sycophant.Serializable.to_map(%Sycophant.Response{
+          text: "hi",
+          context: %Sycophant.Context{messages: []}
+        })
+
+      refute Map.has_key?(map, "citations")
+    end
+  end
+
   describe "context carries config for continuation" do
     test "preserves model and params" do
       params = %{temperature: 0.7}

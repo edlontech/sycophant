@@ -24,6 +24,7 @@ defmodule Sycophant.WireProtocol.CopilotChat do
   @behaviour Sycophant.WireProtocol
 
   alias Sycophant.Context
+  alias Sycophant.Error.Invalid.InvalidParams
   alias Sycophant.Error.Provider.ResponseInvalid
   alias Sycophant.Message
   alias Sycophant.Message.Content
@@ -371,56 +372,81 @@ defmodule Sycophant.WireProtocol.CopilotChat do
 
   # --- Message Encoding ---
 
-  defp encode_messages(messages) do
-    {:ok, Enum.map(messages, &encode_message/1)}
+  defp encode_messages(messages), do: reduce_ok(messages, &encode_message/1)
+
+  defp reduce_ok(items, fun) do
+    items
+    |> Enum.reduce_while({:ok, []}, fn item, {:ok, acc} ->
+      case fun.(item) do
+        {:ok, encoded} -> {:cont, {:ok, [encoded | acc]}}
+        {:error, _} = err -> {:halt, err}
+      end
+    end)
+    |> case do
+      {:ok, list} -> {:ok, Enum.reverse(list)}
+      {:error, _} = err -> err
+    end
   end
 
   defp encode_message(%Message{role: :tool_result, content: content, tool_call_id: id}) do
-    %{"role" => "tool", "tool_call_id" => id, "content" => to_string(content)}
+    {:ok, %{"role" => "tool", "tool_call_id" => id, "content" => to_string(content)}}
   end
 
   defp encode_message(%Message{role: role, content: content, tool_calls: tool_calls})
        when is_list(tool_calls) and tool_calls != [] do
-    %{
-      "role" => encode_role(role),
-      "content" => encode_content(content),
-      "tool_calls" => Enum.map(tool_calls, &encode_tool_call/1)
-    }
+    with {:ok, encoded} <- encode_content(content) do
+      {:ok,
+       %{
+         "role" => encode_role(role),
+         "content" => encoded,
+         "tool_calls" => Enum.map(tool_calls, &encode_tool_call/1)
+       }}
+    end
   end
 
   defp encode_message(%Message{role: role, content: content}) do
-    %{"role" => encode_role(role), "content" => encode_content(content)}
+    with {:ok, encoded} <- encode_content(content) do
+      {:ok, %{"role" => encode_role(role), "content" => encoded}}
+    end
   end
 
   defp encode_role(:user), do: "user"
   defp encode_role(:assistant), do: "assistant"
   defp encode_role(:system), do: "system"
 
-  defp encode_content(content) when is_binary(content), do: content
-  defp encode_content(nil), do: nil
+  defp encode_content(content) when is_binary(content), do: {:ok, content}
+  defp encode_content(nil), do: {:ok, nil}
 
   defp encode_content(parts) when is_list(parts) do
-    case parts |> Enum.map(&encode_content_part/1) |> Enum.reject(&is_nil/1) do
-      [] -> nil
-      encoded -> encoded
+    with {:ok, encoded} <- reduce_ok(parts, &encode_content_part/1) do
+      case Enum.reject(encoded, &is_nil/1) do
+        [] -> {:ok, nil}
+        encoded -> {:ok, encoded}
+      end
     end
   end
 
   defp encode_content_part(%Content.Text{text: text}) do
-    %{"type" => "text", "text" => text}
+    {:ok, %{"type" => "text", "text" => text}}
   end
 
   defp encode_content_part(%Content.Image{url: url}) when is_binary(url) do
-    %{"type" => "image_url", "image_url" => %{"url" => url}}
+    {:ok, %{"type" => "image_url", "image_url" => %{"url" => url}}}
   end
 
   defp encode_content_part(%Content.Image{data: data, media_type: media_type})
        when is_binary(data) do
-    %{"type" => "image_url", "image_url" => %{"url" => "data:#{media_type};base64,#{data}"}}
+    {:ok,
+     %{"type" => "image_url", "image_url" => %{"url" => "data:#{media_type};base64,#{data}"}}}
   end
 
-  defp encode_content_part(%Content.Thinking{}), do: nil
-  defp encode_content_part(%Content.RedactedThinking{}), do: nil
+  defp encode_content_part(%Content.Thinking{}), do: {:ok, nil}
+  defp encode_content_part(%Content.RedactedThinking{}), do: {:ok, nil}
+
+  defp encode_content_part(%Content.Document{}) do
+    {:error,
+     InvalidParams.exception(errors: ["copilot_chat does not support document content parts"])}
+  end
 
   defp encode_tool_call(%ToolCall{id: id, name: name, arguments: args}) do
     %{

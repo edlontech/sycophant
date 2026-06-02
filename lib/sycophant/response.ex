@@ -58,6 +58,7 @@ defmodule Sycophant.Response do
     :finish_reason,
     :context,
     tool_calls: [],
+    citations: [],
     metadata: %{}
   ]
 
@@ -65,6 +66,7 @@ defmodule Sycophant.Response do
           text: String.t() | nil,
           object: map() | nil,
           tool_calls: [ToolCall.t()],
+          citations: [Sycophant.Citation.t()],
           usage: Usage.t() | nil,
           model: String.t() | nil,
           raw: map() | nil,
@@ -105,6 +107,7 @@ defmodule Sycophant.Response do
       text: data["text"],
       object: data["object"],
       tool_calls: decode_list(data["tool_calls"]),
+      citations: decode_list(data["citations"]),
       usage: decode_optional(data["usage"]),
       model: data["model"],
       raw: data["raw"],
@@ -154,6 +157,7 @@ defimpl Sycophant.Serializable, for: Sycophant.Response do
       "text" => resp.text,
       "object" => resp.object,
       "tool_calls" => encode_list(resp.tool_calls),
+      "citations" => encode_list(resp.citations),
       "usage" => maybe_to_map(resp.usage),
       "model" => resp.model,
       "raw" => resp.raw,
