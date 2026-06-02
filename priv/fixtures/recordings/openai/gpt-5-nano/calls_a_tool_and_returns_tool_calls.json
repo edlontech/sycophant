@@ -2,14 +2,14 @@
   "metadata": {
     "model": "gpt-5-nano",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T11:57:18.330690Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:19.638290Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
       "input": [
         {
-          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "content": "What's the weather in Paris? You must call the get_weather tool with city=\"Paris\" to answer.",
           "role": "user"
         }
       ],
@@ -57,6 +57,7 @@
         },
         "verbosity": "medium"
       },
+      "moderation": null,
       "top_logprobs": 0,
       "previous_response_id": null,
       "tool_choice": "auto",
@@ -82,7 +83,7 @@
           "type": "function"
         }
       ],
-      "id": "resp_0669ec2c40f4ff420069df7d1c821c8190bd4407503221c3dd",
+      "id": "resp_0b365d1a647b6687006a1ec2c5ca588191963d48b45cf7bbf6",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -90,29 +91,29 @@
       "error": null,
       "model": "gpt-5-nano-2025-08-07",
       "usage": {
-        "input_tokens": 55,
+        "input_tokens": 64,
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 152,
+        "output_tokens": 207,
         "output_tokens_details": {
           "reasoning_tokens": 128
         },
-        "total_tokens": 207
+        "total_tokens": 271
       },
       "safety_identifier": null,
       "object": "response",
       "parallel_tool_calls": true,
       "output": [
         {
-          "id": "rs_0669ec2c40f4ff420069df7d1cc09081909defb055000a5665",
+          "id": "rs_0b365d1a647b6687006a1ec2c617048191a39de487d06d25d6",
           "summary": [],
           "type": "reasoning"
         },
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "call_oP2jBgvT7xc25QO0svfpgC3o",
-          "id": "fc_0669ec2c40f4ff420069df7d1ddf588190a7e5e6edfee0014f",
+          "call_id": "call_7DN2G6YR2r1NtNqE7eJHMOJ2",
+          "id": "fc_0b365d1a647b6687006a1ec2c7533c8191baa212faf094cb56",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -123,25 +124,26 @@
       "presence_penalty": 0.0,
       "incomplete_details": null,
       "reasoning": {
+        "context": "current_turn",
         "effort": "medium",
         "summary": null
       },
-      "completed_at": 1776254238,
+      "completed_at": 1780400839,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
         "payer": "developer"
       },
-      "prompt_cache_retention": null,
+      "prompt_cache_retention": "in_memory",
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776254236,
+      "created_at": 1780400837,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 11:57:18 GMT"
+        "Tue, 02 Jun 2026 11:47:19 GMT"
       ],
       [
         "content-type",
@@ -149,11 +151,55 @@
       ],
       [
         "content-length",
-        "1994"
+        "2054"
+      ],
+      [
+        "cf-ray",
+        "a05638f02a43d1c5-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
       ],
       [
         "server",
         "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Request-ID"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-processing-ms",
+        "1817"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -180,44 +226,12 @@
         "0s"
       ],
       [
-        "openai-version",
-        "2020-10-01"
-      ],
-      [
-        "openai-organization",
-        "[REDACTED]"
-      ],
-      [
-        "openai-project",
-        "[REDACTED]"
-      ],
-      [
         "x-request-id",
-        "req_fe1855d6009c40cba3fdb2cf2966fbc3"
-      ],
-      [
-        "openai-processing-ms",
-        "1768"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_46c544bb977e48e0b9e064faf0decf78"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9ecac58fcbd2d935-PRG"
       ],
       [
         "alt-svc",

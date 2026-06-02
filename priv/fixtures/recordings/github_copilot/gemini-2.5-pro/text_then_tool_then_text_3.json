@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gemini-2.5-pro",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-05-05T12:11:08.061395Z",
-    "sycophant_version": "0.4.1"
+    "recorded_at": "2026-06-02T11:47:39.095197Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -14,19 +14,6 @@
         },
         {
           "content": "Hi! I'm planning a trip to London.",
-          "role": "user"
-        },
-        {
-          "content": [
-            {
-              "text": "London is a great city! Would you like to know the current weather to help you pack?",
-              "type": "text"
-            }
-          ],
-          "role": "assistant"
-        },
-        {
-          "content": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer.",
           "role": "user"
         },
         {
@@ -43,7 +30,7 @@
                 "arguments": "{\"city\":\"London\"}",
                 "name": "get_weather"
               },
-              "id": "call_MHxWNjJMdGNXY1VISFR3OGJ6V2E",
+              "id": "call_MHxsTVY0V3g3Nm1aYk1iSHU0U3A",
               "type": "function"
             }
           ]
@@ -51,7 +38,15 @@
         {
           "content": "London: 18C, cloudy",
           "role": "tool",
-          "tool_call_id": "call_MHxWNjJMdGNXY1VISFR3OGJ6V2E"
+          "tool_call_id": "call_MHxsTVY0V3g3Nm1aYk1iSHU0U3A"
+        },
+        {
+          "content": "OK. In London, it's currently 18°C and cloudy.",
+          "role": "assistant"
+        },
+        {
+          "content": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer.",
+          "role": "user"
         }
       ],
       "model": "gemini-2.5-pro",
@@ -111,25 +106,67 @@
     "body": {
       "choices": [
         {
-          "finish_reason": "stop",
+          "finish_reason": "tool_calls",
           "index": 0,
           "message": {
-            "content": "Currently, it's 18°C and cloudy in London. \n",
-            "role": "assistant"
+            "content": "",
+            "reasoning_opaque": "We2nO8NObuplRjk55lM2Po3zJnFi5eYNDyE3gpMsCyQgjBs7AuqfbXh7vdh17cOTA5K8T+ifnR2yYVElyYcfAOeI3liZ9lkL3RJMbO2wgyx1axkaNJmT7F7XdTEaSTjc4+6xQQPKP4j+CKw6iaUuQvqJME3P8SFmkMgE1Xq0QGeb33J78M6ODkIMORBABJ6mZkjTYTr7TIZHExCIpi7cIBaZJeNpad3QK6bbagRckhWRC8PLIqzFRd9ZGjz94uE1YK29vaNOqZkDHUKt22aBck5z9UsbKHhdDLcubvXOX2aEo4w0ri2z5XvpLEdOXmsdVmGB6etYyj7qbIiaKfJ268yk6MwF/amtyhwFjKNB5aIN3hTRlujHT9xQVxyYuxZp2QEia6m9MVy/zS6JJJO6DiogUPgTlJSOo2f1m8i+HiwQO/uUS1f+ZbEzIQq+b/yZwf1PUnap4ljCKIk5HzK5I3SH1nxR0S8HhlKA7LqvE6J75JP4CjMrtxWOcx5acFZG1rgMdElOWfNdjscABN48kkj9J4LyezZoGGy7EjzenmuQ0hE8iJyKWuBJ2JLCFXK/UnyiLUcH3foJKB+xbwTEYP/a1zHIoFUYd/z6o2QCQBHALKzh2BFBayVq4qi6aVXUJpOilpohUJIHCEy6J43X4VWnCknotH3rqw5Cjl3MnFdQA4RkTcbEE0F5NCK/ds+Pj/ttFjuON2IZod9qd8MCSj/aR2H4qAu46GyV1dWC3a+66CSZ5aRyylIwMZoTp7rdag2352AufAfFE3fTlWfcarT17SaW3BfE0iByp+5mQLFNt/K44V/VENrLMFps2dPUvZBmuqJ6kDU1CKCGqZh7y1Xjt5g3Y0o8oySpaWIUqu1bV4B3c8VK8HxNOxF/1fi78MXRIXEkAfD2qlnjeYmLVzagJkFOduV5O+/EsLeYRwe2W5nk8dBeioxU61L0KyLQ/QzuzXSwAY7NWI4NnslsFSSX56lmKBvMvnOyvJtoX9uanLrRlSLaHyEACFhLD6Ua6iYrAf5VPA6eLGcdgRUs+s+QWV0KEOzLd0HXz/QRCOGNr+1b2Rh4g2EeJ4vGR2wm/rD7YELlAsn6jNOhxHUsOnTla/azOqa6yFUxktWXM+3ax/2/SmDwoBU4Ah5cc7XCDGe74oTnu8z/fiUCZ24YXiDbkrkOjI1fa2QgCmN2yi9hESZ8yjaAcC8QBcJiRHDThC0RtCrDah1H3t2HEguaGBqE4GPHK0QBSAyVOee+8QVu8PQbAdWvxKoaNIzE38Lv3zfyN9iyAMv8qeVDxiFTyoCIDgBI1EbA4gbJZn2JKuy9JyijINBoWVbE+Sm39Wr522CkJxZql+DUXQ9wHrKN6VRR1JtNtwwuZarWizSeRvU0mBsC/JlxQwnUCn0TGKFKgFKyDU+rYV4pjzQ2ezfoU27ii7NrqPN4ki8zcjJMIGSbMNb5IoAjkqTLp958IGikfGr9tWHrcA4BqSUJA/wjm+tZ8oSFLgy29mGSEpgBypjejwvV6xgFJ6wtGuKYKsqfYYXoLGCnG9uK8M/HQbO7RG63mirgNVX8E8rumzraOTrp8TCxIvPs+RnBohG5p+Icdl3Aejmc/Br5hXYJMCr4Cg/LkBhwi+SQj9YO6EX311Id/QI87d0I",
+            "reasoning_text": "Okay, so I've just processed your request. My internal thought process went something like this:\n\nFirst, I identified that you're asking for information about the **current weather in London**. That's a pretty straightforward query.\n\nThen, I looked at the tools I have available and saw that the `get_weather(city)` function is precisely what I need for this kind of task. It's designed to fetch weather data for a given city.\n\nNext, I extracted the specific parameter you provided, which is clearly **`city=\"London\"`**. No ambiguity there.\n\nBased on that, the logical next step is to **call the `get_weather` tool with `city='London'`**. That's the direct action to get the data you're after.\n\nFinally, and this is an important part for me, I noticed your explicit instruction: \"You must call the get_weather tool...\". Because of that directive, I've made the call, and now I need to communicate that to you. So, after I execute the tool call, I'll tell you that I'm doing it. And once the `get_weather` function returns the result, I'll then present that information to you. This way, I'm not only fulfilling your request for the weather but also acknowledging and acting upon your specific instruction about *how* to perform the action.",
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "function": {
+                  "arguments": "{\"city\":\"London\"}",
+                  "name": "get_weather"
+                },
+                "id": "call_MHxUTzV3SVZHNGg0S0tjdEZBQ20",
+                "index": 0,
+                "type": "function"
+              }
+            ]
           }
         }
       ],
-      "created": 1777983067,
-      "id": "W975aYalFIWzl7oP8vL6gA0",
+      "copilot_usage": {
+        "token_details": [
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 125000000000,
+            "token_count": 102,
+            "token_type": "input"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 12500000000,
+            "token_count": 0,
+            "token_type": "cache_read"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 0,
+            "token_count": 0,
+            "token_type": "cache_write"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 1000000000000,
+            "token_count": 5,
+            "token_type": "output"
+          }
+        ],
+        "total_nano_aiu": 17750000
+      },
+      "created": 1780400858,
+      "id": "18IeatvPF8ail7oP0dKguQI",
       "model": "gemini-2.5-pro",
       "usage": {
-        "completion_tokens": 17,
-        "prompt_tokens": 85,
+        "completion_tokens": 5,
+        "prompt_tokens": 102,
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
-        "reasoning_tokens": 0,
-        "total_tokens": 102
+        "reasoning_tokens": 141,
+        "total_tokens": 248
       }
     },
     "headers": [
@@ -150,16 +187,16 @@
         "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
       ],
       [
+        "x-copilot-service-request-id",
+        "40b8ae26-e587-46d7-b468-44a121ff74e1"
+      ],
+      [
         "x-request-id",
-        "00000-93d40fc2-660c-49c9-b319-451e53b75cff"
+        "00000-4dc77612-3c53-4990-b80a-ae81ce69ccd3"
       ],
       [
         "date",
-        "Tue, 05 May 2026 12:11:07 GMT"
-      ],
-      [
-        "content-length",
-        "352"
+        "Tue, 02 Jun 2026 11:47:38 GMT"
       ],
       [
         "x-github-backend",
@@ -167,7 +204,7 @@
       ],
       [
         "x-github-request-id",
-        "6B3F:29C906:5653729:5F5E0A8:69F9DE5A"
+        "B844:373D99:195CEDA:1ACCF46:6A1EC2D7"
       ]
     ],
     "status": 200

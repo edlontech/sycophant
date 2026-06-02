@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-04-15T10:59:05.918415Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:26.585716Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -11,7 +11,7 @@
         {
           "content": [
             {
-              "text": "What's the weather in Paris? Use the get_weather tool."
+              "text": "What's the weather in Paris? You must call the get_weather tool with city=\"Paris\" to answer."
             }
           ],
           "role": "user"
@@ -24,7 +24,7 @@
                   "city": "Paris"
                 },
                 "name": "get_weather",
-                "toolUseId": "tooluse_j8Jw4QskLBhsY4EIHIyD3Q"
+                "toolUseId": "tooluse_kEHMUVJtdggNwnhLPl6n0h"
               }
             }
           ],
@@ -39,7 +39,7 @@
                     "text": "Paris: 22C, sunny"
                   }
                 ],
-                "toolUseId": "tooluse_j8Jw4QskLBhsY4EIHIyD3Q"
+                "toolUseId": "tooluse_kEHMUVJtdggNwnhLPl6n0h"
               }
             }
           ],
@@ -82,7 +82,7 @@
       ],
       [
         "x-amz-date",
-        "20260415T105903Z"
+        "20260602T114724Z"
       ],
       [
         "content-type",
@@ -95,13 +95,13 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 2048
+        "latencyMs": 1810
       },
       "output": {
         "message": {
           "content": [
             {
-              "text": "The weather in Paris is currently 22°C and sunny."
+              "text": "The current weather in Paris is 22°C and sunny."
             }
           ],
           "role": "assistant"
@@ -113,16 +113,16 @@
         "cacheReadInputTokens": 0,
         "cacheWriteInputTokenCount": 0,
         "cacheWriteInputTokens": 0,
-        "inputTokens": 656,
+        "inputTokens": 665,
         "outputTokens": 16,
         "serverToolUsage": {},
-        "totalTokens": 672
+        "totalTokens": 681
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:05 GMT"
+        "Tue, 02 Jun 2026 11:47:26 GMT"
       ],
       [
         "content-type",
@@ -130,11 +130,11 @@
       ],
       [
         "content-length",
-        "365"
+        "363"
       ],
       [
         "x-amzn-requestid",
-        "d9c4c66f-89ec-46ef-b301-67de89f38d4b"
+        "bfb5f43c-93ee-456b-8ee2-c08ffd4c8973"
       ]
     ],
     "status": 200

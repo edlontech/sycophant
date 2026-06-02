@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:07.187069Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:32.828062Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -52,11 +52,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250747,
-      "created_at": 1776250743,
+      "completed_at": 1780400852,
+      "created_at": 1780400844,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250743-dddNQvpPeZ0a7xR3h2oq",
+      "id": "gen-1780400844-DGyBdvCeC5nHOUdR8mmp",
       "incomplete_details": null,
       "instructions": "You are a helpful assistant. Be concise.",
       "max_output_tokens": null,
@@ -68,23 +68,29 @@
         {
           "content": [
             {
-              "text": "The user mentions planning a trip to London. They might want to know the weather in London. I can offer to check the weather for them. Let's use the tool.",
+              "text": "\nWe are given a user message: \"Hi! I'm planning a trip to London.\"\n Since the user is planning a trip to London, they might be interested in the weather in London to help with their planning.\n We can use the `get_weather` function to get the current weather in London.\n The function requires the parameter \"city\", which we will set to \"London\".\n",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_3ctrgg0p8vt",
+          "id": "rs_tmp_jo09qrv5u1",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
         },
         {
-          "arguments": "{\"city\": \"London\"}",
-          "call_id": "ec896562dcc14297a5247e4eb8f062e7",
-          "id": "fc_tmp_vdbgtsc3m0g",
-          "name": "get_weather",
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "I see you're planning a trip to London! Would you like me to check the current weather there to help with your planning? \n\nLet me know if you need:\n- Weather information\n- Packing suggestions\n- Or other trip planning help!\n\nI can check the weather for you right now if you'd like. Just say the word! 🌤️",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_tmp_j1rd4j4vcwd",
+          "role": "assistant",
           "status": "completed",
-          "type": "function_call"
+          "type": "message"
         }
       ],
       "parallel_tool_calls": true,
@@ -127,28 +133,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 4.321e-4,
+        "cost": 5.677e-4,
         "cost_details": {
-          "upstream_inference_cost": 4.321e-4,
-          "upstream_inference_input_cost": 2.296e-4,
-          "upstream_inference_output_cost": 2.025e-4
+          "upstream_inference_cost": 5.677e-4,
+          "upstream_inference_input_cost": 1.827e-4,
+          "upstream_inference_output_cost": 3.85e-4
         },
-        "input_tokens": 328,
+        "input_tokens": 261,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 81,
+        "output_tokens": 154,
         "output_tokens_details": {
-          "reasoning_tokens": 35
+          "reasoning_tokens": 80
         },
-        "total_tokens": 409
+        "total_tokens": 415
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:04 GMT"
+        "Tue, 02 Jun 2026 11:47:26 GMT"
       ],
       [
         "content-type",
@@ -156,7 +162,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=1660"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=1824"
       ],
       [
         "access-control-allow-origin",
@@ -164,7 +170,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250743-dddNQvpPeZ0a7xR3h2oq"
+        "gen-1780400844-DGyBdvCeC5nHOUdR8mmp"
       ],
       [
         "access-control-expose-headers",
@@ -188,7 +194,7 @@
       ],
       [
         "cf-ray",
-        "9eca70484de4c1bb-PRG"
+        "a05639211f24876f-PRG"
       ]
     ],
     "status": 200

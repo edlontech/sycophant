@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gemini-2.5-pro",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-05-05T12:11:02.531366Z",
-    "sycophant_version": "0.4.1"
+    "recorded_at": "2026-06-02T11:47:33.880358Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -74,27 +74,67 @@
     "body": {
       "choices": [
         {
-          "finish_reason": "stop",
+          "finish_reason": "tool_calls",
           "index": 0,
           "message": {
-            "content": "London is a great city! Would you like to know the current weather to help you pack?",
-            "reasoning_opaque": "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",
-            "reasoning_text": "Okay, here's how I'd approach this, thinking as a system with expert-level understanding:\n\n\"Right, the user is planning a trip to London. Okay, *London*... that's the key.  I know I have a `get_weather` function. Let's see... the intent here is *travel planning*. Hmm, I bet they're wondering about the weather. That's a reasonable assumption, it’s a typical consideration when planning a trip. Packing, what to wear... it all hinges on the forecast.\n\nSo, I'll leverage that `get_weather` tool. The best response here would be proactive and helpful. I'll acknowledge London, of course – it’s a great starting point for a chat. Then, directly offer the weather information. It’s relevant, and it directly addresses a potential need. Let's build a response that's both friendly and provides value.\"\n",
-            "role": "assistant"
+            "content": "",
+            "reasoning_opaque": "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",
+            "reasoning_text": "Ah, so I'm processing the user's input, and I notice they're talking about planning a \"trip\" to \"London.\" While they haven't *directly* asked for the weather, it's a very common and practical concern when someone is considering travel. I have this `get_weather` tool at my disposal, and it takes a `city` parameter. This seems like a perfect match for what I can offer.\n\nNow, looking at the `get_weather` tool, it needs a `city`. The user was quite clear about this, stating \"London.\" So, I have exactly what I need for that parameter.\n\nWith the tool identified and the necessary parameter in hand, my next logical step is to execute the `get_weather` function, passing in `city='London'`.\n\nThe reasoning behind this is straightforward: the user is planning a trip, and understanding the weather conditions in their destination is incredibly useful. By proactively fetching this information, I'm being helpful and anticipating their needs. Since their request is quite direct and I have all the information to make a relevant tool call, there's no need to ask any clarifying questions. A direct tool call is the most efficient way to provide value here.",
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "function": {
+                  "arguments": "{\"city\":\"London\"}",
+                  "name": "get_weather"
+                },
+                "id": "call_MHxsTVY0V3g3Nm1aYk1iSHU0U3A",
+                "index": 0,
+                "type": "function"
+              }
+            ]
           }
         }
       ],
-      "created": 1777983062,
-      "id": "Ud75acvDMJaVl7oPxuLZoA4",
+      "copilot_usage": {
+        "token_details": [
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 125000000000,
+            "token_count": 39,
+            "token_type": "input"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 12500000000,
+            "token_count": 0,
+            "token_type": "cache_read"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 0,
+            "token_count": 0,
+            "token_type": "cache_write"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 1000000000000,
+            "token_count": 5,
+            "token_type": "output"
+          }
+        ],
+        "total_nano_aiu": 9875000
+      },
+      "created": 1780400853,
+      "id": "z8IeavecHdGlsbwP2fi-4Q8",
       "model": "gemini-2.5-pro",
       "usage": {
-        "completion_tokens": 19,
+        "completion_tokens": 5,
         "prompt_tokens": 39,
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
-        "reasoning_tokens": 215,
-        "total_tokens": 273
+        "reasoning_tokens": 352,
+        "total_tokens": 396
       }
     },
     "headers": [
@@ -115,12 +155,16 @@
         "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
       ],
       [
+        "x-copilot-service-request-id",
+        "47613190-ffe6-4b11-b667-74d4829e21b5"
+      ],
+      [
         "x-request-id",
-        "00000-6af90651-47ca-4b3d-8476-b4e24e1cfc05"
+        "00000-4d6f4a30-3e75-4d3a-9fac-ad0d8583934d"
       ],
       [
         "date",
-        "Tue, 05 May 2026 12:11:02 GMT"
+        "Tue, 02 Jun 2026 11:47:33 GMT"
       ],
       [
         "x-github-backend",
@@ -128,7 +172,7 @@
       ],
       [
         "x-github-request-id",
-        "6B3F:29C906:564FA8A:5F59FCA:69F9DE51"
+        "B844:373D99:1959340:1AC91B9:6A1EC2CE"
       ]
     ],
     "status": 200

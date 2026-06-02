@@ -2,15 +2,15 @@
   "metadata": {
     "model": "gemini-2.5-pro",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-05-05T12:11:04.990626Z",
+    "recorded_at": "2026-06-02T11:48:28.628538Z",
     "streaming": true,
-    "sycophant_version": "0.4.1"
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
       "messages": [
         {
-          "content": "Say 'hello' and nothing else.",
+          "content": "Say 'streaming works' and stop.",
           "role": "user"
         }
       ],
@@ -50,7 +50,7 @@
     "url": "https://api.individual.githubcopilot.com/chat/completions"
   },
   "response": {
-    "body": "data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":null,\"role\":\"assistant\",\"reasoning_text\":\"**Comprehending the Request**\\n\\nOkay, so I've parsed the user's explicit directive: I need to generate the word \\\"hello.\\\" The core constraint is clear; I must adhere precisely and only to this singular output. I've formulated the response, and now I'm prepared to execute.\\n\\n\\n\"}}],\"created\":1777983064,\"id\":\"Vt75afvwCu7ll7oPi_mT2Ag\",\"usage\":{\"completion_tokens\":0,\"prompt_tokens\":0,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":0,\"reasoning_tokens\":0},\"model\":\"gemini-2.5-pro\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":null,\"role\":\"assistant\",\"reasoning_text\":\"**Verifying the Logic**\\n\\nI'm now carefully running through the checklist I created. Each step confirms that the solitary output of \\\"hello\\\" adheres to the user's tight constraints. The process is straightforward, and the output aligns perfectly. Ready for the final confirmation.\\n\\n\\n\"}}],\"created\":1777983064,\"id\":\"Vt75afvwCu7ll7oPi_mT2Ag\",\"usage\":{\"completion_tokens\":0,\"prompt_tokens\":0,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":0,\"reasoning_tokens\":0},\"model\":\"gemini-2.5-pro\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"delta\":{\"content\":\"hello\",\"role\":\"assistant\"}}],\"created\":1777983064,\"id\":\"Vt75afvwCu7ll7oPi_mT2Ag\",\"usage\":{\"completion_tokens\":1,\"prompt_tokens\":8,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":109,\"reasoning_tokens\":100},\"model\":\"gemini-2.5-pro\"}\n\ndata: [DONE]\n\n",
+    "body": "data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":null,\"role\":\"assistant\",\"reasoning_text\":\"**Confirming request details**\\n\\nI've processed your directive. The core of my current thinking involves precisely identifying the user's request to state \\\"streaming works\\\" and then immediately ceasing all further output. I am analyzing the constraints to ensure exact adherence.\\n\\n\"}}],\"created\":1780400905,\"id\":\"B8MeasiXN-Wcl7oP17KMgA0\",\"usage\":{\"completion_tokens\":0,\"prompt_tokens\":0,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":0,\"reasoning_tokens\":0},\"model\":\"gemini-2.5-pro\",\"copilot_usage\":{\"token_details\":[{\"batch_size\":1000000,\"cost_per_batch\":125000000000,\"token_count\":0,\"token_type\":\"input\"},{\"batch_size\":1000000,\"cost_per_batch\":12500000000,\"token_count\":0,\"token_type\":\"cache_read\"},{\"batch_size\":1000000,\"cost_per_batch\":0,\"token_count\":0,\"token_type\":\"cache_write\"},{\"batch_size\":1000000,\"cost_per_batch\":1000000000000,\"token_count\":0,\"token_type\":\"output\"}],\"total_nano_aiu\":0}}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":null,\"role\":\"assistant\",\"reasoning_text\":\"**Finalizing output format**\\n\\nMy thoughts are now focused on precisely constructing the output. I am verifying that only the requested phrase, \\\"streaming works\\\", will be presented, with absolutely no additional characters or context to ensure strict compliance with the stopping condition.\\n\\n\"}}],\"created\":1780400907,\"id\":\"B8MeasiXN-Wcl7oP17KMgA0\",\"usage\":{\"completion_tokens\":0,\"prompt_tokens\":0,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":0,\"reasoning_tokens\":0},\"model\":\"gemini-2.5-pro\",\"copilot_usage\":{\"token_details\":[{\"batch_size\":1000000,\"cost_per_batch\":125000000000,\"token_count\":0,\"token_type\":\"input\"},{\"batch_size\":1000000,\"cost_per_batch\":12500000000,\"token_count\":0,\"token_type\":\"cache_read\"},{\"batch_size\":1000000,\"cost_per_batch\":0,\"token_count\":0,\"token_type\":\"cache_write\"},{\"batch_size\":1000000,\"cost_per_batch\":1000000000000,\"token_count\":0,\"token_type\":\"output\"}],\"total_nano_aiu\":0}}\n\ndata: {\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"delta\":{\"content\":\"streaming works\",\"role\":\"assistant\"}}],\"created\":1780400907,\"id\":\"B8MeasiXN-Wcl7oP17KMgA0\",\"usage\":{\"completion_tokens\":2,\"prompt_tokens\":8,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":215,\"reasoning_tokens\":205},\"model\":\"gemini-2.5-pro\",\"copilot_usage\":{\"token_details\":[{\"batch_size\":1000000,\"cost_per_batch\":125000000000,\"token_count\":8,\"token_type\":\"input\"},{\"batch_size\":1000000,\"cost_per_batch\":12500000000,\"token_count\":0,\"token_type\":\"cache_read\"},{\"batch_size\":1000000,\"cost_per_batch\":0,\"token_count\":0,\"token_type\":\"cache_write\"},{\"batch_size\":1000000,\"cost_per_batch\":1000000000000,\"token_count\":2,\"token_type\":\"output\"}],\"total_nano_aiu\":3000000}}\n\ndata: [DONE]\n\n",
     "headers": [
       [
         "cache-control",
@@ -73,12 +73,16 @@
         "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
       ],
       [
+        "x-copilot-service-request-id",
+        "fc507845-2990-4f1e-96f6-a154c0d96566"
+      ],
+      [
         "x-request-id",
-        "00000-c1785278-8404-48e1-95ed-0bccd8062c7a"
+        "00000-f9e72a54-de20-4cac-9bf3-3049088fc72b"
       ],
       [
         "date",
-        "Tue, 05 May 2026 12:11:04 GMT"
+        "Tue, 02 Jun 2026 11:48:25 GMT"
       ],
       [
         "x-github-backend",
@@ -86,7 +90,7 @@
       ],
       [
         "x-github-request-id",
-        "6B3F:29C906:56515F9:5F5BD34:69F9DE55"
+        "B844:373D99:19730D3:1AE47DF:6A1EC307"
       ]
     ],
     "status": 200

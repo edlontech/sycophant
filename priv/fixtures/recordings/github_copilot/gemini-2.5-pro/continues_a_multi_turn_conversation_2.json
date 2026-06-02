@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gemini-2.5-pro",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-05-05T12:11:10.366919Z",
-    "sycophant_version": "0.4.1"
+    "recorded_at": "2026-06-02T11:47:54.640864Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "Got it. I'll remember that your name is Sycophant for the rest of our conversation.",
+              "text": "Got it. I'll remember your name is Sycophant.",
               "type": "text"
             }
           ],
@@ -65,13 +65,42 @@
           "index": 0,
           "message": {
             "content": "Your name is Sycophant.",
-            "reasoning_text": "Okay, here's how I'm processing this. First, I need to break down the user's input. They've essentially given me a two-part instruction. The first part, \"My name is Sycophant. Remember it,\" is a key piece of information. They are *telling* me their name, which I need to store. The \"Remember it\" part? That's the important one - a direct command, underscoring the significance of the name.\n\nNext, the second part, \"What is my name?\" is crucial. It's a test. They're explicitly asking me to recall the name they just provided. This is how they're gauging my ability to, well, *remember*.\n\nSo, my response has to be accurate above all else. The answer, at its heart, *must* be \"Sycophant\". But, a simple one-word answer would be...well, robotic. I want to provide a helpful, natural response. I can phrase it in a way that shows I understand the command and the request. Something like \"Your name is Sycophant,\" or \"You told me your name is Sycophant\" or, even better, \"Your name is Sycophant, as you just told me.\" Those options would demonstrate understanding and avoid sounding overly simplistic.\n\nFinally, an interesting detail. The name itself: \"Sycophant\". I'll file that away. It's... a specific choice. I won't comment on it unless prompted. For now, it's just a piece of information to be remembered.\n",
+            "reasoning_text": "Alright, let's break down how I arrived at that response. My internal process, as you've requested to understand it, went something like this:\n\nFirst, I registered your direct question: \"What is my name?\". This is a straightforward information retrieval task.\n\nMy immediate next step, given the conversational context, was to look back at our immediate prior interaction. In the previous turn, you explicitly stated, \"My name is Sycophant. Remember it.\" The imperative \"Remember it\" is a clear instruction, emphasizing the importance of retaining this piece of information.\n\nFrom that prior statement, the core data point to extract was, of course, the name itself: \"Sycophant.\"\n\nNow, the request was to answer your question, and you also asked me to remember it. Therefore, the most accurate and helpful response, adhering to both your query and your instruction, was to confirm that I *had* indeed remembered and processed the information. I needed to state the name back to you directly and with confidence, demonstrating that I had successfully fulfilled your request.\n\nSo, the logical conclusion, the synthesized output of this brief internal deliberation, was to construct the simplest, most direct, and affirmative answer: \"Your name is Sycophant.\" This confirms that I've understood your question and, more importantly, have successfully retained the specific piece of information you provided and instructed me to remember.",
             "role": "assistant"
           }
         }
       ],
-      "created": 1777983070,
-      "id": "WN75aY_6AtHWsbwPibbX0AQ",
+      "copilot_usage": {
+        "token_details": [
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 125000000000,
+            "token_count": 16,
+            "token_type": "input"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 12500000000,
+            "token_count": 0,
+            "token_type": "cache_read"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 0,
+            "token_count": 0,
+            "token_type": "cache_write"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 1000000000000,
+            "token_count": 8,
+            "token_type": "output"
+          }
+        ],
+        "total_nano_aiu": 10000000
+      },
+      "created": 1780400874,
+      "id": "5sIeatjMHZ2fl7oP0fvHmAQ",
       "model": "gemini-2.5-pro",
       "usage": {
         "completion_tokens": 8,
@@ -79,8 +108,8 @@
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
-        "reasoning_tokens": 353,
-        "total_tokens": 377
+        "reasoning_tokens": 126,
+        "total_tokens": 150
       }
     },
     "headers": [
@@ -101,16 +130,16 @@
         "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
       ],
       [
+        "x-copilot-service-request-id",
+        "8e9566bb-ce06-4c64-b20f-3aeaa55e7a9a"
+      ],
+      [
         "x-request-id",
-        "00000-b0afa3e9-cebc-43ec-b9c7-66caa9b50db6"
+        "00000-0b5b8b31-1a8e-4504-a281-086ce6b29ebc"
       ],
       [
         "date",
-        "Tue, 05 May 2026 12:11:10 GMT"
-      ],
-      [
-        "content-length",
-        "1681"
+        "Tue, 02 Jun 2026 11:47:54 GMT"
       ],
       [
         "x-github-backend",
@@ -118,7 +147,7 @@
       ],
       [
         "x-github-request-id",
-        "6B3F:29C906:5652258:5F5CA9F:69F9DE57"
+        "B844:373D99:1963BA0:1AD45E6:6A1EC2E6"
       ]
     ],
     "status": 200

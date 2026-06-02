@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-04-15T10:59:02.901427Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:18.016625Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -63,8 +63,8 @@
           "content": {
             "parts": [
               {
-                "text": "{\n  \"name\": \"Elowen Thorne\",\n  \"age\": 28,\n  \"hobbies\": [\n    \"astrophotography\",\n    \"archery\",\n    \"restoring vintage watches\"\n  ]\n}",
-                "thoughtSignature": "EjQKMgG+Pvb7NlhhciN5C2oWdQ2WnrG3fKBT6OuL7OXLFjpE1UXyvCjHUX+lL+7+D+MNhUFK"
+                "text": "{\n  \"name\": \"Elias Thorne\",\n  \"age\": 34,\n  \"hobbies\": [\n    \"astrophotography\",\n    \"restoring vintage watches\",\n    \"hiking\"\n  ]\n}",
+                "thoughtSignature": "EjQKMgEMOdbHBV3Ug8D/I7773PqPxmU2KQKrXIDASkwSpXI65lLcrcRpwSUX2d/PzhClFeDO"
               }
             ],
             "role": "model"
@@ -73,10 +73,10 @@
           "index": 0
         }
       ],
-      "modelVersion": "gemini-3.1-flash-lite-preview",
-      "responseId": "dm_faa6CM-SlkdUP5-DowQ4",
+      "modelVersion": "gemini-3.1-flash-lite",
+      "responseId": "xcIeavn4F6_ZkdUPxa3x8Aw",
       "usageMetadata": {
-        "candidatesTokenCount": 54,
+        "candidatesTokenCount": 52,
         "promptTokenCount": 21,
         "promptTokensDetails": [
           {
@@ -84,7 +84,8 @@
             "tokenCount": 21
           }
         ],
-        "totalTokenCount": 75
+        "serviceTier": "standard",
+        "totalTokenCount": 73
       }
     },
     "headers": [
@@ -110,7 +111,7 @@
       ],
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:02 GMT"
+        "Tue, 02 Jun 2026 11:47:18 GMT"
       ],
       [
         "server",
@@ -130,7 +131,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=2610"
+        "gfet4t7; dur=828"
       ],
       [
         "alt-svc",

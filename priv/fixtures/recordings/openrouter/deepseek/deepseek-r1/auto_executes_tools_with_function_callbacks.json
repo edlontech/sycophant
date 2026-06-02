@@ -2,14 +2,14 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:04.247860Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:30.962967Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
       "input": [
         {
-          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "content": "What's the weather in Paris? You must call the get_weather tool with city=\"Paris\" to answer.",
           "role": "user"
         }
       ],
@@ -51,11 +51,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250744,
-      "created_at": 1776250740,
+      "completed_at": 1780400850,
+      "created_at": 1780400845,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250740-GHZ5hfhnaJC30qO7g7Zf",
+      "id": "gen-1780400845-2kA13J11rLoQiLv0AxUh",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -67,20 +67,34 @@
         {
           "content": [
             {
-              "text": "The user asks for the weather in Paris and requests using the get_weather tool. I'll call get_weather with city Paris.",
+              "text": "\nWe are given a question about the weather in Paris.\n The user explicitly says: \"You must call the get_weather tool with city='Paris' to answer.\"\n Therefore, we must call the get_weather function with the parameter city set to \"Paris\".\n We'll use the exact format required.\n",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_gfvr7ihfa2i",
+          "id": "rs_tmp_pzvyys0vc2",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
         },
         {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "I'll help check the weather in Paris by calling the get_weather tool:\n\n",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_tmp_0aczr5u2hbq",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
           "arguments": "{\"city\": \"Paris\"}",
-          "call_id": "a7f8a69f9d0c42e2be84ad14bc314467",
-          "id": "fc_tmp_ohakci4o6z",
+          "call_id": "call_e66cd6e33c6a4f13a86c001c",
+          "id": "fc_tmp_qpczsa48tsn",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -126,28 +140,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 4.128e-4,
+        "cost": 4.38e-4,
         "cost_details": {
-          "upstream_inference_cost": 4.128e-4,
-          "upstream_inference_input_cost": 2.303e-4,
-          "upstream_inference_output_cost": 1.825e-4
+          "upstream_inference_cost": 4.38e-4,
+          "upstream_inference_input_cost": 1.855e-4,
+          "upstream_inference_output_cost": 2.525e-4
         },
-        "input_tokens": 329,
+        "input_tokens": 265,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 73,
+        "output_tokens": 101,
         "output_tokens_details": {
-          "reasoning_tokens": 27
+          "reasoning_tokens": 63
         },
-        "total_tokens": 402
+        "total_tokens": 366
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:02 GMT"
+        "Tue, 02 Jun 2026 11:47:27 GMT"
       ],
       [
         "content-type",
@@ -155,7 +169,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=1758"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=1783"
       ],
       [
         "access-control-allow-origin",
@@ -163,7 +177,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250740-GHZ5hfhnaJC30qO7g7Zf"
+        "gen-1780400845-2kA13J11rLoQiLv0AxUh"
       ],
       [
         "access-control-expose-headers",
@@ -187,7 +201,7 @@
       ],
       [
         "cf-ray",
-        "9eca70372ce5c1bb-PRG"
+        "a05639241e9d876f-PRG"
       ]
     ],
     "status": 200

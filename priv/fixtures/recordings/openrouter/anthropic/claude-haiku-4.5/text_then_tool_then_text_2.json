@@ -2,8 +2,8 @@
   "metadata": {
     "model": "anthropic/claude-haiku-4.5",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:06.182804Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:27.873511Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "That's exciting! I'd be happy to help you plan your trip to London. Here are some things I can assist with:\n\n1. **Weather**: I can check the current weather in London to help you pack appropriately\n2. **General tips**: I can suggest popular attractions, neighborhoods, transportation options, and travel advice\n\nWhat would you like to know? Would you like me to check the current weather in London first, or do you have specific questions about planning your trip?",
+              "text": "That sounds exciting! I'd be happy to help you plan your trip to London. \n\nTo get started, here are some things I can assist with:\n\n1. **Weather information** - I can check the current weather in London to help you pack appropriately\n2. **General advice** - I can suggest popular attractions, neighborhoods, transportation tips, and travel recommendations\n\nWould you like me to check the current weather in London for you? Or do you have specific questions about:\n- What to see and do\n- Where to stay\n- Getting around the city\n- Best times to visit\n- Anything else?\n\nLet me know what would be most helpful!",
               "type": "output_text"
             }
           ],
@@ -24,7 +24,7 @@
           "type": "message"
         },
         {
-          "content": "What's the current weather in London? Use the get_weather tool.",
+          "content": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer.",
           "role": "user"
         }
       ],
@@ -67,11 +67,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250746,
-      "created_at": 1776250744,
+      "completed_at": 1780400847,
+      "created_at": 1780400846,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250744-JhxbNELnMxG1jqVPAzGO",
+      "id": "gen-1780400846-s7h3sY6zheoAE7v8BoET",
       "incomplete_details": null,
       "instructions": "You are a helpful assistant. Be concise.",
       "max_output_tokens": null,
@@ -82,8 +82,8 @@
       "output": [
         {
           "arguments": "{\"city\": \"London\"}",
-          "call_id": "toolu_bdrk_01Mzk4uCPsMtebgevptSapBr",
-          "id": "fc_tmp_oj9ywmdg5s",
+          "call_id": "toolu_bdrk_01MmXxVrbvmmM6hg3v4ZSi8H",
+          "id": "fc_tmp_u7gw9qrmbe",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -129,13 +129,13 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 9.8e-4,
+        "cost": 0.001029,
         "cost_details": {
-          "upstream_inference_cost": 9.8e-4,
-          "upstream_inference_input_cost": 7.1e-4,
+          "upstream_inference_cost": 0.001029,
+          "upstream_inference_input_cost": 7.59e-4,
           "upstream_inference_output_cost": 2.7e-4
         },
-        "input_tokens": 710,
+        "input_tokens": 759,
         "input_tokens_details": {
           "cached_tokens": 0
         },
@@ -144,13 +144,13 @@
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 764
+        "total_tokens": 813
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:05 GMT"
+        "Tue, 02 Jun 2026 11:47:27 GMT"
       ],
       [
         "content-type",
@@ -158,7 +158,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=1127"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=1242"
       ],
       [
         "access-control-allow-origin",
@@ -166,7 +166,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250744-JhxbNELnMxG1jqVPAzGO"
+        "gen-1780400846-s7h3sY6zheoAE7v8BoET"
       ],
       [
         "access-control-expose-headers",
@@ -190,7 +190,7 @@
       ],
       [
         "cf-ray",
-        "9eca705319bcc1bb-PRG"
+        "a056392a7e83876f-PRG"
       ]
     ],
     "status": 200

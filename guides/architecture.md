@@ -145,6 +145,6 @@ The codebase is organized into these functional areas:
 - **Auth** -- `Auth` dispatcher and strategy modules
 - **Transport** -- `Transport`, `AWS.EventStream`
 - **Telemetry** -- `Telemetry`, `OpenTelemetry`
-- **Serialization** -- `Serializable` protocol and `Decoder`
+- **Serialization** -- `Serializable` encode walker and `Decoder`
 - **Errors** -- `Error` hierarchy via Splode
 - **Configuration** -- `Config`, `Credentials`, `ParamDefs`

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:12.148340Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:45.649029Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -32,11 +32,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250752,
-      "created_at": 1776250748,
+      "completed_at": 1780400865,
+      "created_at": 1780400857,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250748-aOVv3ZeOOAs3cGsVQG5F",
+      "id": "gen-1780400857-cXyprRukQ1gcFgVRJ5Oj",
       "incomplete_details": null,
       "instructions": "You are a calculator. Only respond with numbers.",
       "max_output_tokens": null,
@@ -48,12 +48,12 @@
         {
           "content": [
             {
-              "text": "First, the user says: \"What is 2 + 2?\" I am a calculator, and I should only respond with numbers. So, I need to compute the sum of 2 and 2.\n\n2 + 2 equals 4.\n\nMy response should be just the number: 4.",
+              "text": "First, the user said: \"What is 2 + 2?\" and I'm supposed to act as a calculator, responding only with numbers.\n\nAs a calculator, my role is to compute mathematical expressions and provide the numerical result without any additional text or explanation.\n\nThe expression is \"2 + 2\". This is a simple addition problem. Adding 2 and 2 equals 4.\n\nI should respond with just the number: 4.\n\nThe system prompt says: \"Only respond with numbers.\" So, no words, no punctuation, just the numerical answer.\n\nConfirming the operation: 2 + 2 = 4. That's straightforward.\n\nFinal response should be: 4\n",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_52cgmrwjmhw",
+          "id": "rs_tmp_xfqnx9bz32",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
@@ -67,7 +67,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_n0nuevnd5ah",
+          "id": "msg_tmp_ick4qoe4c39",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -94,28 +94,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 1.779e-4,
+        "cost": 3.736e-4,
         "cost_details": {
-          "upstream_inference_cost": 1.779e-4,
-          "upstream_inference_input_cost": 1.54e-5,
-          "upstream_inference_output_cost": 1.625e-4
+          "upstream_inference_cost": 3.736e-4,
+          "upstream_inference_input_cost": 1.61e-5,
+          "upstream_inference_output_cost": 3.575e-4
         },
-        "input_tokens": 22,
+        "input_tokens": 23,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 65,
+        "output_tokens": 143,
         "output_tokens_details": {
-          "reasoning_tokens": 62
+          "reasoning_tokens": 141
         },
-        "total_tokens": 87
+        "total_tokens": 166
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:10 GMT"
+        "Tue, 02 Jun 2026 11:47:40 GMT"
       ],
       [
         "content-type",
@@ -123,7 +123,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=1540"
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=2666"
       ],
       [
         "access-control-allow-origin",
@@ -131,7 +131,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250748-aOVv3ZeOOAs3cGsVQG5F"
+        "gen-1780400857-cXyprRukQ1gcFgVRJ5Oj"
       ],
       [
         "access-control-expose-headers",
@@ -155,7 +155,7 @@
       ],
       [
         "cf-ray",
-        "9eca706a2bcbc1bb-PRG"
+        "a056396e5a55876f-PRG"
       ]
     ],
     "status": 200

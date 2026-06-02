@@ -53,7 +53,11 @@ defmodule Sycophant.EmbeddingPipeline do
   end
 
   defp validate_params(%EmbeddingRequest{params: params}, _opts) when not is_nil(params) do
-    param_data = params |> Map.from_struct() |> Map.reject(fn {_, v} -> is_nil(v) end)
+    param_data =
+      params
+      |> Map.from_struct()
+      |> Map.reject(fn {_, v} -> is_nil(v) end)
+      |> Map.delete(:__type__)
 
     case Zoi.parse(EmbeddingParams.t(), param_data) do
       {:ok, validated} ->

@@ -2,14 +2,14 @@
   "metadata": {
     "model": "anthropic/claude-haiku-4.5",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:04.203374Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:19.125251Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
       "input": [
         {
-          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "content": "What's the weather in Paris? You must call the get_weather tool with city=\"Paris\" to answer.",
           "role": "user"
         }
       ],
@@ -51,11 +51,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250744,
-      "created_at": 1776250743,
+      "completed_at": 1780400839,
+      "created_at": 1780400838,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250743-kE0v22OaqUiXtVEQ7nUF",
+      "id": "gen-1780400838-i0LiOfLolOhaCbD7axCc",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -66,8 +66,8 @@
       "output": [
         {
           "arguments": "{\"city\": \"Paris\"}",
-          "call_id": "toolu_bdrk_01Pgg4JRHyWz9F39MqdkgUdp",
-          "id": "fc_tmp_rqe9up98q",
+          "call_id": "toolu_bdrk_01FCwk85vyaXGNjSm7JV3N7g",
+          "id": "fc_tmp_uo29een7ybf",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -113,13 +113,13 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 8.48e-4,
+        "cost": 8.57e-4,
         "cost_details": {
-          "upstream_inference_cost": 8.48e-4,
-          "upstream_inference_input_cost": 5.78e-4,
+          "upstream_inference_cost": 8.57e-4,
+          "upstream_inference_input_cost": 5.87e-4,
           "upstream_inference_output_cost": 2.7e-4
         },
-        "input_tokens": 578,
+        "input_tokens": 587,
         "input_tokens_details": {
           "cached_tokens": 0
         },
@@ -128,13 +128,13 @@
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 632
+        "total_tokens": 641
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:04 GMT"
+        "Tue, 02 Jun 2026 11:47:18 GMT"
       ],
       [
         "content-type",
@@ -142,7 +142,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=929"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=834"
       ],
       [
         "access-control-allow-origin",
@@ -150,7 +150,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250743-kE0v22OaqUiXtVEQ7nUF"
+        "gen-1780400838-i0LiOfLolOhaCbD7axCc"
       ],
       [
         "access-control-expose-headers",
@@ -174,7 +174,7 @@
       ],
       [
         "cf-ray",
-        "9eca7048ce52c1bb-PRG"
+        "a05638f64e9c876f-PRG"
       ]
     ],
     "status": 200

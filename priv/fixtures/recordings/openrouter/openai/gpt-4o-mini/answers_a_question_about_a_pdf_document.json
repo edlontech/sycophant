@@ -2,7 +2,7 @@
   "metadata": {
     "model": "openai/gpt-4o-mini",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-06-02T09:56:19.334102Z",
+    "recorded_at": "2026-06-02T11:47:23.213341Z",
     "sycophant_version": "0.4.2"
   },
   "request": {
@@ -41,11 +41,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1780394179,
-      "created_at": 1780394178,
+      "completed_at": 1780400843,
+      "created_at": 1780400837,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1780394178-CsUNdIL79fqsqhtj4tJo",
+      "id": "gen-1780400837-L3og4lRlt489B9lU3hKL",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -63,7 +63,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_emq7trnr21",
+          "id": "msg_tmp_dvt5l7a3xj",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -111,7 +111,7 @@
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 09:56:19 GMT"
+        "Tue, 02 Jun 2026 11:47:23 GMT"
       ],
       [
         "content-type",
@@ -119,7 +119,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=980"
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=5924"
       ],
       [
         "access-control-allow-origin",
@@ -127,7 +127,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1780394178-CsUNdIL79fqsqhtj4tJo"
+        "gen-1780400837-L3og4lRlt489B9lU3hKL"
       ],
       [
         "access-control-expose-headers",
@@ -151,7 +151,7 @@
       ],
       [
         "cf-ray",
-        "a055965e6b2fdd73-PRG"
+        "a05638f02f86876f-PRG"
       ]
     ],
     "status": 200

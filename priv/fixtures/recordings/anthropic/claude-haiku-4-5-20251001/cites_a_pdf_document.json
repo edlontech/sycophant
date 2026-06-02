@@ -2,7 +2,7 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-06-02T09:56:19.865943Z",
+    "recorded_at": "2026-06-02T11:47:34.034714Z",
     "sycophant_version": "0.4.2"
   },
   "request": {
@@ -64,11 +64,11 @@
               "type": "page_location"
             }
           ],
-          "text": "According to the Quarterly Sales Report, Gadget is the best seller.",
+          "text": "According to the Quarterly Sales Report, the best seller is Gadget.",
           "type": "text"
         }
       ],
-      "id": "msg_01XWRaYvbYXCTfxscYLpx3gT",
+      "id": "msg_01KaCqhFrNxf2CMAvBxcnif6",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
       "stop_details": null,
@@ -91,7 +91,7 @@
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 09:56:19 GMT"
+        "Tue, 02 Jun 2026 11:47:34 GMT"
       ],
       [
         "content-type",
@@ -107,7 +107,7 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-06-02T09:56:19Z"
+        "2026-06-02T11:47:33Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
@@ -119,7 +119,7 @@
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-06-02T09:56:19Z"
+        "2026-06-02T11:47:33Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
@@ -131,7 +131,7 @@
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-06-02T09:56:18Z"
+        "2026-06-02T11:47:32Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
@@ -143,11 +143,11 @@
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-06-02T09:56:19Z"
+        "2026-06-02T11:47:33Z"
       ],
       [
         "request-id",
-        "req_011CbeEUhfPHF8E87kpVSkF7"
+        "req_011CbeNxeS8EY54Q33rwnWQi"
       ],
       [
         "strict-transport-security",
@@ -159,35 +159,35 @@
       ],
       [
         "traceresponse",
-        "00-69acf41833e91316dccb08b48b14a1b6-5326ac1277b5347f-01"
+        "00-0aa79b2b8c31ddfc7a28e67fb84936ba-e71da18f241a6644-01"
       ],
       [
         "server",
         "cloudflare"
       ],
       [
-        "x-robots-tag",
-        "none"
+        "content-security-policy",
+        "default-src 'none'; frame-ancestors 'none'"
       ],
       [
         "vary",
         "Accept-Encoding"
       ],
       [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
         "set-cookie",
         "[REDACTED]"
       ],
       [
-        "content-security-policy",
-        "default-src 'none'; frame-ancestors 'none'"
+        "x-robots-tag",
+        "none"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
       ],
       [
         "cf-ray",
-        "a055965debc55d09-PRG"
+        "a056394bcda5b385-PRG"
       ]
     ],
     "status": 200

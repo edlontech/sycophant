@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T10:59:01.593949Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:23.313806Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -93,13 +93,14 @@
         },
         "verbosity": "medium"
       },
+      "moderation": null,
       "top_logprobs": 0,
       "previous_response_id": null,
       "tool_choice": "auto",
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_0654cd1bc98f2ece0069df6f74b11c8197b90844b2a5c2134b",
+      "id": "resp_09e16517e1fdea13006a1ec2c5fae08190ac9bfa0b06b899c8",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -111,11 +112,11 @@
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 24,
+        "output_tokens": 25,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 95
+        "total_tokens": 96
       },
       "safety_identifier": null,
       "object": "response",
@@ -126,11 +127,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "{\"age\":28,\"hobbies\":[\"photography\",\"hiking\",\"reading\"],\"name\":\"Lena Carter\"}",
+              "text": "{\"age\":29,\"hobbies\":[\"photography\",\"hiking\",\"cooking\"],\"name\":\"Liam Carter\"}",
               "type": "output_text"
             }
           ],
-          "id": "msg_0654cd1bc98f2ece0069df6f7521e0819792c6b678d7b28101",
+          "id": "msg_09e16517e1fdea13006a1ec2ca8a988190865f9dfd23c396fe",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -141,25 +142,26 @@
       "presence_penalty": 0.0,
       "incomplete_details": null,
       "reasoning": {
+        "context": null,
         "effort": null,
         "summary": null
       },
-      "completed_at": 1776250741,
+      "completed_at": 1780400843,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
         "payer": "developer"
       },
-      "prompt_cache_retention": null,
+      "prompt_cache_retention": "in_memory",
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776250740,
+      "created_at": 1780400837,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:01 GMT"
+        "Tue, 02 Jun 2026 11:47:23 GMT"
       ],
       [
         "content-type",
@@ -167,11 +169,55 @@
       ],
       [
         "content-length",
-        "2170"
+        "2220"
+      ],
+      [
+        "cf-ray",
+        "a05638f02a45d1c5-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
       ],
       [
         "server",
         "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Request-ID"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-processing-ms",
+        "5287"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -187,7 +233,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "149999907"
+        "149999910"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -198,44 +244,12 @@
         "0s"
       ],
       [
-        "openai-version",
-        "2020-10-01"
-      ],
-      [
-        "openai-organization",
-        "[REDACTED]"
-      ],
-      [
-        "openai-project",
-        "[REDACTED]"
-      ],
-      [
         "x-request-id",
-        "req_87e1f3cb3cc0452e9bb061b17a4199b8"
-      ],
-      [
-        "openai-processing-ms",
-        "851"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_fb9dacd47e1847249107f21d6707c0a6"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9eca7036c835710c-PRG"
       ],
       [
         "alt-svc",

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5-nano",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T11:57:33.146955Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:32.132357Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -38,13 +38,14 @@
         },
         "verbosity": "medium"
       },
+      "moderation": null,
       "top_logprobs": 0,
       "previous_response_id": null,
       "tool_choice": "auto",
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_0045716f3613a7e40069df7d2aef248193836176dff2f9f547",
+      "id": "resp_0c29d4c080d2d5ce006a1ec2d2af84819ca27c1ab0493fb718",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -56,18 +57,18 @@
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 152,
+        "output_tokens": 148,
         "output_tokens_details": {
           "reasoning_tokens": 128
         },
-        "total_tokens": 180
+        "total_tokens": 176
       },
       "safety_identifier": null,
       "object": "response",
       "parallel_tool_calls": true,
       "output": [
         {
-          "id": "rs_0045716f3613a7e40069df7d2b2d708193b1d22ca1d688c1d6",
+          "id": "rs_0c29d4c080d2d5ce006a1ec2d2e6f4819cb4c7fa917d3c5981",
           "summary": [],
           "type": "reasoning"
         },
@@ -80,7 +81,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_0045716f3613a7e40069df7d2cafa8819392f8a34c6aedc6b1",
+          "id": "msg_0c29d4c080d2d5ce006a1ec2d3d824819cb9960db4f27d14e3",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -91,25 +92,26 @@
       "presence_penalty": 0.0,
       "incomplete_details": null,
       "reasoning": {
+        "context": "current_turn",
         "effort": "medium",
         "summary": null
       },
-      "completed_at": 1776254252,
+      "completed_at": 1780400851,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
         "payer": "developer"
       },
-      "prompt_cache_retention": null,
+      "prompt_cache_retention": "in_memory",
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776254250,
+      "created_at": 1780400850,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 11:57:33 GMT"
+        "Tue, 02 Jun 2026 11:47:32 GMT"
       ],
       [
         "content-type",
@@ -117,11 +119,55 @@
       ],
       [
         "content-length",
-        "1711"
+        "1771"
+      ],
+      [
+        "cf-ray",
+        "a05639443cafd1c5-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
       ],
       [
         "server",
         "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Request-ID"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-processing-ms",
+        "1371"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -148,44 +194,12 @@
         "0s"
       ],
       [
-        "openai-version",
-        "2020-10-01"
-      ],
-      [
-        "openai-organization",
-        "[REDACTED]"
-      ],
-      [
-        "openai-project",
-        "[REDACTED]"
-      ],
-      [
         "x-request-id",
-        "req_accd3f136ffc455d81c543639091b083"
-      ],
-      [
-        "openai-processing-ms",
-        "2094"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_f10399e4b7e7432a88a4dec0f32e4e6f"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9ecac5ebb997d935-PRG"
       ],
       [
         "alt-svc",

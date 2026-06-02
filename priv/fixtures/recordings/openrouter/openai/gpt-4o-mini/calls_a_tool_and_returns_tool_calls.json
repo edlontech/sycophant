@@ -2,14 +2,14 @@
   "metadata": {
     "model": "openai/gpt-4o-mini",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:03.056514Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:18.994796Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
       "input": [
         {
-          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "content": "What's the weather in Paris? You must call the get_weather tool with city=\"Paris\" to answer.",
           "role": "user"
         }
       ],
@@ -51,11 +51,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250743,
-      "created_at": 1776250742,
+      "completed_at": 1780400838,
+      "created_at": 1780400838,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250742-yVoDWMeANkspBpcbGum8",
+      "id": "gen-1780400838-p4EFn4MO5YuhPZx9BGLV",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -66,8 +66,8 @@
       "output": [
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "call_TtF7sMoBnqGgaymgYqf8IfWA",
-          "id": "fc_tmp_1xbrhli0z1i",
+          "call_id": "call_I5AsaSLoIc8riscinvM2nIqe",
+          "id": "fc_tmp_y81h2ynw0fg",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -113,13 +113,13 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 1.68e-5,
+        "cost": 1.815e-5,
         "cost_details": {
-          "upstream_inference_cost": 1.68e-5,
-          "upstream_inference_input_cost": 8.4e-6,
+          "upstream_inference_cost": 1.815e-5,
+          "upstream_inference_input_cost": 9.75e-6,
           "upstream_inference_output_cost": 8.4e-6
         },
-        "input_tokens": 56,
+        "input_tokens": 65,
         "input_tokens_details": {
           "cached_tokens": 0
         },
@@ -128,13 +128,13 @@
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 70
+        "total_tokens": 79
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:02 GMT"
+        "Tue, 02 Jun 2026 11:47:18 GMT"
       ],
       [
         "content-type",
@@ -142,7 +142,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=606"
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=821"
       ],
       [
         "access-control-allow-origin",
@@ -150,7 +150,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250742-yVoDWMeANkspBpcbGum8"
+        "gen-1780400838-p4EFn4MO5YuhPZx9BGLV"
       ],
       [
         "access-control-expose-headers",
@@ -174,7 +174,7 @@
       ],
       [
         "cf-ray",
-        "9eca7043a967c1bb-PRG"
+        "a05638f5cd2a876f-PRG"
       ]
     ],
     "status": 200

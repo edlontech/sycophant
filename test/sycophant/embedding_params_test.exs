@@ -3,6 +3,7 @@ defmodule Sycophant.EmbeddingParamsTest do
 
   alias Sycophant.EmbeddingParams
   alias Sycophant.Serializable
+  alias Sycophant.Serializable.Decoder
 
   describe "Zoi validation" do
     test "defaults embedding_types to [:float] and truncate to :none" do
@@ -69,7 +70,7 @@ defmodule Sycophant.EmbeddingParamsTest do
       assert map["truncate"] == "right"
       assert map["max_tokens"] == 128_000
 
-      restored = EmbeddingParams.from_map(map)
+      restored = Decoder.from_map(map)
       assert restored.dimensions == 1536
       assert restored.embedding_types == [:float, :int8]
       assert restored.truncate == :right
@@ -90,8 +91,8 @@ defmodule Sycophant.EmbeddingParamsTest do
       refute Map.has_key?(map, "max_tokens")
     end
 
-    test "from_map defaults embedding_types when nil" do
-      restored = EmbeddingParams.from_map(%{"__type__" => "EmbeddingParams"})
+    test "decoder defaults embedding_types when only type present" do
+      restored = Decoder.from_map(%{"__type__" => "EmbeddingParams"})
       assert restored.embedding_types == [:float]
     end
   end

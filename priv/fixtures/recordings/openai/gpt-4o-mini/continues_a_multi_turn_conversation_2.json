@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T10:59:10.396680Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:49.381497Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "Nice to meet you, Sycophant! How can I assist you today?",
+              "text": "Got it, Sycophant! How can I assist you today?",
               "type": "output_text"
             }
           ],
@@ -52,13 +52,14 @@
         },
         "verbosity": "medium"
       },
+      "moderation": null,
       "top_logprobs": 0,
       "previous_response_id": null,
       "tool_choice": "auto",
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_0b560349557a98630069df6f7dc7188193b6270618493615f5",
+      "id": "resp_0e86cad06653e5bf006a1ec2d8dc5081979f6186533aba6e02",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -66,7 +67,7 @@
       "error": null,
       "model": "gpt-4o-mini-2024-07-18",
       "usage": {
-        "input_tokens": 48,
+        "input_tokens": 46,
         "input_tokens_details": {
           "cached_tokens": 0
         },
@@ -74,7 +75,7 @@
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 57
+        "total_tokens": 55
       },
       "safety_identifier": null,
       "object": "response",
@@ -89,7 +90,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_0b560349557a98630069df6f7e1fdc819389b5376d364701e6",
+          "id": "msg_0e86cad06653e5bf006a1ec2e5034481978808bced787d94f7",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -100,25 +101,26 @@
       "presence_penalty": 0.0,
       "incomplete_details": null,
       "reasoning": {
+        "context": null,
         "effort": null,
         "summary": null
       },
-      "completed_at": 1776250750,
+      "completed_at": 1780400869,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
         "payer": "developer"
       },
-      "prompt_cache_retention": null,
+      "prompt_cache_retention": "in_memory",
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776250749,
+      "created_at": 1780400856,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:10 GMT"
+        "Tue, 02 Jun 2026 11:47:49 GMT"
       ],
       [
         "content-type",
@@ -126,11 +128,55 @@
       ],
       [
         "content-length",
-        "1550"
+        "1600"
+      ],
+      [
+        "cf-ray",
+        "a056396ac89fd1c5-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
       ],
       [
         "server",
         "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Request-ID"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-processing-ms",
+        "12469"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -146,7 +192,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "149999932"
+        "149999935"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -157,44 +203,12 @@
         "0s"
       ],
       [
-        "openai-version",
-        "2020-10-01"
-      ],
-      [
-        "openai-organization",
-        "[REDACTED]"
-      ],
-      [
-        "openai-project",
-        "[REDACTED]"
-      ],
-      [
         "x-request-id",
-        "req_7a1c7171c4c448c5805b184d8b52d5ff"
-      ],
-      [
-        "openai-processing-ms",
-        "565"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_3eb58ac00caa465a9ffffa0eb1c0b945"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9eca70718edb710c-PRG"
       ],
       [
         "alt-svc",

@@ -16,16 +16,13 @@ defmodule Sycophant.Context do
 
       opts = Context.to_opts(ctx)
   """
-  alias Sycophant.Serializable.Decoder
+  use ZoiDefstruct
 
-  defstruct messages: [], params: %{}, tools: [], stream: nil
-
-  @type t :: %__MODULE__{
-          messages: [Sycophant.Message.t()],
-          params: map(),
-          tools: [Sycophant.Tool.t()],
-          stream: (term() -> term()) | {term(), (term(), term() -> term())} | nil
-        }
+  defstruct __type__: Zoi.literal("Context") |> Zoi.default("Context"),
+            messages: Zoi.list(Sycophant.Message.t()) |> Zoi.default([]),
+            params: Zoi.default(Zoi.any(), %{}),
+            tools: Zoi.list(Zoi.any()) |> Zoi.default([]),
+            stream: Zoi.optional(Zoi.any())
 
   @doc "Creates an empty context."
   @spec new() :: t()
@@ -87,15 +84,14 @@ defmodule Sycophant.Context do
   defp maybe_add(opts, _key, map) when is_map(map) and map_size(map) == 0, do: opts
   defp maybe_add(opts, key, value), do: Keyword.put(opts, key, value)
 
-  @doc "Deserializes a context from a plain map."
-  @spec from_map(map()) :: t()
-  def from_map(data) do
-    opts = Map.get(data, :opts, [])
-
+  @doc false
+  @spec decode(map(), keyword()) :: t()
+  def decode(data, opts) do
     %__MODULE__{
-      messages: Enum.map(data["messages"], &Decoder.from_map/1),
+      messages:
+        Enum.map(data["messages"] || [], &Sycophant.Serializable.Decoder.from_map(&1, opts)),
       params: decode_params(data["params"]),
-      tools: decode_tools(data["tools"], opts),
+      tools: Enum.map(data["tools"] || [], &Sycophant.Serializable.Decoder.from_map(&1, opts)),
       stream: nil
     }
   end
@@ -104,45 +100,12 @@ defmodule Sycophant.Context do
 
   defp decode_params(params) when is_map(params) do
     Map.new(params, fn
-      {k, v} when is_binary(k) ->
-        {String.to_existing_atom(k), v}
-
-      {k, v} ->
-        {k, v}
+      {k, v} when is_binary(k) -> {String.to_existing_atom(k), v}
+      {k, v} -> {k, v}
     end)
   rescue
     ArgumentError -> params
   end
-
-  defp decode_tools(nil, _opts), do: []
-
-  defp decode_tools(tools, opts),
-    do: Enum.map(tools, &Decoder.from_map(Map.put(&1, :opts, opts), opts))
-end
-
-defimpl Sycophant.Serializable, for: Sycophant.Context do
-  import Sycophant.Serializable.Helpers
-
-  def to_map(ctx) do
-    compact(%{
-      "__type__" => "Context",
-      "messages" => Enum.map(ctx.messages, &Sycophant.Serializable.to_map/1),
-      "params" => encode_params(ctx.params),
-      "tools" => encode_tools(ctx.tools)
-    })
-  end
-
-  defp encode_params(params) when map_size(params) == 0, do: nil
-
-  defp encode_params(params) do
-    Map.new(params, fn
-      {k, v} when is_atom(k) -> {Atom.to_string(k), v}
-      {k, v} -> {k, v}
-    end)
-  end
-
-  defp encode_tools([]), do: nil
-  defp encode_tools(tools), do: Enum.map(tools, &Sycophant.Serializable.to_map/1)
 end
 
 defimpl Inspect, for: Sycophant.Context do

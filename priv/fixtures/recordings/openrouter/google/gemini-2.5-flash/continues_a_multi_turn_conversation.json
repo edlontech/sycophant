@@ -2,8 +2,8 @@
   "metadata": {
     "model": "google/gemini-2.5-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:09.936747Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:32.558782Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -31,11 +31,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250749,
-      "created_at": 1776250749,
+      "completed_at": 1780400852,
+      "created_at": 1780400852,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250749-nnAmmOf8eGIeSvgKjeKM",
+      "id": "gen-1780400851-Fqw3Y5FFKnPh4RVPozXU",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -49,11 +49,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Okay, Sycophant, I've noted that. How can I help you today?",
+              "text": "Hello, Sycophant! I'll do my best to remember that. It's a rather unique and interesting name.\n\nHow may I help you today, Sycophant?",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_uxqcxzpj64j",
+          "id": "msg_tmp_63svf9x46nd",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -65,7 +65,7 @@
       "prompt_cache_key": null,
       "reasoning": null,
       "safety_identifier": null,
-      "service_tier": "auto",
+      "service_tier": "default",
       "status": "completed",
       "store": false,
       "temperature": 1,
@@ -80,28 +80,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 5.33e-5,
+        "cost": 1.033e-4,
         "cost_details": {
-          "upstream_inference_cost": 5.33e-5,
+          "upstream_inference_cost": 1.033e-4,
           "upstream_inference_input_cost": 3.3e-6,
-          "upstream_inference_output_cost": 5.0e-5
+          "upstream_inference_output_cost": 0.0001
         },
         "input_tokens": 11,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 20,
+        "output_tokens": 40,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 31
+        "total_tokens": 51
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:09 GMT"
+        "Tue, 02 Jun 2026 11:47:32 GMT"
       ],
       [
         "content-type",
@@ -109,7 +109,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=388"
+        "cfEdge;dur=638,cfOrigin;dur=0,cfWorker;dur=820"
       ],
       [
         "access-control-allow-origin",
@@ -117,7 +117,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250749-nnAmmOf8eGIeSvgKjeKM"
+        "gen-1780400851-Fqw3Y5FFKnPh4RVPozXU"
       ],
       [
         "access-control-expose-headers",
@@ -141,7 +141,7 @@
       ],
       [
         "cf-ray",
-        "9eca706ffb51c1bb-PRG"
+        "a0563945abb2876f-PRG"
       ]
     ],
     "status": 200

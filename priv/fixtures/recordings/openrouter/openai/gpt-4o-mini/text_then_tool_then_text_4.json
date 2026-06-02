@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-4o-mini",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:06.469995Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:31.176754Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "That sounds exciting! How can I assist you with your trip to London?",
+              "text": "That sounds exciting! What information do you need for your trip to London?",
               "type": "output_text"
             }
           ],
@@ -24,7 +24,7 @@
           "type": "message"
         },
         {
-          "content": "What's the current weather in London? Use the get_weather tool.",
+          "content": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer.",
           "role": "user"
         },
         {
@@ -35,12 +35,12 @@
         },
         {
           "arguments": "{\"city\":\"London\"}",
-          "call_id": "call_pC2TFIOaZzXxFbff5dsihXWW",
+          "call_id": "call_RwxpFdztlU4sdWe89ivIxFMG",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "call_pC2TFIOaZzXxFbff5dsihXWW",
+          "call_id": "call_RwxpFdztlU4sdWe89ivIxFMG",
           "output": "London: 18C, cloudy",
           "type": "function_call_output"
         },
@@ -99,11 +99,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250746,
-      "created_at": 1776250745,
+      "completed_at": 1780400851,
+      "created_at": 1780400846,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250745-YRYJMygBXtPVoFFRW7jq",
+      "id": "gen-1780400845-CkioykjxOfFteSDsckWp",
       "incomplete_details": null,
       "instructions": "You are a helpful assistant. Be concise.",
       "max_output_tokens": null,
@@ -117,11 +117,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Since it's cloudy, there's a possibility of rain. It's a good idea to bring an umbrella just in case.",
+              "text": "Given that it's cloudy, there's a possibility of rain. It might be a good idea to bring an umbrella just in case.",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_wy4b2pjxsq",
+          "id": "msg_tmp_nouqnhou4yc",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -167,28 +167,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 3.78e-5,
+        "cost": 4.095e-5,
         "cost_details": {
-          "upstream_inference_cost": 3.78e-5,
-          "upstream_inference_input_cost": 2.4e-5,
-          "upstream_inference_output_cost": 1.38e-5
+          "upstream_inference_cost": 4.095e-5,
+          "upstream_inference_input_cost": 2.535e-5,
+          "upstream_inference_output_cost": 1.56e-5
         },
-        "input_tokens": 160,
+        "input_tokens": 169,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 23,
+        "output_tokens": 26,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 183
+        "total_tokens": 195
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:06 GMT"
+        "Tue, 02 Jun 2026 11:47:30 GMT"
       ],
       [
         "content-type",
@@ -196,7 +196,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=6,cfOrigin;dur=0,cfWorker;dur=655"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=4859"
       ],
       [
         "access-control-allow-origin",
@@ -204,7 +204,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250745-YRYJMygBXtPVoFFRW7jq"
+        "gen-1780400845-CkioykjxOfFteSDsckWp"
       ],
       [
         "access-control-expose-headers",
@@ -228,7 +228,7 @@
       ],
       [
         "cf-ray",
-        "9eca70574e39c1bb-PRG"
+        "a05639277e6a876f-PRG"
       ]
     ],
     "status": 200

@@ -2,21 +2,21 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-04-15T10:59:02.118665Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:48.141689Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
       "max_tokens": 4096,
       "messages": [
         {
-          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "content": "What's the weather in Paris? You must call the get_weather tool with city=\"Paris\" to answer.",
           "role": "user"
         },
         {
           "content": [
             {
-              "id": "toolu_013y7mvWPnbzMdaqjrK81hjZ",
+              "id": "toolu_01TmaiLFuRRCcb9mekvhhDo3",
               "input": {
                 "city": "Paris"
               },
@@ -30,7 +30,7 @@
           "content": [
             {
               "content": "Paris: 22C, sunny",
-              "tool_use_id": "toolu_013y7mvWPnbzMdaqjrK81hjZ",
+              "tool_use_id": "toolu_01TmaiLFuRRCcb9mekvhhDo3",
               "type": "tool_result"
             }
           ],
@@ -53,7 +53,8 @@
             ],
             "type": "object"
           },
-          "name": "get_weather"
+          "name": "get_weather",
+          "strict": true
         }
       ]
     },
@@ -78,11 +79,11 @@
     "body": {
       "content": [
         {
-          "text": "The weather in Paris is currently **22°C (about 72°F) and sunny**. It's a pleasant day!",
+          "text": "The weather in Paris is currently **22°C (about 72°F) and sunny**! It's a beautiful day in Paris.",
           "type": "text"
         }
       ],
-      "id": "msg_01ChmuVfNJ7UmTFF3bFYNDnU",
+      "id": "msg_01AWqdgoLYA87NqYXBhiY7er",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
       "stop_details": null,
@@ -97,23 +98,19 @@
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "inference_geo": "not_available",
-        "input_tokens": 656,
-        "output_tokens": 30,
+        "input_tokens": 665,
+        "output_tokens": 32,
         "service_tier": "standard"
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:02 GMT"
+        "Tue, 02 Jun 2026 11:47:48 GMT"
       ],
       [
         "content-type",
         "application/json"
-      ],
-      [
-        "content-length",
-        "547"
       ],
       [
         "anthropic-ratelimit-input-tokens-limit",
@@ -125,7 +122,7 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-04-15T10:59:01Z"
+        "2026-06-02T11:47:47Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
@@ -137,7 +134,7 @@
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-04-15T10:59:02Z"
+        "2026-06-02T11:47:48Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
@@ -149,7 +146,7 @@
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-04-15T10:59:01Z"
+        "2026-06-02T11:47:45Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
@@ -161,11 +158,11 @@
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-04-15T10:59:01Z"
+        "2026-06-02T11:47:47Z"
       ],
       [
         "request-id",
-        "req_011Ca5SS91r1qxiUhP74ivBh"
+        "req_011CbeNyfNDR7u3kLf4pwaCX"
       ],
       [
         "strict-transport-security",
@@ -176,16 +173,20 @@
         "8a3ada71-45d7-4ed6-aaaf-279ffd490a4a"
       ],
       [
+        "traceresponse",
+        "00-c26bf57a9fca1533fea2fb91527625a6-47f706bbddee08af-01"
+      ],
+      [
         "server",
         "cloudflare"
       ],
       [
-        "x-envoy-upstream-service-time",
-        "739"
+        "content-security-policy",
+        "default-src 'none'; frame-ancestors 'none'"
       ],
       [
-        "server-timing",
-        "x-originResponse;dur=740"
+        "vary",
+        "Accept-Encoding"
       ],
       [
         "set-cookie",
@@ -200,12 +201,8 @@
         "DYNAMIC"
       ],
       [
-        "content-security-policy",
-        "default-src 'none'; frame-ancestors 'none'"
-      ],
-      [
         "cf-ray",
-        "9eca703cf9a4f98a-PRG"
+        "a05639a26f99b385-PRG"
       ]
     ],
     "status": 200

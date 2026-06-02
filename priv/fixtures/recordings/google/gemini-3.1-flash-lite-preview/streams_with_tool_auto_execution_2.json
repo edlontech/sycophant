@@ -2,9 +2,9 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-04-15T10:59:08.263966Z",
+    "recorded_at": "2026-06-02T11:47:24.391765Z",
     "streaming": true,
-    "sycophant_version": "0.3.0"
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -26,7 +26,7 @@
                 },
                 "name": "get_weather"
               },
-              "thoughtSignature": "EjQKMgG+Pvb7fiYy/E/yrF1u70nCLYgjeQ35QwnCR4YUaDeCNjsDjKeztybCXBQyP5c+fJ92"
+              "thoughtSignature": "EjQKMgEMOdbHbSTrDa0bBEQCnIKCgCpXwLqaXDq8dmYA6Lj7Vh3Ks8LAkOv8/sL4YK4AqwSa"
             }
           ],
           "role": "model"
@@ -81,7 +81,7 @@
     "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite-preview:streamGenerateContent?alt=sse"
   },
   "response": {
-    "body": "data: {\"candidates\": [{\"content\": {\"parts\": [{\"text\": \"The weather\"}],\"role\": \"model\"},\"index\": 0}],\"usageMetadata\": {\"promptTokenCount\": 102,\"candidatesTokenCount\": 2,\"totalTokenCount\": 104,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\": 102}]},\"modelVersion\": \"gemini-3.1-flash-lite-preview\",\"responseId\": \"fG_fabi6DOSlkdUP0uDowQ4\"}\r\n\r\ndata: {\"candidates\": [{\"content\": {\"parts\": [{\"text\": \" in Paris is currently 22°C and sunny.\"}],\"role\": \"model\"},\"index\": 0}],\"usageMetadata\": {\"promptTokenCount\": 102,\"candidatesTokenCount\": 14,\"totalTokenCount\": 116,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\": 102}]},\"modelVersion\": \"gemini-3.1-flash-lite-preview\",\"responseId\": \"fG_fabi6DOSlkdUP0uDowQ4\"}\r\n\r\ndata: {\"candidates\": [{\"content\": {\"parts\": [{\"text\": \"\",\"thoughtSignature\": \"EjQKMgG+Pvb7qnSJh9Oz8oezmlvws+Xv56EcQfe+JHUbMj8cruJnWstbWQ7NIc39nCyIZJjT\"}],\"role\": \"model\"},\"finishReason\": \"STOP\",\"index\": 0}],\"usageMetadata\": {\"promptTokenCount\": 102,\"candidatesTokenCount\": 14,\"totalTokenCount\": 116,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\": 102}]},\"modelVersion\": \"gemini-3.1-flash-lite-preview\",\"responseId\": \"fG_fabi6DOSlkdUP0uDowQ4\"}\r\n\r\n",
+    "body": "data: {\"candidates\": [{\"content\": {\"parts\": [{\"text\": \"The weather\"}],\"role\": \"model\"},\"index\": 0}],\"usageMetadata\": {\"promptTokenCount\": 102,\"candidatesTokenCount\": 2,\"totalTokenCount\": 104,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\": 102}],\"serviceTier\": \"standard\"},\"modelVersion\": \"gemini-3.1-flash-lite\",\"responseId\": \"zMIeaorSBuCckdUP4ayA0Ac\"}\r\n\r\ndata: {\"candidates\": [{\"content\": {\"parts\": [{\"text\": \" in Paris is currently 22°C and sunny.\"}],\"role\": \"model\"},\"index\": 0}],\"usageMetadata\": {\"promptTokenCount\": 102,\"candidatesTokenCount\": 14,\"totalTokenCount\": 116,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\": 102}],\"serviceTier\": \"standard\"},\"modelVersion\": \"gemini-3.1-flash-lite\",\"responseId\": \"zMIeaorSBuCckdUP4ayA0Ac\"}\r\n\r\ndata: {\"candidates\": [{\"content\": {\"parts\": [{\"text\": \"\",\"thoughtSignature\": \"EjQKMgEMOdbHnq9X5RmMXh38FF1FN1DN9nIkIe+PKwNqiAzPlUyOG/F8aJwRGI9eZra4SKqh\"}],\"role\": \"model\"},\"finishReason\": \"STOP\",\"index\": 0}],\"usageMetadata\": {\"promptTokenCount\": 102,\"candidatesTokenCount\": 14,\"totalTokenCount\": 116,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\": 102}],\"serviceTier\": \"standard\"},\"modelVersion\": \"gemini-3.1-flash-lite\",\"responseId\": \"zMIeaorSBuCckdUP4ayA0Ac\"}\r\n\r\n",
     "headers": [
       [
         "content-type",
@@ -105,7 +105,7 @@
       ],
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:08 GMT"
+        "Tue, 02 Jun 2026 11:47:24 GMT"
       ],
       [
         "server",
@@ -125,7 +125,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=582"
+        "gfet4t7; dur=350"
       ],
       [
         "alt-svc",

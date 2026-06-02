@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T10:59:08.587349Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:29.063389Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -37,20 +37,20 @@
           "logprobs": null,
           "message": {
             "annotations": [],
-            "content": "I will remember your name, Sycophant. How may I assist you today?",
+            "content": "Nice to meet you, Sycophant. How can I assist you?",
             "refusal": null,
             "role": "assistant"
           }
         }
       ],
-      "created": 1776250748,
-      "id": "chatcmpl-DUsFYrpB0RdJBzQpl66SZeBDWiewt",
+      "created": 1780400848,
+      "id": "chatcmpl-DmHsexVcZx0DMgn13s1e5T7gV6J1y",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
       "system_fingerprint": null,
       "usage": {
-        "completion_tokens": 18,
+        "completion_tokens": 16,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "audio_tokens": 0,
@@ -62,13 +62,13 @@
           "audio_tokens": 0,
           "cached_tokens": 0
         },
-        "total_tokens": 36
+        "total_tokens": 34
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:08 GMT"
+        "Tue, 02 Jun 2026 11:47:29 GMT"
       ],
       [
         "content-type",
@@ -76,7 +76,7 @@
       ],
       [
         "cf-ray",
-        "9eca706699ee710c-PRG"
+        "a0563936dd47d1c5-PRG"
       ],
       [
         "cf-cache-status",
@@ -99,12 +99,20 @@
         "X-Request-ID"
       ],
       [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
         "openai-organization",
         "[REDACTED]"
       ],
       [
         "openai-processing-ms",
-        "493"
+        "423"
       ],
       [
         "openai-project",
@@ -144,7 +152,7 @@
       ],
       [
         "x-request-id",
-        "req_09a4ef544f554e73b1226a8568628b5a"
+        "req_55b5b5877c6c41b6a63f520fbd64985c"
       ],
       [
         "set-cookie",

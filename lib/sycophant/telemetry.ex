@@ -93,6 +93,7 @@ defmodule Sycophant.Telemetry do
   defp format_usage(%Sycophant.Usage{} = usage) do
     usage
     |> Map.from_struct()
+    |> Map.delete(:__type__)
     |> Map.put(:total_tokens, (usage.input_tokens || 0) + (usage.output_tokens || 0))
     |> Map.update(:pricing, nil, &format_pricing/1)
   end
@@ -104,7 +105,10 @@ defmodule Sycophant.Telemetry do
       currency: pricing.currency,
       components:
         Enum.map(pricing.components, fn comp ->
-          comp |> Map.from_struct() |> Map.reject(fn {_k, v} -> is_nil(v) end)
+          comp
+          |> Map.from_struct()
+          |> Map.delete(:__type__)
+          |> Map.reject(fn {_k, v} -> is_nil(v) end)
         end)
     }
   end

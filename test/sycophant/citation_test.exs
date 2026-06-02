@@ -3,8 +3,9 @@ defmodule Sycophant.CitationTest do
 
   alias Sycophant.Citation
   alias Sycophant.Serializable
+  alias Sycophant.Serializable.Decoder
 
-  describe "from_map/1 + Serializable.to_map/1 round-trip" do
+  describe "Decoder.from_map/1 + Serializable.to_map/1 round-trip" do
     test "page_location citation" do
       original = %Citation{
         type: :page_location,
@@ -16,7 +17,7 @@ defmodule Sycophant.CitationTest do
         end_index: 2
       }
 
-      assert original == original |> Serializable.to_map() |> Citation.from_map()
+      assert original == original |> Serializable.to_map() |> Decoder.from_map()
     end
 
     test "char_location citation" do
@@ -29,7 +30,7 @@ defmodule Sycophant.CitationTest do
         end_index: 15
       }
 
-      assert original == original |> Serializable.to_map() |> Citation.from_map()
+      assert original == original |> Serializable.to_map() |> Decoder.from_map()
     end
 
     test "content_block_location citation" do
@@ -42,7 +43,7 @@ defmodule Sycophant.CitationTest do
         end_index: 4
       }
 
-      assert original == original |> Serializable.to_map() |> Citation.from_map()
+      assert original == original |> Serializable.to_map() |> Decoder.from_map()
     end
 
     test "web_search_result_location citation" do
@@ -53,7 +54,7 @@ defmodule Sycophant.CitationTest do
         title: "Example"
       }
 
-      assert original == original |> Serializable.to_map() |> Citation.from_map()
+      assert original == original |> Serializable.to_map() |> Decoder.from_map()
     end
 
     test "search_result_location citation" do
@@ -67,7 +68,7 @@ defmodule Sycophant.CitationTest do
         end_index: 1
       }
 
-      assert original == original |> Serializable.to_map() |> Citation.from_map()
+      assert original == original |> Serializable.to_map() |> Decoder.from_map()
     end
 
     test "to_map carries __type__ and compacts nil fields" do
@@ -78,9 +79,10 @@ defmodule Sycophant.CitationTest do
       refute Map.has_key?(map, "url")
     end
 
-    test "from_map ignores unknown type/unit strings" do
-      assert %Citation{type: nil, unit: nil} =
-               Citation.from_map(%{"type" => "bogus", "unit" => "bogus"})
+    test "Decoder.from_map rejects unknown type/unit strings" do
+      assert_raise Sycophant.Error.Invalid.InvalidSerialization, fn ->
+        Decoder.from_map(%{"__type__" => "Citation", "type" => "bogus", "unit" => "bogus"})
+      end
     end
   end
 

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-4o-mini",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:01.706436Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:23.141443Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -61,11 +61,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250741,
-      "created_at": 1776250740,
+      "completed_at": 1780400843,
+      "created_at": 1780400837,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250740-TArq5YaGlPnTIwnaRVE0",
+      "id": "gen-1780400837-wI5uK9YJvjQ9n7EHeHbN",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -79,11 +79,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "{\"age\":28,\"hobbies\":[\"photography\",\"hiking\",\"cooking\"],\"name\":\"Elena Hart\"}",
+              "text": "{\"age\":29,\"hobbies\":[\"photography\",\"hiking\",\"playing the guitar\"],\"name\":\"Liam Carter\"}",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_1km7s3u4att",
+          "id": "msg_tmp_9gguk4f4ow",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -156,7 +156,7 @@
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:01 GMT"
+        "Tue, 02 Jun 2026 11:47:22 GMT"
       ],
       [
         "content-type",
@@ -164,7 +164,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=1182"
+        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=5670"
       ],
       [
         "access-control-allow-origin",
@@ -172,7 +172,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250740-TArq5YaGlPnTIwnaRVE0"
+        "gen-1780400837-wI5uK9YJvjQ9n7EHeHbN"
       ],
       [
         "access-control-expose-headers",
@@ -196,7 +196,7 @@
       ],
       [
         "cf-ray",
-        "9eca7036dc98c1bb-PRG"
+        "a05638f02f80876f-PRG"
       ]
     ],
     "status": 200

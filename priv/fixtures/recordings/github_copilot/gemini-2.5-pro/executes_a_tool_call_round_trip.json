@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gemini-2.5-pro",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-05-05T12:11:25.879244Z",
-    "sycophant_version": "0.4.1"
+    "recorded_at": "2026-06-02T11:48:32.152696Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -74,8 +74,8 @@
           "index": 0,
           "message": {
             "content": "",
-            "reasoning_opaque": "DK3ZQxZKPwWjkPVx/hmEYM4XX7L2pf7/JD5/GaHu2wJ2kWOQwz86i0oBgbnvmtDhD1C1y7ZjbIChSnah+w/XC+GatPzGlbVlE29rDmyLngOyJ2ZleDAhs6C2CoBQpCz26b6uDAJAhwAOBx31mAJcoPHgog9lHRRqNa3kGkkE6GZHMoxVGKBt5juAVyl2Dv3NDVl4ZZtovN2AwbBIrh4qWHSWLuyM1KQdFBoemcq1pDMmwMAzrYegCuxVueT/xm2ds2Vr4qsCMJs4Jv3U7k0dxhXM2Wd1P9mDQ54s3fyJmslEzbmOYOkWkzY/Mtd/AT9Ps4usq9CbS6a+vvesaGaJpzQks0AU24UGuLR9+FNe2wL5RQh6pB+JqhQc+QJynEMbtgaWA6VLBGrsBgEcuZzYelPYYZbm4l7F7P4fPrpu7fg9166I843i6QATuNzcET5fAc2t4wGP8CDVP4ob8ipXovQHpxZtsEtSu8GWwHRdjZB8tkrIjgOXKvWsqQ4RzX2ksHv/8kPp+NzV4EVgDMFsWfedGyZrxlDQOaYo2zrt/4IkRcEEapSiLR3Pr+zJO6uy7jMUCyFt5GCx2Ny5llNo+KYeinL99PZzoBgpSptPRDxHBvfpn4xT10T1bMRucQariku6+BNFUen/r3kGJgVzg2HNHoy0e8wW0kmguJyHP5ECAzguP57GztwNLMEjjdn5j1HVpTrcVoZwX7Sr63o7KQHFiDnOuCg5uPQ5OTEipbyiYO6PsFjq4cFDETCuC21Mxr6Ktamb5TMmwYcqPmOvS1bpMK9iiqNiONIIBuJ36xP+efWGv97M5x4lhZngKDD/MyDnRx0KZMidzuJshPnvZ3Z3n/BxPcRmT4qG3P6h1BnaMOv23V6u3lRs+4GUcqT1nGbtFl0PVz2+mCcP3PXqIH2zBUMX6DhANJJdNqNkfMgzW05j7YPw1ZoifLMAfQhQAgGd8C134c+V2t3Y8YeI13tgmp3HjlLhRGHoNBB0ImNtSswfdlW24MsH+vfV/E8on21E6fyRUMRA6CTv3PN2vyeZxn/AHlTc74hsYGTL22TLTsSWybOSMmbQGFz6eDJ+cQAbHi0Rt8ou3sQUCGJgz3ZvS5BenPr7oj8OjTz+V1ZZlkjlGh/Uowg97STjiBu2t+aGQhxZbU0bZttPVjxidaLIESyqdfwMT8hp5XEtRGp6ue+9kEviV8bWMuxU3v5iC1G6XDLPd5GJjvb/ODYLeJTQRkZwBT/1etZF/G1QAl+BNbaEVPG9FYoU6uQrmRVSjdxLbw5keE1fT3oQWaXB",
-            "reasoning_text": "Right, let's see what the weather's like in Tokyo. I need to get that data, and the `get_weather` tool is the obvious choice. Ah, yes, the documentation confirms it needs a 'city' parameter. Okay, so I know I'm looking for Tokyo. Therefore, I can just feed \"Tokyo\" into the `city` parameter. Now I just formulate the function call, which in this case is a straightforward `print(get_weather(city='Tokyo'))`. Perfect! Let's get that data.\n",
+            "reasoning_opaque": "2uKd7PGVa76jwQ8+FggRVl7YGD9+AGefDHwYqxnm+G0aW7+t94LVtq+xcHfVqbvKUBBapDgL27HTpvvbS7ziHhOT0BNT2/KBoZ89sqPsv0D09B2atoqXtJGUHVxRSRvfyVTXXNCEoIlDWZowxOgAxe8NlPY3rF5vRCCCFdc0aXKhOed8/THzxmnpDy0aK5SMU//iokLOzj/PLdrQQYXw3eeMQvMOKRodvTTtFUAdpFqQQpg7D5gk4Vs6KtIXlN+G2p0d0HR0QuIY8NXLe8M5gYuLdSBpO6RkXkw5l34k1ihoYQiambBFWhfVfCPLnQvgx61Fnnb7uksefpsyTXc+1icUrnrxIOq6kZVUmiA4uCQ3hHngUuPEL1rPDvyBh+qBfjpU8QAOi5u8vSmQsl7n0mlPGprmY9EIDl59tVe0LqVo/ure1cte+uawQP/TxImbChaTksRtKqLd0bYx0zG7dINaQuaJwb+VBN0S8bXf98J54rrKbHdsyuDM7RLehk4xD6mMiEhpwUqly61JkRwCUY1sQgx70OIpVMHKQqUjV2vP2X82yDXN+NibSnhpFDI9viSRY0AbGVp86PKeo2scKyzWrIgBdFdnbfdEw5K+0qQ1lWJFQcxBFPnYGgnW9zWWXEicGXDcur30FZz/ln7k8NqP4swRWVSRx7eGks70oZMwBd4liDLfYBmKAtCbdCZYS3HozSMdBFILAADuvLczYW+zqnH9GZLzoiTlA1MpJ7FDPG1RRqwsynGvFV5+cZ1jzBkqV/GPqFqnnwkcjn7cdmSfRorX56wVlvW3STxrlDp21TZJM9Afmy58mEovJGAYW1aYvjAsopRafxo/vCwsS/sO+jkmeHXw9fYd+fovKr9SpAn33SMVuBzSOx9BA7O+GK3U6XJ/PjqpC1hVGom0IFDHHJnSs3I2Vx1Nv2SjTwbopAx5C17XjVhHb3EvD+ohtHuOp2HFei/JviPJIUmC7VdqgHsBuPbmSY/u/I2rNd0GZ+5xbIAWdtcVvqwf+g7xCNCF9kLgXoh/6LvglVPufkxAJlU2RfZxx3QLGqWx7mYYZIot4DwZ1u3RZ/oxK+Ykllx/uPwFYpDuM/qfIjNCV6Pc3wbaEWRbaAb6iYKNYMMCcNhxhH9sTaL55NG/c9mvUSWTVrTdEwV0KAmwj7HtuedJ/PmGC+pCFZcqnPf01HwNXxWnxPxME/f4DpYcB8COyQcq8PIwwx5SSQs8u1nnp1xayYU2E/j3cggq1goEDC3z3Ed4ZH34C1r6SfuznPqjHs1sxq+xVwsAdNyvT9QZrXIv5ZUSFqwOwt/2eWqlW/SgTw6K1rhkg5+PMujgPxYIRLnZSm0X+b3yHKduA7ndU752VQCflXDoeI8A",
+            "reasoning_text": "My thought process, in this instance, was quite straightforward. My primary objective was to fulfill the user's request, which was to ascertain the weather conditions in Tokyo. Upon receiving this query, I immediately recognized that I possessed a tool specifically designed for this purpose: `get_weather(city: str)`. This function, as its name suggests and its parameter clearly indicates, is intended to retrieve weather data for a specified urban location.\n\nTherefore, the next logical step was to identify the necessary parameter for this function. The `get_weather` tool requires the `city` parameter, which is a string. Fortunately, the user's request explicitly provided this information – \"Tokyo.\"\n\nWith both the appropriate tool and its required parameter identified, the next step was to construct the function call itself. This led me to formulate the call as `get_weather(city='Tokyo')`.\n\nFinally, as per my operational directives, the conclusive action was to present this intended function call for execution, which I did by printing it. This action signifies my readiness to retrieve the requested weather information.",
             "role": "assistant",
             "tool_calls": [
               {
@@ -83,7 +83,7 @@
                   "arguments": "{\"city\":\"Tokyo\"}",
                   "name": "get_weather"
                 },
-                "id": "call_MHxUdjdCcno3UDJweGFRMGpxSjM",
+                "id": "call_MHxmV0YxQ0psb01NcVBJWTJIbkQ",
                 "index": 0,
                 "type": "function"
               }
@@ -91,8 +91,37 @@
           }
         }
       ],
-      "created": 1777983085,
-      "id": "a975abG2CIWzl7oP8vL6gA0",
+      "copilot_usage": {
+        "token_details": [
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 125000000000,
+            "token_count": 21,
+            "token_type": "input"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 12500000000,
+            "token_count": 0,
+            "token_type": "cache_read"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 0,
+            "token_count": 0,
+            "token_type": "cache_write"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 1000000000000,
+            "token_count": 5,
+            "token_type": "output"
+          }
+        ],
+        "total_nano_aiu": 7625000
+      },
+      "created": 1780400912,
+      "id": "DMMeavPPM7rSl7oP0o_A2A0",
       "model": "gemini-2.5-pro",
       "usage": {
         "completion_tokens": 5,
@@ -100,8 +129,8 @@
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
-        "reasoning_tokens": 104,
-        "total_tokens": 130
+        "reasoning_tokens": 112,
+        "total_tokens": 138
       }
     },
     "headers": [
@@ -122,12 +151,16 @@
         "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
       ],
       [
+        "x-copilot-service-request-id",
+        "91aa4d96-5738-4e24-aec3-eb6545694bd4"
+      ],
+      [
         "x-request-id",
-        "00000-179784c4-3a19-4fcf-bfcf-896b8ac816fc"
+        "00000-1ce7e12d-74c1-4ef3-a0fc-561df04965c3"
       ],
       [
         "date",
-        "Tue, 05 May 2026 12:11:25 GMT"
+        "Tue, 02 Jun 2026 11:48:32 GMT"
       ],
       [
         "x-github-backend",
@@ -135,7 +168,7 @@
       ],
       [
         "x-github-request-id",
-        "6B3F:29C906:565A058:5F65156:69F9DE6A"
+        "B844:373D99:19758AF:1AE6FF9:6A1EC30C"
       ]
     ],
     "status": 200

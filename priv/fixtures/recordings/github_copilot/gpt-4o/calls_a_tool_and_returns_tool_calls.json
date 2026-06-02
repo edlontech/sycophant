@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-05-05T12:11:00.689823Z",
-    "sycophant_version": "0.4.1"
+    "recorded_at": "2026-06-02T11:47:22.799518Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -74,7 +74,7 @@
           "finish_reason": "tool_calls",
           "index": 0,
           "message": {
-            "padding": "abcdefghijklmnopqrstuv",
+            "padding": "abcdefghijklmnopqrstuvwxyz",
             "role": "assistant",
             "tool_calls": [
               {
@@ -82,14 +82,43 @@
                   "arguments": "{\"city\":\"Paris\"}",
                   "name": "get_weather"
                 },
-                "id": "call_wGHBVuG7erXIldn0TuNl29yg",
+                "id": "call_yZawa31V3QYaOXpTVUSR6cP3",
                 "type": "function"
               }
             ]
           }
         }
       ],
-      "id": "chatcmpl-Dc8u3NZf5ygVocdKiUzBAW3PvMkg4",
+      "copilot_usage": {
+        "token_details": [
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 250000000000,
+            "token_count": 65,
+            "token_type": "input"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 125000000000,
+            "token_count": 0,
+            "token_type": "cache_read"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 0,
+            "token_count": 0,
+            "token_type": "cache_write"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 1000000000000,
+            "token_count": 15,
+            "token_type": "output"
+          }
+        ],
+        "total_nano_aiu": 31250000
+      },
+      "id": "chatcmpl-DmHsYwh8ZyFQI9NjJKNbY2hryjLJn",
       "model": "gpt-4o-2024-11-20",
       "prompt_filter_results": [
         {
@@ -114,6 +143,7 @@
           "prompt_index": 0
         }
       ],
+      "service_tier": "default",
       "system_fingerprint": "fp_23ef75ba80",
       "usage": {
         "completion_tokens": 15,
@@ -147,16 +177,20 @@
         "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
       ],
       [
+        "x-copilot-service-request-id",
+        "efab0223-68e6-41ed-9899-8739ac68f69a"
+      ],
+      [
         "x-request-id",
-        "00000-efe2a69c-1162-4136-afe7-59ccc8c30a36"
+        "00000-a839ecba-cb3f-479b-a54d-f613d0bd958e"
       ],
       [
         "date",
-        "Tue, 05 May 2026 12:11:00 GMT"
+        "Tue, 02 Jun 2026 11:47:22 GMT"
       ],
       [
         "content-length",
-        "887"
+        "1342"
       ],
       [
         "x-github-backend",
@@ -164,7 +198,7 @@
       ],
       [
         "x-github-request-id",
-        "6B3F:29C906:565079F:5F5AE11:69F9DE53"
+        "B844:373D99:1956AB6:1AC65AB:6A1EC2C9"
       ]
     ],
     "status": 200

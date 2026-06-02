@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T10:59:09.657219Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:36.745804Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -37,13 +37,14 @@
         },
         "verbosity": "medium"
       },
+      "moderation": null,
       "top_logprobs": 0,
       "previous_response_id": null,
       "tool_choice": "auto",
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_054a4657389707ab0069df6f7cc65881949ef972748d319fca",
+      "id": "resp_047b1edb8b11d4a2006a1ec2d16d0c8197b2e33cb2038532f9",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -55,11 +56,11 @@
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 18,
+        "output_tokens": 16,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 36
+        "total_tokens": 34
       },
       "safety_identifier": null,
       "object": "response",
@@ -70,11 +71,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Nice to meet you, Sycophant! How can I assist you today?",
+              "text": "Got it, Sycophant! How can I assist you today?",
               "type": "output_text"
             }
           ],
-          "id": "msg_054a4657389707ab0069df6f7d2c608194aa3d3be94a516c90",
+          "id": "msg_047b1edb8b11d4a2006a1ec2d8706c8197ac1d21d6a1e8249d",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -85,25 +86,26 @@
       "presence_penalty": 0.0,
       "incomplete_details": null,
       "reasoning": {
+        "context": null,
         "effort": null,
         "summary": null
       },
-      "completed_at": 1776250749,
+      "completed_at": 1780400856,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
         "payer": "developer"
       },
-      "prompt_cache_retention": null,
+      "prompt_cache_retention": "in_memory",
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776250748,
+      "created_at": 1780400849,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:09 GMT"
+        "Tue, 02 Jun 2026 11:47:36 GMT"
       ],
       [
         "content-type",
@@ -111,11 +113,55 @@
       ],
       [
         "content-length",
-        "1584"
+        "1624"
+      ],
+      [
+        "cf-ray",
+        "a056393c3d2cd1c5-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
       ],
       [
         "server",
         "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Request-ID"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-processing-ms",
+        "7279"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -142,44 +188,12 @@
         "0s"
       ],
       [
-        "openai-version",
-        "2020-10-01"
-      ],
-      [
-        "openai-organization",
-        "[REDACTED]"
-      ],
-      [
-        "openai-project",
-        "[REDACTED]"
-      ],
-      [
         "x-request-id",
-        "req_12a730c7747540448dd4f978558537a7"
-      ],
-      [
-        "openai-processing-ms",
-        "829"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_05ba2f6ba4e94c55a2c50b21b16a57f8"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9eca706b4f40710c-PRG"
       ],
       [
         "alt-svc",

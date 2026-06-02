@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-04-15T10:59:09.712756Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:31.754890Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -19,7 +19,7 @@
         {
           "content": [
             {
-              "text": "Hello! How exciting that you're planning a trip to London! \n\nWould you like me to check the current weather in London for you? I can help you get an idea of what conditions are like there. Just let me know if you'd like that information or if there's anything else I can help you with for your trip planning!"
+              "text": "That's exciting! I can help you check the current weather in London if that would be useful for your trip planning. Would you like me to get the weather information for you?"
             }
           ],
           "role": "assistant"
@@ -27,7 +27,7 @@
         {
           "content": [
             {
-              "text": "What's the current weather in London? Use the get_weather tool."
+              "text": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer."
             }
           ],
           "role": "user"
@@ -74,7 +74,7 @@
       ],
       [
         "x-amz-date",
-        "20260415T105907Z"
+        "20260602T114729Z"
       ],
       [
         "content-type",
@@ -87,7 +87,7 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 1671
+        "latencyMs": 2090
       },
       "output": {
         "message": {
@@ -98,7 +98,7 @@
                   "city": "London"
                 },
                 "name": "get_weather",
-                "toolUseId": "tooluse_UxNhqHSky8NHqRmH3bAvGm",
+                "toolUseId": "tooluse_4HnUHuzSRiIX4I9vq5Mfi1",
                 "type": "tool_use"
               }
             }
@@ -112,16 +112,16 @@
         "cacheReadInputTokens": 0,
         "cacheWriteInputTokenCount": 0,
         "cacheWriteInputTokens": 0,
-        "inputTokens": 680,
+        "inputTokens": 656,
         "outputTokens": 53,
         "serverToolUsage": {},
-        "totalTokens": 733
+        "totalTokens": 709
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:09 GMT"
+        "Tue, 02 Jun 2026 11:47:31 GMT"
       ],
       [
         "content-type",
@@ -133,7 +133,7 @@
       ],
       [
         "x-amzn-requestid",
-        "58d6c024-91cf-4481-acf6-9d97fd73ab7b"
+        "71e09abd-a5aa-4f5e-bbed-2fe7a1a77a83"
       ]
     ],
     "status": 200

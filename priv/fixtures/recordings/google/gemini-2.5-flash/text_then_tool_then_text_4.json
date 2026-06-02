@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-04-15T10:59:06.497026Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:28.316705Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -19,7 +19,7 @@
         {
           "parts": [
             {
-              "text": "Sounds exciting! How can I help you with your trip to London? Perhaps you'd like to know the weather there?"
+              "text": "That's wonderful! London is a fantastic city. Is there anything specific you'd like to know about London, perhaps the weather, or something else?"
             }
           ],
           "role": "model"
@@ -27,7 +27,7 @@
         {
           "parts": [
             {
-              "text": "What's the current weather in London? Use the get_weather tool."
+              "text": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer."
             }
           ],
           "role": "user"
@@ -41,7 +41,7 @@
                 },
                 "name": "get_weather"
               },
-              "thoughtSignature": "CssBAb4+9vuLIug0sBdn5CIHAEfECNZ4HsUaYnhCUPjlo32FLnMNxv0Tg9LBGbNzgDjMZBqbnr6XdEZk9UF4T9KrnPevV3WDloxRcOA//gLYGr1E4bjAwc0dvd98KsbxUdr7YCf6Qny3rOXsyxzW08+94cNgWjTZoZRXZS+9N2rNgdrd38n0T9Pf7Ty//0uA+L2DFhmZxTTkwKDRvkvZl5Yw4EGR19nhAtwmzRNPkLJy5D2sDuFG1z8v9z/cmB7xdtKMTciaX8xWqQtfqq0="
+              "thoughtSignature": "CsMCAQw51scBJjhqpi6xXNl1jJTE6+gAoW8paK8WrUwJ+4mk2NqUyYXEUT1WSQiGEHxCQGUAhmDUon28d2NYXpXzWaVDFxDxTaK6ChHhpwFyrgbfvAd46MDxWPpAlneto0J/j9mqOd5DzInZhM8hIxobt/zMXI97PddaEO2hFkQV/JFpfIa98a2npGXqm/suPlBSBoetjllw7iSZFFa+QhJrwjttRvczJCKOLJlWmOnvCF6UfH+AWmAkmLt9DK7emINduSEc2OkyEX49miLFiDZZTjiQrhDNmCo+dpOL568EdUmUeTCt4AW3WNk1B43CegzcEMWhSf65QjpxcWD3NiEpjb0R497FjhVEInyk8CG2rh5CxSbh0dYXNFt+Np5x6ZICAg1sRaBhXq8VG/AEQxCAupFyTFGb0xlhKl4y+Nn/vcrZDdI="
             }
           ],
           "role": "model"
@@ -62,7 +62,7 @@
         {
           "parts": [
             {
-              "text": "The current weather in London is 18°C and cloudy."
+              "text": "The weather in London is 18°C and cloudy."
             }
           ],
           "role": "model"
@@ -125,8 +125,8 @@
           "content": {
             "parts": [
               {
-                "text": "It's cloudy in London, so it might be a good idea to bring an umbrella just in case, or you could check a more detailed forecast for the likelihood of rain.",
-                "thoughtSignature": "CvoDAb4+9vt6iRQjksbjr0eguoMaEjYcVuJKifadSLPLzycfVtABeJJBA15fH0zqcDIM6feyecaMoS2AjuP4DmiKFhN8GsrWQQ17Y7MXwb78aKXOMFEIf4Tlqvhh3qvdSUmgTkIpHpwszMWqQsMvkhZ0jWqoy0JtN3U+upO6ONmEfJdjGqPpNPvj33U/LKemIQoPXk7Vzv5jzZXh8Y3yR63QFTg3UHC3X8HSKHZKcjNwRB0E8UWDJYGphj/+AoUo+TW7kcOqlkSiTlQdulMHE0pIYi4wvvBQlntMHEC5UcbGmXY7efJuvLTUT8H3gtYsgU1NZBKR16fkQWRX6Ua7otjj4ihHO7ZbhV/5ZJFn0sSJX78R6Nn8RkalU5SkgiwwqunjHmQ74kFjImz5zF0dC5B3JBXVZMNkZ3AmD7fM7rCy2B1G6NRqOTBN9aUs2ZzqtX/kYUci1L6phNAtzhbrAh2ovf6vWDCGfBKmO9g2p2Rxk1vqU3BxleZakywJczsz1hoh6KPCY/Ia4yv/N75YmouLdj56yXoCyK7jAOBIg7k05SRHoakZ4OI4GokRwXpEyjsUyAnHnOCcnccDAH5VwzhLV44q1MWK1AWQ9KLzSXsYBF8EqpRxGZ91Va/32s4ucLVbhUDKqlEmq2DP2jBgb7QPeJ1f1Ra80un/aXo="
+                "text": "Given it's cloudy, it might be a good idea to bring an umbrella, just in case!",
+                "thoughtSignature": "Cp0DAQw51sfOSoMJLWPuNCJFVSGYQ2VQaHCvtOiQhhojTysE0D6ZrqE0zRDjyLcshc7rCdW0vMl3kDHLcVqsjhDO+55FvEQkdFWRHZG6r4dwJlkRq59P6RULhDTMdAtNRBUOXkMK/ub+Po8x3yeg92T/N40mawi5S3YwQVFZPgk4PcqgODxT85Oyia7x6EwJISiTMecHju1+l8iJlF32W/66qgHaCRyUJuhSB4flEa7yVGk+ONU4pNUdRbzXRhbkUi1Smv/KulDqp1bssA2k7lkY53IKVH9cMJ0S3pRpRscnPCuTlpJyMvH/6pWPLYUtJuwbduHQFNlGrBGDkq9ZP6oUeMVPV+F8pf0/1azDuuC1mfoziqVnimTQywWVUNdhrwbK3rvlQPoPciyOAWFhWRVe7N+keMRgOMOSg+wWjvQHzOp/SNI5uX7cthKRpnjjiG+opBDwYhz0cQB103wE9N0InHgRHkX5tkcJ/Ky8h/V+E22JKFijNOXIDeM1dPnucROzuAV/4V9hP12NARalugCRyFkLK3ERP67SnwumCU8="
               }
             ],
             "role": "model"
@@ -136,18 +136,19 @@
         }
       ],
       "modelVersion": "gemini-2.5-flash",
-      "responseId": "eW_fadq3EsimkdUP7qy_8Aw",
+      "responseId": "z8IeasrPG8vm7M8Pi6_oyAk",
       "usageMetadata": {
-        "candidatesTokenCount": 36,
-        "promptTokenCount": 169,
+        "candidatesTokenCount": 21,
+        "promptTokenCount": 184,
         "promptTokensDetails": [
           {
             "modality": "TEXT",
-            "tokenCount": 169
+            "tokenCount": 184
           }
         ],
-        "thoughtsTokenCount": 102,
-        "totalTokenCount": 307
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 84,
+        "totalTokenCount": 289
       }
     },
     "headers": [
@@ -173,7 +174,7 @@
       ],
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:06 GMT"
+        "Tue, 02 Jun 2026 11:47:28 GMT"
       ],
       [
         "server",
@@ -193,7 +194,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=1243"
+        "gfet4t7; dur=921"
       ],
       [
         "alt-svc",

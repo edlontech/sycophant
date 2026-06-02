@@ -2,8 +2,8 @@
   "metadata": {
     "model": "google/gemini-2.5-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:05.502555Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:27.229980Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "Great! How can I help you with your trip to London? For example, I can tell you the current weather there.\n",
+              "text": "Sounds like a great trip! What would you like to know about London?\n",
               "type": "output_text"
             }
           ],
@@ -24,7 +24,7 @@
           "type": "message"
         },
         {
-          "content": "What's the current weather in London? Use the get_weather tool.",
+          "content": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer.",
           "role": "user"
         },
         {
@@ -35,19 +35,19 @@
         },
         {
           "arguments": "{\"city\":\"London\"}",
-          "call_id": "tool_get_weather_9a7xgwBUfRuP1P7WfUie",
+          "call_id": "tool_get_weather_fegMXaa6nFUoWXU1AgrQ",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "tool_get_weather_9a7xgwBUfRuP1P7WfUie",
+          "call_id": "tool_get_weather_fegMXaa6nFUoWXU1AgrQ",
           "output": "London: 18C, cloudy",
           "type": "function_call_output"
         },
         {
           "content": [
             {
-              "text": "The weather in London is 18°C and cloudy.",
+              "text": "The current weather in London is 18C and cloudy.",
               "type": "output_text"
             }
           ],
@@ -99,11 +99,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250745,
-      "created_at": 1776250744,
+      "completed_at": 1780400847,
+      "created_at": 1780400846,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250744-xS6MPKzN0AWkVqxYO4aS",
+      "id": "gen-1780400846-NPJtPzII1MJKkqE2QRSX",
       "incomplete_details": null,
       "instructions": "You are a helpful assistant. Be concise.",
       "max_output_tokens": null,
@@ -121,7 +121,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_g5dtzcfuoml",
+          "id": "msg_tmp_8wr5rym824m",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -133,7 +133,7 @@
       "prompt_cache_key": null,
       "reasoning": null,
       "safety_identifier": null,
-      "service_tier": "auto",
+      "service_tier": "provisioned",
       "status": "completed",
       "store": false,
       "temperature": 1,
@@ -167,13 +167,13 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 7.86e-5,
+        "cost": 7.26e-5,
         "cost_details": {
-          "upstream_inference_cost": 7.86e-5,
-          "upstream_inference_input_cost": 4.11e-5,
+          "upstream_inference_cost": 7.26e-5,
+          "upstream_inference_input_cost": 3.51e-5,
           "upstream_inference_output_cost": 3.75e-5
         },
-        "input_tokens": 137,
+        "input_tokens": 117,
         "input_tokens_details": {
           "cached_tokens": 0
         },
@@ -182,13 +182,13 @@
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 152
+        "total_tokens": 132
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:05 GMT"
+        "Tue, 02 Jun 2026 11:47:27 GMT"
       ],
       [
         "content-type",
@@ -196,7 +196,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=466"
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=502"
       ],
       [
         "access-control-allow-origin",
@@ -204,7 +204,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250744-xS6MPKzN0AWkVqxYO4aS"
+        "gen-1780400846-NPJtPzII1MJKkqE2QRSX"
       ],
       [
         "access-control-expose-headers",
@@ -228,7 +228,7 @@
       ],
       [
         "cf-ray",
-        "9eca7053da8bc1bb-PRG"
+        "a056392abf00876f-PRG"
       ]
     ],
     "status": 200

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "google/gemini-2.5-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:01.650671Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:18.109339Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -61,11 +61,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250741,
-      "created_at": 1776250740,
+      "completed_at": 1780400838,
+      "created_at": 1780400837,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250740-9eDgQoUlbHshqMtAb3vh",
+      "id": "gen-1780400837-Kuudy6GwcSA6EJ6JMoKp",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -79,11 +79,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "{\n  \"name\": \"Alice Johnson\",\n  \"age\": 30,\n  \"hobbies\": [\"reading\", \"hiking\", \"cooking\"]\n}",
+              "text": "{\n  \"name\": \"Alice Wonderland\",\n  \"age\": 28,\n  \"hobbies\": [\"reading\", \"hiking\", \"photography\"]\n}",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_oyyyb1n812j",
+          "id": "msg_tmp_a50w5q49jaa",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -95,7 +95,7 @@
       "prompt_cache_key": null,
       "reasoning": null,
       "safety_identifier": null,
-      "service_tier": "auto",
+      "service_tier": "provisioned",
       "status": "completed",
       "store": false,
       "temperature": 1,
@@ -156,7 +156,7 @@
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:01 GMT"
+        "Tue, 02 Jun 2026 11:47:17 GMT"
       ],
       [
         "content-type",
@@ -164,7 +164,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=6,cfOrigin;dur=0,cfWorker;dur=1177"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=657"
       ],
       [
         "access-control-allow-origin",
@@ -172,7 +172,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250740-9eDgQoUlbHshqMtAb3vh"
+        "gen-1780400837-Kuudy6GwcSA6EJ6JMoKp"
       ],
       [
         "access-control-expose-headers",
@@ -196,7 +196,7 @@
       ],
       [
         "cf-ray",
-        "9eca7036dc97c1bb-PRG"
+        "a05638f02f8d876f-PRG"
       ]
     ],
     "status": 200

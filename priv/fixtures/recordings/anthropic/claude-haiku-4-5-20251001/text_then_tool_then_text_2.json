@@ -2,8 +2,8 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-04-15T10:59:05.722106Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:47.490770Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -14,11 +14,11 @@
           "role": "user"
         },
         {
-          "content": "That sounds exciting! I'd be happy to help with your London trip planning.\n\nHere are some ways I can assist you:\n\n1. **Weather Information** - I can check the current weather in London to help you pack appropriately\n2. **General Travel Tips** - I can offer suggestions about popular attractions, neighborhoods, transportation, etc.\n\nWould you like me to check the current weather in London? Or do you have specific questions about your trip - like what to see, where to stay, how to get around, or when you're planning to visit?",
+          "content": "That sounds great! A trip to London is exciting. I'd be happy to help you plan it.\n\nTo get you started, I can check the current weather in London so you know what to expect. Would you like me to do that?\n\nAlso, feel free to share any details about your trip that I can help with, such as:\n- When you're planning to go\n- What you're interested in (attractions, museums, food, shopping, etc.)\n- How long you'll be staying\n- Any specific questions or concerns\n\nLet me know how I can help!",
           "role": "assistant"
         },
         {
-          "content": "What's the current weather in London? Use the get_weather tool.",
+          "content": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer.",
           "role": "user"
         }
       ],
@@ -39,7 +39,8 @@
             ],
             "type": "object"
           },
-          "name": "get_weather"
+          "name": "get_weather",
+          "strict": true
         }
       ]
     },
@@ -67,7 +68,7 @@
           "caller": {
             "type": "direct"
           },
-          "id": "toolu_01KpDRXvr2wnE9n4PodMcK4U",
+          "id": "toolu_014bxK9du3vuu6E8nYXjB3CX",
           "input": {
             "city": "London"
           },
@@ -75,7 +76,7 @@
           "type": "tool_use"
         }
       ],
-      "id": "msg_01Amkw1ZSABSgT7gBr58GrmT",
+      "id": "msg_01SP9YnLUQCkUu6Rvd3kJwmD",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
       "stop_details": null,
@@ -90,7 +91,7 @@
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "inference_geo": "not_available",
-        "input_tokens": 727,
+        "input_tokens": 741,
         "output_tokens": 54,
         "service_tier": "standard"
       }
@@ -98,7 +99,7 @@
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:05 GMT"
+        "Tue, 02 Jun 2026 11:47:47 GMT"
       ],
       [
         "content-type",
@@ -114,7 +115,7 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-04-15T10:59:05Z"
+        "2026-06-02T11:47:47Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
@@ -126,7 +127,7 @@
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-04-15T10:59:05Z"
+        "2026-06-02T11:47:47Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
@@ -138,7 +139,7 @@
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-04-15T10:59:05Z"
+        "2026-06-02T11:47:46Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
@@ -150,11 +151,11 @@
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-04-15T10:59:05Z"
+        "2026-06-02T11:47:47Z"
       ],
       [
         "request-id",
-        "req_011Ca5SSQupZQhMkfh6K6eNE"
+        "req_011CbeNyh9NSnX2N43mFnqbJ"
       ],
       [
         "strict-transport-security",
@@ -165,12 +166,12 @@
         "8a3ada71-45d7-4ed6-aaaf-279ffd490a4a"
       ],
       [
-        "server",
-        "cloudflare"
+        "traceresponse",
+        "00-34d914873178b2dc8137dec8f2df099c-8d3998dab7791a1d-01"
       ],
       [
-        "x-envoy-upstream-service-time",
-        "615"
+        "server",
+        "cloudflare"
       ],
       [
         "content-security-policy",
@@ -179,10 +180,6 @@
       [
         "vary",
         "Accept-Encoding"
-      ],
-      [
-        "server-timing",
-        "x-originResponse;dur=617"
       ],
       [
         "set-cookie",
@@ -198,7 +195,7 @@
       ],
       [
         "cf-ray",
-        "9eca70544badf98a-PRG"
+        "a05639a4f940b385-PRG"
       ]
     ],
     "status": 200

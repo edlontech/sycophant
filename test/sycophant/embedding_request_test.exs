@@ -5,6 +5,7 @@ defmodule Sycophant.EmbeddingRequestTest do
   alias Sycophant.EmbeddingRequest
   alias Sycophant.Message.Content
   alias Sycophant.Serializable
+  alias Sycophant.Serializable.Decoder
 
   describe "serialization round-trip" do
     test "text-only inputs" do
@@ -18,7 +19,7 @@ defmodule Sycophant.EmbeddingRequestTest do
       assert map["__type__"] == "EmbeddingRequest"
       assert map["inputs"] == ["hello", "world"]
 
-      restored = EmbeddingRequest.from_map(map)
+      restored = Decoder.from_map(map)
       assert restored.inputs == ["hello", "world"]
       assert restored.model == req.model
     end
@@ -30,7 +31,7 @@ defmodule Sycophant.EmbeddingRequestTest do
       }
 
       map = Serializable.to_map(req)
-      restored = EmbeddingRequest.from_map(map)
+      restored = Decoder.from_map(map)
       assert [%Content.Image{data: "base64data"}] = restored.inputs
     end
 
@@ -41,7 +42,7 @@ defmodule Sycophant.EmbeddingRequestTest do
       }
 
       map = Serializable.to_map(req)
-      restored = EmbeddingRequest.from_map(map)
+      restored = Decoder.from_map(map)
       assert [[text, %Content.Image{}]] = restored.inputs
       assert text == "caption"
     end
@@ -56,7 +57,7 @@ defmodule Sycophant.EmbeddingRequestTest do
       map = Serializable.to_map(req)
       assert map["provider_params"] == %{"input_type" => "search_document"}
 
-      restored = EmbeddingRequest.from_map(map)
+      restored = Decoder.from_map(map)
       assert restored.provider_params == %{"input_type" => "search_document"}
     end
 

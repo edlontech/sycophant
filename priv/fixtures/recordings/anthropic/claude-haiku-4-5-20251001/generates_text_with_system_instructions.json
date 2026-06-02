@@ -2,8 +2,8 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-04-15T10:59:09.592975Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:32.225666Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -42,7 +42,7 @@
           "type": "text"
         }
       ],
-      "id": "msg_01T211Xrpny7YmBJFTm4buia",
+      "id": "msg_01QCZXbsYWpFshEuPfo4EGfx",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
       "stop_details": null,
@@ -65,7 +65,7 @@
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:09 GMT"
+        "Tue, 02 Jun 2026 11:47:32 GMT"
       ],
       [
         "content-type",
@@ -81,7 +81,7 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-04-15T10:59:09Z"
+        "2026-06-02T11:47:32Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
@@ -93,7 +93,7 @@
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-04-15T10:59:09Z"
+        "2026-06-02T11:47:32Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
@@ -105,7 +105,7 @@
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-04-15T10:59:09Z"
+        "2026-06-02T11:47:31Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
@@ -117,11 +117,11 @@
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-04-15T10:59:09Z"
+        "2026-06-02T11:47:32Z"
       ],
       [
         "request-id",
-        "req_011Ca5SSi3T4RAYhFbj7bqGN"
+        "req_011CbeNxcTpDyQAAbYBLSmb2"
       ],
       [
         "strict-transport-security",
@@ -132,12 +132,12 @@
         "8a3ada71-45d7-4ed6-aaaf-279ffd490a4a"
       ],
       [
-        "server",
-        "cloudflare"
+        "traceresponse",
+        "00-37134bc4f41bfca0c314b9c93df5ede5-a42e9f8088c1da6f-01"
       ],
       [
-        "x-envoy-upstream-service-time",
-        "480"
+        "server",
+        "cloudflare"
       ],
       [
         "content-security-policy",
@@ -146,10 +146,6 @@
       [
         "vary",
         "Accept-Encoding"
-      ],
-      [
-        "server-timing",
-        "x-originResponse;dur=484"
       ],
       [
         "set-cookie",
@@ -165,7 +161,7 @@
       ],
       [
         "cf-ray",
-        "9eca706d5a73f98a-PRG"
+        "a05639486b7eb385-PRG"
       ]
     ],
     "status": 200

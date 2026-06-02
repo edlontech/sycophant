@@ -124,14 +124,14 @@ defmodule Sycophant.ContextTest do
       assert map["__type__"] == "Context"
     end
 
-    test "from_map ignores model and response_schema in input" do
+    test "decode ignores model and response_schema in input" do
       map = %{
         "messages" => [%{"__type__" => "Message", "role" => "user", "content" => "hi"}],
         "model" => "should-be-ignored",
         "response_schema" => %{"type" => "object"}
       }
 
-      ctx = Context.from_map(map)
+      ctx = Context.decode(map, [])
       refute Map.has_key?(ctx, :model)
       refute Map.has_key?(ctx, :response_schema)
       assert [%Message{role: :user, content: "hi"}] = ctx.messages

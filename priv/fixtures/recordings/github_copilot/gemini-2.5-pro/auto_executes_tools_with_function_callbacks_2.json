@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gemini-2.5-pro",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-05-05T12:11:02.814506Z",
-    "sycophant_version": "0.4.1"
+    "recorded_at": "2026-06-02T11:47:29.230194Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -26,7 +26,7 @@
                 "arguments": "{\"city\":\"Paris\"}",
                 "name": "get_weather"
               },
-              "id": "call_MHxYSWJlZjgycTJaYjdIMUd1cU8",
+              "id": "call_MHxJWjlGUGN2b0N1WUNmRkRpdmY",
               "type": "function"
             }
           ]
@@ -34,7 +34,7 @@
         {
           "content": "Paris: 22C, sunny",
           "role": "tool",
-          "tool_call_id": "call_MHxYSWJlZjgycTJaYjdIMUd1cU8"
+          "tool_call_id": "call_MHxJWjlGUGN2b0N1WUNmRkRpdmY"
         }
       ],
       "model": "gemini-2.5-pro",
@@ -97,22 +97,51 @@
           "finish_reason": "stop",
           "index": 0,
           "message": {
-            "content": "The weather in Paris is 22 degrees Celsius and sunny.\n",
+            "content": "The weather in Paris is 22 degrees Celsius and sunny. \n",
             "role": "assistant"
           }
         }
       ],
-      "created": 1777983062,
-      "id": "Vt75aYyLA72Tl7oP4c2ymAw",
+      "copilot_usage": {
+        "token_details": [
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 125000000000,
+            "token_count": 64,
+            "token_type": "input"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 12500000000,
+            "token_count": 0,
+            "token_type": "cache_read"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 0,
+            "token_count": 0,
+            "token_type": "cache_write"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 1000000000000,
+            "token_count": 15,
+            "token_type": "output"
+          }
+        ],
+        "total_nano_aiu": 23000000
+      },
+      "created": 1780400849,
+      "id": "0MIeariBHYTXsbwPqMPE8AE",
       "model": "gemini-2.5-pro",
       "usage": {
-        "completion_tokens": 14,
+        "completion_tokens": 15,
         "prompt_tokens": 64,
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
         "reasoning_tokens": 0,
-        "total_tokens": 78
+        "total_tokens": 79
       }
     },
     "headers": [
@@ -133,16 +162,20 @@
         "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
       ],
       [
+        "x-copilot-service-request-id",
+        "7cfcc133-bb1d-4236-ac7c-c4ba9817c15f"
+      ],
+      [
         "x-request-id",
-        "00000-44a83b39-c7f6-4cb8-ab6f-b2279789f700"
+        "00000-98b863e7-f811-48e9-8afc-5d8579c9c92e"
       ],
       [
         "date",
-        "Tue, 05 May 2026 12:11:02 GMT"
+        "Tue, 02 Jun 2026 11:47:29 GMT"
       ],
       [
         "content-length",
-        "360"
+        "786"
       ],
       [
         "x-github-backend",
@@ -150,7 +183,7 @@
       ],
       [
         "x-github-request-id",
-        "6B3F:29C906:5651479:5F5BBB3:69F9DE55"
+        "B844:373D99:1959D99:1AC9A70:6A1EC2D0"
       ]
     ],
     "status": 200

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-04-15T10:59:02.394884Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:20.835498Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -11,7 +11,7 @@
         {
           "parts": [
             {
-              "text": "What's the weather in Paris? Use the get_weather tool."
+              "text": "What's the weather in Paris? You must call the get_weather tool with city=\"Paris\" to answer."
             }
           ],
           "role": "user"
@@ -65,7 +65,7 @@
                   },
                   "name": "get_weather"
                 },
-                "thoughtSignature": "CpQCAb4+9vu8yAtiIZuFXlXRXkeMwhAghM9aR5v7XOBEH4FzALwDc4IfG5DlHfvMrxZUjpklvQLKvTaA1JmR4kRoYjV2I05steOUwGgT/fKggId6k54Eqm++FTRemL1XA6Dqm9moXbIi50fo/DO5LuronODkfVEdhLn/1qN5ZemCluHBnIBBSgW8xsBTHTVNkw+PlNXqIMb7FEkeltVVEKfU86MgbItwo2uZo3asLfLb591375V8PaN9VtTuVO18wMsBgQxBPWvDBT66Df124BOik1IlQ759LXfbq4QaNjL+s5VXdF7KXe+lHM1V+jqd94J+OW2y2dPbcw3AnoJMWNui6bvucxQj3sI92XcaMrzdbvv12FsG"
+                "thoughtSignature": "CuoBAQw51sc60WCL0SU8QhXJ963dhTX/pRlzmYnRLAyYahpcdxkg70VUxMFa+8JND1VzDthfwF9tI7PpJUfL7VoWrWqyWVraB9TTA5eaJmRR7J6rJBi4gmX7uuJvPXRJIWKwwGNO6xmIFsY7GXqEmLUml2mlONaDcWMt3TdYyUU5/RrlGHeUdqyrY1edDaOVoKuzfDyPQAZx5KySgKiv79VZoUAzNAR/SEkh11BklzH4fJwkRvS53y2D8OmQn66LDdINageo8PABew8FZoo9WP9Vt+9W9DBN8GycNDnyv6cqJNJId6qUg2Cdl6e5"
               }
             ],
             "role": "model"
@@ -76,18 +76,19 @@
         }
       ],
       "modelVersion": "gemini-2.5-flash",
-      "responseId": "dW_faaGnFN_qkdUPlseE2Aw",
+      "responseId": "yMIeauLQEYX7nsEP8pnHwAc",
       "usageMetadata": {
         "candidatesTokenCount": 15,
-        "promptTokenCount": 60,
+        "promptTokenCount": 69,
         "promptTokensDetails": [
           {
             "modality": "TEXT",
-            "tokenCount": 60
+            "tokenCount": 69
           }
         ],
-        "thoughtsTokenCount": 61,
-        "totalTokenCount": 136
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 47,
+        "totalTokenCount": 131
       }
     },
     "headers": [
@@ -113,7 +114,7 @@
       ],
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:02 GMT"
+        "Tue, 02 Jun 2026 11:47:20 GMT"
       ],
       [
         "server",
@@ -133,7 +134,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=1128"
+        "gfet4t7; dur=624"
       ],
       [
         "alt-svc",

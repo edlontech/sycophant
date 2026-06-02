@@ -12,54 +12,21 @@ defmodule Sycophant.Usage do
   """
   alias Sycophant.Pricing
 
-  defstruct [
-    :input_tokens,
-    :output_tokens,
-    :cache_creation_input_tokens,
-    :cache_read_input_tokens,
-    :reasoning_tokens,
-    :input_cost,
-    :output_cost,
-    :cache_read_cost,
-    :cache_write_cost,
-    :reasoning_cost,
-    :total_cost,
-    :pricing
-  ]
+  use ZoiDefstruct
 
-  @type t :: %__MODULE__{
-          input_tokens: non_neg_integer() | nil,
-          output_tokens: non_neg_integer() | nil,
-          cache_creation_input_tokens: non_neg_integer() | nil,
-          cache_read_input_tokens: non_neg_integer() | nil,
-          reasoning_tokens: non_neg_integer() | nil,
-          input_cost: float() | nil,
-          output_cost: float() | nil,
-          cache_read_cost: float() | nil,
-          cache_write_cost: float() | nil,
-          reasoning_cost: float() | nil,
-          total_cost: float() | nil,
-          pricing: Pricing.t() | nil
-        }
-
-  @doc "Reconstructs a Usage struct from a serialized map."
-  @spec from_map(map()) :: t()
-  def from_map(data) do
-    %__MODULE__{
-      input_tokens: data["input_tokens"],
-      output_tokens: data["output_tokens"],
-      cache_creation_input_tokens: data["cache_creation_input_tokens"],
-      cache_read_input_tokens: data["cache_read_input_tokens"],
-      reasoning_tokens: data["reasoning_tokens"],
-      input_cost: data["input_cost"],
-      output_cost: data["output_cost"],
-      cache_read_cost: data["cache_read_cost"],
-      cache_write_cost: data["cache_write_cost"],
-      reasoning_cost: data["reasoning_cost"],
-      total_cost: data["total_cost"],
-      pricing: if(data["pricing"], do: Pricing.from_map(data["pricing"]))
-    }
-  end
+  defstruct __type__: Zoi.literal("Usage") |> Zoi.default("Usage"),
+            input_tokens: Zoi.optional(Zoi.integer()),
+            output_tokens: Zoi.optional(Zoi.integer()),
+            cache_creation_input_tokens: Zoi.optional(Zoi.integer()),
+            cache_read_input_tokens: Zoi.optional(Zoi.integer()),
+            reasoning_tokens: Zoi.optional(Zoi.integer()),
+            input_cost: Zoi.optional(Zoi.float()),
+            output_cost: Zoi.optional(Zoi.float()),
+            cache_read_cost: Zoi.optional(Zoi.float()),
+            cache_write_cost: Zoi.optional(Zoi.float()),
+            reasoning_cost: Zoi.optional(Zoi.float()),
+            total_cost: Zoi.optional(Zoi.float()),
+            pricing: Zoi.optional(Sycophant.Pricing.t())
 
   @doc """
   Calculates cost fields from token counts and a `Pricing` struct.
@@ -103,28 +70,6 @@ defmodule Sycophant.Usage do
   defp sum_costs(costs) do
     non_nil = Enum.reject(costs, &is_nil/1)
     if non_nil == [], do: nil, else: Enum.sum(non_nil)
-  end
-end
-
-defimpl Sycophant.Serializable, for: Sycophant.Usage do
-  import Sycophant.Serializable.Helpers
-
-  def to_map(u) do
-    compact(%{
-      "__type__" => "Usage",
-      "input_tokens" => u.input_tokens,
-      "output_tokens" => u.output_tokens,
-      "cache_creation_input_tokens" => u.cache_creation_input_tokens,
-      "cache_read_input_tokens" => u.cache_read_input_tokens,
-      "reasoning_tokens" => u.reasoning_tokens,
-      "input_cost" => u.input_cost,
-      "output_cost" => u.output_cost,
-      "cache_read_cost" => u.cache_read_cost,
-      "cache_write_cost" => u.cache_write_cost,
-      "reasoning_cost" => u.reasoning_cost,
-      "total_cost" => u.total_cost,
-      "pricing" => if(u.pricing, do: Sycophant.Serializable.to_map(u.pricing))
-    })
   end
 end
 

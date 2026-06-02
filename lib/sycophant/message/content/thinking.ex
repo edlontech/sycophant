@@ -16,40 +16,14 @@ defmodule Sycophant.Message.Content.Thinking do
       iex> %Sycophant.Message.Content.Thinking{text: "Let me think about this..."}
       #Sycophant.Message.Content.Thinking<"Let me think about this...">
   """
-  defstruct [:id, :text, :summary, :signature]
+  use ZoiDefstruct
 
-  @type t :: %__MODULE__{
-          id: String.t() | nil,
-          text: String.t() | nil,
-          summary: String.t() | nil,
-          signature: String.t() | nil
-        }
-
-  @doc "Deserializes a thinking content part from a plain map."
-  @spec from_map(map()) :: t()
-  def from_map(data) do
-    %__MODULE__{
-      id: data["id"],
-      text: data["text"],
-      summary: data["summary"],
-      signature: data["signature"]
-    }
-  end
-end
-
-defimpl Sycophant.Serializable, for: Sycophant.Message.Content.Thinking do
-  import Sycophant.Serializable.Helpers
-
-  def to_map(%{id: id, text: text, summary: summary, signature: signature}) do
-    compact(%{
-      "__type__" => "Thinking",
-      "type" => "thinking",
-      "id" => id,
-      "text" => text,
-      "summary" => summary,
-      "signature" => signature
-    })
-  end
+  defstruct __type__: Zoi.literal("Thinking") |> Zoi.default("Thinking"),
+            type: Zoi.literal("thinking") |> Zoi.default("thinking"),
+            id: Zoi.optional(Zoi.string()),
+            text: Zoi.optional(Zoi.string()),
+            summary: Zoi.optional(Zoi.string()),
+            signature: Zoi.optional(Zoi.string())
 end
 
 defimpl Inspect, for: Sycophant.Message.Content.Thinking do

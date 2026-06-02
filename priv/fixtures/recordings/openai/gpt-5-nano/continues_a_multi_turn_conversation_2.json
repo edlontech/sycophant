@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5-nano",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T11:57:28.640043Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:43.405918Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "Nice to meet you, Sycophant. I’ll use that name for this conversation. If you want me to remember it across future chats, tell me and we can set memory (if supported).",
+              "text": "Nice to meet you, Sycophant. I’ll remember that name for this conversation and’ll address you as Sycophant. If you want me to keep it across future chats, let me know and I’ll use whatever memory options are available.",
               "type": "output_text"
             }
           ],
@@ -52,13 +52,14 @@
         },
         "verbosity": "medium"
       },
+      "moderation": null,
       "top_logprobs": 0,
       "previous_response_id": null,
       "tool_choice": "auto",
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_0a2292e81e41ad490069df7d247888819583cdba27f72ef93a",
+      "id": "resp_02a926eb46980c7a006a1ec2d99724819eaf449b775a14beca",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -66,22 +67,22 @@
       "error": null,
       "model": "gpt-5-nano-2025-08-07",
       "usage": {
-        "input_tokens": 73,
+        "input_tokens": 84,
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 381,
+        "output_tokens": 561,
         "output_tokens_details": {
-          "reasoning_tokens": 320
+          "reasoning_tokens": 448
         },
-        "total_tokens": 454
+        "total_tokens": 645
       },
       "safety_identifier": null,
       "object": "response",
       "parallel_tool_calls": true,
       "output": [
         {
-          "id": "rs_0a2292e81e41ad490069df7d24ba3c81958f99ddee831db8c9",
+          "id": "rs_02a926eb46980c7a006a1ec2d9d3a4819eabbfa1b83dee12ec",
           "summary": [],
           "type": "reasoning"
         },
@@ -90,11 +91,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Your name is Sycophant. For this conversation, I’ll call you Sycophant. If you want me to remember it across future chats, tell me and we can enable memory (if supported).",
+              "text": "Your name in this chat is Sycophant. I’ll address you as Sycophant here. If you want me to remember it across future chats, tell me and I’ll use whatever memory features your platform provides.",
               "type": "output_text"
             }
           ],
-          "id": "msg_0a2292e81e41ad490069df7d281b8881958457db90a2920af3",
+          "id": "msg_02a926eb46980c7a006a1ec2de5e74819e836141a449d8307b",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -105,25 +106,26 @@
       "presence_penalty": 0.0,
       "incomplete_details": null,
       "reasoning": {
+        "context": "current_turn",
         "effort": "medium",
         "summary": null
       },
-      "completed_at": 1776254248,
+      "completed_at": 1780400863,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
         "payer": "developer"
       },
-      "prompt_cache_retention": null,
+      "prompt_cache_retention": "in_memory",
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776254244,
+      "created_at": 1780400857,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 11:57:28 GMT"
+        "Tue, 02 Jun 2026 11:47:43 GMT"
       ],
       [
         "content-type",
@@ -131,11 +133,55 @@
       ],
       [
         "content-length",
-        "1840"
+        "1927"
+      ],
+      [
+        "cf-ray",
+        "a056396f7d4cd1c5-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
       ],
       [
         "server",
         "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Request-ID"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-processing-ms",
+        "5772"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -151,7 +197,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "179999835"
+        "179999655"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -162,44 +208,12 @@
         "0s"
       ],
       [
-        "openai-version",
-        "2020-10-01"
-      ],
-      [
-        "openai-organization",
-        "[REDACTED]"
-      ],
-      [
-        "openai-project",
-        "[REDACTED]"
-      ],
-      [
         "x-request-id",
-        "req_21f7a93a8c5c4d698c2acdf81b0b32c2"
-      ],
-      [
-        "openai-processing-ms",
-        "4110"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_cf2850142eda4ef5b1d1dd5f8cccffa8"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9ecac5c35f09d935-PRG"
       ],
       [
         "alt-svc",

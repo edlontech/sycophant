@@ -71,25 +71,25 @@ defmodule Sycophant.ResponseTest do
     end
   end
 
-  describe "finish_reason decoding in from_map/1" do
+  describe "finish_reason decoding in decode/2" do
     test "decodes valid finish_reason string to atom" do
       for reason <-
             ~w(stop tool_use max_tokens content_filter recitation error incomplete unknown) do
         data = base_response_map(%{"finish_reason" => reason})
-        resp = Response.from_map(data)
+        resp = Response.decode(data, [])
         assert resp.finish_reason == String.to_existing_atom(reason)
       end
     end
 
     test "decodes nil finish_reason to nil" do
       data = base_response_map(%{})
-      resp = Response.from_map(data)
+      resp = Response.decode(data, [])
       assert resp.finish_reason == nil
     end
 
     test "decodes unrecognized finish_reason string to :unknown" do
       data = base_response_map(%{"finish_reason" => "something_weird"})
-      resp = Response.from_map(data)
+      resp = Response.decode(data, [])
       assert resp.finish_reason == :unknown
     end
   end
@@ -100,7 +100,7 @@ defmodule Sycophant.ResponseTest do
                %Sycophant.Response{context: %Sycophant.Context{messages: []}}
     end
 
-    test "round-trips citations through to_map/from_map" do
+    test "round-trips citations through to_map/decode" do
       original = %Sycophant.Response{
         text: "Paris.",
         citations: [
@@ -112,7 +112,7 @@ defmodule Sycophant.ResponseTest do
       restored =
         original
         |> Sycophant.Serializable.to_map()
-        |> Sycophant.Response.from_map()
+        |> Sycophant.Response.decode([])
 
       assert [%Sycophant.Citation{type: :page_location, start_index: 1}] = restored.citations
     end

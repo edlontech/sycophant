@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T10:59:02.495696Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:25.469194Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -63,14 +63,14 @@
           "logprobs": null,
           "message": {
             "annotations": [],
-            "content": "That's great! How can I assist you with your trip to London?",
+            "content": "That's exciting! How can I assist you with your trip to London?",
             "refusal": null,
             "role": "assistant"
           }
         }
       ],
-      "created": 1776250741,
-      "id": "chatcmpl-DUsFRhiqseYzHBkeapZNf8bPwjQtU",
+      "created": 1780400844,
+      "id": "chatcmpl-DmHsaQBAhQPwyJwCpE5uzf5PJmAW5",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -94,7 +94,7 @@
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:02 GMT"
+        "Tue, 02 Jun 2026 11:47:25 GMT"
       ],
       [
         "content-type",
@@ -102,7 +102,7 @@
       ],
       [
         "cf-ray",
-        "9eca703f7a18710c-PRG"
+        "a0563916d84ad1c5-PRG"
       ],
       [
         "cf-cache-status",
@@ -125,12 +125,20 @@
         "X-Request-ID"
       ],
       [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
         "openai-organization",
         "[REDACTED]"
       ],
       [
         "openai-processing-ms",
-        "607"
+        "1353"
       ],
       [
         "openai-project",
@@ -154,7 +162,7 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "8998"
+        "8999"
       ],
       [
         "x-ratelimit-remaining-tokens",
@@ -170,7 +178,7 @@
       ],
       [
         "x-request-id",
-        "req_2245d69c1a2f4767bee1b11f696c08a1"
+        "req_20962a70caae46e288d691caa4d14cd2"
       ],
       [
         "set-cookie",

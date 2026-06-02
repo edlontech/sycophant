@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:26.603620Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:48:01.764186Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -31,11 +31,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250766,
-      "created_at": 1776250759,
+      "completed_at": 1780400881,
+      "created_at": 1780400865,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250759-QmvcZ5aqM8iBWEeFIgHr",
+      "id": "gen-1780400865-h7XnRmX9rmHb7RXFtQTT",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -47,12 +47,12 @@
         {
           "content": [
             {
-              "text": "Hmm, the user has introduced themselves as \"Sycophant\" and explicitly asked me to remember it. This seems straightforward - they want me to acknowledge their chosen name and confirm I'll use it. \n\nI should respond politely by repeating their name to show I've registered it, while maintaining a neutral and helpful tone. No need for extra commentary or questions since they didn't ask for anything else. \n\nA simple confirmation like this feels appropriate - it addresses their request directly without assumptions. The name itself has some connotations, but I'll just treat it as any other identifier unless given reason to do otherwise.",
+              "text": "Hmm, the user just introduced themselves as \"Sycophant\" and explicitly asked me to remember it. That's an unusual name choice - the word \"sycophant\" literally means someone who flatters people excessively for personal gain. Interesting self-identification. \n\nThe user seems to want two things here: acknowledgment of their chosen name and confirmation that I'll retain it. There might be some testing happening - either testing my memory functions or seeing how I react to an uncomfortable term. \n\nI notice they used a period after \"Sycophant\" which makes it feel like a firm declaration rather than a casual mention. The standalone \"Remember it\" sentence carries weight too - this feels important to them for some reason. \n\nI should respond positively but neutrally. Best to treat it as a straightforward name preference without overanalyzing the meaning. The smiley in my response softens any potential tension while the name repetition reinforces memorization. \n\nWondering if they'll reference this name later or if it was just a one-off. Either way, flagging this in memory as requested. The ball's in their court now to see where they take this.\n",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_4j86lymrurb",
+          "id": "rs_tmp_m8q3hi33qpa",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
@@ -62,11 +62,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Hello, Sycophant. I'll remember that. Let me know if there's anything I can help you with.",
+              "text": "Got it — I'll remember your name is **Sycophant**. If you'd like me to use it in conversation or keep it in mind for future chats, just let me know! 😊",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_lpo9lu33vtr",
+          "id": "msg_tmp_w7vqzceovu",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -93,28 +93,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 3.897e-4,
+        "cost": 7.112e-4,
         "cost_details": {
-          "upstream_inference_cost": 3.897e-4,
-          "upstream_inference_input_cost": 1.47e-5,
-          "upstream_inference_output_cost": 3.75e-4
+          "upstream_inference_cost": 7.112e-4,
+          "upstream_inference_input_cost": 1.12e-5,
+          "upstream_inference_output_cost": 0.0007
         },
-        "input_tokens": 21,
+        "input_tokens": 16,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 150,
+        "output_tokens": 280,
         "output_tokens_details": {
-          "reasoning_tokens": 123
+          "reasoning_tokens": 238
         },
-        "total_tokens": 171
+        "total_tokens": 296
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:21 GMT"
+        "Tue, 02 Jun 2026 11:47:47 GMT"
       ],
       [
         "content-type",
@@ -122,7 +122,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=14,cfOrigin;dur=0,cfWorker;dur=1426"
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=2289"
       ],
       [
         "access-control-allow-origin",
@@ -130,7 +130,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250759-QmvcZ5aqM8iBWEeFIgHr"
+        "gen-1780400865-h7XnRmX9rmHb7RXFtQTT"
       ],
       [
         "access-control-expose-headers",
@@ -154,7 +154,7 @@
       ],
       [
         "cf-ray",
-        "9eca70b08e15c1bb-PRG"
+        "a05639a26e4f876f-PRG"
       ]
     ],
     "status": 200

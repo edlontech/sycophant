@@ -2,9 +2,9 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T10:59:06.240928Z",
+    "recorded_at": "2026-06-02T11:47:24.111613Z",
     "streaming": true,
-    "sycophant_version": "0.3.0"
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -21,12 +21,12 @@
         },
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "call_b5cdS4cPjbW1YLuwHdZMzLl6",
+          "call_id": "call_TDYyWX19otGj6wQqHxjT2Ruo",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "call_b5cdS4cPjbW1YLuwHdZMzLl6",
+          "call_id": "call_TDYyWX19otGj6wQqHxjT2Ruo",
           "output": "Paris: 22C, sunny",
           "type": "function_call_output"
         }
@@ -68,43 +68,27 @@
     "url": "https://api.openai.com/v1/responses"
   },
   "response": {
-    "body": "event: response.created\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"resp_0c4d219fef9fdb360069df6f7930348193b9ae3adc2009eeb4\",\"object\":\"response\",\"created_at\":1776250745,\"status\":\"in_progress\",\"background\":false,\"completed_at\":null,\"error\":null,\"frequency_penalty\":0.0,\"incomplete_details\":null,\"instructions\":null,\"max_output_tokens\":null,\"max_tool_calls\":null,\"model\":\"gpt-4o-mini-2024-07-18\",\"output\":[],\"parallel_tool_calls\":true,\"presence_penalty\":0.0,\"previous_response_id\":null,\"prompt_cache_key\":null,\"prompt_cache_retention\":null,\"reasoning\":{\"effort\":null,\"summary\":null},\"safety_identifier\":null,\"service_tier\":\"auto\",\"store\":true,\"temperature\":1.0,\"text\":{\"format\":{\"type\":\"text\"},\"verbosity\":\"medium\"},\"tool_choice\":\"auto\",\"tools\":[{\"type\":\"function\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"name\":\"get_weather\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"},\"strict\":true}],\"top_logprobs\":0,\"top_p\":1.0,\"truncation\":\"disabled\",\"usage\":null,\"user\":null,\"metadata\":{}},\"sequence_number\":0}\n\nevent: response.in_progress\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"resp_0c4d219fef9fdb360069df6f7930348193b9ae3adc2009eeb4\",\"object\":\"response\",\"created_at\":1776250745,\"status\":\"in_progress\",\"background\":false,\"completed_at\":null,\"error\":null,\"frequency_penalty\":0.0,\"incomplete_details\":null,\"instructions\":null,\"max_output_tokens\":null,\"max_tool_calls\":null,\"model\":\"gpt-4o-mini-2024-07-18\",\"output\":[],\"parallel_tool_calls\":true,\"presence_penalty\":0.0,\"previous_response_id\":null,\"prompt_cache_key\":null,\"prompt_cache_retention\":null,\"reasoning\":{\"effort\":null,\"summary\":null},\"safety_identifier\":null,\"service_tier\":\"auto\",\"store\":true,\"temperature\":1.0,\"text\":{\"format\":{\"type\":\"text\"},\"verbosity\":\"medium\"},\"tool_choice\":\"auto\",\"tools\":[{\"type\":\"function\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"name\":\"get_weather\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"},\"strict\":true}],\"top_logprobs\":0,\"top_p\":1.0,\"truncation\":\"disabled\",\"usage\":null,\"user\":null,\"metadata\":{}},\"sequence_number\":1}\n\nevent: response.output_item.added\ndata: {\"type\":\"response.output_item.added\",\"item\":{\"id\":\"msg_0c4d219fef9fdb360069df6f79cf9c8193bebbc294c8e35944\",\"type\":\"message\",\"status\":\"in_progress\",\"content\":[],\"role\":\"assistant\"},\"output_index\":0,\"sequence_number\":2}\n\nevent: response.content_part.added\ndata: {\"type\":\"response.content_part.added\",\"content_index\":0,\"item_id\":\"msg_0c4d219fef9fdb360069df6f79cf9c8193bebbc294c8e35944\",\"output_index\":0,\"part\":{\"type\":\"output_text\",\"annotations\":[],\"logprobs\":[],\"text\":\"\"},\"sequence_number\":3}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\"The\",\"item_id\":\"msg_0c4d219fef9fdb360069df6f79cf9c8193bebbc294c8e35944\",\"logprobs\":[],\"obfuscation\":\"f5JoGWfogSd8b\",\"output_index\":0,\"sequence_number\":4}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" weather\",\"item_id\":\"msg_0c4d219fef9fdb360069df6f79cf9c8193bebbc294c8e35944\",\"logprobs\":[],\"obfuscation\":\"JkQ7nEzL\",\"output_index\":0,\"sequence_number\":5}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" in\",\"item_id\":\"msg_0c4d219fef9fdb360069df6f79cf9c8193bebbc294c8e35944\",\"logprobs\":[],\"obfuscation\":\"wkRjdk6ESVUey\",\"output_index\":0,\"sequence_number\":6}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" Paris\",\"item_id\":\"msg_0c4d219fef9fdb360069df6f79cf9c8193bebbc294c8e35944\",\"logprobs\":[],\"obfuscation\":\"WHanLSIZvH\",\"output_index\":0,\"sequence_number\":7}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" is\",\"item_id\":\"msg_0c4d219fef9fdb360069df6f79cf9c8193bebbc294c8e35944\",\"logprobs\":[],\"obfuscation\":\"ZYIR5Ah1sPpns\",\"output_index\":0,\"sequence_number\":8}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" currently\",\"item_id\":\"msg_0c4d219fef9fdb360069df6f79cf9c8193bebbc294c8e35944\",\"logprobs\":[],\"obfuscation\":\"XCIqO2\",\"output_index\":0,\"sequence_number\":9}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" \",\"item_id\":\"msg_0c4d219fef9fdb360069df6f79cf9c8193bebbc294c8e35944\",\"logprobs\":[],\"obfuscation\":\"CDnV2oeoUp6LLsY\",\"output_index\":0,\"sequence_number\":10}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\"22\",\"item_id\":\"msg_0c4d219fef9fdb360069df6f79cf9c8193bebbc294c8e35944\",\"logprobs\":[],\"obfuscation\":\"ntrBVEy2VWOlkM\",\"output_index\":0,\"sequence_number\":11}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\"°C\",\"item_id\":\"msg_0c4d219fef9fdb360069df6f79cf9c8193bebbc294c8e35944\",\"logprobs\":[],\"obfuscation\":\"iuzFlkar1MMWnk\",\"output_index\":0,\"sequence_number\":12}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" and\",\"item_id\":\"msg_0c4d219fef9fdb360069df6f79cf9c8193bebbc294c8e35944\",\"logprobs\":[],\"obfuscation\":\"iIAGvZY2rNGE\",\"output_index\":0,\"sequence_number\":13}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" sunny\",\"item_id\":\"msg_0c4d219fef9fdb360069df6f79cf9c8193bebbc294c8e35944\",\"logprobs\":[],\"obfuscation\":\"UJMu7mMVbg\",\"output_index\":0,\"sequence_number\":14}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\".\",\"item_id\":\"msg_0c4d219fef9fdb360069df6f79cf9c8193bebbc294c8e35944\",\"logprobs\":[],\"obfuscation\":\"JzV4bfv4wW3Zvbs\",\"output_index\":0,\"sequence_number\":15}\n\nevent: response.output_text.done\ndata: {\"type\":\"response.output_text.done\",\"content_index\":0,\"item_id\":\"msg_0c4d219fef9fdb360069df6f79cf9c8193bebbc294c8e35944\",\"logprobs\":[],\"output_index\":0,\"sequence_number\":16,\"text\":\"The weather in Paris is currently 22°C and sunny.\"}\n\nevent: response.content_part.done\ndata: {\"type\":\"response.content_part.done\",\"content_index\":0,\"item_id\":\"msg_0c4d219fef9fdb360069df6f79cf9c8193bebbc294c8e35944\",\"output_index\":0,\"part\":{\"type\":\"output_text\",\"annotations\":[],\"logprobs\":[],\"text\":\"The weather in Paris is currently 22°C and sunny.\"},\"sequence_number\":17}\n\nevent: response.output_item.done\ndata: {\"type\":\"response.output_item.done\",\"item\":{\"id\":\"msg_0c4d219fef9fdb360069df6f79cf9c8193bebbc294c8e35944\",\"type\":\"message\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"annotations\":[],\"logprobs\":[],\"text\":\"The weather in Paris is currently 22°C and sunny.\"}],\"role\":\"assistant\"},\"output_index\":0,\"sequence_number\":18}\n\nevent: response.completed\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_0c4d219fef9fdb360069df6f7930348193b9ae3adc2009eeb4\",\"object\":\"response\",\"created_at\":1776250745,\"status\":\"completed\",\"background\":false,\"completed_at\":1776250746,\"error\":null,\"frequency_penalty\":0.0,\"incomplete_details\":null,\"instructions\":null,\"max_output_tokens\":null,\"max_tool_calls\":null,\"model\":\"gpt-4o-mini-2024-07-18\",\"output\":[{\"id\":\"msg_0c4d219fef9fdb360069df6f79cf9c8193bebbc294c8e35944\",\"type\":\"message\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"annotations\":[],\"logprobs\":[],\"text\":\"The weather in Paris is currently 22°C and sunny.\"}],\"role\":\"assistant\"}],\"parallel_tool_calls\":true,\"presence_penalty\":0.0,\"previous_response_id\":null,\"prompt_cache_key\":null,\"prompt_cache_retention\":null,\"reasoning\":{\"effort\":null,\"summary\":null},\"safety_identifier\":null,\"service_tier\":\"default\",\"store\":true,\"temperature\":1.0,\"text\":{\"format\":{\"type\":\"text\"},\"verbosity\":\"medium\"},\"tool_choice\":\"auto\",\"tools\":[{\"type\":\"function\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"name\":\"get_weather\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"},\"strict\":true}],\"top_logprobs\":0,\"top_p\":1.0,\"truncation\":\"disabled\",\"usage\":{\"input_tokens\":82,\"input_tokens_details\":{\"cached_tokens\":0},\"output_tokens\":14,\"output_tokens_details\":{\"reasoning_tokens\":0},\"total_tokens\":96},\"user\":null,\"metadata\":{}},\"sequence_number\":19}\n\n",
+    "body": "event: response.created\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"resp_0a2bfac5c792eced006a1ec2cb11f88191bb5561cea8cd8242\",\"object\":\"response\",\"created_at\":1780400843,\"status\":\"in_progress\",\"background\":false,\"completed_at\":null,\"error\":null,\"frequency_penalty\":0.0,\"incomplete_details\":null,\"instructions\":null,\"max_output_tokens\":null,\"max_tool_calls\":null,\"model\":\"gpt-4o-mini-2024-07-18\",\"moderation\":null,\"output\":[],\"parallel_tool_calls\":true,\"presence_penalty\":0.0,\"previous_response_id\":null,\"prompt_cache_key\":null,\"prompt_cache_retention\":\"in_memory\",\"reasoning\":{\"context\":null,\"effort\":null,\"summary\":null},\"safety_identifier\":null,\"service_tier\":\"auto\",\"store\":true,\"temperature\":1.0,\"text\":{\"format\":{\"type\":\"text\"},\"verbosity\":\"medium\"},\"tool_choice\":\"auto\",\"tools\":[{\"type\":\"function\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"name\":\"get_weather\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"},\"strict\":true}],\"top_logprobs\":0,\"top_p\":1.0,\"truncation\":\"disabled\",\"usage\":null,\"user\":null,\"metadata\":{}},\"sequence_number\":0}\n\nevent: response.in_progress\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"resp_0a2bfac5c792eced006a1ec2cb11f88191bb5561cea8cd8242\",\"object\":\"response\",\"created_at\":1780400843,\"status\":\"in_progress\",\"background\":false,\"completed_at\":null,\"error\":null,\"frequency_penalty\":0.0,\"incomplete_details\":null,\"instructions\":null,\"max_output_tokens\":null,\"max_tool_calls\":null,\"model\":\"gpt-4o-mini-2024-07-18\",\"moderation\":null,\"output\":[],\"parallel_tool_calls\":true,\"presence_penalty\":0.0,\"previous_response_id\":null,\"prompt_cache_key\":null,\"prompt_cache_retention\":\"in_memory\",\"reasoning\":{\"context\":null,\"effort\":null,\"summary\":null},\"safety_identifier\":null,\"service_tier\":\"auto\",\"store\":true,\"temperature\":1.0,\"text\":{\"format\":{\"type\":\"text\"},\"verbosity\":\"medium\"},\"tool_choice\":\"auto\",\"tools\":[{\"type\":\"function\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"name\":\"get_weather\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"},\"strict\":true}],\"top_logprobs\":0,\"top_p\":1.0,\"truncation\":\"disabled\",\"usage\":null,\"user\":null,\"metadata\":{}},\"sequence_number\":1}\n\nevent: response.output_item.added\ndata: {\"type\":\"response.output_item.added\",\"item\":{\"id\":\"msg_0a2bfac5c792eced006a1ec2cbcd3c8191877d91dbfd250cdf\",\"type\":\"message\",\"status\":\"in_progress\",\"content\":[],\"role\":\"assistant\"},\"output_index\":0,\"sequence_number\":2}\n\nevent: response.content_part.added\ndata: {\"type\":\"response.content_part.added\",\"content_index\":0,\"item_id\":\"msg_0a2bfac5c792eced006a1ec2cbcd3c8191877d91dbfd250cdf\",\"output_index\":0,\"part\":{\"type\":\"output_text\",\"annotations\":[],\"logprobs\":[],\"text\":\"\"},\"sequence_number\":3}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\"The\",\"item_id\":\"msg_0a2bfac5c792eced006a1ec2cbcd3c8191877d91dbfd250cdf\",\"logprobs\":[],\"obfuscation\":\"yMq0Tzaw8iufN\",\"output_index\":0,\"sequence_number\":4}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" weather\",\"item_id\":\"msg_0a2bfac5c792eced006a1ec2cbcd3c8191877d91dbfd250cdf\",\"logprobs\":[],\"obfuscation\":\"2AtzHykm\",\"output_index\":0,\"sequence_number\":5}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" in\",\"item_id\":\"msg_0a2bfac5c792eced006a1ec2cbcd3c8191877d91dbfd250cdf\",\"logprobs\":[],\"obfuscation\":\"gr2bxbWZVdPY6\",\"output_index\":0,\"sequence_number\":6}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" Paris\",\"item_id\":\"msg_0a2bfac5c792eced006a1ec2cbcd3c8191877d91dbfd250cdf\",\"logprobs\":[],\"obfuscation\":\"QwznAcHd9R\",\"output_index\":0,\"sequence_number\":7}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" is\",\"item_id\":\"msg_0a2bfac5c792eced006a1ec2cbcd3c8191877d91dbfd250cdf\",\"logprobs\":[],\"obfuscation\":\"duFCQsDtR0s1h\",\"output_index\":0,\"sequence_number\":8}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" currently\",\"item_id\":\"msg_0a2bfac5c792eced006a1ec2cbcd3c8191877d91dbfd250cdf\",\"logprobs\":[],\"obfuscation\":\"ElzRsu\",\"output_index\":0,\"sequence_number\":9}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" \",\"item_id\":\"msg_0a2bfac5c792eced006a1ec2cbcd3c8191877d91dbfd250cdf\",\"logprobs\":[],\"obfuscation\":\"d6emqcSTlS7DGKc\",\"output_index\":0,\"sequence_number\":10}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\"22\",\"item_id\":\"msg_0a2bfac5c792eced006a1ec2cbcd3c8191877d91dbfd250cdf\",\"logprobs\":[],\"obfuscation\":\"NHZ9Rqogq1Afzc\",\"output_index\":0,\"sequence_number\":11}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\"°C\",\"item_id\":\"msg_0a2bfac5c792eced006a1ec2cbcd3c8191877d91dbfd250cdf\",\"logprobs\":[],\"obfuscation\":\"60QD6axYdBrYI5\",\"output_index\":0,\"sequence_number\":12}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" and\",\"item_id\":\"msg_0a2bfac5c792eced006a1ec2cbcd3c8191877d91dbfd250cdf\",\"logprobs\":[],\"obfuscation\":\"8SVRiGTwjQYs\",\"output_index\":0,\"sequence_number\":13}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\" sunny\",\"item_id\":\"msg_0a2bfac5c792eced006a1ec2cbcd3c8191877d91dbfd250cdf\",\"logprobs\":[],\"obfuscation\":\"DRp4kBh5Ls\",\"output_index\":0,\"sequence_number\":14}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"content_index\":0,\"delta\":\".\",\"item_id\":\"msg_0a2bfac5c792eced006a1ec2cbcd3c8191877d91dbfd250cdf\",\"logprobs\":[],\"obfuscation\":\"fPrr3kAVNeYfqYc\",\"output_index\":0,\"sequence_number\":15}\n\nevent: response.output_text.done\ndata: {\"type\":\"response.output_text.done\",\"content_index\":0,\"item_id\":\"msg_0a2bfac5c792eced006a1ec2cbcd3c8191877d91dbfd250cdf\",\"logprobs\":[],\"output_index\":0,\"sequence_number\":16,\"text\":\"The weather in Paris is currently 22°C and sunny.\"}\n\nevent: response.content_part.done\ndata: {\"type\":\"response.content_part.done\",\"content_index\":0,\"item_id\":\"msg_0a2bfac5c792eced006a1ec2cbcd3c8191877d91dbfd250cdf\",\"output_index\":0,\"part\":{\"type\":\"output_text\",\"annotations\":[],\"logprobs\":[],\"text\":\"The weather in Paris is currently 22°C and sunny.\"},\"sequence_number\":17}\n\nevent: response.output_item.done\ndata: {\"type\":\"response.output_item.done\",\"item\":{\"id\":\"msg_0a2bfac5c792eced006a1ec2cbcd3c8191877d91dbfd250cdf\",\"type\":\"message\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"annotations\":[],\"logprobs\":[],\"text\":\"The weather in Paris is currently 22°C and sunny.\"}],\"role\":\"assistant\"},\"output_index\":0,\"sequence_number\":18}\n\nevent: response.completed\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_0a2bfac5c792eced006a1ec2cb11f88191bb5561cea8cd8242\",\"object\":\"response\",\"created_at\":1780400843,\"status\":\"completed\",\"background\":false,\"completed_at\":1780400843,\"error\":null,\"frequency_penalty\":0.0,\"incomplete_details\":null,\"instructions\":null,\"max_output_tokens\":null,\"max_tool_calls\":null,\"model\":\"gpt-4o-mini-2024-07-18\",\"moderation\":null,\"output\":[{\"id\":\"msg_0a2bfac5c792eced006a1ec2cbcd3c8191877d91dbfd250cdf\",\"type\":\"message\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"annotations\":[],\"logprobs\":[],\"text\":\"The weather in Paris is currently 22°C and sunny.\"}],\"role\":\"assistant\"}],\"parallel_tool_calls\":true,\"presence_penalty\":0.0,\"previous_response_id\":null,\"prompt_cache_key\":null,\"prompt_cache_retention\":\"in_memory\",\"reasoning\":{\"context\":null,\"effort\":null,\"summary\":null},\"safety_identifier\":null,\"service_tier\":\"default\",\"store\":true,\"temperature\":1.0,\"text\":{\"format\":{\"type\":\"text\"},\"verbosity\":\"medium\"},\"tool_choice\":\"auto\",\"tools\":[{\"type\":\"function\",\"description\":\"Get current weather for a city. Returns temperature and conditions.\",\"name\":\"get_weather\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"],\"type\":\"object\"},\"strict\":true}],\"top_logprobs\":0,\"top_p\":1.0,\"truncation\":\"disabled\",\"usage\":{\"input_tokens\":82,\"input_tokens_details\":{\"cached_tokens\":0},\"output_tokens\":14,\"output_tokens_details\":{\"reasoning_tokens\":0},\"total_tokens\":96},\"user\":null,\"metadata\":{}},\"sequence_number\":19}\n\n",
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:05 GMT"
+        "Tue, 02 Jun 2026 11:47:23 GMT"
       ],
       [
         "content-type",
         "text/event-stream; charset=utf-8"
       ],
       [
-        "server",
-        "cloudflare"
-      ],
-      [
-        "openai-version",
-        "2020-10-01"
-      ],
-      [
-        "openai-organization",
-        "[REDACTED]"
-      ],
-      [
-        "openai-project",
-        "[REDACTED]"
-      ],
-      [
-        "x-request-id",
-        "req_a991c6af346a47b68e4399aebdc5d298"
-      ],
-      [
-        "openai-processing-ms",
-        "85"
+        "cf-ray",
+        "a0563914aa14d1c5-PRG"
       ],
       [
         "cf-cache-status",
         "DYNAMIC"
+      ],
+      [
+        "server",
+        "cloudflare"
       ],
       [
         "strict-transport-security",
@@ -115,12 +99,40 @@
         "nosniff"
       ],
       [
-        "set-cookie",
+        "access-control-expose-headers",
+        "X-Request-ID"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "openai-organization",
         "[REDACTED]"
       ],
       [
-        "cf-ray",
-        "9eca7054db9c710c-PRG"
+        "openai-processing-ms",
+        "138"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
+      ],
+      [
+        "x-request-id",
+        "req_cb7a87d272b2455aad530301d978ae6a"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
       ],
       [
         "alt-svc",

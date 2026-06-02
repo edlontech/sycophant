@@ -8,92 +8,33 @@ defmodule Sycophant.Citation do
   `Sycophant.Response.citations`.
   """
 
-  defstruct [
-    :type,
-    :cited_text,
-    :document_index,
-    :document_title,
-    :file_id,
-    :unit,
-    :start_index,
-    :end_index,
-    :url,
-    :title,
-    :source
-  ]
+  use ZoiDefstruct
 
-  @type location_type ::
-          :page_location
-          | :char_location
-          | :content_block_location
-          | :web_search_result_location
-          | :search_result_location
-
-  @type t :: %__MODULE__{
-          type: location_type() | nil,
-          cited_text: String.t() | nil,
-          document_index: integer() | nil,
-          document_title: String.t() | nil,
-          file_id: String.t() | nil,
-          unit: :page | :char | :block | nil,
-          start_index: integer() | nil,
-          end_index: integer() | nil,
-          url: String.t() | nil,
-          title: String.t() | nil,
-          source: String.t() | nil
-        }
-
-  @location_types %{
-    "page_location" => :page_location,
-    "char_location" => :char_location,
-    "content_block_location" => :content_block_location,
-    "web_search_result_location" => :web_search_result_location,
-    "search_result_location" => :search_result_location
-  }
-
-  @units %{"page" => :page, "char" => :char, "block" => :block}
-
-  @doc "Deserializes a citation from a plain map."
-  @spec from_map(map()) :: t()
-  def from_map(data) do
-    %__MODULE__{
-      type: Map.get(@location_types, data["type"]),
-      cited_text: data["cited_text"],
-      document_index: data["document_index"],
-      document_title: data["document_title"],
-      file_id: data["file_id"],
-      unit: Map.get(@units, data["unit"]),
-      start_index: data["start_index"],
-      end_index: data["end_index"],
-      url: data["url"],
-      title: data["title"],
-      source: data["source"]
-    }
-  end
-end
-
-defimpl Sycophant.Serializable, for: Sycophant.Citation do
-  import Sycophant.Serializable.Helpers
-
-  def to_map(citation) do
-    compact(%{
-      "__type__" => "Citation",
-      "type" => atom_to_string(citation.type),
-      "cited_text" => citation.cited_text,
-      "document_index" => citation.document_index,
-      "document_title" => citation.document_title,
-      "file_id" => citation.file_id,
-      "unit" => atom_to_string(citation.unit),
-      "start_index" => citation.start_index,
-      "end_index" => citation.end_index,
-      "url" => citation.url,
-      "title" => citation.title,
-      "source" => citation.source
-    })
-  end
-
-  defp atom_to_string(nil), do: nil
-  defp atom_to_string(atom), do: Atom.to_string(atom)
+  defstruct __type__: Zoi.literal("Citation") |> Zoi.default("Citation"),
+            type:
+              Zoi.enum(
+                [
+                  page_location: "page_location",
+                  char_location: "char_location",
+                  content_block_location: "content_block_location",
+                  web_search_result_location: "web_search_result_location",
+                  search_result_location: "search_result_location"
+                ],
+                coerce: true
+              )
+              |> Zoi.optional(),
+            cited_text: Zoi.optional(Zoi.string()),
+            document_index: Zoi.optional(Zoi.integer()),
+            document_title: Zoi.optional(Zoi.string()),
+            file_id: Zoi.optional(Zoi.string()),
+            unit:
+              Zoi.enum([page: "page", char: "char", block: "block"], coerce: true)
+              |> Zoi.optional(),
+            start_index: Zoi.optional(Zoi.integer()),
+            end_index: Zoi.optional(Zoi.integer()),
+            url: Zoi.optional(Zoi.string()),
+            title: Zoi.optional(Zoi.string()),
+            source: Zoi.optional(Zoi.string())
 end
 
 defimpl Inspect, for: Sycophant.Citation do

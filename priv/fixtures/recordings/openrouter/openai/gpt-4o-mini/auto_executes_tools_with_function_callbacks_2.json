@@ -2,14 +2,14 @@
   "metadata": {
     "model": "openai/gpt-4o-mini",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:02.312152Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:20.805829Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
       "input": [
         {
-          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "content": "What's the weather in Paris? You must call the get_weather tool with city=\"Paris\" to answer.",
           "role": "user"
         },
         {
@@ -20,12 +20,12 @@
         },
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "call_BMmJhr1qnl6dHqVMi2o3UAZH",
+          "call_id": "call_uj9I4qP01XS2OyF1npqhwhga",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "call_BMmJhr1qnl6dHqVMi2o3UAZH",
+          "call_id": "call_uj9I4qP01XS2OyF1npqhwhga",
           "output": "Paris: 22C, sunny",
           "type": "function_call_output"
         }
@@ -68,11 +68,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250742,
-      "created_at": 1776250741,
+      "completed_at": 1780400840,
+      "created_at": 1780400840,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250741-SDw3y3pCYYlYASwGYz6h",
+      "id": "gen-1780400840-UgXmCNLVuoBkNgpW7WjV",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -90,7 +90,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_2ylc9qi9cbf",
+          "id": "msg_tmp_2pe8ceps2b4",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -136,13 +136,13 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 2.13e-5,
+        "cost": 2.265e-5,
         "cost_details": {
-          "upstream_inference_cost": 2.13e-5,
-          "upstream_inference_input_cost": 1.35e-5,
+          "upstream_inference_cost": 2.265e-5,
+          "upstream_inference_input_cost": 1.485e-5,
           "upstream_inference_output_cost": 7.8e-6
         },
-        "input_tokens": 90,
+        "input_tokens": 99,
         "input_tokens_details": {
           "cached_tokens": 0
         },
@@ -151,13 +151,13 @@
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 103
+        "total_tokens": 112
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:02 GMT"
+        "Tue, 02 Jun 2026 11:47:20 GMT"
       ],
       [
         "content-type",
@@ -165,7 +165,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=419"
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=492"
       ],
       [
         "access-control-allow-origin",
@@ -173,7 +173,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250741-SDw3y3pCYYlYASwGYz6h"
+        "gen-1780400840-UgXmCNLVuoBkNgpW7WjV"
       ],
       [
         "access-control-expose-headers",
@@ -197,7 +197,7 @@
       ],
       [
         "cf-ray",
-        "9eca703fbd60c1bb-PRG"
+        "a05639029f3f876f-PRG"
       ]
     ],
     "status": 200

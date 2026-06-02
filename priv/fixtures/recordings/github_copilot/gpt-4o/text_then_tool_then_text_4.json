@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-05-05T12:11:01.897965Z",
-    "sycophant_version": "0.4.1"
+    "recorded_at": "2026-06-02T11:47:31.785594Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -17,7 +17,7 @@
           "role": "user"
         },
         {
-          "content": "That sounds exciting! Let me know how I can assist—do you need help with weather updates, attractions, or anything else?",
+          "content": "That sounds exciting! Do you need help with weather updates, travel tips, or anything specific for your trip?",
           "role": "assistant"
         },
         {
@@ -33,7 +33,7 @@
                 "arguments": "{\"city\":\"London\"}",
                 "name": "get_weather"
               },
-              "id": "call_ROMaU9dJFdUldqrdgNNA4AC2",
+              "id": "call_8QTWmuOvtuZl8pzE46aXwawo",
               "type": "function"
             }
           ]
@@ -41,7 +41,7 @@
         {
           "content": "London: 18C, cloudy",
           "role": "tool",
-          "tool_call_id": "call_ROMaU9dJFdUldqrdgNNA4AC2"
+          "tool_call_id": "call_8QTWmuOvtuZl8pzE46aXwawo"
         },
         {
           "content": "The current weather in London is 18°C and cloudy.",
@@ -130,13 +130,42 @@
           "finish_reason": "stop",
           "index": 0,
           "message": {
-            "content": "Since it's cloudy, there's a chance of rain. It’s a good idea to bring an umbrella just in case!",
-            "padding": "abcdef",
+            "content": "Since it's cloudy, there's a chance of rain, so bringing an umbrella would be a good idea!",
+            "padding": "abcdefghijklmnopqrstuvwxyz0123",
             "role": "assistant"
           }
         }
       ],
-      "id": "chatcmpl-Dc8u5zu6yjwoy7D36XIgPJVaebU6d",
+      "copilot_usage": {
+        "token_details": [
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 250000000000,
+            "token_count": 176,
+            "token_type": "input"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 125000000000,
+            "token_count": 0,
+            "token_type": "cache_read"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 0,
+            "token_count": 0,
+            "token_type": "cache_write"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 1000000000000,
+            "token_count": 22,
+            "token_type": "output"
+          }
+        ],
+        "total_nano_aiu": 66000000
+      },
+      "id": "chatcmpl-DmHshhkpFOywlz4az6Fw8OTnNhY7z",
       "model": "gpt-4o-2024-11-20",
       "prompt_filter_results": [
         {
@@ -161,19 +190,20 @@
           "prompt_index": 0
         }
       ],
+      "service_tier": "default",
       "system_fingerprint": "fp_23ef75ba80",
       "usage": {
-        "completion_tokens": 25,
+        "completion_tokens": 22,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "rejected_prediction_tokens": 0
         },
-        "prompt_tokens": 180,
+        "prompt_tokens": 176,
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
         "reasoning_tokens": 0,
-        "total_tokens": 205
+        "total_tokens": 198
       }
     },
     "headers": [
@@ -194,16 +224,20 @@
         "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
       ],
       [
+        "x-copilot-service-request-id",
+        "d19e8fe9-5b24-4a0a-a9b7-1f2f1c510c4c"
+      ],
+      [
         "x-request-id",
-        "00000-b3d6e3f4-88b4-443e-9a92-197ec1f5466c"
+        "00000-04fc7e13-b4b9-49ed-814c-f16af195cf54"
       ],
       [
         "date",
-        "Tue, 05 May 2026 12:11:01 GMT"
+        "Tue, 02 Jun 2026 11:47:31 GMT"
       ],
       [
         "content-length",
-        "1023"
+        "1491"
       ],
       [
         "x-github-backend",
@@ -211,7 +245,7 @@
       ],
       [
         "x-github-request-id",
-        "6B3F:29C906:5650F59:5F5B610:69F9DE54"
+        "B844:373D99:195AE14:1ACAB8C:6A1EC2D2"
       ]
     ],
     "status": 200

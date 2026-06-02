@@ -17,33 +17,13 @@ defmodule Sycophant.Message.Content.Image do
         media_type: "image/png"
       }
   """
-  defstruct [:url, :data, :media_type]
+  use ZoiDefstruct
 
-  @type t :: %__MODULE__{
-          url: String.t() | nil,
-          data: String.t() | nil,
-          media_type: String.t() | nil
-        }
-
-  @doc "Deserializes an image content part from a plain map."
-  @spec from_map(map()) :: t()
-  def from_map(data) do
-    %__MODULE__{url: data["url"], data: data["data"], media_type: data["media_type"]}
-  end
-end
-
-defimpl Sycophant.Serializable, for: Sycophant.Message.Content.Image do
-  import Sycophant.Serializable.Helpers
-
-  def to_map(img) do
-    compact(%{
-      "__type__" => "Image",
-      "type" => "image",
-      "url" => img.url,
-      "data" => img.data,
-      "media_type" => img.media_type
-    })
-  end
+  defstruct __type__: Zoi.literal("Image") |> Zoi.default("Image"),
+            type: Zoi.literal("image") |> Zoi.default("image"),
+            url: Zoi.optional(Zoi.string()),
+            data: Zoi.optional(Zoi.string()),
+            media_type: Zoi.optional(Zoi.string())
 end
 
 defimpl Inspect, for: Sycophant.Message.Content.Image do

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:21.584930Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:48:09.072403Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -15,42 +15,17 @@
         {
           "content": [
             {
-              "text": "The user mentions planning a trip to London. They might want to know the weather in London. I can offer to check the weather for them. Let's use the tool.",
+              "text": "\nWe are given a user message: \"Hi! I'm planning a trip to London.\"\n Since the user is planning a trip to London, they might be interested in the weather in London to help with their planning.\n We can use the `get_weather` function to get the current weather in London.\n The function requires the parameter \"city\", which we will set to \"London\".\n",
               "type": "reasoning_text"
             }
           ],
-          "type": "reasoning"
-        },
-        {
-          "content": [],
-          "role": "assistant",
-          "status": "completed",
-          "type": "message"
-        },
-        {
-          "arguments": "{\"city\":\"London\"}",
-          "call_id": "ec896562dcc14297a5247e4eb8f062e7",
-          "name": "get_weather",
-          "type": "function_call"
-        },
-        {
-          "call_id": "ec896562dcc14297a5247e4eb8f062e7",
-          "output": "London: 18C, cloudy",
-          "type": "function_call_output"
-        },
-        {
-          "content": [
-            {
-              "text": "The current weather in London is 18°C and cloudy. This is mild weather, so you might want to bring a light jacket or layers. Have a great trip!",
-              "type": "reasoning_text"
-            }
-          ],
+          "id": "rs_tmp_jo09qrv5u1",
           "type": "reasoning"
         },
         {
           "content": [
             {
-              "text": "Currently, London is 18°C and cloudy—pleasant weather for exploring. Enjoy your trip!",
+              "text": "I see you're planning a trip to London! Would you like me to check the current weather there to help with your planning? \n\nLet me know if you need:\n- Weather information\n- Packing suggestions\n- Or other trip planning help!\n\nI can check the weather for you right now if you'd like. Just say the word! 🌤️",
               "type": "output_text"
             }
           ],
@@ -59,34 +34,65 @@
           "type": "message"
         },
         {
-          "content": "What's the current weather in London? Use the get_weather tool.",
+          "content": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer.",
           "role": "user"
         },
         {
           "content": [
             {
-              "text": "The user is asking for the current weather in London and specifically wants me to use the get_weather tool. I already used that tool in the previous exchange and got the result: London: 18C, cloudy. The user may have missed that or wants me to get it again. I should use the tool again as requested, even though we just got the same data. Let's call get_weather for London again.",
+              "text": "\nWe are required to call the get_weather tool with city=\"London\"\n The function name is get_weather and the parameter is a JSON object with key \"city\" and value \"London\"\n We must use the exact format as specified.\n",
               "type": "reasoning_text"
             }
           ],
+          "id": "rs_tmp_x53kn0g92pl",
           "type": "reasoning"
         },
         {
-          "content": [],
+          "content": [
+            {
+              "text": "I'll check the current weather in London for you. Calling the weather tool now.\n\n",
+              "type": "output_text"
+            }
+          ],
           "role": "assistant",
           "status": "completed",
           "type": "message"
         },
         {
           "arguments": "{\"city\":\"London\"}",
-          "call_id": "f42fed64a05049f7b74104cc68566076",
+          "call_id": "call_d686a0d1fb874c80b7939562",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "f42fed64a05049f7b74104cc68566076",
+          "call_id": "call_d686a0d1fb874c80b7939562",
           "output": "London: 18C, cloudy",
           "type": "function_call_output"
+        },
+        {
+          "content": [
+            {
+              "text": "\nWe are given the tool result: \"London: 18C, cloudy\"\n We need to present this information to the user.\n",
+              "type": "reasoning_text"
+            }
+          ],
+          "id": "rs_tmp_pscnz24cxpm",
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "text": "The current weather in London is **18°C and cloudy**. \n\nThis should be pleasant for outdoor activities, but you might want to carry a light jacket or umbrella just in case. Enjoy your trip planning!",
+              "type": "output_text"
+            }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "content": "Thanks! Should I bring an umbrella?",
+          "role": "user"
         }
       ],
       "instructions": "You are a helpful assistant. Be concise.",
@@ -128,11 +134,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250761,
-      "created_at": 1776250757,
+      "completed_at": 1780400889,
+      "created_at": 1780400864,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250757-jvLoyTdFqzL45PPOqSF7",
+      "id": "gen-1780400864-FYfqEgHkuiPv5BDeBvQ1",
       "incomplete_details": null,
       "instructions": "You are a helpful assistant. Be concise.",
       "max_output_tokens": null,
@@ -144,12 +150,12 @@
         {
           "content": [
             {
-              "text": "The user asked for the current weather in London using the get_weather tool. I already used it in the previous exchange, but they're asking again, so I should provide the information. The result says \"London: 18C, cloudy.\" I'll respond with that.",
+              "text": "\nWe are given the current weather condition for London: 18°C and cloudy.\n The user asks if they should bring an umbrella. The current condition is cloudy, but that doesn't necessarily mean it will rain.\n However, we don't have a forecast tool, only the current weather. We must base our answer on the current conditions.\n\n Since the current condition is \"cloudy\", it does not indicate rain at the moment. But note: cloudy skies might precede rain.\n\n Without a forecast, we cannot be sure. But we can reason:\n - If it is currently raining, then definitely yes.\n - If it is cloudy, it might rain soon, but we don't have data.\n\n However, the tool only returns current conditions. We have to stick to the current data.\n\n Therefore, based solely on the current condition of \"cloudy\", we cannot say for sure. We might advise to be cautious.\n\n Alternatively, we can interpret the current condition string for any indication of rain. The condition string we have is \"cloudy\". There's no mention of rain.\n\n So, I will tell the user that currently it's not raining but it's cloudy, so an umbrella might be a good precaution.\n\n Let's structure the response:\n 1. State the current condition: cloudy and 18°C.\n 2. Since it's not raining now, an umbrella isn't immediately necessary.\n 3. However, because it's cloudy, there is a chance of rain. So if the user is cautious, they might bring one.\n\n But note: we don't have a forecast. We must be clear that we are only reporting current conditions.\n\n Alternatively, we can call the weather tool again? But the user only asked about the current weather and we already have the current condition.\n\n However, the tool might return more detailed conditions? The description says: \"Returns temperature and conditions.\" We got \"cloudy\". \n\n Since we don't have a tool for forecast, we can only use the current condition.\n\n Therefore, I will provide a cautious recommendation.\n",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_j1uh4wwmys",
+          "id": "rs_tmp_qjgdwsn7m8",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
@@ -159,11 +165,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "London is currently 18°C and cloudy.",
+              "text": "Based on the current weather in London (**18°C and cloudy**):\n\n- ☁️ **Cloudy conditions** don't guarantee rain, but they do increase the chance of showers.\n- 🚶 For short outings, you likely won't need an umbrella immediately.\n- 🧳 **If you'll be out all day**, pack a compact umbrella or light raincoat since London weather can change quickly.\n- 💡 Pro tip: Check the weather again closer to your outing for updates!\n\nWould you like me to re-check the weather for you?",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_a4rnbclu0d",
+          "id": "msg_tmp_9o4f06tdvo",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -209,28 +215,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 5.228e-4,
+        "cost": 0.0016466,
         "cost_details": {
-          "upstream_inference_cost": 5.228e-4,
-          "upstream_inference_input_cost": 3.528e-4,
-          "upstream_inference_output_cost": 1.7e-4
+          "upstream_inference_cost": 0.0016466,
+          "upstream_inference_input_cost": 3.241e-4,
+          "upstream_inference_output_cost": 0.0013225
         },
-        "input_tokens": 504,
+        "input_tokens": 463,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 68,
+        "output_tokens": 529,
         "output_tokens_details": {
-          "reasoning_tokens": 56
+          "reasoning_tokens": 414
         },
-        "total_tokens": 572
+        "total_tokens": 992
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:19 GMT"
+        "Tue, 02 Jun 2026 11:47:46 GMT"
       ],
       [
         "content-type",
@@ -238,7 +244,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=1581"
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=2112"
       ],
       [
         "access-control-allow-origin",
@@ -246,7 +252,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250757-jvLoyTdFqzL45PPOqSF7"
+        "gen-1780400864-FYfqEgHkuiPv5BDeBvQ1"
       ],
       [
         "access-control-expose-headers",
@@ -270,7 +276,7 @@
       ],
       [
         "cf-ray",
-        "9eca70a3799bc1bb-PRG"
+        "a056399bfe58876f-PRG"
       ]
     ],
     "status": 200

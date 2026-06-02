@@ -2,14 +2,14 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:10.711175Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:25.440067Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
       "input": [
         {
-          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "content": "What's the weather in Paris? You must call the get_weather tool with city=\"Paris\" to answer.",
           "role": "user"
         }
       ],
@@ -51,11 +51,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250750,
-      "created_at": 1776250746,
+      "completed_at": 1780400845,
+      "created_at": 1780400838,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250746-u3HpekVKc6LZgLTX2Na0",
+      "id": "gen-1780400838-IiBu3sjkqwEtxJRvHfVD",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -67,20 +67,34 @@
         {
           "content": [
             {
-              "text": "The user asks for the weather in Paris and wants me to use the get_weather tool. I'll call the function with city parameter \"Paris\".",
+              "text": "\nWe are given a question about the weather in Paris.\n The user instructs us to call the get_weather tool with city=\"Paris\".\n Therefore, we must call the function get_weather with the parameter city set to \"Paris\".\n",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_3z64remmeym",
+          "id": "rs_tmp_13xmfgteuzwi",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
         },
         {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "I'll check the current weather in Paris by calling the get_weather tool with city=\"Paris\" as requested. \n\nHere's the tool call:\n\n",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_tmp_8e6w7g1cmlc",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
           "arguments": "{\"city\": \"Paris\"}",
-          "call_id": "d77d972d731a46f3b695f0f553745a08",
-          "id": "fc_tmp_alimwbuxx7m",
+          "call_id": "call_b8bcb88d905c48ba89fcbf87",
+          "id": "fc_tmp_oymg66z1zad",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -126,28 +140,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 4.168e-4,
+        "cost": 4.37e-4,
         "cost_details": {
-          "upstream_inference_cost": 4.168e-4,
-          "upstream_inference_input_cost": 2.268e-4,
-          "upstream_inference_output_cost": 1.9e-4
+          "upstream_inference_cost": 4.37e-4,
+          "upstream_inference_input_cost": 1.82e-4,
+          "upstream_inference_output_cost": 2.55e-4
         },
-        "input_tokens": 324,
+        "input_tokens": 260,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 76,
+        "output_tokens": 102,
         "output_tokens_details": {
-          "reasoning_tokens": 30
+          "reasoning_tokens": 50
         },
-        "total_tokens": 400
+        "total_tokens": 362
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:08 GMT"
+        "Tue, 02 Jun 2026 11:47:21 GMT"
       ],
       [
         "content-type",
@@ -155,7 +169,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=1832"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=3236"
       ],
       [
         "access-control-allow-origin",
@@ -163,7 +177,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250746-u3HpekVKc6LZgLTX2Na0"
+        "gen-1780400838-IiBu3sjkqwEtxJRvHfVD"
       ],
       [
         "access-control-expose-headers",
@@ -187,7 +201,7 @@
       ],
       [
         "cf-ray",
-        "9eca705dfdf4c1bb-PRG"
+        "a05638f9e838876f-PRG"
       ]
     ],
     "status": 200

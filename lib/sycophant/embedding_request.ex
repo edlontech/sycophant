@@ -20,64 +20,33 @@ defmodule Sycophant.EmbeddingRequest do
         params: %Sycophant.EmbeddingParams{dimensions: 256, embedding_types: [:float, :int8]}
       }
   """
-  alias Sycophant.EmbeddingParams
-  alias Sycophant.Message.Content
+  use ZoiDefstruct
 
-  @type input :: String.t() | Content.Image.t() | [String.t() | Content.Image.t()]
+  @type input ::
+          String.t()
+          | Sycophant.Message.Content.Image.t()
+          | [String.t() | Sycophant.Message.Content.Image.t()]
 
-  @enforce_keys [:inputs, :model]
-  defstruct [:inputs, :model, :params, provider_params: %{}]
+  defstruct __type__: Zoi.literal("EmbeddingRequest") |> Zoi.default("EmbeddingRequest"),
+            inputs: Zoi.default(Zoi.any(), []),
+            model: Zoi.string(),
+            params: Zoi.optional(Sycophant.EmbeddingParams.t()),
+            provider_params: Zoi.default(Zoi.any(), %{})
 
-  @type t :: %__MODULE__{
-          inputs: [input()],
-          model: String.t(),
-          params: EmbeddingParams.t() | nil,
-          provider_params: map()
-        }
-
-  @doc "Reconstructs an EmbeddingRequest struct from a serialized map."
-  @spec from_map(map()) :: t()
-  def from_map(data) do
-    %__MODULE__{
-      inputs: decode_inputs(data["inputs"] || []),
-      model: data["model"],
-      params: decode_params(data["params"]),
-      provider_params: data["provider_params"] || %{}
-    }
+  @doc false
+  @spec decode(map(), keyword()) :: t()
+  def decode(data, _opts) do
+    req = Zoi.parse!(__MODULE__.t(), Map.delete(data, "inputs"))
+    %{req | inputs: decode_inputs(data["inputs"] || [])}
   end
-
-  defp decode_params(nil), do: nil
-  defp decode_params(data), do: EmbeddingParams.from_map(data)
 
   defp decode_inputs(inputs), do: Enum.map(inputs, &decode_input/1)
-
   defp decode_input(input) when is_binary(input), do: input
-  defp decode_input(%{"__type__" => "Image"} = data), do: Content.Image.from_map(data)
+
+  defp decode_input(%{"__type__" => "Image"} = data),
+    do: Zoi.parse!(Sycophant.Message.Content.Image.t(), data)
+
   defp decode_input(parts) when is_list(parts), do: Enum.map(parts, &decode_input/1)
-end
-
-defimpl Sycophant.Serializable, for: Sycophant.EmbeddingRequest do
-  import Sycophant.Serializable.Helpers
-
-  def to_map(req) do
-    compact(%{
-      "__type__" => "EmbeddingRequest",
-      "inputs" => Enum.map(req.inputs, &encode_input/1),
-      "model" => req.model,
-      "params" => maybe_to_map(req.params),
-      "provider_params" => if(req.provider_params == %{}, do: nil, else: req.provider_params)
-    })
-  end
-
-  defp encode_input(input) when is_binary(input), do: input
-
-  defp encode_input(%Sycophant.Message.Content.Image{} = img),
-    do: Sycophant.Serializable.to_map(img)
-
-  defp encode_input(parts) when is_list(parts), do: Enum.map(parts, &encode_input/1)
-
-  defp maybe_to_map(nil), do: nil
-  defp maybe_to_map(struct), do: Sycophant.Serializable.to_map(struct)
 end
 
 defimpl Inspect, for: Sycophant.EmbeddingRequest do

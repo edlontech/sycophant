@@ -21,50 +21,12 @@ defmodule Sycophant.Reasoning do
       iex> %Sycophant.Reasoning{content: [%Thinking{text: "Let me think..."}]}
       #Sycophant.Reasoning<%{content: [%{text: "Let me think..."}]}>
   """
-  alias Sycophant.Message.Content
+  use ZoiDefstruct
 
-  defstruct [:id, :encrypted_content, content: []]
-
-  @type t :: %__MODULE__{
-          id: String.t() | nil,
-          content: [Content.Thinking.t()],
-          encrypted_content: String.t() | nil
-        }
-
-  @doc "Deserializes reasoning output from a plain map."
-  @spec from_map(map()) :: t()
-  def from_map(data) do
-    %__MODULE__{
-      id: data["id"],
-      content: decode_content(data["content"]),
-      encrypted_content: data["encrypted_content"]
-    }
-  end
-
-  defp decode_content(nil), do: []
-
-  defp decode_content(items) when is_list(items) do
-    Enum.map(items, &Content.Thinking.from_map/1)
-  end
-end
-
-defimpl Sycophant.Serializable, for: Sycophant.Reasoning do
-  import Sycophant.Serializable.Helpers
-
-  def to_map(r) do
-    compact(%{
-      "__type__" => "Reasoning",
-      "id" => r.id,
-      "content" => encode_content(r.content),
-      "encrypted_content" => r.encrypted_content
-    })
-  end
-
-  defp encode_content([]), do: nil
-
-  defp encode_content(items) do
-    Enum.map(items, &Sycophant.Serializable.to_map/1)
-  end
+  defstruct __type__: Zoi.literal("Reasoning") |> Zoi.default("Reasoning"),
+            id: Zoi.optional(Zoi.string()),
+            content: Zoi.list(Sycophant.Message.Content.Thinking.t()) |> Zoi.default([]),
+            encrypted_content: Zoi.optional(Zoi.string())
 end
 
 defimpl Inspect, for: Sycophant.Reasoning do

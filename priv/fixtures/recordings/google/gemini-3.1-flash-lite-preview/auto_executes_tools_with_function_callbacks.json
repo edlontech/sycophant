@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-04-15T10:59:02.294749Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:20.728956Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -11,7 +11,7 @@
         {
           "parts": [
             {
-              "text": "What's the weather in Paris? Use the get_weather tool."
+              "text": "What's the weather in Paris? You must call the get_weather tool with city=\"Paris\" to answer."
             }
           ],
           "role": "user"
@@ -63,10 +63,10 @@
                   "args": {
                     "city": "Paris"
                   },
-                  "id": "twgkz75s",
+                  "id": "3Dez9wZn",
                   "name": "get_weather"
                 },
-                "thoughtSignature": "EjQKMgG+Pvb7tbVEpD1y9CShs3QEftTfyQid2UYfwlK/WX3G86rXRb2ymqLIPEZPDzwQUb3q"
+                "thoughtSignature": "EjQKMgEMOdbHWy9RVa+2aBxsqPyJeItPOfr0jKMLg6roYIwLKe5qqB7rbvuV6NCpcoOjrUrI"
               }
             ],
             "role": "model"
@@ -76,18 +76,19 @@
           "index": 0
         }
       ],
-      "modelVersion": "gemini-3.1-flash-lite-preview",
-      "responseId": "dm_faeKWDsbpnsEP2JeB0Q4",
+      "modelVersion": "gemini-3.1-flash-lite",
+      "responseId": "yMIeat_3FoSFkdUPsdyJsQw",
       "usageMetadata": {
         "candidatesTokenCount": 16,
-        "promptTokenCount": 65,
+        "promptTokenCount": 74,
         "promptTokensDetails": [
           {
             "modality": "TEXT",
-            "tokenCount": 65
+            "tokenCount": 74
           }
         ],
-        "totalTokenCount": 81
+        "serviceTier": "standard",
+        "totalTokenCount": 90
       }
     },
     "headers": [
@@ -113,7 +114,7 @@
       ],
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:02 GMT"
+        "Tue, 02 Jun 2026 11:47:20 GMT"
       ],
       [
         "server",
@@ -133,7 +134,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=737"
+        "gfet4t7; dur=517"
       ],
       [
         "alt-svc",

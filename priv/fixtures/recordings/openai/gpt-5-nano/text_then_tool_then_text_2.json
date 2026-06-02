@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5-nano",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T11:57:36.424563Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:39.116753Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "Fantastic—London has something for everyone. To tailor advice, could you share:\n- Your travel dates and how many days you have\n- Budget and pace (relaxed vs. packed)\n- Interests (history, art, markets, food, nightlife, family-friendly)\n- Will you use public transport or drive?\n\nIn the meantime, a quick starter plan and tips:\n\n3-day starter itinerary (central-focused)\n- Day 1: Westminster area — Big Ben, Parliament, Westminster Abbey, Buckingham Palace, St James’s Park. Optional Thames cruise in the evening.\n- Day 2: Museums & Covent Garden — choose two of the Natural History Museum, V&A, or British Museum; explore Covent Garden, maybe catch a West End show.\n- Day 3: The City & South Bank — St Paul’s Cathedral, Millennium Bridge, Tate Modern or Shard views, Borough Market, Southbank stroll. Consider the London Eye for a view.\n\nTop neighborhoods to consider staying or exploring\n- Bloomsbury, Covent Garden, South Bank (central, good transit)\n- Notting Hill, Notting Hill Market\n- Shoreditch (creative, food, nightlife)\n\nTransport essentials\n- Get an Oyster card or use contactless payment; zones 1–2 cover most central sights\n- Walking is often faster than driving; central areas are very walkable\n- Many major museums are free; book major paid attractions in advance if needed\n\nTips\n- Museums like the British Museum, National Gallery, Natural History Museum, and V&A are free (special exhibitions may cost)\n- Plan for weather: layers and a compact umbrella\n- Book popular attractions in advance if you have specific times\n\nWould you like me to pull a weather forecast for your dates, or build a detailed day-by-day plan once you share your trip details?",
+              "text": "Fantastic—London is amazing. I can tailor plans once I know a bit more. To start, here’s a quick 5-day starter plan and a few questions.\n\n5-day starter itinerary (classic highlights)\n- Day 1: Westminster area – Westminster Abbey, Parliament/Big Ben, Buckingham Palace, St James’s Park; optional stroll along the Mall.\n- Day 2: The British Museum in Bloomsbury + Covent Garden (street performers, shops) + Leicester Square/Shoreditch by evening.\n- Day 3: South Bank walk – Tate Modern, Shakespeare’s Globe, Borough Market; consider a ride on the London Eye or a Thames cruise.\n- Day 4: Kensington museums or Notting Hill/Portobello Market; Hyde Park/Piccadilly area for evening dining.\n- Day 5: Day trip options (Windsor Castle, Oxford, or Greenwich) or extra time in East London (Spitalfields, Shoreditch, markets).\n\nA few quick questions to tailor it\n- How many days do you have, and when are you traveling?\n- What’s your budget range for accommodation?\n- What are your top interests (history, art, theater, food, markets, parks)?\n- Any must-see items or places to avoid?\n- Where will you be flying into, and how do you plan to get around (Oyster card/Contactless preferred)?\n- Any mobility or accessibility needs?\n\nIf you’d like, I can draft a personalized day-by-day plan with a rough budget and a packing list. I can also fetch current London weather for your dates or help with transport options and theatre tickets. What would you like to do first?",
               "type": "output_text"
             }
           ],
@@ -24,7 +24,7 @@
           "type": "message"
         },
         {
-          "content": "What's the current weather in London? Use the get_weather tool.",
+          "content": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer.",
           "role": "user"
         }
       ],
@@ -73,6 +73,7 @@
         },
         "verbosity": "medium"
       },
+      "moderation": null,
       "top_logprobs": 0,
       "previous_response_id": null,
       "tool_choice": "auto",
@@ -98,7 +99,7 @@
           "type": "function"
         }
       ],
-      "id": "resp_0de32ce56ce492640069df7d2c2b788197ae68c53e6fb48b22",
+      "id": "resp_0bd419eb1c29f617006a1ec2d7fe6881a39261c2691d8a6faf",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -106,29 +107,29 @@
       "error": null,
       "model": "gpt-5-nano-2025-08-07",
       "usage": {
-        "input_tokens": 463,
+        "input_tokens": 441,
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 240,
+        "output_tokens": 170,
         "output_tokens_details": {
-          "reasoning_tokens": 192
+          "reasoning_tokens": 128
         },
-        "total_tokens": 703
+        "total_tokens": 611
       },
       "safety_identifier": null,
       "object": "response",
       "parallel_tool_calls": true,
       "output": [
         {
-          "id": "rs_0de32ce56ce492640069df7d2c738c8197bc795b30d59ecadc",
+          "id": "rs_0bd419eb1c29f617006a1ec2d89f6881a39d38bb2aac955b7c",
           "summary": [],
           "type": "reasoning"
         },
         {
           "arguments": "{\"city\":\"London\"}",
-          "call_id": "call_DAuNkkPBj9gnAvT3hsZU6mnV",
-          "id": "fc_0de32ce56ce492640069df7d2fe890819780e220ee8db1c872",
+          "call_id": "call_76zOtyxnScG1SRqiM2dLE86o",
+          "id": "fc_0bd419eb1c29f617006a1ec2da811881a3b6d2ac31a00afeeb",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -139,25 +140,26 @@
       "presence_penalty": 0.0,
       "incomplete_details": null,
       "reasoning": {
+        "context": "current_turn",
         "effort": "medium",
         "summary": null
       },
-      "completed_at": 1776254256,
+      "completed_at": 1780400858,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
         "payer": "developer"
       },
-      "prompt_cache_retention": null,
+      "prompt_cache_retention": "in_memory",
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776254252,
+      "created_at": 1780400856,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 11:57:36 GMT"
+        "Tue, 02 Jun 2026 11:47:39 GMT"
       ],
       [
         "content-type",
@@ -165,11 +167,55 @@
       ],
       [
         "content-length",
-        "2071"
+        "2131"
+      ],
+      [
+        "cf-ray",
+        "a05639637c02d1c5-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
       ],
       [
         "server",
         "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Request-ID"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-processing-ms",
+        "3357"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -196,44 +242,12 @@
         "0s"
       ],
       [
-        "openai-version",
-        "2020-10-01"
-      ],
-      [
-        "openai-organization",
-        "[REDACTED]"
-      ],
-      [
-        "openai-project",
-        "[REDACTED]"
-      ],
-      [
         "x-request-id",
-        "req_b0b9aac311dc42c4bb2667da78e396c8"
-      ],
-      [
-        "openai-processing-ms",
-        "4178"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_97cc5b25c57842cf88bfe21634b1a38c"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9ecac5f35c10d935-PRG"
       ],
       [
         "alt-svc",

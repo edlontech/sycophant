@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-04-15T10:59:05.525208Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:25.889452Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -66,8 +66,8 @@
           "content": {
             "parts": [
               {
-                "text": "That sounds exciting! London is a fantastic city.\n\nTo help you with your planning, could you let me know:\n\n*   **When** are you planning to visit?\n*   **How long** will you be staying?\n*   **What are you most interested in?** (e.g., history/museums, food/dining, theatre, shopping, or local neighborhoods)\n\nIf you'd like to check the current weather there now to get an idea of the climate, just let me know!",
-                "thoughtSignature": "EjQKMgG+Pvb7LqhcQdkY7X3BMyLFxpCq3c/qktQfnHO3RhRZJES8eYvuDOzZfJhD1LrSDcra"
+                "text": "That's exciting! London is a fantastic city. How can I help you with your planning? Are you looking for sightseeing recommendations, travel tips, or perhaps the current weather?",
+                "thoughtSignature": "EjQKMgEMOdbH3j2BIaOd/4ESHZ9KLEtW5McNPpAYKYfdlBRrjrNKUYVZXjF4wlbsjwmrsQbx"
               }
             ],
             "role": "model"
@@ -76,10 +76,10 @@
           "index": 0
         }
       ],
-      "modelVersion": "gemini-3.1-flash-lite-preview",
-      "responseId": "eW_fadPCGsyfkdUPvuW6-AQ",
+      "modelVersion": "gemini-3.1-flash-lite",
+      "responseId": "zcIeaviQHK-2kdUPlpKCyAc",
       "usageMetadata": {
-        "candidatesTokenCount": 108,
+        "candidatesTokenCount": 36,
         "promptTokenCount": 70,
         "promptTokensDetails": [
           {
@@ -87,7 +87,8 @@
             "tokenCount": 70
           }
         ],
-        "totalTokenCount": 178
+        "serviceTier": "standard",
+        "totalTokenCount": 106
       }
     },
     "headers": [
@@ -113,7 +114,7 @@
       ],
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:05 GMT"
+        "Tue, 02 Jun 2026 11:47:25 GMT"
       ],
       [
         "server",
@@ -133,7 +134,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=2022"
+        "gfet4t7; dur=493"
       ],
       [
         "alt-svc",

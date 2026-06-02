@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-05-05T12:10:58.683938Z",
-    "sycophant_version": "0.4.1"
+    "recorded_at": "2026-06-02T11:47:35.068700Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -69,13 +69,42 @@
           "finish_reason": "stop",
           "index": 0,
           "message": {
-            "content": "I don't have memory right now, so I can't retain information after our conversation. If you want me to refer to you as Sycophant during this chat, though, I can!",
-            "padding": "abcdefghi",
+            "content": "I don’t have memory, so I can only keep track of our conversation while we’re chatting. Once the chat ends, I won’t retain anything, including your name. Let me know if there’s anything else you’d like help with, Sycophant!",
+            "padding": "abcdefg",
             "role": "assistant"
           }
         }
       ],
-      "id": "chatcmpl-Dc8u2ylht8sHHlBNcigAlQYQktltF",
+      "copilot_usage": {
+        "token_details": [
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 250000000000,
+            "token_count": 18,
+            "token_type": "input"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 125000000000,
+            "token_count": 0,
+            "token_type": "cache_read"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 0,
+            "token_count": 0,
+            "token_type": "cache_write"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 1000000000000,
+            "token_count": 55,
+            "token_type": "output"
+          }
+        ],
+        "total_nano_aiu": 59500000
+      },
+      "id": "chatcmpl-DmHsk0We1YgQAXHJTr6vT83YX2k8f",
       "model": "gpt-4o-2024-11-20",
       "prompt_filter_results": [
         {
@@ -100,9 +129,10 @@
           "prompt_index": 0
         }
       ],
+      "service_tier": "default",
       "system_fingerprint": "fp_23ef75ba80",
       "usage": {
-        "completion_tokens": 39,
+        "completion_tokens": 55,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "rejected_prediction_tokens": 0
@@ -112,7 +142,7 @@
           "cached_tokens": 0
         },
         "reasoning_tokens": 0,
-        "total_tokens": 57
+        "total_tokens": 73
       }
     },
     "headers": [
@@ -133,16 +163,20 @@
         "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
       ],
       [
+        "x-copilot-service-request-id",
+        "18bfd873-f320-40b5-a99b-8ce397fd5551"
+      ],
+      [
         "x-request-id",
-        "00000-b4865669-616c-4a46-8d63-ec1c761c7a68"
+        "00000-9937c231-4cbf-4752-8fe9-9cbe6c3a8362"
       ],
       [
         "date",
-        "Tue, 05 May 2026 12:10:58 GMT"
+        "Tue, 02 Jun 2026 11:47:35 GMT"
       ],
       [
         "content-length",
-        "1087"
+        "1608"
       ],
       [
         "x-github-backend",
@@ -150,7 +184,7 @@
       ],
       [
         "x-github-request-id",
-        "6B3F:29C906:564FA8A:5F59FCF:69F9DE51"
+        "B844:373D99:195C336:1ACC34E:6A1EC2D5"
       ]
     ],
     "status": 200

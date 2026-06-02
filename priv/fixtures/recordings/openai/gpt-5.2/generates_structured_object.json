@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5.2",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T10:59:01.897101Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:19.360950Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -93,13 +93,14 @@
         },
         "verbosity": "medium"
       },
+      "moderation": null,
       "top_logprobs": 0,
       "previous_response_id": null,
       "tool_choice": "auto",
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_08e9f8ce8ec2cad50069df6f74b08c81969dbb92b5223eb2ab",
+      "id": "resp_04e888744c49b134006a1ec2c5ce0881a08b7d18991962b857",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -111,11 +112,11 @@
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 36,
+        "output_tokens": 35,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 105
+        "total_tokens": 104
       },
       "safety_identifier": null,
       "object": "response",
@@ -126,11 +127,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "{\"age\":29,\"hobbies\":[\"urban sketching\",\"rock climbing\",\"sourdough baking\"],\"name\":\"Mara Ellingsen\"}",
+              "text": "{\"age\":34,\"hobbies\":[\"urban sketching\",\"trail running\",\"sourdough baking\"],\"name\":\"Mira Halberg\"}",
               "type": "output_text"
             }
           ],
-          "id": "msg_08e9f8ce8ec2cad50069df6f750af0819693b2c485355879a8",
+          "id": "msg_04e888744c49b134006a1ec2c643f881a0984bd241a1589bab",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -141,25 +142,26 @@
       "presence_penalty": 0.0,
       "incomplete_details": null,
       "reasoning": {
+        "context": "current_turn",
         "effort": "none",
         "summary": null
       },
-      "completed_at": 1776250741,
+      "completed_at": 1780400839,
       "truncation": "disabled",
       "top_p": 0.98,
       "billing": {
         "payer": "developer"
       },
-      "prompt_cache_retention": null,
+      "prompt_cache_retention": "24h",
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776250740,
+      "created_at": 1780400837,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:01 GMT"
+        "Tue, 02 Jun 2026 11:47:19 GMT"
       ],
       [
         "content-type",
@@ -167,11 +169,55 @@
       ],
       [
         "content-length",
-        "2193"
+        "2245"
+      ],
+      [
+        "cf-ray",
+        "a05638f02a41d1c5-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
       ],
       [
         "server",
         "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Request-ID"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-processing-ms",
+        "1523"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -198,44 +244,12 @@
         "0s"
       ],
       [
-        "openai-version",
-        "2020-10-01"
-      ],
-      [
-        "openai-organization",
-        "[REDACTED]"
-      ],
-      [
-        "openai-project",
-        "[REDACTED]"
-      ],
-      [
         "x-request-id",
-        "req_006e9a2718234677838c0a13efbc904e"
-      ],
-      [
-        "openai-processing-ms",
-        "1159"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_cdea56bd04f14185938df3ee06363c44"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9eca7036c833710c-PRG"
       ],
       [
         "alt-svc",

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-04-15T10:59:12.528629Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:33.574642Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -19,7 +19,7 @@
         {
           "content": [
             {
-              "text": "Hello! How exciting that you're planning a trip to London! \n\nWould you like me to check the current weather in London for you? I can help you get an idea of what conditions are like there. Just let me know if you'd like that information or if there's anything else I can help you with for your trip planning!"
+              "text": "That's exciting! I can help you check the current weather in London if that would be useful for your trip planning. Would you like me to get the weather information for you?"
             }
           ],
           "role": "assistant"
@@ -27,7 +27,7 @@
         {
           "content": [
             {
-              "text": "What's the current weather in London? Use the get_weather tool."
+              "text": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer."
             }
           ],
           "role": "user"
@@ -40,7 +40,7 @@
                   "city": "London"
                 },
                 "name": "get_weather",
-                "toolUseId": "tooluse_UxNhqHSky8NHqRmH3bAvGm"
+                "toolUseId": "tooluse_4HnUHuzSRiIX4I9vq5Mfi1"
               }
             }
           ],
@@ -55,7 +55,7 @@
                     "text": "London: 18C, cloudy"
                   }
                 ],
-                "toolUseId": "tooluse_UxNhqHSky8NHqRmH3bAvGm"
+                "toolUseId": "tooluse_4HnUHuzSRiIX4I9vq5Mfi1"
               }
             }
           ],
@@ -103,7 +103,7 @@
       ],
       [
         "x-amz-date",
-        "20260415T105909Z"
+        "20260602T114731Z"
       ],
       [
         "content-type",
@@ -116,13 +116,13 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 2620
+        "latencyMs": 1697
       },
       "output": {
         "message": {
           "content": [
             {
-              "text": "The current weather in London is 18°C and cloudy. You might want to bring a light jacket and perhaps an umbrella just in case!"
+              "text": "The current weather in London is 18°C and cloudy."
             }
           ],
           "role": "assistant"
@@ -134,16 +134,16 @@
         "cacheReadInputTokens": 0,
         "cacheWriteInputTokenCount": 0,
         "cacheWriteInputTokens": 0,
-        "inputTokens": 754,
-        "outputTokens": 34,
+        "inputTokens": 730,
+        "outputTokens": 17,
         "serverToolUsage": {},
-        "totalTokens": 788
+        "totalTokens": 747
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:12 GMT"
+        "Tue, 02 Jun 2026 11:47:33 GMT"
       ],
       [
         "content-type",
@@ -151,11 +151,11 @@
       ],
       [
         "content-length",
-        "442"
+        "365"
       ],
       [
         "x-amzn-requestid",
-        "5b8955d8-94b6-41da-8ad2-1612eb44a4df"
+        "f42417aa-fb83-4c16-af7b-57529bb9a7bd"
       ]
     ],
     "status": 200

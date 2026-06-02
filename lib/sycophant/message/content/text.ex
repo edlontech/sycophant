@@ -14,41 +14,12 @@ defmodule Sycophant.Message.Content.Text do
       iex> %Sycophant.Message.Content.Text{text: "Describe this image"}
       #Sycophant.Message.Content.Text<"Describe this image">
   """
-  @enforce_keys [:text]
-  defstruct [:text, citations: nil]
+  use ZoiDefstruct
 
-  @type t :: %__MODULE__{
-          text: String.t(),
-          citations: [Sycophant.Citation.t()] | nil
-        }
-
-  @doc "Deserializes a text content part from a plain map."
-  @spec from_map(map()) :: t()
-  def from_map(%{"text" => text} = data) do
-    %__MODULE__{text: text, citations: decode_citations(data["citations"])}
-  end
-
-  defp decode_citations(nil), do: nil
-
-  defp decode_citations(list) when is_list(list),
-    do: Enum.map(list, &Sycophant.Serializable.Decoder.from_map/1)
-end
-
-defimpl Sycophant.Serializable, for: Sycophant.Message.Content.Text do
-  import Sycophant.Serializable.Helpers
-
-  def to_map(%{text: text, citations: citations}) do
-    compact(%{
-      "__type__" => "Text",
-      "type" => "text",
-      "text" => text,
-      "citations" => encode_citations(citations)
-    })
-  end
-
-  defp encode_citations(nil), do: nil
-  defp encode_citations([]), do: nil
-  defp encode_citations(list), do: Enum.map(list, &Sycophant.Serializable.to_map/1)
+  defstruct __type__: Zoi.literal("Text") |> Zoi.default("Text"),
+            type: Zoi.literal("text") |> Zoi.default("text"),
+            text: Zoi.string(),
+            citations: Zoi.list(Sycophant.Citation.t()) |> Zoi.optional()
 end
 
 defimpl Inspect, for: Sycophant.Message.Content.Text do

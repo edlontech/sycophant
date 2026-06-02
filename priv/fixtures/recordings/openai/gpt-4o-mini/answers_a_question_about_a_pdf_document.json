@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T09:56:22.611207Z",
+    "recorded_at": "2026-06-02T11:47:20.999335Z",
     "sycophant_version": "0.4.2"
   },
   "request": {
@@ -54,7 +54,7 @@
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_041eaf361067e240006a1ea8c25d3c81a1aea6685cc4175a46",
+      "id": "resp_09e400352007cedc006a1ec2c5fb348196bc61aa396ebbc1f6",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -85,7 +85,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_041eaf361067e240006a1ea8c64ff081a193646f3af4bbaf88",
+          "id": "msg_09e400352007cedc006a1ec2c8b3bc81968dc19abadb100d25",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -100,7 +100,7 @@
         "effort": null,
         "summary": null
       },
-      "completed_at": 1780394182,
+      "completed_at": 1780400840,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
@@ -109,13 +109,13 @@
       "prompt_cache_retention": "in_memory",
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1780394181,
+      "created_at": 1780400840,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 09:56:22 GMT"
+        "Tue, 02 Jun 2026 11:47:21 GMT"
       ],
       [
         "content-type",
@@ -127,7 +127,7 @@
       ],
       [
         "cf-ray",
-        "a055965de833278a-PRG"
+        "a05638f02a3cd1c5-PRG"
       ],
       [
         "cf-cache-status",
@@ -163,7 +163,7 @@
       ],
       [
         "openai-processing-ms",
-        "4118"
+        "2970"
       ],
       [
         "openai-project",
@@ -187,7 +187,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "149999907"
+        "149999910"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -199,7 +199,7 @@
       ],
       [
         "x-request-id",
-        "req_dc7a1da569c749cf8f48655d0e47a08d"
+        "req_3dad214f44fd4e41876702d550d0fe18"
       ],
       [
         "set-cookie",

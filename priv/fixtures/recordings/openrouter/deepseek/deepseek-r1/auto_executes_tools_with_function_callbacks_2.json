@@ -2,39 +2,45 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:06.520653Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:35.820156Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
       "input": [
         {
-          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "content": "What's the weather in Paris? You must call the get_weather tool with city=\"Paris\" to answer.",
           "role": "user"
         },
         {
           "content": [
             {
-              "text": "The user asks for the weather in Paris and requests using the get_weather tool. I'll call get_weather with city Paris.",
+              "text": "\nWe are given a question about the weather in Paris.\n The user explicitly says: \"You must call the get_weather tool with city='Paris' to answer.\"\n Therefore, we must call the get_weather function with the parameter city set to \"Paris\".\n We'll use the exact format required.\n",
               "type": "reasoning_text"
             }
           ],
+          "id": "rs_tmp_pzvyys0vc2",
           "type": "reasoning"
         },
         {
-          "content": [],
+          "content": [
+            {
+              "text": "I'll help check the weather in Paris by calling the get_weather tool:\n\n",
+              "type": "output_text"
+            }
+          ],
           "role": "assistant",
           "status": "completed",
           "type": "message"
         },
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "a7f8a69f9d0c42e2be84ad14bc314467",
+          "call_id": "call_e66cd6e33c6a4f13a86c001c",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "a7f8a69f9d0c42e2be84ad14bc314467",
+          "call_id": "call_e66cd6e33c6a4f13a86c001c",
           "output": "Paris: 22C, sunny",
           "type": "function_call_output"
         }
@@ -77,11 +83,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250746,
-      "created_at": 1776250744,
+      "completed_at": 1780400855,
+      "created_at": 1780400851,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250744-X8UZQWuKsHBLtjv38bp8",
+      "id": "gen-1780400851-PNdvVSE1ugGDvWpv6GW0",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -93,15 +99,29 @@
         {
           "content": [
             {
-              "text": "The weather in Paris is 22°C and sunny.",
+              "text": "\nWe are given the tool result for Paris: 22C, sunny\n We can now summarize and provide the final answer.\n",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_o7ahdvmhi9",
+          "id": "rs_tmp_ssgkyte6inc",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Based on the tool response, the current weather in Paris is:\n\n- **Temperature:** 22°C (71.6°F)\n- **Conditions:** Sunny\n\nEnjoy the pleasant weather if you're in Paris!",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_tmp_bt24d0n81wq",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
         }
       ],
       "parallel_tool_calls": true,
@@ -144,28 +164,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 3.111e-4,
+        "cost": 4.048e-4,
         "cost_details": {
-          "upstream_inference_cost": 3.111e-4,
-          "upstream_inference_input_cost": 2.786e-4,
-          "upstream_inference_output_cost": 3.25e-5
+          "upstream_inference_cost": 4.048e-4,
+          "upstream_inference_input_cost": 2.198e-4,
+          "upstream_inference_output_cost": 1.85e-4
         },
-        "input_tokens": 398,
+        "input_tokens": 314,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 13,
+        "output_tokens": 74,
         "output_tokens_details": {
-          "reasoning_tokens": 13
+          "reasoning_tokens": 28
         },
-        "total_tokens": 411
+        "total_tokens": 388
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:06 GMT"
+        "Tue, 02 Jun 2026 11:47:32 GMT"
       ],
       [
         "content-type",
@@ -173,7 +193,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=6,cfOrigin;dur=0,cfWorker;dur=1847"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=1985"
       ],
       [
         "access-control-allow-origin",
@@ -181,7 +201,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250744-X8UZQWuKsHBLtjv38bp8"
+        "gen-1780400851-PNdvVSE1ugGDvWpv6GW0"
       ],
       [
         "access-control-expose-headers",
@@ -205,7 +225,7 @@
       ],
       [
         "cf-ray",
-        "9eca704fbdddc1bb-PRG"
+        "a05639469e71876f-PRG"
       ]
     ],
     "status": 200

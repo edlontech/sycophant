@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-05-05T12:10:59.970120Z",
-    "sycophant_version": "0.4.1"
+    "recorded_at": "2026-06-02T11:47:36.301303Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -13,7 +13,7 @@
           "role": "user"
         },
         {
-          "content": "I don't have memory right now, so I can't retain information after our conversation. If you want me to refer to you as Sycophant during this chat, though, I can!",
+          "content": "I don’t have memory, so I can only keep track of our conversation while we’re chatting. Once the chat ends, I won’t retain anything, including your name. Let me know if there’s anything else you’d like help with, Sycophant!",
           "role": "assistant"
         },
         {
@@ -77,13 +77,42 @@
           "finish_reason": "stop",
           "index": 0,
           "message": {
-            "content": "You told me your name is Sycophant!",
-            "padding": "abcdefghijklmno",
+            "content": "You mentioned that your name is Sycophant! :)",
+            "padding": "abcdefghijklmnopqrstuv",
             "role": "assistant"
           }
         }
       ],
-      "id": "chatcmpl-Dc8u3XFNEc7ylxIA1WCWNovP9YD0g",
+      "copilot_usage": {
+        "token_details": [
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 250000000000,
+            "token_count": 85,
+            "token_type": "input"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 125000000000,
+            "token_count": 0,
+            "token_type": "cache_read"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 0,
+            "token_count": 0,
+            "token_type": "cache_write"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 1000000000000,
+            "token_count": 13,
+            "token_type": "output"
+          }
+        ],
+        "total_nano_aiu": 34250000
+      },
+      "id": "chatcmpl-DmHsl819iMSKK27UHVxhv9ZqBDzJD",
       "model": "gpt-4o-2024-11-20",
       "prompt_filter_results": [
         {
@@ -108,19 +137,20 @@
           "prompt_index": 0
         }
       ],
+      "service_tier": "default",
       "system_fingerprint": "fp_23ef75ba80",
       "usage": {
-        "completion_tokens": 12,
+        "completion_tokens": 13,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "rejected_prediction_tokens": 0
         },
-        "prompt_tokens": 69,
+        "prompt_tokens": 85,
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
         "reasoning_tokens": 0,
-        "total_tokens": 81
+        "total_tokens": 98
       }
     },
     "headers": [
@@ -141,16 +171,20 @@
         "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
       ],
       [
+        "x-copilot-service-request-id",
+        "b58e6280-e777-4e43-8d7c-60b8d0e08a92"
+      ],
+      [
         "x-request-id",
-        "00000-ac9f963e-0d70-4eaf-8c70-d91dabc51055"
+        "00000-e142a30b-b36c-4582-a325-cb9eb799fd38"
       ],
       [
         "date",
-        "Tue, 05 May 2026 12:10:59 GMT"
+        "Tue, 02 Jun 2026 11:47:36 GMT"
       ],
       [
         "content-length",
-        "967"
+        "1435"
       ],
       [
         "x-github-backend",
@@ -158,7 +192,7 @@
       ],
       [
         "x-github-request-id",
-        "6B3F:29C906:56501D1:5F5A7B8:69F9DE52"
+        "B844:373D99:195CDD0:1ACCE72:6A1EC2D7"
       ]
     ],
     "status": 200

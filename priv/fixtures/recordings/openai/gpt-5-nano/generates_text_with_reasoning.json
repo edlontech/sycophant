@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5-nano",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T11:57:21.061788Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:24.985868Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -41,13 +41,14 @@
         },
         "verbosity": "medium"
       },
+      "moderation": null,
       "top_logprobs": 0,
       "previous_response_id": null,
       "tool_choice": "auto",
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_04dfbbd788fc4df50069df7d1cb21481969ed980200419115f",
+      "id": "resp_0effe883d7b6898f006a1ec2c5c9f4819f81a7d98427cb95b3",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -59,21 +60,25 @@
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 277,
+        "output_tokens": 783,
         "output_tokens_details": {
-          "reasoning_tokens": 128
+          "reasoning_tokens": 512
         },
-        "total_tokens": 339
+        "total_tokens": 845
       },
       "safety_identifier": null,
       "object": "response",
       "parallel_tool_calls": true,
       "output": [
         {
-          "id": "rs_04dfbbd788fc4df50069df7d1d1a5881968aabcb0b0039fa83",
+          "id": "rs_0effe883d7b6898f006a1ec2c606b0819f86edac6be0484339",
           "summary": [
             {
-              "text": "**Clarifying calculations**\n\nI need to compute the values given. Let's define second as 120 tons. The first produces 2.5 times more, which leads to some ambiguity. It might mean either 2.5 times as much or 2.5 times added. To clarify, I'll use the standard interpretation: first equals 2.5 times second, making it 300 tons. The third produces 40% less than the first, leading to 180 tons. Adding these up gives a total of 600 tons.",
+              "text": "**Clarifying wheat production calculations**\n\nWe need to compute the wheat production. If \"second\" produces 120 tons, then \"first\" produces 2.5 times more, which is tricky because \"2.5 times more\" could be interpreted differently. It could mean 2.5 times as much (300 tons) or 3.5 times (420 tons). The \"third\" producer is clear at 40% less than the first. Depending on the interpretation, the total could either be 600 tons or 792 tons. So, which case is more likely?",
+              "type": "summary_text"
+            },
+            {
+              "text": "**Analyzing math puzzle solutions**\n\nMany math puzzles expect the total to be 600 tons. I’m noticing some ambiguity in the interpretation of \"2.5 times more.\" The standard interpretation might suggest that \"2.5 times more\" equals 3.5 times as much, leading to a total of 792 tons. However, some people may think it means 2.5 times as much, resulting in 600 tons. I’ll present both possibilities and then choose the conventional interpretation for clarity while offering my reasoning and final answers as needed.",
               "type": "summary_text"
             }
           ],
@@ -84,11 +89,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Let the second field be 120 tons.\n\n- First field: 2.5 times the second = 2.5 × 120 = 300 tons.\n- Third field: 40% less than the first → 60% of the first = 0.6 × 300 = 180 tons.\n\nTotal production = 120 + 300 + 180 = 600 tons.\n\nAnswer: 600 tons.",
+              "text": "Let the second field produce 120 tons.\n\n- If “the first field produces 2.5 times as much as the second” (i.e., first = 2.5 × second):\n  - First = 2.5 × 120 = 300 tons\n  - Third produces 40% less than the first: Third = 0.6 × 300 = 180 tons\n  - Total = 120 + 300 + 180 = 600 tons\n\n- If “2.5 times more” is interpreted as 3.5 times as much (i.e., first = (1 + 2.5) × second):\n  - First = 3.5 × 120 = 420 tons\n  - Third = 0.6 × 420 = 252 tons\n  - Total = 120 + 420 + 252 = 792 tons\n\nNote: The phrase “2.5 times more” is ambiguous. The standard mathematical interpretation is often “2.5 times as much” (leading to 600 tons). If you interpret it as “2.5 times more” (i.e., 3.5×), you get 792 tons. If you’d like, I can confirm which interpretation to use.",
               "type": "output_text"
             }
           ],
-          "id": "msg_04dfbbd788fc4df50069df7d2069dc81969362a91bc6344e47",
+          "id": "msg_0effe883d7b6898f006a1ec2cc77ec819fbaba382d7a45cdb2",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -99,25 +104,26 @@
       "presence_penalty": 0.0,
       "incomplete_details": null,
       "reasoning": {
+        "context": "current_turn",
         "effort": "low",
         "summary": "detailed"
       },
-      "completed_at": 1776254240,
+      "completed_at": 1780400844,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
         "payer": "developer"
       },
-      "prompt_cache_retention": null,
+      "prompt_cache_retention": "in_memory",
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776254236,
+      "created_at": 1780400837,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 11:57:21 GMT"
+        "Tue, 02 Jun 2026 11:47:24 GMT"
       ],
       [
         "content-type",
@@ -125,11 +131,55 @@
       ],
       [
         "content-length",
-        "2447"
+        "3742"
+      ],
+      [
+        "cf-ray",
+        "a05638f02a4bd1c5-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
       ],
       [
         "server",
         "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Request-ID"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-processing-ms",
+        "7162"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -145,7 +195,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "179999940"
+        "179999433"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -156,44 +206,12 @@
         "0s"
       ],
       [
-        "openai-version",
-        "2020-10-01"
-      ],
-      [
-        "openai-organization",
-        "[REDACTED]"
-      ],
-      [
-        "openai-project",
-        "[REDACTED]"
-      ],
-      [
         "x-request-id",
-        "req_5744e557349e4eae9504225fc8f3cb64"
-      ],
-      [
-        "openai-processing-ms",
-        "4256"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_c8f1a2a5182b4716a229cda8a48d7193"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9ecac58fcbcdd935-PRG"
       ],
       [
         "alt-svc",

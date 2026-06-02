@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-05-05T12:10:59.678127Z",
-    "sycophant_version": "0.4.1"
+    "recorded_at": "2026-06-02T11:47:25.381250Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -21,7 +21,7 @@
                 "arguments": "{\"city\":\"Paris\"}",
                 "name": "get_weather"
               },
-              "id": "call_fkhcXaksAPOedDC2vHIUvZpL",
+              "id": "call_HclcYC7DdFRxWy2hlHiwYWnB",
               "type": "function"
             }
           ]
@@ -29,7 +29,7 @@
         {
           "content": "Paris: 22C, sunny",
           "role": "tool",
-          "tool_call_id": "call_fkhcXaksAPOedDC2vHIUvZpL"
+          "tool_call_id": "call_HclcYC7DdFRxWy2hlHiwYWnB"
         }
       ],
       "model": "gpt-4o",
@@ -110,13 +110,42 @@
           "finish_reason": "stop",
           "index": 0,
           "message": {
-            "content": "The weather in Paris is 22°C and sunny.",
-            "padding": "abcdefghijklmnopqrstuvwxyz0123",
+            "content": "The current weather in Paris is 22°C and sunny.",
+            "padding": "abcdefghijklmnopqrstuvw",
             "role": "assistant"
           }
         }
       ],
-      "id": "chatcmpl-Dc8u3YyCNWf7bMkpjNoSOKJKpVIL0",
+      "copilot_usage": {
+        "token_details": [
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 250000000000,
+            "token_count": 99,
+            "token_type": "input"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 125000000000,
+            "token_count": 0,
+            "token_type": "cache_read"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 0,
+            "token_count": 0,
+            "token_type": "cache_write"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 1000000000000,
+            "token_count": 14,
+            "token_type": "output"
+          }
+        ],
+        "total_nano_aiu": 38750000
+      },
+      "id": "chatcmpl-DmHsaZy8ihlsJ4yC0DpA3DXms2o5N",
       "model": "gpt-4o-2024-11-20",
       "prompt_filter_results": [
         {
@@ -141,9 +170,10 @@
           "prompt_index": 0
         }
       ],
+      "service_tier": "default",
       "system_fingerprint": "fp_23ef75ba80",
       "usage": {
-        "completion_tokens": 13,
+        "completion_tokens": 14,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "rejected_prediction_tokens": 0
@@ -153,7 +183,7 @@
           "cached_tokens": 0
         },
         "reasoning_tokens": 0,
-        "total_tokens": 112
+        "total_tokens": 113
       }
     },
     "headers": [
@@ -174,16 +204,20 @@
         "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
       ],
       [
+        "x-copilot-service-request-id",
+        "d6e0c2bc-03bf-4c32-8b1d-03f6d3046642"
+      ],
+      [
         "x-request-id",
-        "00000-ef5213ee-5aef-485c-bae0-76db37f486f4"
+        "00000-8912c0e6-1c5c-4053-b513-94ab14866d0b"
       ],
       [
         "date",
-        "Tue, 05 May 2026 12:10:59 GMT"
+        "Tue, 02 Jun 2026 11:47:25 GMT"
       ],
       [
         "content-length",
-        "988"
+        "1440"
       ],
       [
         "x-github-backend",
@@ -191,7 +225,7 @@
       ],
       [
         "x-github-request-id",
-        "6B3F:29C906:565017F:5F5A74F:69F9DE52"
+        "B844:373D99:1957C7D:1AC78F5:6A1EC2CC"
       ]
     ],
     "status": 200

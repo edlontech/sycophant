@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:19.736037Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:37.322007Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -31,11 +31,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250759,
-      "created_at": 1776250752,
+      "completed_at": 1780400857,
+      "created_at": 1780400851,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250752-YcTTVlJSlVhGeOGIgp8q",
+      "id": "gen-1780400850-4xRW2BrzaHBgOKdTfQ2i",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -47,12 +47,12 @@
         {
           "content": [
             {
-              "text": "First, the user said: \"Say 'hello' and nothing else.\" That's a clear instruction. I need to respond with just the word \"hello\" and nothing more.\n\nAs the Assistant, my responses should be helpful and follow the user's instructions precisely. In this case, the instruction is straightforward.\n\nI should output exactly: hello. No additional text, no explanations, no greetings beyond that.\n\nSo, my response should be: hello\n\nI need to ensure that in my response, I only say \"hello\" and nothing else. That means no punctuation unless it's part of the word, but \"hello\" is typically written without quotes in the response, since the user said to say 'hello', meaning the word itself.\n\nThe user used single quotes around 'hello', but when I say it, I should just say hello without quotes.\n\nTherefore, my final output is simply: hello",
+              "text": "Okay, the user just asked me to say \"hello\" and nothing else. That's a very simple and straightforward request. \n\nHmm, they specifically emphasized \"nothing else,\" so I need to be careful not to add any extra words or explanations. \n\nThe user might be testing if I can follow precise instructions, or maybe they're setting up for something else. Either way, best to keep it clean and compliant. \n\nJust a pure, minimal \"hello\" response. No fluff, no emojis, no hidden meanings. Exactly what they asked for.\n",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_d6fz5pdvfyr",
+          "id": "rs_tmp_ytuvdi0dfqo",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
@@ -62,11 +62,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "hello",
+              "text": "Hello.",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_30w0foskq4u",
+          "id": "msg_tmp_ml9cy8odp0c",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -93,28 +93,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 4.701e-4,
+        "cost": 3.066e-4,
         "cost_details": {
-          "upstream_inference_cost": 4.701e-4,
-          "upstream_inference_input_cost": 1.26e-5,
-          "upstream_inference_output_cost": 4.575e-4
+          "upstream_inference_cost": 3.066e-4,
+          "upstream_inference_input_cost": 9.1e-6,
+          "upstream_inference_output_cost": 2.975e-4
         },
-        "input_tokens": 18,
+        "input_tokens": 13,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 183,
+        "output_tokens": 119,
         "output_tokens_details": {
-          "reasoning_tokens": 180
+          "reasoning_tokens": 116
         },
-        "total_tokens": 201
+        "total_tokens": 132
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:13 GMT"
+        "Tue, 02 Jun 2026 11:47:32 GMT"
       ],
       [
         "content-type",
@@ -122,7 +122,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=1649"
+        "cfEdge;dur=1417,cfOrigin;dur=0,cfWorker;dur=2271"
       ],
       [
         "access-control-allow-origin",
@@ -130,7 +130,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250752-YcTTVlJSlVhGeOGIgp8q"
+        "gen-1780400850-4xRW2BrzaHBgOKdTfQ2i"
       ],
       [
         "access-control-expose-headers",
@@ -154,7 +154,7 @@
       ],
       [
         "cf-ray",
-        "9eca70812dfdc1bb-PRG"
+        "a056393bc9cf876f-PRG"
       ]
     ],
     "status": 200

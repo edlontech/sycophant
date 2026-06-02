@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gemini-2.5-pro",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-05-05T12:11:06.528307Z",
-    "sycophant_version": "0.4.1"
+    "recorded_at": "2026-06-02T11:47:24.829663Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -74,8 +74,8 @@
           "index": 0,
           "message": {
             "content": "",
-            "reasoning_opaque": "VstNYE8Zs6TEvV2n7qudU49zxGnZaXbxVPEgG1N7nlZWSuQrQrZPqSQugCdgcQSjwIbO9bTz7hHqeMUa1abDFyhmTkdCzK/6S6H3KKhHavVU1xa12qzJBR25lom9VjZoW0Iu6GArCSQ8wcSUfXJJzW/512da0Qkjx0xjvvr76JQCG16CuT+5FuRfcaFT2jFkpS++b8Cbm2Ns9tAWYitMEyMhqJEx47dR7uEu1rCg6wP0W3g9hZAOP48h/GImCQqTfwwhm4FY4PTcZVy1oNy7fe9JA/gOMno4N9cV/leDKnuywu7Qfw3iDQG1ja8UnZnx/jmBHq2pbsjcLv1oLnDl1RbjaqfAhCz/hSti7MJqTNFR0ihruOIWdCENkXWoHVx29ky6bJOY1qaTxgGat8bvNPZIQjBPkx8HU/+T5e3YJ2zT4kfT430jcZfqH4wkVU8Xd40qc8rSF3Tm6KHRWdybFEuC6Fl3U+B7PDaCBghyJv6MHA+lOYf/hT+7WukkzGsiY3/WUT/Al0dPaVdG8x7aw4be1ZPnNf3deWM8O3nzMdunpbGt/R5ZRyavfsxWogAQiZ2JKdRiDHzPnb4V3dSXzrvYeF60mO3pSJ6Jlw09LJ/Gj4n6tC+klNkF94Jlge0MR6Bl+YEAoqA0reOpPMSQ2ZZphSmqIKV0Vj2UAyI0iRMedvYZA1M/7h5BKaQampo+Lr0zpckSnL+c7+KGr+Zg6tbYvxasiGrFOZ/HKSUxxEFkMo2LriqEqAkqNja2Ael3441lP6Nzxm7RL5/Iu3JUTON7kPa5PIRExmFge3uWQkp5+T53E/mPfNuxxE8JmRWm4hClMIzFowUnmM8yOoC1LCeqDo5ob1B712+BbEc2NfkINndf+r41CJbDq6Gk6bCF/VT0RlplK694qm+ClFGgz2VJZymsqoFlmh9peYoI5vKL4DfoRrua5FG/yioAt3buX7otkiUYQqyfceyA6v2dITjH/idmLjomTwi1DujjPP6VzpuN3hwCDUsk6J1V+5DFsNXYvpM5kU80MzmTF8GC51fUiqxi7dqWwhkW1FoysW287WJk4f3iC/dcKoO9p2YR4NbXxlauDlEnFzigkhG25L42eWgnSb4YM+XjLpdMwBQ0vMcsrqB9P1pYjZIffa0PJ37GagkKwOUyiBssOkdtfnB3kHc5w00ckS23wEnzd7fLTClAD/HAc6p6V6YAAoMLh9jLp8JmMn9MsUNenlEiOa8YjquVJ/YKq6Gk7EYGZuh9Y0ab3GE/HhfWret26A9dkM2l83TqDXTPHgCYZsxH2YrLF6i/pIc04xywpLBTVlJvf3u7pAMw5lJACQXe7dftEWpt6tD88mzIPpsyix4+UOWEQQY8EKd4CoE62W3sKjBg9A+phhdGl5pHdCoW4QukU01AdKPmRUKyQypS2QKE",
-            "reasoning_text": "Alright, let's get down to business. Someone's asking about the weather in Paris, and they've been very clear – they want the `get_weather` tool used. No ambiguity there; it's a direct instruction.\n\nSo, I need to translate this user's intent into a practical action. They haven't just hinted at Paris; they've pinpointed it. Specifically, the parameter is `city=\"Paris\"`. This is crucial. I need to make sure I don't get sidetracked or misunderstand.\n\nTherefore, the core of my response is simple: I'll invoke the `get_weather` function with the correct argument. It boils down to `print(get_weather(city='Paris'))`. That's it. Execute the function with the given city, and provide the results. This is straightforward tool use.\n",
+            "reasoning_opaque": "hLvU6RJhLV/bzZrIoKPCSaJhWZkphaPugabAkGjqlWNf6G15DIUFkON7GzTKUfOmab90LQwTQkvjrVi5iOca/Mgd6PCsOa6lh8FLIZZCzRejUjFvP4k5cMEMwjCC6en5RbaNVW6O+cXJKi+9NRUhoPXlYQyTWm/hivpBJMRkWxyc53FaoXPzQqbjTHrrlrbEgOuIxXfidXTz2NOiKBnZVEroY6ZmPSRs6fvdZOkMhsw1XOYhlFO4OiaCtN4u7O2EUbAuYQsy0s5XHNQEVfHnvA1aXcFCjtD9G1F/pUDFKrIlt4M2w6hvvkSDet+RwtEXYarSEm49vZvV2ndG85AG8Pgg0Z3Fj7AAJb6MOjO+JtDoyKyx7djZT08+kgHsruYUBIDkVFJwShVcAYckDTL1v2EG7igL6Wu9Gw0KcmHhO5RIqTXEjyI5LhQADPF2BsYcSFFBwFdaWiJ6APcgYMksPl8U6VpRtzNTNhBj3Q/pT3MLfnbx/slCWhHKmoqNgq0k/odFaFMY7L2H59gqO59UC593ZG2GsbCDkjM/Pr6grMMA8/1mMA8m6+OPuefqR5XDcEFSvpnUrTNUKdF+sKF/qlS7VDU9z3Ol8j7aLhHd+rofyc4hrcrKpUqoCp/0zo4mo+2f2muVNriMz6pmvT6gPyqXp2XLmF1ha8+CR/vjlLd+41EW8LH/5YuaTnNSB5dAARlm2I+FT9Z7GTeL2VHgoXMhEktimZ4mxeOAAT/mLOmSLtqwVSfwGxw2Guf36co+vuO4ge9VCDCnAbUmNvgI/+kSxgTh0t5r4UANu/59bespqOLDBXb9ehYngIM3xJnaPksmENcWNe2JWG4M90FTSH9d4sRQLRXbXaeBBwNtzOJku68//iKR+F34E/+XO7bY+nODstsdQJW1XjknTyFWr6SRG9UryeYwb74lnycVAdNqiWhS3OQtN7moF6iVvjKedLYuIfphTiJxqvaRj7Xegrg76YP8NCbPPs1oBxb7CdBtQXRnrFsYaBhHfcnGL5CDktI6U/btRQq34BCJxGUgPLruduzRvMkSANK0/rvMrfIYJxzdeVPHTwwwc4IaPaE061iWmffO6EfetbB8IiVtsr9t1JkW31RLHH0bexgdPxS2wUz9hac5eWlyp/7UHjoEumqWuVf1XJC4BVfHi1ypfRWBnmrn0Uu98TwcG+CjeiTnXQT5HAWuaIE6dI1v1SvrE2vpIZmDp55KUmxbz1IgPQsYYa1FB2XtrvQx5H4Zr3mrKq7pZ+tcUZ3/f3bPO+nwzx58YUEE7YR1JjqUz+ybAF/FQO3HwJWzZ9V8qyn8y3c9eAR2nbTt/E3E4QvElfasfgot2/U5e1/Ut+U6PpiSQvh09M6ljpZGoUf+xXZwpduMsJuUUNA2ssHG6hAt3rl7upT+2WnocLWNJyZXG0P0HpDWbF5pGhC9mIgQ7vQuxhGiDebDMuuI+qh7fiu7dUu2h5jhzBF6hHzQvqINTT80Nk6LTkaAhCiBVx9cdGiXJ5Ei+IlVgx3yk++bRhpzuJ+dj13xY1onYiLjp7GOwV3KNuzu+bLbEIhGfcte4SvSGm/2xzDykVrh",
+            "reasoning_text": "Okay, so I'm processing a user's request here. They want to know the weather, specifically in Paris. I've identified that the `get_weather` tool is the perfect fit for this. Now, I need to figure out what information this tool needs. It looks like it requires a `city` parameter, and thankfully, the user has explicitly stated \"Paris\" as that city. Because of this, I have a clear path forward. The user's instruction is direct – they want me to *call* the `get_weather` tool, and they've given me the exact parameter value. Therefore, I can confidently construct the function call as `print(get_weather(city=\"Paris\"))`. This perfectly aligns with both the user's intent and the tool's capabilities.",
             "role": "assistant",
             "tool_calls": [
               {
@@ -83,7 +83,7 @@
                   "arguments": "{\"city\":\"Paris\"}",
                   "name": "get_weather"
                 },
-                "id": "call_MHx4WE1iR2w0RlhFd3k0U0RDeE4",
+                "id": "call_MHxBSTN6c0VnaXVLdlJBUGVNaUE",
                 "index": 0,
                 "type": "function"
               }
@@ -91,8 +91,37 @@
           }
         }
       ],
-      "created": 1777983066,
-      "id": "V975acrTBpaVl7oPxuLZoA4",
+      "copilot_usage": {
+        "token_details": [
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 125000000000,
+            "token_count": 37,
+            "token_type": "input"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 12500000000,
+            "token_count": 0,
+            "token_type": "cache_read"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 0,
+            "token_count": 0,
+            "token_type": "cache_write"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 1000000000000,
+            "token_count": 5,
+            "token_type": "output"
+          }
+        ],
+        "total_nano_aiu": 9625000
+      },
+      "created": 1780400844,
+      "id": "ycIeap-KMojusbwPseGFgAI",
       "model": "gemini-2.5-pro",
       "usage": {
         "completion_tokens": 5,
@@ -100,8 +129,8 @@
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
-        "reasoning_tokens": 116,
-        "total_tokens": 158
+        "reasoning_tokens": 138,
+        "total_tokens": 180
       }
     },
     "headers": [
@@ -122,12 +151,16 @@
         "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
       ],
       [
+        "x-copilot-service-request-id",
+        "bfb8d5b8-e425-4ccf-99df-83e537ec4ce2"
+      ],
+      [
         "x-request-id",
-        "00000-d2e12670-4184-4b25-bb2d-dbf378e360b3"
+        "00000-b9a6e635-1cdd-40f2-94eb-3e07f7a1e30c"
       ],
       [
         "date",
-        "Tue, 05 May 2026 12:11:06 GMT"
+        "Tue, 02 Jun 2026 11:47:24 GMT"
       ],
       [
         "x-github-backend",
@@ -135,7 +168,7 @@
       ],
       [
         "x-github-request-id",
-        "6B3F:29C906:5651B88:5F5C344:69F9DE56"
+        "B844:373D99:1956AB6:1AC65AC:6A1EC2C9"
       ]
     ],
     "status": 200

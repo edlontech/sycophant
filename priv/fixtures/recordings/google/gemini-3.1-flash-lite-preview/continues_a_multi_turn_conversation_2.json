@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-04-15T10:59:13.818130Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:32.224953Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -55,7 +55,7 @@
             "parts": [
               {
                 "text": "Your name is Sycophant.",
-                "thoughtSignature": "EjQKMgG+Pvb7OhfWIFHzXwf+UheZX4Lu44m4XVe1EOBbn9IWtGZ1o9EAfHLnquS/SxreBqAN"
+                "thoughtSignature": "EjQKMgEMOdbHv95jwSBgU8cy0BO6pmmSXN2gSDBw2ollFqvwOOwrPdzOAakOdE4iLcYeS1ym"
               }
             ],
             "role": "model"
@@ -64,8 +64,8 @@
           "index": 0
         }
       ],
-      "modelVersion": "gemini-3.1-flash-lite-preview",
-      "responseId": "gW_fadSDLeSlkdUPxuDowQ4",
+      "modelVersion": "gemini-3.1-flash-lite",
+      "responseId": "08IeavbqMsPRnsEP-eXKiAE",
       "usageMetadata": {
         "candidatesTokenCount": 8,
         "promptTokenCount": 40,
@@ -75,6 +75,7 @@
             "tokenCount": 40
           }
         ],
+        "serviceTier": "standard",
         "totalTokenCount": 48
       }
     },
@@ -101,7 +102,7 @@
       ],
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:13 GMT"
+        "Tue, 02 Jun 2026 11:47:32 GMT"
       ],
       [
         "server",
@@ -121,7 +122,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=995"
+        "gfet4t7; dur=466"
       ],
       [
         "alt-svc",

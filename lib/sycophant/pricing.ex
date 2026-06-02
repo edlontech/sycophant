@@ -1,60 +1,3 @@
-defmodule Sycophant.Pricing do
-  @moduledoc """
-  Represents pricing metadata from LLMDB's component-based pricing model.
-
-  Attached to `Sycophant.Usage` as reference data after cost calculation.
-  Contains the currency and all pricing components (tokens, tools, images, storage).
-  """
-  alias Sycophant.Pricing.Component
-
-  defstruct [:currency, components: []]
-
-  @type t :: %__MODULE__{
-          currency: String.t() | nil,
-          components: [Component.t()]
-        }
-
-  @doc "Converts an LLMDB pricing map (atom-keyed) into a Pricing struct."
-  @spec from_llmdb(map()) :: t()
-  def from_llmdb(%{currency: currency, components: components}) do
-    %__MODULE__{
-      currency: currency,
-      components: Enum.map(components, &Component.from_llmdb/1)
-    }
-  end
-
-  @doc "Reconstructs a Pricing struct from a serialized map (string-keyed)."
-  @spec from_map(map()) :: t()
-  def from_map(%{"currency" => currency, "components" => components}) do
-    %__MODULE__{
-      currency: currency,
-      components: Enum.map(components, &Component.from_map/1)
-    }
-  end
-
-  def from_map(%{"currency" => currency}) do
-    %__MODULE__{currency: currency, components: []}
-  end
-
-  @doc "Finds a component by ID."
-  @spec find_component(t(), String.t()) :: Component.t() | nil
-  def find_component(%__MODULE__{components: components}, id) do
-    Enum.find(components, &(&1.id == id))
-  end
-end
-
-defimpl Sycophant.Serializable, for: Sycophant.Pricing do
-  import Sycophant.Serializable.Helpers
-
-  def to_map(pricing) do
-    compact(%{
-      "__type__" => "Pricing",
-      "currency" => pricing.currency,
-      "components" => Enum.map(pricing.components, &Sycophant.Serializable.to_map/1)
-    })
-  end
-end
-
 defmodule Sycophant.Pricing.Component do
   @moduledoc """
   A single pricing component from LLMDB's pricing model.
@@ -65,19 +8,18 @@ defmodule Sycophant.Pricing.Component do
   - `"image"` -- per-image rates by size/quality
   - `"storage"` -- per-unit storage rates
   """
-  defstruct [:id, :kind, :unit, :per, :rate, :tool, :meter, :size_class, :notes]
+  use ZoiDefstruct
 
-  @type t :: %__MODULE__{
-          id: String.t() | nil,
-          kind: String.t() | nil,
-          unit: String.t() | nil,
-          per: pos_integer() | nil,
-          rate: number() | nil,
-          tool: String.t() | nil,
-          meter: String.t() | nil,
-          size_class: String.t() | nil,
-          notes: String.t() | nil
-        }
+  defstruct __type__: Zoi.literal("PricingComponent") |> Zoi.default("PricingComponent"),
+            id: Zoi.optional(Zoi.string()),
+            kind: Zoi.optional(Zoi.string()),
+            unit: Zoi.optional(Zoi.string()),
+            per: Zoi.optional(Zoi.integer()),
+            rate: Zoi.optional(Zoi.number()),
+            tool: Zoi.optional(Zoi.string()),
+            meter: Zoi.optional(Zoi.string()),
+            size_class: Zoi.optional(Zoi.string()),
+            notes: Zoi.optional(Zoi.string())
 
   @fields [:id, :kind, :unit, :per, :rate, :tool, :meter, :size_class, :notes]
 
@@ -86,39 +28,35 @@ defmodule Sycophant.Pricing.Component do
   def from_llmdb(map) when is_map(map) do
     struct(__MODULE__, Map.take(map, @fields))
   end
-
-  @doc "Reconstructs a Component struct from a serialized map (string-keyed)."
-  @spec from_map(map()) :: t()
-  def from_map(map) when is_map(map) do
-    %__MODULE__{
-      id: map["id"],
-      kind: map["kind"],
-      unit: map["unit"],
-      per: map["per"],
-      rate: map["rate"],
-      tool: map["tool"],
-      meter: map["meter"],
-      size_class: map["size_class"],
-      notes: map["notes"]
-    }
-  end
 end
 
-defimpl Sycophant.Serializable, for: Sycophant.Pricing.Component do
-  import Sycophant.Serializable.Helpers
+defmodule Sycophant.Pricing do
+  @moduledoc """
+  Represents pricing metadata from LLMDB's component-based pricing model.
 
-  def to_map(comp) do
-    compact(%{
-      "__type__" => "PricingComponent",
-      "id" => comp.id,
-      "kind" => comp.kind,
-      "unit" => comp.unit,
-      "per" => comp.per,
-      "rate" => comp.rate,
-      "tool" => comp.tool,
-      "meter" => comp.meter,
-      "size_class" => comp.size_class,
-      "notes" => comp.notes
-    })
+  Attached to `Sycophant.Usage` as reference data after cost calculation.
+  Contains the currency and all pricing components (tokens, tools, images, storage).
+  """
+  alias Sycophant.Pricing.Component
+
+  use ZoiDefstruct
+
+  defstruct __type__: Zoi.literal("Pricing") |> Zoi.default("Pricing"),
+            currency: Zoi.optional(Zoi.string()),
+            components: Zoi.list(Sycophant.Pricing.Component.t()) |> Zoi.default([])
+
+  @doc "Converts an LLMDB pricing map (atom-keyed) into a Pricing struct."
+  @spec from_llmdb(map()) :: t()
+  def from_llmdb(%{currency: currency, components: components}) do
+    %__MODULE__{
+      currency: currency,
+      components: Enum.map(components, &Component.from_llmdb/1)
+    }
+  end
+
+  @doc "Finds a component by ID."
+  @spec find_component(t(), String.t()) :: Component.t() | nil
+  def find_component(%__MODULE__{components: components}, id) do
+    Enum.find(components, &(&1.id == id))
   end
 end

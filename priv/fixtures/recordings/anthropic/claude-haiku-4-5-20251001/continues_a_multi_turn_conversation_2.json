@@ -2,8 +2,8 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-04-15T10:59:15.621445Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:36.775567Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -14,7 +14,7 @@
           "role": "user"
         },
         {
-          "content": "I've noted that your name is Sycophant. However, I should mention that I don't have memory that persists between conversations. Each time we chat, I start fresh without access to previous interactions.\n\nSo while I'll remember your name *within this conversation*, I won't recall it if we talk again in a new chat session.\n\nIs there something I can help you with today?",
+          "content": "I've noted that your name is Sycophant. However, I should mention that I don't retain information between conversations—each time we chat, I start fresh without memory of previous interactions. So while I'll remember your name *during this conversation*, I won't recall it if we talk again later.\n\nThat said, feel free to reintroduce yourself next time if you'd like me to use your name again. How can I help you today?",
           "role": "assistant"
         },
         {
@@ -45,11 +45,11 @@
     "body": {
       "content": [
         {
-          "text": "Your name is Sycophant, as you told me at the start of this conversation.",
+          "text": "Your name is Sycophant, as you just told me a moment ago in this conversation.",
           "type": "text"
         }
       ],
-      "id": "msg_012gBAzyQEHmYAo1UWsqHELQ",
+      "id": "msg_01EcCWL6CoaR7HyjxLYBgp5a",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
       "stop_details": null,
@@ -64,15 +64,15 @@
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "inference_geo": "not_available",
-        "input_tokens": 113,
-        "output_tokens": 23,
+        "input_tokens": 126,
+        "output_tokens": 24,
         "service_tier": "standard"
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:15 GMT"
+        "Tue, 02 Jun 2026 11:47:36 GMT"
       ],
       [
         "content-type",
@@ -88,7 +88,7 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-04-15T10:59:15Z"
+        "2026-06-02T11:47:36Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
@@ -100,7 +100,7 @@
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-04-15T10:59:15Z"
+        "2026-06-02T11:47:36Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
@@ -112,7 +112,7 @@
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-04-15T10:59:14Z"
+        "2026-06-02T11:47:34Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
@@ -124,11 +124,11 @@
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-04-15T10:59:15Z"
+        "2026-06-02T11:47:36Z"
       ],
       [
         "request-id",
-        "req_011Ca5ST95bM8TZEgy1JYxqk"
+        "req_011CbeNxprwHj4Jdns3DyCRt"
       ],
       [
         "strict-transport-security",
@@ -139,12 +139,12 @@
         "8a3ada71-45d7-4ed6-aaaf-279ffd490a4a"
       ],
       [
-        "server",
-        "cloudflare"
+        "traceresponse",
+        "00-b2df4c7ce6a77d5593d6c12f4ffcaebe-abaea720d2689dc8-01"
       ],
       [
-        "x-envoy-upstream-service-time",
-        "643"
+        "server",
+        "cloudflare"
       ],
       [
         "content-security-policy",
@@ -153,10 +153,6 @@
       [
         "vary",
         "Accept-Encoding"
-      ],
-      [
-        "server-timing",
-        "x-originResponse;dur=646"
       ],
       [
         "set-cookie",
@@ -172,7 +168,7 @@
       ],
       [
         "cf-ray",
-        "9eca7091ede7f98a-PRG"
+        "a056395a8877b385-PRG"
       ]
     ],
     "status": 200

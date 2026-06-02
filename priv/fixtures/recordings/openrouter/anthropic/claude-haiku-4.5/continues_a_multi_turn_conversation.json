@@ -2,8 +2,8 @@
   "metadata": {
     "model": "anthropic/claude-haiku-4.5",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:16.270913Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:35.054547Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -31,11 +31,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250756,
-      "created_at": 1776250752,
+      "completed_at": 1780400855,
+      "created_at": 1780400853,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250752-sOD01tdhUAVmlfmDQ4EO",
+      "id": "gen-1780400853-cmEqJ2Gc1AfuhYGxN59e",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -49,11 +49,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "I've noted it: your name is Sycophant. However, I should mention that I don't retain information between conversations. Each time we chat, I start fresh without memory of previous interactions. So while I'll remember it *within this conversation*, I won't recall it if you return later.\n\nThat said, I'm happy to refer to you as Sycophant throughout our discussion today. What can I help you with?",
+              "text": "I've noted that your name is Sycophant. However, I should mention that I don't retain information between conversations — each time we chat, I start fresh without memory of previous interactions. So while I'll remember your name *during this conversation*, I won't have access to it in future conversations unless you tell me again.\n\nIs there something I can help you with today?",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_r6g32s73pkq",
+          "id": "msg_tmp_fygtkezw3o",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -80,28 +80,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 4.94e-4,
+        "cost": 4.34e-4,
         "cost_details": {
-          "upstream_inference_cost": 4.94e-4,
+          "upstream_inference_cost": 4.34e-4,
           "upstream_inference_input_cost": 1.9e-5,
-          "upstream_inference_output_cost": 4.75e-4
+          "upstream_inference_output_cost": 4.15e-4
         },
         "input_tokens": 19,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 95,
+        "output_tokens": 83,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 114
+        "total_tokens": 102
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:15 GMT"
+        "Tue, 02 Jun 2026 11:47:34 GMT"
       ],
       [
         "content-type",
@@ -109,7 +109,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=3124"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=894"
       ],
       [
         "access-control-allow-origin",
@@ -117,7 +117,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250752-sOD01tdhUAVmlfmDQ4EO"
+        "gen-1780400853-cmEqJ2Gc1AfuhYGxN59e"
       ],
       [
         "access-control-expose-headers",
@@ -141,7 +141,7 @@
       ],
       [
         "cf-ray",
-        "9eca7081ae88c1bb-PRG"
+        "a05639567ed7876f-PRG"
       ]
     ],
     "status": 200

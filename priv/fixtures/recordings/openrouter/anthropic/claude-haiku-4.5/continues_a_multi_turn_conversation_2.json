@@ -2,8 +2,8 @@
   "metadata": {
     "model": "anthropic/claude-haiku-4.5",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:17.674060Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:36.328581Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "I've noted it: your name is Sycophant. However, I should mention that I don't retain information between conversations. Each time we chat, I start fresh without memory of previous interactions. So while I'll remember it *within this conversation*, I won't recall it if you return later.\n\nThat said, I'm happy to refer to you as Sycophant throughout our discussion today. What can I help you with?",
+              "text": "I've noted that your name is Sycophant. However, I should mention that I don't retain information between conversations — each time we chat, I start fresh without memory of previous interactions. So while I'll remember your name *during this conversation*, I won't have access to it in future conversations unless you tell me again.\n\nIs there something I can help you with today?",
               "type": "output_text"
             }
           ],
@@ -46,11 +46,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250757,
-      "created_at": 1776250756,
+      "completed_at": 1780400856,
+      "created_at": 1780400855,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250756-zGrF9kx7BpXdBj5o7xKr",
+      "id": "gen-1780400855-QuG99zl0QeEtJKKJ0jWk",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -64,11 +64,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Your name is Sycophant, as you told me at the start of our conversation.",
+              "text": "Your name is Sycophant.",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_ea6njft7yxv",
+          "id": "msg_tmp_fw3cgc1323q",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -95,28 +95,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 2.37e-4,
+        "cost": 1.7e-4,
         "cost_details": {
-          "upstream_inference_cost": 2.37e-4,
-          "upstream_inference_input_cost": 1.22e-4,
-          "upstream_inference_output_cost": 1.15e-4
+          "upstream_inference_cost": 1.7e-4,
+          "upstream_inference_input_cost": 1.1e-4,
+          "upstream_inference_output_cost": 6.0e-5
         },
-        "input_tokens": 122,
+        "input_tokens": 110,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 23,
+        "output_tokens": 12,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 145
+        "total_tokens": 122
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:17 GMT"
+        "Tue, 02 Jun 2026 11:47:36 GMT"
       ],
       [
         "content-type",
@@ -124,7 +124,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=1177"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=1134"
       ],
       [
         "access-control-allow-origin",
@@ -132,7 +132,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250756-zGrF9kx7BpXdBj5o7xKr"
+        "gen-1780400855-QuG99zl0QeEtJKKJ0jWk"
       ],
       [
         "access-control-expose-headers",
@@ -156,7 +156,7 @@
       ],
       [
         "cf-ray",
-        "9eca709ad89fc1bb-PRG"
+        "a05639603d42876f-PRG"
       ]
     ],
     "status": 200

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5-nano",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T11:57:40.929547Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:44.308281Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "Fantastic—London has something for everyone. To tailor advice, could you share:\n- Your travel dates and how many days you have\n- Budget and pace (relaxed vs. packed)\n- Interests (history, art, markets, food, nightlife, family-friendly)\n- Will you use public transport or drive?\n\nIn the meantime, a quick starter plan and tips:\n\n3-day starter itinerary (central-focused)\n- Day 1: Westminster area — Big Ben, Parliament, Westminster Abbey, Buckingham Palace, St James’s Park. Optional Thames cruise in the evening.\n- Day 2: Museums & Covent Garden — choose two of the Natural History Museum, V&A, or British Museum; explore Covent Garden, maybe catch a West End show.\n- Day 3: The City & South Bank — St Paul’s Cathedral, Millennium Bridge, Tate Modern or Shard views, Borough Market, Southbank stroll. Consider the London Eye for a view.\n\nTop neighborhoods to consider staying or exploring\n- Bloomsbury, Covent Garden, South Bank (central, good transit)\n- Notting Hill, Notting Hill Market\n- Shoreditch (creative, food, nightlife)\n\nTransport essentials\n- Get an Oyster card or use contactless payment; zones 1–2 cover most central sights\n- Walking is often faster than driving; central areas are very walkable\n- Many major museums are free; book major paid attractions in advance if needed\n\nTips\n- Museums like the British Museum, National Gallery, Natural History Museum, and V&A are free (special exhibitions may cost)\n- Plan for weather: layers and a compact umbrella\n- Book popular attractions in advance if you have specific times\n\nWould you like me to pull a weather forecast for your dates, or build a detailed day-by-day plan once you share your trip details?",
+              "text": "Fantastic—London is amazing. I can tailor plans once I know a bit more. To start, here’s a quick 5-day starter plan and a few questions.\n\n5-day starter itinerary (classic highlights)\n- Day 1: Westminster area – Westminster Abbey, Parliament/Big Ben, Buckingham Palace, St James’s Park; optional stroll along the Mall.\n- Day 2: The British Museum in Bloomsbury + Covent Garden (street performers, shops) + Leicester Square/Shoreditch by evening.\n- Day 3: South Bank walk – Tate Modern, Shakespeare’s Globe, Borough Market; consider a ride on the London Eye or a Thames cruise.\n- Day 4: Kensington museums or Notting Hill/Portobello Market; Hyde Park/Piccadilly area for evening dining.\n- Day 5: Day trip options (Windsor Castle, Oxford, or Greenwich) or extra time in East London (Spitalfields, Shoreditch, markets).\n\nA few quick questions to tailor it\n- How many days do you have, and when are you traveling?\n- What’s your budget range for accommodation?\n- What are your top interests (history, art, theater, food, markets, parks)?\n- Any must-see items or places to avoid?\n- Where will you be flying into, and how do you plan to get around (Oyster card/Contactless preferred)?\n- Any mobility or accessibility needs?\n\nIf you’d like, I can draft a personalized day-by-day plan with a rough budget and a packing list. I can also fetch current London weather for your dates or help with transport options and theatre tickets. What would you like to do first?",
               "type": "output_text"
             }
           ],
@@ -24,7 +24,7 @@
           "type": "message"
         },
         {
-          "content": "What's the current weather in London? Use the get_weather tool.",
+          "content": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer.",
           "role": "user"
         },
         {
@@ -35,12 +35,12 @@
         },
         {
           "arguments": "{\"city\":\"London\"}",
-          "call_id": "call_DAuNkkPBj9gnAvT3hsZU6mnV",
+          "call_id": "call_76zOtyxnScG1SRqiM2dLE86o",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "call_DAuNkkPBj9gnAvT3hsZU6mnV",
+          "call_id": "call_76zOtyxnScG1SRqiM2dLE86o",
           "output": "London: 18C, cloudy",
           "type": "function_call_output"
         }
@@ -90,6 +90,7 @@
         },
         "verbosity": "medium"
       },
+      "moderation": null,
       "top_logprobs": 0,
       "previous_response_id": null,
       "tool_choice": "auto",
@@ -115,7 +116,7 @@
           "type": "function"
         }
       ],
-      "id": "resp_0cbf2afe82e16f5d0069df7d308fa881909c14ead6830115ef",
+      "id": "resp_07f6ca350209aa64006a1ec2db3b40819396a0261266f647b5",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -123,22 +124,22 @@
       "error": null,
       "model": "gpt-5-nano-2025-08-07",
       "usage": {
-        "input_tokens": 496,
+        "input_tokens": 474,
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 299,
+        "output_tokens": 606,
         "output_tokens_details": {
-          "reasoning_tokens": 256
+          "reasoning_tokens": 512
         },
-        "total_tokens": 795
+        "total_tokens": 1080
       },
       "safety_identifier": null,
       "object": "response",
       "parallel_tool_calls": true,
       "output": [
         {
-          "id": "rs_0cbf2afe82e16f5d0069df7d318dec8190ac837b782d8f2ea3",
+          "id": "rs_07f6ca350209aa64006a1ec2db91f481938079d34ab980ba71",
           "summary": [],
           "type": "reasoning"
         },
@@ -147,11 +148,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Current weather in London: 18°C and cloudy.\n\nWould you like a short forecast (next 24–48 hours) or packing tips based on this?",
+              "text": "Current London weather: 18°C and cloudy.\n\nTips: mild but could drizzle, so bring a light jacket and an umbrella.\n\nWant a 5-day forecast for your travel dates or a travel plan adjusted for weather? If you share your dates, I’ll tailor it.",
               "type": "output_text"
             }
           ],
-          "id": "msg_0cbf2afe82e16f5d0069df7d340c6c8190817c180e3a9adec3",
+          "id": "msg_07f6ca350209aa64006a1ec2df9ae881938e593ef950806896",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -162,25 +163,26 @@
       "presence_penalty": 0.0,
       "incomplete_details": null,
       "reasoning": {
+        "context": "current_turn",
         "effort": "medium",
         "summary": null
       },
-      "completed_at": 1776254260,
+      "completed_at": 1780400864,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
         "payer": "developer"
       },
-      "prompt_cache_retention": null,
+      "prompt_cache_retention": "in_memory",
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776254256,
+      "created_at": 1780400859,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 11:57:40 GMT"
+        "Tue, 02 Jun 2026 11:47:44 GMT"
       ],
       [
         "content-type",
@@ -188,11 +190,55 @@
       ],
       [
         "content-length",
-        "2265"
+        "2439"
+      ],
+      [
+        "cf-ray",
+        "a05639799edfd1c5-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
       ],
       [
         "server",
         "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Request-ID"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-processing-ms",
+        "5029"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -208,7 +254,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "180000000"
+        "179999892"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -219,44 +265,12 @@
         "0s"
       ],
       [
-        "openai-version",
-        "2020-10-01"
-      ],
-      [
-        "openai-organization",
-        "[REDACTED]"
-      ],
-      [
-        "openai-project",
-        "[REDACTED]"
-      ],
-      [
         "x-request-id",
-        "req_deea2c8f98eb411ca5afa74b82bcd345"
-      ],
-      [
-        "openai-processing-ms",
-        "4240"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_036e06028acd45f8abf3752496f9e30f"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9ecac60edc41d935-PRG"
       ],
       [
         "alt-svc",

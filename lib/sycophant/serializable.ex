@@ -1,130 +1,155 @@
-defprotocol Sycophant.Serializable do
+defmodule Sycophant.Serializable do
   @moduledoc """
-  Protocol for converting Sycophant structs to plain maps for JSON serialization.
-
-  Every implementation includes a `"__type__"` discriminator key that enables
-  round-trip decoding via `Sycophant.Serializable.Decoder`.
-
-  ## Round-trip Example
-
-      response = %Sycophant.Response{...}
-      json = Sycophant.Serializable.Decoder.encode(response)
-      restored = Sycophant.Serializable.Decoder.decode(json)
-
-  All core structs implement this protocol: `Response`, `Context`, `Message`,
-  `Tool`, `ToolCall`, `Usage`, `Reasoning`, `EmbeddingRequest`,
-  `EmbeddingResponse`, `EmbeddingParams`, and content parts.
+  Encodes Sycophant structs to plain, JSON-ready maps with a `"__type__"`
+  discriminator. Decoding is handled by `Sycophant.Serializable.Decoder`,
+  which is driven by each struct's Zoi schema (`t/0`).
   """
-
-  @fallback_to_any false
+  alias Sycophant.Tool
 
   @doc "Converts a Sycophant struct into a plain map with a `__type__` discriminator."
-  @spec to_map(t()) :: map()
-  def to_map(struct)
-end
+  @spec to_map(struct()) :: map()
+  def to_map(%Tool{} = tool), do: encode_tool(tool)
+  def to_map(%_{} = struct), do: struct |> Map.from_struct() |> encode_fields()
 
-defmodule Sycophant.Serializable.Helpers do
-  @moduledoc false
+  defp encode_fields(map) do
+    Enum.reduce(map, %{}, fn {k, v}, acc ->
+      case walk(v) do
+        # `:__omit__` is a sentinel for "drop this field"; a real atom field value
+        # `:__omit__` is stringified to `"__omit__"` by the atom clause, so it can't be wrongly dropped.
+        :__omit__ -> acc
+        walked -> Map.put(acc, Atom.to_string(k), walked)
+      end
+    end)
+  end
 
-  @doc false
-  @spec compact(map()) :: map()
-  def compact(map) do
-    Map.reject(map, fn {_k, v} -> is_nil(v) end)
+  defp walk(nil), do: :__omit__
+  defp walk([]), do: :__omit__
+  defp walk(map) when map == %{}, do: :__omit__
+  defp walk(fun) when is_function(fun), do: :__omit__
+  defp walk(tuple) when is_tuple(tuple), do: :__omit__
+  defp walk(%_{} = struct), do: to_map(struct)
+  defp walk(list) when is_list(list), do: Enum.map(list, &walk_element/1)
+  # Plain maps (raw/object/metadata/params/arguments) are passed through VERBATIM by design
+  # (JSON stringifies keys; decode re-atomizes where needed).
+  defp walk(map) when is_map(map), do: map
+  defp walk(atom) when is_atom(atom) and atom not in [true, false], do: Atom.to_string(atom)
+  defp walk(other), do: other
+
+  defp walk_element(%_{} = struct), do: to_map(struct)
+  defp walk_element(list) when is_list(list), do: Enum.map(list, &walk_element/1)
+
+  defp walk_element(atom) when is_atom(atom) and atom not in [true, false] and not is_nil(atom),
+    do: Atom.to_string(atom)
+
+  defp walk_element(other), do: other
+
+  defp encode_tool(%Tool{} = tool) do
+    json_schema =
+      case Sycophant.Schema.JsonSchema.to_json_schema(tool.parameters) do
+        {:ok, schema} -> schema
+        _ -> tool.parameters
+      end
+
+    base = %{
+      "__type__" => "Tool",
+      "name" => tool.name,
+      "description" => tool.description,
+      "parameters" => json_schema,
+      "strict" => tool.strict
+    }
+
+    if tool.schema_source,
+      do: Map.put(base, "schema_source", Atom.to_string(tool.schema_source)),
+      else: base
   end
 end
 
 defmodule Sycophant.Serializable.Decoder do
   @moduledoc """
-  Decodes plain maps back into Sycophant structs using `"__type__"` discriminators.
-
-  Provides `encode/1` and `decode/1` convenience functions for full JSON
-  round-tripping, as well as `from_map/2` for working with already-parsed maps.
-
-  ## Examples
-
-      # Full JSON round-trip
-      json = Sycophant.Serializable.Decoder.encode(response)
-      restored = Sycophant.Serializable.Decoder.decode(json)
-
-      # From a pre-parsed map
-      map = %{"__type__" => "Usage", "input_tokens" => 10, "output_tokens" => 25}
-      usage = Sycophant.Serializable.Decoder.from_map(map)
-
-  ## Tool Registry
-
-  When decoding `Tool` structs, pass a `:tool_registry` option to restore
-  function references (which cannot be serialized):
-
-      registry = %{"get_weather" => &MyApp.get_weather/1}
-      Sycophant.Serializable.Decoder.decode(json, tool_registry: registry)
+  Decodes plain maps back into Sycophant structs using their `"__type__"`
+  discriminator. Most types decode through their Zoi schema (`t/0`); a few
+  containers post-process (tool function registry, resolved schema, etc.).
   """
+  alias Sycophant.Error.Invalid.InvalidSerialization
 
-  @doc "Serializes a struct to a JSON string via `Sycophant.Serializable`."
+  @registry %{
+    "Text" => Sycophant.Message.Content.Text,
+    "Image" => Sycophant.Message.Content.Image,
+    "Document" => Sycophant.Message.Content.Document,
+    "Thinking" => Sycophant.Message.Content.Thinking,
+    "RedactedThinking" => Sycophant.Message.Content.RedactedThinking,
+    "Citation" => Sycophant.Citation,
+    "ToolCall" => Sycophant.ToolCall,
+    "Usage" => Sycophant.Usage,
+    "Reasoning" => Sycophant.Reasoning,
+    "Pricing" => Sycophant.Pricing,
+    "PricingComponent" => Sycophant.Pricing.Component,
+    "EmbeddingParams" => Sycophant.EmbeddingParams,
+    "EmbeddingRequest" => Sycophant.EmbeddingRequest,
+    "EmbeddingResponse" => Sycophant.EmbeddingResponse,
+    "Tool" => Sycophant.Tool,
+    "Message" => Sycophant.Message,
+    "Context" => Sycophant.Context,
+    "Response" => Sycophant.Response
+  }
+
+  @doc "Serializes a struct to a JSON string."
   @spec encode(struct()) :: String.t()
   def encode(struct), do: struct |> Sycophant.Serializable.to_map() |> JSON.encode!()
 
-  @doc "Decodes a JSON string back into the appropriate Sycophant struct."
+  @doc "Decodes a JSON string back into a Sycophant struct."
   @spec decode(String.t(), keyword()) :: struct()
   def decode(json, opts \\ []), do: json |> JSON.decode!() |> from_map(opts)
 
-  @doc "Reconstructs a Sycophant struct from a plain map using its `__type__` discriminator."
+  @doc "Reconstructs a Sycophant struct from a plain map via its `__type__`."
   @spec from_map(map(), keyword()) :: struct()
   def from_map(data, opts \\ [])
 
-  def from_map(%{"__type__" => "Text"} = data, _opts),
-    do: Sycophant.Message.Content.Text.from_map(data)
+  def from_map(%{"__type__" => type} = data, opts) do
+    case Map.fetch(@registry, type) do
+      {:ok, module} ->
+        try do
+          decode_typed(module, data, opts)
+        rescue
+          e in Zoi.ParseError ->
+            reraise InvalidSerialization.exception(
+                      reason: "invalid #{type}: #{Exception.message(e)}"
+                    ),
+                    __STACKTRACE__
+        end
 
-  def from_map(%{"__type__" => "Image"} = data, _opts),
-    do: Sycophant.Message.Content.Image.from_map(data)
-
-  def from_map(%{"__type__" => "Document"} = data, _opts),
-    do: Sycophant.Message.Content.Document.from_map(data)
-
-  def from_map(%{"__type__" => "Citation"} = data, _opts),
-    do: Sycophant.Citation.from_map(data)
-
-  def from_map(%{"__type__" => "Thinking"} = data, _opts),
-    do: Sycophant.Message.Content.Thinking.from_map(data)
-
-  def from_map(%{"__type__" => "RedactedThinking"} = data, _opts),
-    do: Sycophant.Message.Content.RedactedThinking.from_map(data)
-
-  def from_map(%{"__type__" => "ToolCall"} = data, _opts), do: Sycophant.ToolCall.from_map(data)
-  def from_map(%{"__type__" => "Usage"} = data, _opts), do: Sycophant.Usage.from_map(data)
-  def from_map(%{"__type__" => "Reasoning"} = data, _opts), do: Sycophant.Reasoning.from_map(data)
-  def from_map(%{"__type__" => "Pricing"} = data, _opts), do: Sycophant.Pricing.from_map(data)
-
-  def from_map(%{"__type__" => "PricingComponent"} = data, _opts),
-    do: Sycophant.Pricing.Component.from_map(data)
-
-  def from_map(%{"__type__" => "EmbeddingParams"} = data, _opts),
-    do: Sycophant.EmbeddingParams.from_map(data)
-
-  def from_map(%{"__type__" => "EmbeddingRequest"} = data, _opts),
-    do: Sycophant.EmbeddingRequest.from_map(data)
-
-  def from_map(%{"__type__" => "EmbeddingResponse"} = data, _opts),
-    do: Sycophant.EmbeddingResponse.from_map(data)
-
-  def from_map(%{"__type__" => "Tool"} = data, opts),
-    do: Sycophant.Tool.from_map(Map.put(data, :opts, opts))
-
-  def from_map(%{"__type__" => "Message"} = data, opts),
-    do: Sycophant.Message.from_map(Map.put(data, :opts, opts))
-
-  def from_map(%{"__type__" => "Context"} = data, opts),
-    do: Sycophant.Context.from_map(Map.put(data, :opts, opts))
-
-  def from_map(%{"__type__" => "Response"} = data, opts),
-    do: Sycophant.Response.from_map(Map.put(data, :opts, opts))
-
-  def from_map(%{"__type__" => type}, _opts) do
-    raise Sycophant.Error.Invalid.InvalidSerialization,
-      reason: "unknown serializable type: #{inspect(type)}"
+      :error ->
+        raise InvalidSerialization, reason: "unknown serializable type: #{inspect(type)}"
+    end
   end
 
   def from_map(%{} = _data, _opts) do
-    raise Sycophant.Error.Invalid.InvalidSerialization,
-      reason: "missing __type__ key in serialized data"
+    raise InvalidSerialization, reason: "missing __type__ key in serialized data"
   end
+
+  defp decode_typed(Sycophant.Message, data, opts), do: Sycophant.Message.decode(data, opts)
+  defp decode_typed(Sycophant.Tool, data, opts), do: Sycophant.Tool.decode(data, opts)
+  defp decode_typed(Sycophant.Context, data, opts), do: Sycophant.Context.decode(data, opts)
+  defp decode_typed(Sycophant.Response, data, opts), do: Sycophant.Response.decode(data, opts)
+
+  defp decode_typed(Sycophant.EmbeddingRequest, data, opts),
+    do: Sycophant.EmbeddingRequest.decode(data, opts)
+
+  defp decode_typed(Sycophant.EmbeddingResponse, data, _opts),
+    do: Sycophant.EmbeddingResponse.decode(data)
+
+  # Default: pure schema-driven decode.
+  defp decode_typed(module, data, _opts), do: Zoi.parse!(module.t(), data)
+
+  @doc false
+  def atomize_keys(map) when is_map(map) do
+    Map.new(map, fn
+      {k, v} when is_binary(k) -> {String.to_existing_atom(k), atomize_keys(v)}
+      {k, v} -> {k, atomize_keys(v)}
+    end)
+  rescue
+    ArgumentError -> map
+  end
+
+  def atomize_keys(value), do: value
 end

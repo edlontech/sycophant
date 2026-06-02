@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T10:59:04.102337Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:27.214090Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -17,11 +17,11 @@
           "role": "user"
         },
         {
-          "content": "That's great! How can I assist you with your trip to London?",
+          "content": "That's exciting! How can I assist you with your trip to London?",
           "role": "assistant"
         },
         {
-          "content": "What's the current weather in London? Use the get_weather tool.",
+          "content": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer.",
           "role": "user"
         },
         {
@@ -33,7 +33,7 @@
                 "arguments": "{\"city\":\"London\"}",
                 "name": "get_weather"
               },
-              "id": "call_Z2tEhHuZPyiRmOPeFDa2dkO0",
+              "id": "call_6j5AUMeDAcQwnPwJ72GpHIP3",
               "type": "function"
             }
           ]
@@ -41,7 +41,7 @@
         {
           "content": "London: 18C, cloudy",
           "role": "tool",
-          "tool_call_id": "call_Z2tEhHuZPyiRmOPeFDa2dkO0"
+          "tool_call_id": "call_6j5AUMeDAcQwnPwJ72GpHIP3"
         }
       ],
       "model": "gpt-3.5-turbo",
@@ -90,38 +90,38 @@
           "logprobs": null,
           "message": {
             "annotations": [],
-            "content": "The current weather in London is 18°C and cloudy.",
+            "content": "The current weather in London is 18°C with cloudy conditions.",
             "refusal": null,
             "role": "assistant"
           }
         }
       ],
-      "created": 1776250743,
-      "id": "chatcmpl-DUsFTGAoTIVyyWCeP7u1iDI1bWG5M",
+      "created": 1780400846,
+      "id": "chatcmpl-DmHsc0PvXD093CGmEWmGEOVGXw2n6",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
       "system_fingerprint": null,
       "usage": {
-        "completion_tokens": 13,
+        "completion_tokens": 14,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "audio_tokens": 0,
           "reasoning_tokens": 0,
           "rejected_prediction_tokens": 0
         },
-        "prompt_tokens": 135,
+        "prompt_tokens": 144,
         "prompt_tokens_details": {
           "audio_tokens": 0,
           "cached_tokens": 0
         },
-        "total_tokens": 148
+        "total_tokens": 158
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:04 GMT"
+        "Tue, 02 Jun 2026 11:47:27 GMT"
       ],
       [
         "content-type",
@@ -129,7 +129,7 @@
       ],
       [
         "cf-ray",
-        "9eca70487da1710c-PRG"
+        "a0563929de63d1c5-PRG"
       ],
       [
         "cf-cache-status",
@@ -152,12 +152,20 @@
         "X-Request-ID"
       ],
       [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
         "openai-organization",
         "[REDACTED]"
       ],
       [
         "openai-processing-ms",
-        "824"
+        "688"
       ],
       [
         "openai-project",
@@ -185,7 +193,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "1999939"
+        "1999928"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -193,11 +201,11 @@
       ],
       [
         "x-ratelimit-reset-tokens",
-        "1ms"
+        "2ms"
       ],
       [
         "x-request-id",
-        "req_066710476b404c2aaf9873fd2f53d9af"
+        "req_7dc901a8084242bc840a1a80b7829f85"
       ],
       [
         "set-cookie",

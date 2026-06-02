@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gemini-2.5-pro",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-05-05T12:11:01.714188Z",
-    "sycophant_version": "0.4.1"
+    "recorded_at": "2026-06-02T11:47:28.269423Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -74,8 +74,8 @@
           "index": 0,
           "message": {
             "content": "",
-            "reasoning_opaque": "18fIgRm6b4i5sg3CRIkggvvrW3055kct4iVv/tYpEcMkvQBjKuMJpM2E9f46PS5WtaMN92tHdJPlxUkeyZkoRQ5pY1yIrzPfzjN55Hb+RoKYC3deCHtIpS/NPcwXcXGqv3Q09Y6d0dbsjSgTLv36a58h74lOaPpjNOfkRqqaCQsPEjdMQZI4dTDaeHr+1re/E0Nj6udjWCf4YzhKnNG2To5r79aaUIrVaf2jwZg8JVfuUsPfTRyYgAlZoi4uDlh9i3MGzTvhcQ5E6ZoklrLILPbOSz2mGNelmhE5hWfNpllvqflQlO2wErFc1FAYcy+1ZZCCY0JgMU6JTPB/ItFADJD/9+blEMCxONPBvIANFFzh/fJEIWX0vI1aZzCKBkAxCFeKxiqOfVCdnUe9UZk/A44HFJq/JCLJ73vVAIP9CCGcFMRwVXfhUrUEILoepYHTrqScjc9RPS/GkfZ7Hs8Zv9sgC7Ge4iOM/UKk4dSDxXy28/RQc7c0o5s375JeNl/UbWrKKDXPx6A7VCvV9B3Hbbu/3h5o1UEwBUwpFplDCS6rI9NI4D0ntyX3H5YqB2Coj1R/kKUUL+MIFIvMA4XedXAF7NHFDJSwerhpCIFoV4xPQoyaLnj5rdv05Jtn+zNau/oMYh1QG3zpaEW6CuRJtyiMJVJuJr8nf0zgwjrf/NQ9ilSxNle6vaOuqqu6VqKfoKgc7eP4pmR74jR9Pl/14NzT+unyAmN6yM0JIVKBxWOpD4878MXivRX7AiThgombXkdlx2+SA8ydrn3EQqn65sHPxysR+tsNsjLwyvLLpVH1mYuqr5nOYU0SHLY3SlV9dnuA7nLm8F73By4ywIxMEtnenO5mvQRLjX3dMOFVScSqCObcOt8R6YFFdq111+HdEBF0LIX9WUiOap+uDy4dTtUPs3NagwVJagiwHexWYT0xdskVXgVWT8hi5tugb5jV2jub3a0w79zuX4f12KfOcB5RdT5qR1P9OvEQtGtPy3Guc1EKmmTJbagtg6Y8fMTwQ4hMkUI8o3PVuRiPRX9rsezOKQj33TLQxMX0qK0wyRxvKsgaM+znQIOSKKhZPC0kVvaaH5y6sio3FjghFVAH7aFuqTisLOiCu4Dqs3p3LBWbeJ+JawiKhxc5q2cZboY8LPetIuBWotY8mvsMnry3Ef/6EvhBRRd8lJ7Ml+0pWYyy1vfU6V8IG+RC0MrBFTpZk2eoS5ihwqdl0y/FQnIkI9d36U3JMrBM3ru2Nkn16RQnpxufmZzht5e3CUKG5pR42Llwj9eWsX0jLfVIm5ZzzehY9NUscPPKB/RZ9GfAlloEL13Vnyqsdvo/vhGZNNdNzhQXhkUylMKSYbK+sztkFeg1vwIHfYxYCBTR9QUZ+v6iGWIvxw2wewyhz5dMAu26Fxw9qn8WC7GREHsAnzl5X9PBo+9vKGwC+6M3EujW5f8wYDwJsWXroD3DQEgSRq3qgP5I8Ejf2fXFmIHtrtBNUamk9C33o0SnuYnFBAbC4xuBghRfoh9l5i1rYVMjOmZ9DcX/rWQ8YaHyDdD5nNCwxcTSLngz3TMhq+nvokqTQtZ+cSfZ3DrWj07Yu1h6px5lKmG1jDf5vD3eE637gMEGxAk1A+4sRFGVNrq8r8E/6xrO1x8HaGQOnV8FiYzHzmMp7MDtqUrRqQ==",
-            "reasoning_text": "Alright, let's break this down. First thing's first, I need the weather forecast for Paris. The user's clearly instructing me to use the `get_weather` tool, it's pretty explicit, a direct command, really. So, step one, I'm identifying the core request.\n\nNext, I need to figure out what parameters are being passed. The user wants the weather *in Paris*, and that's the key. The tool needs the city name, and that's precisely what I have: \"Paris\". The prompt's clear.\n\nSo, now it's time to build the function call. The tool's `get_weather` and the parameter is the city, which is \"Paris\". Thus, I must formulate the proper function call.\n\nFinally, I'll need to represent this tool call in the form of a tool output. Essentially, I need to construct the call. I'm building it as `get_weather(city=\"Paris\")`. This call, once executed, should give me the weather in Paris.\n",
+            "reasoning_opaque": "bwnz6N6k7Em0x4+lMGH+7U1SMKLai9NcBSbRRGVzR1a6vg1wtASy3JgRwSoohCOIhH2P/lG9ikFwlLHyQl3T16HcM5kdlbdjErRSMnr5ItWIHn49bXrmY8nfG2XdmEpECaZ09EdDncN+iFL4fEucRxPbK2fOa3+CjszmIoFsC/Wlm4mLDGekRdTkTVwZ9jl7tHHfOHcHsDhWqTLdqyGmCrs/YK4F5BrWMldxrSbBTXxr4jvuINwIvgEkyDlTHZW6Hzb1pGhqmjbUZ3jFbzfPbbVytaRs+LLp10kpDuK8IlZTsgWLHnFeIAvpHJ+IpQLz3SWU4ui9qlZUkj/UKhW4aXaVlU30BLaLiCNaAz4uy1r4MnzzJ9Ef+6dISx/dqYzPBGFAIN8+y2o/SspG7Nsm1pSeF8KyXfoyIlZJv5C2J5Cr3Qxr8ml1QFZdL4d8TguARor4MRU9tWd0VcrGV2Ky2XiqlO5RRvjuxIqxNZ6V2wZCDxO5Ac/V6OcDSybVh+SRTAwfbvrzzQG5Dc6R/VQ7UT6uus1xZLVvzi5y61bp5U8WovCp45lPmtK6pNtZtgFbFMQLGB8itXyX13AdferWxF5MbsSVuiIO3rSJyqYCPaSJIVvG4meUms9+rsy7c6vgvt7Jgxxs8l39lcR0z971PN/ufPozxGN7CXOao81NXd4lCMOphLIyzfMWSHTP/soDWYbiRkTnDSuiCZ+H1thJIKzwBC3GXeH3qveQili0uYqbly1GASTqij1TVM1gjocH4Lq7AJmvBsAzxwxdMfSu1suW3v4j4iPKlJ+JGDigGPcJzjv0Km+IxKvh+MuV8DueGV+fsfZ7jB47zCKEpZHJqhXtERonLQhcdOr4t5055ncVX6avtvE4sG/AOCYMm8rliNJBWPtMfzM4UODi7DySgZfiB98QoICTOBkVvDhE5P14u9kEBb0YVKxWTXX4evmO9VcIVMZXT//RbK5Wtuks67fNyetoQyO0HtwXkju8cn0f0miZ86DWb2IR1zy4qwyHdLtbvhEIOUHOlyhWJIKHbQbf4/WtPHTjb/J9sdugOkIPUBV4nESW/bOcPnlHD43W1vB5jmzVqATuvXzYC50TDKuV83+/uMQ1OWhU1cdMu1ocJG/9SphUkihxSSbpXGC1oNnk2+Tb+fZWTsG5sOItVJVUHOKwSdUafU0gCIpbhXu4JKjW5z7EEHhy334AV49Y4t1bZULQAeWw53pdfvPd3AthP6+yrdmAXF/c3muqm/9zG3kbfyxrLn43EDcUfAzrYEXpbQ43D5SmQDA0u4WszMfoLY1cxeaHFSq1K5ZQWSgKdDCeywZ5M8r0cOwZ9jZ1O7JvreIB5SmtKmrzodHRFiFUbyBddHbDDiMVnzBKZNTVaW9GykvabB9MRuLLdZi3IeM7gevE0ebl9j/yy65tNJaoYkL0V+Z3hqWUkAvNkc4o3eTFZIi5PCLUIvniLm6QDEbtWpskQlaeIQU4HL8iPvA6MOwNb4ENi3/kH9B9yGpUzYQr489H0NBZdkG4HpAvzZauvt0XYcN2c4B1fEljE7wgsRbUqkRU1wQB8OwRBWuCpjMW1S2OK2s4z142D26r0uOlY9/xQjK9c5UJ5Ch/QLXxPEmuvsTvbOQBnzLUWBUjwhXsdCZUZQVQSw==",
+            "reasoning_text": "Okay, so I'm processing the user's request. They've asked for the weather in Paris, and importantly, they've specifically told me to use the `get_weather` tool. This is a direct mapping, really. The prompt is crystal clear in indicating the `get_weather` function is what's needed.\n\nLooking at the `get_weather` function's requirements, I see it needs a `city` parameter. The user has helpfully provided \"Paris\" right in their prompt, so that's straightforwardly the value for the `city` parameter.\n\nGiven this, the logical next step is to execute the `get_weather` function with \"Paris\" as the city.\n\nTherefore, the code I need to generate for this action is to print the result of calling `get_weather` with `city=\"Paris\"`. So, the final tool code will be `print(get_weather(city=\"Paris\"))`.",
             "role": "assistant",
             "tool_calls": [
               {
@@ -83,7 +83,7 @@
                   "arguments": "{\"city\":\"Paris\"}",
                   "name": "get_weather"
                 },
-                "id": "call_MHxYSWJlZjgycTJaYjdIMUd1cU8",
+                "id": "call_MHxJWjlGUGN2b0N1WUNmRkRpdmY",
                 "index": 0,
                 "type": "function"
               }
@@ -91,8 +91,37 @@
           }
         }
       ],
-      "created": 1777983061,
-      "id": "Ud75aauKL8vvsbwPw7P1gAY",
+      "copilot_usage": {
+        "token_details": [
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 125000000000,
+            "token_count": 43,
+            "token_type": "input"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 12500000000,
+            "token_count": 0,
+            "token_type": "cache_read"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 0,
+            "token_count": 0,
+            "token_type": "cache_write"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 1000000000000,
+            "token_count": 5,
+            "token_type": "output"
+          }
+        ],
+        "total_nano_aiu": 10375000
+      },
+      "created": 1780400848,
+      "id": "zcIeavOkA7LWsbwP4-TL8QQ",
       "model": "gemini-2.5-pro",
       "usage": {
         "completion_tokens": 5,
@@ -100,8 +129,8 @@
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
-        "reasoning_tokens": 151,
-        "total_tokens": 199
+        "reasoning_tokens": 147,
+        "total_tokens": 195
       }
     },
     "headers": [
@@ -122,12 +151,16 @@
         "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
       ],
       [
+        "x-copilot-service-request-id",
+        "6db61dad-d92c-4d5c-b3ee-1967ec03d054"
+      ],
+      [
         "x-request-id",
-        "00000-aded8ac2-1ae8-497f-b197-9780b3c2e6b3"
+        "00000-e9cf854a-6b5d-415a-bdab-c948150d466d"
       ],
       [
         "date",
-        "Tue, 05 May 2026 12:11:01 GMT"
+        "Tue, 02 Jun 2026 11:47:28 GMT"
       ],
       [
         "x-github-backend",
@@ -135,7 +168,7 @@
       ],
       [
         "x-github-request-id",
-        "6B3F:29C906:564FA8A:5F59FD1:69F9DE51"
+        "B844:373D99:19581A9:1AC7ED2:6A1EC2CC"
       ]
     ],
     "status": 200

@@ -2,7 +2,7 @@
   "metadata": {
     "model": "gemini-2.5-pro",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-06-02T11:47:40.214437Z",
+    "recorded_at": "2026-06-02T11:47:45.283217Z",
     "sycophant_version": "0.4.2"
   },
   "request": {
@@ -71,6 +71,14 @@
           "content": "London: 18C, cloudy",
           "role": "tool",
           "tool_call_id": "call_MHxUTzV3SVZHNGg0S0tjdEZBQ20"
+        },
+        {
+          "content": "The current weather in London is 18°C and cloudy.",
+          "role": "assistant"
+        },
+        {
+          "content": "Thanks! Should I bring an umbrella?",
+          "role": "user"
         }
       ],
       "model": "gemini-2.5-pro",
@@ -133,7 +141,9 @@
           "finish_reason": "stop",
           "index": 0,
           "message": {
-            "content": "The current weather in London is 18°C and cloudy.",
+            "content": "I can't predict rain, but it is cloudy. It might be a good idea to bring one just in case.",
+            "reasoning_opaque": "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",
+            "reasoning_text": "Okay, so I've received a query from the user asking for a recommendation: \"Should I bring an umbrella?\"\n\nMy first thought is about how to address this. I recognize it's not a direct information retrieval request that I can immediately satisfy with my current capabilities. It's more of a solicitous question, seeking advice.\n\nNext, I consider what information or parameters I have available. I scan the user's request for any details that might map to my available tools. In this case, there aren't any specific parameters that fit, for example, a `get_weather` function that would require a location or a specific time.\n\nThis leads me to consider if I can actually *call* any tools. Given that the user's question is about a subjective recommendation and doesn't directly align with the functionality of, say, a `get_weather` tool (which typically provides current conditions, not predictive advice), I realize I can't initiate a tool call for this particular query.\n\nTherefore, I've reached the point where I need to \"punt.\" The user is asking for advice, and while I can see that it's \"cloudy\" based on the data I *do* have, my tools don't provide a forecast. I can't definitively say whether it *will* rain. My best course of action is to acknowledge this limitation. I'll inform the user about the current cloudy conditions and advise them that checking a proper weather forecast would be the most helpful next step, as I'm unable to predict rain.",
             "role": "assistant"
           }
         }
@@ -143,7 +153,7 @@
           {
             "batch_size": 1000000,
             "cost_per_batch": 125000000000,
-            "token_count": 123,
+            "token_count": 145,
             "token_type": "input"
           },
           {
@@ -161,23 +171,23 @@
           {
             "batch_size": 1000000,
             "cost_per_batch": 1000000000000,
-            "token_count": 14,
+            "token_count": 25,
             "token_type": "output"
           }
         ],
-        "total_nano_aiu": 29375000
+        "total_nano_aiu": 43125000
       },
-      "created": 1780400860,
-      "id": "28IeaqTEFPTkl7oPt870qAM",
+      "created": 1780400865,
+      "id": "3MIeapX0HZ3Ml7oPkI260AE",
       "model": "gemini-2.5-pro",
       "usage": {
-        "completion_tokens": 14,
-        "prompt_tokens": 123,
+        "completion_tokens": 25,
+        "prompt_tokens": 145,
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
-        "reasoning_tokens": 0,
-        "total_tokens": 137
+        "reasoning_tokens": 214,
+        "total_tokens": 384
       }
     },
     "headers": [
@@ -199,19 +209,15 @@
       ],
       [
         "x-copilot-service-request-id",
-        "664879ea-3343-4789-b4b6-99dc24186615"
+        "9d9cdee5-c08f-48f0-95c7-510fd00f60fd"
       ],
       [
         "x-request-id",
-        "00000-fe1f9dca-10d5-45bc-a565-cae461f3c15c"
+        "00000-efd44509-c3aa-412c-bafe-1693d6298f96"
       ],
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:40 GMT"
-      ],
-      [
-        "content-length",
-        "783"
+        "Tue, 02 Jun 2026 11:47:45 GMT"
       ],
       [
         "x-github-backend",
@@ -219,7 +225,7 @@
       ],
       [
         "x-github-request-id",
-        "B844:373D99:195EB91:1ACEDAB:6A1EC2DA"
+        "B844:373D99:195F35C:1ACF5CA:6A1EC2DC"
       ]
     ],
     "status": 200

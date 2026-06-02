@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5.2",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T10:59:04.965307Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:26.421838Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "Nice—when are you going, and what kind of trip is it (first time vs repeat, interests like museums/theatre/food/day trips)?\n\nIf you share:\n- dates + number of days\n- where you’re staying (or neighborhood preference)\n- budget level\n- must-sees / dealbreakers\n\n…I can suggest an itinerary, areas to stay, and how to get around.",
+              "text": "Nice—when are you going, how many days, and what kinds of things do you want to prioritize (museums/history, theatre, food, day trips, shopping, parks)? Also, what’s your budget level and where are you staying (or which area are you considering)?",
               "type": "output_text"
             }
           ],
@@ -24,7 +24,7 @@
           "type": "message"
         },
         {
-          "content": "What's the current weather in London? Use the get_weather tool.",
+          "content": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer.",
           "role": "user"
         }
       ],
@@ -73,6 +73,7 @@
         },
         "verbosity": "medium"
       },
+      "moderation": null,
       "top_logprobs": 0,
       "previous_response_id": null,
       "tool_choice": "auto",
@@ -98,7 +99,7 @@
           "type": "function"
         }
       ],
-      "id": "resp_030f77233cc848db0069df6f781b9881979f8e83abfbe604f2",
+      "id": "resp_037fb883545db0fd006a1ec2cdb50c81a0935b35de283f9780",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -106,7 +107,7 @@
       "error": null,
       "model": "gpt-5.2-2025-12-11",
       "usage": {
-        "input_tokens": 173,
+        "input_tokens": 160,
         "input_tokens_details": {
           "cached_tokens": 0
         },
@@ -114,7 +115,7 @@
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 191
+        "total_tokens": 178
       },
       "safety_identifier": null,
       "object": "response",
@@ -122,8 +123,8 @@
       "output": [
         {
           "arguments": "{\"city\":\"London\"}",
-          "call_id": "call_Jon40jg9MVspWMzEAbCRvj0L",
-          "id": "fc_030f77233cc848db0069df6f788a588197a0a3b957ae80e834",
+          "call_id": "call_GFDardRjEzQz3DWiPWkW7JpX",
+          "id": "fc_037fb883545db0fd006a1ec2ce13f081a0a1af916ace2def94",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -134,25 +135,26 @@
       "presence_penalty": 0.0,
       "incomplete_details": null,
       "reasoning": {
+        "context": "current_turn",
         "effort": "none",
         "summary": null
       },
-      "completed_at": 1776250744,
+      "completed_at": 1780400846,
       "truncation": "disabled",
       "top_p": 0.98,
       "billing": {
         "payer": "developer"
       },
-      "prompt_cache_retention": null,
+      "prompt_cache_retention": "24h",
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776250744,
+      "created_at": 1780400845,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:04 GMT"
+        "Tue, 02 Jun 2026 11:47:26 GMT"
       ],
       [
         "content-type",
@@ -160,11 +162,55 @@
       ],
       [
         "content-length",
-        "1935"
+        "1989"
+      ],
+      [
+        "cf-ray",
+        "a05639252995d1c5-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
       ],
       [
         "server",
         "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Request-ID"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-processing-ms",
+        "683"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -191,44 +237,12 @@
         "0s"
       ],
       [
-        "openai-version",
-        "2020-10-01"
-      ],
-      [
-        "openai-organization",
-        "[REDACTED]"
-      ],
-      [
-        "openai-project",
-        "[REDACTED]"
-      ],
-      [
         "x-request-id",
-        "req_551345779c45402689c35e78ca334acd"
-      ],
-      [
-        "openai-processing-ms",
-        "808"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_4e90b8800cc348458a0057c2b5130bce"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9eca704e0cb7710c-PRG"
       ],
       [
         "alt-svc",

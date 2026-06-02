@@ -2,8 +2,8 @@
   "metadata": {
     "model": "google/gemini-2.5-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:09.409974Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:29.793135Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -31,11 +31,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250749,
-      "created_at": 1776250748,
+      "completed_at": 1780400849,
+      "created_at": 1780400849,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250748-uSlSXPdoYH3KvnfgglN6",
+      "id": "gen-1780400849-eOykPOpU8lbLTbvltJfZ",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -49,11 +49,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "hello",
+              "text": "Hello",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_3ponyi9zzhq",
+          "id": "msg_tmp_tvp5qqirf1j",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -65,7 +65,7 @@
       "prompt_cache_key": null,
       "reasoning": null,
       "safety_identifier": null,
-      "service_tier": "auto",
+      "service_tier": "default",
       "status": "completed",
       "store": false,
       "temperature": 1,
@@ -101,7 +101,7 @@
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:09 GMT"
+        "Tue, 02 Jun 2026 11:47:29 GMT"
       ],
       [
         "content-type",
@@ -109,7 +109,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=7,cfOrigin;dur=0,cfWorker;dur=445"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=884"
       ],
       [
         "access-control-allow-origin",
@@ -117,7 +117,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250748-uSlSXPdoYH3KvnfgglN6"
+        "gen-1780400849-eOykPOpU8lbLTbvltJfZ"
       ],
       [
         "access-control-expose-headers",
@@ -141,7 +141,7 @@
       ],
       [
         "cf-ray",
-        "9eca706cbf1ec1bb-PRG"
+        "a0563939ac23876f-PRG"
       ]
     ],
     "status": 200

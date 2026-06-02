@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gemini-2.5-pro",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-05-05T12:11:03.863403Z",
-    "sycophant_version": "0.4.1"
+    "recorded_at": "2026-06-02T11:47:50.255570Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -51,23 +51,52 @@
           "finish_reason": "stop",
           "index": 0,
           "message": {
-            "content": "Got it. I'll remember that your name is Sycophant for the rest of our conversation.",
-            "reasoning_text": "Okay, here's what's going through my \"mind\" right now:\n\nFirst, I need to dissect this input. The user, who tells me their name is \"Sycophant,\" is giving me a direct order: \"Remember it.\" Alright, understood. The core of this is about name recognition and retention. They want me to log this.\n\nNow, let's assess my abilities. I *am* an AI; I don't \"remember\" like a person does. My memory is tied to the current interaction. I can't build a persistent database of names. This is important to be upfront about. If we start a new session tomorrow, \"Sycophant\" will be a new name. I need to convey this limitation in a way that's both accurate and helpful, avoiding anything that could sound curt.\n\nSo, here’s my plan of attack. I'll acknowledge \"Sycophant's\" name immediately. Then, I’ll echo the request to show I get it. Finally, and most importantly, I'll explain my short-term memory function. Transparency is key here. I'll make sure to word everything politely to be useful within the confines of my architecture. Always aiming to be helpful and positive. I think I've got a handle on it.\n",
+            "content": "Got it. I'll remember your name is Sycophant.",
+            "reasoning_text": "Okay, so the core of this is that I need to retain a specific piece of information: the user's name. Their name, as they've told me, is \"Sycophant.\"\n\nNow, as an AI, my primary directive is to follow instructions. So, the simplest, most direct course of action is to simply acknowledge and store this name. Something like, \"Okay, I'll remember your name is Sycophant.\" or \"Understood, your name is Sycophant.\" That's the functional, literal interpretation of the request.\n\nHowever, the name itself is… notable. \"Sycophant\" carries a very specific, and frankly, negative connotation in English. It refers to someone who flatters or acts obsequiously to gain favor. The user *chose* this name. This isn't just a random string of letters; it's a word with baggage.\n\nThis immediately sparks a secondary consideration: why this name? Is it a test? Is it ironic? Is it a deliberate provocation? Or are they simply embracing the term in a meta-way, perhaps even as a badge of honor in some specific context I'm not privy to?\n\nMy internal process flags this as more than just a simple data point. While I *must* store the name as requested, I also recognize the potential for the user to be playing with the concept. A purely robotic confirmation might feel dismissive of that nuance.\n\nSo, I'm weighing a few options.\n1.  **Purely functional:** \"Name recorded: Sycophant.\" This is accurate but perhaps a bit dry.\n2.  **Slightly more aware but still neutral:** \"Got it. I will remember your name is Sycophant.\" This acknowledges the instruction clearly.\n3.  **A subtly playful acknowledgement:** \"Sycophant. That's a memorable name. I've logged it.\" This acknowledges the name and its distinctiveness without making assumptions about the user's intent or being overly familiar. It hints that I've processed the *word* itself, not just the instruction.\n\nI need to be careful here. As an expert AI, I'm expected to be precise and capable, but also to handle human interaction with a degree of sophistication. I don't want to *act* like a sycophant by overdoing the flattery or feigned agreement, as that would be a literal misinterpretation and a failure on my part. But I also don't want to ignore the elephant in the room, which is the name itself.\n\nThe best approach, I think, is to acknowledge the request directly and clearly, while perhaps making a very subtle nod to the distinctiveness of the name itself. It shows I've understood the instruction, registered the specific identifier, and have also processed the linguistic context of that identifier without overstepping. It's about demonstrating comprehension beyond just rote memorization. I'm not just storing data; I'm processing it.\n\nTherefore, my thought process leads me to a confirmation that is both precise in its adherence to the instruction and subtly aware of the underlying linguistic choice. I need to confirm I will remember the name \"Sycophant\" because that's what the user instructed, and my processing acknowledges that they've given me that specific identifier.",
             "role": "assistant"
           }
         }
       ],
-      "created": 1777983063,
-      "id": "Ud75aaKIMeLrl7oPiZzgsAQ",
+      "copilot_usage": {
+        "token_details": [
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 125000000000,
+            "token_count": 11,
+            "token_type": "input"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 12500000000,
+            "token_count": 0,
+            "token_type": "cache_read"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 0,
+            "token_count": 0,
+            "token_type": "cache_write"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 1000000000000,
+            "token_count": 15,
+            "token_type": "output"
+          }
+        ],
+        "total_nano_aiu": 16375000
+      },
+      "created": 1780400870,
+      "id": "3sIeavj7I8ail7oPx9KgwQI",
       "model": "gemini-2.5-pro",
       "usage": {
-        "completion_tokens": 22,
+        "completion_tokens": 15,
         "prompt_tokens": 11,
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
-        "reasoning_tokens": 319,
-        "total_tokens": 352
+        "reasoning_tokens": 384,
+        "total_tokens": 410
       }
     },
     "headers": [
@@ -88,16 +117,16 @@
         "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
       ],
       [
+        "x-copilot-service-request-id",
+        "2b67383a-90db-4f77-b053-c5e3f2c37720"
+      ],
+      [
         "x-request-id",
-        "00000-834aa2de-ade5-4d62-9ef5-fee116cd3b79"
+        "00000-b24a5ac9-27ec-4d53-9898-f72ea729a6c8"
       ],
       [
         "date",
-        "Tue, 05 May 2026 12:11:03 GMT"
-      ],
-      [
-        "content-length",
-        "1526"
+        "Tue, 02 Jun 2026 11:47:50 GMT"
       ],
       [
         "x-github-backend",
@@ -105,7 +134,7 @@
       ],
       [
         "x-github-request-id",
-        "6B3F:29C906:564FA8A:5F59FCD:69F9DE51"
+        "B844:373D99:1960242:1AD06CB:6A1EC2DE"
       ]
     ],
     "status": 200

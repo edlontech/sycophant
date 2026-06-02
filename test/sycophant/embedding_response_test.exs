@@ -3,6 +3,7 @@ defmodule Sycophant.EmbeddingResponseTest do
 
   alias Sycophant.EmbeddingResponse
   alias Sycophant.Serializable
+  alias Sycophant.Serializable.Decoder
   alias Sycophant.Usage
 
   describe "serialization round-trip" do
@@ -15,9 +16,9 @@ defmodule Sycophant.EmbeddingResponseTest do
 
       map = Serializable.to_map(resp)
       assert map["__type__"] == "EmbeddingResponse"
-      assert map["embeddings"]["float"] == [[0.1, 0.2], [0.3, 0.4]]
+      assert map["embeddings"][:float] == [[0.1, 0.2], [0.3, 0.4]]
 
-      restored = EmbeddingResponse.from_map(map)
+      restored = Decoder.from_map(map)
       assert restored.embeddings == %{float: [[0.1, 0.2], [0.3, 0.4]]}
     end
 
@@ -28,7 +29,7 @@ defmodule Sycophant.EmbeddingResponseTest do
       }
 
       map = Serializable.to_map(resp)
-      restored = EmbeddingResponse.from_map(map)
+      restored = Decoder.from_map(map)
       assert restored.embeddings.float == [[0.1, 0.2]]
       assert restored.embeddings.int8 == [[-12, 45]]
     end
@@ -41,7 +42,7 @@ defmodule Sycophant.EmbeddingResponseTest do
       }
 
       map = Serializable.to_map(resp)
-      restored = EmbeddingResponse.from_map(map)
+      restored = Decoder.from_map(map)
       assert restored.usage.input_tokens == 10
     end
 

@@ -2,15 +2,15 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-04-15T10:59:02.990461Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:44.283701Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
       "max_tokens": 4096,
       "messages": [
         {
-          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "content": "What's the weather in Paris? You must call the get_weather tool with city=\"Paris\" to answer.",
           "role": "user"
         }
       ],
@@ -30,7 +30,8 @@
             ],
             "type": "object"
           },
-          "name": "get_weather"
+          "name": "get_weather",
+          "strict": true
         }
       ]
     },
@@ -58,7 +59,7 @@
           "caller": {
             "type": "direct"
           },
-          "id": "toolu_011JxuGQirCLG9zHyKQ9qtE7",
+          "id": "toolu_01U5wbKZo4kGMnjEHCWzb5JZ",
           "input": {
             "city": "Paris"
           },
@@ -66,7 +67,7 @@
           "type": "tool_use"
         }
       ],
-      "id": "msg_01TbjAbXbjCPNT28w1WWmKm8",
+      "id": "msg_01EgKa4mMkSheuEB1cutNjse",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
       "stop_details": null,
@@ -81,7 +82,7 @@
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "inference_geo": "not_available",
-        "input_tokens": 578,
+        "input_tokens": 587,
         "output_tokens": 54,
         "service_tier": "standard"
       }
@@ -89,7 +90,7 @@
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:03 GMT"
+        "Tue, 02 Jun 2026 11:47:44 GMT"
       ],
       [
         "content-type",
@@ -105,7 +106,7 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-04-15T10:59:02Z"
+        "2026-06-02T11:47:44Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
@@ -117,7 +118,7 @@
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-04-15T10:59:02Z"
+        "2026-06-02T11:47:44Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
@@ -129,7 +130,7 @@
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-04-15T10:59:02Z"
+        "2026-06-02T11:47:19Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
@@ -141,11 +142,11 @@
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-04-15T10:59:02Z"
+        "2026-06-02T11:47:44Z"
       ],
       [
         "request-id",
-        "req_011Ca5SSCi6cGjPST9dpaxqY"
+        "req_011CbeNwhCHqB4gu5ARRCEDK"
       ],
       [
         "strict-transport-security",
@@ -156,12 +157,12 @@
         "8a3ada71-45d7-4ed6-aaaf-279ffd490a4a"
       ],
       [
-        "server",
-        "cloudflare"
+        "traceresponse",
+        "00-e7923f83413d2cf02a53ca93412bde4c-dd68c8ec98a6c3a9-01"
       ],
       [
-        "x-envoy-upstream-service-time",
-        "736"
+        "server",
+        "cloudflare"
       ],
       [
         "content-security-policy",
@@ -170,10 +171,6 @@
       [
         "vary",
         "Accept-Encoding"
-      ],
-      [
-        "server-timing",
-        "x-originResponse;dur=738"
       ],
       [
         "set-cookie",
@@ -189,7 +186,7 @@
       ],
       [
         "cf-ray",
-        "9eca70426d1af98a-PRG"
+        "a05638fb5b3db385-PRG"
       ]
     ],
     "status": 200

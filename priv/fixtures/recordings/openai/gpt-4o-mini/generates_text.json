@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T10:59:08.656676Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:28.527053Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -37,13 +37,14 @@
         },
         "verbosity": "medium"
       },
+      "moderation": null,
       "top_logprobs": 0,
       "previous_response_id": null,
       "tool_choice": "auto",
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_0b32ced4ba1913ac0069df6f7bf0f081968e710a8708518a60",
+      "id": "resp_0af6bc3d2b10531b006a1ec2cfc85c81a393dfd9ae4de927cf",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -74,7 +75,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_0b32ced4ba1913ac0069df6f7c708481968678f8513c0e6bd0",
+          "id": "msg_0af6bc3d2b10531b006a1ec2d045d081a3af4f2d1db5bae9b0",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -85,25 +86,26 @@
       "presence_penalty": 0.0,
       "incomplete_details": null,
       "reasoning": {
+        "context": null,
         "effort": null,
         "summary": null
       },
-      "completed_at": 1776250748,
+      "completed_at": 1780400848,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
         "payer": "developer"
       },
-      "prompt_cache_retention": null,
+      "prompt_cache_retention": "in_memory",
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776250747,
+      "created_at": 1780400847,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:08 GMT"
+        "Tue, 02 Jun 2026 11:47:28 GMT"
       ],
       [
         "content-type",
@@ -111,11 +113,55 @@
       ],
       [
         "content-length",
-        "1533"
+        "1583"
+      ],
+      [
+        "cf-ray",
+        "a0563931bd2dd1c5-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
       ],
       [
         "server",
         "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Request-ID"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-processing-ms",
+        "713"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -142,44 +188,12 @@
         "0s"
       ],
       [
-        "openai-version",
-        "2020-10-01"
-      ],
-      [
-        "openai-organization",
-        "[REDACTED]"
-      ],
-      [
-        "openai-project",
-        "[REDACTED]"
-      ],
-      [
         "x-request-id",
-        "req_b984270b189a420c9a7a0b6cda05f8e0"
-      ],
-      [
-        "openai-processing-ms",
-        "663"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_f86f4ee5efc84143960c662637090e5e"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9eca70660932710c-PRG"
       ],
       [
         "alt-svc",

@@ -68,12 +68,14 @@ defmodule Sycophant.PricingTest do
     end
   end
 
-  describe "from_map/1" do
+  describe "Decoder.from_map/1" do
     test "reconstructs from string-keyed map" do
       map = %{
+        "__type__" => "Pricing",
         "currency" => "USD",
         "components" => [
           %{
+            "__type__" => "PricingComponent",
             "id" => "token.input",
             "kind" => "token",
             "unit" => "token",
@@ -83,15 +85,15 @@ defmodule Sycophant.PricingTest do
         ]
       }
 
-      pricing = Pricing.from_map(map)
+      pricing = Decoder.from_map(map)
 
       assert pricing.currency == "USD"
       assert [%Component{id: "token.input"}] = pricing.components
     end
 
     test "handles missing components key" do
-      map = %{"currency" => "EUR"}
-      pricing = Pricing.from_map(map)
+      map = %{"__type__" => "Pricing", "currency" => "EUR"}
+      pricing = Decoder.from_map(map)
 
       assert pricing.currency == "EUR"
       assert pricing.components == []
@@ -133,9 +135,10 @@ defmodule Sycophant.PricingTest do
     end
   end
 
-  describe "Component.from_map/1" do
+  describe "Decoder.from_map/1 for Component" do
     test "reconstructs from string-keyed map" do
       map = %{
+        "__type__" => "PricingComponent",
         "id" => "token.output",
         "kind" => "token",
         "unit" => "token",
@@ -144,7 +147,7 @@ defmodule Sycophant.PricingTest do
         "meter" => "output"
       }
 
-      comp = Component.from_map(map)
+      comp = Decoder.from_map(map)
 
       assert comp.id == "token.output"
       assert comp.meter == "output"
@@ -155,7 +158,7 @@ defmodule Sycophant.PricingTest do
     test "Pricing round-trips through JSON" do
       original = Pricing.from_llmdb(@llmdb_pricing)
       json = Serializable.to_map(original) |> JSON.encode!()
-      restored = json |> JSON.decode!() |> Pricing.from_map()
+      restored = json |> JSON.decode!() |> Decoder.from_map()
 
       assert restored.currency == original.currency
       assert length(restored.components) == length(original.components)

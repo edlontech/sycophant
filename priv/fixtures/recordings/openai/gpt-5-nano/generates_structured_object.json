@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5-nano",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T11:57:22.656743Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:23.246821Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -93,13 +93,14 @@
         },
         "verbosity": "medium"
       },
+      "moderation": null,
       "top_logprobs": 0,
       "previous_response_id": null,
       "tool_choice": "auto",
       "service_tier": "default",
       "status": "completed",
       "tools": [],
-      "id": "resp_005f5f55cb94bcf00069df7d1c949c8190a8747ca54e4c4a63",
+      "id": "resp_058d279b1a59601e006a1ec2c5d69881978a13e8396ce5d7f8",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -111,18 +112,18 @@
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 537,
+        "output_tokens": 691,
         "output_tokens_details": {
-          "reasoning_tokens": 448
+          "reasoning_tokens": 640
         },
-        "total_tokens": 606
+        "total_tokens": 760
       },
       "safety_identifier": null,
       "object": "response",
       "parallel_tool_calls": true,
       "output": [
         {
-          "id": "rs_005f5f55cb94bcf00069df7d1cc3ec81909650d0aef882f3b1",
+          "id": "rs_058d279b1a59601e006a1ec2c653808197ae808bc61e463ca4",
           "summary": [],
           "type": "reasoning"
         },
@@ -131,11 +132,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "{\"age\":29,\"hobbies\":[\"urban sketching\",\"piano improvisation\",\"stargazing\"],\"name\":\"Lena Arcadia\"}",
+              "text": "{\"age\":31,\"hobbies\":[\"astronomy sketching\",\"urban gardening\",\"experimental cooking\"],\"name\":\"Mira Calder\"}",
               "type": "output_text"
             }
           ],
-          "id": "msg_005f5f55cb94bcf00069df7d2208d48190b72ad8f13f5ef5a1",
+          "id": "msg_058d279b1a59601e006a1ec2ca765481979a575daa19343afc",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -146,25 +147,26 @@
       "presence_penalty": 0.0,
       "incomplete_details": null,
       "reasoning": {
+        "context": "current_turn",
         "effort": "medium",
         "summary": null
       },
-      "completed_at": 1776254242,
+      "completed_at": 1780400843,
       "truncation": "disabled",
       "top_p": 1.0,
       "billing": {
         "payer": "developer"
       },
-      "prompt_cache_retention": null,
+      "prompt_cache_retention": "in_memory",
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776254236,
+      "created_at": 1780400837,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 11:57:22 GMT"
+        "Tue, 02 Jun 2026 11:47:23 GMT"
       ],
       [
         "content-type",
@@ -172,11 +174,55 @@
       ],
       [
         "content-length",
-        "2327"
+        "2396"
+      ],
+      [
+        "cf-ray",
+        "a05638f02a47d1c5-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
       ],
       [
         "server",
         "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Request-ID"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-processing-ms",
+        "5366"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -188,59 +234,27 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "29998"
+        "29999"
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "179999679"
+        "179999526"
       ],
       [
         "x-ratelimit-reset-requests",
-        "3ms"
+        "2ms"
       ],
       [
         "x-ratelimit-reset-tokens",
         "0s"
       ],
       [
-        "openai-version",
-        "2020-10-01"
-      ],
-      [
-        "openai-organization",
-        "[REDACTED]"
-      ],
-      [
-        "openai-project",
-        "[REDACTED]"
-      ],
-      [
         "x-request-id",
-        "req_b0fe53e67bc948b283f4155b4820c3f5"
-      ],
-      [
-        "openai-processing-ms",
-        "6023"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_ac9a5b2fde604a5e99631dc7ebd949ce"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9ecac58fcbd1d935-PRG"
       ],
       [
         "alt-svc",

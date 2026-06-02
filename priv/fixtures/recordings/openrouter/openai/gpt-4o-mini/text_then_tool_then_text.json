@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-4o-mini",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-04-15T10:59:03.743381Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:24.940595Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -52,11 +52,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1776250743,
-      "created_at": 1776250742,
+      "completed_at": 1780400844,
+      "created_at": 1780400844,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1776250742-MtkuWrgJUwZA6Pc8Mn7q",
+      "id": "gen-1780400844-cSaE5FfrkfV7LjwM1nVq",
       "incomplete_details": null,
       "instructions": "You are a helpful assistant. Be concise.",
       "max_output_tokens": null,
@@ -70,11 +70,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "That sounds exciting! How can I assist you with your trip to London?",
+              "text": "That sounds exciting! What information do you need for your trip to London?",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_512i6rzle1k",
+          "id": "msg_tmp_m6nlgxpkgn",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -141,7 +141,7 @@
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:03 GMT"
+        "Tue, 02 Jun 2026 11:47:24 GMT"
       ],
       [
         "content-type",
@@ -149,7 +149,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=660"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=717"
       ],
       [
         "access-control-allow-origin",
@@ -157,7 +157,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1776250742-MtkuWrgJUwZA6Pc8Mn7q"
+        "gen-1780400844-cSaE5FfrkfV7LjwM1nVq"
       ],
       [
         "access-control-expose-headers",
@@ -181,7 +181,7 @@
       ],
       [
         "cf-ray",
-        "9eca7045ab62c1bb-PRG"
+        "a056391bd9c0876f-PRG"
       ]
     ],
     "status": 200

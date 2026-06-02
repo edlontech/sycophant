@@ -2,14 +2,14 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T10:59:01.363181Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:19.670606Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
       "messages": [
         {
-          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "content": "What's the weather in Paris? You must call the get_weather tool with city=\"Paris\" to answer.",
           "role": "user"
         }
       ],
@@ -68,15 +68,15 @@
                   "arguments": "{\"city\":\"Paris\"}",
                   "name": "get_weather"
                 },
-                "id": "call_G78xnk79SXfXaUDFzW44xdkp",
+                "id": "call_PcKOO1LywODRh53elSP5p9cP",
                 "type": "function"
               }
             ]
           }
         }
       ],
-      "created": 1776250740,
-      "id": "chatcmpl-DUsFQCphc2ybPyjIgxT2GMNHBL47T",
+      "created": 1780400839,
+      "id": "chatcmpl-DmHsVpwGEubKZReW0gbBdFtY9sHbJ",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -89,18 +89,18 @@
           "reasoning_tokens": 0,
           "rejected_prediction_tokens": 0
         },
-        "prompt_tokens": 63,
+        "prompt_tokens": 72,
         "prompt_tokens_details": {
           "audio_tokens": 0,
           "cached_tokens": 0
         },
-        "total_tokens": 77
+        "total_tokens": 86
       }
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:01 GMT"
+        "Tue, 02 Jun 2026 11:47:19 GMT"
       ],
       [
         "content-type",
@@ -108,7 +108,7 @@
       ],
       [
         "cf-ray",
-        "9eca7036c83c710c-PRG"
+        "a05638f94c64d1c5-PRG"
       ],
       [
         "cf-cache-status",
@@ -131,12 +131,20 @@
         "X-Request-ID"
       ],
       [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
         "openai-organization",
         "[REDACTED]"
       ],
       [
         "openai-processing-ms",
-        "497"
+        "867"
       ],
       [
         "openai-project",
@@ -160,11 +168,11 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "8998"
+        "8999"
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "1999984"
+        "1999975"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -176,7 +184,7 @@
       ],
       [
         "x-request-id",
-        "req_b96e14fd56cf4b87a886287ea4bb6efd"
+        "req_f6006cbff44e4206b4b692f7447869b7"
       ],
       [
         "set-cookie",

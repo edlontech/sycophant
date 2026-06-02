@@ -1,8 +1,9 @@
 # Serialization
 
-Sycophant provides JSON round-trip serialization for all core structs via the
-`Sycophant.Serializable` protocol. This enables persisting conversation state
-to a database and restoring it later.
+Sycophant provides JSON round-trip serialization for all core structs via
+`Sycophant.Serializable` (encoding) and `Sycophant.Serializable.Decoder`
+(decoding). This enables persisting conversation state to a database and
+restoring it later.
 
 ## Round-trip Example
 
@@ -28,7 +29,7 @@ ctx = restored.context |> Context.add(Message.user("Continue our chat"))
 
 ## Supported Structs
 
-All core structs implement the `Sycophant.Serializable` protocol:
+All core structs support JSON round-trip:
 
 - `Response`
 - `Context`

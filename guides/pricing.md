@@ -157,8 +157,8 @@ telemetry metadata.
 
 ## Serialization
 
-`Pricing` and `Pricing.Component` structs implement the `Sycophant.Serializable`
-protocol, so they round-trip through JSON alongside `Usage`:
+`Pricing` and `Pricing.Component` structs round-trip through JSON via
+`Sycophant.Serializable` alongside `Usage`:
 
 ```elixir
 alias Sycophant.Serializable.Decoder

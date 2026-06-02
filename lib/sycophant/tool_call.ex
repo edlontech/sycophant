@@ -10,40 +10,13 @@ defmodule Sycophant.ToolCall do
 
       %Sycophant.ToolCall{id: "call_abc", name: "get_weather", arguments: %{"city" => "Paris"}}
   """
-  @enforce_keys [:id, :name, :arguments]
-  defstruct [:id, :name, :arguments, metadata: %{}]
+  use ZoiDefstruct
 
-  @type t :: %__MODULE__{
-          id: String.t(),
-          name: String.t(),
-          arguments: map(),
-          metadata: map()
-        }
-
-  @doc "Reconstructs a ToolCall struct from a serialized map."
-  @spec from_map(map()) :: t()
-  def from_map(%{"id" => id, "name" => name, "arguments" => arguments} = data) do
-    %__MODULE__{
-      id: id,
-      name: name,
-      arguments: arguments,
-      metadata: data["metadata"] || %{}
-    }
-  end
-end
-
-defimpl Sycophant.Serializable, for: Sycophant.ToolCall do
-  import Sycophant.Serializable.Helpers
-
-  def to_map(%{id: id, name: name, arguments: arguments, metadata: metadata}) do
-    compact(%{
-      "__type__" => "ToolCall",
-      "id" => id,
-      "name" => name,
-      "arguments" => arguments,
-      "metadata" => if(map_size(metadata) > 0, do: metadata)
-    })
-  end
+  defstruct __type__: Zoi.literal("ToolCall") |> Zoi.default("ToolCall"),
+            id: Zoi.string(),
+            name: Zoi.string(),
+            arguments: Zoi.default(Zoi.any(), %{}),
+            metadata: Zoi.default(Zoi.any(), %{})
 end
 
 defimpl Inspect, for: Sycophant.ToolCall do

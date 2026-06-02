@@ -60,10 +60,9 @@ defmodule Sycophant.Tool do
           resolved_schema: Sycophant.Schema.NormalizedSchema.t() | nil
         }
 
-  @doc "Reconstructs a Tool struct from a serialized map."
-  @spec from_map(map()) :: t()
-  def from_map(data) do
-    opts = Map.get(data, :opts, [])
+  @doc false
+  @spec decode(map(), keyword()) :: t()
+  def decode(data, opts) do
     tool_registry = Keyword.get(opts, :tool_registry, %{})
     name = data["name"]
 
@@ -78,50 +77,19 @@ defmodule Sycophant.Tool do
 
     resolved =
       case Sycophant.Schema.Normalizer.normalize(params) do
-        {:ok, normalized} ->
-          if source, do: %{normalized | source: source}, else: normalized
-
-        _ ->
-          nil
+        {:ok, normalized} -> if source, do: %{normalized | source: source}, else: normalized
+        _ -> nil
       end
-
-    strict = Map.get(data, "strict", true)
 
     %__MODULE__{
       name: name,
       description: data["description"],
       parameters: params,
-      strict: strict,
+      strict: Map.get(data, "strict", true),
       function: Map.get(tool_registry, name),
       schema_source: source,
       resolved_schema: resolved
     }
-  end
-end
-
-defimpl Sycophant.Serializable, for: Sycophant.Tool do
-  def to_map(%{
-        name: name,
-        description: desc,
-        parameters: params,
-        strict: strict,
-        schema_source: source
-      }) do
-    json_schema =
-      case Sycophant.Schema.JsonSchema.to_json_schema(params) do
-        {:ok, schema} -> schema
-        _ -> params
-      end
-
-    map = %{
-      "__type__" => "Tool",
-      "name" => name,
-      "description" => desc,
-      "parameters" => json_schema,
-      "strict" => strict
-    }
-
-    if source, do: Map.put(map, "schema_source", Atom.to_string(source)), else: map
   end
 end
 

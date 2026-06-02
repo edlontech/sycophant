@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-04-15T10:59:12.088843Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:36.245710Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -19,7 +19,7 @@
         {
           "parts": [
             {
-              "text": "Okay, Sycophant. I will remember that."
+              "text": "Understood. As an AI, I don't have a persistent memory of past conversations or individual users across sessions. I will refer to you as Sycophant for the duration of this current conversation, but you'll need to tell me again if we start a new one."
             }
           ],
           "role": "model"
@@ -64,18 +64,19 @@
         }
       ],
       "modelVersion": "gemini-2.5-flash",
-      "responseId": "f2_facf_Icn-nsEPxJ-X6A8",
+      "responseId": "18Ieau6eGMnxnsEPjNfWyQc",
       "usageMetadata": {
         "candidatesTokenCount": 8,
-        "promptTokenCount": 31,
+        "promptTokenCount": 77,
         "promptTokensDetails": [
           {
             "modality": "TEXT",
-            "tokenCount": 31
+            "tokenCount": 77
           }
         ],
-        "thoughtsTokenCount": 30,
-        "totalTokenCount": 69
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 33,
+        "totalTokenCount": 118
       }
     },
     "headers": [
@@ -101,7 +102,7 @@
       ],
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:12 GMT"
+        "Tue, 02 Jun 2026 11:47:36 GMT"
       ],
       [
         "server",
@@ -121,7 +122,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=572"
+        "gfet4t7; dur=904"
       ],
       [
         "alt-svc",

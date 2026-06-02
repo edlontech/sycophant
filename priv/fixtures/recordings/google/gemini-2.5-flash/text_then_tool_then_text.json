@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-04-15T10:59:04.119253Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:26.062816Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -66,8 +66,8 @@
           "content": {
             "parts": [
               {
-                "text": "Sounds exciting! How can I help you with your trip to London? Perhaps you'd like to know the weather there?",
-                "thoughtSignature": "Cv8BAb4+9vs5ROF1ZalP38hd4xwqBiILWI9sROgRJnCmIkETjpIS1dMTuqSkoBrUK24OpuapIxCFj8Lzu7IU3Pz5l9/rq3Yvusqr2sc8CGYPYlfwWRJjHw/ExqOSf2NEyOJicU3IoiO779K9+fcRSvrjZBr8bmGixGH/U3soQFi0ycuocPRh/+p1957Vj/1j6MeymudujTjU+DWX53SoH+7NbjKsQebnOXvHyR8GHIQWw2dQWK5hFzhWMBGAnpX20iINrujx5pmjeKaRYKPVMOnr4B6t+fzvgz+b3wrkPG2LrlgaFSRvsNPALENmdKX2zIJCRpfhM1QE7nCrP6oDJE4k"
+                "text": "That's wonderful! London is a fantastic city. Is there anything specific you'd like to know about London, perhaps the weather, or something else?",
+                "thoughtSignature": "CogCAQw51senxZphvDIGLhe0MnT0BCPYebxondx70DEfR93vfiIOjYr2YL14v7gXxN6gy1VjrIxl+r6n94/YXzzNcMusgz/vUlECJyZtLIZNI5BEgJ0cMAALn0xn8IUv4j1nHRA9Xi4PsKzxU4+0bgxQ8l1V6FswzMrgsc+NhQ1JbNbzqsEVPxeAd/4mYBRCYicTVGjjZwkz8sNCBBRP26wrAFoBu0VsGwqA2sLp5o+AOLyIaazn5EPRcSU2TQTyjVQ30jNEZ/h6MM4rrUeE1EcLWJRYQBhkGud2ioQxGNMQ2mVKd2oqIoTIFMaBREF+XRCeekUBnpZSJ7c9cNJgOSk53s3ViYaXVd6+"
               }
             ],
             "role": "model"
@@ -77,9 +77,9 @@
         }
       ],
       "modelVersion": "gemini-2.5-flash",
-      "responseId": "d2_faYWUENelkdUPzNnKeA",
+      "responseId": "zcIeaoSjCPKVkdUP0YzogQg",
       "usageMetadata": {
-        "candidatesTokenCount": 25,
+        "candidatesTokenCount": 32,
         "promptTokenCount": 65,
         "promptTokensDetails": [
           {
@@ -87,7 +87,8 @@
             "tokenCount": 65
           }
         ],
-        "thoughtsTokenCount": 50,
+        "serviceTier": "standard",
+        "thoughtsTokenCount": 43,
         "totalTokenCount": 140
       }
     },
@@ -114,7 +115,7 @@
       ],
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:04 GMT"
+        "Tue, 02 Jun 2026 11:47:26 GMT"
       ],
       [
         "server",
@@ -134,7 +135,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=904"
+        "gfet4t7; dur=983"
       ],
       [
         "alt-svc",

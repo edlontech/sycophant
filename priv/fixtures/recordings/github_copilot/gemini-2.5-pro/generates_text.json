@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gemini-2.5-pro",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-05-05T12:11:20.877136Z",
-    "sycophant_version": "0.4.1"
+    "recorded_at": "2026-06-02T11:48:23.660081Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -52,13 +52,42 @@
           "index": 0,
           "message": {
             "content": "hello",
-            "reasoning_text": "Okay, here we go. The user's asked for a simple greeting, just \"hello.\" That’s the entire directive. Let's break this down. First, the task: say \"hello.\" Simple enough. However, the critical caveat is \"and nothing else.\" This is where things get interesting. No introductory pleasantries, no elaboration, no formatting, no extra punctuation. The prompt is laser-focused. It's almost a linguistic purity test. My response must be the bare minimum, the single word. I have to avoid any potential ambiguity or accidental additions. Now, let’s formulate the output: the word `hello`. Perfect. Does it satisfy all constraints? Does it contain “hello”? Absolutely. Does it contain anything *other* than “hello”? No. Is there extra punctuation? Nope. Any extraneous words? Not a one. Conclusion? The perfect, and only acceptable, response is `hello`. Let's deliver it.\n",
+            "reasoning_text": "Okay, so I've just been presented with a very specific directive. My primary task is to process and execute a user request. The request itself is remarkably straightforward: I need to utter the single word \"hello,\" and crucially, *nothing else*.\n\nMy internal analysis immediately focuses on the parameters set by the user. The constraints are crystal clear and, frankly, quite absolute. First, the content is non-negotiable: the *only* permissible utterance is \"hello.\" Second, the \"nothing else\" clause is an emphatic exclusion. This means no trailing punctuation, no superfluous introductory or concluding remarks, no polite asides, and certainly no analytical explanations. It’s a pure, unadulterated execution of the core instruction.\n\nWith these constraints firmly in mind, the formulation of my response becomes an almost trivial exercise. The output must be precisely the word \"hello.\" There's no room for interpretation or deviation.\n\nFinally, I perform a rigorous verification. Does my intended response, which is simply \"hello,\" adhere to every stipulated condition?\n*   Does it say \"hello\"? Affirmative.\n*   Does it contain *anything* beyond \"hello\"? Negative.\n*   Is there any punctuation attached? No.\n*   Is there any accompanying explanation or preamble? Absolutely not.\n\nTherefore, my conclusion is definitive: the only correct and complete response that fully satisfies the user's explicit instructions is the word \"hello.\"",
             "role": "assistant"
           }
         }
       ],
-      "created": 1777983080,
-      "id": "ZN75afGEOsvvsbwPw7P1gAY",
+      "copilot_usage": {
+        "token_details": [
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 125000000000,
+            "token_count": 8,
+            "token_type": "input"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 12500000000,
+            "token_count": 0,
+            "token_type": "cache_read"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 0,
+            "token_count": 0,
+            "token_type": "cache_write"
+          },
+          {
+            "batch_size": 1000000,
+            "cost_per_batch": 1000000000000,
+            "token_count": 1,
+            "token_type": "output"
+          }
+        ],
+        "total_nano_aiu": 2000000
+      },
+      "created": 1780400903,
+      "id": "A8MeaovaLMfasbwP7s7SyAU",
       "model": "gemini-2.5-pro",
       "usage": {
         "completion_tokens": 1,
@@ -66,8 +95,8 @@
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
-        "reasoning_tokens": 204,
-        "total_tokens": 213
+        "reasoning_tokens": 177,
+        "total_tokens": 186
       }
     },
     "headers": [
@@ -88,16 +117,16 @@
         "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
       ],
       [
+        "x-copilot-service-request-id",
+        "8be6995c-afac-4a1d-ae7b-477a61c58581"
+      ],
+      [
         "x-request-id",
-        "00000-5e9dc5aa-b751-469b-8f14-1c31fb444d85"
+        "00000-45f319c7-bda4-40c8-b7c0-ce93cfd856e9"
       ],
       [
         "date",
-        "Tue, 05 May 2026 12:11:20 GMT"
-      ],
-      [
-        "content-length",
-        "1212"
+        "Tue, 02 Jun 2026 11:48:23 GMT"
       ],
       [
         "x-github-backend",
@@ -105,7 +134,7 @@
       ],
       [
         "x-github-request-id",
-        "6B3F:29C906:56577F6:5F62613:69F9DE64"
+        "B844:373D99:19710DA:1AE27DB:6A1EC303"
       ]
     ],
     "status": 200

@@ -3,30 +3,32 @@ defmodule Sycophant.Message.Content.DocumentTest do
 
   alias Sycophant.Message.Content.Document
   alias Sycophant.Serializable
+  alias Sycophant.Serializable.Decoder
 
-  describe "from_map/1 + Serializable.to_map/1 round-trip" do
+  describe "Decoder.from_map/1 + Serializable.to_map/1 round-trip" do
     test "data source" do
       original = %Document{data: "JVBERi0=", media_type: "application/pdf", name: "r.pdf"}
-      assert original == original |> Serializable.to_map() |> Document.from_map()
+      assert original == original |> Serializable.to_map() |> Decoder.from_map()
     end
 
     test "url source" do
       original = %Document{url: "https://example.com/r.pdf", media_type: "application/pdf"}
-      assert original == original |> Serializable.to_map() |> Document.from_map()
+      assert original == original |> Serializable.to_map() |> Decoder.from_map()
     end
 
     test "file_id source" do
       original = %Document{file_id: "file_123", media_type: "text/csv", name: "data.csv"}
-      assert original == original |> Serializable.to_map() |> Document.from_map()
+      assert original == original |> Serializable.to_map() |> Decoder.from_map()
     end
 
     test "citations flag round-trips" do
       original = %Document{url: "https://x/r.pdf", media_type: "application/pdf", citations: true}
-      assert original == original |> Serializable.to_map() |> Document.from_map()
+      assert original == original |> Serializable.to_map() |> Decoder.from_map()
     end
 
     test "defaults citations to false" do
-      assert %Document{citations: false} = Document.from_map(%{"data" => "abc"})
+      assert %Document{citations: false} =
+               Decoder.from_map(%{"__type__" => "Document", "data" => "abc"})
     end
 
     test "to_map carries __type__ and compacts nil source fields" do

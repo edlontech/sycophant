@@ -2,9 +2,9 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-04-15T10:59:08.162649Z",
+    "recorded_at": "2026-06-02T11:47:46.006774Z",
     "streaming": true,
-    "sycophant_version": "0.3.0"
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -17,7 +17,7 @@
         {
           "content": [
             {
-              "id": "toolu_01WJhqsWP9tAnoKHHdqnAh5J",
+              "id": "toolu_017Nic2HH3W2Ao24iSeuLkTR",
               "input": {
                 "city": "Paris"
               },
@@ -31,7 +31,7 @@
           "content": [
             {
               "content": "Paris: 22C, sunny",
-              "tool_use_id": "toolu_01WJhqsWP9tAnoKHHdqnAh5J",
+              "tool_use_id": "toolu_017Nic2HH3W2Ao24iSeuLkTR",
               "type": "tool_result"
             }
           ],
@@ -55,7 +55,8 @@
             ],
             "type": "object"
           },
-          "name": "get_weather"
+          "name": "get_weather",
+          "strict": true
         }
       ]
     },
@@ -77,11 +78,11 @@
     "url": "https://api.anthropic.com/v1/messages"
   },
   "response": {
-    "body": "event: message_start\ndata: {\"type\":\"message_start\",\"message\":{\"model\":\"claude-haiku-4-5-20251001\",\"id\":\"msg_014617TVeQYZ7isMpJeJ8uZ5\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":656,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":6,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"}} }\n\nevent: content_block_start\ndata: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"text\",\"text\":\"\"}      }\n\nevent: ping\ndata: {\"type\": \"ping\"}\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\"The weather in Paris is currently\"}   }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\" **22°C (approximately 72°F) and sunny**. It's a beautiful\"}     }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\" day!\"}           }\n\nevent: content_block_stop\ndata: {\"type\":\"content_block_stop\",\"index\":0          }\n\nevent: message_delta\ndata: {\"type\":\"message_delta\",\"delta\":{\"stop_reason\":\"end_turn\",\"stop_sequence\":null,\"stop_details\":null},\"usage\":{\"input_tokens\":656,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"output_tokens\":30}               }\n\nevent: message_stop\ndata: {\"type\":\"message_stop\"        }\n\n",
+    "body": "event: message_start\ndata: {\"type\":\"message_start\",\"message\":{\"model\":\"claude-haiku-4-5-20251001\",\"id\":\"msg_01Fm8NrjirDzaAyksUgCoUm4\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":656,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":6,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"}}   }\n\nevent: content_block_start\ndata: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"text\",\"text\":\"\"}               }\n\nevent: ping\ndata: {\"type\": \"ping\"}\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\"The weather in Paris is currently\"}    }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\" **22°C (about 72°F) and sunny**. It's a nice day there\"}            }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\"!\"} }\n\nevent: content_block_stop\ndata: {\"type\":\"content_block_stop\",\"index\":0  }\n\nevent: message_delta\ndata: {\"type\":\"message_delta\",\"delta\":{\"stop_reason\":\"end_turn\",\"stop_sequence\":null,\"stop_details\":null},\"usage\":{\"input_tokens\":656,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"output_tokens\":31}               }\n\nevent: message_stop\ndata: {\"type\":\"message_stop\"               }\n\n",
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:07 GMT"
+        "Tue, 02 Jun 2026 11:47:45 GMT"
       ],
       [
         "content-type",
@@ -101,7 +102,7 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-04-15T10:59:07Z"
+        "2026-06-02T11:47:44Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
@@ -113,7 +114,7 @@
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-04-15T10:59:07Z"
+        "2026-06-02T11:47:44Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
@@ -125,7 +126,7 @@
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-04-15T10:59:07Z"
+        "2026-06-02T11:47:44Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
@@ -137,11 +138,11 @@
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-04-15T10:59:07Z"
+        "2026-06-02T11:47:44Z"
       ],
       [
         "request-id",
-        "req_011Ca5SSZp6fMzn44giZEsSF"
+        "req_011CbeNyZ3ToiR1zCo8nj1w2"
       ],
       [
         "strict-transport-security",
@@ -152,12 +153,12 @@
         "8a3ada71-45d7-4ed6-aaaf-279ffd490a4a"
       ],
       [
-        "server",
-        "cloudflare"
+        "traceresponse",
+        "00-63e0c15a55756d47f58652115335848e-7ba46eac3c0aec99-01"
       ],
       [
-        "x-envoy-upstream-service-time",
-        "634"
+        "server",
+        "cloudflare"
       ],
       [
         "content-security-policy",
@@ -166,10 +167,6 @@
       [
         "vary",
         "Accept-Encoding"
-      ],
-      [
-        "server-timing",
-        "x-originResponse;dur=636"
       ],
       [
         "set-cookie",
@@ -185,7 +182,7 @@
       ],
       [
         "cf-ray",
-        "9eca706148def98a-PRG"
+        "a05639993a77b385-PRG"
       ]
     ],
     "status": 200

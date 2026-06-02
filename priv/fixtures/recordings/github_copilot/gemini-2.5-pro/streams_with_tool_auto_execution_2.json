@@ -2,9 +2,9 @@
   "metadata": {
     "model": "gemini-2.5-pro",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-05-05T12:11:01.956767Z",
+    "recorded_at": "2026-06-02T11:47:30.456890Z",
     "streaming": true,
-    "sycophant_version": "0.4.1"
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -22,7 +22,7 @@
                 "arguments": "{\"city\":\"Paris\"}",
                 "name": "get_weather"
               },
-              "id": "call_MHxSQjlKY3hWZlpFcW9xRlVMM2I",
+              "id": "call_MHxGSTBUVHR5ZWRwM0hmME9zTmo",
               "type": "function"
             }
           ]
@@ -30,7 +30,7 @@
         {
           "content": "Paris: 22C, sunny",
           "role": "tool",
-          "tool_call_id": "call_MHxSQjlKY3hWZlpFcW9xRlVMM2I"
+          "tool_call_id": "call_MHxGSTBUVHR5ZWRwM0hmME9zTmo"
         }
       ],
       "model": "gemini-2.5-pro",
@@ -91,7 +91,7 @@
     "url": "https://api.individual.githubcopilot.com/chat/completions"
   },
   "response": {
-    "body": "data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"The weather in Paris is 22\",\"role\":\"assistant\"}}],\"created\":1777983061,\"id\":\"Vd75abbqD4Wzl7oP2LqQyQU\",\"usage\":{\"completion_tokens\":0,\"prompt_tokens\":0,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":0,\"reasoning_tokens\":0},\"model\":\"gemini-2.5-pro\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"delta\":{\"content\":\" degrees Celsius and sunny. \\n\",\"role\":\"assistant\"}}],\"created\":1777983061,\"id\":\"Vd75abbqD4Wzl7oP2LqQyQU\",\"usage\":{\"completion_tokens\":15,\"prompt_tokens\":55,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":70,\"reasoning_tokens\":0},\"model\":\"gemini-2.5-pro\"}\n\ndata: [DONE]\n\n",
+    "body": "data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"The weather in Paris is 22\",\"role\":\"assistant\"}}],\"created\":1780400850,\"id\":\"0cIeauatJuPJsbwP7r2o2Ak\",\"usage\":{\"completion_tokens\":0,\"prompt_tokens\":0,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":0,\"reasoning_tokens\":0},\"model\":\"gemini-2.5-pro\",\"copilot_usage\":{\"token_details\":[{\"batch_size\":1000000,\"cost_per_batch\":125000000000,\"token_count\":0,\"token_type\":\"input\"},{\"batch_size\":1000000,\"cost_per_batch\":12500000000,\"token_count\":0,\"token_type\":\"cache_read\"},{\"batch_size\":1000000,\"cost_per_batch\":0,\"token_count\":0,\"token_type\":\"cache_write\"},{\"batch_size\":1000000,\"cost_per_batch\":1000000000000,\"token_count\":0,\"token_type\":\"output\"}],\"total_nano_aiu\":0}}\n\ndata: {\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"delta\":{\"content\":\" degrees Celsius and sunny. \\n\",\"role\":\"assistant\"}}],\"created\":1780400850,\"id\":\"0cIeauatJuPJsbwP7r2o2Ak\",\"usage\":{\"completion_tokens\":15,\"prompt_tokens\":55,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":70,\"reasoning_tokens\":0},\"model\":\"gemini-2.5-pro\",\"copilot_usage\":{\"token_details\":[{\"batch_size\":1000000,\"cost_per_batch\":125000000000,\"token_count\":55,\"token_type\":\"input\"},{\"batch_size\":1000000,\"cost_per_batch\":12500000000,\"token_count\":0,\"token_type\":\"cache_read\"},{\"batch_size\":1000000,\"cost_per_batch\":0,\"token_count\":0,\"token_type\":\"cache_write\"},{\"batch_size\":1000000,\"cost_per_batch\":1000000000000,\"token_count\":15,\"token_type\":\"output\"}],\"total_nano_aiu\":21875000}}\n\ndata: [DONE]\n\n",
     "headers": [
       [
         "cache-control",
@@ -114,12 +114,16 @@
         "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
       ],
       [
+        "x-copilot-service-request-id",
+        "012ec67b-461e-4859-98ed-de025af116e0"
+      ],
+      [
         "x-request-id",
-        "00000-5a7f342c-fd60-44e5-bd5f-42f41d7eb496"
+        "00000-40237244-05b3-418d-8b5e-052bdc9c1978"
       ],
       [
         "date",
-        "Tue, 05 May 2026 12:11:01 GMT"
+        "Tue, 02 Jun 2026 11:47:30 GMT"
       ],
       [
         "x-github-backend",
@@ -127,7 +131,7 @@
       ],
       [
         "x-github-request-id",
-        "6B3F:29C906:5651092:5F5B750:69F9DE55"
+        "B844:373D99:195A4F9:1ACA24B:6A1EC2D1"
       ]
     ],
     "status": 200

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5.2",
     "provider": "api.openai.com",
-    "recorded_at": "2026-04-15T10:59:07.667336Z",
-    "sycophant_version": "0.3.0"
+    "recorded_at": "2026-06-02T11:47:28.885179Z",
+    "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "Nice—when are you going, and what kind of trip is it (first time vs repeat, interests like museums/theatre/food/day trips)?\n\nIf you share:\n- dates + number of days\n- where you’re staying (or neighborhood preference)\n- budget level\n- must-sees / dealbreakers\n\n…I can suggest an itinerary, areas to stay, and how to get around.",
+              "text": "Nice—when are you going, how many days, and what kinds of things do you want to prioritize (museums/history, theatre, food, day trips, shopping, parks)? Also, what’s your budget level and where are you staying (or which area are you considering)?",
               "type": "output_text"
             }
           ],
@@ -24,7 +24,7 @@
           "type": "message"
         },
         {
-          "content": "What's the current weather in London? Use the get_weather tool.",
+          "content": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer.",
           "role": "user"
         },
         {
@@ -35,19 +35,19 @@
         },
         {
           "arguments": "{\"city\":\"London\"}",
-          "call_id": "call_Jon40jg9MVspWMzEAbCRvj0L",
+          "call_id": "call_GFDardRjEzQz3DWiPWkW7JpX",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "call_Jon40jg9MVspWMzEAbCRvj0L",
+          "call_id": "call_GFDardRjEzQz3DWiPWkW7JpX",
           "output": "London: 18C, cloudy",
           "type": "function_call_output"
         },
         {
           "content": [
             {
-              "text": "London’s current weather: **18°C and cloudy**.",
+              "text": "The current weather in London is **18°C and cloudy**.",
               "type": "output_text"
             }
           ],
@@ -105,6 +105,7 @@
         },
         "verbosity": "medium"
       },
+      "moderation": null,
       "top_logprobs": 0,
       "previous_response_id": null,
       "tool_choice": "auto",
@@ -130,7 +131,7 @@
           "type": "function"
         }
       ],
-      "id": "resp_07c6ef2a3b2cd4140069df6f7a154c819795948e1ca0f37a7c",
+      "id": "resp_080b65fbbb8f25c6006a1ec2cf92ac819eb493361309545c24",
       "temperature": 1.0,
       "max_output_tokens": null,
       "user": null,
@@ -138,15 +139,15 @@
       "error": null,
       "model": "gpt-5.2-2025-12-11",
       "usage": {
-        "input_tokens": 236,
+        "input_tokens": 224,
         "input_tokens_details": {
           "cached_tokens": 0
         },
-        "output_tokens": 37,
+        "output_tokens": 36,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 273
+        "total_tokens": 260
       },
       "safety_identifier": null,
       "object": "response",
@@ -157,11 +158,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Yes—bring a small umbrella (or a light rain jacket). London weather is changeable, and cloudy skies often turn into light showers even when it’s mild.",
+              "text": "Yes—bring a small umbrella (or a light rain jacket). It’s cloudy, and London showers can pop up even when it doesn’t look like rain.",
               "type": "output_text"
             }
           ],
-          "id": "msg_07c6ef2a3b2cd4140069df6f7a75b481979092bca21a8025d4",
+          "id": "msg_080b65fbbb8f25c6006a1ec2cfd03c819ea101b98c4a047dfc",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -172,25 +173,26 @@
       "presence_penalty": 0.0,
       "incomplete_details": null,
       "reasoning": {
+        "context": "current_turn",
         "effort": "none",
         "summary": null
       },
-      "completed_at": 1776250747,
+      "completed_at": 1780400848,
       "truncation": "disabled",
       "top_p": 0.98,
       "billing": {
         "payer": "developer"
       },
-      "prompt_cache_retention": null,
+      "prompt_cache_retention": "24h",
       "metadata": {},
       "prompt_cache_key": null,
-      "created_at": 1776250746,
+      "created_at": 1780400847,
       "max_tool_calls": null
     },
     "headers": [
       [
         "date",
-        "Wed, 15 Apr 2026 10:59:07 GMT"
+        "Tue, 02 Jun 2026 11:47:28 GMT"
       ],
       [
         "content-type",
@@ -198,11 +200,55 @@
       ],
       [
         "content-length",
-        "2151"
+        "2192"
+      ],
+      [
+        "cf-ray",
+        "a0563930daaed1c5-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
       ],
       [
         "server",
         "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Request-ID"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-processing-ms",
+        "1278"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
       ],
       [
         "x-ratelimit-limit-requests",
@@ -229,44 +275,12 @@
         "0s"
       ],
       [
-        "openai-version",
-        "2020-10-01"
-      ],
-      [
-        "openai-organization",
-        "[REDACTED]"
-      ],
-      [
-        "openai-project",
-        "[REDACTED]"
-      ],
-      [
         "x-request-id",
-        "req_fe53b5bf357d41fab32d8c4614245e4b"
-      ],
-      [
-        "openai-processing-ms",
-        "1542"
-      ],
-      [
-        "cf-cache-status",
-        "DYNAMIC"
-      ],
-      [
-        "strict-transport-security",
-        "max-age=31536000; includeSubDomains; preload"
-      ],
-      [
-        "x-content-type-options",
-        "nosniff"
+        "req_28c2ace8602640f8a3e35004854ab166"
       ],
       [
         "set-cookie",
         "[REDACTED]"
-      ],
-      [
-        "cf-ray",
-        "9eca705a6afa710c-PRG"
       ],
       [
         "alt-svc",

@@ -23,16 +23,14 @@ defmodule Sycophant.Response do
 
   ## Serialization
 
-  Responses implement `Sycophant.Serializable` for JSON persistence:
+  Responses support JSON persistence via `Sycophant.Serializable.Decoder`:
 
       json = Sycophant.Serializable.Decoder.encode(response)
       restored = Sycophant.Serializable.Decoder.decode(json)
   """
-  alias Sycophant.Context
   alias Sycophant.Reasoning
-  alias Sycophant.Serializable.Decoder
-  alias Sycophant.ToolCall
-  alias Sycophant.Usage
+
+  use ZoiDefstruct
 
   @type finish_reason() ::
           :stop
@@ -45,36 +43,20 @@ defmodule Sycophant.Response do
           | :unknown
           | nil
 
-  @valid_finish_reasons ~w(stop tool_use max_tokens content_filter recitation error incomplete unknown)a
+  @finish_reason Zoi.transform(Zoi.string(), &__MODULE__.coerce_finish_reason/1)
 
-  @enforce_keys [:context]
-  defstruct [
-    :text,
-    :object,
-    :usage,
-    :model,
-    :raw,
-    :reasoning,
-    :finish_reason,
-    :context,
-    tool_calls: [],
-    citations: [],
-    metadata: %{}
-  ]
-
-  @type t :: %__MODULE__{
-          text: String.t() | nil,
-          object: map() | nil,
-          tool_calls: [ToolCall.t()],
-          citations: [Sycophant.Citation.t()],
-          usage: Usage.t() | nil,
-          model: String.t() | nil,
-          raw: map() | nil,
-          reasoning: Reasoning.t() | nil,
-          finish_reason: finish_reason(),
-          context: Context.t(),
-          metadata: map()
-        }
+  defstruct __type__: Zoi.literal("Response") |> Zoi.default("Response"),
+            text: Zoi.optional(Zoi.string()),
+            object: Zoi.optional(Zoi.any()),
+            tool_calls: Zoi.list(Sycophant.ToolCall.t()) |> Zoi.default([]),
+            citations: Zoi.list(Sycophant.Citation.t()) |> Zoi.default([]),
+            usage: Zoi.optional(Sycophant.Usage.t()),
+            model: Zoi.optional(Zoi.string()),
+            raw: Zoi.optional(Zoi.any()),
+            reasoning: Zoi.optional(Sycophant.Reasoning.t()),
+            finish_reason: @finish_reason |> Zoi.optional(),
+            context: Zoi.optional(Sycophant.Context.t()),
+            metadata: Zoi.default(Zoi.any(), %{})
 
   @doc """
   Returns the full conversation message history from the response context.
@@ -96,98 +78,32 @@ defmodule Sycophant.Response do
 
   def reasoning_text(_), do: nil
 
-  @doc """
-  Reconstructs a `Response` from a serialized map produced by `Sycophant.Serializable`.
-  """
-  @spec from_map(map()) :: t()
-  def from_map(data) do
-    opts = Map.get(data, :opts, [])
+  @valid_finish_reasons ~w(stop tool_use max_tokens content_filter recitation error incomplete unknown)a
 
-    %__MODULE__{
-      text: data["text"],
-      object: data["object"],
-      tool_calls: decode_list(data["tool_calls"]),
-      citations: decode_list(data["citations"]),
-      usage: decode_optional(data["usage"]),
-      model: data["model"],
-      raw: data["raw"],
-      reasoning: decode_optional(data["reasoning"]),
-      finish_reason: decode_finish_reason(data["finish_reason"]),
-      context: Decoder.from_map(Map.put(data["context"], :opts, opts), opts),
-      metadata: decode_metadata(data["metadata"])
+  @doc false
+  @spec coerce_finish_reason(String.t()) :: finish_reason()
+  def coerce_finish_reason(s) when is_binary(s) do
+    atom =
+      try do
+        String.to_existing_atom(s)
+      rescue
+        _ -> :unknown
+      end
+
+    if atom in @valid_finish_reasons, do: atom, else: :unknown
+  end
+
+  @doc false
+  @spec decode(map(), keyword()) :: t()
+  def decode(data, opts) do
+    resp = Zoi.parse!(__MODULE__.t(), Map.delete(data, "context"))
+
+    %{
+      resp
+      | context: Sycophant.Context.decode(data["context"], opts),
+        metadata: Sycophant.Serializable.Decoder.atomize_keys(data["metadata"] || %{})
     }
   end
-
-  defp decode_list(nil), do: []
-  defp decode_list(list), do: Enum.map(list, &Decoder.from_map/1)
-
-  defp decode_optional(nil), do: nil
-  defp decode_optional(data), do: Decoder.from_map(data)
-
-  defp decode_metadata(nil), do: %{}
-  defp decode_metadata(meta) when is_map(meta), do: atomize_keys(meta)
-
-  defp atomize_keys(map) when is_map(map) do
-    Map.new(map, fn
-      {k, v} when is_binary(k) -> {String.to_existing_atom(k), atomize_keys(v)}
-      {k, v} -> {k, atomize_keys(v)}
-    end)
-  rescue
-    ArgumentError -> map
-  end
-
-  defp atomize_keys(value), do: value
-
-  defp decode_finish_reason(nil), do: nil
-
-  defp decode_finish_reason(value) when is_binary(value) do
-    atom = String.to_existing_atom(value)
-    if atom in @valid_finish_reasons, do: atom, else: :unknown
-  rescue
-    ArgumentError -> :unknown
-  end
-end
-
-defimpl Sycophant.Serializable, for: Sycophant.Response do
-  import Sycophant.Serializable.Helpers
-
-  def to_map(resp) do
-    compact(%{
-      "__type__" => "Response",
-      "text" => resp.text,
-      "object" => resp.object,
-      "tool_calls" => encode_list(resp.tool_calls),
-      "citations" => encode_list(resp.citations),
-      "usage" => maybe_to_map(resp.usage),
-      "model" => resp.model,
-      "raw" => resp.raw,
-      "reasoning" => maybe_to_map(resp.reasoning),
-      "finish_reason" => if(resp.finish_reason, do: Atom.to_string(resp.finish_reason)),
-      "context" => Sycophant.Serializable.to_map(resp.context),
-      "metadata" => encode_metadata(resp.metadata)
-    })
-  end
-
-  defp encode_list([]), do: nil
-  defp encode_list(list), do: Enum.map(list, &Sycophant.Serializable.to_map/1)
-
-  defp maybe_to_map(nil), do: nil
-  defp maybe_to_map(struct), do: Sycophant.Serializable.to_map(struct)
-
-  defp encode_metadata(meta) when map_size(meta) == 0, do: nil
-
-  defp encode_metadata(meta) do
-    stringify_keys(meta)
-  end
-
-  defp stringify_keys(map) when is_map(map) do
-    Map.new(map, fn
-      {k, v} when is_atom(k) -> {Atom.to_string(k), stringify_keys(v)}
-      {k, v} -> {k, stringify_keys(v)}
-    end)
-  end
-
-  defp stringify_keys(value), do: value
 end
 
 defimpl Inspect, for: Sycophant.Response do

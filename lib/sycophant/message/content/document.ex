@@ -24,46 +24,16 @@ defmodule Sycophant.Message.Content.Document do
         citations: true
       }
   """
-  defstruct [:data, :url, :file_id, :media_type, :name, citations: false]
+  use ZoiDefstruct
 
-  @type t :: %__MODULE__{
-          data: String.t() | nil,
-          url: String.t() | nil,
-          file_id: String.t() | nil,
-          media_type: String.t() | nil,
-          name: String.t() | nil,
-          citations: boolean()
-        }
-
-  @doc "Deserializes a document content part from a plain map."
-  @spec from_map(map()) :: t()
-  def from_map(data) do
-    %__MODULE__{
-      data: data["data"],
-      url: data["url"],
-      file_id: data["file_id"],
-      media_type: data["media_type"],
-      name: data["name"],
-      citations: Map.get(data, "citations", false)
-    }
-  end
-end
-
-defimpl Sycophant.Serializable, for: Sycophant.Message.Content.Document do
-  import Sycophant.Serializable.Helpers
-
-  def to_map(doc) do
-    compact(%{
-      "__type__" => "Document",
-      "type" => "document",
-      "data" => doc.data,
-      "url" => doc.url,
-      "file_id" => doc.file_id,
-      "media_type" => doc.media_type,
-      "name" => doc.name,
-      "citations" => doc.citations
-    })
-  end
+  defstruct __type__: Zoi.literal("Document") |> Zoi.default("Document"),
+            type: Zoi.literal("document") |> Zoi.default("document"),
+            data: Zoi.optional(Zoi.string()),
+            url: Zoi.optional(Zoi.string()),
+            file_id: Zoi.optional(Zoi.string()),
+            media_type: Zoi.optional(Zoi.string()),
+            name: Zoi.optional(Zoi.string()),
+            citations: Zoi.default(Zoi.boolean(), false)
 end
 
 defimpl Inspect, for: Sycophant.Message.Content.Document do

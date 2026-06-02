@@ -14,55 +14,26 @@ defmodule Sycophant.EmbeddingParams do
   """
   use ZoiDefstruct
 
-  defstruct dimensions: Zoi.integer() |> Zoi.positive() |> Zoi.optional(),
+  defstruct __type__: Zoi.literal("EmbeddingParams") |> Zoi.default("EmbeddingParams"),
+            dimensions: Zoi.integer() |> Zoi.positive() |> Zoi.optional(),
             embedding_types:
-              Zoi.list(Zoi.enum([:float, :int8, :uint8, :binary, :ubinary]))
+              Zoi.list(
+                Zoi.enum(
+                  [
+                    float: "float",
+                    int8: "int8",
+                    uint8: "uint8",
+                    binary: "binary",
+                    ubinary: "ubinary"
+                  ],
+                  coerce: true
+                )
+              )
               |> Zoi.default([:float]),
-            truncate: Zoi.enum([:none, :left, :right]) |> Zoi.default(:none),
+            truncate:
+              Zoi.enum([none: "none", left: "left", right: "right"], coerce: true)
+              |> Zoi.default(:none),
             max_tokens: Zoi.integer() |> Zoi.positive() |> Zoi.optional()
-
-  @doc "Deserializes embedding params from a plain map."
-  @spec from_map(map()) :: t()
-  def from_map(data) do
-    %__MODULE__{
-      dimensions: data["dimensions"],
-      embedding_types: decode_embedding_types(data["embedding_types"]),
-      truncate: safe_atom(data["truncate"], ~w(none left right)),
-      max_tokens: data["max_tokens"]
-    }
-  end
-
-  @embedding_type_values ~w(float int8 uint8 binary ubinary)
-
-  defp decode_embedding_types(nil), do: [:float]
-
-  defp decode_embedding_types(types) when is_list(types),
-    do: Enum.map(types, &safe_atom(&1, @embedding_type_values))
-
-  defp safe_atom(nil, _allowed), do: nil
-
-  defp safe_atom(value, allowed) do
-    if value in allowed do
-      String.to_existing_atom(value)
-    else
-      raise Sycophant.Error.Invalid.InvalidSerialization,
-        reason: "invalid enum value: #{inspect(value)}, expected one of: #{inspect(allowed)}"
-    end
-  end
-end
-
-defimpl Sycophant.Serializable, for: Sycophant.EmbeddingParams do
-  import Sycophant.Serializable.Helpers
-
-  def to_map(params) do
-    compact(%{
-      "__type__" => "EmbeddingParams",
-      "dimensions" => params.dimensions,
-      "embedding_types" => Enum.map(params.embedding_types, &Atom.to_string/1),
-      "truncate" => Atom.to_string(params.truncate),
-      "max_tokens" => params.max_tokens
-    })
-  end
 end
 
 defimpl Inspect, for: Sycophant.EmbeddingParams do
