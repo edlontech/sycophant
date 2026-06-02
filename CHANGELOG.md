@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.0](https://github.com/edlontech/sycophant/compare/sycophant-v0.4.2...sycophant-v0.5.0) (2026-06-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* Zoi-driven serialization
+
+### Features
+
+* document content type and citations ([e463708](https://github.com/edlontech/sycophant/commit/e46370806f4d9f23dafd3f638b9dbcb3a8c33e6f))
+* Zoi-driven serialization ([a614aaf](https://github.com/edlontech/sycophant/commit/a614aafdaa620fd05008199910f7c719827557b1))
+
 ## [0.4.2](https://github.com/edlontech/sycophant/compare/sycophant-v0.4.1...sycophant-v0.4.2) (2026-05-05)
 
 
