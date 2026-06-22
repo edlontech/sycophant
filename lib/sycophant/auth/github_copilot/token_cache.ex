@@ -11,7 +11,6 @@ defmodule Sycophant.Auth.GithubCopilot.TokenCache do
   """
 
   use GenServer
-  require Logger
 
   alias Sycophant.Auth.GithubCopilot.Exchange
 

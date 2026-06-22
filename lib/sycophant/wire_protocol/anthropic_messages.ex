@@ -380,7 +380,6 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
   end
 
   defp encode_role(:user), do: "user"
-  defp encode_role(:assistant), do: "assistant"
 
   defp encode_content(content) when is_binary(content), do: {:ok, content}
   defp encode_content(nil), do: {:ok, nil}

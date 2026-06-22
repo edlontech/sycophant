@@ -1508,7 +1508,7 @@ defmodule Sycophant.PipelineTest do
       }
     end
 
-    test "drops temperature for models flagged extra.temperature == false (gpt-5.1)" do
+    test "drops temperature for models flagged extra.temperature == false (gpt-5.5)" do
       expect(Sycophant.Transport, :call, fn payload, _opts ->
         refute Map.has_key?(payload, "temperature")
         {:ok, fake_openai_response()}
@@ -1516,13 +1516,13 @@ defmodule Sycophant.PipelineTest do
 
       assert {:ok, _} =
                Pipeline.call(copilot_messages(),
-                 model: "github_copilot:gpt-5.1",
+                 model: "github_copilot:gpt-5.5",
                  temperature: 0.7,
                  credentials: %{github_token: "ghp_x"}
                )
     end
 
-    test "preserves temperature for models flagged extra.temperature == true (gpt-4o)" do
+    test "preserves temperature for models flagged extra.temperature == true (gpt-4.1)" do
       expect(Sycophant.Transport, :call, fn payload, _opts ->
         assert payload["temperature"] == 0.7
         {:ok, fake_openai_response()}
@@ -1530,7 +1530,7 @@ defmodule Sycophant.PipelineTest do
 
       assert {:ok, _} =
                Pipeline.call(copilot_messages(),
-                 model: "github_copilot:gpt-4o",
+                 model: "github_copilot:gpt-4.1",
                  temperature: 0.7,
                  credentials: %{github_token: "ghp_x"}
                )
@@ -1541,7 +1541,7 @@ defmodule Sycophant.PipelineTest do
 
       assert {:error, %Error.Invalid.InvalidParams{}} =
                Pipeline.call(copilot_messages(),
-                 model: "github_copilot:gpt-4o",
+                 model: "github_copilot:gpt-4.1",
                  response_schema: schema,
                  credentials: %{github_token: "ghp_x"}
                )
@@ -1555,7 +1555,7 @@ defmodule Sycophant.PipelineTest do
 
       assert {:ok, _} =
                Pipeline.call(copilot_messages(),
-                 model: "github_copilot:gpt-4o",
+                 model: "github_copilot:gpt-4.1",
                  credentials: %{github_token: "ghp_x"}
                )
     end

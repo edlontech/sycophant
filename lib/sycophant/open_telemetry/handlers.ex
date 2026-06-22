@@ -3,7 +3,6 @@ if Code.ensure_loaded?(OpenTelemetry.Tracer) do
     @moduledoc false
 
     require OpenTelemetry.Tracer, as: Tracer
-    require OpenTelemetry
 
     @tracer_id :sycophant
 

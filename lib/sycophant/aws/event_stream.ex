@@ -59,9 +59,9 @@ defmodule Sycophant.AWS.EventStream do
         {:incomplete, data}
 
       true ->
-        <<frame::binary-size(total_length), rest::binary>> = data
+        <<frame::binary-size(^total_length), rest::binary>> = data
 
-        <<message_body::binary-size(total_length - @message_crc_size),
+        <<message_body::binary-size(^total_length - @message_crc_size),
           message_crc::big-unsigned-32>> = frame
 
         expected_message_crc = :erlang.crc32(message_body)
@@ -69,7 +69,7 @@ defmodule Sycophant.AWS.EventStream do
         if message_crc != expected_message_crc do
           {:error, :invalid_message_crc}
         else
-          <<_prelude::binary-size(@prelude_size), headers_bin::binary-size(headers_length),
+          <<_prelude::binary-size(@prelude_size), headers_bin::binary-size(^headers_length),
             payload::binary>> = message_body
 
           {:ok, %{headers: decode_headers(headers_bin), payload: payload}, rest}

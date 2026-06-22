@@ -7,8 +7,6 @@ defmodule Sycophant.Auth.GithubCopilot.Exchange do
   for caveats.
   """
 
-  require Logger
-
   alias Sycophant.Error
 
   @default_user_agent "GitHubCopilotChat/0.22.0"
