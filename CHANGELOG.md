@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.5.0](https://github.com/edlontech/sycophant/compare/sycophant-v0.4.2...sycophant-v0.5.0) (2026-06-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* Zoi-driven serialization
+
+### Features
+
+* document content type and citations ([e463708](https://github.com/edlontech/sycophant/commit/e46370806f4d9f23dafd3f638b9dbcb3a8c33e6f))
+* Zoi-driven serialization ([a614aaf](https://github.com/edlontech/sycophant/commit/a614aafdaa620fd05008199910f7c719827557b1))
+
+
+### Bug Fixes
+
+* Regenerate CoPilot Fixtures ([4cf11e9](https://github.com/edlontech/sycophant/commit/4cf11e9d2363ddeaa522349069a98843870279e6))
+* Updated Dependencies and Elixir Version ([1136686](https://github.com/edlontech/sycophant/commit/11366866c368f19582d5b5669a5ad4ab5678cc42))
+
 ## [0.4.2](https://github.com/edlontech/sycophant/compare/sycophant-v0.4.1...sycophant-v0.4.2) (2026-05-05)
 
 
