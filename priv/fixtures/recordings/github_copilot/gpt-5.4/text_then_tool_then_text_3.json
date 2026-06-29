@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "model": "gpt-4o",
+    "model": "gpt-5.4",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-06-02T11:47:31.785594Z",
+    "recorded_at": "2026-06-29T09:55:30.085087Z",
     "sycophant_version": "0.4.2"
   },
   "request": {
@@ -17,7 +17,7 @@
           "role": "user"
         },
         {
-          "content": "That sounds exciting! Do you need help with weather updates, travel tips, or anything specific for your trip?",
+          "content": "Nice — London’s a great trip.\n\nI can help with things like:\n- weather for your dates\n- neighborhoods to stay in\n- itinerary ideas\n- transport tips\n- budget planning\n- food and attractions\n\nIf you want, I can start with any of these:\n1. best time/weather\n2. 3-day itinerary\n3. where to stay\n4. budget tips\n\nIf you share your travel dates, I can also check the weather.",
           "role": "assistant"
         },
         {
@@ -33,7 +33,7 @@
                 "arguments": "{\"city\":\"London\"}",
                 "name": "get_weather"
               },
-              "id": "call_8QTWmuOvtuZl8pzE46aXwawo",
+              "id": "call_YeXJpcdQmJSp8qntAOzPwLjP",
               "type": "function"
             }
           ]
@@ -41,18 +41,10 @@
         {
           "content": "London: 18C, cloudy",
           "role": "tool",
-          "tool_call_id": "call_8QTWmuOvtuZl8pzE46aXwawo"
-        },
-        {
-          "content": "The current weather in London is 18°C and cloudy.",
-          "role": "assistant"
-        },
-        {
-          "content": "Thanks! Should I bring an umbrella?",
-          "role": "user"
+          "tool_call_id": "call_YeXJpcdQmJSp8qntAOzPwLjP"
         }
       ],
-      "model": "gpt-4o",
+      "model": "gpt-5.4",
       "tools": [
         {
           "function": {
@@ -109,29 +101,12 @@
     "body": {
       "choices": [
         {
-          "content_filter_results": {
-            "hate": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "self_harm": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "sexual": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "violence": {
-              "filtered": false,
-              "severity": "safe"
-            }
-          },
+          "content_filter_results": {},
           "finish_reason": "stop",
           "index": 0,
           "message": {
-            "content": "Since it's cloudy, there's a chance of rain, so bringing an umbrella would be a good idea!",
-            "padding": "abcdefghijklmnopqrstuvwxyz0123",
+            "content": "Current weather in London: 18°C and cloudy.",
+            "padding": "abcdefghijklmnopqr",
             "role": "assistant"
           }
         }
@@ -141,12 +116,12 @@
           {
             "batch_size": 1000000,
             "cost_per_batch": 250000000000,
-            "token_count": 176,
+            "token_count": 312,
             "token_type": "input"
           },
           {
             "batch_size": 1000000,
-            "cost_per_batch": 125000000000,
+            "cost_per_batch": 25000000000,
             "token_count": 0,
             "token_type": "cache_read"
           },
@@ -158,52 +133,28 @@
           },
           {
             "batch_size": 1000000,
-            "cost_per_batch": 1000000000000,
-            "token_count": 22,
+            "cost_per_batch": 1500000000000,
+            "token_count": 14,
             "token_type": "output"
           }
         ],
-        "total_nano_aiu": 66000000
+        "total_nano_aiu": 99000000
       },
-      "id": "chatcmpl-DmHshhkpFOywlz4az6Fw8OTnNhY7z",
-      "model": "gpt-4o-2024-11-20",
-      "prompt_filter_results": [
-        {
-          "content_filter_results": {
-            "hate": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "self_harm": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "sexual": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "violence": {
-              "filtered": false,
-              "severity": "safe"
-            }
-          },
-          "prompt_index": 0
-        }
-      ],
+      "id": "chatcmpl-Dw305BzzPFKC4xKqKrb02YAHuoKsP",
+      "model": "gpt-5.4",
       "service_tier": "default",
-      "system_fingerprint": "fp_23ef75ba80",
       "usage": {
-        "completion_tokens": 22,
+        "completion_tokens": 14,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "rejected_prediction_tokens": 0
         },
-        "prompt_tokens": 176,
+        "prompt_tokens": 312,
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
         "reasoning_tokens": 0,
-        "total_tokens": 198
+        "total_tokens": 326
       }
     },
     "headers": [
@@ -221,23 +172,23 @@
       ],
       [
         "x-copilot-api-exp-assignment-context",
-        "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
+        "e4hcf520:1109203;t_capicli_aa:1116798;"
       ],
       [
         "x-copilot-service-request-id",
-        "d19e8fe9-5b24-4a0a-a9b7-1f2f1c510c4c"
+        "dee3b22e-d265-4e84-9a8a-dd52987a03a8"
       ],
       [
         "x-request-id",
-        "00000-04fc7e13-b4b9-49ed-814c-f16af195cf54"
+        "00000-b9e83ad7-7ed7-4f24-b5f1-4738680a8f5f"
       ],
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:31 GMT"
+        "Mon, 29 Jun 2026 09:55:30 GMT"
       ],
       [
         "content-length",
-        "1491"
+        "940"
       ],
       [
         "x-github-backend",
@@ -245,7 +196,7 @@
       ],
       [
         "x-github-request-id",
-        "B844:373D99:195AE14:1ACAB8C:6A1EC2D2"
+        "8B26:3F2E01:3230DE4:38A415D:6A424110"
       ]
     ],
     "status": 200

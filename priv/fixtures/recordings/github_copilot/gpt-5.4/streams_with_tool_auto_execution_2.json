@@ -1,0 +1,139 @@
+{
+  "metadata": {
+    "model": "gpt-5.4",
+    "provider": "api.individual.githubcopilot.com",
+    "recorded_at": "2026-06-29T09:55:26.472536Z",
+    "streaming": true,
+    "sycophant_version": "0.4.2"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "role": "user"
+        },
+        {
+          "content": null,
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "function": {
+                "arguments": "{\"city\":\"Paris\"}",
+                "name": "get_weather"
+              },
+              "id": "call_5MJG3B6R900AzjlLbNSL8b8W",
+              "type": "function"
+            }
+          ]
+        },
+        {
+          "content": "Paris: 22C, sunny",
+          "role": "tool",
+          "tool_call_id": "call_5MJG3B6R900AzjlLbNSL8b8W"
+        }
+      ],
+      "model": "gpt-5.4",
+      "stream": true,
+      "stream_options": {
+        "include_usage": true
+      },
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather for a city. Returns temperature and conditions.",
+            "name": "get_weather",
+            "parameters": {
+              "additionalProperties": false,
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ],
+      [
+        "copilot-integration-id",
+        "vscode-chat"
+      ],
+      [
+        "editor-version",
+        "vscode/1.95.0"
+      ],
+      [
+        "editor-plugin-version",
+        "copilot-chat/0.22.0"
+      ],
+      [
+        "user-agent",
+        "GitHubCopilotChat/0.22.0"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.individual.githubcopilot.com/chat/completions"
+  },
+  "response": {
+    "body": "data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\",\"role\":\"assistant\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"The\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" weather\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" in\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Paris\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" is\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" \"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"22\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"°C\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" and\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" sunny\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\".\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"delta\":{\"content\":null}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"usage\":{\"completion_tokens\":14,\"completion_tokens_details\":{\"accepted_prediction_tokens\":0,\"rejected_prediction_tokens\":0},\"prompt_tokens\":177,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":191,\"reasoning_tokens\":0},\"model\":\"gpt-5.4\",\"copilot_usage\":{\"token_details\":[{\"batch_size\":1000000,\"cost_per_batch\":250000000000,\"token_count\":177,\"token_type\":\"input\"},{\"batch_size\":1000000,\"cost_per_batch\":25000000000,\"token_count\":0,\"token_type\":\"cache_read\"},{\"batch_size\":1000000,\"cost_per_batch\":0,\"token_count\":0,\"token_type\":\"cache_write\"},{\"batch_size\":1000000,\"cost_per_batch\":1500000000000,\"token_count\":14,\"token_type\":\"output\"}],\"total_nano_aiu\":65250000}}\n\ndata: [DONE]\n\n",
+    "headers": [
+      [
+        "cache-control",
+        "no-cache"
+      ],
+      [
+        "content-security-policy",
+        "default-src 'none'; sandbox"
+      ],
+      [
+        "content-type",
+        "text/event-stream"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000"
+      ],
+      [
+        "x-copilot-api-exp-assignment-context",
+        "e4hcf520:1109203;t_capicli_aa:1116798;"
+      ],
+      [
+        "x-copilot-service-request-id",
+        "f4025856-5dcf-4418-8f7a-4f4c82d82cef"
+      ],
+      [
+        "x-request-id",
+        "00000-2d35232c-c29e-4bb0-a722-da89e979af81"
+      ],
+      [
+        "date",
+        "Mon, 29 Jun 2026 09:55:26 GMT"
+      ],
+      [
+        "x-github-backend",
+        "Kubernetes"
+      ],
+      [
+        "x-github-request-id",
+        "8B26:3F2E01:322F85B:38A2A4F:6A42410D"
+      ]
+    ],
+    "status": 200
+  }
+}

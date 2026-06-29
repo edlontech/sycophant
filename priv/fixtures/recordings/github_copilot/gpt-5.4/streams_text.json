@@ -1,0 +1,98 @@
+{
+  "metadata": {
+    "model": "gpt-5.4",
+    "provider": "api.individual.githubcopilot.com",
+    "recorded_at": "2026-06-29T09:55:27.105503Z",
+    "streaming": true,
+    "sycophant_version": "0.4.2"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "Say 'hello' and nothing else.",
+          "role": "user"
+        }
+      ],
+      "model": "gpt-5.4",
+      "stream": true,
+      "stream_options": {
+        "include_usage": true
+      }
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ],
+      [
+        "copilot-integration-id",
+        "vscode-chat"
+      ],
+      [
+        "editor-version",
+        "vscode/1.95.0"
+      ],
+      [
+        "editor-plugin-version",
+        "copilot-chat/0.22.0"
+      ],
+      [
+        "user-agent",
+        "GitHubCopilotChat/0.22.0"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.individual.githubcopilot.com/chat/completions"
+  },
+  "response": {
+    "body": "data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\",\"role\":\"assistant\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302gwgD42Fyg4kamQioX4igPfOZ\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"hello\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302gwgD42Fyg4kamQioX4igPfOZ\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"delta\":{\"content\":null}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302gwgD42Fyg4kamQioX4igPfOZ\",\"usage\":{\"completion_tokens\":4,\"completion_tokens_details\":{\"accepted_prediction_tokens\":0,\"rejected_prediction_tokens\":0},\"prompt_tokens\":14,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":18,\"reasoning_tokens\":0},\"model\":\"gpt-5.4\",\"copilot_usage\":{\"token_details\":[{\"batch_size\":1000000,\"cost_per_batch\":250000000000,\"token_count\":14,\"token_type\":\"input\"},{\"batch_size\":1000000,\"cost_per_batch\":25000000000,\"token_count\":0,\"token_type\":\"cache_read\"},{\"batch_size\":1000000,\"cost_per_batch\":0,\"token_count\":0,\"token_type\":\"cache_write\"},{\"batch_size\":1000000,\"cost_per_batch\":1500000000000,\"token_count\":4,\"token_type\":\"output\"}],\"total_nano_aiu\":9500000}}\n\ndata: [DONE]\n\n",
+    "headers": [
+      [
+        "cache-control",
+        "no-cache"
+      ],
+      [
+        "content-security-policy",
+        "default-src 'none'; sandbox"
+      ],
+      [
+        "content-type",
+        "text/event-stream"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000"
+      ],
+      [
+        "x-copilot-api-exp-assignment-context",
+        "e4hcf520:1109203;t_capicli_aa:1116798;"
+      ],
+      [
+        "x-copilot-service-request-id",
+        "a4660e4b-a1fb-463b-b393-2975b550d9d7"
+      ],
+      [
+        "x-request-id",
+        "00000-9c34f8ee-56fe-417f-a6ff-3034d4be9bb8"
+      ],
+      [
+        "date",
+        "Mon, 29 Jun 2026 09:55:27 GMT"
+      ],
+      [
+        "x-github-backend",
+        "Kubernetes"
+      ],
+      [
+        "x-github-request-id",
+        "8B26:3F2E01:322FF7B:38A31EC:6A42410E"
+      ]
+    ],
+    "status": 200
+  }
+}

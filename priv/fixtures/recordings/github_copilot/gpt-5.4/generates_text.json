@@ -1,27 +1,19 @@
 {
   "metadata": {
-    "model": "gpt-4o",
+    "model": "gpt-5.4",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-06-02T11:47:36.301303Z",
+    "recorded_at": "2026-06-29T09:55:29.086981Z",
     "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
       "messages": [
         {
-          "content": "My name is Sycophant. Remember it.",
-          "role": "user"
-        },
-        {
-          "content": "I don’t have memory, so I can only keep track of our conversation while we’re chatting. Once the chat ends, I won’t retain anything, including your name. Let me know if there’s anything else you’d like help with, Sycophant!",
-          "role": "assistant"
-        },
-        {
-          "content": "What is my name?",
+          "content": "Say 'hello' and nothing else.",
           "role": "user"
         }
       ],
-      "model": "gpt-4o"
+      "model": "gpt-5.4"
     },
     "headers": [
       [
@@ -56,29 +48,12 @@
     "body": {
       "choices": [
         {
-          "content_filter_results": {
-            "hate": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "self_harm": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "sexual": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "violence": {
-              "filtered": false,
-              "severity": "safe"
-            }
-          },
+          "content_filter_results": {},
           "finish_reason": "stop",
           "index": 0,
           "message": {
-            "content": "You mentioned that your name is Sycophant! :)",
-            "padding": "abcdefghijklmnopqrstuv",
+            "content": "hello",
+            "padding": "a",
             "role": "assistant"
           }
         }
@@ -88,12 +63,12 @@
           {
             "batch_size": 1000000,
             "cost_per_batch": 250000000000,
-            "token_count": 85,
+            "token_count": 14,
             "token_type": "input"
           },
           {
             "batch_size": 1000000,
-            "cost_per_batch": 125000000000,
+            "cost_per_batch": 25000000000,
             "token_count": 0,
             "token_type": "cache_read"
           },
@@ -105,52 +80,28 @@
           },
           {
             "batch_size": 1000000,
-            "cost_per_batch": 1000000000000,
-            "token_count": 13,
+            "cost_per_batch": 1500000000000,
+            "token_count": 4,
             "token_type": "output"
           }
         ],
-        "total_nano_aiu": 34250000
+        "total_nano_aiu": 9500000
       },
-      "id": "chatcmpl-DmHsl819iMSKK27UHVxhv9ZqBDzJD",
-      "model": "gpt-4o-2024-11-20",
-      "prompt_filter_results": [
-        {
-          "content_filter_results": {
-            "hate": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "self_harm": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "sexual": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "violence": {
-              "filtered": false,
-              "severity": "safe"
-            }
-          },
-          "prompt_index": 0
-        }
-      ],
+      "id": "chatcmpl-Dw304G1Ls32BsN99ePa5FQn0PaK25",
+      "model": "gpt-5.4",
       "service_tier": "default",
-      "system_fingerprint": "fp_23ef75ba80",
       "usage": {
-        "completion_tokens": 13,
+        "completion_tokens": 4,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "rejected_prediction_tokens": 0
         },
-        "prompt_tokens": 85,
+        "prompt_tokens": 14,
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
         "reasoning_tokens": 0,
-        "total_tokens": 98
+        "total_tokens": 18
       }
     },
     "headers": [
@@ -168,23 +119,23 @@
       ],
       [
         "x-copilot-api-exp-assignment-context",
-        "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
+        "e4hcf520:1109203;t_capicli_aa:1116798;"
       ],
       [
         "x-copilot-service-request-id",
-        "b58e6280-e777-4e43-8d7c-60b8d0e08a92"
+        "7507d1e3-98c4-4465-a94d-a5df110e3284"
       ],
       [
         "x-request-id",
-        "00000-e142a30b-b36c-4582-a325-cb9eb799fd38"
+        "00000-37747bb7-6346-4559-9da8-8f9fca2e5013"
       ],
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:36 GMT"
+        "Mon, 29 Jun 2026 09:55:29 GMT"
       ],
       [
         "content-length",
-        "1435"
+        "878"
       ],
       [
         "x-github-backend",
@@ -192,7 +143,7 @@
       ],
       [
         "x-github-request-id",
-        "B844:373D99:195CDD0:1ACCE72:6A1EC2D7"
+        "8B26:3F2E01:3230BB3:38A3EF4:6A424110"
       ]
     ],
     "status": 200

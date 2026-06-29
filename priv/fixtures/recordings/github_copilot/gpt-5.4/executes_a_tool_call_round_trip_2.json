@@ -1,19 +1,60 @@
 {
   "metadata": {
-    "model": "gpt-4o",
+    "model": "gpt-5.4",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-06-02T11:47:35.068700Z",
+    "recorded_at": "2026-06-29T09:55:33.319540Z",
     "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
       "messages": [
         {
-          "content": "My name is Sycophant. Remember it.",
+          "content": "What's the weather in Tokyo?",
           "role": "user"
+        },
+        {
+          "content": null,
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "function": {
+                "arguments": "{\"city\":\"Tokyo\"}",
+                "name": "get_weather"
+              },
+              "id": "call_adzFBEs1fqkos0DhvbJ6g51O",
+              "type": "function"
+            }
+          ]
+        },
+        {
+          "content": "It is sunny in Tokyo.",
+          "role": "tool",
+          "tool_call_id": "call_adzFBEs1fqkos0DhvbJ6g51O"
         }
       ],
-      "model": "gpt-4o"
+      "model": "gpt-5.4",
+      "tools": [
+        {
+          "function": {
+            "description": "Returns the weather for a city",
+            "name": "get_weather",
+            "parameters": {
+              "additionalProperties": false,
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "function"
+        }
+      ]
     },
     "headers": [
       [
@@ -48,29 +89,12 @@
     "body": {
       "choices": [
         {
-          "content_filter_results": {
-            "hate": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "self_harm": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "sexual": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "violence": {
-              "filtered": false,
-              "severity": "safe"
-            }
-          },
+          "content_filter_results": {},
           "finish_reason": "stop",
           "index": 0,
           "message": {
-            "content": "I don’t have memory, so I can only keep track of our conversation while we’re chatting. Once the chat ends, I won’t retain anything, including your name. Let me know if there’s anything else you’d like help with, Sycophant!",
-            "padding": "abcdefg",
+            "content": "It's sunny in Tokyo.",
+            "padding": "abcdefghijklmnopqrstuvwxyz0123456",
             "role": "assistant"
           }
         }
@@ -80,12 +104,12 @@
           {
             "batch_size": 1000000,
             "cost_per_batch": 250000000000,
-            "token_count": 18,
+            "token_count": 165,
             "token_type": "input"
           },
           {
             "batch_size": 1000000,
-            "cost_per_batch": 125000000000,
+            "cost_per_batch": 25000000000,
             "token_count": 0,
             "token_type": "cache_read"
           },
@@ -97,52 +121,28 @@
           },
           {
             "batch_size": 1000000,
-            "cost_per_batch": 1000000000000,
-            "token_count": 55,
+            "cost_per_batch": 1500000000000,
+            "token_count": 8,
             "token_type": "output"
           }
         ],
-        "total_nano_aiu": 59500000
+        "total_nano_aiu": 53250000
       },
-      "id": "chatcmpl-DmHsk0We1YgQAXHJTr6vT83YX2k8f",
-      "model": "gpt-4o-2024-11-20",
-      "prompt_filter_results": [
-        {
-          "content_filter_results": {
-            "hate": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "self_harm": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "sexual": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "violence": {
-              "filtered": false,
-              "severity": "safe"
-            }
-          },
-          "prompt_index": 0
-        }
-      ],
+      "id": "chatcmpl-Dw308ob5QnjrYhs42FdV8zvRIk02J",
+      "model": "gpt-5.4",
       "service_tier": "default",
-      "system_fingerprint": "fp_23ef75ba80",
       "usage": {
-        "completion_tokens": 55,
+        "completion_tokens": 8,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "rejected_prediction_tokens": 0
         },
-        "prompt_tokens": 18,
+        "prompt_tokens": 165,
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
         "reasoning_tokens": 0,
-        "total_tokens": 73
+        "total_tokens": 173
       }
     },
     "headers": [
@@ -160,23 +160,23 @@
       ],
       [
         "x-copilot-api-exp-assignment-context",
-        "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
+        "e4hcf520:1109203;t_capicli_aa:1116798;"
       ],
       [
         "x-copilot-service-request-id",
-        "18bfd873-f320-40b5-a99b-8ce397fd5551"
+        "65c0016d-680b-476e-93f1-a84d2658475b"
       ],
       [
         "x-request-id",
-        "00000-9937c231-4cbf-4752-8fe9-9cbe6c3a8362"
+        "00000-2b518be8-ac81-4944-b1cc-eab301a4c06f"
       ],
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:35 GMT"
+        "Mon, 29 Jun 2026 09:55:33 GMT"
       ],
       [
         "content-length",
-        "1608"
+        "929"
       ],
       [
         "x-github-backend",
@@ -184,7 +184,7 @@
       ],
       [
         "x-github-request-id",
-        "B844:373D99:195C336:1ACC34E:6A1EC2D5"
+        "8B26:3F2E01:3232897:38A5E3D:6A424114"
       ]
     ],
     "status": 200

@@ -1,41 +1,23 @@
 {
   "metadata": {
-    "model": "gpt-4o",
+    "model": "gpt-5.4",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-06-02T11:48:17.908906Z",
+    "recorded_at": "2026-06-29T09:55:26.339039Z",
     "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
       "messages": [
         {
-          "content": "What's the weather in Tokyo?",
+          "content": "You are a calculator. Only respond with numbers.",
+          "role": "system"
+        },
+        {
+          "content": "What is 2 + 2?",
           "role": "user"
         }
       ],
-      "model": "gpt-4o",
-      "tools": [
-        {
-          "function": {
-            "description": "Returns the weather for a city",
-            "name": "get_weather",
-            "parameters": {
-              "additionalProperties": false,
-              "properties": {
-                "city": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "city"
-              ],
-              "type": "object"
-            },
-            "strict": true
-          },
-          "type": "function"
-        }
-      ]
+      "model": "gpt-5.4"
     },
     "headers": [
       [
@@ -71,21 +53,12 @@
       "choices": [
         {
           "content_filter_results": {},
-          "finish_reason": "tool_calls",
+          "finish_reason": "stop",
           "index": 0,
           "message": {
-            "padding": "abcdefghijklmn",
-            "role": "assistant",
-            "tool_calls": [
-              {
-                "function": {
-                  "arguments": "{\"city\":\"Tokyo\"}",
-                  "name": "get_weather"
-                },
-                "id": "call_DcO1a4RANAnqgLrodrANUJ88",
-                "type": "function"
-              }
-            ]
+            "content": "4",
+            "padding": "abcdefghijklmnopqrstu",
+            "role": "assistant"
           }
         }
       ],
@@ -94,12 +67,12 @@
           {
             "batch_size": 1000000,
             "cost_per_batch": 250000000000,
-            "token_count": 50,
+            "token_count": 28,
             "token_type": "input"
           },
           {
             "batch_size": 1000000,
-            "cost_per_batch": 125000000000,
+            "cost_per_batch": 25000000000,
             "token_count": 0,
             "token_type": "cache_read"
           },
@@ -111,52 +84,28 @@
           },
           {
             "batch_size": 1000000,
-            "cost_per_batch": 1000000000000,
-            "token_count": 15,
+            "cost_per_batch": 1500000000000,
+            "token_count": 4,
             "token_type": "output"
           }
         ],
-        "total_nano_aiu": 27500000
+        "total_nano_aiu": 13000000
       },
-      "id": "chatcmpl-DmHtRfrb615716CoElUw0oRArVB0k",
-      "model": "gpt-4o-2024-11-20",
-      "prompt_filter_results": [
-        {
-          "content_filter_results": {
-            "hate": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "self_harm": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "sexual": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "violence": {
-              "filtered": false,
-              "severity": "safe"
-            }
-          },
-          "prompt_index": 0
-        }
-      ],
+      "id": "chatcmpl-Dw302i3Btq9SR5yg2omn6JHd5zESN",
+      "model": "gpt-5.4",
       "service_tier": "default",
-      "system_fingerprint": "fp_23ef75ba80",
       "usage": {
-        "completion_tokens": 15,
+        "completion_tokens": 4,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "rejected_prediction_tokens": 0
         },
-        "prompt_tokens": 50,
+        "prompt_tokens": 28,
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
         "reasoning_tokens": 0,
-        "total_tokens": 65
+        "total_tokens": 32
       }
     },
     "headers": [
@@ -174,23 +123,23 @@
       ],
       [
         "x-copilot-api-exp-assignment-context",
-        "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
+        "e4hcf520:1109203;t_capicli_aa:1116798;"
       ],
       [
         "x-copilot-service-request-id",
-        "f1bd9caf-4599-4a04-8ada-5dcc723eefcc"
+        "4a8c7faf-2da1-45b3-8bb5-d00b72b658e5"
       ],
       [
         "x-request-id",
-        "00000-14f47f98-55bb-4335-8851-46b6244fe255"
+        "00000-9c2b8416-d980-46a4-a795-be77b4cb3ec5"
       ],
       [
         "date",
-        "Tue, 02 Jun 2026 11:48:17 GMT"
+        "Mon, 29 Jun 2026 09:55:26 GMT"
       ],
       [
         "content-length",
-        "1330"
+        "895"
       ],
       [
         "x-github-backend",
@@ -198,7 +147,7 @@
       ],
       [
         "x-github-request-id",
-        "B844:373D99:196FCE1:1AE122A:6A1EC300"
+        "8B26:3F2E01:322F0CF:38A2294:6A42410C"
       ]
     ],
     "status": 200

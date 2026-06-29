@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "model": "gpt-4o",
+    "model": "gpt-5.4",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-06-02T11:47:27.898363Z",
+    "recorded_at": "2026-06-29T09:55:31.568163Z",
     "sycophant_version": "0.4.2"
   },
   "request": {
@@ -15,9 +15,44 @@
         {
           "content": "Hi! I'm planning a trip to London.",
           "role": "user"
+        },
+        {
+          "content": "Nice — London’s a great trip.\n\nI can help with things like:\n- weather for your dates\n- neighborhoods to stay in\n- itinerary ideas\n- transport tips\n- budget planning\n- food and attractions\n\nIf you want, I can start with any of these:\n1. best time/weather\n2. 3-day itinerary\n3. where to stay\n4. budget tips\n\nIf you share your travel dates, I can also check the weather.",
+          "role": "assistant"
+        },
+        {
+          "content": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer.",
+          "role": "user"
+        },
+        {
+          "content": null,
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "function": {
+                "arguments": "{\"city\":\"London\"}",
+                "name": "get_weather"
+              },
+              "id": "call_YeXJpcdQmJSp8qntAOzPwLjP",
+              "type": "function"
+            }
+          ]
+        },
+        {
+          "content": "London: 18C, cloudy",
+          "role": "tool",
+          "tool_call_id": "call_YeXJpcdQmJSp8qntAOzPwLjP"
+        },
+        {
+          "content": "Current weather in London: 18°C and cloudy.",
+          "role": "assistant"
+        },
+        {
+          "content": "Thanks! Should I bring an umbrella?",
+          "role": "user"
         }
       ],
-      "model": "gpt-4o",
+      "model": "gpt-5.4",
       "tools": [
         {
           "function": {
@@ -74,29 +109,12 @@
     "body": {
       "choices": [
         {
-          "content_filter_results": {
-            "hate": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "self_harm": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "sexual": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "violence": {
-              "filtered": false,
-              "severity": "safe"
-            }
-          },
+          "content_filter_results": {},
           "finish_reason": "stop",
           "index": 0,
           "message": {
-            "content": "That sounds exciting! Do you need help with weather updates, travel tips, or anything specific for your trip?",
-            "padding": "abcdefghijklmnopqrstuvwxyz012345",
+            "content": "Yes—probably a good idea. With cloudy London weather, a small umbrella or light rain jacket is worth bringing.",
+            "padding": "abcdefghijklm",
             "role": "assistant"
           }
         }
@@ -106,12 +124,12 @@
           {
             "batch_size": 1000000,
             "cost_per_batch": 250000000000,
-            "token_count": 67,
+            "token_count": 341,
             "token_type": "input"
           },
           {
             "batch_size": 1000000,
-            "cost_per_batch": 125000000000,
+            "cost_per_batch": 25000000000,
             "token_count": 0,
             "token_type": "cache_read"
           },
@@ -123,52 +141,28 @@
           },
           {
             "batch_size": 1000000,
-            "cost_per_batch": 1000000000000,
-            "token_count": 24,
+            "cost_per_batch": 1500000000000,
+            "token_count": 26,
             "token_type": "output"
           }
         ],
-        "total_nano_aiu": 40750000
+        "total_nano_aiu": 124250000
       },
-      "id": "chatcmpl-DmHsdjOHQRynMCr0EvS7HtuUy2AY1",
-      "model": "gpt-4o-2024-11-20",
-      "prompt_filter_results": [
-        {
-          "content_filter_results": {
-            "hate": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "self_harm": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "sexual": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "violence": {
-              "filtered": false,
-              "severity": "safe"
-            }
-          },
-          "prompt_index": 0
-        }
-      ],
+      "id": "chatcmpl-Dw306tF7qSWD1s8dEMrhrVslrRHqk",
+      "model": "gpt-5.4",
       "service_tier": "default",
-      "system_fingerprint": "fp_23ef75ba80",
       "usage": {
-        "completion_tokens": 24,
+        "completion_tokens": 26,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "rejected_prediction_tokens": 0
         },
-        "prompt_tokens": 67,
+        "prompt_tokens": 341,
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
         "reasoning_tokens": 0,
-        "total_tokens": 91
+        "total_tokens": 367
       }
     },
     "headers": [
@@ -186,23 +180,23 @@
       ],
       [
         "x-copilot-api-exp-assignment-context",
-        "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
+        "e4hcf520:1109203;t_capicli_aa:1116798;"
       ],
       [
         "x-copilot-service-request-id",
-        "ee47ac94-4d0b-4fee-82c8-205f22529a06"
+        "a130afd6-23df-4cc0-9c47-6539843318e0"
       ],
       [
         "x-request-id",
-        "00000-c5a9e02d-dd32-40bd-a37f-d6ab3ca1bad4"
+        "00000-42206a71-6549-4218-9fd6-8c3c14a8dfd0"
       ],
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:27 GMT"
+        "Mon, 29 Jun 2026 09:55:31 GMT"
       ],
       [
         "content-length",
-        "1509"
+        "1004"
       ],
       [
         "x-github-backend",
@@ -210,7 +204,7 @@
       ],
       [
         "x-github-request-id",
-        "B844:373D99:1958ED9:1AC8D49:6A1EC2CE"
+        "8B26:3F2E01:3231796:38A4C80:6A424112"
       ]
     ],
     "status": 200

@@ -1,50 +1,19 @@
 {
   "metadata": {
-    "model": "gpt-4o",
+    "model": "gpt-5.4",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-06-02T11:47:30.509674Z",
+    "recorded_at": "2026-06-29T09:55:25.939039Z",
     "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
       "messages": [
         {
-          "content": "You are a helpful assistant. Be concise.",
-          "role": "system"
-        },
-        {
-          "content": "Hi! I'm planning a trip to London.",
+          "content": "What's the weather in Paris? You must call the get_weather tool with city=\"Paris\" to answer.",
           "role": "user"
-        },
-        {
-          "content": "That sounds exciting! Do you need help with weather updates, travel tips, or anything specific for your trip?",
-          "role": "assistant"
-        },
-        {
-          "content": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer.",
-          "role": "user"
-        },
-        {
-          "content": null,
-          "role": "assistant",
-          "tool_calls": [
-            {
-              "function": {
-                "arguments": "{\"city\":\"London\"}",
-                "name": "get_weather"
-              },
-              "id": "call_8QTWmuOvtuZl8pzE46aXwawo",
-              "type": "function"
-            }
-          ]
-        },
-        {
-          "content": "London: 18C, cloudy",
-          "role": "tool",
-          "tool_call_id": "call_8QTWmuOvtuZl8pzE46aXwawo"
         }
       ],
-      "model": "gpt-4o",
+      "model": "gpt-5.4",
       "tools": [
         {
           "function": {
@@ -101,30 +70,22 @@
     "body": {
       "choices": [
         {
-          "content_filter_results": {
-            "hate": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "self_harm": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "sexual": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "violence": {
-              "filtered": false,
-              "severity": "safe"
-            }
-          },
-          "finish_reason": "stop",
+          "content_filter_results": {},
+          "finish_reason": "tool_calls",
           "index": 0,
           "message": {
-            "content": "The current weather in London is 18°C and cloudy.",
             "padding": "abcd",
-            "role": "assistant"
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "function": {
+                  "arguments": "{\"city\":\"Paris\"}",
+                  "name": "get_weather"
+                },
+                "id": "call_XnlusxCx5EmVHy4SwFJ5baBn",
+                "type": "function"
+              }
+            ]
           }
         }
       ],
@@ -133,12 +94,12 @@
           {
             "batch_size": 1000000,
             "cost_per_batch": 250000000000,
-            "token_count": 148,
+            "token_count": 151,
             "token_type": "input"
           },
           {
             "batch_size": 1000000,
-            "cost_per_batch": 125000000000,
+            "cost_per_batch": 25000000000,
             "token_count": 0,
             "token_type": "cache_read"
           },
@@ -150,52 +111,28 @@
           },
           {
             "batch_size": 1000000,
-            "cost_per_batch": 1000000000000,
-            "token_count": 14,
+            "cost_per_batch": 1500000000000,
+            "token_count": 17,
             "token_type": "output"
           }
         ],
-        "total_nano_aiu": 51000000
+        "total_nano_aiu": 63250000
       },
-      "id": "chatcmpl-DmHsf4RjT54aJOSdlv44X5Axtaq2L",
-      "model": "gpt-4o-2024-11-20",
-      "prompt_filter_results": [
-        {
-          "content_filter_results": {
-            "hate": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "self_harm": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "sexual": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "violence": {
-              "filtered": false,
-              "severity": "safe"
-            }
-          },
-          "prompt_index": 0
-        }
-      ],
+      "id": "chatcmpl-Dw301sz39G4I7Rczcei4hhFrjoQYz",
+      "model": "gpt-5.4",
       "service_tier": "default",
-      "system_fingerprint": "fp_23ef75ba80",
       "usage": {
-        "completion_tokens": 14,
+        "completion_tokens": 17,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "rejected_prediction_tokens": 0
         },
-        "prompt_tokens": 148,
+        "prompt_tokens": 151,
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
         "reasoning_tokens": 0,
-        "total_tokens": 162
+        "total_tokens": 168
       }
     },
     "headers": [
@@ -213,23 +150,23 @@
       ],
       [
         "x-copilot-api-exp-assignment-context",
-        "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
+        "e4hcf520:1109203;t_capicli_aa:1116798;"
       ],
       [
         "x-copilot-service-request-id",
-        "bb3ea7b5-d56a-43db-8ef7-3691746d60d9"
+        "67d5474c-2e12-4add-800e-10a419929bda"
       ],
       [
         "x-request-id",
-        "00000-acb3ee17-3774-42c4-9f73-0addfdc48963"
+        "00000-60b1efdf-1d63-4d2d-96eb-862feb06a252"
       ],
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:30 GMT"
+        "Mon, 29 Jun 2026 09:55:26 GMT"
       ],
       [
         "content-length",
-        "1425"
+        "1016"
       ],
       [
         "x-github-backend",
@@ -237,7 +174,7 @@
       ],
       [
         "x-github-request-id",
-        "B844:373D99:195A441:1ACA192:6A1EC2D1"
+        "8B26:3F2E01:322F0CF:38A2291:6A42410C"
       ]
     ],
     "status": 200

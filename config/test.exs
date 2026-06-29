@@ -32,7 +32,7 @@ config :sycophant, :test_models, [
     reasoning: true,
     document: true
   },
-  %{model: "github_copilot:gpt-4o", reasoning: false, structured_output: false},
+  %{model: "github_copilot:gpt-5.4", reasoning: false, structured_output: false},
   %{model: "github_copilot:gemini-2.5-pro", reasoning: false, structured_output: false}
 ]
 

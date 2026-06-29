@@ -1,42 +1,35 @@
 {
   "metadata": {
-    "model": "gpt-4o",
+    "model": "gpt-5.4",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-06-02T11:48:19.427492Z",
+    "recorded_at": "2026-06-29T09:55:28.586979Z",
     "sycophant_version": "0.4.2"
   },
   "request": {
     "body": {
       "messages": [
         {
-          "content": "What's the weather in Tokyo?",
+          "content": "You are a helpful assistant. Be concise.",
+          "role": "system"
+        },
+        {
+          "content": "Hi! I'm planning a trip to London.",
           "role": "user"
         },
         {
-          "content": null,
-          "role": "assistant",
-          "tool_calls": [
-            {
-              "function": {
-                "arguments": "{\"city\":\"Tokyo\"}",
-                "name": "get_weather"
-              },
-              "id": "call_DcO1a4RANAnqgLrodrANUJ88",
-              "type": "function"
-            }
-          ]
+          "content": "Nice — London’s a great trip.\n\nI can help with things like:\n- weather for your dates\n- neighborhoods to stay in\n- itinerary ideas\n- transport tips\n- budget planning\n- food and attractions\n\nIf you want, I can start with any of these:\n1. best time/weather\n2. 3-day itinerary\n3. where to stay\n4. budget tips\n\nIf you share your travel dates, I can also check the weather.",
+          "role": "assistant"
         },
         {
-          "content": "It is sunny in Tokyo.",
-          "role": "tool",
-          "tool_call_id": "call_DcO1a4RANAnqgLrodrANUJ88"
+          "content": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer.",
+          "role": "user"
         }
       ],
-      "model": "gpt-4o",
+      "model": "gpt-5.4",
       "tools": [
         {
           "function": {
-            "description": "Returns the weather for a city",
+            "description": "Get current weather for a city. Returns temperature and conditions.",
             "name": "get_weather",
             "parameters": {
               "additionalProperties": false,
@@ -89,30 +82,22 @@
     "body": {
       "choices": [
         {
-          "content_filter_results": {
-            "hate": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "self_harm": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "sexual": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "violence": {
-              "filtered": false,
-              "severity": "safe"
-            }
-          },
-          "finish_reason": "stop",
+          "content_filter_results": {},
+          "finish_reason": "tool_calls",
           "index": 0,
           "message": {
-            "content": "The weather in Tokyo is sunny.",
-            "padding": "abcdefghijklmnopqrstuv",
-            "role": "assistant"
+            "padding": "abcdefg",
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "function": {
+                  "arguments": "{\"city\":\"London\"}",
+                  "name": "get_weather"
+                },
+                "id": "call_YeXJpcdQmJSp8qntAOzPwLjP",
+                "type": "function"
+              }
+            ]
           }
         }
       ],
@@ -121,12 +106,12 @@
           {
             "batch_size": 1000000,
             "cost_per_batch": 250000000000,
-            "token_count": 78,
+            "token_count": 277,
             "token_type": "input"
           },
           {
             "batch_size": 1000000,
-            "cost_per_batch": 125000000000,
+            "cost_per_batch": 25000000000,
             "token_count": 0,
             "token_type": "cache_read"
           },
@@ -138,52 +123,28 @@
           },
           {
             "batch_size": 1000000,
-            "cost_per_batch": 1000000000000,
-            "token_count": 9,
+            "cost_per_batch": 1500000000000,
+            "token_count": 17,
             "token_type": "output"
           }
         ],
-        "total_nano_aiu": 28500000
+        "total_nano_aiu": 94750000
       },
-      "id": "chatcmpl-DmHtSpU0AGkOrRiFLwaA8eIaU38sj",
-      "model": "gpt-4o-2024-11-20",
-      "prompt_filter_results": [
-        {
-          "content_filter_results": {
-            "hate": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "self_harm": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "sexual": {
-              "filtered": false,
-              "severity": "safe"
-            },
-            "violence": {
-              "filtered": false,
-              "severity": "safe"
-            }
-          },
-          "prompt_index": 0
-        }
-      ],
+      "id": "chatcmpl-Dw3042DWTajxbVotp0MfADpy5lM1d",
+      "model": "gpt-5.4",
       "service_tier": "default",
-      "system_fingerprint": "fp_23ef75ba80",
       "usage": {
-        "completion_tokens": 9,
+        "completion_tokens": 17,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "rejected_prediction_tokens": 0
         },
-        "prompt_tokens": 78,
+        "prompt_tokens": 277,
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
         "reasoning_tokens": 0,
-        "total_tokens": 87
+        "total_tokens": 294
       }
     },
     "headers": [
@@ -201,23 +162,23 @@
       ],
       [
         "x-copilot-api-exp-assignment-context",
-        "e4hcf520:1109203;t_33b5c122:1165002;t_capicli_aa:1116798;"
+        "e4hcf520:1109203;t_capicli_aa:1116798;"
       ],
       [
         "x-copilot-service-request-id",
-        "ab3cbdac-f8f8-4322-bf84-a6dcf63e6156"
+        "12f5853e-b073-41f3-b00d-7a767cf80999"
       ],
       [
         "x-request-id",
-        "00000-22e70f93-b4ab-4016-a147-54988edead9b"
+        "00000-eda2906c-f209-4597-ab17-6ac97e3facf2"
       ],
       [
         "date",
-        "Tue, 02 Jun 2026 11:48:19 GMT"
+        "Mon, 29 Jun 2026 09:55:28 GMT"
       ],
       [
         "content-length",
-        "1418"
+        "1020"
       ],
       [
         "x-github-backend",
@@ -225,7 +186,7 @@
       ],
       [
         "x-github-request-id",
-        "B844:373D99:1970702:1AE1CBD:6A1EC301"
+        "8B26:3F2E01:3230655:38A391C:6A42410F"
       ]
     ],
     "status": 200
