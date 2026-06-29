@@ -2,7 +2,7 @@ defmodule Sycophant.Auth.Bedrock do
   @moduledoc """
   Authentication strategy for AWS Bedrock using SigV4 request signing.
 
-  Produces `AwsSigV4.Middleware.SignRequest` middleware configured with
+  Produces `Sycophant.Tesla.AwsSigV4` middleware configured with
   AWS credentials. Region substitution in the base URL is handled by
   `Tesla.Middleware.PathParams` in the transport layer via `path_params`.
   """
@@ -20,7 +20,7 @@ defmodule Sycophant.Auth.Bedrock do
       config: build_config(credentials, region)
     ]
 
-    [{AwsSigV4.Middleware.SignRequest, sigv4_opts}]
+    [{Sycophant.Tesla.AwsSigV4, sigv4_opts}]
   end
 
   @impl true

@@ -11,7 +11,7 @@ defmodule Sycophant.Auth.BedrockTest do
     }
 
     assert [
-             {AwsSigV4.Middleware.SignRequest,
+             {Sycophant.Tesla.AwsSigV4,
               [
                 service: :bedrock,
                 config: %{
@@ -26,7 +26,7 @@ defmodule Sycophant.Auth.BedrockTest do
   test "defaults region to us-east-1 when not provided" do
     credentials = %{access_key_id: "AKID", secret_access_key: "SECRET"}
 
-    [{AwsSigV4.Middleware.SignRequest, sigv4_opts}] = Bedrock.middlewares(credentials)
+    [{Sycophant.Tesla.AwsSigV4, sigv4_opts}] = Bedrock.middlewares(credentials)
 
     assert sigv4_opts[:config].region == "us-east-1"
   end
@@ -38,7 +38,7 @@ defmodule Sycophant.Auth.BedrockTest do
       session_token: "TOKEN"
     }
 
-    [{AwsSigV4.Middleware.SignRequest, sigv4_opts}] = Bedrock.middlewares(credentials)
+    [{Sycophant.Tesla.AwsSigV4, sigv4_opts}] = Bedrock.middlewares(credentials)
 
     assert sigv4_opts[:config][:security_token] == "TOKEN"
   end
@@ -46,7 +46,7 @@ defmodule Sycophant.Auth.BedrockTest do
   test "omits security_token when session_token not provided" do
     credentials = %{access_key_id: "AKID", secret_access_key: "SECRET"}
 
-    [{AwsSigV4.Middleware.SignRequest, sigv4_opts}] = Bedrock.middlewares(credentials)
+    [{Sycophant.Tesla.AwsSigV4, sigv4_opts}] = Bedrock.middlewares(credentials)
 
     refute Map.has_key?(sigv4_opts[:config], :security_token)
   end
@@ -56,7 +56,7 @@ defmodule Sycophant.Auth.BedrockTest do
 
     result = Sycophant.Auth.middlewares_for(:amazon_bedrock, credentials)
 
-    assert [{AwsSigV4.Middleware.SignRequest, _}] = result
+    assert [{Sycophant.Tesla.AwsSigV4, _}] = result
   end
 
   test "path_params returns region from credentials" do
