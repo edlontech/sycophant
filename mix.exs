@@ -6,7 +6,7 @@ defmodule Sycophant.MixProject do
       app: :sycophant,
       description: description(),
       package: package(),
-      version: "0.4.2",
+      version: "0.5.0",
       elixir: "~> 1.19",
       dialyzer: [
         plt_core_path: "_plts/core"
