@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/edlontech/sycophant/compare/sycophant-v0.5.0...sycophant-v0.5.1) (2026-08-04)
+
+
+### Bug Fixes
+
+* **llmdb:** Fixed upstream llmdb broken contract ([18bd856](https://github.com/edlontech/sycophant/commit/18bd856e39e78b53f3aabd9dad2e4dc418b8d13c))
+
 ## [0.5.0](https://github.com/edlontech/sycophant/compare/sycophant-v0.4.2...sycophant-v0.5.0) (2026-06-29)
 
 
