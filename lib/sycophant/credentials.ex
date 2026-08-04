@@ -28,6 +28,7 @@ defmodule Sycophant.Credentials do
   """
 
   alias Sycophant.Error.Invalid.MissingCredentials
+  alias Sycophant.ModelExtra
 
   @env_overrides %{
     github_copilot: %{"GITHUB_TOKEN" => :github_token}
@@ -104,7 +105,10 @@ defmodule Sycophant.Credentials do
     if map_size(resolved) > 0, do: {:ok, resolved}, else: :error
   end
 
-  defp auth_optional?(%{extra: %{auth: auth}}) when auth in [:none, :optional], do: true
+  defp auth_optional?(%{extra: extra}) when is_map(extra) do
+    ModelExtra.get(extra, :auth) in [:none, "none", :optional, "optional"]
+  end
+
   defp auth_optional?(_), do: false
 
   defp env_key_to_atom(var) do

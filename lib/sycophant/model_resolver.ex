@@ -21,6 +21,7 @@ defmodule Sycophant.ModelResolver do
   """
 
   alias Sycophant.Error
+  alias Sycophant.ModelExtra
 
   @doc """
   Resolves a model specification into a normalized map for the pipeline.
@@ -105,13 +106,14 @@ defmodule Sycophant.ModelResolver do
   end
 
   defp protocol_from_model_extra(%{extra: extra}, :chat) when is_map(extra) do
-    raw = get_in(extra, [:wire, :protocol]) || extra[:wire_protocol]
+    raw = ModelExtra.get_path(extra, [:wire, :protocol]) || ModelExtra.get(extra, :wire_protocol)
     to_existing_atom(raw)
   end
 
   defp protocol_from_model_extra(%{extra: extra}, :embedding) when is_map(extra) do
-    raw = get_in(extra, [:wire, :embedding_protocol])
-    to_existing_atom(raw)
+    extra
+    |> ModelExtra.get_path([:wire, :embedding_protocol])
+    |> to_existing_atom()
   end
 
   defp protocol_from_model_extra(_, _), do: nil

@@ -23,6 +23,7 @@ defmodule Sycophant.Pipeline do
   alias Sycophant.Credentials
   alias Sycophant.Error
   alias Sycophant.Message
+  alias Sycophant.ModelExtra
   alias Sycophant.ModelResolver
   alias Sycophant.Pricing
   alias Sycophant.ResponseValidator
@@ -570,36 +571,31 @@ defmodule Sycophant.Pipeline do
   end
 
   defp apply_model_constraints(params, model_info) do
-    extra = get_in(model_info, [:model_struct, Access.key(:extra, %{})]) || %{}
-    constraints = Map.get(extra, :constraints, %{}) || %{}
+    unsupported =
+      model_info
+      |> get_in([:model_struct, Access.key(:extra, %{})])
+      |> unsupported_params()
 
-    {final, dropped} =
-      Enum.reduce(constraints, {params, []}, fn
-        {param, "unsupported"}, {p, d} ->
-          if Map.has_key?(p, param), do: {Map.delete(p, param), [param | d]}, else: {p, d}
-
-        _, acc ->
-          acc
-      end)
-
-    {final, dropped} = maybe_drop_temperature(final, extra, dropped)
+    dropped = Enum.filter(Map.keys(params), &MapSet.member?(unsupported, Atom.to_string(&1)))
 
     if dropped != [] do
       Logger.warning("Params unsupported by model #{model_info.model_id}: #{inspect(dropped)}")
     end
 
-    final
+    Map.drop(params, dropped)
   end
 
-  defp maybe_drop_temperature(params, %{temperature: false}, dropped) do
-    if Map.has_key?(params, :temperature) do
-      {Map.delete(params, :temperature), [:temperature | dropped]}
-    else
-      {params, dropped}
-    end
-  end
+  # LLMDB flags params a model rejects either through `extra.constraints`
+  # (`"unsupported"`) or the standalone `extra.temperature == false`. Names are
+  # collected as strings because snapshot metadata is string-keyed.
+  defp unsupported_params(extra) do
+    constraints = ModelExtra.get(extra, :constraints) || %{}
+    names = for {param, "unsupported"} <- constraints, into: MapSet.new(), do: to_string(param)
 
-  defp maybe_drop_temperature(params, _extra, dropped), do: {params, dropped}
+    if ModelExtra.get(extra, :temperature) == false,
+      do: MapSet.put(names, "temperature"),
+      else: names
+  end
 
   defp build_request(messages, params, opts, model_info) do
     model_id = resolve_model_id(model_info, opts)
