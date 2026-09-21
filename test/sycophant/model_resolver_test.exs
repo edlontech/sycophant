@@ -343,4 +343,123 @@ defmodule Sycophant.ModelResolverTest do
       assert info.wire_adapter == Sycophant.EmbeddingWireProtocol.OpenAIEmbed
     end
   end
+
+  describe "resolve_evaluation/1" do
+    test "resolves an evaluation-only model into a normalized map" do
+      model =
+        build_model(%{
+          id: "jev-latest",
+          provider: :typesafe,
+          extra: nil,
+          capabilities: %{chat: false, evaluate: true, embeddings: false},
+          execution: %{evaluate: %{wire_protocol: "typesafe_systemone"}}
+        })
+
+      provider =
+        build_provider(%{
+          id: :typesafe,
+          base_url: "https://api.typesafe.ai",
+          env: ["TYPESAFE_API_KEY"]
+        })
+
+      expect(LLMDB, :model, fn "typesafe:jev-latest" -> {:ok, model} end)
+      expect(LLMDB, :provider, fn :typesafe -> {:ok, provider} end)
+
+      assert {:ok, info} = ModelResolver.resolve_evaluation("typesafe:jev-latest")
+      assert info.wire_adapter == Sycophant.EvaluationWireProtocol.TypesafeSystemone
+      assert info.base_url == "https://api.typesafe.ai"
+      assert info.model_id == "jev-latest"
+      assert info.provider == :typesafe
+    end
+
+    test "returns error for a model that does not support evaluation" do
+      model = build_model(%{capabilities: %{chat: true, evaluate: false, embeddings: false}})
+
+      expect(LLMDB, :model, fn "openai:gpt-4o-mini" -> {:ok, model} end)
+
+      assert {:error, error} = ModelResolver.resolve_evaluation("openai:gpt-4o-mini")
+      assert Exception.message(error) =~ "model does not support evaluation"
+    end
+
+    test "returns an unsupported protocol error, without raising, for an unmapped protocol atom" do
+      model =
+        build_model(%{
+          provider: :cloudflare_workers_ai,
+          extra: nil,
+          capabilities: %{chat: false, evaluate: true, embeddings: false},
+          execution: %{evaluate: %{wire_protocol: "cloudflare_ai_run"}}
+        })
+
+      provider = build_provider(%{id: :cloudflare_workers_ai})
+
+      expect(LLMDB, :model, fn "cloudflare_workers_ai:typesafe/jev" -> {:ok, model} end)
+      expect(LLMDB, :provider, fn :cloudflare_workers_ai -> {:ok, provider} end)
+
+      assert {:error, %Sycophant.Error.Unknown.Unknown{} = error} =
+               ModelResolver.resolve_evaluation("cloudflare_workers_ai:typesafe/jev")
+
+      assert Exception.message(error) =~ "Unsupported evaluate protocol"
+    end
+
+    test "returns an error tuple, without raising, when the model has no execution.evaluate entry" do
+      model =
+        build_model(%{
+          provider: :vercel,
+          extra: nil,
+          capabilities: %{chat: false, evaluate: true, embeddings: false},
+          execution: nil
+        })
+
+      provider = build_provider(%{id: :vercel})
+
+      expect(LLMDB, :model, fn "vercel:typesafe-ai/jev" -> {:ok, model} end)
+      expect(LLMDB, :provider, fn :vercel -> {:ok, provider} end)
+
+      assert {:error, _error} = ModelResolver.resolve_evaluation("vercel:typesafe-ai/jev")
+    end
+
+    test "returns error for nil" do
+      assert {:error, %Sycophant.Error.Invalid.MissingModel{}} =
+               ModelResolver.resolve_evaluation(nil)
+    end
+  end
+
+  describe "resolve_evaluation/1 against the real LLMDB catalog (no stubs)" do
+    test "resolves typesafe:jev-latest" do
+      assert {:ok, info} = ModelResolver.resolve_evaluation("typesafe:jev-latest")
+      assert info.provider == :typesafe
+      assert info.base_url == "https://api.typesafe.ai"
+      assert info.wire_adapter == Sycophant.EvaluationWireProtocol.TypesafeSystemone
+    end
+
+    test "returns an unsupported protocol error, without raising, before Task 6 registers it" do
+      assert {:error, error} = ModelResolver.resolve_evaluation("openrouter:typesafe/jev-1.13")
+      assert Exception.message(error) =~ "Unsupported evaluate protocol"
+    end
+  end
+
+  describe "resolve/1 rejects evaluation-only models" do
+    test "returns an InvalidParams error pointing at evaluate/4" do
+      model =
+        build_model(%{
+          provider: :typesafe,
+          extra: nil,
+          capabilities: %{chat: false, evaluate: true, embeddings: false}
+        })
+
+      expect(LLMDB, :model, fn "typesafe:jev-latest" -> {:ok, model} end)
+
+      assert {:error, error} = ModelResolver.resolve("typesafe:jev-latest")
+      assert Exception.message(error) =~ "Sycophant.evaluate/4"
+    end
+
+    test "still resolves chat models without capabilities metadata" do
+      model = build_model(%{capabilities: nil})
+      provider = build_provider()
+
+      expect(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+
+      assert {:ok, _info} = ModelResolver.resolve(model)
+    end
+  end
 end

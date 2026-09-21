@@ -9,6 +9,7 @@ defmodule Sycophant.Application do
     google: ["*"],
     amazon_bedrock: ["*"],
     openrouter: ["*"],
+    typesafe: ["*"],
     azure: ["*"],
     github_copilot: ["*"]
   }

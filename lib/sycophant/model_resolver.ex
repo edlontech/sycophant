@@ -47,6 +47,19 @@ defmodule Sycophant.ModelResolver do
   def resolve_embedding(spec) when is_binary(spec), do: do_resolve_spec(spec, :embedding)
   def resolve_embedding(_), do: {:error, Error.Invalid.MissingModel.exception([])}
 
+  @doc """
+  Resolves a model specification into a normalized map for the evaluation pipeline.
+
+  Same contract as `resolve/1`, but only succeeds for models whose
+  `capabilities.evaluate` is `true`.
+  """
+  @spec resolve_evaluation(nil | binary() | LLMDB.Model.t() | term()) ::
+          {:ok, map()} | {:error, Exception.t()}
+  def resolve_evaluation(nil), do: {:error, Error.Invalid.MissingModel.exception([])}
+  def resolve_evaluation(%LLMDB.Model{} = model), do: do_resolve(model, :evaluate)
+  def resolve_evaluation(spec) when is_binary(spec), do: do_resolve_spec(spec, :evaluate)
+  def resolve_evaluation(_), do: {:error, Error.Invalid.MissingModel.exception([])}
+
   defp do_resolve(model, kind) do
     with :ok <- validate_model_kind(model, kind),
          {:ok, provider} <- fetch_provider(model.provider),
@@ -69,7 +82,24 @@ defmodule Sycophant.ModelResolver do
     end
   end
 
+  defp validate_model_kind(%LLMDB.Model{capabilities: %{chat: false} = capabilities}, :chat) do
+    message =
+      if Map.get(capabilities, :evaluate) == true do
+        "model does not support chat; use Sycophant.evaluate/4"
+      else
+        "model does not support chat"
+      end
+
+    {:error, Error.Invalid.InvalidParams.exception(errors: [message])}
+  end
+
   defp validate_model_kind(_model, :chat), do: :ok
+
+  defp validate_model_kind(%LLMDB.Model{capabilities: %{evaluate: true}}, :evaluate), do: :ok
+
+  defp validate_model_kind(_model, :evaluate) do
+    {:error, Error.Invalid.InvalidParams.exception(errors: ["model does not support evaluation"])}
+  end
 
   defp validate_model_kind(%LLMDB.Model{modalities: %{output: outputs}}, :embedding) do
     if :embedding in outputs do
@@ -116,6 +146,13 @@ defmodule Sycophant.ModelResolver do
     |> to_existing_atom()
   end
 
+  defp protocol_from_model_extra(
+         %{execution: %{evaluate: %{wire_protocol: wire_protocol}}},
+         :evaluate
+       ) do
+    safe_to_existing_atom(wire_protocol)
+  end
+
   defp protocol_from_model_extra(_, _), do: nil
 
   defp wire_protocol_default(provider, kind) do
@@ -125,6 +162,18 @@ defmodule Sycophant.ModelResolver do
   defp to_existing_atom(nil), do: nil
   defp to_existing_atom(value) when is_atom(value), do: value
   defp to_existing_atom(value) when is_binary(value), do: String.to_existing_atom(value)
+
+  # Never raises, unlike `to_existing_atom/1`: an unmapped LLMDB protocol
+  # string must fall through to `Registry.fetch_protocol/2`'s error instead
+  # of crashing the resolver.
+  defp safe_to_existing_atom(nil), do: nil
+  defp safe_to_existing_atom(value) when is_atom(value), do: value
+
+  defp safe_to_existing_atom(value) when is_binary(value) do
+    String.to_existing_atom(value)
+  rescue
+    ArgumentError -> value
+  end
 
   defp fetch_provider(provider_id) do
     case LLMDB.provider(provider_id) do

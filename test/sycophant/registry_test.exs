@@ -44,6 +44,11 @@ defmodule Sycophant.RegistryTest do
       assert {:ok, Sycophant.EmbeddingWireProtocol.BedrockEmbed} =
                Registry.fetch_protocol(:embedding, :bedrock_embed)
     end
+
+    test "seeds built-in evaluation protocols" do
+      assert {:ok, Sycophant.EvaluationWireProtocol.TypesafeSystemone} =
+               Registry.fetch_protocol(:evaluate, :typesafe_systemone)
+    end
   end
 
   describe "register_auth!/2" do
@@ -107,6 +112,23 @@ defmodule Sycophant.RegistryTest do
         Registry.register_protocol!(:embedding, :bad, Sycophant.WireProtocol.OpenAICompletions)
       end
     end
+
+    test "registers a valid evaluation module" do
+      Registry.register_protocol!(
+        :evaluate,
+        :custom,
+        Sycophant.EvaluationWireProtocol.TypesafeSystemone
+      )
+
+      assert {:ok, Sycophant.EvaluationWireProtocol.TypesafeSystemone} =
+               Registry.fetch_protocol(:evaluate, :custom)
+    end
+
+    test "raises InvalidRegistration for non-implementing evaluation module" do
+      assert_raise InvalidRegistration, fn ->
+        Registry.register_protocol!(:evaluate, :bad, String)
+      end
+    end
   end
 
   describe "fetch_protocol/2" do
@@ -116,6 +138,10 @@ defmodule Sycophant.RegistryTest do
 
     test "returns :error for unknown embedding key" do
       assert :error = Registry.fetch_protocol(:embedding, :nonexistent)
+    end
+
+    test "returns :error for unknown evaluate key" do
+      assert :error = Registry.fetch_protocol(:evaluate, :nonexistent)
     end
   end
 

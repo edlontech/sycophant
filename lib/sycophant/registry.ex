@@ -9,6 +9,7 @@ defmodule Sycophant.Registry do
       Sycophant.Registry.register_auth!(:my_provider, MyApp.Auth.Custom)
       Sycophant.Registry.register_protocol!(:chat, :my_proto, MyApp.WireProtocol.Custom)
       Sycophant.Registry.register_protocol!(:embedding, :my_embed, MyApp.EmbeddingProto.Custom)
+      Sycophant.Registry.register_protocol!(:evaluate, :my_eval, MyApp.EvaluationProto.Custom)
 
   Overriding a built-in key is allowed -- the last registration wins.
   """
@@ -35,10 +36,11 @@ defmodule Sycophant.Registry do
     {:chat, :bedrock_converse} => Sycophant.WireProtocol.BedrockConverse,
     {:chat, :copilot_chat} => Sycophant.WireProtocol.CopilotChat,
     {:embedding, :openai_embed} => Sycophant.EmbeddingWireProtocol.OpenAIEmbed,
-    {:embedding, :bedrock_embed} => Sycophant.EmbeddingWireProtocol.BedrockEmbed
+    {:embedding, :bedrock_embed} => Sycophant.EmbeddingWireProtocol.BedrockEmbed,
+    {:evaluate, :typesafe_systemone} => Sycophant.EvaluationWireProtocol.TypesafeSystemone
   }
 
-  @type kind :: :chat | :embedding
+  @type kind :: :chat | :embedding | :evaluate
 
   @doc false
   @spec init() :: :ok
@@ -65,16 +67,19 @@ defmodule Sycophant.Registry do
   @doc """
   Registers a custom protocol adapter under the given `kind` and `protocol_name`.
 
-  The `module` must implement `Sycophant.WireProtocol` for `:chat` kind or
-  `Sycophant.EmbeddingWireProtocol` for `:embedding` kind. Raises
+  The `module` must implement `Sycophant.WireProtocol` for `:chat` kind,
+  `Sycophant.EmbeddingWireProtocol` for `:embedding` kind, or
+  `Sycophant.EvaluationWireProtocol` for `:evaluate` kind. Raises
   `Sycophant.Error.Invalid.InvalidRegistration` if it does not.
 
       Sycophant.Registry.register_protocol!(:chat, :my_proto, MyApp.WireProtocol.Custom)
       Sycophant.Registry.register_protocol!(:embedding, :my_embed, MyApp.EmbeddingProto.Custom)
+      Sycophant.Registry.register_protocol!(:evaluate, :my_eval, MyApp.EvaluationProto.Custom)
   """
   @spec register_protocol!(kind(), atom(), module()) :: :ok
   def register_protocol!(kind, protocol_name, module)
-      when kind in [:chat, :embedding] and is_atom(protocol_name) and is_atom(module) do
+      when kind in [:chat, :embedding, :evaluate] and is_atom(protocol_name) and
+             is_atom(module) do
     validate_behaviour!(module, behaviour_for_kind(kind))
     update(@protocol_key, {kind, protocol_name}, module)
   end
@@ -97,6 +102,7 @@ defmodule Sycophant.Registry do
 
   defp behaviour_for_kind(:chat), do: Sycophant.WireProtocol
   defp behaviour_for_kind(:embedding), do: Sycophant.EmbeddingWireProtocol
+  defp behaviour_for_kind(:evaluate), do: Sycophant.EvaluationWireProtocol
 
   defp validate_behaviour!(module, behaviour) do
     case Code.ensure_loaded(module) do
