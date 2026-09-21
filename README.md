@@ -107,9 +107,9 @@ response.answers.urgent.probability
 ```
 
 Evaluation is not a chat API: no messages, no streaming. `:boolean` answers
-expose only `probability` (no `value`); `:choice` answer values and
-probabilities are always strings, since they name provider-defined options.
-Answer keys mirror the caller's `questions` keys, but after a
+expose only `probability` (no `value`); `:choice` answer `value` and
+`probabilities` keys are always strings, since they name provider-defined
+options. Answer keys mirror the caller's `questions` keys, but after a
 `Sycophant.Serializable` round-trip they are always strings.
 
 Two model routes are available:

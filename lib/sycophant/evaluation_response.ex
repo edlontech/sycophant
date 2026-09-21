@@ -2,16 +2,17 @@ defmodule Sycophant.EvaluationResponse do
   @moduledoc """
   The result of an evaluation request.
 
-  Answers are keyed by the name of the evaluated criterion (e.g. `"urgent"`),
-  with each value a `Sycophant.EvaluationAnswer`.
+  Answer keys mirror the caller's `questions` keys, with each value a
+  `Sycophant.EvaluationAnswer`. A response decoded through
+  `Sycophant.Serializable` always has string answer keys.
 
   ## Examples
 
-      {:ok, response} = Sycophant.evaluate(request)
+      {:ok, response} = Sycophant.evaluate("typesafe:jev-latest", %{ticket: "Refund me"}, %{urgent: %{type: :boolean, instructions: "Is this urgent?"}})
 
-      response.answers["urgent"].type
+      response.answers.urgent.type
       #=> :boolean
-      response.answers["urgent"].probability
+      response.answers.urgent.probability
       #=> 0.93
   """
   use ZoiDefstruct
