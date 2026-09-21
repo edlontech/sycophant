@@ -48,6 +48,9 @@ defmodule Sycophant.RegistryTest do
     test "seeds built-in evaluation protocols" do
       assert {:ok, Sycophant.EvaluationWireProtocol.TypesafeSystemone} =
                Registry.fetch_protocol(:evaluate, :typesafe_systemone)
+
+      assert {:ok, Sycophant.EvaluationWireProtocol.OpenRouterDecisions} =
+               Registry.fetch_protocol(:evaluate, :openrouter_decisions)
     end
   end
 
