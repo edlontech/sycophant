@@ -432,9 +432,16 @@ defmodule Sycophant.ModelResolverTest do
       assert info.wire_adapter == Sycophant.EvaluationWireProtocol.TypesafeSystemone
     end
 
-    test "returns an unsupported protocol error, without raising, before Task 6 registers it" do
-      assert {:error, error} = ModelResolver.resolve_evaluation("openrouter:typesafe/jev-1.13")
-      assert Exception.message(error) =~ "Unsupported evaluate protocol"
+    test "resolves openrouter:typesafe/jev-1.13" do
+      assert {:ok, info} = ModelResolver.resolve_evaluation("openrouter:typesafe/jev-1.13")
+      assert info.wire_adapter == Sycophant.EvaluationWireProtocol.OpenRouterDecisions
+      assert info.base_url == "https://openrouter.ai"
+      assert info.model_id == "typesafe/jev-1.13"
+    end
+
+    test "resolves openrouter:~typesafe/jev-latest" do
+      assert {:ok, info} = ModelResolver.resolve_evaluation("openrouter:~typesafe/jev-latest")
+      assert info.wire_adapter == Sycophant.EvaluationWireProtocol.OpenRouterDecisions
     end
   end
 

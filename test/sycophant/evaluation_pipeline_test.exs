@@ -223,6 +223,34 @@ defmodule Sycophant.EvaluationPipelineTest do
     end
   end
 
+  describe "evaluate/4 with OpenRouter Decisions against the real LLMDB catalog (no stubs)" do
+    test "routes through the OpenRouter Decisions adapter and decodes billed usage cost" do
+      expect(Sycophant.Transport, :call_raw, fn payload, opts ->
+        assert opts[:base_url] == "https://openrouter.ai"
+        assert opts[:path] == "/api/alpha/decisions"
+        assert payload["model"] == "typesafe/jev-1.13"
+
+        body = %{
+          "model" => "typesafe/jev-1.13",
+          "answers" => %{"urgent" => %{"type" => "noul", "noul" => 0.93}},
+          "usage" => %{"input_tokens" => 100, "output_tokens" => 20, "cost" => 0.0000042}
+        }
+
+        {:ok, {body, []}}
+      end)
+
+      assert {:ok, response} =
+               Sycophant.evaluate(
+                 "openrouter:typesafe/jev-1.13",
+                 "state",
+                 %{urgent: %{type: :boolean, instructions: "Is this urgent?"}},
+                 credentials: %{api_key: "k"}
+               )
+
+      assert response.usage.total_cost == 0.0000042
+    end
+  end
+
   describe "call/2 telemetry" do
     setup do
       test_pid = self()

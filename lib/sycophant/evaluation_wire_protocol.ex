@@ -8,6 +8,7 @@ defmodule Sycophant.EvaluationWireProtocol do
   ## Built-in Adapters
 
     * `Sycophant.EvaluationWireProtocol.TypesafeSystemone` - TypeSafe System One evaluation API
+    * `Sycophant.EvaluationWireProtocol.OpenRouterDecisions` - OpenRouter Decisions API
   """
 
   alias Sycophant.EvaluationRequest

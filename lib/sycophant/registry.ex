@@ -37,7 +37,8 @@ defmodule Sycophant.Registry do
     {:chat, :copilot_chat} => Sycophant.WireProtocol.CopilotChat,
     {:embedding, :openai_embed} => Sycophant.EmbeddingWireProtocol.OpenAIEmbed,
     {:embedding, :bedrock_embed} => Sycophant.EmbeddingWireProtocol.BedrockEmbed,
-    {:evaluate, :typesafe_systemone} => Sycophant.EvaluationWireProtocol.TypesafeSystemone
+    {:evaluate, :typesafe_systemone} => Sycophant.EvaluationWireProtocol.TypesafeSystemone,
+    {:evaluate, :openrouter_decisions} => Sycophant.EvaluationWireProtocol.OpenRouterDecisions
   }
 
   @type kind :: :chat | :embedding | :evaluate
