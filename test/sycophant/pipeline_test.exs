@@ -1522,7 +1522,7 @@ defmodule Sycophant.PipelineTest do
                )
     end
 
-    test "preserves temperature for models flagged extra.temperature == true (gpt-4.1)" do
+    test "preserves temperature for models flagged extra.temperature == true (gpt-5.4)" do
       expect(Sycophant.Transport, :call, fn payload, _opts ->
         assert payload["temperature"] == 0.7
         {:ok, fake_openai_response()}
@@ -1530,7 +1530,7 @@ defmodule Sycophant.PipelineTest do
 
       assert {:ok, _} =
                Pipeline.call(copilot_messages(),
-                 model: "github_copilot:gpt-4.1",
+                 model: "github_copilot:gpt-5.4",
                  temperature: 0.7,
                  credentials: %{github_token: "ghp_x"}
                )
@@ -1541,7 +1541,7 @@ defmodule Sycophant.PipelineTest do
 
       assert {:error, %Error.Invalid.InvalidParams{}} =
                Pipeline.call(copilot_messages(),
-                 model: "github_copilot:gpt-4.1",
+                 model: "github_copilot:gpt-5.4",
                  response_schema: schema,
                  credentials: %{github_token: "ghp_x"}
                )
@@ -1555,7 +1555,7 @@ defmodule Sycophant.PipelineTest do
 
       assert {:ok, _} =
                Pipeline.call(copilot_messages(),
-                 model: "github_copilot:gpt-4.1",
+                 model: "github_copilot:gpt-5.4",
                  credentials: %{github_token: "ghp_x"}
                )
     end
