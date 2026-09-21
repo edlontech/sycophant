@@ -96,7 +96,7 @@ questions = %{
     criteria: %{billing: "Billing and payments", support: "Technical support"}
   },
   urgent: %{type: :boolean, instructions: "Does this need immediate attention?"},
-  severity: %{type: :score, instructions: "Rate severity from 1 to 5", criteria: Enum.to_list(1..5)}
+  severity: %{type: :score, instructions: "How severe is this?", criteria: ["minor", "moderate", "severe"]}
 }
 
 {:ok, response} = Sycophant.evaluate("typesafe:jev-latest", %{ticket: "Refund me"}, questions)
