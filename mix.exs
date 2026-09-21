@@ -116,6 +116,15 @@ defmodule Sycophant.MixProject do
           Sycophant.EmbeddingWireProtocol.OpenAIEmbed,
           Sycophant.EmbeddingWireProtocol.BedrockEmbed
         ],
+        Evaluation: [
+          Sycophant.EvaluationPipeline,
+          Sycophant.EvaluationRequest,
+          Sycophant.EvaluationResponse,
+          Sycophant.EvaluationAnswer,
+          Sycophant.EvaluationWireProtocol,
+          Sycophant.EvaluationWireProtocol.TypesafeSystemone,
+          Sycophant.EvaluationWireProtocol.OpenRouterDecisions
+        ],
         Authentication: [
           Sycophant.Auth,
           Sycophant.Auth.Bearer,
@@ -161,6 +170,7 @@ defmodule Sycophant.MixProject do
         Sycophant.Agent,
         Sycophant.WireProtocol,
         Sycophant.EmbeddingWireProtocol,
+        Sycophant.EvaluationWireProtocol,
         Sycophant.Message.Content
       ]
     ]

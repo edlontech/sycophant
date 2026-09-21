@@ -21,6 +21,7 @@ parameter validation are handled automatically based on the model identifier.
 - **Structured output** -- validated against Zoi or JSON Schema
 - **Tool use** -- auto-execution loop or manual handling
 - **Embeddings** -- unified embedding API across providers
+- **Evaluation models** -- boolean, choice, and score judgments against an arbitrary state
 - **Multi-turn conversations** -- extract context from a response to continue
 - **Automatic cost calculation** -- token costs from LLMDB pricing data
 - **Telemetry** -- `:telemetry` events with optional OpenTelemetry bridge
@@ -86,6 +87,38 @@ request = %Sycophant.EmbeddingRequest{
 {:ok, response} = Sycophant.embed(request)
 ```
 
+```elixir
+# Evaluation: score a state against typed questions
+questions = %{
+  department: %{
+    type: :choice,
+    instructions: "Which team should handle this ticket?",
+    criteria: %{billing: "Billing and payments", support: "Technical support"}
+  },
+  urgent: %{type: :boolean, instructions: "Does this need immediate attention?"},
+  severity: %{type: :score, instructions: "Rate severity from 1 to 5", criteria: Enum.to_list(1..5)}
+}
+
+{:ok, response} = Sycophant.evaluate("typesafe:jev-latest", %{ticket: "Refund me"}, questions)
+response.answers.department.value
+#=> "billing"
+response.answers.urgent.probability
+#=> 0.93
+```
+
+Evaluation is not a chat API: no messages, no streaming. `:boolean` answers
+expose only `probability` (no `value`); `:choice` answer values and
+probabilities are always strings, since they name provider-defined options.
+Answer keys mirror the caller's `questions` keys, but after a
+`Sycophant.Serializable` round-trip they are always strings.
+
+Two model routes are available:
+
+- `typesafe:jev-latest` -- direct TypeSafe System One, needs `TYPESAFE_API_KEY`.
+- `openrouter:typesafe/jev-1.13` -- via OpenRouter, needs `OPENROUTER_API_KEY`.
+  Reports billed cost in `response.usage.total_cost`; the direct TypeSafe
+  route leaves it `nil`.
+
 ## Installation
 
 Add `sycophant` to your list of dependencies in `mix.exs`:
@@ -126,6 +159,7 @@ API reference.
 | Azure AI Foundry | `azure:` | Bearer / API key | OpenAI Completions |
 | OpenRouter | `openrouter:` | Bearer token | OpenAI Completions |
 | GitHub Copilot | `github_copilot:` | GitHub token (managed exchange) | OpenAI Completions |
+| TypeSafe (evaluation only) | `typesafe:` | Bearer token | System One |
 
 ## Acknowledgements
 
