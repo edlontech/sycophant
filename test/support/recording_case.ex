@@ -83,8 +83,18 @@ defmodule Sycophant.RecordingCase do
   Reads `:test_embedding_models` from app config. Filters by `RECORD_MODELS`
   env var the same way as `test_models/1`.
   """
-  def test_embedding_models do
-    all_entries = Application.get_env(:sycophant, :test_embedding_models, [])
+  def test_embedding_models, do: filtered_models(:test_embedding_models)
+
+  @doc """
+  Returns the filtered list of test evaluation model parameterization maps.
+
+  Reads `:test_evaluation_models` from app config. Filters by `RECORD_MODELS`
+  env var the same way as `test_models/1`.
+  """
+  def test_evaluation_models, do: filtered_models(:test_evaluation_models)
+
+  defp filtered_models(config_key) do
+    all_entries = Application.get_env(:sycophant, config_key, [])
 
     entries = filter_by_env(all_entries)
 

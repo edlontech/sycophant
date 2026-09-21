@@ -39,3 +39,5 @@ config :sycophant, :test_models, [
 config :sycophant, :test_embedding_models, [
   %{model: "amazon_bedrock:cohere.embed-v4"}
 ]
+
+config :sycophant, :test_evaluation_models, []
