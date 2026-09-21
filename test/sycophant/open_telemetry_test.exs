@@ -41,6 +41,17 @@ defmodule Sycophant.OpenTelemetryTest do
                "expected handler for [:sycophant, :embedding, #{phase}]"
       end
     end
+
+    test "attaches handlers for all evaluation event phases" do
+      OpenTelemetry.setup()
+
+      for phase <- [:start, :stop, :error] do
+        handlers = :telemetry.list_handlers([:sycophant, :evaluation, phase])
+
+        assert Enum.any?(handlers, &(&1.id == "sycophant-otel-evaluation")),
+               "expected handler for [:sycophant, :evaluation, #{phase}]"
+      end
+    end
   end
 
   describe "teardown/0" do
@@ -53,11 +64,20 @@ defmodule Sycophant.OpenTelemetryTest do
 
       embedding_handlers = :telemetry.list_handlers([:sycophant, :embedding, :start])
       refute Enum.any?(embedding_handlers, &(&1.id == "sycophant-otel-embedding"))
+
+      evaluation_handlers = :telemetry.list_handlers([:sycophant, :evaluation, :start])
+      refute Enum.any?(evaluation_handlers, &(&1.id == "sycophant-otel-evaluation"))
     end
 
     test "is idempotent" do
       assert :ok = OpenTelemetry.teardown()
       assert :ok = OpenTelemetry.teardown()
+    end
+
+    test "a second setup after teardown does not raise :already_exists" do
+      OpenTelemetry.setup()
+      OpenTelemetry.teardown()
+      assert :ok = OpenTelemetry.setup()
     end
   end
 
@@ -312,6 +332,80 @@ defmodule Sycophant.OpenTelemetryTest do
       assert :ok =
                OpenTelemetry.handle_embedding_event(
                  [:sycophant, :embedding, :error],
+                 %{duration: 100},
+                 metadata,
+                 config
+               )
+    end
+
+    test "evaluation start handler calls start_telemetry_span" do
+      stub(OpentelemetryTelemetry, :start_telemetry_span, fn _tracer, _name, _meta, _opts ->
+        :undefined
+      end)
+
+      metadata = %{
+        model: "openrouter:decisions-1",
+        provider: :openrouter,
+        question_count: 3
+      }
+
+      measurements = %{system_time: System.system_time()}
+      config = %{attribute_mapper: nil}
+
+      assert :ok =
+               OpenTelemetry.handle_evaluation_event(
+                 [:sycophant, :evaluation, :start],
+                 measurements,
+                 metadata,
+                 config
+               )
+    end
+
+    test "evaluation stop handler calls set_current and end_telemetry_span" do
+      stub(OpentelemetryTelemetry, :set_current_telemetry_span, fn _tracer, _meta ->
+        :undefined
+      end)
+
+      stub(OpentelemetryTelemetry, :end_telemetry_span, fn _tracer, _meta -> :ok end)
+
+      metadata = %{
+        model: "openrouter:decisions-1",
+        provider: :openrouter,
+        question_count: 3,
+        usage: %{input_tokens: 50, output_tokens: 10}
+      }
+
+      config = %{attribute_mapper: nil}
+
+      assert :ok =
+               OpenTelemetry.handle_evaluation_event(
+                 [:sycophant, :evaluation, :stop],
+                 %{duration: 200},
+                 metadata,
+                 config
+               )
+    end
+
+    test "evaluation error handler sets error status" do
+      stub(OpentelemetryTelemetry, :set_current_telemetry_span, fn _tracer, _meta ->
+        :undefined
+      end)
+
+      stub(OpentelemetryTelemetry, :end_telemetry_span, fn _tracer, _meta -> :ok end)
+
+      metadata = %{
+        model: "openrouter:decisions-1",
+        provider: :openrouter,
+        question_count: 3,
+        error_class: :invalid,
+        error: %{message: "bad question"}
+      }
+
+      config = %{attribute_mapper: nil}
+
+      assert :ok =
+               OpenTelemetry.handle_evaluation_event(
+                 [:sycophant, :evaluation, :error],
                  %{duration: 100},
                  metadata,
                  config

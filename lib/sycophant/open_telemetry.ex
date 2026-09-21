@@ -2,8 +2,9 @@ defmodule Sycophant.OpenTelemetry do
   @moduledoc """
   OpenTelemetry bridge for Sycophant telemetry events.
 
-  Attaches `:telemetry` handlers that translate Sycophant request and embedding
-  events into OpenTelemetry spans following the GenAI semantic conventions.
+  Attaches `:telemetry` handlers that translate Sycophant request, embedding,
+  and evaluation events into OpenTelemetry spans following the GenAI semantic
+  conventions.
 
   ## Setup
 
@@ -40,8 +41,15 @@ defmodule Sycophant.OpenTelemetry do
 
   @embedding_events [@embedding_start, @embedding_stop, @embedding_error]
 
+  @evaluation_start [:sycophant, :evaluation, :start]
+  @evaluation_stop [:sycophant, :evaluation, :stop]
+  @evaluation_error [:sycophant, :evaluation, :error]
+
+  @evaluation_events [@evaluation_start, @evaluation_stop, @evaluation_error]
+
   @request_handler_id "sycophant-otel-request"
   @embedding_handler_id "sycophant-otel-embedding"
+  @evaluation_handler_id "sycophant-otel-evaluation"
 
   @doc """
   Attaches OpenTelemetry handlers to Sycophant telemetry events.
@@ -75,6 +83,13 @@ defmodule Sycophant.OpenTelemetry do
         config
       )
 
+      :telemetry.attach_many(
+        @evaluation_handler_id,
+        @evaluation_events,
+        &handle_evaluation_event/4,
+        config
+      )
+
       :ok
     else
       Logger.warning("opentelemetry_telemetry not available, Sycophant OTel bridge disabled")
@@ -87,6 +102,7 @@ defmodule Sycophant.OpenTelemetry do
   def teardown do
     :telemetry.detach(@request_handler_id)
     :telemetry.detach(@embedding_handler_id)
+    :telemetry.detach(@evaluation_handler_id)
     :ok
   rescue
     _ -> :ok
@@ -147,6 +163,37 @@ defmodule Sycophant.OpenTelemetry do
   end
 
   def handle_embedding_event(@embedding_error, _measurements, metadata, config) do
+    if otel_available?() do
+      Sycophant.OpenTelemetry.Handlers.handle_error(metadata, config)
+    else
+      :ok
+    end
+  end
+
+  @doc false
+  def handle_evaluation_event(@evaluation_start, measurements, metadata, config) do
+    if otel_available?() do
+      Sycophant.OpenTelemetry.Handlers.handle_start(
+        "sycophant.evaluation",
+        "evaluate",
+        measurements,
+        metadata,
+        config
+      )
+    else
+      :ok
+    end
+  end
+
+  def handle_evaluation_event(@evaluation_stop, _measurements, metadata, config) do
+    if otel_available?() do
+      Sycophant.OpenTelemetry.Handlers.handle_stop(metadata, config)
+    else
+      :ok
+    end
+  end
+
+  def handle_evaluation_event(@evaluation_error, _measurements, metadata, config) do
     if otel_available?() do
       Sycophant.OpenTelemetry.Handlers.handle_error(metadata, config)
     else
