@@ -32,6 +32,21 @@ defmodule Sycophant.Telemetry do
     * `[:sycophant, :embedding, :stop]` - Embedding request succeeds.
     * `[:sycophant, :embedding, :error]` - Embedding request fails.
 
+  ## Evaluation Events
+
+    * `[:sycophant, :evaluation, :start]` - Evaluation request begins.
+      Measurements: `%{system_time: integer}`.
+      Metadata: `%{model, provider, question_count}`.
+
+    * `[:sycophant, :evaluation, :stop]` - Evaluation request succeeds.
+      Measurements: `%{duration: integer}` (native time units).
+      Metadata: start metadata merged with `%{duration, usage}`.
+      `usage` is `%{input_tokens:, output_tokens:}` or `nil`.
+
+    * `[:sycophant, :evaluation, :error]` - Evaluation request fails.
+      Measurements: `%{duration: integer}` (native time units).
+      Metadata: start metadata merged with `%{error, error_class}`.
+
   ## Attaching Handlers
 
       :telemetry.attach_many("sycophant-logger", Sycophant.Telemetry.events(), &handle_event/4, nil)

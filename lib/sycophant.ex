@@ -135,6 +135,8 @@ defmodule Sycophant do
   alias Sycophant.Context
   alias Sycophant.EmbeddingRequest
   alias Sycophant.EmbeddingResponse
+  alias Sycophant.EvaluationRequest
+  alias Sycophant.EvaluationResponse
   alias Sycophant.Message
   alias Sycophant.Response
 
@@ -260,5 +262,53 @@ defmodule Sycophant do
           {:ok, EmbeddingResponse.t()} | {:error, Splode.Error.t()}
   def embed(%EmbeddingRequest{} = request, opts \\ []) do
     Sycophant.EmbeddingPipeline.call(request, opts)
+  end
+
+  @doc """
+  Evaluates a `state` against a set of `questions` using an evaluation model.
+
+  Each entry in `questions` is one of three shapes:
+
+    * `:boolean` - `%{type: :boolean, instructions: content}`
+    * `:choice` - `%{type: :choice, instructions: content, criteria: %{option => content}}`
+    * `:score` - `%{type: :score, instructions: content, criteria: [content]}`
+
+  Where `content` is a string, map, or list. `state` is the arbitrary
+  JSON-encodable value under evaluation (a transcript, a ticket, a
+  conversation).
+
+  ## Examples
+
+      questions = %{
+        department: %{
+          type: :choice,
+          instructions: "Which team should handle this ticket?",
+          criteria: %{billing: "Billing and payments", support: "Technical support"}
+        },
+        urgent: %{type: :boolean, instructions: "Does this need immediate attention?"},
+        severity: %{type: :score, instructions: "Rate severity from 1 to 5", criteria: 1..5 |> Enum.to_list()}
+      }
+
+      {:ok, response} = Sycophant.evaluate("typesafe:jev-latest", %{ticket: "Refund me"}, questions)
+      response.answers.department.value
+      #=> "billing"
+      response.answers.urgent.probability
+      #=> 0.93
+
+  Answer keys mirror the caller's `questions` keys: atom keys in, atom keys
+  out; string keys in, string keys out. An id the provider returns that the
+  caller did not ask for stays a string, since remote ids are never turned
+  into atoms. After a `Sycophant.Serializable` round-trip (e.g. loading a
+  persisted response), answer keys are always strings. `:boolean` answers
+  expose only `probability` (no `value`); `:choice` answer `value` and
+  `probabilities` keys are always strings, since they name provider-defined
+  options rather than caller-supplied atoms.
+  """
+  @spec evaluate(model_ref(), String.t() | map() | list(), map(), keyword()) ::
+          {:ok, EvaluationResponse.t()} | {:error, Splode.Error.t()}
+  def evaluate(model, state, questions, opts \\ []) do
+    with {:ok, request} <- EvaluationRequest.new(model, state, questions) do
+      Sycophant.EvaluationPipeline.call(request, opts)
+    end
   end
 end
