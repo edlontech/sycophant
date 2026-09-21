@@ -9,6 +9,7 @@ defmodule Sycophant.Serializable do
   @doc "Converts a Sycophant struct into a plain map with a `__type__` discriminator."
   @spec to_map(struct()) :: map()
   def to_map(%Tool{} = tool), do: encode_tool(tool)
+  def to_map(%Sycophant.EvaluationResponse{} = response), do: encode_evaluation_response(response)
   def to_map(%_{} = struct), do: struct |> Map.from_struct() |> encode_fields()
 
   defp encode_fields(map) do
@@ -62,6 +63,17 @@ defmodule Sycophant.Serializable do
       do: Map.put(base, "schema_source", Atom.to_string(tool.schema_source)),
       else: base
   end
+
+  defp encode_evaluation_response(%Sycophant.EvaluationResponse{} = response) do
+    encoded =
+      response
+      |> Map.from_struct()
+      |> Map.delete(:answers)
+      |> encode_fields()
+
+    answers = Map.new(response.answers, fn {k, v} -> {to_string(k), to_map(v)} end)
+    Map.put(encoded, "answers", answers)
+  end
 end
 
 defmodule Sycophant.Serializable.Decoder do
@@ -87,6 +99,8 @@ defmodule Sycophant.Serializable.Decoder do
     "EmbeddingParams" => Sycophant.EmbeddingParams,
     "EmbeddingRequest" => Sycophant.EmbeddingRequest,
     "EmbeddingResponse" => Sycophant.EmbeddingResponse,
+    "EvaluationAnswer" => Sycophant.EvaluationAnswer,
+    "EvaluationResponse" => Sycophant.EvaluationResponse,
     "Tool" => Sycophant.Tool,
     "Message" => Sycophant.Message,
     "Context" => Sycophant.Context,
@@ -137,6 +151,9 @@ defmodule Sycophant.Serializable.Decoder do
 
   defp decode_typed(Sycophant.EmbeddingResponse, data, _opts),
     do: Sycophant.EmbeddingResponse.decode(data)
+
+  defp decode_typed(Sycophant.EvaluationResponse, data, _opts),
+    do: Sycophant.EvaluationResponse.decode(data)
 
   # Default: pure schema-driven decode.
   defp decode_typed(module, data, _opts), do: Zoi.parse!(module.t(), data)
