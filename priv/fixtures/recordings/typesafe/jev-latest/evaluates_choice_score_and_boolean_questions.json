@@ -1,0 +1,123 @@
+{
+  "metadata": {
+    "model": "jev-latest",
+    "provider": "api.typesafe.ai",
+    "recorded_at": "2026-09-21T19:21:16.801094Z",
+    "sycophant_version": "0.5.1"
+  },
+  "request": {
+    "body": {
+      "model": "jev-latest",
+      "questions": {
+        "department": {
+          "criteria": {
+            "billing": "Billing and payments",
+            "support": "Technical support"
+          },
+          "instructions": "Which team should handle this ticket?",
+          "type": "choice"
+        },
+        "severity": {
+          "criteria": [
+            "1 - trivial",
+            "2 - minor",
+            "3 - moderate",
+            "4 - major",
+            "5 - critical"
+          ],
+          "instructions": "Rate the severity of this ticket from 1 to 5",
+          "type": "score"
+        },
+        "urgent": {
+          "instructions": "Does this need immediate attention?",
+          "type": "noul"
+        }
+      },
+      "state": {
+        "ticket": "Please refund me today, this is the third time I ask"
+      }
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.typesafe.ai/v1/systemone"
+  },
+  "response": {
+    "body": {
+      "answers": {
+        "department": {
+          "choice": "billing",
+          "confidence": 1.0,
+          "probabilities": {
+            "billing": 1.0,
+            "support": 0.0
+          },
+          "type": "choice"
+        },
+        "severity": {
+          "confidence": 0.73,
+          "legend": {
+            "0": "1 - trivial",
+            "1": "2 - minor",
+            "2": "3 - moderate",
+            "3": "4 - major",
+            "4": "5 - critical"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.07,
+            "2": 0.6900000000000001,
+            "3": 0.24,
+            "4": 0.0
+          },
+          "score": 2.17,
+          "type": "score"
+        },
+        "urgent": {
+          "noul": 0.86,
+          "type": "noul"
+        }
+      },
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 406,
+        "output_tokens": 61
+      }
+    },
+    "headers": [
+      [
+        "date",
+        "Mon, 21 Sep 2026 19:21:15 GMT"
+      ],
+      [
+        "server",
+        "istio-envoy"
+      ],
+      [
+        "content-length",
+        "465"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "x-typesafe-request-id",
+        "req_01a0c56a5a687e0abf01138549b69bad"
+      ],
+      [
+        "x-envoy-upstream-service-time",
+        "145"
+      ]
+    ],
+    "status": 200
+  }
+}
