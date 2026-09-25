@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.6.0](https://github.com/edlontech/sycophant/compare/sycophant-v0.5.1...sycophant-v0.6.0) (2026-09-25)
+
+
+### Features
+
+* **evaluation:** add EvaluationAnswer and EvaluationResponse structs ([32187c7](https://github.com/edlontech/sycophant/commit/32187c7d59a38adfb28d08a8d2cbc4b59ffad0b3))
+* **evaluation:** add EvaluationRequest with question validation ([d7ea943](https://github.com/edlontech/sycophant/commit/d7ea943107cb4fd6dea3413c3d62fcd608e9b854))
+* **evaluation:** add EvaluationWireProtocol and TypeSafe System One adapter ([4b17c91](https://github.com/edlontech/sycophant/commit/4b17c91f1c7e8441c86ecb5b036e34acadedd61f))
+* **evaluation:** add Sycophant.evaluate/4 and the evaluation pipeline ([b1ccb3d](https://github.com/edlontech/sycophant/commit/b1ccb3d797031dee6398b90b7c1d9435ae14213e))
+* **evaluation:** resolve evaluation models and reject chat calls on non-chat models ([a9e370b](https://github.com/edlontech/sycophant/commit/a9e370b65cffc6b34047f8c81694c6d653cfef01))
+* **openrouter:** add Decisions adapter for evaluation models ([c682e86](https://github.com/edlontech/sycophant/commit/c682e86a4f41d5cdaf0b954b187e657c8a4b4fa8))
+* **otel:** translate evaluation telemetry into OpenTelemetry spans ([4d6904b](https://github.com/edlontech/sycophant/commit/4d6904b706b7acc5a4b69e251d11fcc2503c4cd6))
+* **provider:** Added support to WanDB ([0639ec6](https://github.com/edlontech/sycophant/commit/0639ec6d53834da8de0e33e3bbbd435f17b9b25e))
+
 ## [0.5.1](https://github.com/edlontech/sycophant/compare/sycophant-v0.5.0...sycophant-v0.5.1) (2026-08-04)
 
 
