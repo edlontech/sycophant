@@ -126,7 +126,7 @@ Add `sycophant` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:sycophant, "~> 0.5.1"} # x-release-please-version
+    {:sycophant, "~> 0.6.0"} # x-release-please-version
   ]
 end
 ```
