@@ -1,0 +1,126 @@
+{
+  "metadata": {
+    "model": "openai/gpt-oss-120b",
+    "provider": "api.inference.wandb.ai",
+    "recorded_at": "2026-09-25T12:16:20.766564Z",
+    "sycophant_version": "0.5.1"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "What's the weather in Paris? You must call the get_weather tool with city=\"Paris\" to answer.",
+          "role": "user"
+        },
+        {
+          "content": null,
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "function": {
+                "arguments": "{\"city\":\"Paris\"}",
+                "name": "get_weather"
+              },
+              "id": "call-403fbaad-eae9-411a-af0c-ddf0e7fb3ecf",
+              "type": "function"
+            }
+          ]
+        },
+        {
+          "content": "Paris: 22C, sunny",
+          "role": "tool",
+          "tool_call_id": "call-403fbaad-eae9-411a-af0c-ddf0e7fb3ecf"
+        }
+      ],
+      "model": "openai/gpt-oss-120b",
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather for a city. Returns temperature and conditions.",
+            "name": "get_weather",
+            "parameters": {
+              "additionalProperties": false,
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.inference.wandb.ai/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "The current weather in Paris is **22 °C** and it’s sunny.",
+            "reasoning": null,
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1790338579,
+      "id": "chatcmpl-6bd96ddf-02bf-4462-9682-1c8bcfac5d80",
+      "model": "openai/gpt-oss-120b",
+      "object": "chat.completion",
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "completion_tokens": 20,
+        "prompt_tokens": 186,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 32
+        },
+        "total_tokens": 206
+      }
+    },
+    "headers": [
+      [
+        "date",
+        "Fri, 25 Sep 2026 12:16:20 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "a409f59b1de52c45-PRG"
+      ]
+    ],
+    "status": 200
+  }
+}

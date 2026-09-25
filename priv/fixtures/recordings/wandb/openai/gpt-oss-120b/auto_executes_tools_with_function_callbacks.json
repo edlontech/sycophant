@@ -1,0 +1,117 @@
+{
+  "metadata": {
+    "model": "openai/gpt-oss-120b",
+    "provider": "api.inference.wandb.ai",
+    "recorded_at": "2026-09-25T12:16:19.679247Z",
+    "sycophant_version": "0.5.1"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "What's the weather in Paris? You must call the get_weather tool with city=\"Paris\" to answer.",
+          "role": "user"
+        }
+      ],
+      "model": "openai/gpt-oss-120b",
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather for a city. Returns temperature and conditions.",
+            "name": "get_weather",
+            "parameters": {
+              "additionalProperties": false,
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.inference.wandb.ai/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "tool_calls",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": null,
+            "reasoning": "The user explicitly asks to call get_weather. We must do that.",
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "function": {
+                  "arguments": "{\"city\":\"Paris\"}",
+                  "name": "get_weather"
+                },
+                "id": "call-403fbaad-eae9-411a-af0c-ddf0e7fb3ecf",
+                "type": "function"
+              }
+            ]
+          }
+        }
+      ],
+      "created": 1790338578,
+      "id": "chatcmpl-e2ac37df-e9fb-4fea-afb9-aad600bfb881",
+      "model": "openai/gpt-oss-120b",
+      "object": "chat.completion",
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "completion_tokens": 42,
+        "prompt_tokens": 146,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 64
+        },
+        "total_tokens": 188
+      }
+    },
+    "headers": [
+      [
+        "date",
+        "Fri, 25 Sep 2026 12:16:19 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "a409f5911b402c45-PRG"
+      ]
+    ],
+    "status": 200
+  }
+}

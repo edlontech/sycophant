@@ -102,6 +102,16 @@ defmodule Sycophant.ModelResolverTest do
   end
 
   describe "wire protocol mapping" do
+    test "resolves a packaged W&B model with the chat completions adapter" do
+      assert {:ok, info} = ModelResolver.resolve("wandb:openai/gpt-oss-120b")
+      assert info.provider == :wandb
+      assert info.model_id == "openai/gpt-oss-120b"
+      assert info.base_url == "https://api.inference.wandb.ai/v1"
+      assert info.env_vars == ["WANDB_API_KEY"]
+      assert info.wire_adapter == Sycophant.WireProtocol.OpenAICompletions
+      assert info.wire_adapter.request_path(nil) == "/chat/completions"
+    end
+
     test "maps openai_completion to OpenAICompletions adapter" do
       model = build_model(%{extra: %{wire: %{protocol: "openai_completion"}}})
       provider = build_provider()

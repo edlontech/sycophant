@@ -1,0 +1,129 @@
+{
+  "metadata": {
+    "model": "openai/gpt-oss-120b",
+    "provider": "api.inference.wandb.ai",
+    "recorded_at": "2026-09-25T12:16:21.517117Z",
+    "sycophant_version": "0.5.1"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "You are a helpful assistant. Be concise.",
+          "role": "system"
+        },
+        {
+          "content": "Hi! I'm planning a trip to London.",
+          "role": "user"
+        },
+        {
+          "content": "Hi! That’s exciting. How can I help—travel tips, itinerary ideas, or a quick weather forecast for London?",
+          "role": "assistant"
+        },
+        {
+          "content": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer.",
+          "role": "user"
+        }
+      ],
+      "model": "openai/gpt-oss-120b",
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather for a city. Returns temperature and conditions.",
+            "name": "get_weather",
+            "parameters": {
+              "additionalProperties": false,
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.inference.wandb.ai/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "tool_calls",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": null,
+            "reasoning": "We must call get_weather function.",
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "function": {
+                  "arguments": "{\"city\":\"London\"}",
+                  "name": "get_weather"
+                },
+                "id": "call-7aa8c977-6973-460e-805d-d071b890cd55",
+                "type": "function"
+              }
+            ]
+          }
+        }
+      ],
+      "created": 1790338580,
+      "id": "chatcmpl-4afdfc65-88ee-48c2-8fa9-4bc75beeb2a8",
+      "model": "openai/gpt-oss-120b",
+      "object": "chat.completion",
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "completion_tokens": 35,
+        "prompt_tokens": 203,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 32
+        },
+        "total_tokens": 238
+      }
+    },
+    "headers": [
+      [
+        "date",
+        "Fri, 25 Sep 2026 12:16:21 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "a409f59dcda92c45-PRG"
+      ]
+    ],
+    "status": 200
+  }
+}

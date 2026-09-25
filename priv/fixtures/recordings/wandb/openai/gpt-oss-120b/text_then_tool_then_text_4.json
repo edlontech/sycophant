@@ -1,0 +1,146 @@
+{
+  "metadata": {
+    "model": "openai/gpt-oss-120b",
+    "provider": "api.inference.wandb.ai",
+    "recorded_at": "2026-09-25T12:16:25.413198Z",
+    "sycophant_version": "0.5.1"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "You are a helpful assistant. Be concise.",
+          "role": "system"
+        },
+        {
+          "content": "Hi! I'm planning a trip to London.",
+          "role": "user"
+        },
+        {
+          "content": "Hi! That’s exciting. How can I help—travel tips, itinerary ideas, or a quick weather forecast for London?",
+          "role": "assistant"
+        },
+        {
+          "content": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer.",
+          "role": "user"
+        },
+        {
+          "content": null,
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "function": {
+                "arguments": "{\"city\":\"London\"}",
+                "name": "get_weather"
+              },
+              "id": "call-7aa8c977-6973-460e-805d-d071b890cd55",
+              "type": "function"
+            }
+          ]
+        },
+        {
+          "content": "London: 18C, cloudy",
+          "role": "tool",
+          "tool_call_id": "call-7aa8c977-6973-460e-805d-d071b890cd55"
+        },
+        {
+          "content": "London’s current weather is **18 °C**, **cloudy**. Enjoy your trip!",
+          "role": "assistant"
+        },
+        {
+          "content": "Thanks! Should I bring an umbrella?",
+          "role": "user"
+        }
+      ],
+      "model": "openai/gpt-oss-120b",
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather for a city. Returns temperature and conditions.",
+            "name": "get_weather",
+            "parameters": {
+              "additionalProperties": false,
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.inference.wandb.ai/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "It’s cloudy and around 18 °C—London’s weather can turn rainy even when it looks dry. It’s a good idea to bring a compact umbrella (or a waterproof jacket) just in case. Enjoy your trip!",
+            "reasoning": "The user asks if they should bring an umbrella. Weather is currently cloudy, 18C. Could possibly rain. Provide suggestion: Check forecast, but given current cloudy temperature suggests possible rain, recommend bringing an umbrella, especially in London. Provide concise answer.",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1790338582,
+      "id": "chatcmpl-1535d987-59b2-4f4c-9be2-5a77593d570f",
+      "model": "openai/gpt-oss-120b",
+      "object": "chat.completion",
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "completion_tokens": 107,
+        "prompt_tokens": 280,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 64
+        },
+        "total_tokens": 387
+      }
+    },
+    "headers": [
+      [
+        "date",
+        "Fri, 25 Sep 2026 12:16:25 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "a409f5ae88d52c45-PRG"
+      ]
+    ],
+    "status": 200
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "metadata": {
+    "model": "openai/gpt-oss-120b",
+    "provider": "api.inference.wandb.ai",
+    "recorded_at": "2026-09-25T12:16:20.109082Z",
+    "sycophant_version": "0.5.1"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "You are a helpful assistant. Be concise.",
+          "role": "system"
+        },
+        {
+          "content": "Hi! I'm planning a trip to London.",
+          "role": "user"
+        }
+      ],
+      "model": "openai/gpt-oss-120b",
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather for a city. Returns temperature and conditions.",
+            "name": "get_weather",
+            "parameters": {
+              "additionalProperties": false,
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.inference.wandb.ai/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "Hi! That’s exciting. How can I help—travel tips, itinerary ideas, or a quick weather forecast for London?",
+            "reasoning": "User says \"Hi! I'm planning a trip to London.\" We should respond. Probably ask about what they need: weather, recommendations, etc. Be concise.",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1790338578,
+      "id": "chatcmpl-67a40e3a-5970-40a9-afff-461204d3cfcb",
+      "model": "openai/gpt-oss-120b",
+      "object": "chat.completion",
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "completion_tokens": 67,
+        "prompt_tokens": 146,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 32
+        },
+        "total_tokens": 213
+      }
+    },
+    "headers": [
+      [
+        "date",
+        "Fri, 25 Sep 2026 12:16:20 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "a409f5911b3a2c45-PRG"
+      ]
+    ],
+    "status": 200
+  }
+}

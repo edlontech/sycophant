@@ -90,6 +90,7 @@ defmodule Sycophant.Config do
   """
   @wire_protocol_defaults %{
     openrouter: %{chat: :openai_responses},
+    wandb: %{chat: :openai_chat},
     openai: %{embedding: :openai_embed},
     anthropic: %{chat: :anthropic_messages},
     google: %{chat: :google_gemini},

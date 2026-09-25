@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "model": "openai/gpt-oss-120b",
+    "provider": "api.inference.wandb.ai",
+    "recorded_at": "2026-09-25T12:16:19.679307Z",
+    "streaming": true,
+    "sycophant_version": "0.5.1"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "What's the weather in Paris? Use the get_weather tool.",
+          "role": "user"
+        }
+      ],
+      "model": "openai/gpt-oss-120b",
+      "stream": true,
+      "stream_options": {
+        "include_usage": true
+      },
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather for a city. Returns temperature and conditions.",
+            "name": "get_weather",
+            "parameters": {
+              "additionalProperties": false,
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "type": "object"
+            },
+            "strict": true
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.inference.wandb.ai/v1/chat/completions"
+  },
+  "response": {
+    "body": "data: {\"id\":\"chatcmpl-d11785ab-f319-406d-8b1f-5be104372543\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"reasoning\":\"We\"},\"finish_reason\":null,\"logprobs\":null}],\"created\":1790338578,\"model\":\"openai/gpt-oss-120b\",\"service_tier\":null,\"system_fingerprint\":null,\"object\":\"chat.completion.chunk\",\"usage\":null}\n\ndata: {\"id\":\"chatcmpl-d11785ab-f319-406d-8b1f-5be104372543\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"reasoning\":\" need\"},\"finish_reason\":null,\"logprobs\":null}],\"created\":1790338578,\"model\":\"openai/gpt-oss-120b\",\"service_tier\":null,\"system_fingerprint\":null,\"object\":\"chat.completion.chunk\",\"usage\":null}\n\ndata: {\"id\":\"chatcmpl-d11785ab-f319-406d-8b1f-5be104372543\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"reasoning\":\" to\"},\"finish_reason\":null,\"logprobs\":null}],\"created\":1790338578,\"model\":\"openai/gpt-oss-120b\",\"service_tier\":null,\"system_fingerprint\":null,\"object\":\"chat.completion.chunk\",\"usage\":null}\n\ndata: {\"id\":\"chatcmpl-d11785ab-f319-406d-8b1f-5be104372543\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"reasoning\":\" call\"},\"finish_reason\":null,\"logprobs\":null}],\"created\":1790338578,\"model\":\"openai/gpt-oss-120b\",\"service_tier\":null,\"system_fingerprint\":null,\"object\":\"chat.completion.chunk\",\"usage\":null}\n\ndata: {\"id\":\"chatcmpl-d11785ab-f319-406d-8b1f-5be104372543\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"reasoning\":\" get\"},\"finish_reason\":null,\"logprobs\":null}],\"created\":1790338578,\"model\":\"openai/gpt-oss-120b\",\"service_tier\":null,\"system_fingerprint\":null,\"object\":\"chat.completion.chunk\",\"usage\":null}\n\ndata: {\"id\":\"chatcmpl-d11785ab-f319-406d-8b1f-5be104372543\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"reasoning\":\"_weather\"},\"finish_reason\":null,\"logprobs\":null}],\"created\":1790338578,\"model\":\"openai/gpt-oss-120b\",\"service_tier\":null,\"system_fingerprint\":null,\"object\":\"chat.completion.chunk\",\"usage\":null}\n\ndata: {\"id\":\"chatcmpl-d11785ab-f319-406d-8b1f-5be104372543\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"reasoning\":\" with\"},\"finish_reason\":null,\"logprobs\":null}],\"created\":1790338578,\"model\":\"openai/gpt-oss-120b\",\"service_tier\":null,\"system_fingerprint\":null,\"object\":\"chat.completion.chunk\",\"usage\":null}\n\ndata: {\"id\":\"chatcmpl-d11785ab-f319-406d-8b1f-5be104372543\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"reasoning\":\" city\"},\"finish_reason\":null,\"logprobs\":null}],\"created\":1790338578,\"model\":\"openai/gpt-oss-120b\",\"service_tier\":null,\"system_fingerprint\":null,\"object\":\"chat.completion.chunk\",\"usage\":null}\n\ndata: {\"id\":\"chatcmpl-d11785ab-f319-406d-8b1f-5be104372543\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"reasoning\":\" \\\"\"},\"finish_reason\":null,\"logprobs\":null}],\"created\":1790338578,\"model\":\"openai/gpt-oss-120b\",\"service_tier\":null,\"system_fingerprint\":null,\"object\":\"chat.completion.chunk\",\"usage\":null}\n\ndata: {\"id\":\"chatcmpl-d11785ab-f319-406d-8b1f-5be104372543\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"reasoning\":\"Paris\"},\"finish_reason\":null,\"logprobs\":null}],\"created\":1790338578,\"model\":\"openai/gpt-oss-120b\",\"service_tier\":null,\"system_fingerprint\":null,\"object\":\"chat.completion.chunk\",\"usage\":null}\n\ndata: {\"id\":\"chatcmpl-d11785ab-f319-406d-8b1f-5be104372543\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"reasoning\":\"\\\".\"},\"finish_reason\":null,\"logprobs\":null}],\"created\":1790338578,\"model\":\"openai/gpt-oss-120b\",\"service_tier\":null,\"system_fingerprint\":null,\"object\":\"chat.completion.chunk\",\"usage\":null}\n\ndata: {\"id\":\"chatcmpl-d11785ab-f319-406d-8b1f-5be104372543\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\",\"tool_calls\":[{\"index\":0,\"id\":\"call-7d45a0dd-bd43-40dd-a459-e733519d6e23\",\"type\":\"function\",\"function\":{\"name\":\"get_weather\",\"arguments\":\"{\\\"city\\\":\\\"Paris\\\"}\"}}],\"role\":\"assistant\"},\"finish_reason\":\"tool_calls\",\"logprobs\":null}],\"created\":1790338578,\"model\":\"openai/gpt-oss-120b\",\"service_tier\":null,\"system_fingerprint\":null,\"object\":\"chat.completion.chunk\",\"usage\":null}\n\ndata: {\"id\":\"chatcmpl-d11785ab-f319-406d-8b1f-5be104372543\",\"choices\":[],\"created\":1790338578,\"model\":\"openai/gpt-oss-120b\",\"service_tier\":null,\"system_fingerprint\":null,\"object\":\"chat.completion.chunk\",\"usage\":{\"prompt_tokens\":137,\"completion_tokens\":39,\"total_tokens\":176,\"prompt_tokens_details\":{\"audio_tokens\":null,\"cached_tokens\":32}}}\n\ndata: [DONE]\n\n",
+    "headers": [
+      [
+        "date",
+        "Fri, 25 Sep 2026 12:16:18 GMT"
+      ],
+      [
+        "content-type",
+        "text/event-stream"
+      ],
+      [
+        "cache-control",
+        "no-cache"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "a409f5911b3e2c45-PRG"
+      ]
+    ],
+    "status": 200
+  }
+}

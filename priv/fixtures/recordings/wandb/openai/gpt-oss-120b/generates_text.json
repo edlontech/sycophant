@@ -1,0 +1,85 @@
+{
+  "metadata": {
+    "model": "openai/gpt-oss-120b",
+    "provider": "api.inference.wandb.ai",
+    "recorded_at": "2026-09-25T11:59:04.393147Z",
+    "sycophant_version": "0.5.1"
+  },
+  "request": {
+    "body": {
+      "messages": [
+        {
+          "content": "Say 'hello' and nothing else.",
+          "role": "user"
+        }
+      ],
+      "model": "openai/gpt-oss-120b"
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.inference.wandb.ai/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "hello",
+            "reasoning": "User asks: \"Say 'hello' and nothing else.\" So respond with just \"hello\". Must not add anything else. Ensure only that word.",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1790337542,
+      "id": "chatcmpl-54e5eb5d-af10-4814-9f2d-bad667cbf7d6",
+      "model": "openai/gpt-oss-120b",
+      "object": "chat.completion",
+      "service_tier": null,
+      "system_fingerprint": null,
+      "usage": {
+        "completion_tokens": 41,
+        "prompt_tokens": 75,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 64
+        },
+        "total_tokens": 116
+      }
+    },
+    "headers": [
+      [
+        "date",
+        "Fri, 25 Sep 2026 11:59:04 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "a409dc486a1fbc98-PRG"
+      ]
+    ],
+    "status": 200
+  }
+}
