@@ -12,6 +12,21 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
   alias Sycophant.WireProtocol.OpenAICompletions
 
   describe "encode_request/1 - messages" do
+    test "drops thinking and redacted thinking parts from assistant messages" do
+      msg =
+        Message.assistant([
+          %Content.Thinking{text: "full reasoning"},
+          %Content.Thinking{summary: "only a summary"},
+          %Content.RedactedThinking{data: "blob"},
+          %Content.Text{text: "hi"}
+        ])
+
+      assert {:ok, payload} = OpenAICompletions.encode_request(build_request([msg]))
+
+      assert [%{"role" => "assistant", "content" => content}] = payload["messages"]
+      assert content == [%{"type" => "text", "text" => "hi"}]
+    end
+
     test "encodes user message with string content" do
       request = build_request([Message.user("hello")])
       assert {:ok, payload} = OpenAICompletions.encode_request(request)

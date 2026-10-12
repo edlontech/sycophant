@@ -79,6 +79,24 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
   end
 
   describe "encode_request/1 - messages" do
+    test "drops summary-only thinking parts and keeps the rest" do
+      msg =
+        Message.assistant([
+          %Content.Thinking{summary: "only a summary"},
+          %Content.Thinking{text: "full reasoning"},
+          %Content.Text{text: "hi"}
+        ])
+
+      assert {:ok, payload} = GoogleGemini.encode_request(build_request([msg]))
+
+      assert [%{"role" => "model", "parts" => parts}] = payload["contents"]
+
+      assert parts == [
+               %{"text" => "full reasoning", "thought" => true},
+               %{"text" => "hi"}
+             ]
+    end
+
     test "encodes user message with parts format" do
       request = build_request([Message.user("hello")])
       assert {:ok, payload} = GoogleGemini.encode_request(request)

@@ -142,6 +142,34 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
       assert fc_item["name"] == "get_weather"
       assert fc_item["arguments"] == ~s({"city":"Paris"})
     end
+
+    test "encodes encrypted-only reasoning with empty summary" do
+      msg = Message.assistant([%Content.RedactedThinking{data: "enc_blob"}])
+      assert {:ok, payload} = OpenAIResponses.encode_request(build_request([msg]))
+
+      assert [reasoning, _assistant] = payload["input"]
+
+      assert reasoning == %{
+               "type" => "reasoning",
+               "summary" => [],
+               "encrypted_content" => "enc_blob"
+             }
+    end
+
+    test "encodes thinking summary as summary_text entries" do
+      msg =
+        Message.assistant([
+          %Content.Thinking{summary: "Short summary"},
+          %Content.RedactedThinking{data: "enc_blob"}
+        ])
+
+      assert {:ok, payload} = OpenAIResponses.encode_request(build_request([msg]))
+
+      assert [reasoning, _assistant] = payload["input"]
+      assert reasoning["summary"] == [%{"type" => "summary_text", "text" => "Short summary"}]
+      assert reasoning["encrypted_content"] == "enc_blob"
+      refute Map.has_key?(reasoning, "content")
+    end
   end
 
   describe "encode_request/1 - tool results" do

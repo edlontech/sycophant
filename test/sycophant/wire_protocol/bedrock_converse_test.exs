@@ -83,6 +83,28 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
   end
 
   describe "encode_request/1 - messages" do
+    test "drops summary-only thinking parts and keeps the rest" do
+      msg =
+        Message.assistant([
+          %Content.Thinking{summary: "only a summary"},
+          %Content.Thinking{text: "full reasoning", signature: "sig"},
+          %Content.Text{text: "hi"}
+        ])
+
+      assert {:ok, payload} = BedrockConverse.encode_request(build_request([msg]))
+
+      assert [%{"role" => "assistant", "content" => content}] = payload["messages"]
+
+      assert content == [
+               %{
+                 "reasoningContent" => %{
+                   "reasoningText" => %{"text" => "full reasoning", "signature" => "sig"}
+                 }
+               },
+               %{"text" => "hi"}
+             ]
+    end
+
     test "encodes user message with text content as array of content blocks" do
       request = build_request([Message.user("hello")])
       assert {:ok, payload} = BedrockConverse.encode_request(request)

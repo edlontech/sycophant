@@ -592,10 +592,19 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   defp encode_reasoning_input_items(parts) do
     content =
       Enum.flat_map(parts, fn
-        %Content.Thinking{text: text} ->
+        %Content.Thinking{text: text} when is_binary(text) ->
           [%{"type" => "reasoning_text", "text" => text}]
 
-        %Content.RedactedThinking{} ->
+        _ ->
+          []
+      end)
+
+    summary =
+      Enum.flat_map(parts, fn
+        %Content.Thinking{summary: summary} when is_binary(summary) ->
+          [%{"type" => "summary_text", "text" => summary}]
+
+        _ ->
           []
       end)
 
@@ -612,7 +621,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
       end)
 
     item =
-      %{"type" => "reasoning"}
+      %{"type" => "reasoning", "summary" => summary}
       |> then(fn i -> if id, do: Map.put(i, "id", id), else: i end)
       |> then(fn i -> if content != [], do: Map.put(i, "content", content), else: i end)
       |> then(fn i -> if encrypted, do: Map.put(i, "encrypted_content", encrypted), else: i end)

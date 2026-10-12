@@ -63,6 +63,24 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
   end
 
   describe "encode_request/1 - messages" do
+    test "drops summary-only thinking parts and keeps the rest" do
+      msg =
+        Message.assistant([
+          %Content.Thinking{summary: "only a summary"},
+          %Content.Thinking{text: "full reasoning", signature: "sig"},
+          %Content.Text{text: "hi"}
+        ])
+
+      assert {:ok, payload} = AnthropicMessages.encode_request(build_request([msg]))
+
+      assert [%{"role" => "assistant", "content" => content}] = payload["messages"]
+
+      assert content == [
+               %{"type" => "thinking", "thinking" => "full reasoning", "signature" => "sig"},
+               %{"type" => "text", "text" => "hi"}
+             ]
+    end
+
     test "encodes user message with string content" do
       request = build_request([Message.user("hello")])
       assert {:ok, payload} = AnthropicMessages.encode_request(request)

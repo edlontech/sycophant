@@ -366,12 +366,18 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
   defp encode_content(content) when is_binary(content), do: {:ok, content}
   defp encode_content(nil), do: {:ok, nil}
 
-  defp encode_content(parts) when is_list(parts),
-    do: reduce_ok(parts, &encode_content_part/1)
+  defp encode_content(parts) when is_list(parts) do
+    with {:ok, encoded} <- reduce_ok(parts, &encode_content_part/1) do
+      {:ok, Enum.reject(encoded, &is_nil/1)}
+    end
+  end
 
   defp encode_content_part(%Content.Text{text: text}) do
     {:ok, %{"type" => "text", "text" => text}}
   end
+
+  defp encode_content_part(%Content.Thinking{}), do: {:ok, nil}
+  defp encode_content_part(%Content.RedactedThinking{}), do: {:ok, nil}
 
   defp encode_content_part(%Content.Image{url: url}) when is_binary(url) do
     {:ok, %{"type" => "image_url", "image_url" => %{"url" => url}}}

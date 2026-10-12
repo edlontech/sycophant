@@ -16,7 +16,13 @@ defmodule Sycophant.Transport do
     * `500+` -> `ServerError`
   """
 
-  alias Sycophant.Error
+  alias Sycophant.Error.Provider.AuthenticationFailed
+  alias Sycophant.Error.Provider.BadRequest
+  alias Sycophant.Error.Provider.ModelNotFound
+  alias Sycophant.Error.Provider.RateLimited
+  alias Sycophant.Error.Provider.ServerError
+  alias Sycophant.Error.Provider.Timeout
+  alias Sycophant.Error.Unknown.Unknown
 
   @doc "Sends a synchronous HTTP POST and returns the decoded body."
   @spec call(map(), keyword()) :: {:ok, map()} | {:error, Splode.Error.t()}
@@ -68,7 +74,7 @@ defmodule Sycophant.Transport do
         {:ok, on_event.(event_stream)}
 
       {:ok, %Tesla.Env{} = env} ->
-        map_error(env)
+        env |> read_error_body() |> map_error()
 
       {:error, reason} ->
         map_connection_error(reason)
@@ -88,7 +94,7 @@ defmodule Sycophant.Transport do
         {:ok, on_chunks.(binary_stream)}
 
       {:ok, %Tesla.Env{} = env} ->
-        map_error(env)
+        env |> read_error_body() |> map_error()
 
       {:error, reason} ->
         map_connection_error(reason)
@@ -182,24 +188,37 @@ defmodule Sycophant.Transport do
     Tesla.client(middlewares, adapter)
   end
 
+  # Streaming adapters return a lazy body even for error statuses. Buffer it
+  # so error structs carry the provider's message instead of an inspected stream.
+  defp read_error_body(%Tesla.Env{body: body} = env)
+       when is_function(body, 2) or is_struct(body, Stream) do
+    chunks = Enum.to_list(body)
+
+    if Enum.all?(chunks, &is_binary/1),
+      do: %{env | body: IO.iodata_to_binary(chunks)},
+      else: %{env | body: chunks}
+  end
+
+  defp read_error_body(env), do: env
+
   defp map_error(%Tesla.Env{status: 401, body: body}) do
-    {:error, Error.Provider.AuthenticationFailed.exception(status: 401, body: inspect(body))}
+    {:error, AuthenticationFailed.exception(status: 401, body: inspect(body))}
   end
 
   defp map_error(%Tesla.Env{status: 429, headers: headers}) do
-    {:error, Error.Provider.RateLimited.exception(retry_after: get_retry_after(headers))}
+    {:error, RateLimited.exception(retry_after: get_retry_after(headers))}
   end
 
   defp map_error(%Tesla.Env{status: 404, body: body}) do
-    {:error, Error.Provider.ModelNotFound.exception(model: inspect(body))}
+    {:error, ModelNotFound.exception(model: inspect(body))}
   end
 
   defp map_error(%Tesla.Env{status: status, body: body}) when status in 400..499 do
-    {:error, Error.Provider.BadRequest.exception(status: status, body: inspect(body))}
+    {:error, BadRequest.exception(status: status, body: inspect(body))}
   end
 
   defp map_error(%Tesla.Env{status: status, body: body}) when status >= 500 do
-    {:error, Error.Provider.ServerError.exception(status: status, body: inspect(body))}
+    {:error, ServerError.exception(status: status, body: inspect(body))}
   end
 
   defp get_retry_after(headers) do
@@ -227,14 +246,14 @@ defmodule Sycophant.Transport do
   @timeout_reasons [:timeout, :connect_timeout, :checkout_timeout]
 
   defp map_connection_error(reason) when reason in @timeout_reasons do
-    {:error, Error.Provider.Timeout.exception(reason: reason)}
+    {:error, Timeout.exception(reason: reason)}
   end
 
   defp map_connection_error({:timeout, detail}) do
-    {:error, Error.Provider.Timeout.exception(reason: {:timeout, detail})}
+    {:error, Timeout.exception(reason: {:timeout, detail})}
   end
 
   defp map_connection_error(reason) do
-    {:error, Error.Unknown.Unknown.exception(error: reason)}
+    {:error, Unknown.exception(error: reason)}
   end
 end

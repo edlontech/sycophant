@@ -21,6 +21,17 @@ defmodule Sycophant.TransportTest do
     end
   end
 
+  defp lazy_body(chunks) do
+    Stream.resource(
+      fn -> chunks end,
+      fn
+        [] -> {:halt, []}
+        [chunk | rest] -> {[chunk], rest}
+      end,
+      fn _ -> :ok end
+    )
+  end
+
   defp call_with(adapter_fn, extra_opts \\ []) do
     opts =
       @base_opts
@@ -194,6 +205,28 @@ defmodule Sycophant.TransportTest do
       assert {:error, %ServerError{status: 500}} = Transport.stream(%{}, opts, on_event)
     end
 
+    test "reads streamed error body before mapping" do
+      error_json = ~s({"error":{"message":"Missing required parameter"}})
+
+      adapter = fn env ->
+        {:ok,
+         %{
+           env
+           | status: 400,
+             body: lazy_body([error_json]),
+             headers: [{"content-type", "application/json"}]
+         }}
+      end
+
+      on_event = fn _ -> flunk("should not be called") end
+      opts = @base_opts |> Keyword.put(:adapter, adapter)
+
+      assert {:error, %BadRequest{status: 400, body: body}} =
+               Transport.stream(%{}, opts, on_event)
+
+      assert body =~ "Missing required parameter"
+    end
+
     test "maps timeout to Timeout" do
       adapter = fn _env -> {:error, :timeout} end
       on_event = fn _ -> flunk("should not be called") end
@@ -206,6 +239,22 @@ defmodule Sycophant.TransportTest do
       on_event = fn _ -> flunk("should not be called") end
       opts = @base_opts |> Keyword.put(:adapter, adapter)
       assert {:error, %Unknown{}} = Transport.stream(%{}, opts, on_event)
+    end
+  end
+
+  describe "stream_binary/3" do
+    test "reads streamed error body before mapping" do
+      adapter = fn env ->
+        {:ok, %{env | status: 500, body: lazy_body(["upstream ", "failed"])}}
+      end
+
+      on_chunks = fn _ -> flunk("should not be called") end
+      opts = @base_opts |> Keyword.put(:adapter, adapter)
+
+      assert {:error, %ServerError{status: 500, body: body}} =
+               Transport.stream_binary(%{}, opts, on_chunks)
+
+      assert body =~ "upstream failed"
     end
   end
 end

@@ -420,6 +420,8 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
 
   defp encode_content_part(%Content.Text{text: text}), do: {:ok, %{"text" => text}}
 
+  defp encode_content_part(%Content.Thinking{text: nil}), do: {:ok, nil}
+
   defp encode_content_part(%Content.Thinking{text: text}),
     do: {:ok, %{"text" => text, "thought" => true}}
 

@@ -426,12 +426,17 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
   defp encode_content(content) when is_binary(content), do: {:ok, [%{"text" => content}]}
   defp encode_content(nil), do: {:ok, []}
 
-  defp encode_content(parts) when is_list(parts),
-    do: reduce_ok(parts, &encode_content_part/1)
+  defp encode_content(parts) when is_list(parts) do
+    with {:ok, encoded} <- reduce_ok(parts, &encode_content_part/1) do
+      {:ok, Enum.reject(encoded, &is_nil/1)}
+    end
+  end
 
   defp encode_content_part(%Content.Text{text: text}) do
     {:ok, %{"text" => text}}
   end
+
+  defp encode_content_part(%Content.Thinking{text: nil}), do: {:ok, nil}
 
   defp encode_content_part(%Content.Thinking{text: text, signature: signature}) do
     block = %{"text" => text}
