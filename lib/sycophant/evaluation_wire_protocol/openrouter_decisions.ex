@@ -20,5 +20,5 @@ defmodule Sycophant.EvaluationWireProtocol.OpenRouterDecisions do
   defdelegate encode_request(request), to: TypesafeSystemone
 
   @impl true
-  defdelegate decode_response(body, headers), to: TypesafeSystemone
+  defdelegate decode_response(body, headers, request), to: TypesafeSystemone
 end

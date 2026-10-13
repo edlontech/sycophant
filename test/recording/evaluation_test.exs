@@ -1,18 +1,19 @@
 defmodule Sycophant.Recording.EvaluationTest do
   @moduledoc """
-  Recording coverage for `Sycophant.evaluate/4` against both evaluation routes.
+  Recording coverage for `Sycophant.evaluate/4` against all evaluation routes.
 
   `config :sycophant, :test_evaluation_models` is empty until each model's
   fixture is committed, because CI runs `mix test.recording` and a listed
   model with no fixture fails the build. Add a model back to that config list
   only together with its committed fixture.
 
-  To record the missing fixtures, set `TYPESAFE_API_KEY` and
-  `OPENROUTER_API_KEY`, add both entries back to
+  To record the missing fixtures, set `TYPESAFE_API_KEY`,
+  `OPENROUTER_API_KEY`, and `OPENAI_API_KEY`, add the entries back to
   `:test_evaluation_models` in `config/test.exs`:
 
       %{model: "typesafe:jev-latest"},
-      %{model: "openrouter:typesafe/jev-1.13"}
+      %{model: "openrouter:typesafe/jev-1.13"},
+      %{model: "openai:gpt-6-luna"}
 
   then run, scoped to this file (the `mix test.recording <file>` alias form
   runs the whole `test/recording/` directory, not just this file, since the
@@ -24,6 +25,7 @@ defmodule Sycophant.Recording.EvaluationTest do
 
       priv/fixtures/recordings/typesafe/jev-latest/evaluates_choice_score_and_boolean_questions.json
       priv/fixtures/recordings/openrouter/typesafe/jev-1.13/evaluates_choice_score_and_boolean_questions.json
+      priv/fixtures/recordings/openai/gpt-6-luna/evaluates_choice_score_and_boolean_questions.json
 
   Before committing, confirm every `authorization` header value in both
   files is `"[REDACTED]"` and that grepping them for the literal API key

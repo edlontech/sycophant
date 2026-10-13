@@ -51,6 +51,9 @@ defmodule Sycophant.RegistryTest do
 
       assert {:ok, Sycophant.EvaluationWireProtocol.OpenRouterDecisions} =
                Registry.fetch_protocol(:evaluate, :openrouter_decisions)
+
+      assert {:ok, Sycophant.EvaluationWireProtocol.OpenAIDecisions} =
+               Registry.fetch_protocol(:evaluate, :openai_decisions)
     end
   end
 

@@ -32,7 +32,8 @@ defmodule Sycophant.EvaluationWireProtocol.TypesafeSystemone do
   @impl true
   def decode_response(
         %{"model" => model, "answers" => answers, "usage" => usage} = body,
-        _headers
+        _headers,
+        _request
       )
       when is_binary(model) and is_map(answers) and is_map(usage) do
     case decode_answers(answers) do
@@ -50,7 +51,7 @@ defmodule Sycophant.EvaluationWireProtocol.TypesafeSystemone do
     end
   end
 
-  def decode_response(body, _headers) do
+  def decode_response(body, _headers, _request) do
     {:error, ResponseInvalid.exception(raw: body)}
   end
 

@@ -94,9 +94,9 @@ defmodule Sycophant.EvaluationWireProtocol.TypesafeSystemoneTest do
     end
   end
 
-  describe "decode_response/2" do
+  describe "decode_response/3" do
     test "decodes fixture answers, usage, and raw body" do
-      assert {:ok, response} = TypesafeSystemone.decode_response(@fixture, [])
+      assert {:ok, response} = TypesafeSystemone.decode_response(@fixture, [], nil)
       assert response.model == "jev-1.13.0"
       assert response.raw == @fixture
 
@@ -124,7 +124,7 @@ defmodule Sycophant.EvaluationWireProtocol.TypesafeSystemoneTest do
 
     test "decodes usage cost when present" do
       fixture = put_in(@fixture["usage"]["cost"], 0.0000042)
-      assert {:ok, response} = TypesafeSystemone.decode_response(fixture, [])
+      assert {:ok, response} = TypesafeSystemone.decode_response(fixture, [], nil)
       assert response.usage.total_cost == 0.0000042
     end
 
@@ -132,32 +132,32 @@ defmodule Sycophant.EvaluationWireProtocol.TypesafeSystemoneTest do
       body = Map.delete(@fixture, "answers")
 
       assert {:error, %Sycophant.Error.Provider.ResponseInvalid{}} =
-               TypesafeSystemone.decode_response(body, [])
+               TypesafeSystemone.decode_response(body, [], nil)
     end
 
     test "errors on an answer with an unknown type" do
       body = put_in(@fixture["answers"]["urgent"], %{"type" => "ranking"})
 
       assert {:error, %Sycophant.Error.Provider.ResponseInvalid{}} =
-               TypesafeSystemone.decode_response(body, [])
+               TypesafeSystemone.decode_response(body, [], nil)
     end
 
     test "errors on a known type missing its value field" do
       body = put_in(@fixture["answers"]["urgent"], %{"type" => "noul"})
 
       assert {:error, %Sycophant.Error.Provider.ResponseInvalid{}} =
-               TypesafeSystemone.decode_response(body, [])
+               TypesafeSystemone.decode_response(body, [], nil)
     end
 
     test "decodes an integer zero cost as a float" do
       fixture = put_in(@fixture["usage"]["cost"], 0)
-      assert {:ok, response} = TypesafeSystemone.decode_response(fixture, [])
+      assert {:ok, response} = TypesafeSystemone.decode_response(fixture, [], nil)
       assert response.usage.total_cost === 0.0
     end
 
     test "treats a non-numeric cost as nil instead of raising" do
       fixture = put_in(@fixture["usage"]["cost"], "free")
-      assert {:ok, response} = TypesafeSystemone.decode_response(fixture, [])
+      assert {:ok, response} = TypesafeSystemone.decode_response(fixture, [], nil)
       assert response.usage.total_cost == nil
     end
   end

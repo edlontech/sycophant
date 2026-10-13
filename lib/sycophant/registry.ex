@@ -38,7 +38,8 @@ defmodule Sycophant.Registry do
     {:embedding, :openai_embed} => Sycophant.EmbeddingWireProtocol.OpenAIEmbed,
     {:embedding, :bedrock_embed} => Sycophant.EmbeddingWireProtocol.BedrockEmbed,
     {:evaluate, :typesafe_systemone} => Sycophant.EvaluationWireProtocol.TypesafeSystemone,
-    {:evaluate, :openrouter_decisions} => Sycophant.EvaluationWireProtocol.OpenRouterDecisions
+    {:evaluate, :openrouter_decisions} => Sycophant.EvaluationWireProtocol.OpenRouterDecisions,
+    {:evaluate, :openai_decisions} => Sycophant.EvaluationWireProtocol.OpenAIDecisions
   }
 
   @type kind :: :chat | :embedding | :evaluate

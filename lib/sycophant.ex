@@ -303,11 +303,18 @@ defmodule Sycophant do
   expose only `probability` (no `value`); `:choice` answer `value` and
   `probabilities` keys are always strings, since they name provider-defined
   options rather than caller-supplied atoms.
+
+  ## Options
+
+    * `:credentials` - per-request credentials, see `Sycophant.Credentials`.
+    * `:safety_identifier` - stable, privacy-preserving end-user id forwarded
+      to OpenAI Decisions (`safety_identifier`, at most 128 characters).
+      Ignored by other evaluation providers.
   """
   @spec evaluate(model_ref(), String.t() | map() | list(), map(), keyword()) ::
           {:ok, EvaluationResponse.t()} | {:error, Splode.Error.t()}
   def evaluate(model, state, questions, opts \\ []) do
-    with {:ok, request} <- EvaluationRequest.new(model, state, questions) do
+    with {:ok, request} <- EvaluationRequest.new(model, state, questions, opts) do
       Sycophant.EvaluationPipeline.call(request, opts)
     end
   end

@@ -76,6 +76,16 @@ defmodule Sycophant.EvaluationResponseTest do
                legend: %{"1" => "poor", "5" => "excellent"}
              }
     end
+
+    test "round-trips a refusal answer with its reason" do
+      original = %EvaluationResponse{
+        answers: %{severity: %EvaluationAnswer{type: :refusal, reason: "policy"}}
+      }
+
+      restored = original |> Decoder.encode() |> Decoder.decode()
+
+      assert restored.answers["severity"] == %EvaluationAnswer{type: :refusal, reason: "policy"}
+    end
   end
 
   describe "Inspect" do

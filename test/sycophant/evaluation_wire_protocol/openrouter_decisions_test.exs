@@ -34,7 +34,7 @@ defmodule Sycophant.EvaluationWireProtocol.OpenRouterDecisionsTest do
     end
   end
 
-  describe "decode_response/2" do
+  describe "decode_response/3" do
     test "maps a billed cost into usage.total_cost, delegating to TypesafeSystemone" do
       body = %{
         "model" => "jev-1.13.0",
@@ -44,7 +44,7 @@ defmodule Sycophant.EvaluationWireProtocol.OpenRouterDecisionsTest do
         "usage" => %{"input_tokens" => 100, "output_tokens" => 20, "cost" => 0.0000042}
       }
 
-      assert {:ok, response} = OpenRouterDecisions.decode_response(body, [])
+      assert {:ok, response} = OpenRouterDecisions.decode_response(body, [], nil)
       assert response.usage.total_cost == 0.0000042
     end
   end

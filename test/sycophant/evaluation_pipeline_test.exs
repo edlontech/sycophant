@@ -150,6 +150,68 @@ defmodule Sycophant.EvaluationPipelineTest do
       assert response.answers["urgent"].probability == 0.93
     end
 
+    test "full pipeline routes openai_decisions models through /decisions and re-keys answers" do
+      model =
+        build_eval_model(%{
+          id: "gpt-6-luna",
+          provider: :openai,
+          capabilities: %{chat: true, evaluate: true, embeddings: false},
+          execution: %{evaluate: %{wire_protocol: "openai_decisions"}}
+        })
+
+      provider =
+        build_provider(%{
+          id: :openai,
+          name: "OpenAI",
+          base_url: "https://api.openai.com/v1",
+          env: ["OPENAI_API_KEY"]
+        })
+
+      expect(LLMDB, :model, fn "openai:gpt-6-luna" -> {:ok, model} end)
+      expect(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+
+      expect(Sycophant.Transport, :call_raw, fn payload, opts ->
+        assert opts[:base_url] == "https://api.openai.com/v1"
+        assert opts[:path] == "/decisions"
+        assert payload["safety_identifier"] == "user-1"
+        assert Enum.map(payload["questions"], & &1["name"]) == ["department", "urgent"]
+
+        body = %{
+          "model" => "gpt-6-luna",
+          "answers" => [
+            %{
+              "name" => "department",
+              "type" => "choice",
+              "choice" => "billing",
+              "confidence" => 0.8,
+              "probabilities" => [
+                %{"value" => "billing", "probability" => 0.8},
+                %{"value" => "support", "probability" => 0.2}
+              ]
+            },
+            %{"name" => "urgent", "type" => "predicate", "probability" => 0.93}
+          ],
+          "usage" => %{"input_tokens" => 10, "output_tokens" => 2}
+        }
+
+        {:ok, {body, []}}
+      end)
+
+      {:ok, request} =
+        EvaluationRequest.new(
+          "openai:gpt-6-luna",
+          %{ticket: "Refund me"},
+          Map.delete(questions(), :severity),
+          safety_identifier: "user-1"
+        )
+
+      assert {:ok, response} = EvaluationPipeline.call(request, credentials: %{api_key: "k"})
+
+      assert response.answers.department.value == "billing"
+      assert response.answers.urgent.probability == 0.93
+      assert response.usage.input_tokens == 10
+    end
+
     test "a question the caller asked but the body omits is absent from the response" do
       model = build_eval_model()
       provider = build_provider()

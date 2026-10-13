@@ -41,7 +41,7 @@ defmodule Sycophant.EvaluationPipeline do
     with {:ok, payload} <- adapter.encode_request(request),
          {:ok, {body, headers}} <-
            Transport.call_raw(payload, transport_opts(model_info, credentials, request, adapter)),
-         {:ok, response} <- adapter.decode_response(body, headers) do
+         {:ok, response} <- adapter.decode_response(body, headers, request) do
       {:ok,
        %{
          response

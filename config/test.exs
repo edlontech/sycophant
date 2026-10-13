@@ -42,5 +42,6 @@ config :sycophant, :test_embedding_models, [
 
 config :sycophant, :test_evaluation_models, [
   %{model: "typesafe:jev-latest"},
-  %{model: "openrouter:typesafe/jev-1.13"}
+  %{model: "openrouter:typesafe/jev-1.13"},
+  %{model: "openai:gpt-6-luna"}
 ]

@@ -112,12 +112,17 @@ expose only `probability` (no `value`); `:choice` answer `value` and
 options. Answer keys mirror the caller's `questions` keys, but after a
 `Sycophant.Serializable` round-trip they are always strings.
 
-Two model routes are available:
+Three model routes are available:
 
 - `typesafe:jev-latest` -- direct TypeSafe System One, needs `TYPESAFE_API_KEY`.
 - `openrouter:typesafe/jev-1.13` -- via OpenRouter, needs `OPENROUTER_API_KEY`.
   Reports billed cost in `response.usage.total_cost`; the direct TypeSafe
   route leaves it `nil`.
+- `openai:gpt-6-luna` -- OpenAI Decisions API, needs `OPENAI_API_KEY`. Only
+  string instructions, choice descriptions, and score labels are accepted,
+  and `:boolean` questions take no `criteria`. Accepts a
+  `safety_identifier:` option. A question OpenAI declines to answer comes
+  back as a `:refusal` answer with an optional `reason`.
 
 ## Installation
 
@@ -152,7 +157,7 @@ API reference.
 
 | Provider | Model Prefix | Auth | Wire Protocol |
 |----------|-------------|------|---------------|
-| OpenAI | `openai:` | Bearer token | Chat Completions / Responses |
+| OpenAI | `openai:` | Bearer token | Chat Completions / Responses / Decisions |
 | Anthropic | `anthropic:` | x-api-key | Messages |
 | Google Gemini | `google:` | API key | Gemini |
 | AWS Bedrock | `amazon_bedrock:` | AWS SigV4 | Converse |

@@ -9,14 +9,21 @@ defmodule Sycophant.EvaluationAnswer do
       `probabilities` mapping each option to its likelihood.
     * `:score` - a numeric rating, typically with `confidence` and a
       `legend` describing what each value on the scale means.
+    * `:refusal` - the provider declined to answer this question, with an
+      optional `reason`. Other answers in the same response are unaffected.
   """
   use ZoiDefstruct
 
   defstruct __type__: Zoi.literal("EvaluationAnswer") |> Zoi.default("EvaluationAnswer"),
-            type: Zoi.enum([boolean: "boolean", choice: "choice", score: "score"], coerce: true),
+            type:
+              Zoi.enum(
+                [boolean: "boolean", choice: "choice", score: "score", refusal: "refusal"],
+                coerce: true
+              ),
             value: Zoi.union([Zoi.string(), Zoi.number()]) |> Zoi.optional(),
             probability: Zoi.optional(Zoi.number()),
             probabilities: Zoi.map(Zoi.string(), Zoi.number()) |> Zoi.optional(),
             confidence: Zoi.optional(Zoi.number()),
-            legend: Zoi.map(Zoi.string(), Zoi.string()) |> Zoi.optional()
+            legend: Zoi.map(Zoi.string(), Zoi.string()) |> Zoi.optional(),
+            reason: Zoi.optional(Zoi.string())
 end

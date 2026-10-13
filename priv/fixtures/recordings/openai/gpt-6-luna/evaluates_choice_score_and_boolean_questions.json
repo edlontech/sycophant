@@ -1,0 +1,242 @@
+{
+  "metadata": {
+    "model": "gpt-6-luna",
+    "provider": "api.openai.com",
+    "recorded_at": "2026-10-13T10:49:04.198812Z",
+    "sycophant_version": "0.6.0"
+  },
+  "request": {
+    "body": {
+      "input": "{\"ticket\":\"Please refund me today, this is the third time I ask\"}",
+      "model": "gpt-6-luna",
+      "questions": [
+        {
+          "choices": [
+            {
+              "description": "Billing and payments",
+              "value": "billing"
+            },
+            {
+              "description": "Technical support",
+              "value": "support"
+            }
+          ],
+          "instructions": "Which team should handle this ticket?",
+          "name": "department",
+          "type": "choice"
+        },
+        {
+          "instructions": "Rate the severity of this ticket from 1 to 5",
+          "levels": [
+            {
+              "label": "1 - trivial"
+            },
+            {
+              "label": "2 - minor"
+            },
+            {
+              "label": "3 - moderate"
+            },
+            {
+              "label": "4 - major"
+            },
+            {
+              "label": "5 - critical"
+            }
+          ],
+          "name": "severity",
+          "type": "score"
+        },
+        {
+          "instructions": "Does this need immediate attention?",
+          "name": "urgent",
+          "type": "predicate"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.openai.com/v1/decisions"
+  },
+  "response": {
+    "body": {
+      "answers": [
+        {
+          "choice": "billing",
+          "confidence": 1.0,
+          "name": "department",
+          "probabilities": [
+            {
+              "probability": 1.0,
+              "value": "billing"
+            },
+            {
+              "probability": 0.0,
+              "value": "support"
+            }
+          ],
+          "type": "choice"
+        },
+        {
+          "confidence": 0.71,
+          "name": "severity",
+          "probabilities": [
+            {
+              "label": "1 - trivial",
+              "probability": 0.01,
+              "value": 0
+            },
+            {
+              "label": "2 - minor",
+              "probability": 0.2,
+              "value": 1
+            },
+            {
+              "label": "3 - moderate",
+              "probability": 0.66,
+              "value": 2
+            },
+            {
+              "label": "4 - major",
+              "probability": 0.13,
+              "value": 3
+            },
+            {
+              "label": "5 - critical",
+              "probability": 0.0,
+              "value": 4
+            }
+          ],
+          "score": 1.91,
+          "type": "score"
+        },
+        {
+          "name": "urgent",
+          "probability": 0.93,
+          "type": "predicate"
+        }
+      ],
+      "model": "gpt-6-luna",
+      "usage": {
+        "input_tokens": 418,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 418
+      }
+    },
+    "headers": [
+      [
+        "date",
+        "Tue, 13 Oct 2026 10:49:04 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-length",
+        "782"
+      ],
+      [
+        "x-ratelimit-limit-requests",
+        "30000"
+      ],
+      [
+        "x-ratelimit-limit-tokens",
+        "180000000"
+      ],
+      [
+        "x-ratelimit-remaining-requests",
+        "29999"
+      ],
+      [
+        "x-ratelimit-remaining-tokens",
+        "179999583"
+      ],
+      [
+        "x-ratelimit-reset-requests",
+        "2ms"
+      ],
+      [
+        "x-ratelimit-reset-tokens",
+        "0s"
+      ],
+      [
+        "vary",
+        "origin, access-control-request-method, access-control-request-headers"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "access-control-expose-headers",
+        "x-request-id,retry-after,server-timing-total"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "server-timing-total",
+        "402.170"
+      ],
+      [
+        "openai-processing-ms",
+        "402"
+      ],
+      [
+        "x-request-id",
+        "req_c2c877a490814b02a4dd4d7f29cb610a"
+      ],
+      [
+        "x-openai-proxy-wasm",
+        "v0.1"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "cf-ray",
+        "a49dc6837c058c98-PRG"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}

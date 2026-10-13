@@ -158,4 +158,23 @@ defmodule Sycophant.EvaluationRequestTest do
                })
     end
   end
+
+  describe "new/4 safety_identifier" do
+    @question %{q1: %{type: :boolean, instructions: "Is this correct?"}}
+
+    test "is nil when not given" do
+      assert {:ok, %EvaluationRequest{safety_identifier: nil}} =
+               EvaluationRequest.new(@model, "transcript", @question)
+    end
+
+    test "is stored when given as a string" do
+      assert {:ok, %EvaluationRequest{safety_identifier: "user-1"}} =
+               EvaluationRequest.new(@model, "transcript", @question, safety_identifier: "user-1")
+    end
+
+    test "rejects a non-string value" do
+      assert {:error, %InvalidParams{}} =
+               EvaluationRequest.new(@model, "transcript", @question, safety_identifier: 42)
+    end
+  end
 end

@@ -4,7 +4,10 @@ defmodule Sycophant.EvaluationRequest do
 
   Carries the model to evaluate against, the arbitrary `state` under
   evaluation (a transcript, a conversation, any JSON-encodable value), and
-  the `questions` to ask about it. `new/3` validates structure only: the
+  the `questions` to ask about it, plus an optional `safety_identifier`
+  (a stable, privacy-preserving end-user id that OpenAI Decisions forwards
+  for abuse monitoring; other adapters ignore it). `new/4` validates
+  structure only: the
   three question shapes (`:boolean`, `:choice`, `:score`) must be well
   formed, but provider limits such as maximum choice count or score level
   count are left to the wire adapter and server.
@@ -26,7 +29,8 @@ defmodule Sycophant.EvaluationRequest do
 
   defstruct model: Zoi.any(),
             state: Zoi.any(),
-            questions: Zoi.any()
+            questions: Zoi.any(),
+            safety_identifier: Zoi.optional(Zoi.string())
 
   @content Zoi.union([Zoi.string(), Zoi.map(Zoi.any(), Zoi.any()), Zoi.array()])
 
@@ -72,24 +76,39 @@ defmodule Sycophant.EvaluationRequest do
   Checks, in order: `state` is a binary, map, or list; `questions` is a
   non-empty map whose keys are atoms or strings and whose values match one
   of the three question shapes; no two question keys stringify to the same
-  id; and `state`/`questions` together are JSON-encodable.
+  id; `state`/`questions` together are JSON-encodable; and
+  `opts[:safety_identifier]`, when present, is a string.
 
   Returns `{:error, %Sycophant.Error.Invalid.InvalidParams{}}` on the first
   failed check.
   """
-  @spec new(String.t() | LLMDB.Model.t(), String.t() | map() | list(), map()) ::
+  @spec new(String.t() | LLMDB.Model.t(), String.t() | map() | list(), map(), keyword()) ::
           {:ok, t()} | {:error, Splode.Error.t()}
-  def new(model, state, questions) do
+  def new(model, state, questions, opts \\ []) do
+    safety_identifier = Keyword.get(opts, :safety_identifier)
+
     with :ok <- validate_state(state),
          :ok <- validate_questions(questions),
          :ok <- validate_no_collisions(questions),
-         :ok <- validate_json_encodable(state, questions) do
-      {:ok, %__MODULE__{model: model, state: state, questions: questions}}
+         :ok <- validate_json_encodable(state, questions),
+         :ok <- validate_safety_identifier(safety_identifier) do
+      {:ok,
+       %__MODULE__{
+         model: model,
+         state: state,
+         questions: questions,
+         safety_identifier: safety_identifier
+       }}
     end
   end
 
   defp validate_state(state) when is_binary(state) or is_map(state) or is_list(state), do: :ok
   defp validate_state(_state), do: invalid_params("state must be a string, map, or list")
+
+  defp validate_safety_identifier(value) when is_nil(value) or is_binary(value), do: :ok
+
+  defp validate_safety_identifier(_value),
+    do: invalid_params("safety_identifier must be a string")
 
   defp validate_questions(questions) when is_map(questions) and map_size(questions) > 0 do
     Enum.reduce_while(questions, :ok, fn {key, question}, :ok ->
