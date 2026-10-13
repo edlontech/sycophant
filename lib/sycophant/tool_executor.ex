@@ -13,6 +13,7 @@ defmodule Sycophant.ToolExecutor do
 
   alias Sycophant.Message
   alias Sycophant.Response
+  alias Sycophant.Schema.Validator
   alias Sycophant.Tool
 
   @default_max_steps 10
@@ -91,7 +92,7 @@ defmodule Sycophant.ToolExecutor do
   defp validate_and_coerce(%{resolved_schema: nil}, arguments), do: {:ok, arguments}
 
   defp validate_and_coerce(%{resolved_schema: schema}, arguments) do
-    Sycophant.Schema.Validator.validate(schema, arguments)
+    Validator.validate(schema, arguments)
   end
 
   defp safe_execute(function, arguments) do

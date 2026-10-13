@@ -25,7 +25,9 @@ defmodule Sycophant.WireProtocol.CopilotChat do
 
   alias Sycophant.Context
   alias Sycophant.Error.Invalid.InvalidParams
+  alias Sycophant.Error.Provider.RateLimited
   alias Sycophant.Error.Provider.ResponseInvalid
+  alias Sycophant.Error.Provider.ServerError
   alias Sycophant.Message
   alias Sycophant.Message.Content
   alias Sycophant.Message.Content.Thinking
@@ -559,11 +561,11 @@ defmodule Sycophant.WireProtocol.CopilotChat do
   # --- Errors and finish reasons ---
 
   defp decode_stream_error(%{"type" => "server_error", "message" => msg}) do
-    Sycophant.Error.Provider.ServerError.exception(body: msg)
+    ServerError.exception(body: msg)
   end
 
   defp decode_stream_error(%{"code" => "rate_limit_exceeded"}) do
-    Sycophant.Error.Provider.RateLimited.exception([])
+    RateLimited.exception([])
   end
 
   defp decode_stream_error(%{"type" => type, "message" => msg}) do

@@ -3,9 +3,11 @@ defmodule Sycophant.PipelineTest do
   use Mimic
 
   alias Sycophant.Error
+  alias Sycophant.Error.Provider.RateLimited
   alias Sycophant.Message
   alias Sycophant.Pipeline
   alias Sycophant.Response
+  alias Sycophant.Schema.Normalizer
   alias Sycophant.Telemetry
 
   setup :set_mimic_global
@@ -171,10 +173,10 @@ defmodule Sycophant.PipelineTest do
       stub(System, :get_env, fn "OPENAI_API_KEY" -> "sk-test-key" end)
 
       stub(Sycophant.Transport, :call, fn _payload, _opts ->
-        {:error, Error.Provider.RateLimited.exception(retry_after: 30)}
+        {:error, RateLimited.exception(retry_after: 30)}
       end)
 
-      assert {:error, %Error.Provider.RateLimited{retry_after: 30}} =
+      assert {:error, %RateLimited{retry_after: 30}} =
                Pipeline.call(default_messages(), default_opts())
     end
 
@@ -923,7 +925,7 @@ defmodule Sycophant.PipelineTest do
         "required" => ["city"]
       }
 
-      {:ok, normalized} = Sycophant.Schema.Normalizer.normalize(json_params)
+      {:ok, normalized} = Normalizer.normalize(json_params)
 
       tool = %Sycophant.Tool{
         name: "weather",

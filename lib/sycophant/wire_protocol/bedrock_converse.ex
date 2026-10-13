@@ -11,7 +11,10 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
 
   alias Sycophant.Context
   alias Sycophant.Error.Invalid.InvalidParams
+  alias Sycophant.Error.Provider.BadRequest
+  alias Sycophant.Error.Provider.RateLimited
   alias Sycophant.Error.Provider.ResponseInvalid
+  alias Sycophant.Error.Provider.ServerError
   alias Sycophant.Message
   alias Sycophant.Message.Content
   alias Sycophant.ParamDefs
@@ -236,13 +239,13 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
   defp terminate_type_for(_), do: :failed
 
   defp stream_exception("throttlingException", _msg),
-    do: Sycophant.Error.Provider.RateLimited.exception([])
+    do: RateLimited.exception([])
 
   defp stream_exception("validationException", msg),
-    do: Sycophant.Error.Provider.BadRequest.exception(body: msg)
+    do: BadRequest.exception(body: msg)
 
   defp stream_exception(_type, msg),
-    do: Sycophant.Error.Provider.ServerError.exception(body: msg)
+    do: ServerError.exception(body: msg)
 
   # --- Private: Streaming ---
 

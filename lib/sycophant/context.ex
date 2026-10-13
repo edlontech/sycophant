@@ -18,6 +18,8 @@ defmodule Sycophant.Context do
   """
   use ZoiDefstruct
 
+  alias Sycophant.Serializable.Decoder
+
   defstruct __type__: Zoi.literal("Context") |> Zoi.default("Context"),
             messages: Zoi.list(Sycophant.Message.t()) |> Zoi.default([]),
             params: Zoi.default(Zoi.any(), %{}),
@@ -88,10 +90,9 @@ defmodule Sycophant.Context do
   @spec decode(map(), keyword()) :: t()
   def decode(data, opts) do
     %__MODULE__{
-      messages:
-        Enum.map(data["messages"] || [], &Sycophant.Serializable.Decoder.from_map(&1, opts)),
+      messages: Enum.map(data["messages"] || [], &Decoder.from_map(&1, opts)),
       params: decode_params(data["params"]),
-      tools: Enum.map(data["tools"] || [], &Sycophant.Serializable.Decoder.from_map(&1, opts)),
+      tools: Enum.map(data["tools"] || [], &Decoder.from_map(&1, opts)),
       stream: nil
     }
   end

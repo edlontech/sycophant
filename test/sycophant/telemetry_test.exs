@@ -1,6 +1,7 @@
 defmodule Sycophant.TelemetryTest do
   use ExUnit.Case, async: false
 
+  alias Sycophant.Error.Provider.RateLimited
   alias Sycophant.Telemetry
 
   setup do
@@ -151,7 +152,7 @@ defmodule Sycophant.TelemetryTest do
     end
 
     test "emits start and error events on failure with error metadata" do
-      error = Sycophant.Error.Provider.RateLimited.exception(retry_after: 30)
+      error = RateLimited.exception(retry_after: 30)
       metadata = %{model: "gpt-4", provider: :openai}
 
       result = Telemetry.span(metadata, fn -> {:error, error} end)
@@ -170,7 +171,7 @@ defmodule Sycophant.TelemetryTest do
     end
 
     test "does NOT emit stop on error" do
-      error = Sycophant.Error.Provider.RateLimited.exception(retry_after: 30)
+      error = RateLimited.exception(retry_after: 30)
 
       Telemetry.span(%{}, fn -> {:error, error} end)
 

@@ -29,6 +29,7 @@ defmodule Sycophant.Agent do
   alias Sycophant.Agent.Telemetry
   alias Sycophant.Context
   alias Sycophant.Message
+  alias Sycophant.Schema.Validator
 
   @type agent :: GenStateMachine.server_ref()
 
@@ -213,21 +214,19 @@ defmodule Sycophant.Agent do
     do: {:keep_state, data, [{:reply, from, {:error, :busy}}]}
 
   def streaming(:info, {:stream_chunk, chunk}, data) do
-    try do
-      case data.stream do
-        {acc, callback} when is_function(callback, 2) ->
-          new_acc = callback.(chunk, acc)
-          {:keep_state, %{data | stream: {new_acc, callback}}}
+    case data.stream do
+      {acc, callback} when is_function(callback, 2) ->
+        new_acc = callback.(chunk, acc)
+        {:keep_state, %{data | stream: {new_acc, callback}}}
 
-        callback when is_function(callback, 1) ->
-          callback.(chunk)
-          {:keep_state, data}
-      end
-    rescue
-      e ->
-        Logger.warning("Stream callback raised: #{Exception.message(e)}")
+      callback when is_function(callback, 1) ->
+        callback.(chunk)
         {:keep_state, data}
     end
+  rescue
+    e ->
+      Logger.warning("Stream callback raised: #{Exception.message(e)}")
+      {:keep_state, data}
   end
 
   def streaming(:info, {ref, {:ok, response}}, %{task_ref: ref} = data) do
@@ -482,7 +481,7 @@ defmodule Sycophant.Agent do
   defp validate_tool_args(nil, arguments), do: {:ok, arguments}
 
   defp validate_tool_args(schema, arguments) do
-    case Sycophant.Schema.Validator.validate(schema, arguments) do
+    case Validator.validate(schema, arguments) do
       {:ok, coerced} -> {:ok, coerced}
       {:error, error} -> {:error, Exception.message(error)}
     end

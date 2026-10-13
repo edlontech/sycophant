@@ -4,6 +4,7 @@ defmodule Sycophant.ToolExecutorTest do
   alias Sycophant.Context
   alias Sycophant.Message
   alias Sycophant.Response
+  alias Sycophant.Schema.Normalizer
   alias Sycophant.Tool
   alias Sycophant.ToolCall
   alias Sycophant.ToolExecutor
@@ -33,7 +34,7 @@ defmodule Sycophant.ToolExecutorTest do
 
   defp build_tool_with_schema(name, zoi_schema, function) do
     resolved =
-      case Sycophant.Schema.Normalizer.normalize(zoi_schema) do
+      case Normalizer.normalize(zoi_schema) do
         {:ok, normalized} -> normalized
         _ -> nil
       end
@@ -359,7 +360,7 @@ defmodule Sycophant.ToolExecutorTest do
         "required" => ["city"]
       }
 
-      {:ok, resolved} = Sycophant.Schema.Normalizer.normalize(json_schema)
+      {:ok, resolved} = Normalizer.normalize(json_schema)
 
       tool = %Tool{
         name: "weather",

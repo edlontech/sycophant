@@ -1,6 +1,8 @@
 defmodule Sycophant.InspectTest do
   use ExUnit.Case, async: true
 
+  alias Sycophant.Agent.State
+
   describe "Usage" do
     test "shows compact token format" do
       usage = %Sycophant.Usage{input_tokens: 150, output_tokens: 42, total_cost: 0.0023}
@@ -367,7 +369,7 @@ defmodule Sycophant.InspectTest do
 
   describe "Agent.State" do
     test "shows model and step/retry ratios" do
-      {:ok, state} = Sycophant.Agent.State.new(model: "anthropic:claude-haiku-4-5-20251001")
+      {:ok, state} = State.new(model: "anthropic:claude-haiku-4-5-20251001")
       result = inspect(state)
       assert result =~ "#Sycophant.Agent.State<"
       assert result =~ "anthropic:claude-haiku-4-5-20251001"

@@ -29,6 +29,7 @@ defmodule Sycophant.Response do
       restored = Sycophant.Serializable.Decoder.decode(json)
   """
   alias Sycophant.Reasoning
+  alias Sycophant.Serializable.Decoder
 
   use ZoiDefstruct
 
@@ -101,7 +102,7 @@ defmodule Sycophant.Response do
     %{
       resp
       | context: Sycophant.Context.decode(data["context"], opts),
-        metadata: Sycophant.Serializable.Decoder.atomize_keys(data["metadata"] || %{})
+        metadata: Decoder.atomize_keys(data["metadata"] || %{})
     }
   end
 end

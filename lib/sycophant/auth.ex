@@ -27,6 +27,8 @@ defmodule Sycophant.Auth do
       the credentials map (e.g. `:base_url`, `:copilot_token`).
   """
 
+  alias Sycophant.Auth.Bearer
+
   @callback middlewares(credentials :: map()) :: [Tesla.Client.middleware()]
   @callback path_params(credentials :: map()) :: keyword()
   @callback prepare_credentials(credentials :: map()) ::
@@ -44,7 +46,7 @@ defmodule Sycophant.Auth do
   def middlewares_for(provider, credentials) do
     case Sycophant.Registry.fetch_auth(provider) do
       {:ok, mod} -> mod.middlewares(credentials)
-      :error -> Sycophant.Auth.Bearer.middlewares(credentials)
+      :error -> Bearer.middlewares(credentials)
     end
   end
 

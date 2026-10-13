@@ -12,7 +12,7 @@ defmodule Sycophant.EmbeddingPipeline do
   alias Sycophant.Credentials
   alias Sycophant.EmbeddingParams
   alias Sycophant.EmbeddingRequest
-  alias Sycophant.Error
+  alias Sycophant.Error.Invalid.InvalidParams
   alias Sycophant.ModelResolver
   alias Sycophant.Transport
 
@@ -64,10 +64,7 @@ defmodule Sycophant.EmbeddingPipeline do
         {:ok, validated}
 
       {:error, errors} ->
-        {:error,
-         Error.Invalid.InvalidParams.exception(
-           errors: Enum.map(errors, &Zoi.prettify_errors([&1]))
-         )}
+        {:error, InvalidParams.exception(errors: Enum.map(errors, &Zoi.prettify_errors([&1])))}
     end
   end
 
@@ -79,10 +76,7 @@ defmodule Sycophant.EmbeddingPipeline do
         {:ok, params}
 
       {:error, errors} ->
-        {:error,
-         Error.Invalid.InvalidParams.exception(
-           errors: Enum.map(errors, &Zoi.prettify_errors([&1]))
-         )}
+        {:error, InvalidParams.exception(errors: Enum.map(errors, &Zoi.prettify_errors([&1])))}
     end
   end
 

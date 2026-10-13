@@ -19,9 +19,11 @@ defmodule Sycophant.Pipeline do
   require Logger
 
   alias Sycophant.Auth
+  alias Sycophant.AWS.EventStream
   alias Sycophant.Context
   alias Sycophant.Credentials
-  alias Sycophant.Error
+  alias Sycophant.Error.Invalid.InvalidParams
+  alias Sycophant.Error.Provider.ResponseInvalid
   alias Sycophant.Message
   alias Sycophant.ModelExtra
   alias Sycophant.ModelResolver
@@ -85,7 +87,7 @@ defmodule Sycophant.Pipeline do
 
       json_schema_supported? == false ->
         {:error,
-         Error.Invalid.InvalidParams.exception(
+         InvalidParams.exception(
            errors: [
              "Model #{model_info.model_id} does not support structured outputs (response_schema)"
            ]
@@ -153,7 +155,7 @@ defmodule Sycophant.Pipeline do
 
       other ->
         {:error,
-         Error.Invalid.InvalidParams.exception(
+         InvalidParams.exception(
            errors: [
              ":stream must be a function/1 or {initial_acc, function/2} tuple, got: #{inspect(other)}"
            ]
@@ -200,9 +202,7 @@ defmodule Sycophant.Pipeline do
 
         {:ok, {:ok, _state, _acc}} ->
           {:error,
-           Error.Provider.ResponseInvalid.exception(
-             errors: ["Stream ended without a completed response"]
-           )}
+           ResponseInvalid.exception(errors: ["Stream ended without a completed response"])}
 
         {:error, _} = error ->
           error
@@ -257,7 +257,7 @@ defmodule Sycophant.Pipeline do
   end
 
   defp process_event_frames(data, state, adapter, acc, callback) do
-    case Sycophant.AWS.EventStream.decode_frame(data) do
+    case EventStream.decode_frame(data) do
       {:ok, raw_event, rest} ->
         event = decode_event_stream_frame(raw_event)
 
@@ -370,8 +370,7 @@ defmodule Sycophant.Pipeline do
         {:ok, %{event | data: decoded}}
 
       {:error, _} ->
-        {:error,
-         Error.Provider.ResponseInvalid.exception(errors: ["Invalid JSON in SSE data: #{data}"])}
+        {:error, ResponseInvalid.exception(errors: ["Invalid JSON in SSE data: #{data}"])}
     end
   end
 
@@ -563,10 +562,7 @@ defmodule Sycophant.Pipeline do
         {:ok, apply_model_constraints(validated, model_info)}
 
       {:error, errors} ->
-        {:error,
-         Error.Invalid.InvalidParams.exception(
-           errors: Enum.map(errors, &Zoi.prettify_errors([&1]))
-         )}
+        {:error, InvalidParams.exception(errors: Enum.map(errors, &Zoi.prettify_errors([&1])))}
     end
   end
 

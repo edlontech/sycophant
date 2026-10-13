@@ -20,7 +20,9 @@ defmodule Sycophant.ModelResolver do
   Model metadata is sourced from LLMDB as the single source of truth.
   """
 
-  alias Sycophant.Error
+  alias Sycophant.Error.Invalid.InvalidParams
+  alias Sycophant.Error.Invalid.MissingModel
+  alias Sycophant.Error.Unknown.Unknown
   alias Sycophant.ModelExtra
 
   @doc """
@@ -35,17 +37,17 @@ defmodule Sycophant.ModelResolver do
   """
   @spec resolve(nil | binary() | LLMDB.Model.t() | term()) ::
           {:ok, map()} | {:error, Exception.t()}
-  def resolve(nil), do: {:error, Error.Invalid.MissingModel.exception([])}
+  def resolve(nil), do: {:error, MissingModel.exception([])}
   def resolve(%LLMDB.Model{} = model), do: do_resolve(model, :chat)
   def resolve(spec) when is_binary(spec), do: do_resolve_spec(spec, :chat)
-  def resolve(_), do: {:error, Error.Invalid.MissingModel.exception([])}
+  def resolve(_), do: {:error, MissingModel.exception([])}
 
   @spec resolve_embedding(nil | binary() | LLMDB.Model.t() | term()) ::
           {:ok, map()} | {:error, Exception.t()}
-  def resolve_embedding(nil), do: {:error, Error.Invalid.MissingModel.exception([])}
+  def resolve_embedding(nil), do: {:error, MissingModel.exception([])}
   def resolve_embedding(%LLMDB.Model{} = model), do: do_resolve(model, :embedding)
   def resolve_embedding(spec) when is_binary(spec), do: do_resolve_spec(spec, :embedding)
-  def resolve_embedding(_), do: {:error, Error.Invalid.MissingModel.exception([])}
+  def resolve_embedding(_), do: {:error, MissingModel.exception([])}
 
   @doc """
   Resolves a model specification into a normalized map for the evaluation pipeline.
@@ -55,10 +57,10 @@ defmodule Sycophant.ModelResolver do
   """
   @spec resolve_evaluation(nil | binary() | LLMDB.Model.t() | term()) ::
           {:ok, map()} | {:error, Exception.t()}
-  def resolve_evaluation(nil), do: {:error, Error.Invalid.MissingModel.exception([])}
+  def resolve_evaluation(nil), do: {:error, MissingModel.exception([])}
   def resolve_evaluation(%LLMDB.Model{} = model), do: do_resolve(model, :evaluate)
   def resolve_evaluation(spec) when is_binary(spec), do: do_resolve_spec(spec, :evaluate)
-  def resolve_evaluation(_), do: {:error, Error.Invalid.MissingModel.exception([])}
+  def resolve_evaluation(_), do: {:error, MissingModel.exception([])}
 
   defp do_resolve(model, kind) do
     with :ok <- validate_model_kind(model, kind),
@@ -78,7 +80,7 @@ defmodule Sycophant.ModelResolver do
         end
 
       {:error, _} ->
-        {:error, Error.Invalid.MissingModel.exception([])}
+        {:error, MissingModel.exception([])}
     end
   end
 
@@ -90,7 +92,7 @@ defmodule Sycophant.ModelResolver do
         "model does not support chat"
       end
 
-    {:error, Error.Invalid.InvalidParams.exception(errors: [message])}
+    {:error, InvalidParams.exception(errors: [message])}
   end
 
   defp validate_model_kind(_model, :chat), do: :ok
@@ -98,20 +100,19 @@ defmodule Sycophant.ModelResolver do
   defp validate_model_kind(%LLMDB.Model{capabilities: %{evaluate: true}}, :evaluate), do: :ok
 
   defp validate_model_kind(_model, :evaluate) do
-    {:error, Error.Invalid.InvalidParams.exception(errors: ["model does not support evaluation"])}
+    {:error, InvalidParams.exception(errors: ["model does not support evaluation"])}
   end
 
   defp validate_model_kind(%LLMDB.Model{modalities: %{output: outputs}}, :embedding) do
     if :embedding in outputs do
       :ok
     else
-      {:error,
-       Error.Invalid.InvalidParams.exception(errors: ["model does not support embeddings"])}
+      {:error, InvalidParams.exception(errors: ["model does not support embeddings"])}
     end
   end
 
   defp validate_model_kind(_, :embedding) do
-    {:error, Error.Invalid.InvalidParams.exception(errors: ["model does not support embeddings"])}
+    {:error, InvalidParams.exception(errors: ["model does not support embeddings"])}
   end
 
   defp resolve_adapter(model, kind) do
@@ -121,7 +122,7 @@ defmodule Sycophant.ModelResolver do
 
     case protocol do
       nil ->
-        {:error, Error.Invalid.MissingModel.exception([])}
+        {:error, MissingModel.exception([])}
 
       protocol ->
         case Sycophant.Registry.fetch_protocol(kind, protocol) do
@@ -129,8 +130,7 @@ defmodule Sycophant.ModelResolver do
             {:ok, adapter}
 
           :error ->
-            {:error,
-             Error.Unknown.Unknown.exception(error: "Unsupported #{kind} protocol: #{protocol}")}
+            {:error, Unknown.exception(error: "Unsupported #{kind} protocol: #{protocol}")}
         end
     end
   end
@@ -178,7 +178,7 @@ defmodule Sycophant.ModelResolver do
   defp fetch_provider(provider_id) do
     case LLMDB.provider(provider_id) do
       {:ok, provider} -> {:ok, provider}
-      {:error, _} -> {:error, Error.Invalid.MissingModel.exception([])}
+      {:error, _} -> {:error, MissingModel.exception([])}
     end
   end
 

@@ -208,6 +208,7 @@ defmodule Sycophant.MixProject do
       {:jason, "~> 1.4"},
       {:llm_db, ">= 2026.9.3"},
       {:mimic, "~> 2.0", only: :test},
+      {:oeditus_credo, "~> 0.10", only: [:dev, :test], runtime: false},
       {:mix_audit, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:opentelemetry_telemetry, "~> 1.1", optional: true},
       {:quiver, "~> 0.1", only: [:dev, :test]},

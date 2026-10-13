@@ -25,7 +25,9 @@ defmodule Sycophant.OpenTelemetry do
   Requires the `opentelemetry_telemetry` optional dependency.
   """
 
-  @compile {:no_warn_undefined, Sycophant.OpenTelemetry.Handlers}
+  alias Sycophant.OpenTelemetry.Handlers
+
+  @compile {:no_warn_undefined, Handlers}
 
   require Logger
 
@@ -111,7 +113,7 @@ defmodule Sycophant.OpenTelemetry do
   @doc false
   def handle_request_event(@request_start, measurements, metadata, config) do
     if otel_available?() do
-      Sycophant.OpenTelemetry.Handlers.handle_start(
+      Handlers.handle_start(
         "sycophant.request",
         "chat",
         measurements,
@@ -125,7 +127,7 @@ defmodule Sycophant.OpenTelemetry do
 
   def handle_request_event(@request_stop, _measurements, metadata, config) do
     if otel_available?() do
-      Sycophant.OpenTelemetry.Handlers.handle_stop(metadata, config)
+      Handlers.handle_stop(metadata, config)
     else
       :ok
     end
@@ -133,7 +135,7 @@ defmodule Sycophant.OpenTelemetry do
 
   def handle_request_event(@request_error, _measurements, metadata, config) do
     if otel_available?() do
-      Sycophant.OpenTelemetry.Handlers.handle_error(metadata, config)
+      Handlers.handle_error(metadata, config)
     else
       :ok
     end
@@ -142,7 +144,7 @@ defmodule Sycophant.OpenTelemetry do
   @doc false
   def handle_embedding_event(@embedding_start, measurements, metadata, config) do
     if otel_available?() do
-      Sycophant.OpenTelemetry.Handlers.handle_start(
+      Handlers.handle_start(
         "sycophant.embedding",
         "embeddings",
         measurements,
@@ -156,7 +158,7 @@ defmodule Sycophant.OpenTelemetry do
 
   def handle_embedding_event(@embedding_stop, _measurements, metadata, config) do
     if otel_available?() do
-      Sycophant.OpenTelemetry.Handlers.handle_stop(metadata, config)
+      Handlers.handle_stop(metadata, config)
     else
       :ok
     end
@@ -164,7 +166,7 @@ defmodule Sycophant.OpenTelemetry do
 
   def handle_embedding_event(@embedding_error, _measurements, metadata, config) do
     if otel_available?() do
-      Sycophant.OpenTelemetry.Handlers.handle_error(metadata, config)
+      Handlers.handle_error(metadata, config)
     else
       :ok
     end
@@ -173,7 +175,7 @@ defmodule Sycophant.OpenTelemetry do
   @doc false
   def handle_evaluation_event(@evaluation_start, measurements, metadata, config) do
     if otel_available?() do
-      Sycophant.OpenTelemetry.Handlers.handle_start(
+      Handlers.handle_start(
         "sycophant.evaluation",
         "evaluate",
         measurements,
@@ -187,7 +189,7 @@ defmodule Sycophant.OpenTelemetry do
 
   def handle_evaluation_event(@evaluation_stop, _measurements, metadata, config) do
     if otel_available?() do
-      Sycophant.OpenTelemetry.Handlers.handle_stop(metadata, config)
+      Handlers.handle_stop(metadata, config)
     else
       :ok
     end
@@ -195,14 +197,14 @@ defmodule Sycophant.OpenTelemetry do
 
   def handle_evaluation_event(@evaluation_error, _measurements, metadata, config) do
     if otel_available?() do
-      Sycophant.OpenTelemetry.Handlers.handle_error(metadata, config)
+      Handlers.handle_error(metadata, config)
     else
       :ok
     end
   end
 
   defp otel_available? do
-    Code.ensure_loaded?(Sycophant.OpenTelemetry.Handlers)
+    Code.ensure_loaded?(Handlers)
   end
 
   @doc false

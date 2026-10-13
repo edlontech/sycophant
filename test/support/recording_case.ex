@@ -42,6 +42,8 @@ defmodule Sycophant.RecordingCase do
 
   use ExUnit.CaseTemplate
 
+  alias Sycophant.Tesla.RecorderMiddleware
+
   @doc """
   Returns the filtered list of test model parameterization maps.
 
@@ -152,8 +154,8 @@ defmodule Sycophant.RecordingCase do
     recording = resolve_recording(context)
 
     if recording do
-      Sycophant.Tesla.RecorderMiddleware.set_recording(recording)
-      on_exit(fn -> Sycophant.Tesla.RecorderMiddleware.clear_recording() end)
+      RecorderMiddleware.set_recording(recording)
+      on_exit(fn -> RecorderMiddleware.clear_recording() end)
     end
 
     :ok

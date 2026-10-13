@@ -22,12 +22,14 @@ if Code.ensure_loaded?(ExAws.Auth) do
 
     @behaviour Tesla.Middleware
 
+    alias ExAws.Config.Defaults
+
     @impl true
     def call(env, next, opts) do
       service = Keyword.fetch!(opts, :service)
 
       config =
-        ExAws.Config.Defaults.defaults(service)
+        Defaults.defaults(service)
         |> Map.merge(Keyword.get(opts, :config, %{}))
         |> ExAws.Config.retrieve_runtime_config()
 

@@ -22,10 +22,12 @@ defmodule Sycophant.EmbeddingRequest do
   """
   use ZoiDefstruct
 
+  alias Sycophant.Message.Content.Image
+
   @type input ::
           String.t()
-          | Sycophant.Message.Content.Image.t()
-          | [String.t() | Sycophant.Message.Content.Image.t()]
+          | Image.t()
+          | [String.t() | Image.t()]
 
   defstruct __type__: Zoi.literal("EmbeddingRequest") |> Zoi.default("EmbeddingRequest"),
             inputs: Zoi.default(Zoi.any(), []),
@@ -44,7 +46,7 @@ defmodule Sycophant.EmbeddingRequest do
   defp decode_input(input) when is_binary(input), do: input
 
   defp decode_input(%{"__type__" => "Image"} = data),
-    do: Zoi.parse!(Sycophant.Message.Content.Image.t(), data)
+    do: Zoi.parse!(Image.t(), data)
 
   defp decode_input(parts) when is_list(parts), do: Enum.map(parts, &decode_input/1)
 end

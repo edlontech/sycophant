@@ -5,6 +5,7 @@ defmodule SycophantTest do
   alias Sycophant.Context
   alias Sycophant.EmbeddingRequest
   alias Sycophant.Error
+  alias Sycophant.Error.Provider.ServerError
   alias Sycophant.EvaluationResponse
   alias Sycophant.Message
   alias Sycophant.Response
@@ -423,10 +424,10 @@ defmodule SycophantTest do
 
     test "a Transport error is returned unchanged" do
       stub(Sycophant.Transport, :call_raw, fn _payload, _opts ->
-        {:error, Error.Provider.ServerError.exception(status: 529, body: "overloaded")}
+        {:error, ServerError.exception(status: 529, body: "overloaded")}
       end)
 
-      assert {:error, %Error.Provider.ServerError{status: 529}} =
+      assert {:error, %ServerError{status: 529}} =
                Sycophant.evaluate(
                  "typesafe:jev-latest",
                  "state",

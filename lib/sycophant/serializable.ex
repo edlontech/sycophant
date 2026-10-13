@@ -4,6 +4,7 @@ defmodule Sycophant.Serializable do
   discriminator. Decoding is handled by `Sycophant.Serializable.Decoder`,
   which is driven by each struct's Zoi schema (`t/0`).
   """
+  alias Sycophant.Schema.JsonSchema
   alias Sycophant.Tool
 
   @doc "Converts a Sycophant struct into a plain map with a `__type__` discriminator."
@@ -46,7 +47,7 @@ defmodule Sycophant.Serializable do
 
   defp encode_tool(%Tool{} = tool) do
     json_schema =
-      case Sycophant.Schema.JsonSchema.to_json_schema(tool.parameters) do
+      case JsonSchema.to_json_schema(tool.parameters) do
         {:ok, schema} -> schema
         _ -> tool.parameters
       end

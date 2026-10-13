@@ -7,7 +7,9 @@ defmodule Sycophant.Auth.GithubCopilot.Exchange do
   for caveats.
   """
 
-  alias Sycophant.Error
+  alias Sycophant.Error.Invalid.MissingCredentials
+  alias Sycophant.Error.Provider.RateLimited
+  alias Sycophant.Error.Provider.ServerError
 
   @default_user_agent "GitHubCopilotChat/0.22.0"
   @default_editor_version "vscode/1.95.0"
@@ -49,39 +51,36 @@ defmodule Sycophant.Auth.GithubCopilot.Exchange do
 
       {:ok, %Tesla.Env{status: 401}} ->
         {:error,
-         Error.Invalid.MissingCredentials.exception(
+         MissingCredentials.exception(
            provider: :github_copilot,
            errors: ["GitHub token rejected by Copilot token endpoint"]
          )}
 
       {:ok, %Tesla.Env{status: 403}} ->
         {:error,
-         Error.Invalid.MissingCredentials.exception(
+         MissingCredentials.exception(
            provider: :github_copilot,
            errors: ["GitHub token forbidden from Copilot token endpoint"]
          )}
 
       {:ok, %Tesla.Env{status: 404}} ->
         {:error,
-         Error.Invalid.MissingCredentials.exception(
+         MissingCredentials.exception(
            provider: :github_copilot,
            errors: ["GitHub account has no Copilot subscription"]
          )}
 
       {:ok, %Tesla.Env{status: 429}} ->
-        {:error, Error.Provider.RateLimited.exception([])}
+        {:error, RateLimited.exception([])}
 
       {:ok, %Tesla.Env{status: status, body: body}} when status >= 500 ->
-        {:error, Error.Provider.ServerError.exception(body: body)}
+        {:error, ServerError.exception(body: body)}
 
       {:ok, %Tesla.Env{status: status, body: body}} ->
-        {:error,
-         Error.Provider.ServerError.exception(
-           body: "Unexpected status #{status}: #{inspect(body)}"
-         )}
+        {:error, ServerError.exception(body: "Unexpected status #{status}: #{inspect(body)}")}
 
       {:error, reason} ->
-        {:error, Error.Provider.ServerError.exception(body: inspect(reason))}
+        {:error, ServerError.exception(body: inspect(reason))}
     end
   end
 
@@ -99,10 +98,7 @@ defmodule Sycophant.Auth.GithubCopilot.Exchange do
   end
 
   defp decode_body(body) do
-    {:error,
-     Error.Provider.ServerError.exception(
-       body: "Malformed Copilot token response: #{inspect(body)}"
-     )}
+    {:error, ServerError.exception(body: "Malformed Copilot token response: #{inspect(body)}")}
   end
 
   defp decode_endpoints(%{"api" => api} = endpoints) do

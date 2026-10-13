@@ -43,7 +43,7 @@ defmodule Sycophant.Pricing do
 
   defstruct __type__: Zoi.literal("Pricing") |> Zoi.default("Pricing"),
             currency: Zoi.optional(Zoi.string()),
-            components: Zoi.list(Sycophant.Pricing.Component.t()) |> Zoi.default([])
+            components: Zoi.list(Component.t()) |> Zoi.default([])
 
   @doc "Converts an LLMDB pricing map (atom-keyed) into a Pricing struct."
   @spec from_llmdb(map()) :: t()

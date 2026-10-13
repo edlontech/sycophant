@@ -2,6 +2,7 @@ defmodule Sycophant.Schema.NormalizerTest do
   use ExUnit.Case, async: true
 
   alias Sycophant.Error.Invalid.InvalidSchema
+  alias Sycophant.Schema.JsonSchema
   alias Sycophant.Schema.NormalizedSchema
   alias Sycophant.Schema.Normalizer
 
@@ -43,7 +44,7 @@ defmodule Sycophant.Schema.NormalizerTest do
 
     test "preserves existing additionalProperties on JSON Schema input" do
       schema = Zoi.map(%{name: Zoi.string()})
-      {:ok, json_schema} = Sycophant.Schema.JsonSchema.to_json_schema(schema)
+      {:ok, json_schema} = JsonSchema.to_json_schema(schema)
       json_schema_with_ap = Map.put(json_schema, "additionalProperties", true)
 
       # When going through normalize with a raw map tagged as :json_schema,

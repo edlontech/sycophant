@@ -22,7 +22,7 @@ defmodule Sycophant.Auth.GithubCopilot do
   @behaviour Sycophant.Auth
 
   alias Sycophant.Auth.GithubCopilot.TokenCache
-  alias Sycophant.Error
+  alias Sycophant.Error.Invalid.MissingCredentials
 
   @default_github_host "github.com"
   @default_base_url "https://api.githubcopilot.com"
@@ -53,7 +53,7 @@ defmodule Sycophant.Auth.GithubCopilot do
 
   def prepare_credentials(_creds) do
     {:error,
-     Error.Invalid.MissingCredentials.exception(
+     MissingCredentials.exception(
        provider: :github_copilot,
        errors: ["Either :github_token or :copilot_token is required"]
      )}

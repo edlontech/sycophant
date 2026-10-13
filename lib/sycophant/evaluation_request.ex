@@ -22,7 +22,7 @@ defmodule Sycophant.EvaluationRequest do
   """
   use ZoiDefstruct
 
-  alias Sycophant.Error
+  alias Sycophant.Error.Invalid.InvalidParams
 
   defstruct model: Zoi.any(),
             state: Zoi.any(),
@@ -132,6 +132,6 @@ defmodule Sycophant.EvaluationRequest do
   end
 
   defp invalid_params(message) do
-    {:error, Error.Invalid.InvalidParams.exception(errors: [message])}
+    {:error, InvalidParams.exception(errors: [message])}
   end
 end

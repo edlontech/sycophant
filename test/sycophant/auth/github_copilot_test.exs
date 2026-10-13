@@ -5,7 +5,7 @@ defmodule Sycophant.Auth.GithubCopilotTest do
 
   alias Sycophant.Auth.GithubCopilot
   alias Sycophant.Auth.GithubCopilot.TokenCache
-  alias Sycophant.Error
+  alias Sycophant.Error.Invalid.MissingCredentials
 
   setup do
     Mimic.copy(TokenCache)
@@ -97,17 +97,17 @@ defmodule Sycophant.Auth.GithubCopilotTest do
     test "propagates exchange errors" do
       TokenCache
       |> expect(:fetch, fn _, _ ->
-        {:error, Error.Invalid.MissingCredentials.exception(provider: :github_copilot)}
+        {:error, MissingCredentials.exception(provider: :github_copilot)}
       end)
 
-      assert {:error, %Error.Invalid.MissingCredentials{}} =
+      assert {:error, %MissingCredentials{}} =
                GithubCopilot.prepare_credentials(%{github_token: "bad"})
     end
   end
 
   describe "prepare_credentials/1 — missing credentials" do
     test "returns MissingCredentials when neither token present" do
-      assert {:error, %Error.Invalid.MissingCredentials{}} =
+      assert {:error, %MissingCredentials{}} =
                GithubCopilot.prepare_credentials(%{})
     end
   end

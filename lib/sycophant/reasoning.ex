@@ -23,9 +23,11 @@ defmodule Sycophant.Reasoning do
   """
   use ZoiDefstruct
 
+  alias Sycophant.Message.Content.Thinking
+
   defstruct __type__: Zoi.literal("Reasoning") |> Zoi.default("Reasoning"),
             id: Zoi.optional(Zoi.string()),
-            content: Zoi.list(Sycophant.Message.Content.Thinking.t()) |> Zoi.default([]),
+            content: Zoi.list(Thinking.t()) |> Zoi.default([]),
             encrypted_content: Zoi.optional(Zoi.string())
 end
 

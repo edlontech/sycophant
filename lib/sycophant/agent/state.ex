@@ -5,7 +5,7 @@ defmodule Sycophant.Agent.State do
   alias Sycophant.Agent.Callbacks
   alias Sycophant.Agent.Stats
   alias Sycophant.Context
-  alias Sycophant.Error
+  alias Sycophant.Error.Invalid.MissingModel
 
   @enforce_keys [:model]
   defstruct [
@@ -45,7 +45,7 @@ defmodule Sycophant.Agent.State do
   def new(opts) do
     case Keyword.get(opts, :model) do
       nil ->
-        {:error, Error.Invalid.MissingModel.exception([])}
+        {:error, MissingModel.exception([])}
 
       model ->
         {:ok,

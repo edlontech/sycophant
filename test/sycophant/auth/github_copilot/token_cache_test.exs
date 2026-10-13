@@ -6,6 +6,7 @@ defmodule Sycophant.Auth.GithubCopilot.TokenCacheTest do
   alias Sycophant.Auth.GithubCopilot.Exchange
   alias Sycophant.Auth.GithubCopilot.TokenCache
   alias Sycophant.Error
+  alias Sycophant.Error.Provider.RateLimited
 
   setup_all do
     Supervisor.terminate_child(Sycophant.Supervisor, TokenCache)
@@ -81,7 +82,7 @@ defmodule Sycophant.Auth.GithubCopilot.TokenCacheTest do
       Exchange
       |> expect(:exchange, 1, fn _, _ ->
         Process.sleep(20)
-        {:error, Error.Provider.RateLimited.exception([])}
+        {:error, RateLimited.exception([])}
       end)
 
       tasks =
@@ -90,7 +91,7 @@ defmodule Sycophant.Auth.GithubCopilot.TokenCacheTest do
         end
 
       results = Enum.map(tasks, &Task.await/1)
-      assert Enum.all?(results, &match?({:error, %Error.Provider.RateLimited{}}, &1))
+      assert Enum.all?(results, &match?({:error, %RateLimited{}}, &1))
     end
   end
 

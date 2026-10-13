@@ -13,6 +13,7 @@ defmodule Sycophant.Auth.GithubCopilot.TokenCache do
   use GenServer
 
   alias Sycophant.Auth.GithubCopilot.Exchange
+  alias Sycophant.Error.Provider.ServerError
 
   @max_entries 32
   @refresh_buffer_seconds 30
@@ -131,15 +132,13 @@ defmodule Sycophant.Auth.GithubCopilot.TokenCache do
         rescue
           exception ->
             {:error,
-             Sycophant.Error.Provider.ServerError.exception(
+             ServerError.exception(
                body: "Token exchange crashed: #{Exception.message(exception)}"
              )}
         catch
           kind, reason ->
             {:error,
-             Sycophant.Error.Provider.ServerError.exception(
-               body: "Token exchange exited (#{kind}): #{inspect(reason)}"
-             )}
+             ServerError.exception(body: "Token exchange exited (#{kind}): #{inspect(reason)}")}
         end
 
       send(parent, {:refresh_done, cache_key, result})

@@ -6,6 +6,7 @@ defmodule Sycophant.AgentTest do
   alias Sycophant.Agent.Callbacks
   alias Sycophant.Agent.Stats
   alias Sycophant.Context
+  alias Sycophant.Error.Provider.ServerError
   alias Sycophant.Message
   alias Sycophant.Response
   alias Sycophant.Usage
@@ -210,7 +211,7 @@ defmodule Sycophant.AgentTest do
 
   describe "error handling" do
     test "pipeline error returns error to sync caller" do
-      error = Sycophant.Error.Provider.ServerError.exception(status: 500, body: "boom")
+      error = ServerError.exception(status: 500, body: "boom")
 
       Sycophant
       |> expect(:generate_text, fn _model, _ctx, _opts -> {:error, error} end)
@@ -221,7 +222,7 @@ defmodule Sycophant.AgentTest do
     end
 
     test "agent recovers from error on next chat call" do
-      error = Sycophant.Error.Provider.ServerError.exception(status: 500, body: "boom")
+      error = ServerError.exception(status: 500, body: "boom")
 
       response = build_response("Recovered!")
 
@@ -236,7 +237,7 @@ defmodule Sycophant.AgentTest do
     end
 
     test "on_error :retry retries the call" do
-      error = Sycophant.Error.Provider.ServerError.exception(status: 500, body: "boom")
+      error = ServerError.exception(status: 500, body: "boom")
 
       response = build_response("Retried!")
 
@@ -253,7 +254,7 @@ defmodule Sycophant.AgentTest do
 
     test "on_error {:retry, delay} retries after delay" do
       test_pid = self()
-      error = Sycophant.Error.Provider.ServerError.exception(status: 500, body: "boom")
+      error = ServerError.exception(status: 500, body: "boom")
       response = build_response("Delayed retry!")
 
       Sycophant
@@ -295,7 +296,7 @@ defmodule Sycophant.AgentTest do
     end
 
     test "on_error :retry exhausts max_retries then returns error" do
-      error = Sycophant.Error.Provider.ServerError.exception(status: 500, body: "boom")
+      error = ServerError.exception(status: 500, body: "boom")
 
       Sycophant
       |> expect(:generate_text, 4, fn _model, _ctx, _opts -> {:error, error} end)
@@ -309,7 +310,7 @@ defmodule Sycophant.AgentTest do
     end
 
     test "retry count resets on new chat call" do
-      error = Sycophant.Error.Provider.ServerError.exception(status: 500, body: "boom")
+      error = ServerError.exception(status: 500, body: "boom")
       response = build_response("OK!")
 
       Sycophant
@@ -329,7 +330,7 @@ defmodule Sycophant.AgentTest do
 
     test "async error delivered via on_response when no on_error callback" do
       test_pid = self()
-      error = Sycophant.Error.Provider.ServerError.exception(status: 500, body: "boom")
+      error = ServerError.exception(status: 500, body: "boom")
 
       Sycophant
       |> expect(:generate_text, fn _model, _ctx, _opts -> {:error, error} end)
@@ -343,7 +344,7 @@ defmodule Sycophant.AgentTest do
     end
 
     test "on_error {:continue, msg} sends new message" do
-      error = Sycophant.Error.Provider.ServerError.exception(status: 500, body: "boom")
+      error = ServerError.exception(status: 500, body: "boom")
 
       response = build_response("Continued!")
 
@@ -364,7 +365,7 @@ defmodule Sycophant.AgentTest do
     end
 
     test "on_error {:stop, reason} transitions to completed" do
-      error = Sycophant.Error.Provider.ServerError.exception(status: 500, body: "boom")
+      error = ServerError.exception(status: 500, body: "boom")
 
       Sycophant
       |> expect(:generate_text, fn _model, _ctx, _opts -> {:error, error} end)
@@ -378,7 +379,7 @@ defmodule Sycophant.AgentTest do
     end
 
     test "returns {:error, :completed} when in completed state" do
-      error = Sycophant.Error.Provider.ServerError.exception(status: 500, body: "boom")
+      error = ServerError.exception(status: 500, body: "boom")
 
       Sycophant
       |> expect(:generate_text, fn _model, _ctx, _opts -> {:error, error} end)
@@ -475,7 +476,7 @@ defmodule Sycophant.AgentTest do
     end
 
     test "streaming handles errors same as generating" do
-      error = Sycophant.Error.Provider.ServerError.exception(status: 500, body: "boom")
+      error = ServerError.exception(status: 500, body: "boom")
 
       Sycophant
       |> expect(:generate_text, fn _model, _ctx, _opts -> {:error, error} end)
@@ -517,7 +518,7 @@ defmodule Sycophant.AgentTest do
 
     test "delayed retry works in streaming state" do
       test_pid = self()
-      error = Sycophant.Error.Provider.ServerError.exception(status: 500, body: "boom")
+      error = ServerError.exception(status: 500, body: "boom")
       response = build_response("recovered")
 
       Sycophant

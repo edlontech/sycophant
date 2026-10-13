@@ -7,6 +7,7 @@ defmodule Sycophant.EmbeddingPipelineTest do
   alias Sycophant.EmbeddingRequest
   alias Sycophant.EmbeddingResponse
   alias Sycophant.Error
+  alias Sycophant.Error.Provider.ServerError
 
   setup :set_mimic_from_context
   setup :verify_on_exit!
@@ -106,7 +107,7 @@ defmodule Sycophant.EmbeddingPipelineTest do
       expect(LLMDB, :provider, fn :amazon_bedrock -> {:ok, provider} end)
 
       expect(Sycophant.Transport, :call_raw, fn _payload, _opts ->
-        {:error, Error.Provider.ServerError.exception(status: 500, body: "boom")}
+        {:error, ServerError.exception(status: 500, body: "boom")}
       end)
 
       request = %EmbeddingRequest{
@@ -115,7 +116,7 @@ defmodule Sycophant.EmbeddingPipelineTest do
         params: %EmbeddingParams{embedding_types: [:float], truncate: :none}
       }
 
-      assert {:error, %Error.Provider.ServerError{}} =
+      assert {:error, %ServerError{}} =
                EmbeddingPipeline.call(request, credentials: %{region: "us-east-1"})
     end
 
@@ -249,7 +250,7 @@ defmodule Sycophant.EmbeddingPipelineTest do
       expect(LLMDB, :provider, fn :amazon_bedrock -> {:ok, provider} end)
 
       expect(Sycophant.Transport, :call_raw, fn _payload, _opts ->
-        {:error, Error.Provider.ServerError.exception(status: 500, body: "boom")}
+        {:error, ServerError.exception(status: 500, body: "boom")}
       end)
 
       request = %EmbeddingRequest{

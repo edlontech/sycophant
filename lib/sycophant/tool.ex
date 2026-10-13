@@ -39,6 +39,8 @@ defmodule Sycophant.Tool do
         tools: [weather_tool, search_tool]
       )
   """
+  alias Sycophant.Schema.Normalizer
+
   @enforce_keys [:name, :description, :parameters]
   defstruct [
     :name,
@@ -76,7 +78,7 @@ defmodule Sycophant.Tool do
     params = data["parameters"]
 
     resolved =
-      case Sycophant.Schema.Normalizer.normalize(params) do
+      case Normalizer.normalize(params) do
         {:ok, normalized} -> if source, do: %{normalized | source: source}, else: normalized
         _ -> nil
       end

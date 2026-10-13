@@ -3,6 +3,7 @@ defmodule Sycophant.EvaluationPipelineTest do
   use Mimic
 
   alias Sycophant.Error
+  alias Sycophant.Error.Provider.ServerError
   alias Sycophant.EvaluationPipeline
   alias Sycophant.EvaluationRequest
   alias Sycophant.EvaluationResponse
@@ -178,12 +179,12 @@ defmodule Sycophant.EvaluationPipelineTest do
       expect(LLMDB, :provider, fn :typesafe -> {:ok, provider} end)
 
       expect(Sycophant.Transport, :call_raw, fn _payload, _opts ->
-        {:error, Error.Provider.ServerError.exception(status: 529, body: "overloaded")}
+        {:error, ServerError.exception(status: 529, body: "overloaded")}
       end)
 
       {:ok, request} = EvaluationRequest.new("typesafe:jev-latest", "state", questions())
 
-      assert {:error, %Error.Provider.ServerError{status: 529}} =
+      assert {:error, %ServerError{status: 529}} =
                EvaluationPipeline.call(request, credentials: %{api_key: "k"})
     end
 
@@ -304,7 +305,7 @@ defmodule Sycophant.EvaluationPipelineTest do
       expect(LLMDB, :provider, fn :typesafe -> {:ok, provider} end)
 
       expect(Sycophant.Transport, :call_raw, fn _payload, _opts ->
-        {:error, Error.Provider.ServerError.exception(status: 529, body: "overloaded")}
+        {:error, ServerError.exception(status: 529, body: "overloaded")}
       end)
 
       {:ok, request} = EvaluationRequest.new("typesafe:jev-latest", "state", questions())
