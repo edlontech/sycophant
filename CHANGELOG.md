@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.7.0](https://github.com/edlontech/sycophant/compare/sycophant-v0.6.0...sycophant-v0.7.0) (2026-10-13)
+
+
+### Features
+
+* Added support to OpenAI Decisions API ([035c7e8](https://github.com/edlontech/sycophant/commit/035c7e8af31e0c61222b72a4f72019de46bdd019))
+
+
+### Bug Fixes
+
+* preserve streaming errors and reasoning summaries ([b09b4d3](https://github.com/edlontech/sycophant/commit/b09b4d33e85f83c942ba9c8961405ee328221603))
+
 ## [0.6.0](https://github.com/edlontech/sycophant/compare/sycophant-v0.5.1...sycophant-v0.6.0) (2026-09-25)
 
 
