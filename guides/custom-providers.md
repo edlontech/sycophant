@@ -245,6 +245,7 @@ Sycophant registers these automatically at startup:
 | `:anthropic` | `Auth.Anthropic` |
 | `:azure` | `Auth.Azure` |
 | `:google` | `Auth.Google` |
+| `:openai` | `Auth.OpenAI` |
 
 All other providers fall back to `Auth.Bearer`.
 

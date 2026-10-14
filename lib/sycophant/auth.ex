@@ -9,7 +9,8 @@ defmodule Sycophant.Auth do
 
   ## Built-in Strategies
 
-    * `Sycophant.Auth.Bearer` - Bearer token (OpenAI, OpenRouter, and OpenAI-compatible)
+    * `Sycophant.Auth.Bearer` - Bearer token (OpenRouter and OpenAI-compatible)
+    * `Sycophant.Auth.OpenAI` - API key or ChatGPT access token with subscription restrictions
     * `Sycophant.Auth.Anthropic` - `x-api-key` header with version header
     * `Sycophant.Auth.Google` - `x-goog-api-key` header
     * `Sycophant.Auth.Bedrock` - AWS SigV4 request signing

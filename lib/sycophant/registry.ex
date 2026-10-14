@@ -24,7 +24,8 @@ defmodule Sycophant.Registry do
     anthropic: Sycophant.Auth.Anthropic,
     azure: Sycophant.Auth.Azure,
     github_copilot: Sycophant.Auth.GithubCopilot,
-    google: Sycophant.Auth.Google
+    google: Sycophant.Auth.Google,
+    openai: Sycophant.Auth.OpenAI
   }
 
   @built_in_protocols %{

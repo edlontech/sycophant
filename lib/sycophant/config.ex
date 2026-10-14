@@ -35,6 +35,7 @@ defmodule Sycophant.Config do
     use ZoiDefstruct
 
     defstruct api_key: Zoi.optional(Zoi.string()),
+              access_token: Zoi.optional(Zoi.string()),
               api_secret: Zoi.optional(Zoi.string()),
               region: Zoi.optional(Zoi.string()),
               access_key_id: Zoi.optional(Zoi.string()),
@@ -135,6 +136,7 @@ defimpl Inspect, for: Sycophant.Config.Provider do
       Enum.reject(
         [
           api_key: InspectHelpers.redact(provider.api_key),
+          access_token: InspectHelpers.redact(provider.access_token),
           api_secret: InspectHelpers.redact(provider.api_secret),
           access_key_id: InspectHelpers.redact(provider.access_key_id),
           secret_access_key: InspectHelpers.redact(provider.secret_access_key),
