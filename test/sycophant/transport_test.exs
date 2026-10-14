@@ -175,6 +175,16 @@ defmodule Sycophant.TransportTest do
                Transport.stream(%{"model" => "gpt-4o"}, opts, on_event)
     end
 
+    test "decodes SSE when a successful response has no content-type" do
+      stream = Stream.map(["event: response.created\ndata: {\"a\":1}\n\n"], & &1)
+
+      adapter = fn env -> {:ok, %{env | status: 200, body: stream, headers: []}} end
+      opts = Keyword.put(@base_opts, :adapter, adapter)
+
+      assert {:ok, [%{event: "response.created", data: "{\"a\":1}"}]} =
+               Transport.stream(%{"model" => "gpt-4o"}, opts, &Enum.to_list/1)
+    end
+
     test "maps 401 to AuthenticationFailed" do
       adapter = fn env ->
         {:ok, %{env | status: 401, body: "unauthorized"}}

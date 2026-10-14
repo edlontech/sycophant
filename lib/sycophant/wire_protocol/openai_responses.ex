@@ -178,39 +178,47 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     {:error, ResponseInvalid.exception(raw: body)}
   end
 
+  @doc """
+  The stream state is `nil` or the output items received so far through
+  `response.output_item.done`, newest first. Some routes, such as the ChatGPT
+  subscription route, send `response.completed` with an empty `output`, so the
+  final response is assembled from these items instead.
+  """
   @impl true
   def init_stream, do: nil
 
   @impl true
-  def decode_stream_chunk(_state, %{
+  def decode_stream_chunk(state, %{
         event: "response.output_text.delta",
         data: %{"delta" => delta}
       }) do
-    {:ok, nil, [%StreamChunk{type: :text_delta, data: delta}]}
+    {:ok, state, [%StreamChunk{type: :text_delta, data: delta}]}
   end
 
-  def decode_stream_chunk(_state, %{event: "response.function_call_arguments.delta", data: data}) do
+  def decode_stream_chunk(state, %{event: "response.output_item.done", data: %{"item" => item}}) do
+    {:ok, [item | state || []], []}
+  end
+
+  def decode_stream_chunk(state, %{event: "response.function_call_arguments.delta", data: data}) do
     chunk = %StreamChunk{
       type: :tool_call_delta,
       data: %{id: data["item_id"], name: nil, arguments_delta: data["delta"]},
       index: data["output_index"]
     }
 
-    {:ok, nil, [chunk]}
+    {:ok, state, [chunk]}
   end
 
-  def decode_stream_chunk(_state, %{event: "response.reasoning_text.delta", data: data}) do
-    {:ok, nil, [%StreamChunk{type: :reasoning_delta, data: data["delta"]}]}
+  def decode_stream_chunk(state, %{event: "response.reasoning_text.delta", data: data}) do
+    {:ok, state, [%StreamChunk{type: :reasoning_delta, data: data["delta"]}]}
   end
 
-  def decode_stream_chunk(_state, %{event: "response.reasoning_summary_text.delta", data: data}) do
-    {:ok, nil, [%StreamChunk{type: :reasoning_delta, data: data["delta"]}]}
+  def decode_stream_chunk(state, %{event: "response.reasoning_summary_text.delta", data: data}) do
+    {:ok, state, [%StreamChunk{type: :reasoning_delta, data: data["delta"]}]}
   end
 
-  def decode_stream_chunk(_state, %{event: "response.completed", data: %{"response" => response}}) do
-    with {:ok, response} <- decode_response(response) do
-      {:done, response}
-    end
+  def decode_stream_chunk(state, %{event: "response.completed", data: %{"response" => response}}) do
+    decode_final(state, response)
   end
 
   def decode_stream_chunk(_state, %{event: "response.failed", data: %{"response" => response}}) do
@@ -218,13 +226,11 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     {:terminate, :failed, error}
   end
 
-  def decode_stream_chunk(_state, %{
+  def decode_stream_chunk(state, %{
         event: "response.incomplete",
         data: %{"response" => response}
       }) do
-    with {:ok, response} <- decode_response(response) do
-      {:done, response}
-    end
+    decode_final(state, response)
   end
 
   def decode_stream_chunk(_state, %{event: "response.cancelled"}) do
@@ -242,6 +248,16 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
 
   def decode_stream_chunk(state, _event) do
     {:ok, state, []}
+  end
+
+  defp decode_final(state, %{"output" => []} = body) when is_list(state) and state != [] do
+    with {:ok, response} <- decode_response(%{body | "output" => Enum.reverse(state)}) do
+      {:done, %{response | raw: body}}
+    end
+  end
+
+  defp decode_final(_state, body) do
+    with {:ok, response} <- decode_response(body), do: {:done, response}
   end
 
   # --- Response Decoding Helpers ---

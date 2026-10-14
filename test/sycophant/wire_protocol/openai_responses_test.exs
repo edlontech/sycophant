@@ -1109,6 +1109,63 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
       assert response.finish_reason == :stop
     end
 
+    test "response.completed with empty output uses the streamed output items" do
+      message = %{
+        "type" => "message",
+        "role" => "assistant",
+        "status" => "completed",
+        "content" => [%{"type" => "output_text", "text" => "pong", "annotations" => []}]
+      }
+
+      call = %{
+        "type" => "function_call",
+        "call_id" => "call_1",
+        "name" => "read",
+        "arguments" => "{\"path\":\"a\"}"
+      }
+
+      completed =
+        responses_api_response(text: "ignored")
+        |> Map.put("output", [])
+
+      state =
+        Enum.reduce([message, call], OpenAIResponses.init_stream(), fn item, state ->
+          event = %{event: "response.output_item.done", data: %{"item" => item}}
+          assert {:ok, state, []} = OpenAIResponses.decode_stream_chunk(state, event)
+          state
+        end)
+
+      text_delta = %{event: "response.output_text.delta", data: %{"delta" => "x"}}
+      assert {:ok, ^state, _chunks} = OpenAIResponses.decode_stream_chunk(state, text_delta)
+
+      event = %{event: "response.completed", data: %{"response" => completed}}
+      assert {:done, response} = OpenAIResponses.decode_stream_chunk(state, event)
+      assert response.text == "pong"
+      assert [%{id: "call_1", name: "read", arguments: %{"path" => "a"}}] = response.tool_calls
+      assert response.raw["output"] == []
+    end
+
+    test "response.completed keeps its own output when present" do
+      item = %{
+        "type" => "message",
+        "role" => "assistant",
+        "content" => [%{"type" => "output_text", "text" => "streamed", "annotations" => []}]
+      }
+
+      {:ok, state, []} =
+        OpenAIResponses.decode_stream_chunk(nil, %{
+          event: "response.output_item.done",
+          data: %{"item" => item}
+        })
+
+      event = %{
+        event: "response.completed",
+        data: %{"response" => responses_api_response(text: "Final answer")}
+      }
+
+      assert {:done, %{text: "Final answer"}} = OpenAIResponses.decode_stream_chunk(state, event)
+    end
+
     test "unknown events return empty chunks" do
       event = %{
         event: "response.created",

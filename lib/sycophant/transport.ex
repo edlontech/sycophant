@@ -150,7 +150,8 @@ defmodule Sycophant.Transport do
         {Tesla.Middleware.BaseUrl, base_url},
         Tesla.Middleware.PathParams,
         {Tesla.Middleware.Headers, [{"content-type", "application/json"}]},
-        Tesla.Middleware.SSE
+        Tesla.Middleware.SSE,
+        Sycophant.Transport.DefaultEventStream
       ] ++
         Keyword.get(opts, :auth_middlewares, []) ++
         timeout_middleware(tesla_config) ++
