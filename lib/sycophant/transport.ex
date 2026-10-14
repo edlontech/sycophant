@@ -9,6 +9,7 @@ defmodule Sycophant.Transport do
 
   ## Error Mapping
 
+    * `subscription_sharing_*` or `chatpass_v2_*` error codes -> `SubscriptionError`
     * `401` -> `AuthenticationFailed`
     * `404` -> `ModelNotFound`
     * `429` -> `RateLimited` (with `Retry-After` parsing)
@@ -21,6 +22,7 @@ defmodule Sycophant.Transport do
   alias Sycophant.Error.Provider.ModelNotFound
   alias Sycophant.Error.Provider.RateLimited
   alias Sycophant.Error.Provider.ServerError
+  alias Sycophant.Error.Provider.SubscriptionError
   alias Sycophant.Error.Provider.Timeout
   alias Sycophant.Error.Unknown.Unknown
 
@@ -201,23 +203,33 @@ defmodule Sycophant.Transport do
 
   defp read_error_body(env), do: env
 
-  defp map_error(%Tesla.Env{status: 401, body: body}) do
+  @doc false
+  @spec map_error(Tesla.Env.t()) :: {:error, Splode.Error.t()}
+  def map_error(%Tesla.Env{status: status, body: body, headers: headers} = env)
+      when status not in 200..299 do
+    case SubscriptionError.from_body(body, headers) do
+      nil -> map_status_error(env)
+      err -> {:error, %{err | status: status}}
+    end
+  end
+
+  defp map_status_error(%Tesla.Env{status: 401, body: body}) do
     {:error, AuthenticationFailed.exception(status: 401, body: inspect(body))}
   end
 
-  defp map_error(%Tesla.Env{status: 429, headers: headers}) do
+  defp map_status_error(%Tesla.Env{status: 429, headers: headers}) do
     {:error, RateLimited.exception(retry_after: get_retry_after(headers))}
   end
 
-  defp map_error(%Tesla.Env{status: 404, body: body}) do
+  defp map_status_error(%Tesla.Env{status: 404, body: body}) do
     {:error, ModelNotFound.exception(model: inspect(body))}
   end
 
-  defp map_error(%Tesla.Env{status: status, body: body}) when status in 400..499 do
+  defp map_status_error(%Tesla.Env{status: status, body: body}) when status in 400..499 do
     {:error, BadRequest.exception(status: status, body: inspect(body))}
   end
 
-  defp map_error(%Tesla.Env{status: status, body: body}) when status >= 500 do
+  defp map_status_error(%Tesla.Env{status: status, body: body}) when status >= 500 do
     {:error, ServerError.exception(status: status, body: inspect(body))}
   end
 

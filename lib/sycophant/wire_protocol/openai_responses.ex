@@ -22,6 +22,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   alias Sycophant.Error.Provider.RateLimited
   alias Sycophant.Error.Provider.ResponseInvalid
   alias Sycophant.Error.Provider.ServerError
+  alias Sycophant.Error.Provider.SubscriptionError
   alias Sycophant.Message
   alias Sycophant.Message.Content
   alias Sycophant.ParamDefs
@@ -374,19 +375,23 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
 
   defp decode_metadata(_), do: %{}
 
-  defp decode_api_error(%{"code" => "server_error", "message" => msg}) do
+  defp decode_api_error(error) do
+    SubscriptionError.from_body(%{"error" => error}) || decode_standard_api_error(error)
+  end
+
+  defp decode_standard_api_error(%{"code" => "server_error", "message" => msg}) do
     ServerError.exception(body: msg)
   end
 
-  defp decode_api_error(%{"code" => "rate_limit_exceeded"}) do
+  defp decode_standard_api_error(%{"code" => "rate_limit_exceeded"}) do
     RateLimited.exception([])
   end
 
-  defp decode_api_error(%{"code" => code, "message" => msg}) do
+  defp decode_standard_api_error(%{"code" => code, "message" => msg}) do
     ResponseInvalid.exception(errors: ["#{code}: #{msg}"])
   end
 
-  defp decode_api_error(error) do
+  defp decode_standard_api_error(error) do
     ResponseInvalid.exception(errors: ["Unknown error: #{inspect(error)}"])
   end
 
