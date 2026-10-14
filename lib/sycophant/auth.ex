@@ -25,16 +25,22 @@ defmodule Sycophant.Auth do
       assembly. Used by providers that need to perform side-effecting work
       (token exchange, signing nonce, etc.) and surface results back into
       the credentials map (e.g. `:base_url`, `:copilot_token`).
+    * `request_constraints/2` - returns credential-mode parameter restrictions
+      and streaming requirements after credential preparation.
   """
 
   alias Sycophant.Auth.Bearer
+  alias Sycophant.Auth.RequestConstraints
 
   @callback middlewares(credentials :: map()) :: [Tesla.Client.middleware()]
   @callback path_params(credentials :: map()) :: keyword()
   @callback prepare_credentials(credentials :: map()) ::
               {:ok, map()} | {:error, Splode.Error.t()}
 
-  @optional_callbacks [path_params: 1, prepare_credentials: 1]
+  @callback request_constraints(credentials :: map(), model_info :: map()) ::
+              RequestConstraints.t()
+
+  @optional_callbacks [path_params: 1, prepare_credentials: 1, request_constraints: 2]
 
   @doc """
   Returns the list of Tesla middlewares needed to authenticate requests for
@@ -98,6 +104,27 @@ defmodule Sycophant.Auth do
 
       :error ->
         {:ok, credentials}
+    end
+  end
+
+  @doc """
+  Returns request constraints derived from prepared credentials and model metadata.
+
+  Providers without the optional `request_constraints/2` callback return empty
+  constraints, leaving request parameters and streaming unchanged.
+  """
+  @spec request_constraints_for(atom(), map(), map()) :: RequestConstraints.t()
+  def request_constraints_for(provider, credentials, model_info) do
+    case Sycophant.Registry.fetch_auth(provider) do
+      {:ok, mod} ->
+        Code.ensure_loaded!(mod)
+
+        if function_exported?(mod, :request_constraints, 2),
+          do: mod.request_constraints(credentials, model_info),
+          else: %RequestConstraints{}
+
+      :error ->
+        %RequestConstraints{}
     end
   end
 end

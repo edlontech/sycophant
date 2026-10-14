@@ -42,6 +42,7 @@ defmodule Sycophant.Pipeline do
     :model,
     :tools,
     :stream,
+    :forced_stream,
     :credentials,
     :response_schema,
     :normalized_response_schema,
@@ -67,6 +68,9 @@ defmodule Sycophant.Pipeline do
          :ok <- validate_response_schema_support(opts, adapter, model_info),
          {:ok, credentials} <- Credentials.resolve(model_info.provider, opts[:credentials]),
          {:ok, credentials} <- Auth.prepare_credentials_for(model_info.provider, credentials) do
+      constraints = Auth.request_constraints_for(model_info.provider, credentials, model_info)
+      params = apply_auth_constraints(params, constraints)
+      opts = maybe_require_stream(opts, constraints)
       telemetry_metadata = build_telemetry_metadata(model_info, opts, params)
 
       Telemetry.span(telemetry_metadata, fn ->
@@ -499,7 +503,7 @@ defmodule Sycophant.Pipeline do
       messages: messages ++ [assistant_msg],
       params: params,
       tools: opts[:tools] || [],
-      stream: opts[:stream]
+      stream: if(opts[:forced_stream], do: nil, else: opts[:stream])
     }
 
     %{response | context: context}
@@ -580,6 +584,30 @@ defmodule Sycophant.Pipeline do
 
     Map.drop(params, dropped)
   end
+
+  defp apply_auth_constraints(params, constraints) do
+    dropped = Enum.filter(constraints.unsupported_params, &Map.has_key?(params, &1))
+
+    if dropped != [] do
+      Logger.debug("Params unsupported by credential mode: #{inspect(dropped)}")
+    end
+
+    params
+    |> Map.drop(dropped)
+    |> Map.merge(constraints.forced_params)
+  end
+
+  defp maybe_require_stream(opts, %{require_stream: true}) do
+    if opts[:stream] in [nil, false] do
+      opts
+      |> Keyword.put(:stream, fn _chunk -> :ok end)
+      |> Keyword.put(:forced_stream, true)
+    else
+      opts
+    end
+  end
+
+  defp maybe_require_stream(opts, _constraints), do: opts
 
   # LLMDB flags params a model rejects either through `extra.constraints`
   # (`"unsupported"`) or the standalone `extra.temperature == false`. Names are

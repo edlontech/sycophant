@@ -385,3 +385,32 @@ GitHub's token-exchange response.
 
 See [GitHub Copilot](github-copilot.md) for a worked example and
 `Sycophant.Auth.GithubCopilot` for the implementation.
+
+## Optional `request_constraints/2`
+
+Auth strategies can shape requests for a credential mode with the optional
+`request_constraints/2` callback. It receives prepared credentials and resolved
+model metadata and returns `Sycophant.Auth.RequestConstraints`:
+
+```elixir
+@impl true
+def request_constraints(_credentials, _model_info) do
+  %Sycophant.Auth.RequestConstraints{
+    unsupported_params: [:temperature],
+    forced_params: %{store: false},
+    require_stream: true
+  }
+end
+```
+
+- `unsupported_params` lists atom keys to drop with a debug log.
+- `forced_params` is a map merged after dropping unsupported parameters,
+  overriding caller values.
+- `require_stream` requires streaming transport. When `:stream` is `nil` or
+  `false`, the pipeline supplies a no-op callback and keeps `Context.stream`
+  `nil`. A caller-supplied stream callback is preserved and receives chunks.
+
+The pipeline applies these constraints after parameter validation, model
+constraints, and `prepare_credentials/1`, before telemetry and wire encoding.
+Strategies without this callback return empty constraints, leaving existing
+request behavior unchanged.
