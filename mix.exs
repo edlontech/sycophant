@@ -194,6 +194,7 @@ defmodule Sycophant.MixProject do
 
   defp deps do
     [
+      {:assent, "~> 0.3"},
       {:bandit, "~> 1.8", only: :dev, runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},

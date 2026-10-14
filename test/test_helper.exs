@@ -1,6 +1,8 @@
 ExUnit.start(exclude: [:integration, :recording], capture_log: true)
 Mimic.copy(LLMDB)
 Mimic.copy(System)
+Mimic.copy(DateTime)
+Mimic.copy(Tesla)
 Mimic.copy(Sycophant.Config)
 Mimic.copy(Sycophant.Transport)
 Mimic.copy(Sycophant.Auth)

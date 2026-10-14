@@ -29,6 +29,7 @@ defmodule Sycophant.Serializable do
   defp walk(map) when map == %{}, do: :__omit__
   defp walk(fun) when is_function(fun), do: :__omit__
   defp walk(tuple) when is_tuple(tuple), do: :__omit__
+  defp walk(%DateTime{} = datetime), do: DateTime.to_iso8601(datetime)
   defp walk(%_{} = struct), do: to_map(struct)
   defp walk(list) when is_list(list), do: Enum.map(list, &walk_element/1)
   # Plain maps (raw/object/metadata/params/arguments) are passed through VERBATIM by design
@@ -104,6 +105,8 @@ defmodule Sycophant.Serializable.Decoder do
     "EvaluationResponse" => Sycophant.EvaluationResponse,
     "Tool" => Sycophant.Tool,
     "Message" => Sycophant.Message,
+    "OAuthSession" => Sycophant.OAuth.Session,
+    "OAuthCredential" => Sycophant.OAuth.Credential,
     "Context" => Sycophant.Context,
     "Response" => Sycophant.Response
   }
