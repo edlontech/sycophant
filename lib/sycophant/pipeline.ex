@@ -592,6 +592,15 @@ defmodule Sycophant.Pipeline do
       Logger.debug("Params unsupported by credential mode: #{inspect(dropped)}")
     end
 
+    overridden =
+      for {key, value} <- constraints.forced_params,
+          Map.has_key?(params, key) and params[key] != value,
+          do: key
+
+    if overridden != [] do
+      Logger.debug("Params overridden by credential mode: #{inspect(overridden)}")
+    end
+
     params
     |> Map.drop(dropped)
     |> Map.merge(constraints.forced_params)

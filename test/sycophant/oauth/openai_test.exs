@@ -7,6 +7,15 @@ defmodule Sycophant.OAuth.OpenAITest do
   @host_id "urn:uuid:12345678-1234-1234-1234-123456789abc"
   @redirect_uri "http://127.0.0.1:1455/auth/callback"
 
+  test "rejects redirect userinfo masquerading as a loopback port" do
+    assert {:error, %Sycophant.Error.Invalid.InvalidParams{}} =
+             OpenAI.authorize_url(
+               host_id: @host_id,
+               redirect_uri: "http://127.0.0.1:@evil.com/cb",
+               agent_name: "Yach"
+             )
+  end
+
   test "first registration binds the installation and requests plan usage with PKCE" do
     assert {:ok, url, session} =
              OpenAI.authorize_url(

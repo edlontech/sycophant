@@ -20,14 +20,14 @@ defmodule Sycophant.Auth.OpenAI do
   def prepare_credentials(credentials), do: {:ok, credentials}
 
   @impl true
-  def middlewares(%{access_token: token}) do
+  def middlewares(%{access_token: token}) when is_binary(token) do
     [{Tesla.Middleware.Headers, [{"authorization", "Bearer #{token}"}]}]
   end
 
   def middlewares(credentials), do: Bearer.middlewares(credentials)
 
   @impl true
-  def request_constraints(%{access_token: _}, model_info),
+  def request_constraints(%{access_token: token}, model_info) when is_binary(token),
     do: subscription_constraints(model_info)
 
   def request_constraints(_credentials, _model_info), do: %RequestConstraints{}

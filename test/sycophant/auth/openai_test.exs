@@ -4,6 +4,16 @@ defmodule Sycophant.Auth.OpenAITest do
   alias Sycophant.Auth.OpenAI
   alias Sycophant.Error.Invalid.InvalidParams
 
+  test "nil access token falls through to API-key authentication and default constraints" do
+    assert OpenAI.middlewares(%{access_token: nil, api_key: "k"}) ==
+             [{Tesla.Middleware.Headers, [{"authorization", "Bearer k"}]}]
+
+    assert OpenAI.middlewares(%{access_token: nil}) == []
+
+    assert OpenAI.request_constraints(%{access_token: nil}, %{}) ==
+             %Sycophant.Auth.RequestConstraints{}
+  end
+
   test "rejects ambiguous credentials without exposing either secret" do
     assert {:error, %InvalidParams{} = error} =
              OpenAI.prepare_credentials(%{access_token: "secret-token", api_key: "secret-key"})

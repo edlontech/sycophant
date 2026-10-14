@@ -8,6 +8,11 @@ defmodule Sycophant.SubscriptionErrorTest do
   alias Sycophant.Transport
   alias Sycophant.WireProtocol.OpenAIResponses
 
+  test "renders a rejection without optional detail" do
+    error = SubscriptionError.exception(code: "chatpass_v2_unavailable")
+    assert Exception.message(error) == "ChatGPT plan request rejected (chatpass_v2_unavailable)"
+  end
+
   test "recognizes subscription failures and preserves provider details" do
     body = %{
       "error" => %{

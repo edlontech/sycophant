@@ -37,7 +37,7 @@ defmodule Sycophant.OAuth.OpenAI do
     schema =
       Zoi.map(%{
         host_id: Zoi.regex(Zoi.string(), ~r/^urn:uuid:[0-9a-f-]{36}$/i),
-        redirect_uri: Zoi.regex(Zoi.string(), ~r/^http:\/\/127\.0\.0\.1:/),
+        redirect_uri: Zoi.regex(Zoi.string(), ~r{^http://127\.0\.0\.1:\d+/}),
         agent_name: name_schema,
         client_id: Zoi.optional(Zoi.min(Zoi.string(), 1)),
         id_token_hint: Zoi.optional(Zoi.string()),

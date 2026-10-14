@@ -10,6 +10,8 @@ defmodule Sycophant.Error.Provider.SubscriptionError do
           detail: String.t() | nil
         }
 
+  def message(%{code: code, detail: nil}), do: "ChatGPT plan request rejected (#{code})"
+
   def message(%{code: code, detail: detail}) do
     "ChatGPT plan request rejected (#{code}): #{detail}"
   end

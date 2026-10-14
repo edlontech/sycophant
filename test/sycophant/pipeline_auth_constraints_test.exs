@@ -138,6 +138,73 @@ defmodule Sycophant.PipelineAuthConstraintsTest do
     assert response.context.params.store == true
   end
 
+  test "access-token constraints survive an automatically executed tool loop" do
+    stub(Transport, :call, fn _, _ -> flunk("expected streaming transport on both requests") end)
+
+    expect(Transport, :stream, fn payload, _opts, on_event ->
+      assert payload["store"] == false
+      assert payload["stream"] == true
+      refute Map.has_key?(payload, "temperature")
+
+      events = [
+        %{
+          event: "response.completed",
+          data:
+            JSON.encode!(%{
+              "response" => %{
+                "id" => "resp-tool",
+                "status" => "completed",
+                "output" => [
+                  %{
+                    "type" => "function_call",
+                    "call_id" => "call_1",
+                    "name" => "weather",
+                    "arguments" => "{}"
+                  }
+                ],
+                "usage" => %{}
+              }
+            })
+        }
+      ]
+
+      {:ok, on_event.(events)}
+    end)
+
+    expect(Transport, :stream, fn payload, _opts, on_event ->
+      assert payload["store"] == false
+      assert payload["stream"] == true
+      refute Map.has_key?(payload, "temperature")
+      assert Enum.any?(payload["input"], &(&1["type"] == "function_call_output"))
+      {:ok, on_event.(stream_events())}
+    end)
+
+    test_pid = self()
+
+    tool = %Sycophant.Tool{
+      name: "weather",
+      description: "Get weather",
+      parameters: Zoi.map(%{}),
+      function: fn _args ->
+        send(test_pid, :tool_executed)
+        "Sunny"
+      end
+    }
+
+    assert {:ok, response} =
+             Pipeline.call([Message.user("Weather?")],
+               model: "openai:gpt-4o",
+               credentials: %{access_token: "access"},
+               tools: [tool],
+               temperature: 0.5,
+               store: true
+             )
+
+    assert_received :tool_executed
+    assert response.text == "Hello!"
+    assert response.context.stream == nil
+  end
+
   defp stream_events do
     [
       %{event: "response.output_text.delta", data: JSON.encode!(%{"delta" => "Hello!"})},

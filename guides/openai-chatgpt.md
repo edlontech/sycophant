@@ -77,14 +77,16 @@ or a separately configured API key, rather than treating sign-in as failed.
 Use the persisted installation ID, issued client ID, and ID token:
 
 ```elixir
-{:ok, url, session} =
-  OpenAI.authorize_url(
-    host_id: installation.host_id,
-    redirect_uri: "http://127.0.0.1:1455/auth/callback",
-    client_id: credential.client_id,
-    id_token_hint: credential.id_token,
-    login_hint: credential.email
-  )
+opts = [
+  host_id: installation.host_id,
+  redirect_uri: "http://127.0.0.1:1455/auth/callback",
+  client_id: credential.client_id,
+  id_token_hint: credential.id_token
+]
+
+opts = if credential.email, do: Keyword.put(opts, :login_hint, credential.email), else: opts
+
+{:ok, url, session} = OpenAI.authorize_url(opts)
 ```
 
 Omit `login_hint` if no email is available. Re-login requests the full scope set

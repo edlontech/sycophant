@@ -5,6 +5,22 @@ defmodule Sycophant.OAuth.HTTPAdapterTest do
   alias Assent.HTTPAdapter.HTTPResponse
   alias Sycophant.OAuth.HTTPAdapter
 
+  test "does not forward Assent adapter options to Tesla" do
+    for method <- [:get, :post] do
+      adapter = fn env ->
+        assert env.opts == []
+        {:ok, %{env | status: 200, body: "raw"}}
+      end
+
+      stub(Sycophant.Config, :tesla, fn -> {:ok, %{adapter: adapter}} end)
+
+      assert {:ok, %HTTPResponse{body: "raw"}} =
+               HTTPAdapter.request(method, "https://auth.openai.com/token", "a=b", [],
+                 opts: [adapter: [timeout: 1234]]
+               )
+    end
+  end
+
   test "returns connection failures unchanged" do
     expect(Tesla, :post, fn _client, _url, _body, [] -> {:error, :econnrefused} end)
 

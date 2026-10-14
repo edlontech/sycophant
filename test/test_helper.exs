@@ -9,5 +9,4 @@ Mimic.copy(Sycophant.Auth)
 Mimic.copy(OpentelemetryTelemetry)
 Mimic.copy(Sycophant)
 Mimic.copy(Sycophant.OAuth.HTTPAdapter)
-
 Mimic.copy(Sycophant.OAuth)

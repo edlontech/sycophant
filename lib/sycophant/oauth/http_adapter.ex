@@ -8,29 +8,25 @@ defmodule Sycophant.OAuth.HTTPAdapter do
   @impl true
   @spec request(atom(), binary(), binary() | nil, [{binary(), binary()}], keyword()) ::
           {:ok, HTTPResponse.t()} | {:error, term()}
-  def request(method, url, body, headers, opts) do
+  def request(method, url, body, headers, _opts) do
     {:ok, tesla_config} = Sycophant.Config.tesla()
     client = Tesla.client([{Tesla.Middleware.Headers, headers}], tesla_config.adapter)
 
     result =
       case method do
-        :post -> Tesla.post(client, url, body, opts || [])
-        :get -> Tesla.get(client, url, opts || [])
+        :post -> Tesla.post(client, url, body, [])
+        :get -> Tesla.get(client, url, [])
       end
 
-    case result do
-      {:ok, %Tesla.Env{status: status, headers: headers, body: body}} ->
-        {:ok,
-         %HTTPResponse{
-           status: status,
-           headers: headers,
-           body: body,
-           http_adapter: __MODULE__,
-           request_url: url
-         }}
-
-      {:error, reason} ->
-        {:error, reason}
+    with {:ok, %Tesla.Env{status: status, headers: headers, body: body}} <- result do
+      {:ok,
+       %HTTPResponse{
+         status: status,
+         headers: headers,
+         body: body,
+         http_adapter: __MODULE__,
+         request_url: url
+       }}
     end
   end
 end
