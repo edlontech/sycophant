@@ -48,6 +48,7 @@ defmodule Sycophant.MixProject do
         {"guides/serialization.md", title: "Serialization"},
         {"guides/http-configuration.md", title: "HTTP Configuration"},
         {"guides/github-copilot.md", title: "GitHub Copilot"},
+        {"guides/openai-chatgpt.md", title: "OpenAI ChatGPT Plan"},
         {"guides/custom-providers.md", title: "Custom Providers"},
         {"guides/recording-tests.md", title: "Recording Tests"},
         {"CHANGELOG.md", title: "Changelog"},
@@ -64,7 +65,8 @@ defmodule Sycophant.MixProject do
           "guides/agent-mode.md",
           "guides/serialization.md",
           "guides/http-configuration.md",
-          "guides/github-copilot.md"
+          "guides/github-copilot.md",
+          "guides/openai-chatgpt.md"
         ],
         "Extending Sycophant": [
           "guides/custom-providers.md",

@@ -157,7 +157,7 @@ API reference.
 
 | Provider | Model Prefix | Auth | Wire Protocol |
 |----------|-------------|------|---------------|
-| OpenAI | `openai:` | Bearer token | Chat Completions / Responses / Decisions |
+| OpenAI | `openai:` | Bearer token / ChatGPT access token | Chat Completions / Responses / Decisions |
 | Anthropic | `anthropic:` | x-api-key | Messages |
 | Google Gemini | `google:` | API key | Gemini |
 | AWS Bedrock | `amazon_bedrock:` | AWS SigV4 | Converse |
@@ -165,6 +165,8 @@ API reference.
 | OpenRouter | `openrouter:` | Bearer token | OpenAI Completions |
 | GitHub Copilot | `github_copilot:` | GitHub token (managed exchange) | OpenAI Completions |
 | TypeSafe (evaluation only) | `typesafe:` | Bearer token | System One |
+
+See [OpenAI ChatGPT Plan](guides/openai-chatgpt.md) to sign in and use a ChatGPT subscription.
 
 ## Acknowledgements
 
