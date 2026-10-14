@@ -1349,11 +1349,11 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
   end
 
   describe "decode_response/1 - cache usage" do
-    test "decodes cached_tokens from prompt_tokens_details" do
+    test "decodes cached_tokens from input_tokens_details" do
       body =
         responses_api_response(text: "hi")
         |> put_in(
-          ["usage", "prompt_tokens_details"],
+          ["usage", "input_tokens_details"],
           %{"cached_tokens" => 50}
         )
 
@@ -1362,7 +1362,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
       assert resp.usage.cache_creation_input_tokens == nil
     end
 
-    test "sets cache fields to nil when prompt_tokens_details is absent" do
+    test "sets cache fields to nil when input_tokens_details is absent" do
       body = responses_api_response(text: "hi")
       assert {:ok, resp} = OpenAIResponses.decode_response(body)
       assert resp.usage.cache_read_input_tokens == nil

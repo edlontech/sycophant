@@ -215,10 +215,9 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
 
   def decode_stream_chunk(state, %{
         event_type: "metadata",
-        payload: %{"usage" => %{"inputTokens" => input, "outputTokens" => output}}
+        payload: %{"usage" => %{"inputTokens" => _, "outputTokens" => _} = usage}
       }) do
-    usage = %Usage{input_tokens: input, output_tokens: output}
-    {:done, build_streamed_response(%{state | usage: usage})}
+    {:done, build_streamed_response(%{state | usage: decode_usage(usage)})}
   end
 
   def decode_stream_chunk(_state, %{event_type: event_type, payload: payload})
@@ -337,8 +336,13 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
 
   defp classify_content_block(_, acc), do: acc
 
-  defp decode_usage(%{"inputTokens" => input, "outputTokens" => output}) do
-    %Usage{input_tokens: input, output_tokens: output}
+  defp decode_usage(%{"inputTokens" => input, "outputTokens" => output} = usage) do
+    %Usage{
+      input_tokens: input,
+      output_tokens: output,
+      cache_read_input_tokens: usage["cacheReadInputTokens"],
+      cache_creation_input_tokens: usage["cacheWriteInputTokens"]
+    }
   end
 
   defp decode_usage(_), do: nil

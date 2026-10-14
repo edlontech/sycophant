@@ -392,13 +392,26 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
           }
         },
         "stopReason" => "end_turn",
-        "usage" => %{"inputTokens" => 30, "outputTokens" => 100, "totalTokens" => 130}
+        "usage" => %{
+          "inputTokens" => 30,
+          "outputTokens" => 100,
+          "totalTokens" => 130,
+          "cacheReadInputTokens" => 20,
+          "cacheWriteInputTokens" => 5
+        }
       }
 
       assert {:ok, %Response{} = response} = BedrockConverse.decode_response(body)
       assert response.text == "Hello!"
       assert response.tool_calls == []
-      assert %Usage{input_tokens: 30, output_tokens: 100} = response.usage
+
+      assert %Usage{
+               input_tokens: 30,
+               output_tokens: 100,
+               cache_read_input_tokens: 20,
+               cache_creation_input_tokens: 5
+             } = response.usage
+
       assert response.raw == body
       assert response.finish_reason == :stop
     end
@@ -533,14 +546,21 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
                BedrockConverse.decode_stream_chunk(state, %{
                  event_type: "metadata",
                  payload: %{
-                   "usage" => %{"inputTokens" => 10, "outputTokens" => 25},
+                   "usage" => %{
+                     "inputTokens" => 10,
+                     "outputTokens" => 25,
+                     "cacheReadInputTokens" => 8
+                   },
                    "metrics" => %{"latencyMs" => 200}
                  }
                })
 
       assert response.text == "Hello world"
       assert response.tool_calls == []
-      assert %Usage{input_tokens: 10, output_tokens: 25} = response.usage
+
+      assert %Usage{input_tokens: 10, output_tokens: 25, cache_read_input_tokens: 8} =
+               response.usage
+
       assert response.finish_reason == :stop
     end
 

@@ -372,7 +372,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
   end
 
   defp decode_usage(%{"input_tokens" => input, "output_tokens" => output} = usage) do
-    cached = get_in(usage, ["prompt_tokens_details", "cached_tokens"])
+    cached = get_in(usage, ["input_tokens_details", "cached_tokens"])
     reasoning = get_in(usage, ["output_tokens_details", "reasoning_tokens"])
 
     %Usage{
