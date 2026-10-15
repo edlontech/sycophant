@@ -50,13 +50,22 @@ defmodule Sycophant.UsageTest do
 
       result = Usage.calculate_cost(usage, full_pricing())
 
-      assert result.input_cost == 3.0
+      # input_tokens includes cached tokens, so only 700k are billed at the input rate
+      assert result.input_cost == 2.1
       assert result.output_cost == 7.5
       assert result.cache_read_cost == 0.06
       assert result.cache_write_cost == 0.375
       assert result.reasoning_cost == 3.6
-      assert result.total_cost == 3.0 + 7.5 + 0.06 + 0.375 + 3.6
+      assert result.total_cost == 2.1 + 7.5 + 0.06 + 0.375 + 3.6
       assert result.pricing == full_pricing()
+    end
+
+    test "uncached input never goes negative when cache counts exceed input_tokens" do
+      usage = %Usage{input_tokens: 100, output_tokens: 0, cache_read_input_tokens: 150}
+      result = Usage.calculate_cost(usage, full_pricing())
+
+      assert result.input_cost == 0.0
+      assert result.cache_read_cost == 150 * 0.3 / 1_000_000
     end
 
     test "returns nil when usage is nil" do
@@ -87,7 +96,7 @@ defmodule Sycophant.UsageTest do
       assert result.total_cost == 3.0 + 7.5
     end
 
-    test "missing component produces nil cost" do
+    test "missing cache components bill at the input rate, other missing components are nil" do
       pricing = %Pricing{
         currency: "USD",
         components: [
@@ -112,12 +121,12 @@ defmodule Sycophant.UsageTest do
 
       result = Usage.calculate_cost(usage, pricing)
 
-      assert result.input_cost == 3.0
+      assert result.input_cost == 2.1
       assert result.output_cost == 7.5
-      assert result.cache_read_cost == nil
-      assert result.cache_write_cost == nil
+      assert result.cache_read_cost == 0.6
+      assert result.cache_write_cost == 0.3
       assert result.reasoning_cost == nil
-      assert result.total_cost == 3.0 + 7.5
+      assert result.total_cost == 2.1 + 7.5 + 0.6 + 0.3
     end
 
     test "zero tokens produce zero cost" do

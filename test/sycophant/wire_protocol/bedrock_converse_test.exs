@@ -406,7 +406,7 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
       assert response.tool_calls == []
 
       assert %Usage{
-               input_tokens: 30,
+               input_tokens: 55,
                output_tokens: 100,
                cache_read_input_tokens: 20,
                cache_creation_input_tokens: 5
@@ -558,7 +558,7 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
       assert response.text == "Hello world"
       assert response.tool_calls == []
 
-      assert %Usage{input_tokens: 10, output_tokens: 25, cache_read_input_tokens: 8} =
+      assert %Usage{input_tokens: 18, output_tokens: 25, cache_read_input_tokens: 8} =
                response.usage
 
       assert response.finish_reason == :stop

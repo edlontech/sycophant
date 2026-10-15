@@ -64,7 +64,7 @@ The `usage` field in stop metadata contains:
 
 | Key | Description |
 |-----|-------------|
-| `:input_tokens` | Tokens in the prompt |
+| `:input_tokens` | Total tokens in the prompt, including cached tokens |
 | `:output_tokens` | Tokens in the completion |
 | `:total_tokens` | Sum of input and output (computed) |
 | `:cache_creation_input_tokens` | Tokens written to provider cache |

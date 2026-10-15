@@ -489,6 +489,22 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
       assert resp.usage.cache_read_input_tokens == 50
     end
 
+    test "input_tokens includes cache reads and writes" do
+      body =
+        anthropic_response(
+          content: [%{"type" => "text", "text" => "hi"}],
+          usage: %{
+            "input_tokens" => 10,
+            "output_tokens" => 25,
+            "cache_creation_input_tokens" => 100,
+            "cache_read_input_tokens" => 50
+          }
+        )
+
+      assert {:ok, resp} = AnthropicMessages.decode_response(body)
+      assert resp.usage.input_tokens == 160
+    end
+
     test "preserves raw response body" do
       body = anthropic_response(content: [%{"type" => "text", "text" => "hi"}])
       assert {:ok, resp} = AnthropicMessages.decode_response(body)
@@ -630,6 +646,31 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
   end
 
   describe "decode_stream_chunk/2" do
+    test "message_start keeps cache usage and counts it in input_tokens" do
+      event = %{
+        event: "message_start",
+        data: %{
+          "message" => %{
+            "model" => "claude-haiku-4-5",
+            "usage" => %{
+              "input_tokens" => 3,
+              "output_tokens" => 1,
+              "cache_creation_input_tokens" => 13,
+              "cache_read_input_tokens" => 9607
+            }
+          }
+        }
+      }
+
+      assert {:ok, state, []} =
+               AnthropicMessages.decode_stream_chunk(AnthropicMessages.init_stream(), event)
+
+      assert state.usage.input_tokens == 9623
+      assert state.usage.cache_read_input_tokens == 9607
+      assert state.usage.cache_creation_input_tokens == 13
+      assert state.usage.output_tokens == 0
+    end
+
     test "full streaming lifecycle" do
       state = AnthropicMessages.init_stream()
 

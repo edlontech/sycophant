@@ -5,6 +5,10 @@ defmodule Sycophant.Usage do
   Reports input and output token counts, plus optional cache hit/miss
   information for providers that support prompt caching.
 
+  Following the OpenTelemetry GenAI conventions, `input_tokens` is the total
+  prompt size on every provider: it includes `cache_read_input_tokens` and
+  `cache_creation_input_tokens`.
+
   ## Examples
 
       iex> %Sycophant.Usage{input_tokens: 10, output_tokens: 25}
@@ -32,17 +36,29 @@ defmodule Sycophant.Usage do
   Calculates cost fields from token counts and a `Pricing` struct.
 
   Looks up each token component by ID (e.g. `"token.input"`, `"token.output"`)
-  and computes cost as `tokens * rate / per`. Missing components yield nil costs.
+  and computes cost as `tokens * rate / per`. Missing components yield nil costs,
+  except cache reads and writes, which fall back to the input rate.
+
+  Only the uncached part of `input_tokens` is billed at the input rate; cached
+  tokens are billed through the cache components.
   """
   @spec calculate_cost(t() | nil, Pricing.t() | nil) :: t() | nil
   def calculate_cost(nil, _pricing), do: nil
   def calculate_cost(usage, nil), do: usage
 
   def calculate_cost(usage, %Pricing{} = pricing) do
-    input = component_cost(usage.input_tokens, pricing, "token.input")
+    input = component_cost(uncached_input_tokens(usage), pricing, "token.input")
     output = component_cost(usage.output_tokens, pricing, "token.output")
-    cache_read = component_cost(usage.cache_read_input_tokens, pricing, "token.cache_read")
-    cache_write = component_cost(usage.cache_creation_input_tokens, pricing, "token.cache_write")
+
+    cache_read =
+      component_cost(usage.cache_read_input_tokens, pricing, ["token.cache_read", "token.input"])
+
+    cache_write =
+      component_cost(usage.cache_creation_input_tokens, pricing, [
+        "token.cache_write",
+        "token.input"
+      ])
+
     reasoning = component_cost(usage.reasoning_tokens, pricing, "token.reasoning")
     total = sum_costs([input, output, cache_read, cache_write, reasoning])
 
@@ -58,10 +74,17 @@ defmodule Sycophant.Usage do
     }
   end
 
-  defp component_cost(nil, _pricing, _id), do: nil
+  defp uncached_input_tokens(%{input_tokens: nil}), do: nil
 
-  defp component_cost(tokens, %Pricing{} = pricing, id) do
-    case Pricing.find_component(pricing, id) do
+  defp uncached_input_tokens(usage) do
+    cached = (usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0)
+    max(usage.input_tokens - cached, 0)
+  end
+
+  defp component_cost(nil, _pricing, _ids), do: nil
+
+  defp component_cost(tokens, %Pricing{} = pricing, ids) do
+    case Enum.find_value(List.wrap(ids), &Pricing.find_component(pricing, &1)) do
       nil -> nil
       comp -> tokens * comp.rate / comp.per
     end

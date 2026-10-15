@@ -159,12 +159,9 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
     state = %{state | model: message["model"]}
 
     state =
-      case message["usage"] do
-        %{"input_tokens" => input} ->
-          %{state | usage: %Usage{input_tokens: input, output_tokens: 0}}
-
-        _ ->
-          state
+      case decode_usage(message["usage"]) do
+        %Usage{} = usage -> %{state | usage: %{usage | output_tokens: 0}}
+        nil -> state
       end
 
     {:ok, state, []}
@@ -616,9 +613,12 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
     }
   end
 
+  # Anthropic reports input_tokens without cached tokens; Usage.input_tokens is the total.
   defp decode_usage(%{"input_tokens" => input, "output_tokens" => output} = usage) do
     %Usage{
-      input_tokens: input,
+      input_tokens:
+        input + (usage["cache_creation_input_tokens"] || 0) +
+          (usage["cache_read_input_tokens"] || 0),
       output_tokens: output,
       cache_creation_input_tokens: usage["cache_creation_input_tokens"],
       cache_read_input_tokens: usage["cache_read_input_tokens"]

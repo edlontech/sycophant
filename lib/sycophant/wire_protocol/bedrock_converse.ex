@@ -336,9 +336,11 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
 
   defp classify_content_block(_, acc), do: acc
 
+  # Bedrock reports inputTokens without cached tokens; Usage.input_tokens is the total.
   defp decode_usage(%{"inputTokens" => input, "outputTokens" => output} = usage) do
     %Usage{
-      input_tokens: input,
+      input_tokens:
+        input + (usage["cacheReadInputTokens"] || 0) + (usage["cacheWriteInputTokens"] || 0),
       output_tokens: output,
       cache_read_input_tokens: usage["cacheReadInputTokens"],
       cache_creation_input_tokens: usage["cacheWriteInputTokens"]
