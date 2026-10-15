@@ -2,8 +2,8 @@
   "metadata": {
     "model": "google/gemini-2.5-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-06-02T11:47:18.109339Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:54.535235Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -61,11 +61,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1780400838,
-      "created_at": 1780400837,
+      "completed_at": 1792093014,
+      "created_at": 1792093013,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1780400837-Kuudy6GwcSA6EJ6JMoKp",
+      "id": "gen-1792093013-aIa678n4WtAY1xse9pLV",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -79,11 +79,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "{\n  \"name\": \"Alice Wonderland\",\n  \"age\": 28,\n  \"hobbies\": [\"reading\", \"hiking\", \"photography\"]\n}",
+              "text": "{\"name\": \"Alice Wonderland\", \"age\": 30, \"hobbies\": [\"reading\", \"gardening\", \"painting\"]}",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_a50w5q49jaa",
+          "id": "msg_tmp_985axu3y1pd",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -93,9 +93,10 @@
       "presence_penalty": 0,
       "previous_response_id": null,
       "prompt_cache_key": null,
+      "prompt_cache_options": null,
       "reasoning": null,
       "safety_identifier": null,
-      "service_tier": "provisioned",
+      "service_tier": "default",
       "status": "completed",
       "store": false,
       "temperature": 1,
@@ -135,28 +136,29 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 9.6e-5,
+        "cost": 8.32e-5,
         "cost_details": {
-          "upstream_inference_cost": 9.6e-5,
-          "upstream_inference_input_cost": 6.0e-6,
-          "upstream_inference_output_cost": 9.0e-5
+          "upstream_inference_cost": 8.32e-5,
+          "upstream_inference_input_cost": 1.32e-5,
+          "upstream_inference_output_cost": 7.0e-5
         },
-        "input_tokens": 20,
+        "input_tokens": 44,
         "input_tokens_details": {
+          "cache_write_tokens": 0,
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 36,
+        "output_tokens": 28,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 56
+        "total_tokens": 72
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:17 GMT"
+        "Thu, 15 Oct 2026 19:36:54 GMT"
       ],
       [
         "content-type",
@@ -164,7 +166,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=657"
+        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=1428"
       ],
       [
         "access-control-allow-origin",
@@ -172,11 +174,15 @@
       ],
       [
         "x-generation-id",
-        "gen-1780400837-Kuudy6GwcSA6EJ6JMoKp"
+        "gen-1792093013-aIa678n4WtAY1xse9pLV"
       ],
       [
         "access-control-expose-headers",
-        "X-Generation-Id,cf-ray"
+        "X-Generation-Id,X-Provider-Name,request-id,cf-ray"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
       ],
       [
         "permissions-policy",
@@ -196,7 +202,7 @@
       ],
       [
         "cf-ray",
-        "a05638f02f8d876f-PRG"
+        "a4b146730988dc5c-FRA"
       ]
     ],
     "status": 200

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-4o-mini",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-06-02T11:47:40.293180Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:06.996768Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -31,11 +31,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1780400860,
-      "created_at": 1780400854,
+      "completed_at": 1792093026,
+      "created_at": 1792093026,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1780400854-liXB0v6Nxab4myVsbr81",
+      "id": "gen-1792093026-MlGumQ26Bkx0Fx14YMjd",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -49,11 +49,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Nice to meet you, Sycophant! How can I assist you today?",
+              "text": "Nice to meet you, Sycophant! While I can't remember information between our conversations, I'm here to help with anything you need during this chat. What can I assist you with today?",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_mociexmqog",
+          "id": "msg_tmp_pl2zzd1iny9",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -63,9 +63,10 @@
       "presence_penalty": 0,
       "previous_response_id": null,
       "prompt_cache_key": null,
+      "prompt_cache_options": null,
       "reasoning": null,
       "safety_identifier": null,
-      "service_tier": "auto",
+      "service_tier": "default",
       "status": "completed",
       "store": false,
       "temperature": 1,
@@ -80,28 +81,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 1.29e-5,
+        "cost": 2.61e-5,
         "cost_details": {
-          "upstream_inference_cost": 1.29e-5,
+          "upstream_inference_cost": 2.61e-5,
           "upstream_inference_input_cost": 2.7e-6,
-          "upstream_inference_output_cost": 1.02e-5
+          "upstream_inference_output_cost": 2.34e-5
         },
         "input_tokens": 18,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 17,
+        "output_tokens": 39,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 35
+        "total_tokens": 57
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:39 GMT"
+        "Thu, 15 Oct 2026 19:37:06 GMT"
       ],
       [
         "content-type",
@@ -109,7 +110,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=15,cfOrigin;dur=0,cfWorker;dur=5440"
+        "cfEdge;dur=8,cfOrigin;dur=0,cfWorker;dur=624"
       ],
       [
         "access-control-allow-origin",
@@ -117,11 +118,15 @@
       ],
       [
         "x-generation-id",
-        "gen-1780400854-liXB0v6Nxab4myVsbr81"
+        "gen-1792093026-MlGumQ26Bkx0Fx14YMjd"
       ],
       [
         "access-control-expose-headers",
-        "X-Generation-Id,cf-ray"
+        "X-Generation-Id,X-Provider-Name,request-id,cf-ray"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
       ],
       [
         "permissions-policy",
@@ -141,7 +146,7 @@
       ],
       [
         "cf-ray",
-        "a056395b9a94876f-PRG"
+        "a4b146c4ad1ddc5c-FRA"
       ]
     ],
     "status": 200

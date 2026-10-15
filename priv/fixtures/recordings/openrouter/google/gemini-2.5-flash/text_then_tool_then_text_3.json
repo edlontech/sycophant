@@ -2,8 +2,8 @@
   "metadata": {
     "model": "google/gemini-2.5-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-06-02T11:47:26.494492Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:00.318654Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "Sounds like a great trip! What would you like to know about London?\n",
+              "text": "Sounds fun! What would you like to know about London? \n",
               "type": "output_text"
             }
           ],
@@ -35,12 +35,12 @@
         },
         {
           "arguments": "{\"city\":\"London\"}",
-          "call_id": "tool_get_weather_fegMXaa6nFUoWXU1AgrQ",
+          "call_id": "tool_get_weather_rKzNTixVUftsYJYaNSAk",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "tool_get_weather_fegMXaa6nFUoWXU1AgrQ",
+          "call_id": "tool_get_weather_rKzNTixVUftsYJYaNSAk",
           "output": "London: 18C, cloudy",
           "type": "function_call_output"
         }
@@ -84,11 +84,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1780400846,
-      "created_at": 1780400846,
+      "completed_at": 1792093020,
+      "created_at": 1792093018,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1780400846-lzlaaB4yWJ3UEArKpsdh",
+      "id": "gen-1792093018-rKPat6H7ujzp1dMJQ8vU",
       "incomplete_details": null,
       "instructions": "You are a helpful assistant. Be concise.",
       "max_output_tokens": null,
@@ -102,11 +102,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "The current weather in London is 18C and cloudy.",
+              "text": "The current weather in London is 18°C and cloudy.",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_jt6xpnlb01o",
+          "id": "msg_tmp_27637if5fu7",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -116,9 +116,10 @@
       "presence_penalty": 0,
       "previous_response_id": null,
       "prompt_cache_key": null,
+      "prompt_cache_options": null,
       "reasoning": null,
       "safety_identifier": null,
-      "service_tier": "provisioned",
+      "service_tier": "default",
       "status": "completed",
       "store": false,
       "temperature": 1,
@@ -152,28 +153,29 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 6.13e-5,
+        "cost": 6.17e-5,
         "cost_details": {
-          "upstream_inference_cost": 6.13e-5,
-          "upstream_inference_input_cost": 2.88e-5,
-          "upstream_inference_output_cost": 3.25e-5
+          "upstream_inference_cost": 6.17e-5,
+          "upstream_inference_input_cost": 2.67e-5,
+          "upstream_inference_output_cost": 3.5e-5
         },
-        "input_tokens": 96,
+        "input_tokens": 89,
         "input_tokens_details": {
+          "cache_write_tokens": 0,
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 13,
+        "output_tokens": 14,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 109
+        "total_tokens": 103
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:26 GMT"
+        "Thu, 15 Oct 2026 19:37:00 GMT"
       ],
       [
         "content-type",
@@ -181,7 +183,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=392"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=1349"
       ],
       [
         "access-control-allow-origin",
@@ -189,11 +191,15 @@
       ],
       [
         "x-generation-id",
-        "gen-1780400846-lzlaaB4yWJ3UEArKpsdh"
+        "gen-1792093018-rKPat6H7ujzp1dMJQ8vU"
       ],
       [
         "access-control-expose-headers",
-        "X-Generation-Id,cf-ray"
+        "X-Generation-Id,X-Provider-Name,request-id,cf-ray"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
       ],
       [
         "permissions-policy",
@@ -213,7 +219,7 @@
       ],
       [
         "cf-ray",
-        "a0563927df58876f-PRG"
+        "a4b14697dc8edc5c-FRA"
       ]
     ],
     "status": 200

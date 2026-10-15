@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:28.005818Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:06.413511Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -37,20 +37,20 @@
           "logprobs": null,
           "message": {
             "annotations": [],
-            "content": "Hello",
+            "content": "Hello.",
             "refusal": null,
             "role": "assistant"
           }
         }
       ],
-      "created": 1780400847,
-      "id": "chatcmpl-DmHsdenkkqNlG82v8d3Vie7wg3LsF",
+      "created": 1792093025,
+      "id": "chatcmpl-EZLY9AlHQEloRfswP0CiArfA1R52n",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
       "system_fingerprint": null,
       "usage": {
-        "completion_tokens": 1,
+        "completion_tokens": 2,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "audio_tokens": 0,
@@ -62,13 +62,13 @@
           "audio_tokens": 0,
           "cached_tokens": 0
         },
-        "total_tokens": 16
+        "total_tokens": 17
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:28 GMT"
+        "Thu, 15 Oct 2026 19:37:06 GMT"
       ],
       [
         "content-type",
@@ -76,7 +76,7 @@
       ],
       [
         "cf-ray",
-        "a05639316c39d1c5-PRG"
+        "a4b146c0af37bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -112,7 +112,7 @@
       ],
       [
         "openai-processing-ms",
-        "267"
+        "770"
       ],
       [
         "openai-project",
@@ -136,23 +136,23 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "8998"
+        "8997"
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "1999990"
+        "1999886"
       ],
       [
         "x-ratelimit-reset-requests",
-        "6ms"
+        "20ms"
       ],
       [
         "x-ratelimit-reset-tokens",
-        "0s"
+        "3ms"
       ],
       [
         "x-request-id",
-        "req_8766a3aaf9484d90b300c36eeb7f5143"
+        "req_212e2394dbef49aba013720d4d0d630f"
       ],
       [
         "set-cookie",

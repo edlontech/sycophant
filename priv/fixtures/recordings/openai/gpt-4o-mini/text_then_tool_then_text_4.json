@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:31.173242Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:59.129879Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "That sounds exciting! What information do you need for your trip to London?",
+              "text": "That sounds exciting! When are you planning to go, and do you need help with anything specific?",
               "type": "output_text"
             }
           ],
@@ -35,12 +35,12 @@
         },
         {
           "arguments": "{\"city\":\"London\"}",
-          "call_id": "call_YI2l77htSLtIryoo6TydNTxB",
+          "call_id": "call_E9do6Aa42M7U2ldPO8StJboZ",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "call_YI2l77htSLtIryoo6TydNTxB",
+          "call_id": "call_E9do6Aa42M7U2ldPO8StJboZ",
           "output": "London: 18C, cloudy",
           "type": "function_call_output"
         },
@@ -98,23 +98,101 @@
   },
   "response": {
     "body": {
-      "background": false,
+      "safety_identifier": null,
+      "store": true,
+      "error": null,
+      "created_at": 1792093018,
+      "presence_penalty": 0.0,
+      "status": "completed",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "max_tool_calls": null,
+      "instructions": "You are a helpful assistant. Be concise.",
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": "in_memory",
+      "completed_at": 1792093018,
+      "temperature": 1.0,
       "text": {
         "format": {
           "type": "text"
         },
         "verbosity": "medium"
       },
-      "moderation": null,
-      "top_logprobs": 0,
-      "previous_response_id": null,
+      "parallel_tool_calls": true,
       "tool_choice": "auto",
+      "frequency_penalty": 0.0,
+      "top_logprobs": 0,
+      "reasoning": {
+        "context": null,
+        "effort": null,
+        "summary": null
+      },
+      "usage": {
+        "input_tokens": 170,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 22,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 192
+      },
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "gpt-4o-mini-2024-07-18",
+      "truncation": "disabled",
+      "metadata": {},
       "service_tier": "default",
-      "status": "completed",
+      "id": "resp_0b3a9ccf49842b47006ad12b5a5b7c87d29cda6e275a38230d",
+      "top_p": 1.0,
+      "user": null,
+      "prompt_cache_key": null,
+      "moderation": null,
+      "object": "response",
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
+      "output": [
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Given the cloudy conditions, it's a good idea to bring an umbrella, just in case it rains.",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_0b3a9ccf49842b47006ad12b5ac35087d2a8b7690db50dae16",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
       "tools": [
         {
           "description": "Get current weather for a city. Returns temperature and conditions.",
           "name": "get_weather",
+          "output_schema": null,
           "parameters": {
             "additionalProperties": false,
             "properties": {
@@ -130,69 +208,12 @@
           "strict": true,
           "type": "function"
         }
-      ],
-      "id": "resp_0454a30ceae56809006a1ec2d19f1c819fa8acde16a2af1e0a",
-      "temperature": 1.0,
-      "max_output_tokens": null,
-      "user": null,
-      "frequency_penalty": 0.0,
-      "error": null,
-      "model": "gpt-4o-mini-2024-07-18",
-      "usage": {
-        "input_tokens": 165,
-        "input_tokens_details": {
-          "cached_tokens": 0
-        },
-        "output_tokens": 22,
-        "output_tokens_details": {
-          "reasoning_tokens": 0
-        },
-        "total_tokens": 187
-      },
-      "safety_identifier": null,
-      "object": "response",
-      "parallel_tool_calls": true,
-      "output": [
-        {
-          "content": [
-            {
-              "annotations": [],
-              "logprobs": [],
-              "text": "Given the cloudy weather, it's a good idea to bring an umbrella, just in case of rain!",
-              "type": "output_text"
-            }
-          ],
-          "id": "msg_0454a30ceae56809006a1ec2d226cc819f87554cd0db1b08e7",
-          "role": "assistant",
-          "status": "completed",
-          "type": "message"
-        }
-      ],
-      "instructions": "You are a helpful assistant. Be concise.",
-      "store": true,
-      "presence_penalty": 0.0,
-      "incomplete_details": null,
-      "reasoning": {
-        "context": null,
-        "effort": null,
-        "summary": null
-      },
-      "completed_at": 1780400850,
-      "truncation": "disabled",
-      "top_p": 1.0,
-      "billing": {
-        "payer": "developer"
-      },
-      "prompt_cache_retention": "in_memory",
-      "metadata": {},
-      "prompt_cache_key": null,
-      "created_at": 1780400849,
-      "max_tool_calls": null
+      ]
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:31 GMT"
+        "Thu, 15 Oct 2026 19:36:59 GMT"
       ],
       [
         "content-type",
@@ -200,11 +221,11 @@
       ],
       [
         "content-length",
-        "2128"
+        "2580"
       ],
       [
         "cf-ray",
-        "a056393d1fbfd1c5-PRG"
+        "a4b146940ae0bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -240,7 +261,7 @@
       ],
       [
         "openai-processing-ms",
-        "1586"
+        "713"
       ],
       [
         "openai-project",
@@ -260,15 +281,15 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "29999"
+        "29998"
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "149999617"
+        "149999227"
       ],
       [
         "x-ratelimit-reset-requests",
-        "2ms"
+        "4ms"
       ],
       [
         "x-ratelimit-reset-tokens",
@@ -276,7 +297,7 @@
       ],
       [
         "x-request-id",
-        "req_e8c963871afb4316bc6a6197e6587a5e"
+        "req_704839bad38c4ca49aed266d242df50f"
       ],
       [
         "set-cookie",

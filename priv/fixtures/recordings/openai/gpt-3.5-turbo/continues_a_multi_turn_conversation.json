@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:29.063389Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:04.512020Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -37,20 +37,20 @@
           "logprobs": null,
           "message": {
             "annotations": [],
-            "content": "Nice to meet you, Sycophant. How can I assist you?",
+            "content": "Hello Sycophant, nice to meet you. How can I assist you today?",
             "refusal": null,
             "role": "assistant"
           }
         }
       ],
-      "created": 1780400848,
-      "id": "chatcmpl-DmHsexVcZx0DMgn13s1e5T7gV6J1y",
+      "created": 1792093023,
+      "id": "chatcmpl-EZLY7mgo1BbdLv5DvKh3AyQDJ4Dyn",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
       "system_fingerprint": null,
       "usage": {
-        "completion_tokens": 16,
+        "completion_tokens": 18,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "audio_tokens": 0,
@@ -62,13 +62,13 @@
           "audio_tokens": 0,
           "cached_tokens": 0
         },
-        "total_tokens": 34
+        "total_tokens": 36
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:29 GMT"
+        "Thu, 15 Oct 2026 19:37:04 GMT"
       ],
       [
         "content-type",
@@ -76,7 +76,7 @@
       ],
       [
         "cf-ray",
-        "a0563936dd47d1c5-PRG"
+        "a4b146b4ac57bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -112,7 +112,7 @@
       ],
       [
         "openai-processing-ms",
-        "423"
+        "849"
       ],
       [
         "openai-project",
@@ -136,11 +136,11 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "8998"
+        "8999"
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "1999989"
+        "1999978"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -152,7 +152,7 @@
       ],
       [
         "x-request-id",
-        "req_55b5b5877c6c41b6a63f520fbd64985c"
+        "req_d1499898a5be4fa5a0101acad99c4125"
       ],
       [
         "set-cookie",

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5.2",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:21.691631Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:54.064918Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -50,23 +50,96 @@
   },
   "response": {
     "body": {
-      "background": false,
+      "safety_identifier": null,
+      "store": true,
+      "error": null,
+      "created_at": 1792093012,
+      "presence_penalty": 0.0,
+      "status": "completed",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "max_tool_calls": null,
+      "instructions": null,
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": "24h",
+      "completed_at": 1792093013,
+      "temperature": 1.0,
       "text": {
         "format": {
           "type": "text"
         },
         "verbosity": "medium"
       },
-      "moderation": null,
-      "top_logprobs": 0,
-      "previous_response_id": null,
+      "parallel_tool_calls": true,
       "tool_choice": "auto",
+      "frequency_penalty": 0.0,
+      "top_logprobs": 0,
+      "reasoning": {
+        "context": "current_turn",
+        "effort": "none",
+        "mode": "standard",
+        "summary": null
+      },
+      "usage": {
+        "input_tokens": 69,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 18,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 87
+      },
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "gpt-5.2-2025-12-11",
+      "truncation": "disabled",
+      "metadata": {},
       "service_tier": "default",
-      "status": "completed",
+      "id": "resp_0eb4985afc8efca8006ad12b54ec5087d2a784d2bd15168739",
+      "top_p": 0.98,
+      "user": null,
+      "prompt_cache_key": null,
+      "moderation": null,
+      "object": "response",
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
+      "output": [
+        {
+          "arguments": "{\"city\":\"Paris\"}",
+          "call_id": "call_uy4NQWndgdcnHjv2evDWo1oz",
+          "id": "fc_0eb4985afc8efca8006ad12b5586bc87d2b50dec7e73b90e93",
+          "name": "get_weather",
+          "status": "completed",
+          "type": "function_call"
+        }
+      ],
       "tools": [
         {
           "description": "Get current weather for a city. Returns temperature and conditions.",
           "name": "get_weather",
+          "output_schema": null,
           "parameters": {
             "additionalProperties": false,
             "properties": {
@@ -82,63 +155,12 @@
           "strict": true,
           "type": "function"
         }
-      ],
-      "id": "resp_0c6a27d36d9120b7006a1ec2c6e97c8191a9aff187bd7d66b9",
-      "temperature": 1.0,
-      "max_output_tokens": null,
-      "user": null,
-      "frequency_penalty": 0.0,
-      "error": null,
-      "model": "gpt-5.2-2025-12-11",
-      "usage": {
-        "input_tokens": 69,
-        "input_tokens_details": {
-          "cached_tokens": 0
-        },
-        "output_tokens": 18,
-        "output_tokens_details": {
-          "reasoning_tokens": 0
-        },
-        "total_tokens": 87
-      },
-      "safety_identifier": null,
-      "object": "response",
-      "parallel_tool_calls": true,
-      "output": [
-        {
-          "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "call_uH8kDMRETg9R4bx3tIxpkGOI",
-          "id": "fc_0c6a27d36d9120b7006a1ec2c7824c8191ba2a53e7e5acb4de",
-          "name": "get_weather",
-          "status": "completed",
-          "type": "function_call"
-        }
-      ],
-      "instructions": null,
-      "store": true,
-      "presence_penalty": 0.0,
-      "incomplete_details": null,
-      "reasoning": {
-        "context": "current_turn",
-        "effort": "none",
-        "summary": null
-      },
-      "completed_at": 1780400841,
-      "truncation": "disabled",
-      "top_p": 0.98,
-      "billing": {
-        "payer": "developer"
-      },
-      "prompt_cache_retention": "24h",
-      "metadata": {},
-      "prompt_cache_key": null,
-      "created_at": 1780400838,
-      "max_tool_calls": null
+      ]
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:21 GMT"
+        "Thu, 15 Oct 2026 19:36:53 GMT"
       ],
       [
         "content-type",
@@ -146,11 +168,11 @@
       ],
       [
         "content-length",
-        "1948"
+        "2420"
       ],
       [
         "cf-ray",
-        "a05638fa6f63d1c5-PRG"
+        "a4b146709ec3bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -186,7 +208,7 @@
       ],
       [
         "openai-processing-ms",
-        "2743"
+        "1000"
       ],
       [
         "openai-project",
@@ -210,7 +232,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "40000000"
+        "39999562"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -222,7 +244,7 @@
       ],
       [
         "x-request-id",
-        "req_6cba125075f442b195973a7afccf08c8"
+        "req_3ce2efbb44af4087925601768dbff130"
       ],
       [
         "set-cookie",

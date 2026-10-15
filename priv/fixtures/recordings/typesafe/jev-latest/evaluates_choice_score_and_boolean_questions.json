@@ -2,8 +2,8 @@
   "metadata": {
     "model": "jev-latest",
     "provider": "api.typesafe.ai",
-    "recorded_at": "2026-09-21T19:21:16.801094Z",
-    "sycophant_version": "0.5.1"
+    "recorded_at": "2026-10-15T19:37:07.083141Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -73,12 +73,12 @@
           },
           "probabilities": {
             "0": 0.0,
-            "1": 0.07,
-            "2": 0.6900000000000001,
-            "3": 0.24,
+            "1": 0.09,
+            "2": 0.68,
+            "3": 0.23,
             "4": 0.0
           },
-          "score": 2.17,
+          "score": 2.14,
           "type": "score"
         },
         "urgent": {
@@ -95,15 +95,7 @@
     "headers": [
       [
         "date",
-        "Mon, 21 Sep 2026 19:21:15 GMT"
-      ],
-      [
-        "server",
-        "istio-envoy"
-      ],
-      [
-        "content-length",
-        "465"
+        "Thu, 15 Oct 2026 19:37:07 GMT"
       ],
       [
         "content-type",
@@ -111,11 +103,27 @@
       ],
       [
         "x-typesafe-request-id",
-        "req_01a0c56a5a687e0abf01138549b69bad"
+        "req_01a141117a897c069728759aa998795b"
       ],
       [
-        "x-envoy-upstream-service-time",
-        "145"
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "cf-ray",
+        "a4b146c9fea17035-CDG"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
       ]
     ],
     "status": 200

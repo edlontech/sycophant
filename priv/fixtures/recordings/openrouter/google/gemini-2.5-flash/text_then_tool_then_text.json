@@ -2,8 +2,8 @@
   "metadata": {
     "model": "google/gemini-2.5-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-06-02T11:47:25.519358Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:57.925222Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -52,11 +52,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1780400845,
-      "created_at": 1780400844,
+      "completed_at": 1792093017,
+      "created_at": 1792093016,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1780400844-pX6648Wv64TxC8ZkX0E0",
+      "id": "gen-1792093016-psrhfIDUB64mcp28Qqww",
       "incomplete_details": null,
       "instructions": "You are a helpful assistant. Be concise.",
       "max_output_tokens": null,
@@ -70,11 +70,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Sounds like a great trip! What would you like to know about London?\n",
+              "text": "Sounds fun! What would you like to know about London? \n",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_mrptiq6qsnd",
+          "id": "msg_tmp_6yxbsjnma6u",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -84,9 +84,10 @@
       "presence_penalty": 0,
       "previous_response_id": null,
       "prompt_cache_key": null,
+      "prompt_cache_options": null,
       "reasoning": null,
       "safety_identifier": null,
-      "service_tier": "provisioned",
+      "service_tier": "default",
       "status": "completed",
       "store": false,
       "temperature": 1,
@@ -120,28 +121,29 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 5.17e-5,
+        "cost": 4.55e-5,
         "cost_details": {
-          "upstream_inference_cost": 5.17e-5,
-          "upstream_inference_input_cost": 1.17e-5,
-          "upstream_inference_output_cost": 4.0e-5
+          "upstream_inference_cost": 4.55e-5,
+          "upstream_inference_input_cost": 1.05e-5,
+          "upstream_inference_output_cost": 3.5e-5
         },
-        "input_tokens": 39,
+        "input_tokens": 35,
         "input_tokens_details": {
+          "cache_write_tokens": 0,
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 16,
+        "output_tokens": 14,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 55
+        "total_tokens": 49
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:25 GMT"
+        "Thu, 15 Oct 2026 19:36:57 GMT"
       ],
       [
         "content-type",
@@ -149,7 +151,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=856"
+        "cfEdge;dur=8,cfOrigin;dur=0,cfWorker;dur=1125"
       ],
       [
         "access-control-allow-origin",
@@ -157,11 +159,15 @@
       ],
       [
         "x-generation-id",
-        "gen-1780400844-pX6648Wv64TxC8ZkX0E0"
+        "gen-1792093016-psrhfIDUB64mcp28Qqww"
       ],
       [
         "access-control-expose-headers",
-        "X-Generation-Id,cf-ray"
+        "X-Generation-Id,X-Provider-Name,request-id,cf-ray"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
       ],
       [
         "permissions-policy",
@@ -181,7 +187,7 @@
       ],
       [
         "cf-ray",
-        "a056391d9e31876f-PRG"
+        "a4b1468a6d69dc5c-FRA"
       ]
     ],
     "status": 200

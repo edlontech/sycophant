@@ -2,15 +2,15 @@
   "metadata": {
     "model": "gpt-5.4",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-06-29T09:55:27.105503Z",
+    "recorded_at": "2026-10-15T19:37:57.568374Z",
     "streaming": true,
-    "sycophant_version": "0.4.2"
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
       "messages": [
         {
-          "content": "Say 'hello' and nothing else.",
+          "content": "Say 'streaming works' and stop.",
           "role": "user"
         }
       ],
@@ -50,7 +50,7 @@
     "url": "https://api.individual.githubcopilot.com/chat/completions"
   },
   "response": {
-    "body": "data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\",\"role\":\"assistant\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302gwgD42Fyg4kamQioX4igPfOZ\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"hello\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302gwgD42Fyg4kamQioX4igPfOZ\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"delta\":{\"content\":null}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302gwgD42Fyg4kamQioX4igPfOZ\",\"usage\":{\"completion_tokens\":4,\"completion_tokens_details\":{\"accepted_prediction_tokens\":0,\"rejected_prediction_tokens\":0},\"prompt_tokens\":14,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":18,\"reasoning_tokens\":0},\"model\":\"gpt-5.4\",\"copilot_usage\":{\"token_details\":[{\"batch_size\":1000000,\"cost_per_batch\":250000000000,\"token_count\":14,\"token_type\":\"input\"},{\"batch_size\":1000000,\"cost_per_batch\":25000000000,\"token_count\":0,\"token_type\":\"cache_read\"},{\"batch_size\":1000000,\"cost_per_batch\":0,\"token_count\":0,\"token_type\":\"cache_write\"},{\"batch_size\":1000000,\"cost_per_batch\":1500000000000,\"token_count\":4,\"token_type\":\"output\"}],\"total_nano_aiu\":9500000}}\n\ndata: [DONE]\n\n",
+    "body": "data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\",\"role\":\"assistant\"}}],\"created\":1792093077,\"id\":\"chatcmpl-EZLYzyatOurf1G5mV09glRB0y2YNi\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"stream\"}}],\"created\":1792093077,\"id\":\"chatcmpl-EZLYzyatOurf1G5mV09glRB0y2YNi\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"ing\"}}],\"created\":1792093077,\"id\":\"chatcmpl-EZLYzyatOurf1G5mV09glRB0y2YNi\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" works\"}}],\"created\":1792093077,\"id\":\"chatcmpl-EZLYzyatOurf1G5mV09glRB0y2YNi\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"delta\":{\"content\":null}}],\"created\":1792093077,\"id\":\"chatcmpl-EZLYzyatOurf1G5mV09glRB0y2YNi\",\"usage\":{\"completion_tokens\":6,\"completion_tokens_details\":{\"accepted_prediction_tokens\":0,\"rejected_prediction_tokens\":0},\"prompt_tokens\":15,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":21},\"model\":\"gpt-5.4\",\"copilot_usage\":{\"token_details\":[{\"batch_size\":1000000,\"cost_per_batch\":250000000000,\"model\":\"gpt-5.4\",\"token_count\":15,\"token_type\":\"input\"},{\"batch_size\":1000000,\"cost_per_batch\":25000000000,\"model\":\"gpt-5.4\",\"token_count\":0,\"token_type\":\"cache_read\"},{\"batch_size\":1000000,\"cost_per_batch\":0,\"model\":\"gpt-5.4\",\"token_count\":0,\"token_type\":\"cache_write\"},{\"batch_size\":1000000,\"cost_per_batch\":1500000000000,\"model\":\"gpt-5.4\",\"token_count\":6,\"token_type\":\"output\"}],\"total_nano_aiu\":12750000}}\n\ndata: [DONE]\n\n",
     "headers": [
       [
         "cache-control",
@@ -70,19 +70,23 @@
       ],
       [
         "x-copilot-api-exp-assignment-context",
-        "e4hcf520:1109203;t_capicli_aa:1116798;"
+        "e4hcf520:1109203;t_capicli_aa:1116798;permission_prompt_treatment:1332566;ccr_pr_nudge_auto_review:1319472;jc553158:1433349;cmc_aa_t:1435711;seataa-998bffad:1447867;"
       ],
       [
         "x-copilot-service-request-id",
-        "a4660e4b-a1fb-463b-b393-2975b550d9d7"
+        "4a842cbf-bf08-42f3-8820-207ed8c30ba5"
+      ],
+      [
+        "x-github-copilot-request-te",
+        "true"
       ],
       [
         "x-request-id",
-        "00000-9c34f8ee-56fe-417f-a6ff-3034d4be9bb8"
+        "00000-35ba7008-e47d-456e-81be-9b811268eb3e"
       ],
       [
         "date",
-        "Mon, 29 Jun 2026 09:55:27 GMT"
+        "Thu, 15 Oct 2026 19:37:57 GMT"
       ],
       [
         "x-github-backend",
@@ -90,7 +94,11 @@
       ],
       [
         "x-github-request-id",
-        "8B26:3F2E01:322FF7B:38A31EC:6A42410E"
+        "E5EE:3C73B4:244D35E:2698F69:6AD12B65"
+      ],
+      [
+        "x-github-edge-region",
+        "iad"
       ]
     ],
     "status": 200

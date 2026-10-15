@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-6-luna",
     "provider": "api.openai.com",
-    "recorded_at": "2026-10-13T10:49:04.198812Z",
-    "sycophant_version": "0.6.0"
+    "recorded_at": "2026-10-15T19:37:07.975776Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -142,7 +142,7 @@
     "headers": [
       [
         "date",
-        "Tue, 13 Oct 2026 10:49:04 GMT"
+        "Thu, 15 Oct 2026 19:37:07 GMT"
       ],
       [
         "content-type",
@@ -162,19 +162,19 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "29999"
+        "29997"
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "179999583"
+        "179992971"
       ],
       [
         "x-ratelimit-reset-requests",
-        "2ms"
+        "6ms"
       ],
       [
         "x-ratelimit-reset-tokens",
-        "0s"
+        "2ms"
       ],
       [
         "vary",
@@ -194,15 +194,15 @@
       ],
       [
         "server-timing-total",
-        "402.170"
+        "659.221"
       ],
       [
         "openai-processing-ms",
-        "402"
+        "659"
       ],
       [
         "x-request-id",
-        "req_c2c877a490814b02a4dd4d7f29cb610a"
+        "req_9c32d9e5435b40449d32a3f988093ae8"
       ],
       [
         "x-openai-proxy-wasm",
@@ -230,7 +230,7 @@
       ],
       [
         "cf-ray",
-        "a49dc6837c058c98-PRG"
+        "a4b146ca09e8bb9c-PRG"
       ],
       [
         "alt-svc",

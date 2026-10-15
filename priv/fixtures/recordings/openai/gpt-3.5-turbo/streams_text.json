@@ -2,9 +2,9 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:21.215697Z",
+    "recorded_at": "2026-10-15T19:37:00.782782Z",
     "streaming": true,
-    "sycophant_version": "0.4.2"
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -34,11 +34,11 @@
     "url": "https://api.openai.com/v1/chat/completions"
   },
   "response": {
-    "body": "data: {\"id\":\"chatcmpl-DmHsW8bZVHpyoI8f4rnfRT35sZ0p6\",\"object\":\"chat.completion.chunk\",\"created\":1780400840,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\",\"refusal\":null},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"pDEmjhWr\"}\n\ndata: {\"id\":\"chatcmpl-DmHsW8bZVHpyoI8f4rnfRT35sZ0p6\",\"object\":\"chat.completion.chunk\",\"created\":1780400840,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":\"Hello\"},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"aXMlH\"}\n\ndata: {\"id\":\"chatcmpl-DmHsW8bZVHpyoI8f4rnfRT35sZ0p6\",\"object\":\"chat.completion.chunk\",\"created\":1780400840,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{},\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":null,\"obfuscation\":\"KgMy\"}\n\ndata: {\"id\":\"chatcmpl-DmHsW8bZVHpyoI8f4rnfRT35sZ0p6\",\"object\":\"chat.completion.chunk\",\"created\":1780400840,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[],\"usage\":{\"prompt_tokens\":15,\"completion_tokens\":1,\"total_tokens\":16,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0,\"audio_tokens\":0,\"accepted_prediction_tokens\":0,\"rejected_prediction_tokens\":0}},\"obfuscation\":\"CD5wPkvhPQ\"}\n\ndata: [DONE]\n\n",
+    "body": "data: {\"id\":\"chatcmpl-EZLY4yRYgKZsO73GaKi1QNn2A33od\",\"object\":\"chat.completion.chunk\",\"created\":1792093020,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\",\"refusal\":null},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"dBGqRvxY\"}\n\ndata: {\"id\":\"chatcmpl-EZLY4yRYgKZsO73GaKi1QNn2A33od\",\"object\":\"chat.completion.chunk\",\"created\":1792093020,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":\"Hello\"},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"0yWP5\"}\n\ndata: {\"id\":\"chatcmpl-EZLY4yRYgKZsO73GaKi1QNn2A33od\",\"object\":\"chat.completion.chunk\",\"created\":1792093020,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{},\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":null,\"obfuscation\":\"kch8\"}\n\ndata: {\"id\":\"chatcmpl-EZLY4yRYgKZsO73GaKi1QNn2A33od\",\"object\":\"chat.completion.chunk\",\"created\":1792093020,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[],\"usage\":{\"prompt_tokens\":15,\"completion_tokens\":1,\"total_tokens\":16,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0,\"audio_tokens\":0,\"accepted_prediction_tokens\":0,\"rejected_prediction_tokens\":0}},\"obfuscation\":\"V6zwhZun9E\"}\n\ndata: [DONE]\n\n",
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:21 GMT"
+        "Thu, 15 Oct 2026 19:37:00 GMT"
       ],
       [
         "content-type",
@@ -46,7 +46,7 @@
       ],
       [
         "cf-ray",
-        "a0563905ae4cd1c5-PRG"
+        "a4b1469f8ca1bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -82,7 +82,7 @@
       ],
       [
         "openai-processing-ms",
-        "471"
+        "371"
       ],
       [
         "openai-project",
@@ -106,11 +106,11 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "8998"
+        "8999"
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "1999989"
+        "1999906"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -118,11 +118,11 @@
       ],
       [
         "x-ratelimit-reset-tokens",
-        "0s"
+        "2ms"
       ],
       [
         "x-request-id",
-        "req_08617fe6a78b469eba499d6b9f4496b2"
+        "req_a74997904ceb4fd783aadbb45803aed9"
       ],
       [
         "set-cookie",

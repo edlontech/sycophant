@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:29.296296Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:03.931715Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -31,30 +31,57 @@
   },
   "response": {
     "body": {
-      "background": false,
+      "safety_identifier": null,
+      "store": true,
+      "error": null,
+      "created_at": 1792093023,
+      "presence_penalty": 0.0,
+      "status": "completed",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "max_tool_calls": null,
+      "instructions": "You are a calculator. Only respond with numbers.",
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": "in_memory",
+      "completed_at": 1792093023,
+      "temperature": 1.0,
       "text": {
         "format": {
           "type": "text"
         },
         "verbosity": "medium"
       },
-      "moderation": null,
-      "top_logprobs": 0,
-      "previous_response_id": null,
+      "parallel_tool_calls": true,
       "tool_choice": "auto",
-      "service_tier": "default",
-      "status": "completed",
-      "tools": [],
-      "id": "resp_0bff115690e2b490006a1ec2d0a2688191803056a76d414fc0",
-      "temperature": 1.0,
-      "max_output_tokens": null,
-      "user": null,
       "frequency_penalty": 0.0,
-      "error": null,
-      "model": "gpt-4o-mini-2024-07-18",
+      "top_logprobs": 0,
+      "reasoning": {
+        "context": null,
+        "effort": null,
+        "summary": null
+      },
       "usage": {
         "input_tokens": 29,
         "input_tokens_details": {
+          "cache_write_tokens": 0,
           "cached_tokens": 0
         },
         "output_tokens": 2,
@@ -63,9 +90,21 @@
         },
         "total_tokens": 31
       },
-      "safety_identifier": null,
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "gpt-4o-mini-2024-07-18",
+      "truncation": "disabled",
+      "metadata": {},
+      "service_tier": "default",
+      "id": "resp_0f2201b919684e01006ad12b5f5ef887d2b09207c2e863b3ec",
+      "top_p": 1.0,
+      "user": null,
+      "prompt_cache_key": null,
+      "moderation": null,
       "object": "response",
-      "parallel_tool_calls": true,
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
       "output": [
         {
           "content": [
@@ -76,37 +115,18 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_0bff115690e2b490006a1ec2d1139881918f95e0407be562e6",
+          "id": "msg_0f2201b919684e01006ad12b5fb17487d2a2966a7207c77ebf",
           "role": "assistant",
           "status": "completed",
           "type": "message"
         }
       ],
-      "instructions": "You are a calculator. Only respond with numbers.",
-      "store": true,
-      "presence_penalty": 0.0,
-      "incomplete_details": null,
-      "reasoning": {
-        "context": null,
-        "effort": null,
-        "summary": null
-      },
-      "completed_at": 1780400849,
-      "truncation": "disabled",
-      "top_p": 1.0,
-      "billing": {
-        "payer": "developer"
-      },
-      "prompt_cache_retention": "in_memory",
-      "metadata": {},
-      "prompt_cache_key": null,
-      "created_at": 1780400848,
-      "max_tool_calls": null
+      "tools": []
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:29 GMT"
+        "Thu, 15 Oct 2026 19:37:03 GMT"
       ],
       [
         "content-type",
@@ -114,11 +134,11 @@
       ],
       [
         "content-length",
-        "1624"
+        "2043"
       ],
       [
         "cf-ray",
-        "a05639376ee3d1c5-PRG"
+        "a4b146b35fd4bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -154,7 +174,7 @@
       ],
       [
         "openai-processing-ms",
-        "620"
+        "478"
       ],
       [
         "openai-project",
@@ -190,7 +210,7 @@
       ],
       [
         "x-request-id",
-        "req_83cedd1460f046a7a5184e4daf332bb1"
+        "req_65af7ffc64bc4a38b7b7c6157d5ac836"
       ],
       [
         "set-cookie",

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5.2",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:31.633681Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:05.624360Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -30,82 +30,103 @@
   },
   "response": {
     "body": {
-      "background": false,
+      "safety_identifier": null,
+      "store": true,
+      "error": null,
+      "created_at": 1792093024,
+      "presence_penalty": 0.0,
+      "status": "completed",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "max_tool_calls": null,
+      "instructions": null,
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": "24h",
+      "completed_at": 1792093025,
+      "temperature": 1.0,
       "text": {
         "format": {
           "type": "text"
         },
         "verbosity": "medium"
       },
-      "moderation": null,
-      "top_logprobs": 0,
-      "previous_response_id": null,
+      "parallel_tool_calls": true,
       "tool_choice": "auto",
-      "service_tier": "default",
-      "status": "completed",
-      "tools": [],
-      "id": "resp_0925fd581f312c77006a1ec2d207e0819eb74737a64656bc55",
-      "temperature": 1.0,
-      "max_output_tokens": null,
-      "user": null,
       "frequency_penalty": 0.0,
-      "error": null,
-      "model": "gpt-5.2-2025-12-11",
+      "top_logprobs": 0,
+      "reasoning": {
+        "context": "current_turn",
+        "effort": "none",
+        "mode": "standard",
+        "summary": null
+      },
       "usage": {
         "input_tokens": 17,
         "input_tokens_details": {
+          "cache_write_tokens": 0,
           "cached_tokens": 0
         },
-        "output_tokens": 42,
+        "output_tokens": 33,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 59
+        "total_tokens": 50
       },
-      "safety_identifier": null,
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "gpt-5.2-2025-12-11",
+      "truncation": "disabled",
+      "metadata": {},
+      "service_tier": "default",
+      "id": "resp_0987b4500f7f8881006ad12b6044b487d2a0d972390f841f17",
+      "top_p": 0.98,
+      "user": null,
+      "prompt_cache_key": null,
+      "moderation": null,
       "object": "response",
-      "parallel_tool_calls": true,
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
       "output": [
         {
           "content": [
             {
               "annotations": [],
               "logprobs": [],
-              "text": "I can use the name “Sycophant” to address you during this conversation, but I won’t be able to remember it for future chats unless memory is enabled for your account.",
+              "text": "I can’t permanently remember personal details like your name across chats. For this conversation, though: your name is **Sycophant**.",
               "type": "output_text"
             }
           ],
-          "id": "msg_0925fd581f312c77006a1ec2d24db4819e817966d2f9166ea9",
+          "id": "msg_0987b4500f7f8881006ad12b60c8fc87d283eea05fc4e0d5e3",
           "role": "assistant",
           "status": "completed",
           "type": "message"
         }
       ],
-      "instructions": null,
-      "store": true,
-      "presence_penalty": 0.0,
-      "incomplete_details": null,
-      "reasoning": {
-        "context": "current_turn",
-        "effort": "none",
-        "summary": null
-      },
-      "completed_at": 1780400851,
-      "truncation": "disabled",
-      "top_p": 0.98,
-      "billing": {
-        "payer": "developer"
-      },
-      "prompt_cache_retention": "24h",
-      "metadata": {},
-      "prompt_cache_key": null,
-      "created_at": 1780400850,
-      "max_tool_calls": null
+      "tools": []
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:31 GMT"
+        "Thu, 15 Oct 2026 19:37:05 GMT"
       ],
       [
         "content-type",
@@ -113,11 +134,11 @@
       ],
       [
         "content-length",
-        "1762"
+        "2162"
       ],
       [
         "cf-ray",
-        "a056394038bbd1c5-PRG"
+        "a4b146b8dad3bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -153,7 +174,7 @@
       ],
       [
         "openai-processing-ms",
-        "1570"
+        "1290"
       ],
       [
         "openai-project",
@@ -173,15 +194,15 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "14999"
+        "14998"
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "40000000"
+        "39999917"
       ],
       [
         "x-ratelimit-reset-requests",
-        "4ms"
+        "8ms"
       ],
       [
         "x-ratelimit-reset-tokens",
@@ -189,7 +210,7 @@
       ],
       [
         "x-request-id",
-        "req_cfd27b0b2798457d8185882cad228ae2"
+        "req_44c9dd2143354471a0b3ec1e2c0e41bc"
       ],
       [
         "set-cookie",

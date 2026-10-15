@@ -80,4 +80,15 @@ defmodule Sycophant.Auth.OpenAITest do
 
     assert OpenAI.middlewares(%{}) == []
   end
+
+  test "sends session_id as a header on the access-token route for prompt cache routing" do
+    assert OpenAI.middlewares(%{access_token: "t", session_id: "conv-1"}) ==
+             [
+               {Tesla.Middleware.Headers,
+                [{"authorization", "Bearer t"}, {"session_id", "conv-1"}]}
+             ]
+
+    assert OpenAI.middlewares(%{access_token: "t", session_id: nil}) ==
+             [{Tesla.Middleware.Headers, [{"authorization", "Bearer t"}]}]
+  end
 end

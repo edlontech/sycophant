@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-06-02T11:47:33.574642Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:03.875862Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -19,7 +19,7 @@
         {
           "content": [
             {
-              "text": "That's exciting! I can help you check the current weather in London if that would be useful for your trip planning. Would you like me to get the weather information for you?"
+              "text": "Hello! That's exciting! London is a wonderful city to visit. \n\nWould you like me to check the current weather in London to help you with your planning?"
             }
           ],
           "role": "assistant"
@@ -40,7 +40,7 @@
                   "city": "London"
                 },
                 "name": "get_weather",
-                "toolUseId": "tooluse_4HnUHuzSRiIX4I9vq5Mfi1"
+                "toolUseId": "tooluse_CMkqIxQ8ti4mXpvK23h7ht"
               }
             }
           ],
@@ -55,7 +55,7 @@
                     "text": "London: 18C, cloudy"
                   }
                 ],
-                "toolUseId": "tooluse_4HnUHuzSRiIX4I9vq5Mfi1"
+                "toolUseId": "tooluse_CMkqIxQ8ti4mXpvK23h7ht"
               }
             }
           ],
@@ -103,7 +103,7 @@
       ],
       [
         "x-amz-date",
-        "20260602T114731Z"
+        "20261015T193701Z"
       ],
       [
         "content-type",
@@ -116,13 +116,13 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 1697
+        "latencyMs": 1873
       },
       "output": {
         "message": {
           "content": [
             {
-              "text": "The current weather in London is 18°C and cloudy."
+              "text": "The current weather in London is 18°C and cloudy. Perfect weather for sightseeing! You might want to bring a light jacket."
             }
           ],
           "role": "assistant"
@@ -134,16 +134,16 @@
         "cacheReadInputTokens": 0,
         "cacheWriteInputTokenCount": 0,
         "cacheWriteInputTokens": 0,
-        "inputTokens": 730,
-        "outputTokens": 17,
+        "inputTokens": 728,
+        "outputTokens": 34,
         "serverToolUsage": {},
-        "totalTokens": 747
+        "totalTokens": 762
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:33 GMT"
+        "Thu, 15 Oct 2026 19:37:03 GMT"
       ],
       [
         "content-type",
@@ -151,11 +151,11 @@
       ],
       [
         "content-length",
-        "365"
+        "438"
       ],
       [
         "x-amzn-requestid",
-        "f42417aa-fb83-4c16-af7b-57529bb9a7bd"
+        "404aab14-1eda-4af2-85e8-911e562c216e"
       ]
     ],
     "status": 200

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-06-02T11:47:24.653846Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:56.604264Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -53,7 +53,7 @@
       ],
       [
         "x-amz-date",
-        "20260602T114722Z"
+        "20261015T193654Z"
       ],
       [
         "content-type",
@@ -66,7 +66,7 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 1876
+        "latencyMs": 1785
       },
       "output": {
         "message": {
@@ -77,7 +77,7 @@
                   "city": "Paris"
                 },
                 "name": "get_weather",
-                "toolUseId": "tooluse_kEHMUVJtdggNwnhLPl6n0h",
+                "toolUseId": "tooluse_1avvknwn17H8fFN0FbuwRL",
                 "type": "tool_use"
               }
             }
@@ -100,7 +100,7 @@
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:24 GMT"
+        "Thu, 15 Oct 2026 19:36:56 GMT"
       ],
       [
         "content-type",
@@ -112,7 +112,7 @@
       ],
       [
         "x-amzn-requestid",
-        "a19bacaf-2353-4dc6-b986-d8a6696bf46c"
+        "a6a2673c-77f7-475e-bdbb-fb2ea267d87b"
       ]
     ],
     "status": 200

@@ -379,6 +379,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
       input_tokens: input,
       output_tokens: output,
       cache_read_input_tokens: cached,
+      cache_creation_input_tokens: get_in(usage, ["input_tokens_details", "cache_write_tokens"]),
       reasoning_tokens: reasoning
     }
   end
@@ -716,6 +717,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
         |> maybe_put_stream_options(request.params)
         |> maybe_put_context_management(request.params)
         |> Map.merge(translate_params(request.params))
+        |> maybe_put_openrouter_cache_control(request)
 
       {:ok, payload}
     end
@@ -723,6 +725,21 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
 
   defp maybe_put_stream(payload, nil), do: payload
   defp maybe_put_stream(payload, _callback), do: Map.put(payload, "stream", true)
+
+  # Claude models on OpenRouter only cache when asked; top-level cache_control
+  # enables automatic caching. Other OpenRouter models cache implicitly, and
+  # `prompt_cache_key` already acts as the sticky-routing session key.
+  defp maybe_put_openrouter_cache_control(payload, %Request{
+         model: model,
+         resolved_model: %{provider: :openrouter}
+       })
+       when is_binary(model) do
+    if String.starts_with?(model, ["anthropic/", "~anthropic/"]),
+      do: Map.put(payload, "cache_control", %{"type" => "ephemeral"}),
+      else: payload
+  end
+
+  defp maybe_put_openrouter_cache_control(payload, _request), do: payload
 
   defp maybe_put_field(payload, _key, nil), do: payload
   defp maybe_put_field(payload, key, value), do: Map.put(payload, key, value)

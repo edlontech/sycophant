@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-06-02T11:47:20.187868Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:56.696451Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -65,7 +65,7 @@
                   },
                   "name": "get_weather"
                 },
-                "thoughtSignature": "CpICAQw51sdePybJmMh/nd1uCwns9ICR8DjX/lqBdsTNnWAWHP1DnQF4veaQuGQ9II+nhqIZaSDokpYL2y/7yFguTtKO1Ee7bl5toVz6oswZpxSFb2cHpRpBnH1xR76/BIsijHV5rHnathXkLjfEyxGs9upXmJxAFmHwxCuf26zfMiIzZrSbhj69HTEcSx+/fY0vEcUYZy6Xv+idxo1TZCdiXCWt0yomEYJAN8S/86HV7OkEyN+pdCbM1UsUNFGwVeCQRudT+TefNKqDJ1HT4SpeIf70u9RV1gUuu3RFtqrcfcB7zXp7iLfQfk/xFDdWu0DSwTNFPuPmyrIK4QgNW/dkfucu7K5XboHa4ogLeFLCIQ+bPA=="
+                "thoughtSignature": "CqoCAWkUfRNwUfhTbT/xV+96QE9Avk2fm4vc+Nqutiij5w5Sq93OVOAcGdWgYcAue6xfOVPa26d2vQi5j68Oti/yKeIywzOwhNdljZi+JPr+g58yjpym+6CDOhl9+9AKBQHgad/qt3tYpOLQtntXs4wd6y2KGUMC+pqVhFEjL/GPHClPJ/KZW+hlp46rP55iEgzN0Wl/yqgXvWUzH1Gv9i/W2mqnON6eqEciMR1b73LrooJFFHxaphgvqawVIt2XmsvlaHd1ygF3RyRNqLAj0K2rBgg1h42avISlvNzrBVzAPKabzDqsLgQyA5FcKW8tpEOXUgnIS/zNjcK9lz6YUHzE4q0pNnhKNpDHOY5XYSZz9cBJ/m9+JrJd7u3TcAB97k2f8tcUJZNSRkom3Q=="
               }
             ],
             "role": "model"
@@ -76,7 +76,7 @@
         }
       ],
       "modelVersion": "gemini-2.5-flash",
-      "responseId": "x8IeapahGv7s7M8PtOmFyQw",
+      "responseId": "VyvRat_ANs7jkdUP4_qdoQk",
       "usageMetadata": {
         "candidatesTokenCount": 15,
         "promptTokenCount": 63,
@@ -87,8 +87,8 @@
           }
         ],
         "serviceTier": "standard",
-        "thoughtsTokenCount": 60,
-        "totalTokenCount": 138
+        "thoughtsTokenCount": 63,
+        "totalTokenCount": 141
       }
     },
     "headers": [
@@ -114,7 +114,7 @@
       ],
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:20 GMT"
+        "Thu, 15 Oct 2026 19:36:56 GMT"
       ],
       [
         "server",
@@ -134,7 +134,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=810"
+        "gfet4t7; dur=980"
       ],
       [
         "alt-svc",

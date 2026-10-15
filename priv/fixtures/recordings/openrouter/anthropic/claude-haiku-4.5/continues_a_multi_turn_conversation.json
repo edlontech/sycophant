@@ -2,11 +2,14 @@
   "metadata": {
     "model": "anthropic/claude-haiku-4.5",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-06-02T11:47:35.054547Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:13.263203Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
+      "cache_control": {
+        "type": "ephemeral"
+      },
       "input": [
         {
           "content": "My name is Sycophant. Remember it.",
@@ -31,17 +34,17 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1780400855,
-      "created_at": 1780400853,
+      "completed_at": 1792093033,
+      "created_at": 1792093031,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1780400853-cmEqJ2Gc1AfuhYGxN59e",
+      "id": "gen-1792093031-2IsuUriF0DPTF1juAQmI",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
       "max_tool_calls": null,
       "metadata": {},
-      "model": "anthropic/claude-4.5-haiku-20251001",
+      "model": "anthropic/claude-haiku-4.5",
       "object": "response",
       "output": [
         {
@@ -49,11 +52,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "I've noted that your name is Sycophant. However, I should mention that I don't retain information between conversations — each time we chat, I start fresh without memory of previous interactions. So while I'll remember your name *during this conversation*, I won't have access to it in future conversations unless you tell me again.\n\nIs there something I can help you with today?",
+              "text": "I've noted that your name is Sycophant. However, I should mention that I don't retain information between separate conversations. Each time we chat, I start fresh without memory of previous interactions.\n\nSo while I'll remember your name *within this conversation*, if you start a new chat later, I won't have that context unless you tell me again.\n\nIs there something I can help you with today?",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_fygtkezw3o",
+          "id": "msg_tmp_rosj49lj8pn",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -63,9 +66,10 @@
       "presence_penalty": 0,
       "previous_response_id": null,
       "prompt_cache_key": null,
+      "prompt_cache_options": null,
       "reasoning": null,
       "safety_identifier": null,
-      "service_tier": "auto",
+      "service_tier": "default",
       "status": "completed",
       "store": false,
       "temperature": 1,
@@ -80,28 +84,29 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 4.34e-4,
+        "cost": 4.64e-4,
         "cost_details": {
-          "upstream_inference_cost": 4.34e-4,
+          "upstream_inference_cost": 4.64e-4,
           "upstream_inference_input_cost": 1.9e-5,
-          "upstream_inference_output_cost": 4.15e-4
+          "upstream_inference_output_cost": 4.45e-4
         },
         "input_tokens": 19,
         "input_tokens_details": {
+          "cache_write_tokens": 0,
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 83,
+        "output_tokens": 89,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 102
+        "total_tokens": 108
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:34 GMT"
+        "Thu, 15 Oct 2026 19:37:12 GMT"
       ],
       [
         "content-type",
@@ -109,7 +114,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=894"
+        "cfEdge;dur=8,cfOrigin;dur=0,cfWorker;dur=941"
       ],
       [
         "access-control-allow-origin",
@@ -117,11 +122,15 @@
       ],
       [
         "x-generation-id",
-        "gen-1780400853-cmEqJ2Gc1AfuhYGxN59e"
+        "gen-1792093031-2IsuUriF0DPTF1juAQmI"
       ],
       [
         "access-control-expose-headers",
-        "X-Generation-Id,cf-ray"
+        "X-Generation-Id,X-Provider-Name,request-id,cf-ray"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
       ],
       [
         "permissions-policy",
@@ -141,7 +150,7 @@
       ],
       [
         "cf-ray",
-        "a05639567ed7876f-PRG"
+        "a4b146e6f813dc5c-FRA"
       ]
     ],
     "status": 200

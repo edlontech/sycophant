@@ -282,6 +282,40 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
     end
   end
 
+  describe "encode_request/1 - OpenRouter prompt caching" do
+    test "enables automatic caching for Anthropic models on OpenRouter" do
+      for model <- ["anthropic/claude-sonnet-4", "~anthropic/claude-sonnet-latest"] do
+        request =
+          build_request([Message.user("hi")],
+            model: model,
+            resolved_model: %LLMDB.Model{id: model, provider: :openrouter}
+          )
+
+        assert {:ok, payload} = OpenAIResponses.encode_request(request)
+        assert payload["cache_control"] == %{"type" => "ephemeral"}
+      end
+    end
+
+    test "does not send cache_control for other models or providers" do
+      for {model, provider} <- [
+            {"openai/gpt-5", :openrouter},
+            {"anthropic/claude-sonnet-4", :openai}
+          ] do
+        request =
+          build_request([Message.user("hi")],
+            model: model,
+            resolved_model: %LLMDB.Model{id: model, provider: provider}
+          )
+
+        assert {:ok, payload} = OpenAIResponses.encode_request(request)
+        refute Map.has_key?(payload, "cache_control")
+      end
+
+      assert {:ok, payload} = OpenAIResponses.encode_request(build_request([Message.user("hi")]))
+      refute Map.has_key?(payload, "cache_control")
+    end
+  end
+
   describe "encode_request/1 - wire-specific params" do
     test "wire-specific params pass through via param_schema" do
       request =
@@ -938,6 +972,7 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
     %Request{
       messages: messages,
       model: opts[:model] || "gpt-4o",
+      resolved_model: opts[:resolved_model],
       params: opts[:params] || %{},
       tools: opts[:tools] || [],
       response_schema: opts[:response_schema],
@@ -1360,6 +1395,19 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
       assert {:ok, resp} = OpenAIResponses.decode_response(body)
       assert resp.usage.cache_read_input_tokens == 50
       assert resp.usage.cache_creation_input_tokens == nil
+    end
+
+    test "decodes cache_write_tokens from input_tokens_details" do
+      body =
+        responses_api_response(text: "hi")
+        |> put_in(
+          ["usage", "input_tokens_details"],
+          %{"cached_tokens" => 50, "cache_write_tokens" => 4200}
+        )
+
+      assert {:ok, resp} = OpenAIResponses.decode_response(body)
+      assert resp.usage.cache_read_input_tokens == 50
+      assert resp.usage.cache_creation_input_tokens == 4200
     end
 
     test "sets cache fields to nil when input_tokens_details is absent" do

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-06-02T11:47:21.223998Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:56.176041Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -25,7 +25,7 @@
                 },
                 "name": "get_weather"
               },
-              "thoughtSignature": "EjQKMgEMOdbHWy9RVa+2aBxsqPyJeItPOfr0jKMLg6roYIwLKe5qqB7rbvuV6NCpcoOjrUrI"
+              "thoughtSignature": "EnMKcQFpFH0TROPGW6xc0d0uMpRNBKdvo+1zVlZcEqDZ2zRsHr96vRMJ8axuVbJ15l9aNujbvIJKwPvRV5MDAa6lIsXBX2zAxDag3JG0xgt6JC6WhQZ9lL5lAeZ0Jvy1cwC9wPzgYD6ob8hOwucn6x8RDBl0"
             }
           ],
           "role": "model"
@@ -86,8 +86,8 @@
           "content": {
             "parts": [
               {
-                "text": "The weather in Paris is 22°C and sunny.",
-                "thoughtSignature": "EjQKMgEMOdbHhndk5nQU9Vupm4Hvyc9h6EyMJnZBxUsVd2fzbAq32JY0OmqCShE5jxVOGHeB"
+                "text": "The weather in Paris is currently 22°C and sunny.",
+                "thoughtSignature": "EnMKcQFpFH0Tt7OLLIso0/Y/d+X4w/IrYD9esBW2O2aIIgC4eK3wzzvQNVz6iegbST+h/lD/42IFpCgqN8PcTuceyNjWLnP90YCHvnU3VnSP8FsWVpcw68ByXYk7NUMxWbN3whj1u4J4E172lbDVxOVH/QzH"
               }
             ],
             "role": "model"
@@ -97,9 +97,9 @@
         }
       ],
       "modelVersion": "gemini-3.1-flash-lite",
-      "responseId": "yMIeau2ANK_Y7M8P7p322Aw",
+      "responseId": "VyvRatO6Esv9nsEPj4u5mQY",
       "usageMetadata": {
-        "candidatesTokenCount": 13,
+        "candidatesTokenCount": 14,
         "promptTokenCount": 111,
         "promptTokensDetails": [
           {
@@ -108,7 +108,7 @@
           }
         ],
         "serviceTier": "standard",
-        "totalTokenCount": 124
+        "totalTokenCount": 125
       }
     },
     "headers": [
@@ -134,7 +134,7 @@
       ],
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:21 GMT"
+        "Thu, 15 Oct 2026 19:36:56 GMT"
       ],
       [
         "server",
@@ -154,7 +154,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=472"
+        "gfet4t7; dur=1029"
       ],
       [
         "alt-svc",

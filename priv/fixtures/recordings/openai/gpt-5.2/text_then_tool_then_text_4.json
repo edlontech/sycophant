@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5.2",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:28.885179Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:01.919773Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "Nice—when are you going, how many days, and what kinds of things do you want to prioritize (museums/history, theatre, food, day trips, shopping, parks)? Also, what’s your budget level and where are you staying (or which area are you considering)?",
+              "text": "When are you going, and what kind of trip is it (first time vs repeat, interests, budget, how many days)?\n\nIf you share:\n- dates/month (and flexibility)\n- number of days and where you’ll stay (rough area is fine)\n- must-sees (museums, theatre, food, history, markets, day trips)\n- travel style (packed vs relaxed)\n\n…I can suggest a tight itinerary, neighborhood picks, and how to get around.",
               "type": "output_text"
             }
           ],
@@ -35,12 +35,12 @@
         },
         {
           "arguments": "{\"city\":\"London\"}",
-          "call_id": "call_GFDardRjEzQz3DWiPWkW7JpX",
+          "call_id": "call_RNVW5GD1rO4y4BVVho9dhpOD",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "call_GFDardRjEzQz3DWiPWkW7JpX",
+          "call_id": "call_RNVW5GD1rO4y4BVVho9dhpOD",
           "output": "London: 18C, cloudy",
           "type": "function_call_output"
         },
@@ -98,23 +98,102 @@
   },
   "response": {
     "body": {
-      "background": false,
+      "safety_identifier": null,
+      "store": true,
+      "error": null,
+      "created_at": 1792093020,
+      "presence_penalty": 0.0,
+      "status": "completed",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "max_tool_calls": null,
+      "instructions": "You are a helpful assistant. Be concise.",
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": "24h",
+      "completed_at": 1792093021,
+      "temperature": 1.0,
       "text": {
         "format": {
           "type": "text"
         },
         "verbosity": "medium"
       },
-      "moderation": null,
-      "top_logprobs": 0,
-      "previous_response_id": null,
+      "parallel_tool_calls": true,
       "tool_choice": "auto",
+      "frequency_penalty": 0.0,
+      "top_logprobs": 0,
+      "reasoning": {
+        "context": "current_turn",
+        "effort": "none",
+        "mode": "standard",
+        "summary": null
+      },
+      "usage": {
+        "input_tokens": 262,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 45,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 307
+      },
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "gpt-5.2-2025-12-11",
+      "truncation": "disabled",
+      "metadata": {},
       "service_tier": "default",
-      "status": "completed",
+      "id": "resp_0246908a63934f44006ad12b5c602887d2a4bc9ce01c50d9e1",
+      "top_p": 0.98,
+      "user": null,
+      "prompt_cache_key": null,
+      "moderation": null,
+      "object": "response",
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
+      "output": [
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Yes—bring a small umbrella (or a light rain jacket). Cloudy London weather can turn showery quickly, and it’s easy to get caught out even when it isn’t raining at the moment.",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_0246908a63934f44006ad12b5cd54887d29c4b44df5b1d3792",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
       "tools": [
         {
           "description": "Get current weather for a city. Returns temperature and conditions.",
           "name": "get_weather",
+          "output_schema": null,
           "parameters": {
             "additionalProperties": false,
             "properties": {
@@ -130,69 +209,12 @@
           "strict": true,
           "type": "function"
         }
-      ],
-      "id": "resp_080b65fbbb8f25c6006a1ec2cf92ac819eb493361309545c24",
-      "temperature": 1.0,
-      "max_output_tokens": null,
-      "user": null,
-      "frequency_penalty": 0.0,
-      "error": null,
-      "model": "gpt-5.2-2025-12-11",
-      "usage": {
-        "input_tokens": 224,
-        "input_tokens_details": {
-          "cached_tokens": 0
-        },
-        "output_tokens": 36,
-        "output_tokens_details": {
-          "reasoning_tokens": 0
-        },
-        "total_tokens": 260
-      },
-      "safety_identifier": null,
-      "object": "response",
-      "parallel_tool_calls": true,
-      "output": [
-        {
-          "content": [
-            {
-              "annotations": [],
-              "logprobs": [],
-              "text": "Yes—bring a small umbrella (or a light rain jacket). It’s cloudy, and London showers can pop up even when it doesn’t look like rain.",
-              "type": "output_text"
-            }
-          ],
-          "id": "msg_080b65fbbb8f25c6006a1ec2cfd03c819ea101b98c4a047dfc",
-          "role": "assistant",
-          "status": "completed",
-          "type": "message"
-        }
-      ],
-      "instructions": "You are a helpful assistant. Be concise.",
-      "store": true,
-      "presence_penalty": 0.0,
-      "incomplete_details": null,
-      "reasoning": {
-        "context": "current_turn",
-        "effort": "none",
-        "summary": null
-      },
-      "completed_at": 1780400848,
-      "truncation": "disabled",
-      "top_p": 0.98,
-      "billing": {
-        "payer": "developer"
-      },
-      "prompt_cache_retention": "24h",
-      "metadata": {},
-      "prompt_cache_key": null,
-      "created_at": 1780400847,
-      "max_tool_calls": null
+      ]
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:28 GMT"
+        "Thu, 15 Oct 2026 19:37:01 GMT"
       ],
       [
         "content-type",
@@ -200,11 +222,11 @@
       ],
       [
         "content-length",
-        "2192"
+        "2706"
       ],
       [
         "cf-ray",
-        "a0563930daaed1c5-PRG"
+        "a4b146a0a8c6bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -240,7 +262,7 @@
       ],
       [
         "openai-processing-ms",
-        "1278"
+        "1471"
       ],
       [
         "openai-project",
@@ -260,15 +282,15 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "14999"
+        "14998"
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "40000000"
+        "39999844"
       ],
       [
         "x-ratelimit-reset-requests",
-        "4ms"
+        "8ms"
       ],
       [
         "x-ratelimit-reset-tokens",
@@ -276,7 +298,7 @@
       ],
       [
         "x-request-id",
-        "req_28c2ace8602640f8a3e35004854ab166"
+        "req_f3efe91b3e17473facce00085dea9eb0"
       ],
       [
         "set-cookie",

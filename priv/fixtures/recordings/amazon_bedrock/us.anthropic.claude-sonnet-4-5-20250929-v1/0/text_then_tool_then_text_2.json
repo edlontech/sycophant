@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-06-02T11:47:31.754890Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:01.867827Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -19,7 +19,7 @@
         {
           "content": [
             {
-              "text": "That's exciting! I can help you check the current weather in London if that would be useful for your trip planning. Would you like me to get the weather information for you?"
+              "text": "Hello! That's exciting! London is a wonderful city to visit. \n\nWould you like me to check the current weather in London to help you with your planning?"
             }
           ],
           "role": "assistant"
@@ -74,7 +74,7 @@
       ],
       [
         "x-amz-date",
-        "20260602T114729Z"
+        "20261015T193700Z"
       ],
       [
         "content-type",
@@ -87,7 +87,7 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 2090
+        "latencyMs": 1647
       },
       "output": {
         "message": {
@@ -98,7 +98,7 @@
                   "city": "London"
                 },
                 "name": "get_weather",
-                "toolUseId": "tooluse_4HnUHuzSRiIX4I9vq5Mfi1",
+                "toolUseId": "tooluse_CMkqIxQ8ti4mXpvK23h7ht",
                 "type": "tool_use"
               }
             }
@@ -112,16 +112,16 @@
         "cacheReadInputTokens": 0,
         "cacheWriteInputTokenCount": 0,
         "cacheWriteInputTokens": 0,
-        "inputTokens": 656,
+        "inputTokens": 654,
         "outputTokens": 53,
         "serverToolUsage": {},
-        "totalTokens": 709
+        "totalTokens": 707
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:31 GMT"
+        "Thu, 15 Oct 2026 19:37:01 GMT"
       ],
       [
         "content-type",
@@ -133,7 +133,7 @@
       ],
       [
         "x-amzn-requestid",
-        "71e09abd-a5aa-4f5e-bbed-2fe7a1a77a83"
+        "db6d6907-3c19-46fd-b7d4-51371ebb6dfa"
       ]
     ],
     "status": 200

@@ -2,11 +2,14 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-06-02T11:47:45.641321Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:10.106123Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
+      "cache_control": {
+        "type": "ephemeral"
+      },
       "max_tokens": 4096,
       "messages": [
         {
@@ -54,12 +57,13 @@
   },
   "response": {
     "body": {
+      "container": null,
       "content": [
         {
           "caller": {
             "type": "direct"
           },
-          "id": "toolu_01TmaiLFuRRCcb9mekvhhDo3",
+          "id": "toolu_01T3vZw2GqmkJa8zFZXhEKr1",
           "input": {
             "city": "Paris"
           },
@@ -67,7 +71,8 @@
           "type": "tool_use"
         }
       ],
-      "id": "msg_011MMuEACLdqhCryWkqKN7un",
+      "diagnostics": null,
+      "id": "msg_011Cg4axFjzyUT5Wdgaczg8X",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
       "stop_details": null,
@@ -90,7 +95,7 @@
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:45 GMT"
+        "Thu, 15 Oct 2026 19:37:10 GMT"
       ],
       [
         "content-type",
@@ -98,95 +103,95 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-limit",
-        "1000000"
+        "10000000"
       ],
       [
         "anthropic-ratelimit-input-tokens-remaining",
-        "1000000"
+        "10000000"
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-06-02T11:47:45Z"
+        "2026-10-15T19:37:09Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
-        "200000"
+        "2000000"
       ],
       [
         "anthropic-ratelimit-output-tokens-remaining",
-        "200000"
+        "2000000"
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-06-02T11:47:45Z"
+        "2026-10-15T19:37:10Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
-        "2000"
+        "10000"
       ],
       [
         "anthropic-ratelimit-requests-remaining",
-        "1999"
+        "9999"
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-06-02T11:47:44Z"
+        "2026-10-15T19:36:54Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
-        "1200000"
+        "12000000"
       ],
       [
         "anthropic-ratelimit-tokens-remaining",
-        "1200000"
+        "12000000"
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-06-02T11:47:45Z"
-      ],
-      [
-        "request-id",
-        "req_011CbeNyZXUks41BjW4fDpFr"
+        "2026-10-15T19:37:09Z"
       ],
       [
         "strict-transport-security",
         "max-age=31536000; includeSubDomains; preload"
       ],
       [
+        "request-id",
+        "req_011Cg4axFXrLzNc24Ayk3JQe"
+      ],
+      [
+        "traceresponse",
+        "00-daedcd884149a666df185d07b6193bd1-5f654966ec378bd3-01"
+      ],
+      [
         "anthropic-organization-id",
         "8a3ada71-45d7-4ed6-aaaf-279ffd490a4a"
       ],
       [
-        "traceresponse",
-        "00-88d1595f922f3372027152406431ab8b-6a91a21c0bb472e3-01"
-      ],
-      [
-        "server",
-        "cloudflare"
-      ],
-      [
-        "content-security-policy",
-        "default-src 'none'; frame-ancestors 'none'"
+        "anthropic-workspace-id",
+        "wrkspc_01YSNntzPELNWyxziR11pKjX"
       ],
       [
         "vary",
         "Accept-Encoding"
       ],
       [
-        "set-cookie",
-        "[REDACTED]"
+        "content-security-policy",
+        "default-src 'none'; frame-ancestors 'none'"
       ],
       [
-        "x-robots-tag",
-        "none"
+        "server",
+        "cloudflare"
       ],
       [
         "cf-cache-status",
         "DYNAMIC"
       ],
       [
+        "x-robots-tag",
+        "none"
+      ],
+      [
         "cf-ray",
-        "a0563999eb06b385-PRG"
+        "a4b1467cba9de68c-PRG"
       ]
     ],
     "status": 200

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-oss-120b",
     "provider": "api.inference.wandb.ai",
-    "recorded_at": "2026-09-25T12:16:22.226999Z",
-    "sycophant_version": "0.5.1"
+    "recorded_at": "2026-10-15T19:36:58.879547Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -59,7 +59,7 @@
           "logprobs": null,
           "message": {
             "content": null,
-            "reasoning": "We need to call get_weather with city \"Paris\".",
+            "reasoning": "User explicitly asks to call the get_weather tool with city=\"Paris\". Must do that.",
             "role": "assistant",
             "tool_calls": [
               {
@@ -67,33 +67,39 @@
                   "arguments": "{\"city\":\"Paris\"}",
                   "name": "get_weather"
                 },
-                "id": "call-a617bd1a-d581-4232-8d4b-d1fcbb07be77",
+                "id": "call-dfe414c3-4944-4e14-a6e6-6b7586a8f193",
                 "type": "function"
               }
             ]
           }
         }
       ],
-      "created": 1790338580,
-      "id": "chatcmpl-646ff9f2-93e0-4edb-b88b-269ff620df16",
+      "created": 1792093017,
+      "id": "chatcmpl-305c9257-fe8d-4488-abc7-b91c6fe07a34",
       "model": "openai/gpt-oss-120b",
       "object": "chat.completion",
       "service_tier": null,
       "system_fingerprint": null,
       "usage": {
-        "completion_tokens": 39,
+        "completion_tokens": 46,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 42,
+          "rejected_prediction_tokens": null
+        },
         "prompt_tokens": 141,
         "prompt_tokens_details": {
           "audio_tokens": null,
-          "cached_tokens": 64
+          "cached_tokens": 32
         },
-        "total_tokens": 180
+        "total_tokens": 187
       }
     },
     "headers": [
       [
         "date",
-        "Fri, 25 Sep 2026 12:16:22 GMT"
+        "Thu, 15 Oct 2026 19:36:58 GMT"
       ],
       [
         "content-type",
@@ -109,7 +115,7 @@
       ],
       [
         "cf-ray",
-        "a409f5a1d9212c45-PRG"
+        "a4b1468e9fdb0a1b-PRG"
       ]
     ],
     "status": 200

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5.2",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:22.810474Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:55.078536Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -20,12 +20,12 @@
         },
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "call_uH8kDMRETg9R4bx3tIxpkGOI",
+          "call_id": "call_uy4NQWndgdcnHjv2evDWo1oz",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "call_uH8kDMRETg9R4bx3tIxpkGOI",
+          "call_id": "call_uy4NQWndgdcnHjv2evDWo1oz",
           "output": "Paris: 22C, sunny",
           "type": "function_call_output"
         }
@@ -67,23 +67,102 @@
   },
   "response": {
     "body": {
-      "background": false,
+      "safety_identifier": null,
+      "store": true,
+      "error": null,
+      "created_at": 1792093014,
+      "presence_penalty": 0.0,
+      "status": "completed",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "max_tool_calls": null,
+      "instructions": null,
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": "24h",
+      "completed_at": 1792093014,
+      "temperature": 1.0,
       "text": {
         "format": {
           "type": "text"
         },
         "verbosity": "medium"
       },
-      "moderation": null,
-      "top_logprobs": 0,
-      "previous_response_id": null,
+      "parallel_tool_calls": true,
       "tool_choice": "auto",
+      "frequency_penalty": 0.0,
+      "top_logprobs": 0,
+      "reasoning": {
+        "context": "current_turn",
+        "effort": "none",
+        "mode": "standard",
+        "summary": null
+      },
+      "usage": {
+        "input_tokens": 102,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 16,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 118
+      },
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "gpt-5.2-2025-12-11",
+      "truncation": "disabled",
+      "metadata": {},
       "service_tier": "default",
-      "status": "completed",
+      "id": "resp_006cbc0b04c0a29d006ad12b56304c87d2af2d37ad01ceb60e",
+      "top_p": 0.98,
+      "user": null,
+      "prompt_cache_key": null,
+      "moderation": null,
+      "object": "response",
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
+      "output": [
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "The weather in Paris is **22°C and sunny**.",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_006cbc0b04c0a29d006ad12b56b06087d2ace3795dcd43ed83",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
       "tools": [
         {
           "description": "Get current weather for a city. Returns temperature and conditions.",
           "name": "get_weather",
+          "output_schema": null,
           "parameters": {
             "additionalProperties": false,
             "properties": {
@@ -99,69 +178,12 @@
           "strict": true,
           "type": "function"
         }
-      ],
-      "id": "resp_0e8ec4305692fdf0006a1ec2c9cde0819da1862e10aaff8394",
-      "temperature": 1.0,
-      "max_output_tokens": null,
-      "user": null,
-      "frequency_penalty": 0.0,
-      "error": null,
-      "model": "gpt-5.2-2025-12-11",
-      "usage": {
-        "input_tokens": 102,
-        "input_tokens_details": {
-          "cached_tokens": 0
-        },
-        "output_tokens": 14,
-        "output_tokens_details": {
-          "reasoning_tokens": 0
-        },
-        "total_tokens": 116
-      },
-      "safety_identifier": null,
-      "object": "response",
-      "parallel_tool_calls": true,
-      "output": [
-        {
-          "content": [
-            {
-              "annotations": [],
-              "logprobs": [],
-              "text": "Paris weather: **22°C and sunny**.",
-              "type": "output_text"
-            }
-          ],
-          "id": "msg_0e8ec4305692fdf0006a1ec2ca2390819dbbcc785630c02df8",
-          "role": "assistant",
-          "status": "completed",
-          "type": "message"
-        }
-      ],
-      "instructions": null,
-      "store": true,
-      "presence_penalty": 0.0,
-      "incomplete_details": null,
-      "reasoning": {
-        "context": "current_turn",
-        "effort": "none",
-        "summary": null
-      },
-      "completed_at": 1780400842,
-      "truncation": "disabled",
-      "top_p": 0.98,
-      "billing": {
-        "payer": "developer"
-      },
-      "prompt_cache_retention": "24h",
-      "metadata": {},
-      "prompt_cache_key": null,
-      "created_at": 1780400841,
-      "max_tool_calls": null
+      ]
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:22 GMT"
+        "Thu, 15 Oct 2026 19:36:55 GMT"
       ],
       [
         "content-type",
@@ -169,11 +191,11 @@
       ],
       [
         "content-length",
-        "2046"
+        "2527"
       ],
       [
         "cf-ray",
-        "a056390caa44d1c5-PRG"
+        "a4b1467a0e08bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -209,7 +231,7 @@
       ],
       [
         "openai-processing-ms",
-        "974"
+        "804"
       ],
       [
         "openai-project",
@@ -245,7 +267,7 @@
       ],
       [
         "x-request-id",
-        "req_a0ffa6e0ba954c53be313508ab1948d5"
+        "req_f9070eb84e934bc5b3910f018d77d014"
       ],
       [
         "set-cookie",

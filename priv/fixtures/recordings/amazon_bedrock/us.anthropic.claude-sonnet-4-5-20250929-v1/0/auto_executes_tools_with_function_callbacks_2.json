@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-06-02T11:47:26.585716Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:59.594922Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -24,7 +24,7 @@
                   "city": "Paris"
                 },
                 "name": "get_weather",
-                "toolUseId": "tooluse_kEHMUVJtdggNwnhLPl6n0h"
+                "toolUseId": "tooluse_1avvknwn17H8fFN0FbuwRL"
               }
             }
           ],
@@ -39,7 +39,7 @@
                     "text": "Paris: 22C, sunny"
                   }
                 ],
-                "toolUseId": "tooluse_kEHMUVJtdggNwnhLPl6n0h"
+                "toolUseId": "tooluse_1avvknwn17H8fFN0FbuwRL"
               }
             }
           ],
@@ -82,7 +82,7 @@
       ],
       [
         "x-amz-date",
-        "20260602T114724Z"
+        "20261015T193656Z"
       ],
       [
         "content-type",
@@ -95,13 +95,13 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 1810
+        "latencyMs": 2857
       },
       "output": {
         "message": {
           "content": [
             {
-              "text": "The current weather in Paris is 22°C and sunny."
+              "text": "The current weather in Paris is 22°C (approximately 72°F) and sunny."
             }
           ],
           "role": "assistant"
@@ -114,15 +114,15 @@
         "cacheWriteInputTokenCount": 0,
         "cacheWriteInputTokens": 0,
         "inputTokens": 665,
-        "outputTokens": 16,
+        "outputTokens": 23,
         "serverToolUsage": {},
-        "totalTokens": 681
+        "totalTokens": 688
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:26 GMT"
+        "Thu, 15 Oct 2026 19:36:59 GMT"
       ],
       [
         "content-type",
@@ -130,11 +130,11 @@
       ],
       [
         "content-length",
-        "363"
+        "385"
       ],
       [
         "x-amzn-requestid",
-        "bfb5f43c-93ee-456b-8ee2-c08ffd4c8973"
+        "2217e223-dcf0-4bf0-87d6-af09e1e2f472"
       ]
     ],
     "status": 200

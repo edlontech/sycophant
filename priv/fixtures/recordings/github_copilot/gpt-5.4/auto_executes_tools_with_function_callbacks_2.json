@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5.4",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-06-29T09:55:27.098377Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:59.607535Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -21,7 +21,7 @@
                 "arguments": "{\"city\":\"Paris\"}",
                 "name": "get_weather"
               },
-              "id": "call_XnlusxCx5EmVHy4SwFJ5baBn",
+              "id": "call_eKLNFUV0iBFQayw8YQ34QmvS",
               "type": "function"
             }
           ]
@@ -29,7 +29,7 @@
         {
           "content": "Paris: 22C, sunny",
           "role": "tool",
-          "tool_call_id": "call_XnlusxCx5EmVHy4SwFJ5baBn"
+          "tool_call_id": "call_eKLNFUV0iBFQayw8YQ34QmvS"
         }
       ],
       "model": "gpt-5.4",
@@ -94,7 +94,7 @@
           "index": 0,
           "message": {
             "content": "The weather in Paris is 22°C and sunny.",
-            "padding": "abcde",
+            "padding": "abcdefghijklmnopqr",
             "role": "assistant"
           }
         }
@@ -104,31 +104,35 @@
           {
             "batch_size": 1000000,
             "cost_per_batch": 250000000000,
+            "model": "gpt-5.4",
             "token_count": 186,
             "token_type": "input"
           },
           {
             "batch_size": 1000000,
             "cost_per_batch": 25000000000,
+            "model": "gpt-5.4",
             "token_count": 0,
             "token_type": "cache_read"
           },
           {
             "batch_size": 1000000,
             "cost_per_batch": 0,
+            "model": "gpt-5.4",
             "token_count": 0,
             "token_type": "cache_write"
           },
           {
             "batch_size": 1000000,
             "cost_per_batch": 1500000000000,
+            "model": "gpt-5.4",
             "token_count": 14,
             "token_type": "output"
           }
         ],
         "total_nano_aiu": 67500000
       },
-      "id": "chatcmpl-Dw302B6E8GbqlVNDnMujHO01xdsVr",
+      "id": "chatcmpl-EZLY3gPPEUrUcmZOvsCETtRtbhYYj",
       "model": "gpt-5.4",
       "service_tier": "default",
       "usage": {
@@ -141,7 +145,6 @@
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
-        "reasoning_tokens": 0,
         "total_tokens": 200
       }
     },
@@ -160,23 +163,27 @@
       ],
       [
         "x-copilot-api-exp-assignment-context",
-        "e4hcf520:1109203;t_capicli_aa:1116798;"
+        "e4hcf520:1109203;t_capicli_aa:1116798;permission_prompt_treatment:1332566;ccr_pr_nudge_auto_review:1319472;jc553158:1433349;cmc_aa_t:1435711;seataa-998bffad:1447867;"
       ],
       [
         "x-copilot-service-request-id",
-        "ed836916-268c-4131-8316-ce4e670e3e89"
+        "0864b7ff-2359-4c2b-8c5c-f9fe8076f0e7"
+      ],
+      [
+        "x-github-copilot-request-te",
+        "true"
       ],
       [
         "x-request-id",
-        "00000-3a4633df-e813-4be0-9ca7-0c06270e279a"
+        "00000-45058051-d68c-46ef-a146-a6ef4e8a4c1c"
       ],
       [
         "date",
-        "Mon, 29 Jun 2026 09:55:27 GMT"
+        "Thu, 15 Oct 2026 19:36:59 GMT"
       ],
       [
         "content-length",
-        "923"
+        "987"
       ],
       [
         "x-github-backend",
@@ -184,7 +191,11 @@
       ],
       [
         "x-github-request-id",
-        "8B26:3F2E01:322FB4D:38A2D84:6A42410E"
+        "E5EE:3C73B4:24342FD:267E21F:6AD12B5A"
+      ],
+      [
+        "x-github-edge-region",
+        "iad"
       ]
     ],
     "status": 200

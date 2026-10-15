@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-06-02T11:47:18.016625Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:53.487166Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -63,8 +63,8 @@
           "content": {
             "parts": [
               {
-                "text": "{\n  \"name\": \"Elias Thorne\",\n  \"age\": 34,\n  \"hobbies\": [\n    \"astrophotography\",\n    \"restoring vintage watches\",\n    \"hiking\"\n  ]\n}",
-                "thoughtSignature": "EjQKMgEMOdbHBV3Ug8D/I7773PqPxmU2KQKrXIDASkwSpXI65lLcrcRpwSUX2d/PzhClFeDO"
+                "text": "{\n  \"name\": \"Elena Vance\",\n  \"age\": 28,\n  \"hobbies\": [\n    \"astrophotography\",\n    \"rock climbing\",\n    \"playing cello\"\n  ]\n}",
+                "thoughtSignature": "EnMKcQFpFH0TT15q0UpZFhvVwsym6ruqW37FegEGp0UvZkI5oTTSGDucZPbi5y/vfM1xAwt1oU9oFwIsJHJn5Swsco5iKRb2OfXMX8lTZmZmulRpaxOofkIhaJSrVmvQjig30qmbJvkUXOPAp1BBtZ6V2U5V"
               }
             ],
             "role": "model"
@@ -74,9 +74,9 @@
         }
       ],
       "modelVersion": "gemini-3.1-flash-lite",
-      "responseId": "xcIeavn4F6_ZkdUPxa3x8Aw",
+      "responseId": "VCvRaqDvKbbsnsEPhpWCoAk",
       "usageMetadata": {
-        "candidatesTokenCount": 52,
+        "candidatesTokenCount": 50,
         "promptTokenCount": 21,
         "promptTokensDetails": [
           {
@@ -85,7 +85,7 @@
           }
         ],
         "serviceTier": "standard",
-        "totalTokenCount": 73
+        "totalTokenCount": 71
       }
     },
     "headers": [
@@ -111,7 +111,7 @@
       ],
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:18 GMT"
+        "Thu, 15 Oct 2026 19:36:53 GMT"
       ],
       [
         "server",
@@ -131,7 +131,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=828"
+        "gfet4t7; dur=936"
       ],
       [
         "alt-svc",

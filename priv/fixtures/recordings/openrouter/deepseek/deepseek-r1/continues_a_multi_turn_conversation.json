@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-06-02T11:48:01.764186Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:22.123372Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -31,11 +31,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1780400881,
-      "created_at": 1780400865,
+      "completed_at": 1792093042,
+      "created_at": 1792093028,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1780400865-h7XnRmX9rmHb7RXFtQTT",
+      "id": "gen-1792093028-lbfFZxm1ZQqIV2LQRTCx",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -47,12 +47,12 @@
         {
           "content": [
             {
-              "text": "Hmm, the user just introduced themselves as \"Sycophant\" and explicitly asked me to remember it. That's an unusual name choice - the word \"sycophant\" literally means someone who flatters people excessively for personal gain. Interesting self-identification. \n\nThe user seems to want two things here: acknowledgment of their chosen name and confirmation that I'll retain it. There might be some testing happening - either testing my memory functions or seeing how I react to an uncomfortable term. \n\nI notice they used a period after \"Sycophant\" which makes it feel like a firm declaration rather than a casual mention. The standalone \"Remember it\" sentence carries weight too - this feels important to them for some reason. \n\nI should respond positively but neutrally. Best to treat it as a straightforward name preference without overanalyzing the meaning. The smiley in my response softens any potential tension while the name repetition reinforces memorization. \n\nWondering if they'll reference this name later or if it was just a one-off. Either way, flagging this in memory as requested. The ball's in their court now to see where they take this.\n",
+              "text": "Hmm, the user just declared \"My name is Sycophant. Remember it.\" with notable emphasis. That's an unusual name but clearly important to them since they commanded me to remember it. \n\nThe tone feels assertive - almost like they're testing if I'll comply. Maybe they've had experiences where others dismissed their preferred name? The capitalization of \"Sycophant\" suggests it's either a username, gamer tag, or chosen identity rather than a legal name. \n\nInteresting word choice too - \"sycophant\" literally means a flatterer or yes-man, which creates this layered effect. Could be ironic self-awareness, an inside joke, or perhaps reclaiming a label. Should acknowledge their request seriously without prying. \n\nBest approach: Confirm understanding immediately since that's their core ask (\"Got it. Sycophant.\"), then pivot to warmth to diffuse any tension from the demand (\"Nice to meet you!\"). Ending with service positioning (\"How can I assist...\") keeps it productive. \n\nNote to self: If they return later, use this name without asking for confirmation. They'd likely see that as failing their initial instruction.\n",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_m8q3hi33qpa",
+          "id": "rs_tmp_pw2b81pzln",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
@@ -62,11 +62,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Got it — I'll remember your name is **Sycophant**. If you'd like me to use it in conversation or keep it in mind for future chats, just let me know! 😊",
+              "text": "Got it — **Sycophant** is locked in. 🧠  \n\nNice to meet you! How can I assist you today?",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_w7vqzceovu",
+          "id": "msg_tmp_dsrv2qmp7xs",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -76,7 +76,10 @@
       "presence_penalty": 0,
       "previous_response_id": null,
       "prompt_cache_key": null,
-      "reasoning": null,
+      "prompt_cache_options": null,
+      "reasoning": {
+        "effort": "medium"
+      },
       "safety_identifier": null,
       "service_tier": "auto",
       "status": "completed",
@@ -93,28 +96,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 7.112e-4,
+        "cost": 6.812e-4,
         "cost_details": {
-          "upstream_inference_cost": 7.112e-4,
+          "upstream_inference_cost": 6.812e-4,
           "upstream_inference_input_cost": 1.12e-5,
-          "upstream_inference_output_cost": 0.0007
+          "upstream_inference_output_cost": 6.7e-4
         },
         "input_tokens": 16,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 280,
+        "output_tokens": 268,
         "output_tokens_details": {
           "reasoning_tokens": 238
         },
-        "total_tokens": 296
+        "total_tokens": 284
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:47 GMT"
+        "Thu, 15 Oct 2026 19:37:09 GMT"
       ],
       [
         "content-type",
@@ -122,7 +125,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=2289"
+        "cfEdge;dur=6,cfOrigin;dur=0,cfWorker;dur=1257"
       ],
       [
         "access-control-allow-origin",
@@ -130,11 +133,15 @@
       ],
       [
         "x-generation-id",
-        "gen-1780400865-h7XnRmX9rmHb7RXFtQTT"
+        "gen-1792093028-lbfFZxm1ZQqIV2LQRTCx"
       ],
       [
         "access-control-expose-headers",
-        "X-Generation-Id,cf-ray"
+        "X-Generation-Id,X-Provider-Name,request-id,cf-ray"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
       ],
       [
         "permissions-policy",
@@ -154,7 +161,7 @@
       ],
       [
         "cf-ray",
-        "a05639a26e4f876f-PRG"
+        "a4b146d31d54dc5c-FRA"
       ]
     ],
     "status": 200

@@ -2,12 +2,15 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-06-02T11:47:44.171653Z",
+    "recorded_at": "2026-10-15T19:37:10.027568Z",
     "streaming": true,
-    "sycophant_version": "0.4.2"
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
+      "cache_control": {
+        "type": "ephemeral"
+      },
       "max_tokens": 4096,
       "messages": [
         {
@@ -55,11 +58,11 @@
     "url": "https://api.anthropic.com/v1/messages"
   },
   "response": {
-    "body": "event: message_start\ndata: {\"type\":\"message_start\",\"message\":{\"model\":\"claude-haiku-4-5-20251001\",\"id\":\"msg_01CV9bYG8wMcgmf43aE4ExJJ\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":583,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":54,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"}}        }\n\nevent: content_block_start\ndata: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"tool_use\",\"id\":\"toolu_017Nic2HH3W2Ao24iSeuLkTR\",\"name\":\"get_weather\",\"input\":{},\"caller\":{\"type\":\"direct\"}}              }\n\nevent: ping\ndata: {\"type\": \"ping\"}\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"input_json_delta\",\"partial_json\":\"\"}             }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"input_json_delta\",\"partial_json\":\"{\\\"c\"}}\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"input_json_delta\",\"partial_json\":\"it\"}            }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"input_json_delta\",\"partial_json\":\"y\\\": \\\"\"}    }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"input_json_delta\",\"partial_json\":\"Paris\\\"}\"}            }\n\nevent: content_block_stop\ndata: {\"type\":\"content_block_stop\",\"index\":0    }\n\nevent: message_delta\ndata: {\"type\":\"message_delta\",\"delta\":{\"stop_reason\":\"tool_use\",\"stop_sequence\":null,\"stop_details\":null},\"usage\":{\"input_tokens\":583,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"output_tokens\":54}          }\n\nevent: message_stop\ndata: {\"type\":\"message_stop\"          }\n\n",
+    "body": "event: message_start\ndata: {\"type\":\"message_start\",\"message\":{\"model\":\"claude-haiku-4-5-20251001\",\"id\":\"msg_011Cg4axkX7WdP26SfYRrzkk\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[],\"container\":null,\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":583,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":22,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"},\"diagnostics\":null}           }\n\nevent: content_block_start\ndata: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"tool_use\",\"id\":\"toolu_017jqUHWpKctQSVFbc2upe2p\",\"name\":\"get_weather\",\"input\":{},\"caller\":{\"type\":\"direct\"}}   }\n\nevent: ping\ndata: {\"type\": \"ping\"}\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"input_json_delta\",\"partial_json\":\"\"}         }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"input_json_delta\",\"partial_json\":\"{\\\"city\\\"\"}       }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"input_json_delta\",\"partial_json\":\": \\\"Pari\"}           }\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"input_json_delta\",\"partial_json\":\"s\\\"}\"}      }\n\nevent: content_block_stop\ndata: {\"type\":\"content_block_stop\",\"index\":0 }\n\nevent: message_delta\ndata: {\"type\":\"message_delta\",\"delta\":{\"stop_reason\":\"tool_use\",\"stop_sequence\":null,\"stop_details\":null,\"container\":null},\"usage\":{\"input_tokens\":583,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"output_tokens\":54}    }\n\nevent: message_stop\ndata: {\"type\":\"message_stop\"          }\n\n",
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:44 GMT"
+        "Thu, 15 Oct 2026 19:37:09 GMT"
       ],
       [
         "content-type",
@@ -71,71 +74,71 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-limit",
-        "1000000"
+        "10000000"
       ],
       [
         "anthropic-ratelimit-input-tokens-remaining",
-        "1000000"
+        "10000000"
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-06-02T11:47:23Z"
+        "2026-10-15T19:37:01Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
-        "200000"
+        "2000000"
       ],
       [
         "anthropic-ratelimit-output-tokens-remaining",
-        "200000"
+        "2000000"
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-06-02T11:47:23Z"
+        "2026-10-15T19:37:01Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
-        "2000"
+        "10000"
       ],
       [
         "anthropic-ratelimit-requests-remaining",
-        "1999"
+        "9999"
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-06-02T11:47:23Z"
+        "2026-10-15T19:37:01Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
-        "1200000"
+        "12000000"
       ],
       [
         "anthropic-ratelimit-tokens-remaining",
-        "1200000"
+        "12000000"
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-06-02T11:47:23Z"
-      ],
-      [
-        "request-id",
-        "req_011CbeNx2xBfpZsGuxReUppy"
+        "2026-10-15T19:37:01Z"
       ],
       [
         "strict-transport-security",
         "max-age=31536000; includeSubDomains; preload"
       ],
       [
+        "request-id",
+        "req_011Cg4axkKiS9gKxnzZLXKsv"
+      ],
+      [
+        "traceresponse",
+        "00-3e964886e96c0f6b5383adb06a20abf0-e0987e09cb3a4424-01"
+      ],
+      [
         "anthropic-organization-id",
         "8a3ada71-45d7-4ed6-aaaf-279ffd490a4a"
       ],
       [
-        "traceresponse",
-        "00-c42dfa82b25c2cb95b3e49c9f10a400a-7e615e31f895ff66-01"
-      ],
-      [
-        "server",
-        "cloudflare"
+        "anthropic-workspace-id",
+        "wrkspc_01YSNntzPELNWyxziR11pKjX"
       ],
       [
         "content-security-policy",
@@ -146,20 +149,20 @@
         "Accept-Encoding"
       ],
       [
-        "set-cookie",
-        "[REDACTED]"
-      ],
-      [
-        "x-robots-tag",
-        "none"
+        "server",
+        "cloudflare"
       ],
       [
         "cf-cache-status",
         "DYNAMIC"
       ],
       [
+        "x-robots-tag",
+        "none"
+      ],
+      [
         "cf-ray",
-        "a05639184f9eb385-PRG"
+        "a4b146a6dd0de68c-PRG"
       ]
     ],
     "status": 200

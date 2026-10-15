@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-06-02T11:47:37.322007Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:49.023599Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -31,11 +31,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1780400857,
-      "created_at": 1780400851,
+      "completed_at": 1792093068,
+      "created_at": 1792093057,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1780400850-4xRW2BrzaHBgOKdTfQ2i",
+      "id": "gen-1792093057-rEKRtUJmMjVjY2hKdkbw",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -47,12 +47,12 @@
         {
           "content": [
             {
-              "text": "Okay, the user just asked me to say \"hello\" and nothing else. That's a very simple and straightforward request. \n\nHmm, they specifically emphasized \"nothing else,\" so I need to be careful not to add any extra words or explanations. \n\nThe user might be testing if I can follow precise instructions, or maybe they're setting up for something else. Either way, best to keep it clean and compliant. \n\nJust a pure, minimal \"hello\" response. No fluff, no emojis, no hidden meanings. Exactly what they asked for.\n",
+              "text": "I just received this query: \"Say 'hello' and nothing else.\" It's straightforward—the user wants me to say \"hello\" and absolutely nothing else. That means no additional words, no explanations, just the exact phrase.\n\nLooking at my system prompt, it says: \"Say 'hello' and nothing else.\" That aligns with what the user asked. So, my response should be pure and minimal.\n\nI recall that in AI interactions, users often test for compliance or simplicity. Maybe this person wants to see if I can follow direct commands without adding extras. It could be for clarity in a workflow or just a curiosity check.\n\nSince the instruction is explicit, I shouldn't overthink it. My response will be simply \"hello\" – no capitals unless specified, and no punctuation unless it's part of the word. The user didn't mention any formatting, so I'll keep it basic.\n\nFinally, I'll ensure this meets the criteria by not including any hidden prefixes or suffixes. Just a clean, direct \"hello\" to fulfill the request perfectly.\n",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_ytuvdi0dfqo",
+          "id": "rs_tmp_8ex0166a8yk",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
@@ -62,11 +62,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Hello.",
+              "text": "hello",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_ml9cy8odp0c",
+          "id": "msg_tmp_s3p6pks407d",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -76,7 +76,10 @@
       "presence_penalty": 0,
       "previous_response_id": null,
       "prompt_cache_key": null,
-      "reasoning": null,
+      "prompt_cache_options": null,
+      "reasoning": {
+        "effort": "medium"
+      },
       "safety_identifier": null,
       "service_tier": "auto",
       "status": "completed",
@@ -93,28 +96,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 3.066e-4,
+        "cost": 5.491e-4,
         "cost_details": {
-          "upstream_inference_cost": 3.066e-4,
+          "upstream_inference_cost": 5.491e-4,
           "upstream_inference_input_cost": 9.1e-6,
-          "upstream_inference_output_cost": 2.975e-4
+          "upstream_inference_output_cost": 5.4e-4
         },
         "input_tokens": 13,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 119,
+        "output_tokens": 216,
         "output_tokens_details": {
-          "reasoning_tokens": 116
+          "reasoning_tokens": 214
         },
-        "total_tokens": 132
+        "total_tokens": 229
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:32 GMT"
+        "Thu, 15 Oct 2026 19:37:39 GMT"
       ],
       [
         "content-type",
@@ -122,7 +125,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=1417,cfOrigin;dur=0,cfWorker;dur=2271"
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1172"
       ],
       [
         "access-control-allow-origin",
@@ -130,11 +133,15 @@
       ],
       [
         "x-generation-id",
-        "gen-1780400850-4xRW2BrzaHBgOKdTfQ2i"
+        "gen-1792093057-rEKRtUJmMjVjY2hKdkbw"
       ],
       [
         "access-control-expose-headers",
-        "X-Generation-Id,cf-ray"
+        "X-Generation-Id,X-Provider-Name,request-id,cf-ray"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
       ],
       [
         "permissions-policy",
@@ -154,7 +161,7 @@
       ],
       [
         "cf-ray",
-        "a056393bc9cf876f-PRG"
+        "a4b1478b88d6dc5c-FRA"
       ]
     ],
     "status": 200

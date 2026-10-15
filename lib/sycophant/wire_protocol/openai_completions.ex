@@ -57,6 +57,14 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
                       |> Zoi.optional(),
                     top_logprobs:
                       Zoi.integer(description: "Number of most likely tokens to return")
+                      |> Zoi.optional(),
+                    cache_key:
+                      Zoi.string(description: "Cache key for prompt caching")
+                      |> Zoi.optional(),
+                    cache_retention:
+                      Zoi.enum(["in-memory", "24h"],
+                        description: "Cache retention policy"
+                      )
                       |> Zoi.optional()
                   })
                 )
@@ -84,7 +92,9 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
     parallel_tool_calls: "parallel_tool_calls",
     service_tier: "service_tier",
     logprobs: "logprobs",
-    top_logprobs: "top_logprobs"
+    top_logprobs: "top_logprobs",
+    cache_key: "prompt_cache_key",
+    cache_retention: "prompt_cache_retention"
   }
 
   @impl true
@@ -175,20 +185,9 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
   defp maybe_capture_model(state, _body), do: state
 
   defp maybe_capture_usage(state, %{
-         "usage" => %{"prompt_tokens" => input, "completion_tokens" => output} = usage
+         "usage" => %{"prompt_tokens" => _, "completion_tokens" => _} = usage
        }) do
-    cached = get_in(usage, ["prompt_tokens_details", "cached_tokens"])
-    reasoning = get_in(usage, ["completion_tokens_details", "reasoning_tokens"])
-
-    %{
-      state
-      | usage: %Usage{
-          input_tokens: input,
-          output_tokens: output,
-          cache_read_input_tokens: cached,
-          reasoning_tokens: reasoning
-        }
-    }
+    %{state | usage: decode_usage(usage)}
   end
 
   defp maybe_capture_usage(state, _body), do: state
@@ -308,14 +307,12 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
   end
 
   defp decode_usage(%{"prompt_tokens" => input, "completion_tokens" => output} = usage) do
-    cached = get_in(usage, ["prompt_tokens_details", "cached_tokens"])
-    reasoning = get_in(usage, ["completion_tokens_details", "reasoning_tokens"])
-
     %Usage{
       input_tokens: input,
       output_tokens: output,
-      cache_read_input_tokens: cached,
-      reasoning_tokens: reasoning
+      cache_read_input_tokens: get_in(usage, ["prompt_tokens_details", "cached_tokens"]),
+      cache_creation_input_tokens: get_in(usage, ["prompt_tokens_details", "cache_write_tokens"]),
+      reasoning_tokens: get_in(usage, ["completion_tokens_details", "reasoning_tokens"])
     }
   end
 

@@ -4,6 +4,11 @@ defmodule Sycophant.Auth.OpenAI do
 
   Access tokens apply subscription request restrictions; API keys retain
   unrestricted Bearer authentication.
+
+  On the access-token route OpenAI ignores the body `prompt_cache_key` and
+  routes prompt caching by the `session_id` header instead. Pass a stable
+  `:session_id` (for example, a conversation ID) in the credentials to get
+  prompt cache hits across turns.
   """
 
   @behaviour Sycophant.Auth
@@ -20,8 +25,14 @@ defmodule Sycophant.Auth.OpenAI do
   def prepare_credentials(credentials), do: {:ok, credentials}
 
   @impl true
-  def middlewares(%{access_token: token}) when is_binary(token) do
-    [{Tesla.Middleware.Headers, [{"authorization", "Bearer #{token}"}]}]
+  def middlewares(%{access_token: token} = credentials) when is_binary(token) do
+    session_header =
+      case credentials[:session_id] do
+        id when is_binary(id) -> [{"session_id", id}]
+        _ -> []
+      end
+
+    [{Tesla.Middleware.Headers, [{"authorization", "Bearer #{token}"} | session_header]}]
   end
 
   def middlewares(credentials), do: Bearer.middlewares(credentials)

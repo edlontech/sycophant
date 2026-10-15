@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-4o-mini",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-06-02T11:47:23.141443Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:54.629794Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -61,11 +61,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1780400843,
-      "created_at": 1780400837,
+      "completed_at": 1792093014,
+      "created_at": 1792093013,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1780400837-wI5uK9YJvjQ9n7EHeHbN",
+      "id": "gen-1792093013-JQVl87t1uGQFpOUjEcB1",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -79,11 +79,11 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "{\"age\":29,\"hobbies\":[\"photography\",\"hiking\",\"playing the guitar\"],\"name\":\"Liam Carter\"}",
+              "text": "{\"age\":28,\"hobbies\":[\"painting\",\"hiking\",\"playing guitar\"],\"name\":\"Elena Carter\"}",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_9gguk4f4ow",
+          "id": "msg_tmp_tq0ony23vn",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -93,9 +93,10 @@
       "presence_penalty": 0,
       "previous_response_id": null,
       "prompt_cache_key": null,
+      "prompt_cache_options": null,
       "reasoning": null,
       "safety_identifier": null,
-      "service_tier": "auto",
+      "service_tier": "default",
       "status": "completed",
       "store": false,
       "temperature": 1,
@@ -135,28 +136,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 2.655e-5,
+        "cost": 2.535e-5,
         "cost_details": {
-          "upstream_inference_cost": 2.655e-5,
+          "upstream_inference_cost": 2.535e-5,
           "upstream_inference_input_cost": 1.155e-5,
-          "upstream_inference_output_cost": 1.5e-5
+          "upstream_inference_output_cost": 1.38e-5
         },
         "input_tokens": 77,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 25,
+        "output_tokens": 23,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 102
+        "total_tokens": 100
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:22 GMT"
+        "Thu, 15 Oct 2026 19:36:54 GMT"
       ],
       [
         "content-type",
@@ -164,7 +165,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=5670"
+        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=1339"
       ],
       [
         "access-control-allow-origin",
@@ -172,11 +173,15 @@
       ],
       [
         "x-generation-id",
-        "gen-1780400837-wI5uK9YJvjQ9n7EHeHbN"
+        "gen-1792093013-JQVl87t1uGQFpOUjEcB1"
       ],
       [
         "access-control-expose-headers",
-        "X-Generation-Id,cf-ray"
+        "X-Generation-Id,X-Provider-Name,request-id,cf-ray"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
       ],
       [
         "permissions-policy",
@@ -196,7 +201,7 @@
       ],
       [
         "cf-ray",
-        "a05638f02f80876f-PRG"
+        "a4b14673097fdc5c-FRA"
       ]
     ],
     "status": 200

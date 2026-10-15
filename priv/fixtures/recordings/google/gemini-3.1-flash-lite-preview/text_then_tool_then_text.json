@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-06-02T11:47:25.889452Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:58.226605Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -66,8 +66,8 @@
           "content": {
             "parts": [
               {
-                "text": "That's exciting! London is a fantastic city. How can I help you with your planning? Are you looking for sightseeing recommendations, travel tips, or perhaps the current weather?",
-                "thoughtSignature": "EjQKMgEMOdbH3j2BIaOd/4ESHZ9KLEtW5McNPpAYKYfdlBRrjrNKUYVZXjF4wlbsjwmrsQbx"
+                "text": "That sounds exciting! London is a fantastic city. To help you get started, would you like information on top attractions, transportation, or perhaps the current weather? \n\nAlso, let me know if you have specific dates or interests (like history, food, or theater) so I can provide better recommendations!",
+                "thoughtSignature": "EnMKcQFpFH0TWXmgO6qqhITwlIhAkYr/zjrVJ2Mt2YGJsg3Za+lStjL6k1bvLkbbQ922HjodILBQEMbrrtQJ1DXVXB8kh7krVtO3Bwv+pYIRG3uc6lmW+UO3xVnoSMDnpHOMxIdmN2pm1zZpOLQ08c9RcydU"
               }
             ],
             "role": "model"
@@ -77,9 +77,9 @@
         }
       ],
       "modelVersion": "gemini-3.1-flash-lite",
-      "responseId": "zcIeaviQHK-2kdUPlpKCyAc",
+      "responseId": "WSvRaqevH7SF7M8Pm5CHuAQ",
       "usageMetadata": {
-        "candidatesTokenCount": 36,
+        "candidatesTokenCount": 62,
         "promptTokenCount": 70,
         "promptTokensDetails": [
           {
@@ -88,7 +88,7 @@
           }
         ],
         "serviceTier": "standard",
-        "totalTokenCount": 106
+        "totalTokenCount": 132
       }
     },
     "headers": [
@@ -114,7 +114,7 @@
       ],
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:25 GMT"
+        "Thu, 15 Oct 2026 19:36:58 GMT"
       ],
       [
         "server",
@@ -134,7 +134,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=493"
+        "gfet4t7; dur=847"
       ],
       [
         "alt-svc",

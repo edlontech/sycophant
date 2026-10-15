@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5-nano",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:19.638290Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:59.585983Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -50,23 +50,103 @@
   },
   "response": {
     "body": {
-      "background": false,
+      "safety_identifier": null,
+      "store": true,
+      "error": null,
+      "created_at": 1792093017,
+      "presence_penalty": 0.0,
+      "status": "completed",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "max_tool_calls": null,
+      "instructions": null,
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": "in_memory",
+      "completed_at": 1792093019,
+      "temperature": 1.0,
       "text": {
         "format": {
           "type": "text"
         },
         "verbosity": "medium"
       },
-      "moderation": null,
-      "top_logprobs": 0,
-      "previous_response_id": null,
+      "parallel_tool_calls": true,
       "tool_choice": "auto",
+      "frequency_penalty": 0.0,
+      "top_logprobs": 0,
+      "reasoning": {
+        "context": "current_turn",
+        "effort": "medium",
+        "mode": "standard",
+        "summary": null
+      },
+      "usage": {
+        "input_tokens": 64,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 146,
+        "output_tokens_details": {
+          "reasoning_tokens": 64
+        },
+        "total_tokens": 210
+      },
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "gpt-5-nano-2025-08-07",
+      "truncation": "disabled",
+      "metadata": {},
       "service_tier": "default",
-      "status": "completed",
+      "id": "resp_016666dad23720f4006ad12b59e57487d2ba8d9bbc378f297e",
+      "top_p": 1.0,
+      "user": null,
+      "prompt_cache_key": null,
+      "moderation": null,
+      "object": "response",
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
+      "output": [
+        {
+          "content": [],
+          "encrypted_content": "gAAAAABq0StbsjzE5b4hTEyB_6tE_-aI65zd_D2t7I5GU2E_xHGjvOJ_lxS1csbccJdIQSwgoogYH4Elimgie-7HLs3pjPJLDIFhHkRUvmMW1E7TslF79hvaLXFg_D9rWMM86k0KGQKT_SMGdB6f9Xw8D7U9_zSIVAkJjPyt7G6hA6F6TwZ83dV1nhCUAyqkpnzMHbL-UaLL8-4mZPfdubapTDY8_X2mbTOXxRJiiJMdIQp1Abc8nxmaQhjbyeMUZ5BfM8tdUGzt4HQHbO0sFzW7jF9v7VqYKj52YIB9HiQYGw9S69ujpdbSkivDF11Q9aLt2hZQlKjlPCD_407OD1ej6l3v_Z7JMK8WqsQCG5bIy2lAhekz44AKuYErjl2xQ35bA98Ia8jflD2elyF7lPrF3mZfisiLY1sq-BBJiZKWdTAhYUDVRPPXVnWzywSFpEbtNr7pbo5rvF26m9L4Ve4xUL7huMCWvWtVv__xam_qBoc60g228S2fwnkIqCDED-ZiLRl3uZp0nJhzPs8DtdlvkfIoijQpBDyWpMUWrfSWBGeNfwJF5fEHFSJsEcvP8W0epNOsu6TbBIAxbNaTte3Z8-KrXA9fGWHCfOqDdvtJ2Wl7hDpP00OkiKdouQoVaYsW1rvJ8dvnRl9AC2wo3X8byi8gJJ-kRvuRIsyZTKmk175hL8sCYn-9xHos1tkVUziOdC54XSgA2GABbll4oLZGrPQmadWSfZl7I6NHBGETA-EC68fE5TriqtiwFfrwG94VtYVyoF4Z51FGBY16Ga35CnjrUJrC2lrs_UUnlOAj0RrI7vF00IgRRnQEbpT2T50ID0yfuVl5h15GjF6LrnMML7yi-5r0TBmcd1VsPauEg5NfEQJPNe3sw8owge01yaz10JJUIt3SY9KZ30AQOX2GjSGBrmFObHOW56kW5HLhgg1Qx_mEfe8uscHsAbdNp9pn4YlrNi_dSk3OekwkLx-744NOgJuZ9G2iWiDh2qM2hDcA0K3wQD3hS6noSww79cD-FgkMf2lz37VN3I4LMsHmtFth8SchLanTzLY8zjFHTOSQjWh1VT8y5KcyM5OR8IraltwyorcDFSK0z_mGwWeaceEze42Q4_GfTU9j_X-lsrBZ24JF_G_npd2ORRK563Qk9sk-QVQALetm3GCy-c-6jdCJGU3X0SI0OZCd-nhLlf7JOUp1StAicqJasWcVjEFkrqjg18vCPtH64Zu78kJFi1qvWfQ7QpU87I-zDQrEG0MdqiKQxv5qUPFrHyF29KnI1ssb91n76vhhI2rDHdopVOL4ID4cIM-TOC9hx3qBuESfnAsXtjo0I9PuOnaFernDAFgJKGWxkjDk_t1sgRRGocPVA4-4qm-9KwZgdm8IT2PFKLW60x2z8xgDXhL3mmSeqNyWpouv3rfsMOhFSS4zKREfVjESQSZk81ETUh1azHPhnoq4HEDFAFcZn38E4j86OeN0tQHvDZk81QKLmO5RsKJV2Lu0ozkWguEVb3CtEq57mAVLa_a8j9kZ7VzhwFhpDgTI8o5mes-PAP1hrXF_7XJrAZmWctYmQrnq2MZlDhXgpDY1MD0Ku4HZd2OFl_6gczvGTt5o3dPOM_PncaLBHOCsUmeHcbk3iAQSx_IUUtdBvA70MH4GdsUeaJq2lYdYzOS2XrIypwxaXKFEbY7d6FL18gcHF8yrHacz8ibwzUpscSGWI0_i2Nj_vuspjNALm5OnjbRfyehgrsTPnioZerRmhgbJnnbqbaThuHWNEhk73n--Og4ZUt0mD61oSeQ4kyxyRigrIJSPUC6CG5cfap00Vs86mNCrU2X2iHG68WQ79Z6WuTkfzVMyx0mZspkXTID2kfaOpEg1-EgAyq_y4vGuLtrgwhmbkme7IDaJKwXPAgFifQzmQypKoRCVAyJ929v1roodq9IR8j_lMHJxtY8JRSVbx3T1qWh8ozILTz2i0hYcNWvJ_4Ub_pkiffVGtP8xs7qLqvk7OkhIBorshSGsiNqtFoKWcRkPjx9OTUQzbx3iMh5KUD7XGYMNDIiteJFufsKDRwMKzEN4S0gbTyFRctbzozWEuWhw94k7MN64AIewMglvHHRz-dtxAPZ56pEqzL-15dFq6DK46iENvAKySYgD-ce02LAGF1PFwGUygeLfU6pLEv5brADYppHiIYkn8WpJeE6LqL36TNrkEI2x1c-YUGZcWczSuHkHWa6kCuW8W3rXpWBMO6quh5oBsxG-uPXUSlp1e9OiWqjslAuWWeTs06lj0YZOwnHMVXwst-_r3TP63CMlrOHmDd6jWBdw-MwhmLHpmrX96t2PVw_dtlOb9ULmY9KrWxrRvd4si-NqRtspgmIQMnDjfVB1kaR3MueOIkSWu5gqcBuqPVu14fRH4GNSmCLdp1dJ2ZEMEXjF0Zor6poWcLgS7hfQV99BTngmLA-lSw9wD4IrKjO3psrqqDOA2Xj-Y78J4nAalVQsTLUQbRTuu7_KvbFH0OKU1gLIZbmu2PPjUIN89H9MQ9_SVqwb7O7N2zl48N3UZoyJz7N4-M-ThKT5bbJP63Tg7hlfcX71XTKWwVgGi_AmJ33Oje4b8ZI3Xp96Ia_E6AICQnw81KzsA21Y3WxsI9idXYn-Ek1CnTEgsj83Br7kmNzyHq_WbZocm69eBFv0PBY3_SBw4VFASRBeYG-FU7nJgEdfslwuCfbHA1YlXM6Km8zAkl2BXBGLXKUs3PVlzWiL47YI66llVQZINcZ09e_AbqR9RjL-_3BOAyrU58sG8YswXlYtkNzReCiWJB_3UCGojL-2o_30UeW8Y5-2uUefQrhG91YQKhZ7s2PKGYVF82O0J9AfDVITY4fHMOWflnTnCv7jkPtlNr7vR5B9etuGY8gZkmGIjCb0eHFCc1CLrtLqqviS-S7rHy2WJr-E1Ud9vQhE0h-5b4TZExJz8Q6tvzOufTQXOe482EqAZWsQNEiZlONOZDzp4i-8QGB1rAlAMWVV_dft6GmEH24bHJJf7Ps_mOUrlnxxaK3SPPxIyWWApjteX95qgbkTWwHv0QQcNRQ=",
+          "id": "rs_016666dad23720f4006ad12b5a42ac87d2941795df945d2b7c",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "arguments": "{\"city\":\"Paris\"}",
+          "call_id": "call_yyqmXe3pX0xhsHd4sP2iUnHe",
+          "id": "fc_016666dad23720f4006ad12b5b479c87d295765a8cbad7e590",
+          "name": "get_weather",
+          "status": "completed",
+          "type": "function_call"
+        }
+      ],
       "tools": [
         {
           "description": "Get current weather for a city",
           "name": "get_weather",
+          "output_schema": null,
           "parameters": {
             "additionalProperties": false,
             "properties": {
@@ -82,68 +162,12 @@
           "strict": true,
           "type": "function"
         }
-      ],
-      "id": "resp_0b365d1a647b6687006a1ec2c5ca588191963d48b45cf7bbf6",
-      "temperature": 1.0,
-      "max_output_tokens": null,
-      "user": null,
-      "frequency_penalty": 0.0,
-      "error": null,
-      "model": "gpt-5-nano-2025-08-07",
-      "usage": {
-        "input_tokens": 64,
-        "input_tokens_details": {
-          "cached_tokens": 0
-        },
-        "output_tokens": 207,
-        "output_tokens_details": {
-          "reasoning_tokens": 128
-        },
-        "total_tokens": 271
-      },
-      "safety_identifier": null,
-      "object": "response",
-      "parallel_tool_calls": true,
-      "output": [
-        {
-          "id": "rs_0b365d1a647b6687006a1ec2c617048191a39de487d06d25d6",
-          "summary": [],
-          "type": "reasoning"
-        },
-        {
-          "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "call_7DN2G6YR2r1NtNqE7eJHMOJ2",
-          "id": "fc_0b365d1a647b6687006a1ec2c7533c8191baa212faf094cb56",
-          "name": "get_weather",
-          "status": "completed",
-          "type": "function_call"
-        }
-      ],
-      "instructions": null,
-      "store": true,
-      "presence_penalty": 0.0,
-      "incomplete_details": null,
-      "reasoning": {
-        "context": "current_turn",
-        "effort": "medium",
-        "summary": null
-      },
-      "completed_at": 1780400839,
-      "truncation": "disabled",
-      "top_p": 1.0,
-      "billing": {
-        "payer": "developer"
-      },
-      "prompt_cache_retention": "in_memory",
-      "metadata": {},
-      "prompt_cache_key": null,
-      "created_at": 1780400837,
-      "max_tool_calls": null
+      ]
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:19 GMT"
+        "Thu, 15 Oct 2026 19:36:59 GMT"
       ],
       [
         "content-type",
@@ -151,11 +175,11 @@
       ],
       [
         "content-length",
-        "2054"
+        "5641"
       ],
       [
         "cf-ray",
-        "a05638f02a43d1c5-PRG"
+        "a4b146911f16bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -191,7 +215,7 @@
       ],
       [
         "openai-processing-ms",
-        "1817"
+        "1609"
       ],
       [
         "openai-project",
@@ -215,7 +239,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "180000000"
+        "179999970"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -227,7 +251,7 @@
       ],
       [
         "x-request-id",
-        "req_46c544bb977e48e0b9e064faf0decf78"
+        "req_ccb73739d30143888d7059ae7bc450c6"
       ],
       [
         "set-cookie",

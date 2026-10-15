@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:29.436669Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:58.226316Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "That sounds exciting! What information do you need for your trip to London?",
+              "text": "That sounds exciting! When are you planning to go, and do you need help with anything specific?",
               "type": "output_text"
             }
           ],
@@ -35,12 +35,12 @@
         },
         {
           "arguments": "{\"city\":\"London\"}",
-          "call_id": "call_YI2l77htSLtIryoo6TydNTxB",
+          "call_id": "call_E9do6Aa42M7U2ldPO8StJboZ",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "call_YI2l77htSLtIryoo6TydNTxB",
+          "call_id": "call_E9do6Aa42M7U2ldPO8StJboZ",
           "output": "London: 18C, cloudy",
           "type": "function_call_output"
         }
@@ -83,23 +83,101 @@
   },
   "response": {
     "body": {
-      "background": false,
+      "safety_identifier": null,
+      "store": true,
+      "error": null,
+      "created_at": 1792093017,
+      "presence_penalty": 0.0,
+      "status": "completed",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "max_tool_calls": null,
+      "instructions": "You are a helpful assistant. Be concise.",
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": "in_memory",
+      "completed_at": 1792093018,
+      "temperature": 1.0,
       "text": {
         "format": {
           "type": "text"
         },
         "verbosity": "medium"
       },
-      "moderation": null,
-      "top_logprobs": 0,
-      "previous_response_id": null,
+      "parallel_tool_calls": true,
       "tool_choice": "auto",
+      "frequency_penalty": 0.0,
+      "top_logprobs": 0,
+      "reasoning": {
+        "context": null,
+        "effort": null,
+        "summary": null
+      },
+      "usage": {
+        "input_tokens": 142,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 14,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 156
+      },
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "gpt-4o-mini-2024-07-18",
+      "truncation": "disabled",
+      "metadata": {},
       "service_tier": "default",
-      "status": "completed",
+      "id": "resp_0507e51a7b49c0c3006ad12b5988a087d299132b919308e71f",
+      "top_p": 1.0,
+      "user": null,
+      "prompt_cache_key": null,
+      "moderation": null,
+      "object": "response",
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
+      "output": [
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "The current weather in London is 18°C and cloudy.",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_0507e51a7b49c0c3006ad12b59dff487d2bac9bf0c000515ac",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
       "tools": [
         {
           "description": "Get current weather for a city. Returns temperature and conditions.",
           "name": "get_weather",
+          "output_schema": null,
           "parameters": {
             "additionalProperties": false,
             "properties": {
@@ -115,69 +193,12 @@
           "strict": true,
           "type": "function"
         }
-      ],
-      "id": "resp_0b87e507639f0c92006a1ec2d01e748190a4cc3cfe95f82dde",
-      "temperature": 1.0,
-      "max_output_tokens": null,
-      "user": null,
-      "frequency_penalty": 0.0,
-      "error": null,
-      "model": "gpt-4o-mini-2024-07-18",
-      "usage": {
-        "input_tokens": 137,
-        "input_tokens_details": {
-          "cached_tokens": 0
-        },
-        "output_tokens": 14,
-        "output_tokens_details": {
-          "reasoning_tokens": 0
-        },
-        "total_tokens": 151
-      },
-      "safety_identifier": null,
-      "object": "response",
-      "parallel_tool_calls": true,
-      "output": [
-        {
-          "content": [
-            {
-              "annotations": [],
-              "logprobs": [],
-              "text": "The current weather in London is 18°C and cloudy.",
-              "type": "output_text"
-            }
-          ],
-          "id": "msg_0b87e507639f0c92006a1ec2d0e03081909f6cca14ef516ea1",
-          "role": "assistant",
-          "status": "completed",
-          "type": "message"
-        }
-      ],
-      "instructions": "You are a helpful assistant. Be concise.",
-      "store": true,
-      "presence_penalty": 0.0,
-      "incomplete_details": null,
-      "reasoning": {
-        "context": null,
-        "effort": null,
-        "summary": null
-      },
-      "completed_at": 1780400849,
-      "truncation": "disabled",
-      "top_p": 1.0,
-      "billing": {
-        "payer": "developer"
-      },
-      "prompt_cache_retention": "in_memory",
-      "metadata": {},
-      "prompt_cache_key": null,
-      "created_at": 1780400848,
-      "max_tool_calls": null
+      ]
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:29 GMT"
+        "Thu, 15 Oct 2026 19:36:58 GMT"
       ],
       [
         "content-type",
@@ -185,11 +206,11 @@
       ],
       [
         "content-length",
-        "2096"
+        "2544"
       ],
       [
         "cf-ray",
-        "a05639342cded1c5-PRG"
+        "a4b1468edc96bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -225,7 +246,7 @@
       ],
       [
         "openai-processing-ms",
-        "1272"
+        "609"
       ],
       [
         "openai-project",
@@ -249,7 +270,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "149999647"
+        "149999627"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -261,7 +282,7 @@
       ],
       [
         "x-request-id",
-        "req_ab465f48e5754972975119cbad01bc3f"
+        "req_c7e2b522335e4b24a1f3c98b94a4761c"
       ],
       [
         "set-cookie",

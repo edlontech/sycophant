@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5.2",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:19.360950Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:54.499144Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -60,7 +60,38 @@
   },
   "response": {
     "body": {
-      "background": false,
+      "safety_identifier": null,
+      "store": true,
+      "error": null,
+      "created_at": 1792093012,
+      "presence_penalty": 0.0,
+      "status": "completed",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "max_tool_calls": null,
+      "instructions": null,
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": "24h",
+      "completed_at": 1792093014,
+      "temperature": 1.0,
       "text": {
         "format": {
           "description": null,
@@ -93,23 +124,20 @@
         },
         "verbosity": "medium"
       },
-      "moderation": null,
-      "top_logprobs": 0,
-      "previous_response_id": null,
+      "parallel_tool_calls": true,
       "tool_choice": "auto",
-      "service_tier": "default",
-      "status": "completed",
-      "tools": [],
-      "id": "resp_04e888744c49b134006a1ec2c5ce0881a08b7d18991962b857",
-      "temperature": 1.0,
-      "max_output_tokens": null,
-      "user": null,
       "frequency_penalty": 0.0,
-      "error": null,
-      "model": "gpt-5.2-2025-12-11",
+      "top_logprobs": 0,
+      "reasoning": {
+        "context": "current_turn",
+        "effort": "none",
+        "mode": "standard",
+        "summary": null
+      },
       "usage": {
         "input_tokens": 69,
         "input_tokens_details": {
+          "cache_write_tokens": 0,
           "cached_tokens": 0
         },
         "output_tokens": 35,
@@ -118,50 +146,43 @@
         },
         "total_tokens": 104
       },
-      "safety_identifier": null,
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "gpt-5.2-2025-12-11",
+      "truncation": "disabled",
+      "metadata": {},
+      "service_tier": "default",
+      "id": "resp_06e3791474d6ecbc006ad12b54ec8087d2a50145c6a3f2a5db",
+      "top_p": 0.98,
+      "user": null,
+      "prompt_cache_key": null,
+      "moderation": null,
       "object": "response",
-      "parallel_tool_calls": true,
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
       "output": [
         {
           "content": [
             {
               "annotations": [],
               "logprobs": [],
-              "text": "{\"age\":34,\"hobbies\":[\"urban sketching\",\"trail running\",\"sourdough baking\"],\"name\":\"Mira Halberg\"}",
+              "text": "{\"age\":34,\"hobbies\":[\"urban sketching\",\"trail running\",\"sourdough baking\"],\"name\":\"Mara Ellison\"}",
               "type": "output_text"
             }
           ],
-          "id": "msg_04e888744c49b134006a1ec2c643f881a0984bd241a1589bab",
+          "id": "msg_06e3791474d6ecbc006ad12b55cbec87d2b3d7580401157b76",
           "role": "assistant",
           "status": "completed",
           "type": "message"
         }
       ],
-      "instructions": null,
-      "store": true,
-      "presence_penalty": 0.0,
-      "incomplete_details": null,
-      "reasoning": {
-        "context": "current_turn",
-        "effort": "none",
-        "summary": null
-      },
-      "completed_at": 1780400839,
-      "truncation": "disabled",
-      "top_p": 0.98,
-      "billing": {
-        "payer": "developer"
-      },
-      "prompt_cache_retention": "24h",
-      "metadata": {},
-      "prompt_cache_key": null,
-      "created_at": 1780400837,
-      "max_tool_calls": null
+      "tools": []
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:19 GMT"
+        "Thu, 15 Oct 2026 19:36:54 GMT"
       ],
       [
         "content-type",
@@ -169,11 +190,11 @@
       ],
       [
         "content-length",
-        "2245"
+        "2688"
       ],
       [
         "cf-ray",
-        "a05638f02a41d1c5-PRG"
+        "a4b146709ec5bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -209,7 +230,7 @@
       ],
       [
         "openai-processing-ms",
-        "1523"
+        "1509"
       ],
       [
         "openai-project",
@@ -229,7 +250,7 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "14999"
+        "14998"
       ],
       [
         "x-ratelimit-remaining-tokens",
@@ -237,7 +258,7 @@
       ],
       [
         "x-ratelimit-reset-requests",
-        "4ms"
+        "8ms"
       ],
       [
         "x-ratelimit-reset-tokens",
@@ -245,7 +266,7 @@
       ],
       [
         "x-request-id",
-        "req_cdea56bd04f14185938df3ee06363c44"
+        "req_c8a80876c7cb40f18e97f0f00463c4d3"
       ],
       [
         "set-cookie",

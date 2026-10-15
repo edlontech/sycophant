@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5-nano",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:32.132357Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:04.757153Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -31,44 +31,86 @@
   },
   "response": {
     "body": {
-      "background": false,
+      "safety_identifier": null,
+      "store": true,
+      "error": null,
+      "created_at": 1792093023,
+      "presence_penalty": 0.0,
+      "status": "completed",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "max_tool_calls": null,
+      "instructions": "You are a calculator. Only respond with numbers.",
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": "in_memory",
+      "completed_at": 1792093024,
+      "temperature": 1.0,
       "text": {
         "format": {
           "type": "text"
         },
         "verbosity": "medium"
       },
-      "moderation": null,
-      "top_logprobs": 0,
-      "previous_response_id": null,
+      "parallel_tool_calls": true,
       "tool_choice": "auto",
-      "service_tier": "default",
-      "status": "completed",
-      "tools": [],
-      "id": "resp_0c29d4c080d2d5ce006a1ec2d2af84819ca27c1ab0493fb718",
-      "temperature": 1.0,
-      "max_output_tokens": null,
-      "user": null,
       "frequency_penalty": 0.0,
-      "error": null,
-      "model": "gpt-5-nano-2025-08-07",
+      "top_logprobs": 0,
+      "reasoning": {
+        "context": "current_turn",
+        "effort": "medium",
+        "mode": "standard",
+        "summary": null
+      },
       "usage": {
         "input_tokens": 28,
         "input_tokens_details": {
+          "cache_write_tokens": 0,
           "cached_tokens": 0
         },
-        "output_tokens": 148,
+        "output_tokens": 99,
         "output_tokens_details": {
-          "reasoning_tokens": 128
+          "reasoning_tokens": 64
         },
-        "total_tokens": 176
+        "total_tokens": 127
       },
-      "safety_identifier": null,
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "gpt-5-nano-2025-08-07",
+      "truncation": "disabled",
+      "metadata": {},
+      "service_tier": "default",
+      "id": "resp_0c5905fa77fb715a006ad12b5f67f487d2ba26a2cfdd070ae2",
+      "top_p": 1.0,
+      "user": null,
+      "prompt_cache_key": null,
+      "moderation": null,
       "object": "response",
-      "parallel_tool_calls": true,
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
       "output": [
         {
-          "id": "rs_0c29d4c080d2d5ce006a1ec2d2e6f4819cb4c7fa917d3c5981",
+          "content": [],
+          "encrypted_content": "gAAAAABq0Stgys1scDo1rn1tKqS7smPbENAAq2iQCf2Qyfu0iTyY1hg-SdQFlLr7772MrmfcJEl0Ripg-YSFPpOFJT2SUoEicGe1ywHGnEdOrmG1V1dQYbz1pBYbRH9dkY08ApHJTLUiLXlYTN8c-sT706CKmXdTbsbLvC-vqe1zOVe6ChfiXs8ap4Q9-Mtzb84jwUG_2qJ4O9B6jkv8Lmq9kbv6SkHDW6-AqS8J1fFacnyqhrMlULTpkigleeQseu2_316TvfQLHGlVhLulhfpnrJaTWsUcFiTu6fq9Ji3KO98Kckd5p7Twiph1sNvIFBTfLp0w5fBQ-YPBdeKnjgMOTTErrb6-0PSVLG4ZNZ7BhlZ4Gcqs1M2m1IOHioh2KcWt39c1rmtXZhzEZosXe8nIvhd5lrEoAymA6ji4pKIo9rjQHRIYJwQDm5YhXtWgh92S01ZI1wQClxcS8z4qgZdVoyFvDk8Z4MXqfvZ9cYWZ6vVsA-scN1cqyIyY3id1XL-T0ZAgAWmTsIZh7L39B2Eg7uHFsBmT8dFCmBGAmPXUZmVTu68j4QxlzTjI3TyzP_J-ljfvbebMuaThgll2SGQslZCyvaXVY1bZmYpJlLoMjDysIQAUPdZNRzU_HgVLHws63pGn6VPTiIDFB9vMv4trj8wRN9Po78Bg_u0Dj8kEmbyE-Nv9x6uVWmQUJ_Cki-2F8iMSyv9t9aCAFS1-ODXFTGlZWUfw9_7_Q762ko6iNyHYNx5Kdr-HET5Wg7p_KOlnSj5tBrfvuS8kPuAC90VErEye9oEeeHpAUMJsaUriYhp20naBtL6OJuVONV-wAapmwx1VY0ODF-qxOdpt6Jzd38tmLalJ7xSGwIirbWpsYW7oGTAtgJWBrbu52g5Cm8rx5cLk6oeRkUGZ7hfzuxMouQnI1apYAJLlClaLAkfOBcewzsdtXczDPNzpqHMCmucHE4XpXXEmh-QlqR1CyM90-hNzrDrs1PMmRfmiuKUKbZv-JQxqKcNNqIPnPECY0_n89RNGjNtAdBNT6_plrkoSZm-NXhHxQRYgGmN0FZJ_RjDYznTi_0t_qaOgwliSQUvm1orsefCSyMJMLW27pVH7vM2tNF5OxmHwy6BTYUKKWQE0Y6SmA4hgT62zP7HgjK54Vulq8vH955OjvZIeaqS6UsGY6duqouqOycKFNH1wkLEjSBn9DN2IEYxvKd9K7VNlGHWRAr8UKAnXRmJK5Dk9JaS6aiCcviwhcrqz9-u1Sav3ext9Q7kmtZxAqaev4fGIqETY6at7todN3cFdp9tgL-y-mTwl8_DtnzBue2Pcug7pApBW6MNPJPp2rTNCVg1FKzOZ7UQqvCL1ZoOUAClRalJ_NrTB4dXeZoGsBj6jayAT90GmruUpYYzeR60CmPnHCESM1qwhXTXvbqUNk0lQRzqTlGVXDIynBn05bPm1mCTyXqyeXT4HoNJ8QBTRluITSIqgmpiRePJVdaIMqQEOE1NRf-z6KcxN8YvAEWVNDM67tqgiw0YpmpDXnIM9QD5PnHVEbAOgXV0ZFvC9Jj9pJuCDUQvJq6KYMHGuPFvW2qp-rCjfPyW3fUiy_NtEZ_vFBOfVpUkyAiYnC-26KZEWV4OMgt78IxZ19PsSh_Z1N4ALdhAmRgdD9S45d1LnZBKH_8PzwMfc_Me39lfp7YCgfY1dFoZPJ_aPjzEXAJoANxuSzoLC5AzW9OZor42QlQEJ6zFS8gRSMF52CubPhcSJvJA2t9yGVqJnnCVAfSs7NKCebRWG2uIMbKSZMRKDekL7zqSRlIqXtiD-fdenr20L90NeMetO6ziiK4sVJy9NgVayH3PcE9iOgsVL48-5Cq878IHVMghD5uCxUOS_Nqj6mjiq7eP34LjIyROzCFIfMCyQgr27sR6X1nddVqjPGuWXfmNjLtZM43vykievNa3l314oaRfn59qie3atUBenv4_231EUW90bRDplI6okJctFG1PvGsWzJsBzNZnY2FcTc9DFWakWJeXc8ajHIDn2Cr4O_P5-bnPnO7xUlV5h6fJo_EWugbVDFfCkvsqGuP482Z5arGXBwfzvxk0uqFOdCE33dblaARG0xMk-_FqGdyJvQcrfIWjvEkogdiecm-ZP5nxG66xRy0BO51CI7dK6YCyWWN14kAQVv1UQ_bEinpidU9iSNBRJJQUHujMxcsXgYka9lB1paa3PChcDEvBFAL9rcA9MYuEj0RBwOi7AdgXyjlTxTZqOaGMEEui0jdmY4CmXVIUxq9Wy95RgnCV1R_atl5eXl7W62zzmA_aRwwl_JrCtWzTjIPJq4R9KniNUcbL0_0AxmwDdz5ZDs528Ky9ypPjNfyGMJcZLG4A1VU_aORhXR7x1bbognrqg2DybCXV5XNAykuzl797LRc-bRRnQxnB6aHcFZCZM9TKz1zYVqztsv-a4WDIbx8iVgJ3cMeCZdEzRQymyhNWcAUOq55eYBFGLd4ogAv8bhh6skgRvT61FsCO_d3mH_qXvU_fr8TwZCR8leZki1PD27fOcke8b5sRWc4S7cARB3WSaExXvIdj7Ur5u0I_d3e8lRqE2jeTrGDNB3Q==",
+          "id": "rs_0c5905fa77fb715a006ad12b5fd06087d2a0addb6967521d59",
           "summary": [],
           "type": "reasoning"
         },
@@ -81,37 +123,18 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_0c29d4c080d2d5ce006a1ec2d3d824819cb9960db4f27d14e3",
+          "id": "msg_0c5905fa77fb715a006ad12b60802887d2a30245d33ac7169e",
           "role": "assistant",
           "status": "completed",
           "type": "message"
         }
       ],
-      "instructions": "You are a calculator. Only respond with numbers.",
-      "store": true,
-      "presence_penalty": 0.0,
-      "incomplete_details": null,
-      "reasoning": {
-        "context": "current_turn",
-        "effort": "medium",
-        "summary": null
-      },
-      "completed_at": 1780400851,
-      "truncation": "disabled",
-      "top_p": 1.0,
-      "billing": {
-        "payer": "developer"
-      },
-      "prompt_cache_retention": "in_memory",
-      "metadata": {},
-      "prompt_cache_key": null,
-      "created_at": 1780400850,
-      "max_tool_calls": null
+      "tools": []
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:32 GMT"
+        "Thu, 15 Oct 2026 19:37:04 GMT"
       ],
       [
         "content-type",
@@ -119,11 +142,11 @@
       ],
       [
         "content-length",
-        "1771"
+        "4860"
       ],
       [
         "cf-ray",
-        "a05639443cafd1c5-PRG"
+        "a4b146b39887bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -159,7 +182,7 @@
       ],
       [
         "openai-processing-ms",
-        "1371"
+        "1273"
       ],
       [
         "openai-project",
@@ -179,15 +202,15 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "29999"
+        "29998"
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "180000000"
+        "179999643"
       ],
       [
         "x-ratelimit-reset-requests",
-        "2ms"
+        "4ms"
       ],
       [
         "x-ratelimit-reset-tokens",
@@ -195,7 +218,7 @@
       ],
       [
         "x-request-id",
-        "req_f10399e4b7e7432a88a4dec0f32e4e6f"
+        "req_8e665d41a58e41649ed551afdaeeb9c6"
       ],
       [
         "set-cookie",

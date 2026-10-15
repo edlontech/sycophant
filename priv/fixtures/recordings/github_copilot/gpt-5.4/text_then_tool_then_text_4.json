@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5.4",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-06-29T09:55:31.568163Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:03.236993Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -17,7 +17,7 @@
           "role": "user"
         },
         {
-          "content": "Nice — London’s a great trip.\n\nI can help with things like:\n- weather for your dates\n- neighborhoods to stay in\n- itinerary ideas\n- transport tips\n- budget planning\n- food and attractions\n\nIf you want, I can start with any of these:\n1. best time/weather\n2. 3-day itinerary\n3. where to stay\n4. budget tips\n\nIf you share your travel dates, I can also check the weather.",
+          "content": "Nice—London’s a great trip.\n\nI can help with:\n- weather for your dates\n- neighborhoods to stay in\n- itinerary ideas\n- budget planning\n- transport tips\n- packing advice\n\nIf you want, I can start with the current weather in London.",
           "role": "assistant"
         },
         {
@@ -33,7 +33,7 @@
                 "arguments": "{\"city\":\"London\"}",
                 "name": "get_weather"
               },
-              "id": "call_YeXJpcdQmJSp8qntAOzPwLjP",
+              "id": "call_m8QuCq6KGhtjN9kowVLQmWSY",
               "type": "function"
             }
           ]
@@ -41,7 +41,7 @@
         {
           "content": "London: 18C, cloudy",
           "role": "tool",
-          "tool_call_id": "call_YeXJpcdQmJSp8qntAOzPwLjP"
+          "tool_call_id": "call_m8QuCq6KGhtjN9kowVLQmWSY"
         },
         {
           "content": "Current weather in London: 18°C and cloudy.",
@@ -113,8 +113,8 @@
           "finish_reason": "stop",
           "index": 0,
           "message": {
-            "content": "Yes—probably a good idea. With cloudy London weather, a small umbrella or light rain jacket is worth bringing.",
-            "padding": "abcdefghijklm",
+            "content": "Yes—I'd bring a small umbrella or light rain jacket. Cloudy at 18°C in London can easily turn drizzly. Layers are a good idea too.",
+            "padding": "abcdefghijklmnopqrstuvwxyz01234567",
             "role": "assistant"
           }
         }
@@ -124,45 +124,48 @@
           {
             "batch_size": 1000000,
             "cost_per_batch": 250000000000,
-            "token_count": 341,
+            "model": "gpt-5.4",
+            "token_count": 302,
             "token_type": "input"
           },
           {
             "batch_size": 1000000,
             "cost_per_batch": 25000000000,
+            "model": "gpt-5.4",
             "token_count": 0,
             "token_type": "cache_read"
           },
           {
             "batch_size": 1000000,
             "cost_per_batch": 0,
+            "model": "gpt-5.4",
             "token_count": 0,
             "token_type": "cache_write"
           },
           {
             "batch_size": 1000000,
             "cost_per_batch": 1500000000000,
-            "token_count": 26,
+            "model": "gpt-5.4",
+            "token_count": 36,
             "token_type": "output"
           }
         ],
-        "total_nano_aiu": 124250000
+        "total_nano_aiu": 129500000
       },
-      "id": "chatcmpl-Dw306tF7qSWD1s8dEMrhrVslrRHqk",
+      "id": "chatcmpl-EZLY6gTvhrSqRfYngT7w8ikpp8WzR",
       "model": "gpt-5.4",
       "service_tier": "default",
       "usage": {
-        "completion_tokens": 26,
+        "completion_tokens": 36,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "rejected_prediction_tokens": 0
         },
-        "prompt_tokens": 341,
+        "prompt_tokens": 302,
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
-        "reasoning_tokens": 0,
-        "total_tokens": 367
+        "total_tokens": 338
       }
     },
     "headers": [
@@ -180,23 +183,27 @@
       ],
       [
         "x-copilot-api-exp-assignment-context",
-        "e4hcf520:1109203;t_capicli_aa:1116798;"
+        "e4hcf520:1109203;t_capicli_aa:1116798;permission_prompt_treatment:1332566;ccr_pr_nudge_auto_review:1319472;jc553158:1433349;cmc_aa_t:1435711;seataa-998bffad:1447867;"
       ],
       [
         "x-copilot-service-request-id",
-        "a130afd6-23df-4cc0-9c47-6539843318e0"
+        "2d857aa6-6ee6-4f85-afbe-688be43f83c3"
+      ],
+      [
+        "x-github-copilot-request-te",
+        "true"
       ],
       [
         "x-request-id",
-        "00000-42206a71-6549-4218-9fd6-8c3c14a8dfd0"
+        "00000-663515b2-7942-42d9-8ba8-dd236f481d8f"
       ],
       [
         "date",
-        "Mon, 29 Jun 2026 09:55:31 GMT"
+        "Thu, 15 Oct 2026 19:37:03 GMT"
       ],
       [
         "content-length",
-        "1004"
+        "1097"
       ],
       [
         "x-github-backend",
@@ -204,7 +211,11 @@
       ],
       [
         "x-github-request-id",
-        "8B26:3F2E01:3231796:38A4C80:6A424112"
+        "E5EE:3C73B4:2435742:267F7E2:6AD12B5D"
+      ],
+      [
+        "x-github-edge-region",
+        "iad"
       ]
     ],
     "status": 200

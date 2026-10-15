@@ -2,11 +2,14 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-06-02T11:47:48.141689Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:11.986141Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
+      "cache_control": {
+        "type": "ephemeral"
+      },
       "max_tokens": 4096,
       "messages": [
         {
@@ -16,7 +19,7 @@
         {
           "content": [
             {
-              "id": "toolu_01TmaiLFuRRCcb9mekvhhDo3",
+              "id": "toolu_01T3vZw2GqmkJa8zFZXhEKr1",
               "input": {
                 "city": "Paris"
               },
@@ -30,7 +33,7 @@
           "content": [
             {
               "content": "Paris: 22C, sunny",
-              "tool_use_id": "toolu_01TmaiLFuRRCcb9mekvhhDo3",
+              "tool_use_id": "toolu_01T3vZw2GqmkJa8zFZXhEKr1",
               "type": "tool_result"
             }
           ],
@@ -77,13 +80,15 @@
   },
   "response": {
     "body": {
+      "container": null,
       "content": [
         {
-          "text": "The weather in Paris is currently **22°C (about 72°F) and sunny**! It's a beautiful day in Paris.",
+          "text": "The weather in Paris is currently **22°C (about 72°F) and sunny**. It's a beautiful day!",
           "type": "text"
         }
       ],
-      "id": "msg_01AWqdgoLYA87NqYXBhiY7er",
+      "diagnostics": null,
+      "id": "msg_011Cg4ayQWd7YdTtZSap1qQW",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
       "stop_details": null,
@@ -99,14 +104,14 @@
         "cache_read_input_tokens": 0,
         "inference_geo": "not_available",
         "input_tokens": 665,
-        "output_tokens": 32,
+        "output_tokens": 30,
         "service_tier": "standard"
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:48 GMT"
+        "Thu, 15 Oct 2026 19:37:11 GMT"
       ],
       [
         "content-type",
@@ -114,95 +119,95 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-limit",
-        "1000000"
+        "10000000"
       ],
       [
         "anthropic-ratelimit-input-tokens-remaining",
-        "1000000"
+        "10000000"
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-06-02T11:47:47Z"
+        "2026-10-15T19:37:11Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
-        "200000"
+        "2000000"
       ],
       [
         "anthropic-ratelimit-output-tokens-remaining",
-        "200000"
+        "2000000"
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-06-02T11:47:48Z"
+        "2026-10-15T19:37:11Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
-        "2000"
+        "10000"
       ],
       [
         "anthropic-ratelimit-requests-remaining",
-        "1999"
+        "9999"
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-06-02T11:47:45Z"
+        "2026-10-15T19:37:10Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
-        "1200000"
+        "12000000"
       ],
       [
         "anthropic-ratelimit-tokens-remaining",
-        "1200000"
+        "12000000"
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-06-02T11:47:47Z"
-      ],
-      [
-        "request-id",
-        "req_011CbeNyfNDR7u3kLf4pwaCX"
+        "2026-10-15T19:37:11Z"
       ],
       [
         "strict-transport-security",
         "max-age=31536000; includeSubDomains; preload"
       ],
       [
+        "request-id",
+        "req_011Cg4ayQGjecDfd1wqztyP9"
+      ],
+      [
+        "traceresponse",
+        "00-e67d8895ae1f45ee902eb722d5486ab1-f2e5add41d51542d-01"
+      ],
+      [
         "anthropic-organization-id",
         "8a3ada71-45d7-4ed6-aaaf-279ffd490a4a"
       ],
       [
-        "traceresponse",
-        "00-c26bf57a9fca1533fea2fb91527625a6-47f706bbddee08af-01"
-      ],
-      [
-        "server",
-        "cloudflare"
-      ],
-      [
-        "content-security-policy",
-        "default-src 'none'; frame-ancestors 'none'"
+        "anthropic-workspace-id",
+        "wrkspc_01YSNntzPELNWyxziR11pKjX"
       ],
       [
         "vary",
         "Accept-Encoding"
       ],
       [
-        "set-cookie",
-        "[REDACTED]"
+        "content-security-policy",
+        "default-src 'none'; frame-ancestors 'none'"
       ],
       [
-        "x-robots-tag",
-        "none"
+        "server",
+        "cloudflare"
       ],
       [
         "cf-cache-status",
         "DYNAMIC"
       ],
       [
+        "x-robots-tag",
+        "none"
+      ],
+      [
         "cf-ray",
-        "a05639a26f99b385-PRG"
+        "a4b146de3b23e68c-PRG"
       ]
     ],
     "status": 200

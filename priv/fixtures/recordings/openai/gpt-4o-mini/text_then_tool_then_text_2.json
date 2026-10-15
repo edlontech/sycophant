@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:28.003653Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:57.399297Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "That sounds exciting! What information do you need for your trip to London?",
+              "text": "That sounds exciting! When are you planning to go, and do you need help with anything specific?",
               "type": "output_text"
             }
           ],
@@ -66,23 +66,95 @@
   },
   "response": {
     "body": {
-      "background": false,
+      "safety_identifier": null,
+      "store": true,
+      "error": null,
+      "created_at": 1792093016,
+      "presence_penalty": 0.0,
+      "status": "completed",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "max_tool_calls": null,
+      "instructions": "You are a helpful assistant. Be concise.",
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": "in_memory",
+      "completed_at": 1792093017,
+      "temperature": 1.0,
       "text": {
         "format": {
           "type": "text"
         },
         "verbosity": "medium"
       },
-      "moderation": null,
-      "top_logprobs": 0,
-      "previous_response_id": null,
+      "parallel_tool_calls": true,
       "tool_choice": "auto",
+      "frequency_penalty": 0.0,
+      "top_logprobs": 0,
+      "reasoning": {
+        "context": null,
+        "effort": null,
+        "summary": null
+      },
+      "usage": {
+        "input_tokens": 115,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 15,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 130
+      },
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "gpt-4o-mini-2024-07-18",
+      "truncation": "disabled",
+      "metadata": {},
       "service_tier": "default",
-      "status": "completed",
+      "id": "resp_0fcfc83b48376125006ad12b58c2a087d2917509f68fc8ae1c",
+      "top_p": 1.0,
+      "user": null,
+      "prompt_cache_key": null,
+      "moderation": null,
+      "object": "response",
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
+      "output": [
+        {
+          "arguments": "{\"city\":\"London\"}",
+          "call_id": "call_E9do6Aa42M7U2ldPO8StJboZ",
+          "id": "fc_0fcfc83b48376125006ad12b592b5887d2b046dabe6073f234",
+          "name": "get_weather",
+          "status": "completed",
+          "type": "function_call"
+        }
+      ],
       "tools": [
         {
           "description": "Get current weather for a city. Returns temperature and conditions.",
           "name": "get_weather",
+          "output_schema": null,
           "parameters": {
             "additionalProperties": false,
             "properties": {
@@ -98,63 +170,12 @@
           "strict": true,
           "type": "function"
         }
-      ],
-      "id": "resp_08ecc2c4560761c4006a1ec2ce702081a385c7d9b5f55f38e4",
-      "temperature": 1.0,
-      "max_output_tokens": null,
-      "user": null,
-      "frequency_penalty": 0.0,
-      "error": null,
-      "model": "gpt-4o-mini-2024-07-18",
-      "usage": {
-        "input_tokens": 110,
-        "input_tokens_details": {
-          "cached_tokens": 0
-        },
-        "output_tokens": 15,
-        "output_tokens_details": {
-          "reasoning_tokens": 0
-        },
-        "total_tokens": 125
-      },
-      "safety_identifier": null,
-      "object": "response",
-      "parallel_tool_calls": true,
-      "output": [
-        {
-          "arguments": "{\"city\":\"London\"}",
-          "call_id": "call_YI2l77htSLtIryoo6TydNTxB",
-          "id": "fc_08ecc2c4560761c4006a1ec2cf65ac81a395059e3641edeb24",
-          "name": "get_weather",
-          "status": "completed",
-          "type": "function_call"
-        }
-      ],
-      "instructions": "You are a helpful assistant. Be concise.",
-      "store": true,
-      "presence_penalty": 0.0,
-      "incomplete_details": null,
-      "reasoning": {
-        "context": null,
-        "effort": null,
-        "summary": null
-      },
-      "completed_at": 1780400847,
-      "truncation": "disabled",
-      "top_p": 1.0,
-      "billing": {
-        "payer": "developer"
-      },
-      "prompt_cache_retention": "in_memory",
-      "metadata": {},
-      "prompt_cache_key": null,
-      "created_at": 1780400846,
-      "max_tool_calls": null
+      ]
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:28 GMT"
+        "Thu, 15 Oct 2026 19:36:57 GMT"
       ],
       [
         "content-type",
@@ -162,11 +183,11 @@
       ],
       [
         "content-length",
-        "1986"
+        "2434"
       ],
       [
         "cf-ray",
-        "a05639210eaed1c5-PRG"
+        "a4b1468a1885bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -202,7 +223,7 @@
       ],
       [
         "openai-processing-ms",
-        "1630"
+        "560"
       ],
       [
         "openai-project",
@@ -222,15 +243,15 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "29999"
+        "29995"
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "149999672"
+        "149998660"
       ],
       [
         "x-ratelimit-reset-requests",
-        "2ms"
+        "10ms"
       ],
       [
         "x-ratelimit-reset-tokens",
@@ -238,7 +259,7 @@
       ],
       [
         "x-request-id",
-        "req_4af7cd1eeec34615ab3d5c20fde9545f"
+        "req_269fa04ffa724ed18d19a6d58dd01d5c"
       ],
       [
         "set-cookie",

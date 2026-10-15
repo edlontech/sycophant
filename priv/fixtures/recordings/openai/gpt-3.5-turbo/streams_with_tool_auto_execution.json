@@ -2,9 +2,9 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:22.080006Z",
+    "recorded_at": "2026-10-15T19:36:59.081610Z",
     "streaming": true,
-    "sycophant_version": "0.4.2"
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -56,11 +56,11 @@
     "url": "https://api.openai.com/v1/chat/completions"
   },
   "response": {
-    "body": "data: {\"id\":\"chatcmpl-DmHsX0kpnVykNwBYwzsBmAbcTJJvq\",\"object\":\"chat.completion.chunk\",\"created\":1780400841,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":null,\"tool_calls\":[{\"index\":0,\"id\":\"call_0PhH8juqzSyJGNaDQyCBgtRi\",\"type\":\"function\",\"function\":{\"name\":\"get_weather\",\"arguments\":\"\"}}],\"refusal\":null},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"Asg\"}\n\ndata: {\"id\":\"chatcmpl-DmHsX0kpnVykNwBYwzsBmAbcTJJvq\",\"object\":\"chat.completion.chunk\",\"created\":1780400841,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"{\\\"\"}}]},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"BNTiK2r5QcRfl\"}\n\ndata: {\"id\":\"chatcmpl-DmHsX0kpnVykNwBYwzsBmAbcTJJvq\",\"object\":\"chat.completion.chunk\",\"created\":1780400841,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"city\"}}]},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"1hjUIbxxeAzW\"}\n\ndata: {\"id\":\"chatcmpl-DmHsX0kpnVykNwBYwzsBmAbcTJJvq\",\"object\":\"chat.completion.chunk\",\"created\":1780400841,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\":\\\"\"}}]},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"RpeRuZr17gj\"}\n\ndata: {\"id\":\"chatcmpl-DmHsX0kpnVykNwBYwzsBmAbcTJJvq\",\"object\":\"chat.completion.chunk\",\"created\":1780400841,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"Paris\"}}]},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"3rewepc7yoc\"}\n\ndata: {\"id\":\"chatcmpl-DmHsX0kpnVykNwBYwzsBmAbcTJJvq\",\"object\":\"chat.completion.chunk\",\"created\":1780400841,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"}\"}}]},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"e0DvZQEGJm5jk\"}\n\ndata: {\"id\":\"chatcmpl-DmHsX0kpnVykNwBYwzsBmAbcTJJvq\",\"object\":\"chat.completion.chunk\",\"created\":1780400841,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{},\"logprobs\":null,\"finish_reason\":\"tool_calls\"}],\"usage\":null,\"obfuscation\":\"88EKFyNcHE5pcw\"}\n\ndata: {\"id\":\"chatcmpl-DmHsX0kpnVykNwBYwzsBmAbcTJJvq\",\"object\":\"chat.completion.chunk\",\"created\":1780400841,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[],\"usage\":{\"prompt_tokens\":63,\"completion_tokens\":14,\"total_tokens\":77,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0,\"audio_tokens\":0,\"accepted_prediction_tokens\":0,\"rejected_prediction_tokens\":0}},\"obfuscation\":\"4zsalpnUl\"}\n\ndata: [DONE]\n\n",
+    "body": "data: {\"id\":\"chatcmpl-EZLY23AJb5Q9cAauyalSwU8toBhye\",\"object\":\"chat.completion.chunk\",\"created\":1792093018,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":null,\"tool_calls\":[{\"index\":0,\"id\":\"call_gGluJxyo1wVI4FkV4KpmtIlW\",\"type\":\"function\",\"function\":{\"name\":\"get_weather\",\"arguments\":\"\"}}],\"refusal\":null},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"5Du\"}\n\ndata: {\"id\":\"chatcmpl-EZLY23AJb5Q9cAauyalSwU8toBhye\",\"object\":\"chat.completion.chunk\",\"created\":1792093018,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"{\\\"\"}}]},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"5mhnBwDorgH5O\"}\n\ndata: {\"id\":\"chatcmpl-EZLY23AJb5Q9cAauyalSwU8toBhye\",\"object\":\"chat.completion.chunk\",\"created\":1792093018,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"city\"}}]},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"6MlH2n2X5Fpd\"}\n\ndata: {\"id\":\"chatcmpl-EZLY23AJb5Q9cAauyalSwU8toBhye\",\"object\":\"chat.completion.chunk\",\"created\":1792093018,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\":\\\"\"}}]},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"sxTnT1AdH2c\"}\n\ndata: {\"id\":\"chatcmpl-EZLY23AJb5Q9cAauyalSwU8toBhye\",\"object\":\"chat.completion.chunk\",\"created\":1792093018,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"Paris\"}}]},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"0mGXRCgC1nP\"}\n\ndata: {\"id\":\"chatcmpl-EZLY23AJb5Q9cAauyalSwU8toBhye\",\"object\":\"chat.completion.chunk\",\"created\":1792093018,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"}\"}}]},\"logprobs\":null,\"finish_reason\":null}],\"usage\":null,\"obfuscation\":\"fIMYD3B141UIK\"}\n\ndata: {\"id\":\"chatcmpl-EZLY23AJb5Q9cAauyalSwU8toBhye\",\"object\":\"chat.completion.chunk\",\"created\":1792093018,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[{\"index\":0,\"delta\":{},\"logprobs\":null,\"finish_reason\":\"tool_calls\"}],\"usage\":null,\"obfuscation\":\"2vlHgQXkQwUDea\"}\n\ndata: {\"id\":\"chatcmpl-EZLY23AJb5Q9cAauyalSwU8toBhye\",\"object\":\"chat.completion.chunk\",\"created\":1792093018,\"model\":\"gpt-3.5-turbo-0125\",\"service_tier\":\"default\",\"system_fingerprint\":null,\"choices\":[],\"usage\":{\"prompt_tokens\":63,\"completion_tokens\":14,\"total_tokens\":77,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0,\"audio_tokens\":0,\"accepted_prediction_tokens\":0,\"rejected_prediction_tokens\":0}},\"obfuscation\":\"8XgT2a3P9\"}\n\ndata: [DONE]\n\n",
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:21 GMT"
+        "Thu, 15 Oct 2026 19:36:58 GMT"
       ],
       [
         "content-type",
@@ -68,7 +68,7 @@
       ],
       [
         "cf-ray",
-        "a0563909b9bed1c5-PRG"
+        "a4b14691a928bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -104,7 +104,7 @@
       ],
       [
         "openai-processing-ms",
-        "624"
+        "841"
       ],
       [
         "openai-project",
@@ -132,7 +132,7 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "1999984"
+        "1999928"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -140,11 +140,11 @@
       ],
       [
         "x-ratelimit-reset-tokens",
-        "0s"
+        "2ms"
       ],
       [
         "x-request-id",
-        "req_893be237eec44f228de395b9761058e6"
+        "req_63a5604d1c7c4f7bbf6e9da3da4b2a34"
       ],
       [
         "set-cookie",

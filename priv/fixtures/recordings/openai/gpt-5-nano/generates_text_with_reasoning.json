@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5-nano",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:24.985868Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:57.646049Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -34,51 +34,89 @@
   },
   "response": {
     "body": {
-      "background": false,
+      "safety_identifier": null,
+      "store": true,
+      "error": null,
+      "created_at": 1792093012,
+      "presence_penalty": 0.0,
+      "status": "completed",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "max_tool_calls": null,
+      "instructions": null,
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": "in_memory",
+      "completed_at": 1792093017,
+      "temperature": 1.0,
       "text": {
         "format": {
           "type": "text"
         },
         "verbosity": "medium"
       },
-      "moderation": null,
-      "top_logprobs": 0,
-      "previous_response_id": null,
+      "parallel_tool_calls": true,
       "tool_choice": "auto",
-      "service_tier": "default",
-      "status": "completed",
-      "tools": [],
-      "id": "resp_0effe883d7b6898f006a1ec2c5c9f4819f81a7d98427cb95b3",
-      "temperature": 1.0,
-      "max_output_tokens": null,
-      "user": null,
       "frequency_penalty": 0.0,
-      "error": null,
-      "model": "gpt-5-nano-2025-08-07",
+      "top_logprobs": 0,
+      "reasoning": {
+        "context": "current_turn",
+        "effort": "low",
+        "mode": "standard",
+        "summary": "detailed"
+      },
       "usage": {
         "input_tokens": 62,
         "input_tokens_details": {
+          "cache_write_tokens": 0,
           "cached_tokens": 0
         },
-        "output_tokens": 783,
+        "output_tokens": 326,
         "output_tokens_details": {
-          "reasoning_tokens": 512
+          "reasoning_tokens": 192
         },
-        "total_tokens": 845
+        "total_tokens": 388
       },
-      "safety_identifier": null,
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "gpt-5-nano-2025-08-07",
+      "truncation": "disabled",
+      "metadata": {},
+      "service_tier": "default",
+      "id": "resp_020ee1788290200e006ad12b54f4cc87d2a43dbc9b082fd138",
+      "top_p": 1.0,
+      "user": null,
+      "prompt_cache_key": null,
+      "moderation": null,
       "object": "response",
-      "parallel_tool_calls": true,
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
       "output": [
         {
-          "id": "rs_0effe883d7b6898f006a1ec2c606b0819f86edac6be0484339",
+          "content": [],
+          "encrypted_content": "gAAAAABq0StZbZYRALkwOSUx-8O2WSSPvb2ZceF7QIFuh5K76WAY4HF2P7qgM-qxeJNIv6Eh0aLLL-q_V-Nyk_bqfiESyM3Dpe-CLJW8of1yX4zv47S3R2LU_NIYmx__ju90nuqllRxHnaXTrsYT0NLDyTwtljTeROXe1PNcl0KUMRn1mERcklAZcO09a_aqd84hBvYkZX1XBubVu65hwzZGyHoML2SxLp4Vcf4alj7fwwlQ4JzOACT9hkdmna5sLhPbTlrxkBNwNBo3-md7VN8Nc-buyKGsfDgrlftd7rq1b1N2GHXssUMVn1GBJ2Ml6doiFXCI6x9MJYnAasJoFKQoDnbRyi-vPld6K85vOr7CH5pem00-vBJczc0ix2Z-jOLsw9e591Z92vgJuVzU_RnXG7U1SRLQyjAERl1QsCvO1zyCCRxfIIjc1EWvCnLw-1jz1py7lg1_mFLzb-l12fKfCVQzrYVwRD32ffQuGsh4abekot3w_V8KiAbMU93ImCfE6zhJJJ5CbhL5OAahdXn16-6btSZkJeDH7rvuZqLbNfch2-aGbrKUgoA6eGb6YMtxLI1Z8SnD6i9V3nFfFPTEA5OvnYAAwmkz9DGlgJd_Bh2bo4sfRPafv3P-lSAKLyBuXuqFuOUD7xHp_sJeoHqJGb2eiI4kGzaKx7I0cuDo3N4LWi-wkVG5FemT9kWtI11BeAqUyEmKFwlTRD0u7LM4ZfnwcjF8L7IJupFOao9ljMuwi4vKBxNS4dsHCHOzhycK7Lo6HRE6zg4ObcZgRN566y9kepyFXzR5Ha_gdPmYXptiUcGZ_Jt9U3VE5Ha9HvmPzxQYfIDN3R0cuWuomABGpn0_0UuhcGEWkCrhr4GtXbd6IugITeLMRLF3Z8VdF7Ni-mIaHbVhBjATcduZfAbHppJI5ELQPpkHydhYjXdRlliAiU4bn2UMNTjqaVyU7y5Lxj08CtGDrK7GoACPlzgdxsX4x4NEAQGFM79RiYz58mpq1wzz0eRdzyNeLkxSeHD46wCAflMBrEZ3iaT29Cv-yzGDn46dLRIW-yXzH9EeLNxYOjtRP7_VBR_1z5TdoR8Fou5rJcwcHT2Igjm3rrY_YNm42Ticwcg88zaUPZbuLy9vO5dsELl3ZIghbB4qALws_nUWybSl02GAxbDtG4pnmE0UbpZB1lGluyjxPa_w4wiHvWDScXYVi0-h8J9j3HGM4qplLMv-GMGnaM4ngS7hGxvOTFL_Bogl_bQ7xfTCg1uGManMPVFRyhDPLOdplng3XpfA_gitT4mPPsyn5GcdcsL_SDpHCareK9RqSNGzJXhx6_vRUx1Ra8n4THB2y-EtuucgePeS_dK6hHu27RILtR635__1xVRctT7FzkE3a500guQQTWTGs6V05tzbu3wjmWvnWEFA7dTnmnDbPFQOXWDjbAdfLR8SMfggE6Ip_5Rll0Tb1g8PJy8F6V4SnoC1bG6n1srOybvjFJAUEZxJbB799q6O3vDbt2ChLN_b-1hE2HgklF3nd9wFyf9Ht42ATpb1vPMYuKBFQA9j8JVNBEGs3ON6pWx75-vEVSZVyB3DT-IPBSSCWs10gLikGNKEBmZAe5LVUIU_YRVCvFOM1i4ix3T8yE4v1lJjtH6yLMlpVhupf-GQtBgaJZfdAwu329TAbAo_9Az9jtNHGj9WfR9IQaSuqEKhrdobR2hs58mbhh0HnWBhQG7_QR1X4C_yxx-QK4aWVbMvNlR9UBuF4HYVykzhrTuLrhGFuLyFOozHiqCAwixgTvATbXW3BHaFs7mLgo-0912Ul9R8gWWZbk9XefEufOvJnXbAnMdoZFDhu4378Qx0uk2Gc8z6Q8QkQMacv4MJ0UH6AMK0a_9kQXQvR5pqgYqZuz8XLgq4U-ADYe_DJuI3ZvExpkj3NtC82JsQ-pDHqRtfVQdixYgNfbGZHkqbo64wFD4Fnypku1HrIJ1Q97wis9676pNrqk8oqhGH1iC9pWUFCE9t1Rc0FXu-piIQmYOCUAHhC91K1GlEzw61_yraIhFUdwrRu-_90r_4YnzD_gBqGk7PN9AH7PhYK7ImSUM_1hsmQJcTYKo6P_5ZgczP1VsVGCGD6epycrX210tTSgj7fVvGKGZqcP6HX_fpQN8b4y2l_isrvFSc_71ZMOCjWwX8yrFCssUSq0fprf0ozRhpqNfaQcaNBSjtlkRa_njMndnZu1Swgd79E_tuZJebQ5zLKU018Vn2jAI4axmGgOngLuXEzFszqAJsPznMYcy1wpV3OsQG5gwtK4eNDbomRNiZj64eySGel6-uGlKl5oyqYeLfZzPHygmCJPz6oiy_3ogDh-pYlcBMKyL7rmhOYxtRHZDfkT2mU2_JPD7yJxss1Ya6HMPKmGZYyKQA6PFaVRYavLdcuWOkPDAKw5iOrNyueaVQs7JSp0BMMPE2vyl0CBsYo3FKbVtOwxZkQdFW9MEj5hoJvc5Ya4YHEIspMJh7PmOJmJ3Ic5PW1FqrrXqOuhUUSPLm9FlUlRT6iXJLcoPAXRkUyC4raAZodBtq9Z0dMjZ6Q-ZbPxg41DpUYsD1LTTR9bnBzHL623pAKvh2VV-_mo6hS2QlIcWSQoYzqH2VOUsJrWOymWHuzpaP2JU_k_WUv5iqDVw48l_NPvPhFiMPiheTGbj2-YHXfoapPzwsXVKkv5Qcm_Q9uz8UzNupdsu9YmK1BmT9aTAiI6b5sT9UJDIqw263hy5ZtSflhg20q2qaa_1RJ6g-aYYfF8phUx9lyAWtMs147IwKt9KRI098ZVga2q_EoaQI2eq5lOWOavkjcSz_TKkNg0Mf-hAzSHjGJ7RNJHnwSkXzif1E5MqFNuqiJNN_6ptx4GxFJ-QgOWyRdsVCwzjB3tcb--K39lovBWVjDOUxHW3EvvsvI7agKc0dfm8YgixNTnzgPKefXFsC75UhdieOdPJQeJxpJvqcJPTh37b4Q9AZegKOMl3cwFMtdX10YRf601bQniXBkXzLkvhSwpUBnu9wTl5fMaOHn_Y8ptofVEuP0dntv680zwBKYP0bdhLUCjAeZh2rUi_6JECbIxbvSCRF4yL5RFv6sEKXH_4GYkhm0qpHHnLoceJYTiCBAQGGyMMEwb2NeKN2m18d6F6U6cjpeD6RplOddJerBJ9zXhFtAHVmL-wy-CwHNi996na218HUNO5kEAf2iQ0-nM8LOo_gnLtF5pV7I_iKTduhgwz97S3lYXIgWvnakvlpZ8tXSkK3zHkyC4CGFliJ2VaeeXeY_r3F6Net1hxPdDmXZuTJ49gI25Kg4OZyY5qw0k1EaXZIq8Cef6QYmqJQulENmhFrc3bfU_7jv72kQUKrylSWinyHD9qsdTD9mwvhSrlTKEmljjuyDZJldFNmNNCkT51wsvndcrp6ljHp7zd2a7GMd6WaVxQXlDCw3-mXkkwC9IoiFrrvefea8x29y2PGcoSdOWgYoWAWlcn9Mx6RkN6szA_Z_4V_zHuthzj2Qu2rRmuxyFmnpuZtla8h0T7ke46PSiuvcfIdZSYaYf-UyChoTAQ3F1NjmHYWHz35YivwCpOLT42jq8wa0ct7HOYxRP81",
+          "id": "rs_020ee1788290200e006ad12b55719887d296a48ff64590d8c6",
           "summary": [
             {
-              "text": "**Clarifying wheat production calculations**\n\nWe need to compute the wheat production. If \"second\" produces 120 tons, then \"first\" produces 2.5 times more, which is tricky because \"2.5 times more\" could be interpreted differently. It could mean 2.5 times as much (300 tons) or 3.5 times (420 tons). The \"third\" producer is clear at 40% less than the first. Depending on the interpretation, the total could either be 600 tons or 792 tons. So, which case is more likely?",
-              "type": "summary_text"
-            },
-            {
-              "text": "**Analyzing math puzzle solutions**\n\nMany math puzzles expect the total to be 600 tons. I’m noticing some ambiguity in the interpretation of \"2.5 times more.\" The standard interpretation might suggest that \"2.5 times more\" equals 3.5 times as much, leading to a total of 792 tons. However, some people may think it means 2.5 times as much, resulting in 600 tons. I’ll present both possibilities and then choose the conventional interpretation for clarity while offering my reasoning and final answers as needed.",
+              "text": "**Calculating production totals**\n\nI need to compute the total productions here. Let's set the second production to be 120. The first produces 2.5 times more than second, leading to a calculation of first = 2.5 * 120, which equals 300 tons. There's some ambiguity with \"2.5 times more,\" but typically it means just that, rather than adding. The third produces 40% less than the first, so I calculate that as 300 * (1 - 0.4), giving 180 tons. The overall total, then, is 120 + 300 + 180, which equals 600 tons.",
               "type": "summary_text"
             }
           ],
@@ -89,41 +127,22 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "Let the second field produce 120 tons.\n\n- If “the first field produces 2.5 times as much as the second” (i.e., first = 2.5 × second):\n  - First = 2.5 × 120 = 300 tons\n  - Third produces 40% less than the first: Third = 0.6 × 300 = 180 tons\n  - Total = 120 + 300 + 180 = 600 tons\n\n- If “2.5 times more” is interpreted as 3.5 times as much (i.e., first = (1 + 2.5) × second):\n  - First = 3.5 × 120 = 420 tons\n  - Third = 0.6 × 420 = 252 tons\n  - Total = 120 + 420 + 252 = 792 tons\n\nNote: The phrase “2.5 times more” is ambiguous. The standard mathematical interpretation is often “2.5 times as much” (leading to 600 tons). If you interpret it as “2.5 times more” (i.e., 3.5×), you get 792 tons. If you’d like, I can confirm which interpretation to use.",
+              "text": "Let the second field produce 120 tons.\n\n- First field: \"2.5 times more than the second\" typically means 2.5 × 120 = 300 tons.\n- Third field: \"40% less than the first\" means 60% of the first: 0.60 × 300 = 180 tons.\n\nTotal production = 120 + 300 + 180 = 600 tons.\n\nAnswer: 600 tons. (Note: “2.5 times more” is commonly interpreted as “2.5 times as much.”)",
               "type": "output_text"
             }
           ],
-          "id": "msg_0effe883d7b6898f006a1ec2cc77ec819fbaba382d7a45cdb2",
+          "id": "msg_020ee1788290200e006ad12b59360087d2ba1d67f1d18ae17e",
           "role": "assistant",
           "status": "completed",
           "type": "message"
         }
       ],
-      "instructions": null,
-      "store": true,
-      "presence_penalty": 0.0,
-      "incomplete_details": null,
-      "reasoning": {
-        "context": "current_turn",
-        "effort": "low",
-        "summary": "detailed"
-      },
-      "completed_at": 1780400844,
-      "truncation": "disabled",
-      "top_p": 1.0,
-      "billing": {
-        "payer": "developer"
-      },
-      "prompt_cache_retention": "in_memory",
-      "metadata": {},
-      "prompt_cache_key": null,
-      "created_at": 1780400837,
-      "max_tool_calls": null
+      "tools": []
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:24 GMT"
+        "Thu, 15 Oct 2026 19:36:57 GMT"
       ],
       [
         "content-type",
@@ -131,11 +150,11 @@
       ],
       [
         "content-length",
-        "3742"
+        "6807"
       ],
       [
         "cf-ray",
-        "a05638f02a4bd1c5-PRG"
+        "a4b146709ecabb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -171,7 +190,7 @@
       ],
       [
         "openai-processing-ms",
-        "7162"
+        "4616"
       ],
       [
         "openai-project",
@@ -191,15 +210,15 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "29999"
+        "29997"
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "179999433"
+        "179999892"
       ],
       [
         "x-ratelimit-reset-requests",
-        "2ms"
+        "6ms"
       ],
       [
         "x-ratelimit-reset-tokens",
@@ -207,7 +226,7 @@
       ],
       [
         "x-request-id",
-        "req_c8f1a2a5182b4716a229cda8a48d7193"
+        "req_b8c8a2ad128442af9113e035bf1f6d11"
       ],
       [
         "set-cookie",

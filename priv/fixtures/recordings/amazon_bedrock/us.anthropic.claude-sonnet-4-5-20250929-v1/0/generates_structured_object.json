@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "bedrock-runtime.us-east-1.amazonaws.com",
-    "recorded_at": "2026-06-02T11:47:21.381307Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:57.786508Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -40,7 +40,7 @@
       ],
       [
         "x-amz-date",
-        "20260602T114716Z"
+        "20261015T193652Z"
       ],
       [
         "content-type",
@@ -53,13 +53,13 @@
   "response": {
     "body": {
       "metrics": {
-        "latencyMs": 3441
+        "latencyMs": 4135
       },
       "output": {
         "message": {
           "content": [
             {
-              "text": "{\"age\": 32, \"hobbies\": [\"photography\", \"rock climbing\", \"cooking\"], \"name\": \"Elena Rodriguez\"}"
+              "text": "{\"age\":28,\"hobbies\":[\"rock climbing\",\"photography\",\"cooking\"],\"name\":\"Elena Rodriguez\"}"
             }
           ],
           "role": "assistant"
@@ -72,15 +72,15 @@
         "cacheWriteInputTokenCount": 0,
         "cacheWriteInputTokens": 0,
         "inputTokens": 236,
-        "outputTokens": 31,
+        "outputTokens": 26,
         "serverToolUsage": {},
-        "totalTokens": 267
+        "totalTokens": 262
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:21 GMT"
+        "Thu, 15 Oct 2026 19:36:57 GMT"
       ],
       [
         "content-type",
@@ -88,11 +88,11 @@
       ],
       [
         "content-length",
-        "423"
+        "416"
       ],
       [
         "x-amzn-requestid",
-        "edb8a11e-5e65-4062-909d-258deaffe1f3"
+        "8c74b979-b7e7-41ea-a5dc-c2517c0a1978"
       ]
     ],
     "status": 200

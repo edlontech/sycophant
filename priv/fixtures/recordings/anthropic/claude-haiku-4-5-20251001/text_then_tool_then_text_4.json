@@ -2,11 +2,14 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-06-02T11:47:51.706685Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:17.513740Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
+      "cache_control": {
+        "type": "ephemeral"
+      },
       "max_tokens": 4096,
       "messages": [
         {
@@ -14,7 +17,7 @@
           "role": "user"
         },
         {
-          "content": "That sounds great! A trip to London is exciting. I'd be happy to help you plan it.\n\nTo get you started, I can check the current weather in London so you know what to expect. Would you like me to do that?\n\nAlso, feel free to share any details about your trip that I can help with, such as:\n- When you're planning to go\n- What you're interested in (attractions, museums, food, shopping, etc.)\n- How long you'll be staying\n- Any specific questions or concerns\n\nLet me know how I can help!",
+          "content": "That sounds like a great trip! London is a wonderful city with lots to explore. \n\nTo help you better, I can tell you what the current weather is like there. Would you like me to check the weather in London for you? That might help you with packing and planning what activities to do.\n\nAlso, feel free to ask me anything else about planning your trip—I'm happy to help with questions about attractions, neighborhoods, transportation, or anything else you'd like to know!",
           "role": "assistant"
         },
         {
@@ -24,7 +27,7 @@
         {
           "content": [
             {
-              "id": "toolu_014bxK9du3vuu6E8nYXjB3CX",
+              "id": "toolu_011n7KJKKwZ9GeUpwzFEKS7f",
               "input": {
                 "city": "London"
               },
@@ -38,14 +41,14 @@
           "content": [
             {
               "content": "London: 18C, cloudy",
-              "tool_use_id": "toolu_014bxK9du3vuu6E8nYXjB3CX",
+              "tool_use_id": "toolu_011n7KJKKwZ9GeUpwzFEKS7f",
               "type": "tool_result"
             }
           ],
           "role": "user"
         },
         {
-          "content": "The current weather in London is **18°C (about 64°F) and cloudy**. It's mild and a bit overcast, so you might want to bring a light jacket or sweater along with an umbrella just in case. Perfect weather for sightseeing!\n\nIs there anything else you'd like to know about your London trip?",
+          "content": "The current weather in London is **18°C (about 64°F) and cloudy**. \n\nIt's fairly mild, so you'll want to bring layers and a light jacket. An umbrella might be handy too, just in case of rain since it's cloudy. Enjoy your trip!",
           "role": "assistant"
         },
         {
@@ -94,13 +97,15 @@
   },
   "response": {
     "body": {
+      "container": null,
       "content": [
         {
-          "text": "Yes, I'd recommend bringing an umbrella! While it's just cloudy right now, London is known for frequent rain and unpredictable weather. Even on cloudy days like today, rain can pop up unexpectedly.\n\nAn umbrella is a smart packing choice for London. You might also consider:\n- A light waterproof jacket\n- Layers, since the temperature (18°C/64°F) can feel cool, especially if there's wind\n- Comfortable walking shoes that can handle wet conditions\n\nThis way you'll be prepared for whatever the London weather throws at you while you explore the city!",
+          "text": "Yes, I'd definitely recommend bringing an umbrella! Since it's currently cloudy in London, there's a good chance of rain. London is known for its unpredictable weather, so it's always smart to have an umbrella handy—especially during certain seasons.\n\nEven if it doesn't rain, you'll be glad to have one with you just in case. It's one of those items that's easy to pack and can really come in handy during your trip!",
           "type": "text"
         }
       ],
-      "id": "msg_01Jd8GGyhWHyXcJBKjaCDTEs",
+      "diagnostics": null,
+      "id": "msg_011Cg4aymPjDxs6T3HTMPyJk",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
       "stop_details": null,
@@ -115,15 +120,15 @@
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "inference_geo": "not_available",
-        "input_tokens": 905,
-        "output_tokens": 135,
+        "input_tokens": 876,
+        "output_tokens": 103,
         "service_tier": "standard"
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:51 GMT"
+        "Thu, 15 Oct 2026 19:37:17 GMT"
       ],
       [
         "content-type",
@@ -131,95 +136,95 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-limit",
-        "1000000"
+        "10000000"
       ],
       [
         "anthropic-ratelimit-input-tokens-remaining",
-        "1000000"
+        "9999000"
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-06-02T11:47:49Z"
+        "2026-10-15T19:37:16Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
-        "200000"
+        "2000000"
       ],
       [
         "anthropic-ratelimit-output-tokens-remaining",
-        "200000"
+        "2000000"
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-06-02T11:47:51Z"
+        "2026-10-15T19:37:17Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
-        "2000"
+        "10000"
       ],
       [
         "anthropic-ratelimit-requests-remaining",
-        "1999"
+        "9999"
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-06-02T11:47:49Z"
+        "2026-10-15T19:37:15Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
-        "1200000"
+        "12000000"
       ],
       [
         "anthropic-ratelimit-tokens-remaining",
-        "1200000"
+        "11999000"
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-06-02T11:47:49Z"
-      ],
-      [
-        "request-id",
-        "req_011CbeNyvX314DCgXWL4U7oK"
+        "2026-10-15T19:37:16Z"
       ],
       [
         "strict-transport-security",
         "max-age=31536000; includeSubDomains; preload"
       ],
       [
+        "request-id",
+        "req_011Cg4aymCaauq7HLwGy2ZHJ"
+      ],
+      [
+        "traceresponse",
+        "00-1d4e522a3140df17ac1f55fc5cd87f15-1d7f6be81bf1bb07-01"
+      ],
+      [
         "anthropic-organization-id",
         "8a3ada71-45d7-4ed6-aaaf-279ffd490a4a"
       ],
       [
-        "traceresponse",
-        "00-7bd32fda20193838778e3f5b9d046f5f-cc71c94f8c4720e2-01"
-      ],
-      [
-        "server",
-        "cloudflare"
-      ],
-      [
-        "content-security-policy",
-        "default-src 'none'; frame-ancestors 'none'"
+        "anthropic-workspace-id",
+        "wrkspc_01YSNntzPELNWyxziR11pKjX"
       ],
       [
         "vary",
         "Accept-Encoding"
       ],
       [
-        "set-cookie",
-        "[REDACTED]"
+        "content-security-policy",
+        "default-src 'none'; frame-ancestors 'none'"
       ],
       [
-        "x-robots-tag",
-        "none"
+        "server",
+        "cloudflare"
       ],
       [
         "cf-cache-status",
         "DYNAMIC"
       ],
       [
+        "x-robots-tag",
+        "none"
+      ],
+      [
         "cf-ray",
-        "a05639b89929b385-PRG"
+        "a4b146fced28e68c-PRG"
       ]
     ],
     "status": 200

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-4o-mini",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-06-02T11:47:25.974519Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:59.405670Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "That sounds exciting! What information do you need for your trip to London?",
+              "text": "That sounds exciting! Do you need help with anything specific for your trip to London?",
               "type": "output_text"
             }
           ],
@@ -35,12 +35,12 @@
         },
         {
           "arguments": "{\"city\":\"London\"}",
-          "call_id": "call_RwxpFdztlU4sdWe89ivIxFMG",
+          "call_id": "call_LtwfFF4yPD6br1gdaZgqCBcJ",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "call_RwxpFdztlU4sdWe89ivIxFMG",
+          "call_id": "call_LtwfFF4yPD6br1gdaZgqCBcJ",
           "output": "London: 18C, cloudy",
           "type": "function_call_output"
         }
@@ -84,11 +84,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1780400845,
-      "created_at": 1780400845,
+      "completed_at": 1792093019,
+      "created_at": 1792093018,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1780400845-QJFskuSvtGoU59EsVdAJ",
+      "id": "gen-1792093018-q4S2Z6oc0NUT3II0tqh8",
       "incomplete_details": null,
       "instructions": "You are a helpful assistant. Be concise.",
       "max_output_tokens": null,
@@ -106,7 +106,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_3w0c8gmf4eo",
+          "id": "msg_tmp_wrw8qivao79",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -116,9 +116,10 @@
       "presence_penalty": 0,
       "previous_response_id": null,
       "prompt_cache_key": null,
+      "prompt_cache_options": null,
       "reasoning": null,
       "safety_identifier": null,
-      "service_tier": "auto",
+      "service_tier": "default",
       "status": "completed",
       "store": false,
       "temperature": 1,
@@ -152,13 +153,13 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 2.895e-5,
+        "cost": 2.925e-5,
         "cost_details": {
-          "upstream_inference_cost": 2.895e-5,
-          "upstream_inference_input_cost": 2.115e-5,
+          "upstream_inference_cost": 2.925e-5,
+          "upstream_inference_input_cost": 2.145e-5,
           "upstream_inference_output_cost": 7.8e-6
         },
-        "input_tokens": 141,
+        "input_tokens": 143,
         "input_tokens_details": {
           "cached_tokens": 0
         },
@@ -167,13 +168,13 @@
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 154
+        "total_tokens": 156
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:25 GMT"
+        "Thu, 15 Oct 2026 19:36:59 GMT"
       ],
       [
         "content-type",
@@ -181,7 +182,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=384"
+        "cfEdge;dur=8,cfOrigin;dur=0,cfWorker;dur=827"
       ],
       [
         "access-control-allow-origin",
@@ -189,11 +190,15 @@
       ],
       [
         "x-generation-id",
-        "gen-1780400845-QJFskuSvtGoU59EsVdAJ"
+        "gen-1792093018-q4S2Z6oc0NUT3II0tqh8"
       ],
       [
         "access-control-expose-headers",
-        "X-Generation-Id,cf-ray"
+        "X-Generation-Id,X-Provider-Name,request-id,cf-ray"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
       ],
       [
         "permissions-policy",
@@ -213,7 +218,7 @@
       ],
       [
         "cf-ray",
-        "a05639240e66876f-PRG"
+        "a4b14694892bdc5c-FRA"
       ]
     ],
     "status": 200

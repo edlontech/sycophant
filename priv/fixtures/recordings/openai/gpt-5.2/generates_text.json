@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5.2",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:28.933263Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:07.682933Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -30,30 +30,58 @@
   },
   "response": {
     "body": {
-      "background": false,
+      "safety_identifier": null,
+      "store": true,
+      "error": null,
+      "created_at": 1792093026,
+      "presence_penalty": 0.0,
+      "status": "completed",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "max_tool_calls": null,
+      "instructions": null,
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": "24h",
+      "completed_at": 1792093027,
+      "temperature": 1.0,
       "text": {
         "format": {
           "type": "text"
         },
         "verbosity": "medium"
       },
-      "moderation": null,
-      "top_logprobs": 0,
-      "previous_response_id": null,
+      "parallel_tool_calls": true,
       "tool_choice": "auto",
-      "service_tier": "default",
-      "status": "completed",
-      "tools": [],
-      "id": "resp_0ead26f7ff60192e006a1ec2cffd24819c9161ffc05f7d1caa",
-      "temperature": 1.0,
-      "max_output_tokens": null,
-      "user": null,
       "frequency_penalty": 0.0,
-      "error": null,
-      "model": "gpt-5.2-2025-12-11",
+      "top_logprobs": 0,
+      "reasoning": {
+        "context": "current_turn",
+        "effort": "none",
+        "mode": "standard",
+        "summary": null
+      },
       "usage": {
         "input_tokens": 14,
         "input_tokens_details": {
+          "cache_write_tokens": 0,
           "cached_tokens": 0
         },
         "output_tokens": 5,
@@ -62,9 +90,21 @@
         },
         "total_tokens": 19
       },
-      "safety_identifier": null,
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "gpt-5.2-2025-12-11",
+      "truncation": "disabled",
+      "metadata": {},
+      "service_tier": "default",
+      "id": "resp_04279e7bfc3a990a006ad12b62cac087d292edaa6f93926398",
+      "top_p": 0.98,
+      "user": null,
+      "prompt_cache_key": null,
+      "moderation": null,
       "object": "response",
-      "parallel_tool_calls": true,
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
       "output": [
         {
           "content": [
@@ -75,37 +115,18 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_0ead26f7ff60192e006a1ec2d08064819c90860a914a24b341",
+          "id": "msg_04279e7bfc3a990a006ad12b634f3087d2ab2f799dafb458ec",
           "role": "assistant",
           "status": "completed",
           "type": "message"
         }
       ],
-      "instructions": null,
-      "store": true,
-      "presence_penalty": 0.0,
-      "incomplete_details": null,
-      "reasoning": {
-        "context": "current_turn",
-        "effort": "none",
-        "summary": null
-      },
-      "completed_at": 1780400848,
-      "truncation": "disabled",
-      "top_p": 0.98,
-      "billing": {
-        "payer": "developer"
-      },
-      "prompt_cache_retention": "24h",
-      "metadata": {},
-      "prompt_cache_key": null,
-      "created_at": 1780400848,
-      "max_tool_calls": null
+      "tools": []
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:28 GMT"
+        "Thu, 15 Oct 2026 19:37:07 GMT"
       ],
       [
         "content-type",
@@ -113,11 +134,11 @@
       ],
       [
         "content-length",
-        "1585"
+        "2028"
       ],
       [
         "cf-ray",
-        "a05639334a81d1c5-PRG"
+        "a4b146c8cd08bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -153,7 +174,7 @@
       ],
       [
         "openai-processing-ms",
-        "923"
+        "712"
       ],
       [
         "openai-project",
@@ -189,7 +210,7 @@
       ],
       [
         "x-request-id",
-        "req_d911df21b8544bb6b9cb6bfbc2311b38"
+        "req_78e6d36d4e6d450ea3b1dd75b52b6427"
       ],
       [
         "set-cookie",

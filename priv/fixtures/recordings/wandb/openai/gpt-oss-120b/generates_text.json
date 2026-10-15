@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-oss-120b",
     "provider": "api.inference.wandb.ai",
-    "recorded_at": "2026-09-25T11:59:04.393147Z",
-    "sycophant_version": "0.5.1"
+    "recorded_at": "2026-10-15T19:37:12.068620Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -37,31 +37,37 @@
           "logprobs": null,
           "message": {
             "content": "hello",
-            "reasoning": "User asks: \"Say 'hello' and nothing else.\" So respond with just \"hello\". Must not add anything else. Ensure only that word.",
+            "reasoning": "User asks: \"Say 'hello' and nothing else.\" So must respond with just \"hello\". Provide exactly that, no punctuation? Probably exactly hello. We'll output \"hello\".",
             "role": "assistant"
           }
         }
       ],
-      "created": 1790337542,
-      "id": "chatcmpl-54e5eb5d-af10-4814-9f2d-bad667cbf7d6",
+      "created": 1792093030,
+      "id": "chatcmpl-aa56008c-c8a8-4db7-b338-65a086080ac4",
       "model": "openai/gpt-oss-120b",
       "object": "chat.completion",
       "service_tier": null,
       "system_fingerprint": null,
       "usage": {
-        "completion_tokens": 41,
+        "completion_tokens": 47,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 42,
+          "rejected_prediction_tokens": null
+        },
         "prompt_tokens": 75,
         "prompt_tokens_details": {
           "audio_tokens": null,
           "cached_tokens": 64
         },
-        "total_tokens": 116
+        "total_tokens": 122
       }
     },
     "headers": [
       [
         "date",
-        "Fri, 25 Sep 2026 11:59:04 GMT"
+        "Thu, 15 Oct 2026 19:37:12 GMT"
       ],
       [
         "content-type",
@@ -77,7 +83,7 @@
       ],
       [
         "cf-ray",
-        "a409dc486a1fbc98-PRG"
+        "a4b146e0eba00a1b-PRG"
       ]
     ],
     "status": 200

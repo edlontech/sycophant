@@ -2,8 +2,8 @@
   "metadata": {
     "model": "typesafe/jev-1.13",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-09-21T19:21:13.331007Z",
-    "sycophant_version": "0.5.1"
+    "recorded_at": "2026-10-15T19:37:07.115693Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -63,7 +63,7 @@
           "type": "choice"
         },
         "severity": {
-          "confidence": 0.74,
+          "confidence": 0.76,
           "legend": {
             "0": "1 - trivial",
             "1": "2 - minor",
@@ -74,19 +74,19 @@
           "probabilities": {
             "0": 0,
             "1": 0.09,
-            "2": 0.69,
-            "3": 0.22,
+            "2": 0.71,
+            "3": 0.2,
             "4": 0
           },
-          "score": 2.13,
+          "score": 2.11,
           "type": "score"
         },
         "urgent": {
-          "noul": 0.86,
+          "noul": 0.85,
           "type": "noul"
         }
       },
-      "id": "gen-dec-1790018473-WbnbHO6j1O5h0bZIORMQ",
+      "id": "gen-dec-1792093026-aOpGB4CR3byWtZKDx7GT",
       "model": "typesafe/jev-1.13-20260917",
       "provider": "TypeSafe",
       "usage": {
@@ -98,7 +98,7 @@
     "headers": [
       [
         "date",
-        "Mon, 21 Sep 2026 19:21:13 GMT"
+        "Thu, 15 Oct 2026 19:37:07 GMT"
       ],
       [
         "content-type",
@@ -106,7 +106,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=455"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=252"
       ],
       [
         "access-control-allow-origin",
@@ -118,7 +118,7 @@
       ],
       [
         "x-generation-id",
-        "gen-dec-1790018473-WbnbHO6j1O5h0bZIORMQ"
+        "gen-dec-1792093026-aOpGB4CR3byWtZKDx7GT"
       ],
       [
         "x-provider-name",
@@ -146,7 +146,7 @@
       ],
       [
         "cf-ray",
-        "a3eb6e7fcc6c6e75-PRG"
+        "a4b146c9cdf2dc5c-FRA"
       ]
     ],
     "status": 200

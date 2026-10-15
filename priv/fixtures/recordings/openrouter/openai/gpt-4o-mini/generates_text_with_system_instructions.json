@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-4o-mini",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-06-02T11:47:34.303981Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:06.003159Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -32,11 +32,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1780400854,
-      "created_at": 1780400848,
+      "completed_at": 1792093025,
+      "created_at": 1792093023,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1780400848-e1fEPw2Hbjmx1MhZTjqz",
+      "id": "gen-1792093023-OEgb3hTs88lEOEZ6aUvD",
       "incomplete_details": null,
       "instructions": "You are a calculator. Only respond with numbers.",
       "max_output_tokens": null,
@@ -54,7 +54,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_qx4qqp86hif",
+          "id": "msg_tmp_gyowmlzgyp",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -64,9 +64,10 @@
       "presence_penalty": 0,
       "previous_response_id": null,
       "prompt_cache_key": null,
+      "prompt_cache_options": null,
       "reasoning": null,
       "safety_identifier": null,
-      "service_tier": "auto",
+      "service_tier": "default",
       "status": "completed",
       "store": false,
       "temperature": 1,
@@ -102,7 +103,7 @@
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:34 GMT"
+        "Thu, 15 Oct 2026 19:37:05 GMT"
       ],
       [
         "content-type",
@@ -110,7 +111,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=5475"
+        "cfEdge;dur=6,cfOrigin;dur=0,cfWorker;dur=2211"
       ],
       [
         "access-control-allow-origin",
@@ -118,11 +119,15 @@
       ],
       [
         "x-generation-id",
-        "gen-1780400848-e1fEPw2Hbjmx1MhZTjqz"
+        "gen-1792093023-OEgb3hTs88lEOEZ6aUvD"
       ],
       [
         "access-control-expose-headers",
-        "X-Generation-Id,cf-ray"
+        "X-Generation-Id,X-Provider-Name,request-id,cf-ray"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
       ],
       [
         "permissions-policy",
@@ -142,7 +147,7 @@
       ],
       [
         "cf-ray",
-        "a0563938da20876f-PRG"
+        "a4b146b49b8adc5c-FRA"
       ]
     ],
     "status": 200

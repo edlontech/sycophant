@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-oss-120b",
     "provider": "api.inference.wandb.ai",
-    "recorded_at": "2026-09-25T12:16:20.766564Z",
-    "sycophant_version": "0.5.1"
+    "recorded_at": "2026-10-15T19:36:57.367839Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -21,7 +21,7 @@
                 "arguments": "{\"city\":\"Paris\"}",
                 "name": "get_weather"
               },
-              "id": "call-403fbaad-eae9-411a-af0c-ddf0e7fb3ecf",
+              "id": "call-d06de59d-ad7b-48bc-8244-5dcf9bd5310f",
               "type": "function"
             }
           ]
@@ -29,7 +29,7 @@
         {
           "content": "Paris: 22C, sunny",
           "role": "tool",
-          "tool_call_id": "call-403fbaad-eae9-411a-af0c-ddf0e7fb3ecf"
+          "tool_call_id": "call-d06de59d-ad7b-48bc-8244-5dcf9bd5310f"
         }
       ],
       "model": "openai/gpt-oss-120b",
@@ -77,32 +77,38 @@
           "index": 0,
           "logprobs": null,
           "message": {
-            "content": "The current weather in Paris is **22 °C** and it’s sunny.",
+            "content": "The current weather in Paris is **22 °C and sunny**.",
             "reasoning": null,
             "role": "assistant"
           }
         }
       ],
-      "created": 1790338579,
-      "id": "chatcmpl-6bd96ddf-02bf-4462-9682-1c8bcfac5d80",
+      "created": 1792093016,
+      "id": "chatcmpl-20c68e70-19f8-4b61-8e54-a2fe808e9f6a",
       "model": "openai/gpt-oss-120b",
       "object": "chat.completion",
       "service_tier": null,
       "system_fingerprint": null,
       "usage": {
-        "completion_tokens": 20,
+        "completion_tokens": 18,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": null
+        },
         "prompt_tokens": 186,
         "prompt_tokens_details": {
           "audio_tokens": null,
           "cached_tokens": 32
         },
-        "total_tokens": 206
+        "total_tokens": 204
       }
     },
     "headers": [
       [
         "date",
-        "Fri, 25 Sep 2026 12:16:20 GMT"
+        "Thu, 15 Oct 2026 19:36:57 GMT"
       ],
       [
         "content-type",
@@ -118,7 +124,7 @@
       ],
       [
         "cf-ray",
-        "a409f59b1de52c45-PRG"
+        "a4b1468a483b0a1b-PRG"
       ]
     ],
     "status": 200

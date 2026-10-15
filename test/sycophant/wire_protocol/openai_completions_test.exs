@@ -136,6 +136,22 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
       assert payload["logprobs"] == true
       assert payload["top_logprobs"] == 5
     end
+
+    test "translates prompt cache params" do
+      request =
+        build_request([Message.user("hi")],
+          params: %{cache_key: "conv-1", cache_retention: "24h"}
+        )
+
+      assert {:ok, payload} = OpenAICompletions.encode_request(request)
+      assert payload["prompt_cache_key"] == "conv-1"
+      assert payload["prompt_cache_retention"] == "24h"
+    end
+
+    test "param schema accepts prompt cache params" do
+      params = %{cache_key: "conv-1", cache_retention: "in-memory"}
+      assert {:ok, ^params} = Zoi.parse(OpenAICompletions.param_schema(), params)
+    end
   end
 
   describe "encode_request/1 - params" do
@@ -1007,6 +1023,18 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
       assert {:ok, resp} = OpenAICompletions.decode_response(body)
       assert resp.usage.cache_read_input_tokens == 50
       assert resp.usage.cache_creation_input_tokens == nil
+    end
+
+    test "decodes cache_write_tokens from prompt_tokens_details" do
+      body =
+        openai_response(content: "hi")
+        |> put_in(
+          ["usage", "prompt_tokens_details"],
+          %{"cached_tokens" => 50, "cache_write_tokens" => 4200}
+        )
+
+      assert {:ok, resp} = OpenAICompletions.decode_response(body)
+      assert resp.usage.cache_creation_input_tokens == 4200
     end
 
     test "sets cache fields to nil when prompt_tokens_details is absent" do

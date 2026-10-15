@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5.2",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:25.605184Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:58.149151Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -51,23 +51,102 @@
   },
   "response": {
     "body": {
-      "background": false,
+      "safety_identifier": null,
+      "store": true,
+      "error": null,
+      "created_at": 1792093015,
+      "presence_penalty": 0.0,
+      "status": "completed",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "max_tool_calls": null,
+      "instructions": "You are a helpful assistant. Be concise.",
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": "24h",
+      "completed_at": 1792093017,
+      "temperature": 1.0,
       "text": {
         "format": {
           "type": "text"
         },
         "verbosity": "medium"
       },
-      "moderation": null,
-      "top_logprobs": 0,
-      "previous_response_id": null,
+      "parallel_tool_calls": true,
       "tool_choice": "auto",
+      "frequency_penalty": 0.0,
+      "top_logprobs": 0,
+      "reasoning": {
+        "context": "current_turn",
+        "effort": "none",
+        "mode": "standard",
+        "summary": null
+      },
+      "usage": {
+        "input_tokens": 70,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 100,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 170
+      },
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "gpt-5.2-2025-12-11",
+      "truncation": "disabled",
+      "metadata": {},
       "service_tier": "default",
-      "status": "completed",
+      "id": "resp_00c654d76bc009d1006ad12b57d1b887d2b2b3f1b10f922064",
+      "top_p": 0.98,
+      "user": null,
+      "prompt_cache_key": null,
+      "moderation": null,
+      "object": "response",
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
+      "output": [
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "When are you going, and what kind of trip is it (first time vs repeat, interests, budget, how many days)?\n\nIf you share:\n- dates/month (and flexibility)\n- number of days and where you’ll stay (rough area is fine)\n- must-sees (museums, theatre, food, history, markets, day trips)\n- travel style (packed vs relaxed)\n\n…I can suggest a tight itinerary, neighborhood picks, and how to get around.",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_00c654d76bc009d1006ad12b584ec487d2a37ef311f3a98f61",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
       "tools": [
         {
           "description": "Get current weather for a city. Returns temperature and conditions.",
           "name": "get_weather",
+          "output_schema": null,
           "parameters": {
             "additionalProperties": false,
             "properties": {
@@ -83,69 +162,12 @@
           "strict": true,
           "type": "function"
         }
-      ],
-      "id": "resp_048917f7855f313e006a1ec2cbae2481a1b57e7bed631ef0eb",
-      "temperature": 1.0,
-      "max_output_tokens": null,
-      "user": null,
-      "frequency_penalty": 0.0,
-      "error": null,
-      "model": "gpt-5.2-2025-12-11",
-      "usage": {
-        "input_tokens": 70,
-        "input_tokens_details": {
-          "cached_tokens": 0
-        },
-        "output_tokens": 62,
-        "output_tokens_details": {
-          "reasoning_tokens": 0
-        },
-        "total_tokens": 132
-      },
-      "safety_identifier": null,
-      "object": "response",
-      "parallel_tool_calls": true,
-      "output": [
-        {
-          "content": [
-            {
-              "annotations": [],
-              "logprobs": [],
-              "text": "Nice—when are you going, how many days, and what kinds of things do you want to prioritize (museums/history, theatre, food, day trips, shopping, parks)? Also, what’s your budget level and where are you staying (or which area are you considering)?",
-              "type": "output_text"
-            }
-          ],
-          "id": "msg_048917f7855f313e006a1ec2cbf84481a1a14434c77e83f186",
-          "role": "assistant",
-          "status": "completed",
-          "type": "message"
-        }
-      ],
-      "instructions": "You are a helpful assistant. Be concise.",
-      "store": true,
-      "presence_penalty": 0.0,
-      "incomplete_details": null,
-      "reasoning": {
-        "context": "current_turn",
-        "effort": "none",
-        "summary": null
-      },
-      "completed_at": 1780400845,
-      "truncation": "disabled",
-      "top_p": 0.98,
-      "billing": {
-        "payer": "developer"
-      },
-      "prompt_cache_retention": "24h",
-      "metadata": {},
-      "prompt_cache_key": null,
-      "created_at": 1780400843,
-      "max_tool_calls": null
+      ]
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:25 GMT"
+        "Thu, 15 Oct 2026 19:36:58 GMT"
       ],
       [
         "content-type",
@@ -153,11 +175,11 @@
       ],
       [
         "content-length",
-        "2300"
+        "2926"
       ],
       [
         "cf-ray",
-        "a05639186c67d1c5-PRG"
+        "a4b146842d1fbb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -193,7 +215,7 @@
       ],
       [
         "openai-processing-ms",
-        "1898"
+        "2254"
       ],
       [
         "openai-project",
@@ -213,7 +235,7 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "14999"
+        "14997"
       ],
       [
         "x-ratelimit-remaining-tokens",
@@ -221,7 +243,7 @@
       ],
       [
         "x-ratelimit-reset-requests",
-        "4ms"
+        "12ms"
       ],
       [
         "x-ratelimit-reset-tokens",
@@ -229,7 +251,7 @@
       ],
       [
         "x-request-id",
-        "req_9657fade24814783aecfb9f94f73d6b0"
+        "req_825836a6fdde4e58a1956b034b89e922"
       ],
       [
         "set-cookie",

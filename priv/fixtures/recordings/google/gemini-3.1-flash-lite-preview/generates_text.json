@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-06-02T11:47:30.826075Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:08.042822Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -39,7 +39,7 @@
             "parts": [
               {
                 "text": "hello",
-                "thoughtSignature": "EjQKMgEMOdbH9xcRnxqm9nyCvXl8Tr9y7Eue8aV7BWZPauxmN4sJ8h8OgAiUihqdWyFMVrAN"
+                "thoughtSignature": "EnMKcQFpFH0Tr1y9iq0xvkrYuYqEjcXt18Ob++p3QWOuzWt+IOZH4HrIcoejwHjZkqCo7nCvAIkeLeGwd7k3F98O69Utg7b2z1wWmwhS2XS8V3PkLwf5YebPozLeev1xiL/5dqs6m6nzoNwm870rkJDVv8oa"
               }
             ],
             "role": "model"
@@ -49,7 +49,7 @@
         }
       ],
       "modelVersion": "gemini-3.1-flash-lite",
-      "responseId": "0sIeaumKIbfBkdUP4bWKwAw",
+      "responseId": "YyvRav6qG_WvnsEPmJKg4QU",
       "usageMetadata": {
         "candidatesTokenCount": 1,
         "promptTokenCount": 9,
@@ -86,7 +86,7 @@
       ],
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:30 GMT"
+        "Thu, 15 Oct 2026 19:37:08 GMT"
       ],
       [
         "server",
@@ -106,7 +106,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=356"
+        "gfet4t7; dur=716"
       ],
       [
         "alt-svc",

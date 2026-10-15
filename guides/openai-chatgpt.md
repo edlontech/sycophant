@@ -141,6 +141,19 @@ Choose a Responses-compatible model available to the account:
 Do not combine `access_token` and `api_key` in one credential map. Per-request
 credentials replace app configuration wholesale; they do not merge with it.
 
+### Prompt caching
+
+This route ignores the body `prompt_cache_key` (the `cache_key` param) and
+assigns a random key per request, so repeated prompts rarely hit the cache.
+It routes caching by the `session_id` header instead. Pass a stable ID per
+conversation in the credentials and Sycophant sends it as that header:
+
+```elixir
+credentials: %{access_token: credential.access_token, session_id: conversation_id}
+```
+
+Reuse the same `session_id` for every turn of a conversation.
+
 The subscription route forces `store: false` and `stream: true`. Sync callers
 still receive a normal `Sycophant.Response`; `Context.stream` stays `nil`.
 Sycophant drops `temperature`, `top_p`, `max_tokens`, `max_tool_calls`, `metadata`,

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:28.437727Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:03.448494Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -47,8 +47,8 @@
           }
         }
       ],
-      "created": 1780400848,
-      "id": "chatcmpl-DmHseY82qbbpBMdQIGeWTZot4Covx",
+      "created": 1792093022,
+      "id": "chatcmpl-EZLY6R4dkK1Pe7Ss42MXbt8GDAAvl",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -72,7 +72,7 @@
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:28 GMT"
+        "Thu, 15 Oct 2026 19:37:03 GMT"
       ],
       [
         "content-type",
@@ -80,7 +80,7 @@
       ],
       [
         "cf-ray",
-        "a05639342ce7d1c5-PRG"
+        "a4b146ae7ee8bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -116,7 +116,7 @@
       ],
       [
         "openai-processing-ms",
-        "176"
+        "776"
       ],
       [
         "openai-project",
@@ -140,23 +140,23 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "8999"
+        "8998"
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "1999981"
+        "1999784"
       ],
       [
         "x-ratelimit-reset-requests",
-        "6ms"
+        "13ms"
       ],
       [
         "x-ratelimit-reset-tokens",
-        "0s"
+        "6ms"
       ],
       [
         "x-request-id",
-        "req_522a9c764d39499d9d45318a478f37d4"
+        "req_79449262912948a7b21d92f86ddc897d"
       ],
       [
         "set-cookie",

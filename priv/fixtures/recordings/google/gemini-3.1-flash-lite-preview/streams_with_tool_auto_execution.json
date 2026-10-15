@@ -2,9 +2,9 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-06-02T11:47:24.015945Z",
+    "recorded_at": "2026-10-15T19:37:02.143655Z",
     "streaming": true,
-    "sycophant_version": "0.4.2"
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -54,7 +54,7 @@
     "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite-preview:streamGenerateContent?alt=sse"
   },
   "response": {
-    "body": "data: {\"candidates\": [{\"content\": {\"parts\": [{\"functionCall\": {\"name\": \"get_weather\",\"args\": {\"city\": \"Paris\"},\"id\": \"VDl2Tlrs\"},\"thoughtSignature\": \"EjQKMgEMOdbHbSTrDa0bBEQCnIKCgCpXwLqaXDq8dmYA6Lj7Vh3Ks8LAkOv8/sL4YK4AqwSa\"}],\"role\": \"model\"},\"index\": 0}],\"usageMetadata\": {\"promptTokenCount\": 65,\"candidatesTokenCount\": 16,\"totalTokenCount\": 81,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\": 65}],\"serviceTier\": \"standard\"},\"modelVersion\": \"gemini-3.1-flash-lite\",\"responseId\": \"y8IeaoPyKaqvkdUPr8PJuQw\"}\r\n\r\ndata: {\"candidates\": [{\"content\": {\"parts\": [{\"text\": \"\"}],\"role\": \"model\"},\"finishReason\": \"STOP\",\"index\": 0}],\"usageMetadata\": {\"promptTokenCount\": 65,\"candidatesTokenCount\": 16,\"totalTokenCount\": 81,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\": 65}],\"serviceTier\": \"standard\"},\"modelVersion\": \"gemini-3.1-flash-lite\",\"responseId\": \"y8IeaoPyKaqvkdUPr8PJuQw\"}\r\n\r\n",
+    "body": "data: {\"candidates\": [{\"content\": {\"parts\": [{\"functionCall\": {\"name\": \"get_weather\",\"args\": {\"city\": \"Paris\"},\"id\": \"call_706570\"},\"thoughtSignature\": \"EnMKcQFpFH0TBJQgDVJD52pYn4DUKqSDXdZ35LDfmW85h3XMQNRMU9uWhaFltLAEPnFCBfPh2JbzkJYCpmPSN1n55g/w0MkrvUkyy6VN7j/gfyZy/IO10a7hcQzzTnv+N04+K5/xDVtJnFYbM6wiV97CLREC\"}],\"role\": \"model\"},\"index\": 0}],\"usageMetadata\": {\"promptTokenCount\": 65,\"candidatesTokenCount\": 16,\"totalTokenCount\": 81,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\": 65}],\"serviceTier\": \"standard\"},\"modelVersion\": \"gemini-3.1-flash-lite\",\"responseId\": \"XSvRaqmJLL_jnsEP17m-gAw\"}\r\n\r\ndata: {\"candidates\": [{\"content\": {\"parts\": [{\"text\": \"\"}],\"role\": \"model\"},\"finishReason\": \"STOP\",\"index\": 0}],\"usageMetadata\": {\"promptTokenCount\": 65,\"candidatesTokenCount\": 16,\"totalTokenCount\": 81,\"promptTokensDetails\": [{\"modality\": \"TEXT\",\"tokenCount\": 65}],\"serviceTier\": \"standard\"},\"modelVersion\": \"gemini-3.1-flash-lite\",\"responseId\": \"XSvRaqmJLL_jnsEP17m-gAw\"}\r\n\r\n",
     "headers": [
       [
         "content-type",
@@ -78,7 +78,7 @@
       ],
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:24 GMT"
+        "Thu, 15 Oct 2026 19:37:02 GMT"
       ],
       [
         "server",
@@ -98,7 +98,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=399"
+        "gfet4t7; dur=593"
       ],
       [
         "alt-svc",

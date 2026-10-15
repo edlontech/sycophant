@@ -50,6 +50,12 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
                       Zoi.enum([:standard, :fast],
                         description: "Inference speed mode"
                       )
+                      |> Zoi.optional(),
+                    cache_retention:
+                      Zoi.enum(["5m", "1h", "none"],
+                        description:
+                          "Automatic prompt cache TTL. Defaults to 5m; none disables caching"
+                      )
                       |> Zoi.optional()
                   })
                 )
@@ -673,10 +679,21 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
         |> Map.merge(translate_params(request.params))
         |> ensure_max_tokens(request.params)
         |> maybe_put_thinking(request.params)
+        |> put_cache_control(request.params)
 
       {:ok, payload}
     end
   end
+
+  # Top-level cache_control enables Anthropic automatic prompt caching: the
+  # breakpoint lands on the last cacheable block and advances each turn.
+  defp put_cache_control(payload, %{cache_retention: "none"}), do: payload
+
+  defp put_cache_control(payload, %{cache_retention: "1h"}),
+    do: Map.put(payload, "cache_control", %{"type" => "ephemeral", "ttl" => "1h"})
+
+  defp put_cache_control(payload, _params),
+    do: Map.put(payload, "cache_control", %{"type" => "ephemeral"})
 
   defp ensure_max_tokens(payload, %{max_tokens: max}) when is_integer(max), do: payload
   defp ensure_max_tokens(payload, _), do: Map.put_new(payload, "max_tokens", 4096)

@@ -2,11 +2,14 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-06-02T11:47:36.775567Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:07.292098Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
+      "cache_control": {
+        "type": "ephemeral"
+      },
       "max_tokens": 4096,
       "messages": [
         {
@@ -14,7 +17,7 @@
           "role": "user"
         },
         {
-          "content": "I've noted that your name is Sycophant. However, I should mention that I don't retain information between conversations—each time we chat, I start fresh without memory of previous interactions. So while I'll remember your name *during this conversation*, I won't recall it if we talk again later.\n\nThat said, feel free to reintroduce yourself next time if you'd like me to use your name again. How can I help you today?",
+          "content": "I've got it: your name is Sycophant. I'll remember that for this conversation.\n\nThat said, I should mention that I don't retain information between separate conversations. Once our chat ends, I won't have access to this exchange next time we talk. But within this conversation, I'm happy to use your name!",
           "role": "assistant"
         },
         {
@@ -43,13 +46,15 @@
   },
   "response": {
     "body": {
+      "container": null,
       "content": [
         {
-          "text": "Your name is Sycophant, as you just told me a moment ago in this conversation.",
+          "text": "Your name is Sycophant.",
           "type": "text"
         }
       ],
-      "id": "msg_01EcCWL6CoaR7HyjxLYBgp5a",
+      "diagnostics": null,
+      "id": "msg_011Cg4ay9mMHhcVRurrLwQYh",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
       "stop_details": null,
@@ -64,15 +69,15 @@
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "inference_geo": "not_available",
-        "input_tokens": 126,
-        "output_tokens": 24,
+        "input_tokens": 100,
+        "output_tokens": 12,
         "service_tier": "standard"
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:36 GMT"
+        "Thu, 15 Oct 2026 19:37:07 GMT"
       ],
       [
         "content-type",
@@ -80,95 +85,95 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-limit",
-        "1000000"
+        "10000000"
       ],
       [
         "anthropic-ratelimit-input-tokens-remaining",
-        "1000000"
+        "10000000"
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-06-02T11:47:36Z"
+        "2026-10-15T19:37:07Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
-        "200000"
+        "2000000"
       ],
       [
         "anthropic-ratelimit-output-tokens-remaining",
-        "200000"
+        "2000000"
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-06-02T11:47:36Z"
+        "2026-10-15T19:37:07Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
-        "2000"
+        "10000"
       ],
       [
         "anthropic-ratelimit-requests-remaining",
-        "1999"
+        "9999"
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-06-02T11:47:34Z"
+        "2026-10-15T19:37:06Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
-        "1200000"
+        "12000000"
       ],
       [
         "anthropic-ratelimit-tokens-remaining",
-        "1200000"
+        "12000000"
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-06-02T11:47:36Z"
-      ],
-      [
-        "request-id",
-        "req_011CbeNxprwHj4Jdns3DyCRt"
+        "2026-10-15T19:37:07Z"
       ],
       [
         "strict-transport-security",
         "max-age=31536000; includeSubDomains; preload"
       ],
       [
+        "request-id",
+        "req_011Cg4ay9YD9thYiddKteAqU"
+      ],
+      [
+        "traceresponse",
+        "00-d2fdb8456c3ee732f045bcffbb49da64-4733785b02c9d411-01"
+      ],
+      [
         "anthropic-organization-id",
         "8a3ada71-45d7-4ed6-aaaf-279ffd490a4a"
       ],
       [
-        "traceresponse",
-        "00-b2df4c7ce6a77d5593d6c12f4ffcaebe-abaea720d2689dc8-01"
-      ],
-      [
-        "server",
-        "cloudflare"
-      ],
-      [
-        "content-security-policy",
-        "default-src 'none'; frame-ancestors 'none'"
+        "anthropic-workspace-id",
+        "wrkspc_01YSNntzPELNWyxziR11pKjX"
       ],
       [
         "vary",
         "Accept-Encoding"
       ],
       [
-        "set-cookie",
-        "[REDACTED]"
+        "content-security-policy",
+        "default-src 'none'; frame-ancestors 'none'"
       ],
       [
-        "x-robots-tag",
-        "none"
+        "server",
+        "cloudflare"
       ],
       [
         "cf-cache-status",
         "DYNAMIC"
       ],
       [
+        "x-robots-tag",
+        "none"
+      ],
+      [
         "cf-ray",
-        "a056395a8877b385-PRG"
+        "a4b146c8ca8de68c-PRG"
       ]
     ],
     "status": 200

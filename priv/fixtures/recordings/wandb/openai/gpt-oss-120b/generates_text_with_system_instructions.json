@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-oss-120b",
     "provider": "api.inference.wandb.ai",
-    "recorded_at": "2026-09-25T11:59:02.450954Z",
-    "sycophant_version": "0.5.1"
+    "recorded_at": "2026-10-15T19:37:05.996323Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -41,31 +41,37 @@
           "logprobs": null,
           "message": {
             "content": "4",
-            "reasoning": "We are told: \"You are a calculator. Only respond with numbers.\"\n\nThus we must answer the question \"What is 2 + 2?\" with just the number result, no extra text. So answer \"4\". Should be just \"4\".",
+            "reasoning": "We have a system with developer message: \"You are a calculator. Only respond with numbers.\" So we must respond only with numbers, no other text. The user asks: \"What is 2 + 2?\" So answer: \"4\". Must be just \"4\".",
             "role": "assistant"
           }
         }
       ],
-      "created": 1790337540,
-      "id": "chatcmpl-20776d09-86cb-4379-8516-232545e361e5",
+      "created": 1792093024,
+      "id": "chatcmpl-38b8f3d5-4527-4832-9adc-4e3ba08e3a1d",
       "model": "openai/gpt-oss-120b",
       "object": "chat.completion",
       "service_tier": null,
       "system_fingerprint": null,
       "usage": {
-        "completion_tokens": 62,
+        "completion_tokens": 67,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 62,
+          "rejected_prediction_tokens": null
+        },
         "prompt_tokens": 92,
         "prompt_tokens_details": {
           "audio_tokens": null,
           "cached_tokens": 64
         },
-        "total_tokens": 154
+        "total_tokens": 159
       }
     },
     "headers": [
       [
         "date",
-        "Fri, 25 Sep 2026 11:59:02 GMT"
+        "Thu, 15 Oct 2026 19:37:05 GMT"
       ],
       [
         "content-type",
@@ -81,7 +87,7 @@
       ],
       [
         "cf-ray",
-        "a409dc3bdc8ebc98-PRG"
+        "a4b146baaba20a1b-PRG"
       ]
     ],
     "status": 200

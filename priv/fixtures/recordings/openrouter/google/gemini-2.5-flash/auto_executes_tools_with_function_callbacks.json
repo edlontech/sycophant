@@ -2,8 +2,8 @@
   "metadata": {
     "model": "google/gemini-2.5-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-06-02T11:47:20.021869Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:55.401117Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -51,11 +51,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1780400839,
-      "created_at": 1780400838,
+      "completed_at": 1792093015,
+      "created_at": 1792093014,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1780400838-Qx4bqwOvBcQzWFekG10n",
+      "id": "gen-1792093014-We4W0gwMnqcdAxwkB7wU",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -66,8 +66,8 @@
       "output": [
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "tool_get_weather_YMCyrYzDfk6NIuBXLH3S",
-          "id": "fc_tmp_21tq4mrm42y",
+          "call_id": "tool_get_weather_mQETlovoDbOlPOh2CK0v",
+          "id": "fc_tmp_raeizjhh2dl",
           "name": "get_weather",
           "status": "completed",
           "type": "function_call"
@@ -77,9 +77,10 @@
       "presence_penalty": 0,
       "previous_response_id": null,
       "prompt_cache_key": null,
+      "prompt_cache_options": null,
       "reasoning": null,
       "safety_identifier": null,
-      "service_tier": "provisioned",
+      "service_tier": "default",
       "status": "completed",
       "store": false,
       "temperature": 1,
@@ -113,28 +114,29 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 2.54e-5,
+        "cost": 4.67e-5,
         "cost_details": {
-          "upstream_inference_cost": 2.54e-5,
-          "upstream_inference_input_cost": 1.29e-5,
-          "upstream_inference_output_cost": 1.25e-5
+          "upstream_inference_cost": 4.67e-5,
+          "upstream_inference_input_cost": 1.17e-5,
+          "upstream_inference_output_cost": 3.5e-5
         },
-        "input_tokens": 43,
+        "input_tokens": 39,
         "input_tokens_details": {
+          "cache_write_tokens": 0,
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 5,
+        "output_tokens": 14,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 48
+        "total_tokens": 53
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:19 GMT"
+        "Thu, 15 Oct 2026 19:36:55 GMT"
       ],
       [
         "content-type",
@@ -142,7 +144,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=623"
+        "cfEdge;dur=6,cfOrigin;dur=0,cfWorker;dur=1155"
       ],
       [
         "access-control-allow-origin",
@@ -150,11 +152,15 @@
       ],
       [
         "x-generation-id",
-        "gen-1780400838-Qx4bqwOvBcQzWFekG10n"
+        "gen-1792093014-We4W0gwMnqcdAxwkB7wU"
       ],
       [
         "access-control-expose-headers",
-        "X-Generation-Id,cf-ray"
+        "X-Generation-Id,X-Provider-Name,request-id,cf-ray"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
       ],
       [
         "permissions-policy",
@@ -174,7 +180,7 @@
       ],
       [
         "cf-ray",
-        "a05638fb8c9f876f-PRG"
+        "a4b1467ace08dc5c-FRA"
       ]
     ],
     "status": 200

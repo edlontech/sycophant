@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-oss-120b",
     "provider": "api.inference.wandb.ai",
-    "recorded_at": "2026-09-25T12:16:20.109082Z",
-    "sycophant_version": "0.5.1"
+    "recorded_at": "2026-10-15T19:36:59.306163Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -62,32 +62,38 @@
           "index": 0,
           "logprobs": null,
           "message": {
-            "content": "Hi! That’s exciting. How can I help—travel tips, itinerary ideas, or a quick weather forecast for London?",
-            "reasoning": "User says \"Hi! I'm planning a trip to London.\" We should respond. Probably ask about what they need: weather, recommendations, etc. Be concise.",
+            "content": "Hi! Happy to help with your London trip. What would you like assistance with—things to see, where to stay, dining options, or the current weather? Let me know!",
+            "reasoning": "We need to respond, ask about details, maybe provide weather info. The user says planning a trip to London. We can ask what they need: suggestions, weather, itinerary, etc. Should be concise.",
             "role": "assistant"
           }
         }
       ],
-      "created": 1790338578,
-      "id": "chatcmpl-67a40e3a-5970-40a9-afff-461204d3cfcb",
+      "created": 1792093016,
+      "id": "chatcmpl-db8a7a7a-9125-4afe-9a6d-56c4ec28686b",
       "model": "openai/gpt-oss-120b",
       "object": "chat.completion",
       "service_tier": null,
       "system_fingerprint": null,
       "usage": {
-        "completion_tokens": 67,
+        "completion_tokens": 89,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 48,
+          "rejected_prediction_tokens": null
+        },
         "prompt_tokens": 146,
         "prompt_tokens_details": {
           "audio_tokens": null,
-          "cached_tokens": 32
+          "cached_tokens": 64
         },
-        "total_tokens": 213
+        "total_tokens": 235
       }
     },
     "headers": [
       [
         "date",
-        "Fri, 25 Sep 2026 12:16:20 GMT"
+        "Thu, 15 Oct 2026 19:36:59 GMT"
       ],
       [
         "content-type",
@@ -103,7 +109,7 @@
       ],
       [
         "cf-ray",
-        "a409f5911b3a2c45-PRG"
+        "a4b1468a68a30a1b-PRG"
       ]
     ],
     "status": 200

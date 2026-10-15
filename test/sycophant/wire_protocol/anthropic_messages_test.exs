@@ -201,6 +201,34 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
     end
   end
 
+  describe "encode_request/1 - prompt caching" do
+    test "enables automatic prompt caching by default" do
+      request = build_request([Message.user("hi")])
+      assert {:ok, payload} = AnthropicMessages.encode_request(request)
+      assert payload["cache_control"] == %{"type" => "ephemeral"}
+    end
+
+    test "cache_retention 1h sets the cache ttl" do
+      request = build_request([Message.user("hi")], params: %{cache_retention: "1h"})
+      assert {:ok, payload} = AnthropicMessages.encode_request(request)
+      assert payload["cache_control"] == %{"type" => "ephemeral", "ttl" => "1h"}
+      refute Map.has_key?(payload, "cache_retention")
+    end
+
+    test "cache_retention none disables prompt caching" do
+      request = build_request([Message.user("hi")], params: %{cache_retention: "none"})
+      assert {:ok, payload} = AnthropicMessages.encode_request(request)
+      refute Map.has_key?(payload, "cache_control")
+      refute Map.has_key?(payload, "cache_retention")
+    end
+
+    test "param schema only accepts known retention values" do
+      schema = AnthropicMessages.param_schema()
+      assert {:ok, %{cache_retention: "5m"}} = Zoi.parse(schema, %{cache_retention: "5m"})
+      assert {:error, _} = Zoi.parse(schema, %{cache_retention: "24h"})
+    end
+  end
+
   describe "encode_request/1 - params" do
     test "defaults max_tokens to 4096 when nil" do
       request = build_request([Message.user("hi")])

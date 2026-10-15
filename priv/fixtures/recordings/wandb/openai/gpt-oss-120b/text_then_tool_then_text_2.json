@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-oss-120b",
     "provider": "api.inference.wandb.ai",
-    "recorded_at": "2026-09-25T12:16:21.517117Z",
-    "sycophant_version": "0.5.1"
+    "recorded_at": "2026-10-15T19:37:00.533835Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -17,7 +17,7 @@
           "role": "user"
         },
         {
-          "content": "Hi! That’s exciting. How can I help—travel tips, itinerary ideas, or a quick weather forecast for London?",
+          "content": "Hi! Happy to help with your London trip. What would you like assistance with—things to see, where to stay, dining options, or the current weather? Let me know!",
           "role": "assistant"
         },
         {
@@ -71,7 +71,7 @@
           "logprobs": null,
           "message": {
             "content": null,
-            "reasoning": "We must call get_weather function.",
+            "reasoning": "We need to call get_weather with city \"London\".",
             "role": "assistant",
             "tool_calls": [
               {
@@ -79,33 +79,39 @@
                   "arguments": "{\"city\":\"London\"}",
                   "name": "get_weather"
                 },
-                "id": "call-7aa8c977-6973-460e-805d-d071b890cd55",
+                "id": "call-84720db6-095f-49e6-ac0d-a0977d04cda0",
                 "type": "function"
               }
             ]
           }
         }
       ],
-      "created": 1790338580,
-      "id": "chatcmpl-4afdfc65-88ee-48c2-8fa9-4bc75beeb2a8",
+      "created": 1792093019,
+      "id": "chatcmpl-fff6b9dc-6759-4502-aca8-6f9ac9091def",
       "model": "openai/gpt-oss-120b",
       "object": "chat.completion",
       "service_tier": null,
       "system_fingerprint": null,
       "usage": {
-        "completion_tokens": 35,
-        "prompt_tokens": 203,
+        "completion_tokens": 39,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 35,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens": 215,
         "prompt_tokens_details": {
           "audio_tokens": null,
           "cached_tokens": 32
         },
-        "total_tokens": 238
+        "total_tokens": 254
       }
     },
     "headers": [
       [
         "date",
-        "Fri, 25 Sep 2026 12:16:21 GMT"
+        "Thu, 15 Oct 2026 19:37:00 GMT"
       ],
       [
         "content-type",
@@ -121,7 +127,7 @@
       ],
       [
         "cf-ray",
-        "a409f59dcda92c45-PRG"
+        "a4b1469abe4d0a1b-PRG"
       ]
     ],
     "status": 200

@@ -2,11 +2,14 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-06-02T11:47:20.563725Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:55.432266Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
+      "cache_control": {
+        "type": "ephemeral"
+      },
       "max_tokens": 4096,
       "messages": [
         {
@@ -63,13 +66,15 @@
   },
   "response": {
     "body": {
+      "container": null,
       "content": [
         {
-          "text": "{\"age\":34,\"hobbies\":[\"painting\",\"rock climbing\",\"cooking\"],\"name\":\"Marcus Chen\"}",
+          "text": "{\"age\": 34, \"hobbies\": [\"rock climbing\", \"watercolor painting\", \"bird watching\"], \"name\": \"Marcus Chen\"}",
           "type": "text"
         }
       ],
-      "id": "msg_01RN41d3rTb1hJFZMS1EuTvp",
+      "diagnostics": null,
+      "id": "msg_011Cg4ax8BqLKfUWoK2SmHhp",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
       "stop_details": null,
@@ -85,14 +90,14 @@
         "cache_read_input_tokens": 0,
         "inference_geo": "not_available",
         "input_tokens": 236,
-        "output_tokens": 26,
+        "output_tokens": 34,
         "service_tier": "standard"
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:20 GMT"
+        "Thu, 15 Oct 2026 19:36:55 GMT"
       ],
       [
         "content-type",
@@ -100,95 +105,95 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-limit",
-        "1000000"
+        "10000000"
       ],
       [
         "anthropic-ratelimit-input-tokens-remaining",
-        "1000000"
+        "10000000"
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-06-02T11:47:20Z"
+        "2026-10-15T19:36:55Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
-        "200000"
+        "2000000"
       ],
       [
         "anthropic-ratelimit-output-tokens-remaining",
-        "200000"
+        "2000000"
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-06-02T11:47:20Z"
+        "2026-10-15T19:36:55Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
-        "2000"
+        "10000"
       ],
       [
         "anthropic-ratelimit-requests-remaining",
-        "1998"
+        "9994"
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-06-02T11:47:17Z"
+        "2026-10-15T19:36:52Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
-        "1200000"
+        "12000000"
       ],
       [
         "anthropic-ratelimit-tokens-remaining",
-        "1200000"
+        "12000000"
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-06-02T11:47:20Z"
-      ],
-      [
-        "request-id",
-        "req_011CbeNwZZewDJYuFFPWoWsN"
+        "2026-10-15T19:36:55Z"
       ],
       [
         "strict-transport-security",
         "max-age=31536000; includeSubDomains; preload"
       ],
       [
+        "request-id",
+        "req_011Cg4ax7JjrwjPDai164aYC"
+      ],
+      [
+        "traceresponse",
+        "00-86da842c5c314718f67139feccc53d13-84a543469c168435-01"
+      ],
+      [
         "anthropic-organization-id",
         "8a3ada71-45d7-4ed6-aaaf-279ffd490a4a"
       ],
       [
-        "traceresponse",
-        "00-3ebef3d02c27cb0da18ab9c90700986b-6b5bfd870b4a34a3-01"
-      ],
-      [
-        "server",
-        "cloudflare"
-      ],
-      [
-        "content-security-policy",
-        "default-src 'none'; frame-ancestors 'none'"
+        "anthropic-workspace-id",
+        "wrkspc_01YSNntzPELNWyxziR11pKjX"
       ],
       [
         "vary",
         "Accept-Encoding"
       ],
       [
-        "set-cookie",
-        "[REDACTED]"
+        "content-security-policy",
+        "default-src 'none'; frame-ancestors 'none'"
       ],
       [
-        "x-robots-tag",
-        "none"
+        "server",
+        "cloudflare"
       ],
       [
         "cf-cache-status",
         "DYNAMIC"
       ],
       [
+        "x-robots-tag",
+        "none"
+      ],
+      [
         "cf-ray",
-        "a05638f04b1cb385-PRG"
+        "a4b146707ed7e68c-PRG"
       ]
     ],
     "status": 200

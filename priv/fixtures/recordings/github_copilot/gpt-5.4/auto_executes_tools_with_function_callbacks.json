@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5.4",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-06-29T09:55:25.939039Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:58.638021Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -74,7 +74,7 @@
           "finish_reason": "tool_calls",
           "index": 0,
           "message": {
-            "padding": "abcd",
+            "padding": "abcdefghijklmnopqrstuvwxy",
             "role": "assistant",
             "tool_calls": [
               {
@@ -82,7 +82,7 @@
                   "arguments": "{\"city\":\"Paris\"}",
                   "name": "get_weather"
                 },
-                "id": "call_XnlusxCx5EmVHy4SwFJ5baBn",
+                "id": "call_eKLNFUV0iBFQayw8YQ34QmvS",
                 "type": "function"
               }
             ]
@@ -94,31 +94,35 @@
           {
             "batch_size": 1000000,
             "cost_per_batch": 250000000000,
+            "model": "gpt-5.4",
             "token_count": 151,
             "token_type": "input"
           },
           {
             "batch_size": 1000000,
             "cost_per_batch": 25000000000,
+            "model": "gpt-5.4",
             "token_count": 0,
             "token_type": "cache_read"
           },
           {
             "batch_size": 1000000,
             "cost_per_batch": 0,
+            "model": "gpt-5.4",
             "token_count": 0,
             "token_type": "cache_write"
           },
           {
             "batch_size": 1000000,
             "cost_per_batch": 1500000000000,
+            "model": "gpt-5.4",
             "token_count": 17,
             "token_type": "output"
           }
         ],
         "total_nano_aiu": 63250000
       },
-      "id": "chatcmpl-Dw301sz39G4I7Rczcei4hhFrjoQYz",
+      "id": "chatcmpl-EZLY2Bfb1D4XSorIuK9BVcTjjFe9R",
       "model": "gpt-5.4",
       "service_tier": "default",
       "usage": {
@@ -131,7 +135,6 @@
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
-        "reasoning_tokens": 0,
         "total_tokens": 168
       }
     },
@@ -150,23 +153,27 @@
       ],
       [
         "x-copilot-api-exp-assignment-context",
-        "e4hcf520:1109203;t_capicli_aa:1116798;"
+        "e4hcf520:1109203;t_capicli_aa:1116798;permission_prompt_treatment:1332566;ccr_pr_nudge_auto_review:1319472;jc553158:1433349;cmc_aa_t:1435711;seataa-998bffad:1447867;"
       ],
       [
         "x-copilot-service-request-id",
-        "67d5474c-2e12-4add-800e-10a419929bda"
+        "c0eff2e5-311b-41ce-865d-e33aec0a47b5"
+      ],
+      [
+        "x-github-copilot-request-te",
+        "true"
       ],
       [
         "x-request-id",
-        "00000-60b1efdf-1d63-4d2d-96eb-862feb06a252"
+        "00000-03725d0e-dd31-45c9-9701-3d9b73e26842"
       ],
       [
         "date",
-        "Mon, 29 Jun 2026 09:55:26 GMT"
+        "Thu, 15 Oct 2026 19:36:58 GMT"
       ],
       [
         "content-length",
-        "1016"
+        "1088"
       ],
       [
         "x-github-backend",
@@ -174,7 +181,11 @@
       ],
       [
         "x-github-request-id",
-        "8B26:3F2E01:322F0CF:38A2291:6A42410C"
+        "E5EE:3C73B4:24338E0:267D75C:6AD12B58"
+      ],
+      [
+        "x-github-edge-region",
+        "iad"
       ]
     ],
     "status": 200

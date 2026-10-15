@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5.4",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-06-29T09:55:28.586979Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:00.637425Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -17,7 +17,7 @@
           "role": "user"
         },
         {
-          "content": "Nice — London’s a great trip.\n\nI can help with things like:\n- weather for your dates\n- neighborhoods to stay in\n- itinerary ideas\n- transport tips\n- budget planning\n- food and attractions\n\nIf you want, I can start with any of these:\n1. best time/weather\n2. 3-day itinerary\n3. where to stay\n4. budget tips\n\nIf you share your travel dates, I can also check the weather.",
+          "content": "Nice—London’s a great trip.\n\nI can help with:\n- weather for your dates\n- neighborhoods to stay in\n- itinerary ideas\n- budget planning\n- transport tips\n- packing advice\n\nIf you want, I can start with the current weather in London.",
           "role": "assistant"
         },
         {
@@ -86,7 +86,7 @@
           "finish_reason": "tool_calls",
           "index": 0,
           "message": {
-            "padding": "abcdefg",
+            "padding": "abcd",
             "role": "assistant",
             "tool_calls": [
               {
@@ -94,7 +94,7 @@
                   "arguments": "{\"city\":\"London\"}",
                   "name": "get_weather"
                 },
-                "id": "call_YeXJpcdQmJSp8qntAOzPwLjP",
+                "id": "call_m8QuCq6KGhtjN9kowVLQmWSY",
                 "type": "function"
               }
             ]
@@ -106,31 +106,35 @@
           {
             "batch_size": 1000000,
             "cost_per_batch": 250000000000,
-            "token_count": 277,
+            "model": "gpt-5.4",
+            "token_count": 238,
             "token_type": "input"
           },
           {
             "batch_size": 1000000,
             "cost_per_batch": 25000000000,
+            "model": "gpt-5.4",
             "token_count": 0,
             "token_type": "cache_read"
           },
           {
             "batch_size": 1000000,
             "cost_per_batch": 0,
+            "model": "gpt-5.4",
             "token_count": 0,
             "token_type": "cache_write"
           },
           {
             "batch_size": 1000000,
             "cost_per_batch": 1500000000000,
+            "model": "gpt-5.4",
             "token_count": 17,
             "token_type": "output"
           }
         ],
-        "total_nano_aiu": 94750000
+        "total_nano_aiu": 85000000
       },
-      "id": "chatcmpl-Dw3042DWTajxbVotp0MfADpy5lM1d",
+      "id": "chatcmpl-EZLY4fGffWLxtU5exXusUnPWIYq9q",
       "model": "gpt-5.4",
       "service_tier": "default",
       "usage": {
@@ -139,12 +143,11 @@
           "accepted_prediction_tokens": 0,
           "rejected_prediction_tokens": 0
         },
-        "prompt_tokens": 277,
+        "prompt_tokens": 238,
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
-        "reasoning_tokens": 0,
-        "total_tokens": 294
+        "total_tokens": 255
       }
     },
     "headers": [
@@ -162,23 +165,27 @@
       ],
       [
         "x-copilot-api-exp-assignment-context",
-        "e4hcf520:1109203;t_capicli_aa:1116798;"
+        "e4hcf520:1109203;t_capicli_aa:1116798;permission_prompt_treatment:1332566;ccr_pr_nudge_auto_review:1319472;jc553158:1433349;cmc_aa_t:1435711;seataa-998bffad:1447867;"
       ],
       [
         "x-copilot-service-request-id",
-        "12f5853e-b073-41f3-b00d-7a767cf80999"
+        "51c8cc60-cd7f-441f-ad11-4d34111b7e8b"
+      ],
+      [
+        "x-github-copilot-request-te",
+        "true"
       ],
       [
         "x-request-id",
-        "00000-eda2906c-f209-4597-ab17-6ac97e3facf2"
+        "00000-661d34aa-2ce3-4dbe-b8b2-b0531dd58e5e"
       ],
       [
         "date",
-        "Mon, 29 Jun 2026 09:55:28 GMT"
+        "Thu, 15 Oct 2026 19:37:00 GMT"
       ],
       [
         "content-length",
-        "1020"
+        "1068"
       ],
       [
         "x-github-backend",
@@ -186,7 +193,11 @@
       ],
       [
         "x-github-request-id",
-        "8B26:3F2E01:3230655:38A391C:6A42410F"
+        "E5EE:3C73B4:2434AB0:267EA46:6AD12B5B"
+      ],
+      [
+        "x-github-edge-region",
+        "iad"
       ]
     ],
     "status": 200

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-06-02T11:47:26.290163Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:58.801503Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -19,7 +19,7 @@
         {
           "parts": [
             {
-              "text": "That's exciting! London is a fantastic city. How can I help you with your planning? Are you looking for sightseeing recommendations, travel tips, or perhaps the current weather?"
+              "text": "That sounds exciting! London is a fantastic city. To help you get started, would you like information on top attractions, transportation, or perhaps the current weather? \n\nAlso, let me know if you have specific dates or interests (like history, food, or theater) so I can provide better recommendations!"
             }
           ],
           "role": "model"
@@ -86,10 +86,10 @@
                   "args": {
                     "city": "London"
                   },
-                  "id": "vl92ilB5",
+                  "id": "call_1126977",
                   "name": "get_weather"
                 },
-                "thoughtSignature": "EjQKMgEMOdbH+cMPwOrZ/JvkSiqaV5hASeOkOBl+iCpqfhpF51kHyJaN+PWnp1ha061aoq0J"
+                "thoughtSignature": "EnMKcQFpFH0TFtSh8uj5tP3F96h5UYBzAI6SC9nDUzShS6Aqnw9ZMqySkZV+oF/Q+1pQm8yYqkeh1us+O+hZzO/zk1oD9/0ud3Y8rrvRNMrpee3heHKISM0jzLGoXB3HBe4Ejwgj7TM2Ciy4/R/GRwzLDAX9"
               }
             ],
             "role": "model"
@@ -100,18 +100,18 @@
         }
       ],
       "modelVersion": "gemini-3.1-flash-lite",
-      "responseId": "zcIeau2sPJzxnsEPvby88Qw",
+      "responseId": "WivRasaiGI7xnsEPraLMmAs",
       "usageMetadata": {
         "candidatesTokenCount": 16,
-        "promptTokenCount": 133,
+        "promptTokenCount": 159,
         "promptTokensDetails": [
           {
             "modality": "TEXT",
-            "tokenCount": 133
+            "tokenCount": 159
           }
         ],
         "serviceTier": "standard",
-        "totalTokenCount": 149
+        "totalTokenCount": 175
       }
     },
     "headers": [
@@ -137,7 +137,7 @@
       ],
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:26 GMT"
+        "Thu, 15 Oct 2026 19:36:58 GMT"
       ],
       [
         "server",
@@ -157,7 +157,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=374"
+        "gfet4t7; dur=550"
       ],
       [
         "alt-svc",

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-oss-120b",
     "provider": "api.inference.wandb.ai",
-    "recorded_at": "2026-09-25T11:59:09.373126Z",
-    "sycophant_version": "0.5.1"
+    "recorded_at": "2026-10-15T19:37:10.531655Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -13,7 +13,7 @@
           "role": "user"
         },
         {
-          "content": "Got it—nice to meet you, Sycophant! Feel free to let me know how I can help.",
+          "content": "Got it, Sycophant! I’ll remember that for our conversation. How can I help you today?",
           "role": "assistant"
         },
         {
@@ -44,32 +44,38 @@
           "index": 0,
           "logprobs": null,
           "message": {
-            "content": "Your name is **Sycophant**.",
-            "reasoning": "The user asks \"What is my name?\" Previously they said \"My name is Sycophant. Remember it.\" So answer: Sycophant. Possibly confirm.",
+            "content": "Your name is **Sycophant**. 😊",
+            "reasoning": "The user asks \"What is my name?\" They have said earlier: \"My name is Sycophant. Remember it.\" So answer: \"Your name is Sycophant.\" Possibly also add friendly confirmation. Ensure privacy policy not needed.",
             "role": "assistant"
           }
         }
       ],
-      "created": 1790337547,
-      "id": "chatcmpl-6eea20ea-244d-4849-8694-aa64edf8518b",
+      "created": 1792093028,
+      "id": "chatcmpl-075dc529-254f-489d-9dd8-9aadfd21a282",
       "model": "openai/gpt-oss-120b",
       "object": "chat.completion",
       "service_tier": null,
       "system_fingerprint": null,
       "usage": {
-        "completion_tokens": 55,
-        "prompt_tokens": 117,
+        "completion_tokens": 71,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 56,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens": 116,
         "prompt_tokens_details": {
           "audio_tokens": null,
           "cached_tokens": 64
         },
-        "total_tokens": 172
+        "total_tokens": 187
       }
     },
     "headers": [
       [
         "date",
-        "Fri, 25 Sep 2026 11:59:09 GMT"
+        "Thu, 15 Oct 2026 19:37:10 GMT"
       ],
       [
         "content-type",
@@ -85,7 +91,7 @@
       ],
       [
         "cf-ray",
-        "a409dc67c99cbc98-PRG"
+        "a4b146d3bf660a1b-PRG"
       ]
     ],
     "status": 200

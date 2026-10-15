@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5.4",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-06-29T09:55:29.086981Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:38:00.215844Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -53,7 +53,7 @@
           "index": 0,
           "message": {
             "content": "hello",
-            "padding": "a",
+            "padding": "abcdefghijklmnopqrstuvwxyz0123456789",
             "role": "assistant"
           }
         }
@@ -63,31 +63,35 @@
           {
             "batch_size": 1000000,
             "cost_per_batch": 250000000000,
+            "model": "gpt-5.4",
             "token_count": 14,
             "token_type": "input"
           },
           {
             "batch_size": 1000000,
             "cost_per_batch": 25000000000,
+            "model": "gpt-5.4",
             "token_count": 0,
             "token_type": "cache_read"
           },
           {
             "batch_size": 1000000,
             "cost_per_batch": 0,
+            "model": "gpt-5.4",
             "token_count": 0,
             "token_type": "cache_write"
           },
           {
             "batch_size": 1000000,
             "cost_per_batch": 1500000000000,
+            "model": "gpt-5.4",
             "token_count": 4,
             "token_type": "output"
           }
         ],
         "total_nano_aiu": 9500000
       },
-      "id": "chatcmpl-Dw304G1Ls32BsN99ePa5FQn0PaK25",
+      "id": "chatcmpl-EZLZ1phI1lKj0UuV0rQ3hC4pIhAo9",
       "model": "gpt-5.4",
       "service_tier": "default",
       "usage": {
@@ -100,7 +104,6 @@
         "prompt_tokens_details": {
           "cached_tokens": 0
         },
-        "reasoning_tokens": 0,
         "total_tokens": 18
       }
     },
@@ -119,23 +122,27 @@
       ],
       [
         "x-copilot-api-exp-assignment-context",
-        "e4hcf520:1109203;t_capicli_aa:1116798;"
+        "e4hcf520:1109203;t_capicli_aa:1116798;permission_prompt_treatment:1332566;ccr_pr_nudge_auto_review:1319472;jc553158:1433349;cmc_aa_t:1435711;seataa-998bffad:1447867;"
       ],
       [
         "x-copilot-service-request-id",
-        "7507d1e3-98c4-4465-a94d-a5df110e3284"
+        "42ba419d-fd73-4b8d-bc51-694f5e41f043"
+      ],
+      [
+        "x-github-copilot-request-te",
+        "true"
       ],
       [
         "x-request-id",
-        "00000-37747bb7-6346-4559-9da8-8f9fca2e5013"
+        "00000-ebbca69a-2231-4ac1-989a-8a5199fdb240"
       ],
       [
         "date",
-        "Mon, 29 Jun 2026 09:55:29 GMT"
+        "Thu, 15 Oct 2026 19:38:00 GMT"
       ],
       [
         "content-length",
-        "878"
+        "964"
       ],
       [
         "x-github-backend",
@@ -143,7 +150,11 @@
       ],
       [
         "x-github-request-id",
-        "8B26:3F2E01:3230BB3:38A3EF4:6A424110"
+        "E5EE:3C73B4:244E474:269A197:6AD12B97"
+      ],
+      [
+        "x-github-edge-region",
+        "iad"
       ]
     ],
     "status": 200

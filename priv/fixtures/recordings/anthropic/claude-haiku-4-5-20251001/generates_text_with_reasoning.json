@@ -2,11 +2,14 @@
   "metadata": {
     "model": "claude-haiku-4-5-20251001",
     "provider": "api.anthropic.com",
-    "recorded_at": "2026-06-02T11:47:23.540614Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:57.357390Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
+      "cache_control": {
+        "type": "ephemeral"
+      },
       "max_tokens": 4096,
       "messages": [
         {
@@ -39,18 +42,20 @@
   },
   "response": {
     "body": {
+      "container": null,
       "content": [
         {
-          "signature": "EooNCm0IDhgCKkDeMyLQkuOihzzxApCxYUN38f8GXgiOC3l0Lnp9ngr22l+AbktBOpn5sq13paCuiB6KZTkCwPxniEJnxZT4X68GMhljbGF1ZGUtaGFpa3UtNC01LTIwMjUxMDAxOABCCHRoaW5raW5nEgy8WB4Z7s88REESqH0aDNkQ697w/YvgLtf3JiIwU+u17YAfiQ/RtkhG+Ns6bjf45wCcQxa82LLu20Ij7MSuDHS+D3HN37mFsXvk77NVKsoLJaRUpDLp5e8XtmzTYdAJLEhoiuw18JUlQOoS4ICoUGAz2RYrw1wVnSxBicO1kV7ZN924aeWqcfwXGfZbWy8XB+pP6zWD5SnlqIv/NA4w78LSoi4QmRJ55oL4kVMpldjJ72Ok8pkR9RRqtSA2/A5gBxM5rKkv5U3fViv6MrjGodNY2OnEfEtWD8Z1TvWKNQehVTbtyI108ZsERU7XDRyWWXLjEP8Z8CJ12QGYdGoWFc7FGRbQH/m0df7MUOuKfPo4x3Zvn0UsFpXEtXoLNWzh6qAYO57Kzr3AeQoPNpfB7fq+nn/oP3LkG6m1YYZTnXvr2r8+Or3KdJthcGEeTfCowV1CqHaMHj/UH6YE0ozPo3ObDy+fSq41p/bFJWjGPIl8lCGxQMRuqwcrhA7oY/gcae132O59uZGRUnbT/tFksu+VDAjZPs98DY6Gy2OmZoKa+u65F7yZEvJWPoFp9FqPR5G/CLz1iG+BwBErs6BrE9zG6rJTsHtJfL7nlRuxOAPXXMxmpl6sEFf3rzExI3UDiJqvz70/3pjeOhGmPEj9Pt10VkfloJaksYpAWXBHs7sA5gwkiWLjWW2vd0dhimpwx1ufaNUl8ul/BhnHTdppMQnjrsQBlY9C1UO8PXCWhNASKcdYdAPkmI2VP7VKkvdemjQxilVMLAs5TdiDr5qqWEEgXy4YcfVhR5hg2RzAqDPX/BNFFgxv6S9yiROilF5cDiYuJ6GPCTA92SvvlyNEcqmyhLCZMY0ZZiBQXE4MH1GtjVS4BHH/SnB2t8tgWZfz1wXTis8JcFFFHe40hiLcTctkwQuN1oTRlicf8XVrOP36xktBkh94DiKbeQmuU7AgTWdmjMcRK4XopA0nr9DcRBCtD0ZoPZ3jxye/kHASl8cN0MXMvj/p/Pffe9bDHAMtlT+FZoYO6WK6UOYZyXi82QqMgyHWmVfeORQtIykEnJQ6ZaminoD7wzqqAmTEyVd3Uo6cdhaJdE+I7haKcz2F7XNAYSgMKOzNyjLvi6wnHja/cYLH2WJMPNZDuacnno45QQ77DO4gnSvppL21Cq3vfAT8jRGuqkGg+KrqH5HKwqCVjbgwrZg0RInTehQbEPADrkgNVT3RfeP+jJ1ZTrxwMJ6Hzg6kn8glmmfr3GKQaLB3biLCe41f440Op8ds+SzcNSErn5kmlTiM+e9+BPINPBECWtDUT5IyDG9ukG98reJr8AI0JUlYO/HEO5//trimsdGxbwCBWCrKjFcTcsT6Lxl/4vVA6nGpWJC5d6vS9Y/oMe+1OP94hFON8jA24YAFnTJpPL+gTaOZbmvM8GBGLQRG0kpYaFEIwj+uhUPnb+O6oxP8IwsuDgIUTiF6e4pDCESifk4+zAFNY7LtvuW++/BjT6hrxg9qY+iGViGEGgs1Q3WKjbIR7urla7ahi4UlD/hWEBj8ePO3RDoJw+Us7rpoBwi/tAqwg3c8CoXV9JPn0YWQhUCpHYFvUKJiXlfaDnX3VTsFHxyZeSU4h1Te9MtEm4qwW9x3ckGhBVYD8QZD/7+vLiLennCOuJpYiy/1txGPSzk1W8LyimNgXFxZTFg3WrAAC09FLZHlVaavM5E3KkzKJAhJshx5JM1vbWKfCDcw67wVmWrCWo8wh4wpyyiUkf/Ry6l8TB3xD+h472geWWygjRD2y57t24/e2KCY3Rc5/09w2IAKoMN+SDZxmhLtHFUj4en3NrpVVHPjFb5KbN4aCLANlbo4M52gCY5zAWP4ao1hU2kriiFRaOLJvJxdi6j7MWP6oedrRVdQ0P4O/0cTEBsICyl3wIUKTEGPKUuQT/MT5InYRd87mRUebJu87sv86ssfU1ZjrGPEw2VD+iWYYoffOfBJJo/q1RweFdcxeCkKonOZc71sa8CxJmr3+9Uo3CGsmhVJA9l0cX7iMuHdXYcx5tTapcaq0TbAQK03e4aB7ws9Nz9Sev/+ZoCMIoq3wp5OxGgdGAE=",
-          "thinking": "Let me work through this step-by-step.\n\nGiven information:\n- The farmer has 3 fields\n- First field produces 2.5 times more wheat than the second\n- Third produces 40% less than the first\n- Second field produces 120 tons\n\nI need to find the total production from all three fields.\n\nSecond field: 120 tons\n\nFirst field: produces 2.5 times more than the second\nWait, I need to be careful here. \"2.5 times more\" could mean:\n1. 2.5 times as much (2.5 × 120)\n2. 2.5 times more than (120 + 2.5 × 120 = 3.5 × 120)\n\nThe phrasing \"2.5 times more\" technically means 2.5 times additional, so it would be 120 + 2.5(120) = 3.5(120). However, in common usage, especially in word problems, \"2.5 times more\" is often used interchangeably with \"2.5 times as much.\"\n\nLooking at the context and typical problem phrasing, I'll interpret this as \"2.5 times as much\" which seems more reasonable for a farming scenario. So:\n\nFirst field: 2.5 × 120 = 300 tons\n\nThird field: produces 40% less than the first\nThird field: 300 - 0.40(300) = 300 - 120 = 180 tons\n\nTotal: 120 + 300 + 180 = 600 tons\n\nLet me double-check this interpretation makes sense. If I use the strict interpretation of \"2.5 times more\":\nFirst field: 120 + 2.5(120) = 420 tons\nThird field: 420 - 0.40(420) = 420 - 168 = 252 tons\n\n\nTotal: 120 + 420 + 252 = 792 tons\n\nThe more natural reading seems to be the first calculation yielding 600 tons, though the literal interpretation would give 792 tons. I should probably present both possibilities or ask for clarification on what \"2.5 times more\" means in this context.",
+          "signature": "EoIJCrgBCBIYAipA+d64v4aWIlH8UVOJWOUT2Pg/LDtXDyM8n2ANu7JC4g5VGlfSModX0hxTRIKQSMnZzcyGEoAxjWFdSPPxrp//sTIZY2xhdWRlLWhhaWt1LTQtNS0yMDI1MTAwMTgAQgh0aGlua2luZ1okOGEzYWRhNzEtNDVkNy00ZWQ2LWFhYWYtMjc5ZmZkNDkwYTRhmgEbChljbGF1ZGUtaGFpa3UtNC01LTIwMjUxMDAxqAHX1sTWBhIMxtAIuz3/Yrf1B6BdGgw7zZilujweanQpj5EiMGBdTKAbGBHFWlrVodzjo7hDuLnsQ4uBGuhJnTSOkbIys6tI4GjpBFXIL0BlwKKCECr2BmjhhBcOVhxcH0H7vjk4rvOnphFlyMoRlML0KoO7442UQxnby2Fy+nTV6D0QSUFCx5YG5ExOUfpWgvex1IdyCUwnMxs6FvF5wARQ1NaH9+nJatfyG86N18NSdZPF/lew0y6rKV6M8lsH8amKWyevBI/h8PY1vdd/iUSuU3HMY/U4LpFQRO80NpA6agyXAhZkI7IAonUFqsiQEEorOlZCh/mbDVobb9Vl2Tw00WJW5lP4h3aR2BwxRAc5hniHNhIOnNd9yXWcCvYP887U/MtWKJtvSXsW2rrrCQxp9rGhlg3G8pKML90aD/FpsXjP4EFLAXqab869N/D5qoKrPuhEcfnKFWUzzyrmit+Czob3uAoaKKQreW/EGBNjNinxeCIMCLkPBCp518RyMoSwu9sfvr8mXJw8iKUfKbdHydGAA0LK8GG9RirKOnERDbCZRv93b7AgYHv9yvjfP2c4tUWWnCRjYtVBFocObidQ6AHEd+YTbF0DoTV1eRqq5Oku/FIuScnQ16iKF4iMFIgXKqKa3Kyt5RZwwVEgPYarGLa+d+YsgH+IizC/Yk1gren/U9r7Lf80cBLnemChZhTASxVwir4IT/BPekwJ9W8x4vi5hhVD50UGIrtOhajJZEeSO9O8HnLJj+IbFsYwVBiIBWqLFNBGMAR4jUQUeObFBnevpToyhbSk+ilfcvb3fmEvXNUK1/l96Yu5HE3Xo3bEALXNcPAeTk2QcDFoQZpJVjBojDxFXxWODUQVp/TXs/sQMsi/q55p0FB970f0POWC6y3ZuotDE736gJkpCYq2+PnyVwqUIfrkAfifLWCbXWl+u4EYbidV73FdvQvKROXtCPTfm7nhKR2PGULjT/9BAyrmdHY7Mkpmp3bFIdN+mC8Q+8uvLxBEVrQc9dzKlTtg6CCYZcSeUi0c5zhnklgyykGrnxQ5T2ggx8iLFEPSOF4rWu7AO2snrDrfwfoENq1pfaVvUbtEbkqgQTrjh1IBnzDmMowTJ25ixEuVOcu1jeANzaR6P+Cc9SFj15IKP/jlgieba1hLr+2RXrZ6j/rmj4TaQrI3QEG7VP9h50bbi+0Q+Ctwb9W2oUp7pmX9xLSxg/DCYN+I+KAl96LkCxTr7QEOYhzHIPvMbWJ4NLB+qh0ZFiEorgKdIJyYlX1ysQPG6Nh9Ee3CTAOBYj4YAQ==",
+          "thinking": "Let me work through this step by step.\n\nLet me define variables:\n- Second field produces: 120 tons\n- First field produces: 2.5 times more than the second\n- Third field produces: 40% less than the first\n\nFirst, I need to be careful about the wording \"2.5 times more than.\" This could mean:\n1. 2.5 times as much as the second (multiplicative interpretation)\n2. 2.5 times more than the second, meaning second + 2.5 × second = 3.5 × second (additive interpretation)\n\nIn common usage, \"2.5 times more\" typically means 2.5 times as much, so I'll interpret it as the first field producing 2.5 times the amount of the second field.\n\nSecond field: 120 tons\n\nFirst field: 2.5 × 120 = 300 tons\n\nThird field: 40% less than the first\nThis means: First field - 40% of first field = 60% of first field\nThird field: 0.6 × 300 = 180 tons\n\nTotal production: 120 + 300 + 180 = 600 tons",
           "type": "thinking"
         },
         {
-          "text": "# Wheat Production Problem\n\n## Given Information\n- Second field: **120 tons**\n- First field: 2.5 times more than second\n- Third field: 40% less than first\n\n## Solution\n\n**Second Field:** 120 tons ✓\n\n**First Field:**\n- 2.5 times the second field\n- 2.5 × 120 = **300 tons**\n\n**Third Field:**\n- 40% less than the first field\n- 40% of 300 = 0.40 × 300 = 120 tons\n- 300 - 120 = **180 tons**\n\n## Total Production\n\n120 + 300 + 180 = **600 tons**\n\n---\n\n### Note on Interpretation\nThe phrasing \"2.5 times more\" was interpreted as \"2.5 times as much\" (300 tons). If interpreted literally as \"2.5 times MORE than\" (meaning 120 + 250% of 120), the first field would be 420 tons and the total would be 792 tons. The first interpretation is more standard in typical word problems.",
+          "text": "# Total Wheat Production\n\n## Given Information\n- Second field: 120 tons\n- First field: 2.5 times the second field\n- Third field: 40% less than the first field\n\n## Step-by-Step Solution\n\n**Step 1: Calculate the first field's production**\n- First field = 2.5 × Second field\n- First field = 2.5 × 120 = **300 tons**\n\n**Step 2: Calculate the third field's production**\n- Third field = First field − 40% of first field\n- Third field = First field × (100% − 40%) = First field × 60%\n- Third field = 0.6 × 300 = **180 tons**\n\n**Step 3: Calculate total production**\n- Total = First + Second + Third\n- Total = 300 + 120 + 180 = **600 tons**\n\n## Answer\nThe farmer produces **600 tons** of wheat in total.",
           "type": "text"
         }
       ],
-      "id": "msg_01Sb9HjbwrFZhhoAwK4yYpTS",
+      "diagnostics": null,
+      "id": "msg_011Cg4ax8AbNVn2kqJ8Fk6jx",
       "model": "claude-haiku-4-5-20251001",
       "role": "assistant",
       "stop_details": null,
@@ -66,9 +71,9 @@
         "cache_read_input_tokens": 0,
         "inference_geo": "not_available",
         "input_tokens": 95,
-        "output_tokens": 769,
+        "output_tokens": 513,
         "output_tokens_details": {
-          "thinking_tokens": 502
+          "thinking_tokens": 283
         },
         "service_tier": "standard"
       }
@@ -76,7 +81,7 @@
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:23 GMT"
+        "Thu, 15 Oct 2026 19:36:57 GMT"
       ],
       [
         "content-type",
@@ -84,95 +89,95 @@
       ],
       [
         "anthropic-ratelimit-input-tokens-limit",
-        "1000000"
+        "10000000"
       ],
       [
         "anthropic-ratelimit-input-tokens-remaining",
-        "999000"
+        "10000000"
       ],
       [
         "anthropic-ratelimit-input-tokens-reset",
-        "2026-06-02T11:47:18Z"
+        "2026-10-15T19:36:53Z"
       ],
       [
         "anthropic-ratelimit-output-tokens-limit",
-        "200000"
+        "2000000"
       ],
       [
         "anthropic-ratelimit-output-tokens-remaining",
-        "199000"
+        "1999000"
       ],
       [
         "anthropic-ratelimit-output-tokens-reset",
-        "2026-06-02T11:47:23Z"
+        "2026-10-15T19:36:57Z"
       ],
       [
         "anthropic-ratelimit-requests-limit",
-        "2000"
+        "10000"
       ],
       [
         "anthropic-ratelimit-requests-remaining",
-        "1999"
+        "9999"
       ],
       [
         "anthropic-ratelimit-requests-reset",
-        "2026-06-02T11:47:17Z"
+        "2026-10-15T19:36:52Z"
       ],
       [
         "anthropic-ratelimit-tokens-limit",
-        "1200000"
+        "12000000"
       ],
       [
         "anthropic-ratelimit-tokens-remaining",
-        "1198000"
+        "11999000"
       ],
       [
         "anthropic-ratelimit-tokens-reset",
-        "2026-06-02T11:47:18Z"
-      ],
-      [
-        "request-id",
-        "req_011CbeNwZUhNQzYSvypx76dy"
+        "2026-10-15T19:36:53Z"
       ],
       [
         "strict-transport-security",
         "max-age=31536000; includeSubDomains; preload"
       ],
       [
+        "request-id",
+        "req_011Cg4ax7Kjatw3EWDJKzTTR"
+      ],
+      [
+        "traceresponse",
+        "00-1087129aa078056dd29736f57debe675-db5e7faff843ffa4-01"
+      ],
+      [
         "anthropic-organization-id",
         "8a3ada71-45d7-4ed6-aaaf-279ffd490a4a"
       ],
       [
-        "traceresponse",
-        "00-ed2339cb5a4f3f8587b3b82ff6afd4cd-26c9fb902d453c8c-01"
-      ],
-      [
-        "server",
-        "cloudflare"
-      ],
-      [
-        "content-security-policy",
-        "default-src 'none'; frame-ancestors 'none'"
+        "anthropic-workspace-id",
+        "wrkspc_01YSNntzPELNWyxziR11pKjX"
       ],
       [
         "vary",
         "Accept-Encoding"
       ],
       [
-        "set-cookie",
-        "[REDACTED]"
+        "content-security-policy",
+        "default-src 'none'; frame-ancestors 'none'"
       ],
       [
-        "x-robots-tag",
-        "none"
+        "server",
+        "cloudflare"
       ],
       [
         "cf-cache-status",
         "DYNAMIC"
       ],
       [
+        "x-robots-tag",
+        "none"
+      ],
+      [
         "cf-ray",
-        "a05638f04b18b385-PRG"
+        "a4b146707ed4e68c-PRG"
       ]
     ],
     "status": 200

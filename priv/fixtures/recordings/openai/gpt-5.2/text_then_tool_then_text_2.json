@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-5.2",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:26.421838Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:59.246012Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "Nice—when are you going, how many days, and what kinds of things do you want to prioritize (museums/history, theatre, food, day trips, shopping, parks)? Also, what’s your budget level and where are you staying (or which area are you considering)?",
+              "text": "When are you going, and what kind of trip is it (first time vs repeat, interests, budget, how many days)?\n\nIf you share:\n- dates/month (and flexibility)\n- number of days and where you’ll stay (rough area is fine)\n- must-sees (museums, theatre, food, history, markets, day trips)\n- travel style (packed vs relaxed)\n\n…I can suggest a tight itinerary, neighborhood picks, and how to get around.",
               "type": "output_text"
             }
           ],
@@ -66,23 +66,96 @@
   },
   "response": {
     "body": {
-      "background": false,
+      "safety_identifier": null,
+      "store": true,
+      "error": null,
+      "created_at": 1792093018,
+      "presence_penalty": 0.0,
+      "status": "completed",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "max_tool_calls": null,
+      "instructions": "You are a helpful assistant. Be concise.",
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": "24h",
+      "completed_at": 1792093019,
+      "temperature": 1.0,
       "text": {
         "format": {
           "type": "text"
         },
         "verbosity": "medium"
       },
-      "moderation": null,
-      "top_logprobs": 0,
-      "previous_response_id": null,
+      "parallel_tool_calls": true,
       "tool_choice": "auto",
+      "frequency_penalty": 0.0,
+      "top_logprobs": 0,
+      "reasoning": {
+        "context": "current_turn",
+        "effort": "none",
+        "mode": "standard",
+        "summary": null
+      },
+      "usage": {
+        "input_tokens": 198,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 18,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 216
+      },
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "gpt-5.2-2025-12-11",
+      "truncation": "disabled",
+      "metadata": {},
       "service_tier": "default",
-      "status": "completed",
+      "id": "resp_063d6c15a1b870d9006ad12b5a46f487d289aa9da9c91fd9fb",
+      "top_p": 0.98,
+      "user": null,
+      "prompt_cache_key": null,
+      "moderation": null,
+      "object": "response",
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
+      "output": [
+        {
+          "arguments": "{\"city\":\"London\"}",
+          "call_id": "call_RNVW5GD1rO4y4BVVho9dhpOD",
+          "id": "fc_063d6c15a1b870d9006ad12b5af75087d29c7d4f4d775c3cd2",
+          "name": "get_weather",
+          "status": "completed",
+          "type": "function_call"
+        }
+      ],
       "tools": [
         {
           "description": "Get current weather for a city. Returns temperature and conditions.",
           "name": "get_weather",
+          "output_schema": null,
           "parameters": {
             "additionalProperties": false,
             "properties": {
@@ -98,63 +171,12 @@
           "strict": true,
           "type": "function"
         }
-      ],
-      "id": "resp_037fb883545db0fd006a1ec2cdb50c81a0935b35de283f9780",
-      "temperature": 1.0,
-      "max_output_tokens": null,
-      "user": null,
-      "frequency_penalty": 0.0,
-      "error": null,
-      "model": "gpt-5.2-2025-12-11",
-      "usage": {
-        "input_tokens": 160,
-        "input_tokens_details": {
-          "cached_tokens": 0
-        },
-        "output_tokens": 18,
-        "output_tokens_details": {
-          "reasoning_tokens": 0
-        },
-        "total_tokens": 178
-      },
-      "safety_identifier": null,
-      "object": "response",
-      "parallel_tool_calls": true,
-      "output": [
-        {
-          "arguments": "{\"city\":\"London\"}",
-          "call_id": "call_GFDardRjEzQz3DWiPWkW7JpX",
-          "id": "fc_037fb883545db0fd006a1ec2ce13f081a0a1af916ace2def94",
-          "name": "get_weather",
-          "status": "completed",
-          "type": "function_call"
-        }
-      ],
-      "instructions": "You are a helpful assistant. Be concise.",
-      "store": true,
-      "presence_penalty": 0.0,
-      "incomplete_details": null,
-      "reasoning": {
-        "context": "current_turn",
-        "effort": "none",
-        "summary": null
-      },
-      "completed_at": 1780400846,
-      "truncation": "disabled",
-      "top_p": 0.98,
-      "billing": {
-        "payer": "developer"
-      },
-      "prompt_cache_retention": "24h",
-      "metadata": {},
-      "prompt_cache_key": null,
-      "created_at": 1780400845,
-      "max_tool_calls": null
+      ]
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:26 GMT"
+        "Thu, 15 Oct 2026 19:36:59 GMT"
       ],
       [
         "content-type",
@@ -162,11 +184,11 @@
       ],
       [
         "content-length",
-        "1989"
+        "2461"
       ],
       [
         "cf-ray",
-        "a05639252995d1c5-PRG"
+        "a4b1469388b6bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -202,7 +224,7 @@
       ],
       [
         "openai-processing-ms",
-        "683"
+        "901"
       ],
       [
         "openai-project",
@@ -238,7 +260,7 @@
       ],
       [
         "x-request-id",
-        "req_4e90b8800cc348458a0057c2b5130bce"
+        "req_cd15e672e25944fd9423ee507ea9dceb"
       ],
       [
         "set-cookie",

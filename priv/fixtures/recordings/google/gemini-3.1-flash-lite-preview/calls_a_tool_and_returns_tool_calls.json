@@ -2,8 +2,8 @@
   "metadata": {
     "model": "unknown",
     "provider": "generativelanguage.googleapis.com",
-    "recorded_at": "2026-06-02T11:47:20.187868Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:56.652446Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -63,10 +63,10 @@
                   "args": {
                     "city": "Paris"
                   },
-                  "id": "w7in6r5j",
+                  "id": "call_825642",
                   "name": "get_weather"
                 },
-                "thoughtSignature": "EjQKMgEMOdbHYCk0JrG9yVlj+p3pk455vYfjU4IqMe5NUj7VfoDxcXEsVkr0Qn6/xdOH4JzB"
+                "thoughtSignature": "EnMKcQFpFH0TLo3aHjyzX2ZeAvM5Q4OFf3TgYGJOhhR93TCT3rCiZm1AUJpD/yhSU4uFeY8cxMUNKpbBsoGMm2DC/WwPVVoK/0vDNWKTXUV9eWbFbut/9LWUeFYYvqmrT84DcaDMlAJ6v9yyiOKt3aIISk3B"
               }
             ],
             "role": "model"
@@ -77,7 +77,7 @@
         }
       ],
       "modelVersion": "gemini-3.1-flash-lite",
-      "responseId": "x8Iear6rNKaznsEPr_y8wQw",
+      "responseId": "WCvRasDzE_yf3boP4qDcwAw",
       "usageMetadata": {
         "candidatesTokenCount": 16,
         "promptTokenCount": 68,
@@ -114,7 +114,7 @@
       ],
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:20 GMT"
+        "Thu, 15 Oct 2026 19:36:56 GMT"
       ],
       [
         "server",
@@ -134,7 +134,7 @@
       ],
       [
         "server-timing",
-        "gfet4t7; dur=408"
+        "gfet4t7; dur=451"
       ],
       [
         "alt-svc",

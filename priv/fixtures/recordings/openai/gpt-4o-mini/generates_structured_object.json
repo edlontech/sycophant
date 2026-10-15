@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-4o-mini",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:23.313806Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:54.123049Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -60,7 +60,38 @@
   },
   "response": {
     "body": {
-      "background": false,
+      "safety_identifier": null,
+      "store": true,
+      "error": null,
+      "created_at": 1792093012,
+      "presence_penalty": 0.0,
+      "status": "completed",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "max_tool_calls": null,
+      "instructions": null,
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": "in_memory",
+      "completed_at": 1792093013,
+      "temperature": 1.0,
       "text": {
         "format": {
           "description": null,
@@ -93,75 +124,64 @@
         },
         "verbosity": "medium"
       },
-      "moderation": null,
-      "top_logprobs": 0,
-      "previous_response_id": null,
+      "parallel_tool_calls": true,
       "tool_choice": "auto",
-      "service_tier": "default",
-      "status": "completed",
-      "tools": [],
-      "id": "resp_09e16517e1fdea13006a1ec2c5fae08190ac9bfa0b06b899c8",
-      "temperature": 1.0,
-      "max_output_tokens": null,
-      "user": null,
       "frequency_penalty": 0.0,
-      "error": null,
-      "model": "gpt-4o-mini-2024-07-18",
+      "top_logprobs": 0,
+      "reasoning": {
+        "context": null,
+        "effort": null,
+        "summary": null
+      },
       "usage": {
         "input_tokens": 71,
         "input_tokens_details": {
+          "cache_write_tokens": 0,
           "cached_tokens": 0
         },
-        "output_tokens": 25,
+        "output_tokens": 24,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 96
+        "total_tokens": 95
       },
-      "safety_identifier": null,
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "gpt-4o-mini-2024-07-18",
+      "truncation": "disabled",
+      "metadata": {},
+      "service_tier": "default",
+      "id": "resp_030b89ba84fb0ad4006ad12b54eb6087d29cccb97ea4382755",
+      "top_p": 1.0,
+      "user": null,
+      "prompt_cache_key": null,
+      "moderation": null,
       "object": "response",
-      "parallel_tool_calls": true,
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
       "output": [
         {
           "content": [
             {
               "annotations": [],
               "logprobs": [],
-              "text": "{\"age\":29,\"hobbies\":[\"photography\",\"hiking\",\"cooking\"],\"name\":\"Liam Carter\"}",
+              "text": "{\"age\":29,\"hobbies\":[\"painting\",\"hiking\",\"playing guitar\"],\"name\":\"Liam Carter\"}",
               "type": "output_text"
             }
           ],
-          "id": "msg_09e16517e1fdea13006a1ec2ca8a988190865f9dfd23c396fe",
+          "id": "msg_030b89ba84fb0ad4006ad12b55bcbc87d29ff3779e0bfe76f3",
           "role": "assistant",
           "status": "completed",
           "type": "message"
         }
       ],
-      "instructions": null,
-      "store": true,
-      "presence_penalty": 0.0,
-      "incomplete_details": null,
-      "reasoning": {
-        "context": null,
-        "effort": null,
-        "summary": null
-      },
-      "completed_at": 1780400843,
-      "truncation": "disabled",
-      "top_p": 1.0,
-      "billing": {
-        "payer": "developer"
-      },
-      "prompt_cache_retention": "in_memory",
-      "metadata": {},
-      "prompt_cache_key": null,
-      "created_at": 1780400837,
-      "max_tool_calls": null
+      "tools": []
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:23 GMT"
+        "Thu, 15 Oct 2026 19:36:54 GMT"
       ],
       [
         "content-type",
@@ -169,11 +189,11 @@
       ],
       [
         "content-length",
-        "2220"
+        "2643"
       ],
       [
         "cf-ray",
-        "a05638f02a45d1c5-PRG"
+        "a4b146709ed4bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -209,7 +229,7 @@
       ],
       [
         "openai-processing-ms",
-        "5287"
+        "1138"
       ],
       [
         "openai-project",
@@ -245,7 +265,7 @@
       ],
       [
         "x-request-id",
-        "req_fb9dacd47e1847249107f21d6707c0a6"
+        "req_1ff7de5355154350a10ec2102b22169b"
       ],
       [
         "set-cookie",

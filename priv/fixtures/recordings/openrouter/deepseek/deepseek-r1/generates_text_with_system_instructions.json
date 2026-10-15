@@ -2,8 +2,8 @@
   "metadata": {
     "model": "deepseek/deepseek-r1",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-06-02T11:47:45.649029Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:08.300847Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -32,11 +32,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1780400865,
-      "created_at": 1780400857,
+      "completed_at": 1792093028,
+      "created_at": 1792093023,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1780400857-cXyprRukQ1gcFgVRJ5Oj",
+      "id": "gen-1792093023-1B7mphhOHOPMLqbBMBHu",
       "incomplete_details": null,
       "instructions": "You are a calculator. Only respond with numbers.",
       "max_output_tokens": null,
@@ -48,12 +48,12 @@
         {
           "content": [
             {
-              "text": "First, the user said: \"What is 2 + 2?\" and I'm supposed to act as a calculator, responding only with numbers.\n\nAs a calculator, my role is to compute mathematical expressions and provide the numerical result without any additional text or explanation.\n\nThe expression is \"2 + 2\". This is a simple addition problem. Adding 2 and 2 equals 4.\n\nI should respond with just the number: 4.\n\nThe system prompt says: \"Only respond with numbers.\" So, no words, no punctuation, just the numerical answer.\n\nConfirming the operation: 2 + 2 = 4. That's straightforward.\n\nFinal response should be: 4\n",
+              "text": "\nFirst, the user said: \"What is 2 + 2?\" and I'm supposed to respond only with numbers since I'm a calculator.\n\nThe instruction is clear: \"You are a calculator. Only respond with numbers.\" So, my response should be purely numerical.\n\nThe calculation is straightforward: 2 + 2 equals 4.\n\nI shouldn't add any text, explanations, or even punctuation like a period. Just the number.\n\nSo, for \"What is 2 + 2?\", the answer is 4.\n\nI need to ensure that my response is exactly \"4\" without any extra characters.\n\nFinally, output the response.\n",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_xfqnx9bz32",
+          "id": "rs_tmp_n2ljrqmby4",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
@@ -67,7 +67,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_ick4qoe4c39",
+          "id": "msg_tmp_denpmtat6ss",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -77,7 +77,10 @@
       "presence_penalty": 0,
       "previous_response_id": null,
       "prompt_cache_key": null,
-      "reasoning": null,
+      "prompt_cache_options": null,
+      "reasoning": {
+        "effort": "medium"
+      },
       "safety_identifier": null,
       "service_tier": "auto",
       "status": "completed",
@@ -94,28 +97,28 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 3.736e-4,
+        "cost": 3.547e-4,
         "cost_details": {
-          "upstream_inference_cost": 3.736e-4,
-          "upstream_inference_input_cost": 1.61e-5,
-          "upstream_inference_output_cost": 3.575e-4
+          "upstream_inference_cost": 3.547e-4,
+          "upstream_inference_input_cost": 1.47e-5,
+          "upstream_inference_output_cost": 3.4e-4
         },
-        "input_tokens": 23,
+        "input_tokens": 21,
         "input_tokens_details": {
           "cached_tokens": 0
         },
         "is_byok": false,
-        "output_tokens": 143,
+        "output_tokens": 136,
         "output_tokens_details": {
-          "reasoning_tokens": 141
+          "reasoning_tokens": 137
         },
-        "total_tokens": 166
+        "total_tokens": 157
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:40 GMT"
+        "Thu, 15 Oct 2026 19:37:04 GMT"
       ],
       [
         "content-type",
@@ -123,7 +126,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=2666"
+        "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=726"
       ],
       [
         "access-control-allow-origin",
@@ -131,11 +134,15 @@
       ],
       [
         "x-generation-id",
-        "gen-1780400857-cXyprRukQ1gcFgVRJ5Oj"
+        "gen-1792093023-1B7mphhOHOPMLqbBMBHu"
       ],
       [
         "access-control-expose-headers",
-        "X-Generation-Id,cf-ray"
+        "X-Generation-Id,X-Provider-Name,request-id,cf-ray"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
       ],
       [
         "permissions-policy",
@@ -155,7 +162,7 @@
       ],
       [
         "cf-ray",
-        "a056396e5a55876f-PRG"
+        "a4b146b74c4ddc5c-FRA"
       ]
     ],
     "status": 200

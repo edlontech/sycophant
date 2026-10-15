@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:20.473361Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:56.553424Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -21,7 +21,7 @@
                 "arguments": "{\"city\":\"Paris\"}",
                 "name": "get_weather"
               },
-              "id": "call_PcKOO1LywODRh53elSP5p9cP",
+              "id": "call_NtPVfBQo0uEuogvxUNWvV3fF",
               "type": "function"
             }
           ]
@@ -29,7 +29,7 @@
         {
           "content": "Paris: 22C, sunny",
           "role": "tool",
-          "tool_call_id": "call_PcKOO1LywODRh53elSP5p9cP"
+          "tool_call_id": "call_NtPVfBQo0uEuogvxUNWvV3fF"
         }
       ],
       "model": "gpt-3.5-turbo",
@@ -78,20 +78,20 @@
           "logprobs": null,
           "message": {
             "annotations": [],
-            "content": "The current weather in Paris is 22°C and sunny.",
+            "content": "The weather in Paris is 22°C and sunny.",
             "refusal": null,
             "role": "assistant"
           }
         }
       ],
-      "created": 1780400840,
-      "id": "chatcmpl-DmHsWTU1MWHheIyjSElq4lcGNmQ8h",
+      "created": 1792093015,
+      "id": "chatcmpl-EZLXzIY8d0opWjucjAY65CqVV5t2k",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
       "system_fingerprint": null,
       "usage": {
-        "completion_tokens": 13,
+        "completion_tokens": 12,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "audio_tokens": 0,
@@ -103,13 +103,13 @@
           "audio_tokens": 0,
           "cached_tokens": 0
         },
-        "total_tokens": 114
+        "total_tokens": 113
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:20 GMT"
+        "Thu, 15 Oct 2026 19:36:56 GMT"
       ],
       [
         "content-type",
@@ -117,7 +117,7 @@
       ],
       [
         "cf-ray",
-        "a05639001e48d1c5-PRG"
+        "a4b1467dec34bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -153,7 +153,7 @@
       ],
       [
         "openai-processing-ms",
-        "632"
+        "1431"
       ],
       [
         "openai-project",
@@ -177,11 +177,11 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "8998"
+        "8999"
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "1999968"
+        "1999907"
       ],
       [
         "x-ratelimit-reset-requests",
@@ -189,11 +189,11 @@
       ],
       [
         "x-ratelimit-reset-tokens",
-        "0s"
+        "2ms"
       ],
       [
         "x-request-id",
-        "req_cf6edd4fb09046bb9ee04ff67e55b25c"
+        "req_61403f08b8994bbf9c5da8aba82ad1ad"
       ],
       [
         "set-cookie",

@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-oss-120b",
     "provider": "api.inference.wandb.ai",
-    "recorded_at": "2026-09-25T12:16:22.787704Z",
-    "sycophant_version": "0.5.1"
+    "recorded_at": "2026-10-15T19:37:01.388015Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -17,7 +17,7 @@
           "role": "user"
         },
         {
-          "content": "Hi! That’s exciting. How can I help—travel tips, itinerary ideas, or a quick weather forecast for London?",
+          "content": "Hi! Happy to help with your London trip. What would you like assistance with—things to see, where to stay, dining options, or the current weather? Let me know!",
           "role": "assistant"
         },
         {
@@ -33,7 +33,7 @@
                 "arguments": "{\"city\":\"London\"}",
                 "name": "get_weather"
               },
-              "id": "call-7aa8c977-6973-460e-805d-d071b890cd55",
+              "id": "call-84720db6-095f-49e6-ac0d-a0977d04cda0",
               "type": "function"
             }
           ]
@@ -41,7 +41,7 @@
         {
           "content": "London: 18C, cloudy",
           "role": "tool",
-          "tool_call_id": "call-7aa8c977-6973-460e-805d-d071b890cd55"
+          "tool_call_id": "call-84720db6-095f-49e6-ac0d-a0977d04cda0"
         }
       ],
       "model": "openai/gpt-oss-120b",
@@ -89,32 +89,38 @@
           "index": 0,
           "logprobs": null,
           "message": {
-            "content": "London’s current weather is **18 °C**, **cloudy**. Enjoy your trip!",
+            "content": "The current weather in London is **18 °C and cloudy**.",
             "reasoning": null,
             "role": "assistant"
           }
         }
       ],
-      "created": 1790338581,
-      "id": "chatcmpl-c50f963f-1f21-482a-9490-22be21b830c6",
+      "created": 1792093020,
+      "id": "chatcmpl-ab905e66-37ea-42e6-90c7-c650f16a4fb0",
       "model": "openai/gpt-oss-120b",
       "object": "chat.completion",
       "service_tier": null,
       "system_fingerprint": null,
       "usage": {
-        "completion_tokens": 23,
-        "prompt_tokens": 243,
+        "completion_tokens": 18,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens": 255,
         "prompt_tokens_details": {
           "audio_tokens": null,
-          "cached_tokens": 32
+          "cached_tokens": 64
         },
-        "total_tokens": 266
+        "total_tokens": 273
       }
     },
     "headers": [
       [
         "date",
-        "Fri, 25 Sep 2026 12:16:22 GMT"
+        "Thu, 15 Oct 2026 19:37:01 GMT"
       ],
       [
         "content-type",
@@ -130,7 +136,7 @@
       ],
       [
         "cf-ray",
-        "a409f5a68ed82c45-PRG"
+        "a4b146a26d3c0a1b-PRG"
       ]
     ],
     "status": 200

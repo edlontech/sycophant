@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:25.469194Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:36:56.706769Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -63,14 +63,14 @@
           "logprobs": null,
           "message": {
             "annotations": [],
-            "content": "That's exciting! How can I assist you with your trip to London?",
+            "content": "That's great! How can I assist you with your trip to London?",
             "refusal": null,
             "role": "assistant"
           }
         }
       ],
-      "created": 1780400844,
-      "id": "chatcmpl-DmHsaQBAhQPwyJwCpE5uzf5PJmAW5",
+      "created": 1792093015,
+      "id": "chatcmpl-EZLXzRW7iEqxeGQAvH5aJ4Y5pRV08",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -94,7 +94,7 @@
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:25 GMT"
+        "Thu, 15 Oct 2026 19:36:56 GMT"
       ],
       [
         "content-type",
@@ -102,7 +102,7 @@
       ],
       [
         "cf-ray",
-        "a0563916d84ad1c5-PRG"
+        "a4b146828ec3bb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -138,7 +138,7 @@
       ],
       [
         "openai-processing-ms",
-        "1353"
+        "1096"
       ],
       [
         "openai-project",
@@ -162,23 +162,23 @@
       ],
       [
         "x-ratelimit-remaining-requests",
-        "8999"
+        "8998"
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "1999978"
+        "1999885"
       ],
       [
         "x-ratelimit-reset-requests",
-        "6ms"
+        "13ms"
       ],
       [
         "x-ratelimit-reset-tokens",
-        "0s"
+        "3ms"
       ],
       [
         "x-request-id",
-        "req_20962a70caae46e288d691caa4d14cd2"
+        "req_312a256a14f841f69aeb776675a63ae7"
       ],
       [
         "set-cookie",

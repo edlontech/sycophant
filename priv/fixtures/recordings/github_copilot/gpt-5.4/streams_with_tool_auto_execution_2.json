@@ -2,9 +2,9 @@
   "metadata": {
     "model": "gpt-5.4",
     "provider": "api.individual.githubcopilot.com",
-    "recorded_at": "2026-06-29T09:55:26.472536Z",
+    "recorded_at": "2026-10-15T19:37:04.031482Z",
     "streaming": true,
-    "sycophant_version": "0.4.2"
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -22,7 +22,7 @@
                 "arguments": "{\"city\":\"Paris\"}",
                 "name": "get_weather"
               },
-              "id": "call_5MJG3B6R900AzjlLbNSL8b8W",
+              "id": "call_A4dbvoBhhBnp4FfqEsYA2Ajn",
               "type": "function"
             }
           ]
@@ -30,7 +30,7 @@
         {
           "content": "Paris: 22C, sunny",
           "role": "tool",
-          "tool_call_id": "call_5MJG3B6R900AzjlLbNSL8b8W"
+          "tool_call_id": "call_A4dbvoBhhBnp4FfqEsYA2Ajn"
         }
       ],
       "model": "gpt-5.4",
@@ -91,7 +91,7 @@
     "url": "https://api.individual.githubcopilot.com/chat/completions"
   },
   "response": {
-    "body": "data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\",\"role\":\"assistant\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"The\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" weather\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" in\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Paris\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" is\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" \"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"22\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"°C\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" and\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" sunny\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\".\"}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"delta\":{\"content\":null}}],\"created\":1782726926,\"id\":\"chatcmpl-Dw302nOwXeGXdfss080rx83wQQMUN\",\"usage\":{\"completion_tokens\":14,\"completion_tokens_details\":{\"accepted_prediction_tokens\":0,\"rejected_prediction_tokens\":0},\"prompt_tokens\":177,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":191,\"reasoning_tokens\":0},\"model\":\"gpt-5.4\",\"copilot_usage\":{\"token_details\":[{\"batch_size\":1000000,\"cost_per_batch\":250000000000,\"token_count\":177,\"token_type\":\"input\"},{\"batch_size\":1000000,\"cost_per_batch\":25000000000,\"token_count\":0,\"token_type\":\"cache_read\"},{\"batch_size\":1000000,\"cost_per_batch\":0,\"token_count\":0,\"token_type\":\"cache_write\"},{\"batch_size\":1000000,\"cost_per_batch\":1500000000000,\"token_count\":14,\"token_type\":\"output\"}],\"total_nano_aiu\":65250000}}\n\ndata: [DONE]\n\n",
+    "body": "data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\",\"role\":\"assistant\"}}],\"created\":1792093023,\"id\":\"chatcmpl-EZLY7LnJ9LUiXudKeEQ0AO0msbAWP\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"The\"}}],\"created\":1792093023,\"id\":\"chatcmpl-EZLY7LnJ9LUiXudKeEQ0AO0msbAWP\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" weather\"}}],\"created\":1792093023,\"id\":\"chatcmpl-EZLY7LnJ9LUiXudKeEQ0AO0msbAWP\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" in\"}}],\"created\":1792093023,\"id\":\"chatcmpl-EZLY7LnJ9LUiXudKeEQ0AO0msbAWP\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" Paris\"}}],\"created\":1792093023,\"id\":\"chatcmpl-EZLY7LnJ9LUiXudKeEQ0AO0msbAWP\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" is\"}}],\"created\":1792093023,\"id\":\"chatcmpl-EZLY7LnJ9LUiXudKeEQ0AO0msbAWP\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" \"}}],\"created\":1792093023,\"id\":\"chatcmpl-EZLY7LnJ9LUiXudKeEQ0AO0msbAWP\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"22\"}}],\"created\":1792093023,\"id\":\"chatcmpl-EZLY7LnJ9LUiXudKeEQ0AO0msbAWP\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"°C\"}}],\"created\":1792093023,\"id\":\"chatcmpl-EZLY7LnJ9LUiXudKeEQ0AO0msbAWP\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" and\"}}],\"created\":1792093023,\"id\":\"chatcmpl-EZLY7LnJ9LUiXudKeEQ0AO0msbAWP\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\" sunny\"}}],\"created\":1792093023,\"id\":\"chatcmpl-EZLY7LnJ9LUiXudKeEQ0AO0msbAWP\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\".\"}}],\"created\":1792093023,\"id\":\"chatcmpl-EZLY7LnJ9LUiXudKeEQ0AO0msbAWP\",\"model\":\"gpt-5.4\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"delta\":{\"content\":null}}],\"created\":1792093023,\"id\":\"chatcmpl-EZLY7LnJ9LUiXudKeEQ0AO0msbAWP\",\"usage\":{\"completion_tokens\":14,\"completion_tokens_details\":{\"accepted_prediction_tokens\":0,\"rejected_prediction_tokens\":0},\"prompt_tokens\":177,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":191},\"model\":\"gpt-5.4\",\"copilot_usage\":{\"token_details\":[{\"batch_size\":1000000,\"cost_per_batch\":250000000000,\"model\":\"gpt-5.4\",\"token_count\":177,\"token_type\":\"input\"},{\"batch_size\":1000000,\"cost_per_batch\":25000000000,\"model\":\"gpt-5.4\",\"token_count\":0,\"token_type\":\"cache_read\"},{\"batch_size\":1000000,\"cost_per_batch\":0,\"model\":\"gpt-5.4\",\"token_count\":0,\"token_type\":\"cache_write\"},{\"batch_size\":1000000,\"cost_per_batch\":1500000000000,\"model\":\"gpt-5.4\",\"token_count\":14,\"token_type\":\"output\"}],\"total_nano_aiu\":65250000}}\n\ndata: [DONE]\n\n",
     "headers": [
       [
         "cache-control",
@@ -111,19 +111,23 @@
       ],
       [
         "x-copilot-api-exp-assignment-context",
-        "e4hcf520:1109203;t_capicli_aa:1116798;"
+        "e4hcf520:1109203;t_capicli_aa:1116798;permission_prompt_treatment:1332566;ccr_pr_nudge_auto_review:1319472;jc553158:1433349;cmc_aa_t:1435711;seataa-998bffad:1447867;"
       ],
       [
         "x-copilot-service-request-id",
-        "f4025856-5dcf-4418-8f7a-4f4c82d82cef"
+        "d1e8c4c9-4975-48c7-9122-61022ca38f78"
+      ],
+      [
+        "x-github-copilot-request-te",
+        "true"
       ],
       [
         "x-request-id",
-        "00000-2d35232c-c29e-4bb0-a722-da89e979af81"
+        "00000-d80792e7-21de-428e-9296-a7712c2bf6d6"
       ],
       [
         "date",
-        "Mon, 29 Jun 2026 09:55:26 GMT"
+        "Thu, 15 Oct 2026 19:37:03 GMT"
       ],
       [
         "x-github-backend",
@@ -131,7 +135,11 @@
       ],
       [
         "x-github-request-id",
-        "8B26:3F2E01:322F85B:38A2A4F:6A42410D"
+        "E5EE:3C73B4:243601D:2680173:6AD12B5E"
+      ],
+      [
+        "x-github-edge-region",
+        "iad"
       ]
     ],
     "status": 200

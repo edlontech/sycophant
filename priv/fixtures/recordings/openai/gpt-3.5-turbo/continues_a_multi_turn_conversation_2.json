@@ -2,8 +2,8 @@
   "metadata": {
     "model": "gpt-3.5-turbo",
     "provider": "api.openai.com",
-    "recorded_at": "2026-06-02T11:47:29.544453Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:05.373597Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -13,7 +13,7 @@
           "role": "user"
         },
         {
-          "content": "Nice to meet you, Sycophant. How can I assist you?",
+          "content": "Hello Sycophant, nice to meet you. How can I assist you today?",
           "role": "assistant"
         },
         {
@@ -51,8 +51,8 @@
           }
         }
       ],
-      "created": 1780400849,
-      "id": "chatcmpl-DmHsfAjTzHE2BNeIeG1U0vFWMZ6ye",
+      "created": 1792093024,
+      "id": "chatcmpl-EZLY8uBMVdZdj0UCHZP385SpKa520",
       "model": "gpt-3.5-turbo-0125",
       "object": "chat.completion",
       "service_tier": "default",
@@ -65,18 +65,18 @@
           "reasoning_tokens": 0,
           "rejected_prediction_tokens": 0
         },
-        "prompt_tokens": 47,
+        "prompt_tokens": 49,
         "prompt_tokens_details": {
           "audio_tokens": 0,
           "cached_tokens": 0
         },
-        "total_tokens": 55
+        "total_tokens": 57
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:29 GMT"
+        "Thu, 15 Oct 2026 19:37:05 GMT"
       ],
       [
         "content-type",
@@ -84,7 +84,7 @@
       ],
       [
         "cf-ray",
-        "a056393ac8a4d1c5-PRG"
+        "a4b146bb4b0abb9c-PRG"
       ],
       [
         "cf-cache-status",
@@ -120,7 +120,7 @@
       ],
       [
         "openai-processing-ms",
-        "279"
+        "619"
       ],
       [
         "openai-project",
@@ -148,19 +148,19 @@
       ],
       [
         "x-ratelimit-remaining-tokens",
-        "1999971"
+        "1999921"
       ],
       [
         "x-ratelimit-reset-requests",
-        "6ms"
+        "13ms"
       ],
       [
         "x-ratelimit-reset-tokens",
-        "0s"
+        "2ms"
       ],
       [
         "x-request-id",
-        "req_fc3449bf14634cb1b78a82d10c0e818b"
+        "req_ec8b29f23bc246569a14a57e4e5d8d97"
       ],
       [
         "set-cookie",

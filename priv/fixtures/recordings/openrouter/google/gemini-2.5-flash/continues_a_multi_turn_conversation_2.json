@@ -2,8 +2,8 @@
   "metadata": {
     "model": "google/gemini-2.5-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-06-02T11:47:33.094854Z",
-    "sycophant_version": "0.4.2"
+    "recorded_at": "2026-10-15T19:37:06.928261Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -15,7 +15,7 @@
         {
           "content": [
             {
-              "text": "Hello, Sycophant! I'll do my best to remember that. It's a rather unique and interesting name.\n\nHow may I help you today, Sycophant?",
+              "text": "Hello, Sycophant! I will remember your name. It's an interesting one!",
               "type": "output_text"
             }
           ],
@@ -46,11 +46,11 @@
   "response": {
     "body": {
       "background": false,
-      "completed_at": 1780400853,
-      "created_at": 1780400852,
+      "completed_at": 1792093026,
+      "created_at": 1792093025,
       "error": null,
       "frequency_penalty": 0,
-      "id": "gen-1780400852-ffWI58a83hGxncsh3zgU",
+      "id": "gen-1792093025-0631QcKIA5CEuFLprSlr",
       "incomplete_details": null,
       "instructions": null,
       "max_output_tokens": null,
@@ -68,7 +68,7 @@
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_ovw2tmlm9jf",
+          "id": "msg_tmp_g8y40dl7xq7",
           "role": "assistant",
           "status": "completed",
           "type": "message"
@@ -78,9 +78,10 @@
       "presence_penalty": 0,
       "previous_response_id": null,
       "prompt_cache_key": null,
+      "prompt_cache_options": null,
       "reasoning": null,
       "safety_identifier": null,
-      "service_tier": "provisioned",
+      "service_tier": "default",
       "status": "completed",
       "store": false,
       "temperature": 1,
@@ -95,14 +96,15 @@
       "top_p": 1,
       "truncation": "disabled",
       "usage": {
-        "cost": 3.68e-5,
+        "cost": 3.08e-5,
         "cost_details": {
-          "upstream_inference_cost": 3.68e-5,
-          "upstream_inference_input_cost": 1.68e-5,
+          "upstream_inference_cost": 3.08e-5,
+          "upstream_inference_input_cost": 1.08e-5,
           "upstream_inference_output_cost": 2.0e-5
         },
-        "input_tokens": 56,
+        "input_tokens": 36,
         "input_tokens_details": {
+          "cache_write_tokens": 0,
           "cached_tokens": 0
         },
         "is_byok": false,
@@ -110,13 +112,13 @@
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 64
+        "total_tokens": 44
       }
     },
     "headers": [
       [
         "date",
-        "Tue, 02 Jun 2026 11:47:33 GMT"
+        "Thu, 15 Oct 2026 19:37:06 GMT"
       ],
       [
         "content-type",
@@ -124,7 +126,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=14,cfOrigin;dur=0,cfWorker;dur=438"
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=956"
       ],
       [
         "access-control-allow-origin",
@@ -132,11 +134,15 @@
       ],
       [
         "x-generation-id",
-        "gen-1780400852-ffWI58a83hGxncsh3zgU"
+        "gen-1792093025-0631QcKIA5CEuFLprSlr"
       ],
       [
         "access-control-expose-headers",
-        "X-Generation-Id,cf-ray"
+        "X-Generation-Id,X-Provider-Name,request-id,cf-ray"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
       ],
       [
         "permissions-policy",
@@ -156,7 +162,7 @@
       ],
       [
         "cf-ray",
-        "a05639509917876f-PRG"
+        "a4b146c3795bdc5c-FRA"
       ]
     ],
     "status": 200

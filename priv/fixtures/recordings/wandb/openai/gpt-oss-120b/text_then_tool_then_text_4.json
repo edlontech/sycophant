@@ -2,8 +2,8 @@
   "metadata": {
     "model": "openai/gpt-oss-120b",
     "provider": "api.inference.wandb.ai",
-    "recorded_at": "2026-09-25T12:16:25.413198Z",
-    "sycophant_version": "0.5.1"
+    "recorded_at": "2026-10-15T19:37:03.715878Z",
+    "sycophant_version": "0.7.0"
   },
   "request": {
     "body": {
@@ -17,7 +17,7 @@
           "role": "user"
         },
         {
-          "content": "Hi! That’s exciting. How can I help—travel tips, itinerary ideas, or a quick weather forecast for London?",
+          "content": "Hi! Happy to help with your London trip. What would you like assistance with—things to see, where to stay, dining options, or the current weather? Let me know!",
           "role": "assistant"
         },
         {
@@ -33,7 +33,7 @@
                 "arguments": "{\"city\":\"London\"}",
                 "name": "get_weather"
               },
-              "id": "call-7aa8c977-6973-460e-805d-d071b890cd55",
+              "id": "call-84720db6-095f-49e6-ac0d-a0977d04cda0",
               "type": "function"
             }
           ]
@@ -41,10 +41,10 @@
         {
           "content": "London: 18C, cloudy",
           "role": "tool",
-          "tool_call_id": "call-7aa8c977-6973-460e-805d-d071b890cd55"
+          "tool_call_id": "call-84720db6-095f-49e6-ac0d-a0977d04cda0"
         },
         {
-          "content": "London’s current weather is **18 °C**, **cloudy**. Enjoy your trip!",
+          "content": "The current weather in London is **18 °C and cloudy**.",
           "role": "assistant"
         },
         {
@@ -97,32 +97,38 @@
           "index": 0,
           "logprobs": null,
           "message": {
-            "content": "It’s cloudy and around 18 °C—London’s weather can turn rainy even when it looks dry. It’s a good idea to bring a compact umbrella (or a waterproof jacket) just in case. Enjoy your trip!",
-            "reasoning": "The user asks if they should bring an umbrella. Weather is currently cloudy, 18C. Could possibly rain. Provide suggestion: Check forecast, but given current cloudy temperature suggests possible rain, recommend bringing an umbrella, especially in London. Provide concise answer.",
+            "content": "Yes—London’s cloudy conditions often bring a chance of rain, so it’s wise to pack a compact umbrella (or a waterproof jacket with a hood) just in case.",
+            "reasoning": "User asks if they should bring an umbrella. We know it's cloudy, 18°C, not sure about chance of rain. Cloudy implies possible rain. Suggest bring umbrella just in case. Provide concise advice.",
             "role": "assistant"
           }
         }
       ],
-      "created": 1790338582,
-      "id": "chatcmpl-1535d987-59b2-4f4c-9be2-5a77593d570f",
+      "created": 1792093021,
+      "id": "chatcmpl-73469a86-3cb8-4ad8-b88c-e36e29373a69",
       "model": "openai/gpt-oss-120b",
       "object": "chat.completion",
       "service_tier": null,
       "system_fingerprint": null,
       "usage": {
-        "completion_tokens": 107,
-        "prompt_tokens": 280,
+        "completion_tokens": 87,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 48,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens": 287,
         "prompt_tokens_details": {
           "audio_tokens": null,
-          "cached_tokens": 64
+          "cached_tokens": 192
         },
-        "total_tokens": 387
+        "total_tokens": 374
       }
     },
     "headers": [
       [
         "date",
-        "Fri, 25 Sep 2026 12:16:25 GMT"
+        "Thu, 15 Oct 2026 19:37:03 GMT"
       ],
       [
         "content-type",
@@ -138,7 +144,7 @@
       ],
       [
         "cf-ray",
-        "a409f5ae88d52c45-PRG"
+        "a4b146a7bbf00a1b-PRG"
       ]
     ],
     "status": 200
