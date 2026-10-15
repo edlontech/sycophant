@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.8.0](https://github.com/edlontech/sycophant/compare/sycophant-v0.7.0...sycophant-v0.8.0) (2026-10-15)
+
+
+### Features
+
+* **auth:** add request_constraints callback applied by the pipeline ([99781d9](https://github.com/edlontech/sycophant/commit/99781d98355e56613af009fc232bb120c863c5f9))
+* enable prompt caching for OpenAI, Anthropic and OpenRouter wires ([3f031e7](https://github.com/edlontech/sycophant/commit/3f031e70354fdf8d767d0cb03ac352c449619ced))
+* **error:** add SubscriptionError for ChatGPT plan failures ([c0b697a](https://github.com/edlontech/sycophant/commit/c0b697a0e06b1c0c7c4f53ef5f1c144b45ab0aa4))
+* **oauth:** add Assent, OAuth credential and session structs, and HTTP adapter ([4b57616](https://github.com/edlontech/sycophant/commit/4b576161f3207e571d85cd810ee451f7f9f86f58))
+* **oauth:** add generic authorization code, exchange, refresh, and revoke functions ([75ce7f6](https://github.com/edlontech/sycophant/commit/75ce7f6213d9a84396a94e161d259d089814d06e))
+* **openai:** accept ChatGPT access tokens as an openai credential mode ([35afdc6](https://github.com/edlontech/sycophant/commit/35afdc616d8b68842855a6345d15d44c532dd2d4))
+* **openai:** add Sign in with ChatGPT preset, model listing, and guide ([5c8c336](https://github.com/edlontech/sycophant/commit/5c8c336d95d2f93489663c0466c53dbb4ed2e9a6))
+
+
+### Bug Fixes
+
+* address branch review findings for ChatGPT subscription ([925e6e7](https://github.com/edlontech/sycophant/commit/925e6e70fb2d36c0c9913b599562fa9ba4c41517))
+* **openai:** decode ChatGPT plan streams without content-type or final output ([f19085c](https://github.com/edlontech/sycophant/commit/f19085c6bfbae15be08613f8f75f0b55713bf5d7))
+* **usage:** count cached tokens in input_tokens and bill them once ([fb9903d](https://github.com/edlontech/sycophant/commit/fb9903d9b6a43b71c3d541fca1208ce2e08ada97))
+* **usage:** count reasoning in output_tokens and bill it once ([a366df7](https://github.com/edlontech/sycophant/commit/a366df74c7186bedff51aba76697a40e7e327db0))
+* **usage:** Fixed cache calculation ([22b29a1](https://github.com/edlontech/sycophant/commit/22b29a119f074b47852d6ddf13acf1e9b39baf56))
+
 ## [0.7.0](https://github.com/edlontech/sycophant/compare/sycophant-v0.6.0...sycophant-v0.7.0) (2026-10-13)
 
 
