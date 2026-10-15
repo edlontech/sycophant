@@ -35,10 +35,10 @@ or when the corresponding token count is `nil`.
 | Field | Description |
 |-------|-------------|
 | `input_cost` | Cost of uncached input tokens (`input_tokens` minus cache reads and writes) |
-| `output_cost` | Cost of output/completion tokens |
+| `output_cost` | Cost of non-reasoning output tokens (`output_tokens` minus `reasoning_tokens`) |
 | `cache_read_cost` | Cost of tokens read from provider cache (input rate if the model has no cache read price) |
 | `cache_write_cost` | Cost of tokens written to provider cache (input rate if the model has no cache write price) |
-| `reasoning_cost` | Cost of reasoning tokens (o-series, thinking models) |
+| `reasoning_cost` | Cost of reasoning tokens (output rate if the model has no reasoning price) |
 | `total_cost` | Sum of all non-nil cost components |
 
 ## Token Fields
@@ -46,7 +46,7 @@ or when the corresponding token count is `nil`.
 | Field | Description |
 |-------|-------------|
 | `input_tokens` | Total tokens in the prompt, including cache reads and writes, on every provider |
-| `output_tokens` | Tokens in the completion |
+| `output_tokens` | Total tokens in the completion, including reasoning, on every provider |
 | `cache_creation_input_tokens` | Tokens written to provider cache |
 | `cache_read_input_tokens` | Tokens read from provider cache |
 | `reasoning_tokens` | Internal reasoning tokens (o-series, thinking models) |

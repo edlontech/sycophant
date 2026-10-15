@@ -233,10 +233,11 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
 
   defp classify_part(_, acc), do: acc
 
+  # Gemini reports candidatesTokenCount without thoughts; Usage.output_tokens is the total.
   defp decode_usage(%{"promptTokenCount" => input, "candidatesTokenCount" => output} = meta) do
     %Usage{
       input_tokens: input,
-      output_tokens: output,
+      output_tokens: output + (meta["thoughtsTokenCount"] || 0),
       cache_read_input_tokens: meta["cachedContentTokenCount"],
       reasoning_tokens: meta["thoughtsTokenCount"]
     }

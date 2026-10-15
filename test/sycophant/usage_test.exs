@@ -50,13 +50,14 @@ defmodule Sycophant.UsageTest do
 
       result = Usage.calculate_cost(usage, full_pricing())
 
-      # input_tokens includes cached tokens, so only 700k are billed at the input rate
+      # input_tokens includes cached tokens, so only 700k are billed at the input rate;
+      # output_tokens includes reasoning, so only 200k are billed at the output rate
       assert result.input_cost == 2.1
-      assert result.output_cost == 7.5
+      assert result.output_cost == 3.0
       assert result.cache_read_cost == 0.06
       assert result.cache_write_cost == 0.375
       assert result.reasoning_cost == 3.6
-      assert result.total_cost == 2.1 + 7.5 + 0.06 + 0.375 + 3.6
+      assert result.total_cost == 2.1 + 3.0 + 0.06 + 0.375 + 3.6
       assert result.pricing == full_pricing()
     end
 
@@ -66,6 +67,14 @@ defmodule Sycophant.UsageTest do
 
       assert result.input_cost == 0.0
       assert result.cache_read_cost == 150 * 0.3 / 1_000_000
+    end
+
+    test "non-reasoning output never goes negative when reasoning exceeds output_tokens" do
+      usage = %Usage{input_tokens: 0, output_tokens: 10, reasoning_tokens: 20}
+      result = Usage.calculate_cost(usage, full_pricing())
+
+      assert result.output_cost == 0.0
+      assert result.reasoning_cost == 20 * 12.0 / 1_000_000
     end
 
     test "returns nil when usage is nil" do
@@ -96,7 +105,7 @@ defmodule Sycophant.UsageTest do
       assert result.total_cost == 3.0 + 7.5
     end
 
-    test "missing cache components bill at the input rate, other missing components are nil" do
+    test "missing cache and reasoning components fall back to the input and output rates" do
       pricing = %Pricing{
         currency: "USD",
         components: [
@@ -122,11 +131,11 @@ defmodule Sycophant.UsageTest do
       result = Usage.calculate_cost(usage, pricing)
 
       assert result.input_cost == 2.1
-      assert result.output_cost == 7.5
+      assert result.output_cost == 3.0
       assert result.cache_read_cost == 0.6
       assert result.cache_write_cost == 0.3
-      assert result.reasoning_cost == nil
-      assert result.total_cost == 2.1 + 7.5 + 0.6 + 0.3
+      assert result.reasoning_cost == 4.5
+      assert result.total_cost == 2.1 + 3.0 + 0.6 + 0.3 + 4.5
     end
 
     test "zero tokens produce zero cost" do

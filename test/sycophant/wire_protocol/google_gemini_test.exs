@@ -531,6 +531,23 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
       assert resp.usage.cache_read_input_tokens == 50
     end
 
+    test "output_tokens includes thoughts tokens" do
+      body =
+        gemini_response(
+          parts: [%{"text" => "hi"}],
+          usage: %{
+            "promptTokenCount" => 60,
+            "candidatesTokenCount" => 334,
+            "thoughtsTokenCount" => 839,
+            "totalTokenCount" => 1233
+          }
+        )
+
+      assert {:ok, resp} = GoogleGemini.decode_response(body)
+      assert resp.usage.output_tokens == 1173
+      assert resp.usage.reasoning_tokens == 839
+    end
+
     test "preserves raw response body" do
       body = gemini_response(parts: [%{"text" => "hi"}])
       assert {:ok, resp} = GoogleGemini.decode_response(body)

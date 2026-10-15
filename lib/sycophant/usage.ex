@@ -7,7 +7,8 @@ defmodule Sycophant.Usage do
 
   Following the OpenTelemetry GenAI conventions, `input_tokens` is the total
   prompt size on every provider: it includes `cache_read_input_tokens` and
-  `cache_creation_input_tokens`.
+  `cache_creation_input_tokens`. Likewise `output_tokens` includes
+  `reasoning_tokens`.
 
   ## Examples
 
@@ -37,10 +38,12 @@ defmodule Sycophant.Usage do
 
   Looks up each token component by ID (e.g. `"token.input"`, `"token.output"`)
   and computes cost as `tokens * rate / per`. Missing components yield nil costs,
-  except cache reads and writes, which fall back to the input rate.
+  except cache reads and writes, which fall back to the input rate, and
+  reasoning, which falls back to the output rate.
 
-  Only the uncached part of `input_tokens` is billed at the input rate; cached
-  tokens are billed through the cache components.
+  Only the uncached part of `input_tokens` is billed at the input rate and only
+  the non-reasoning part of `output_tokens` at the output rate; the rest is
+  billed through the cache and reasoning components.
   """
   @spec calculate_cost(t() | nil, Pricing.t() | nil) :: t() | nil
   def calculate_cost(nil, _pricing), do: nil
@@ -48,7 +51,7 @@ defmodule Sycophant.Usage do
 
   def calculate_cost(usage, %Pricing{} = pricing) do
     input = component_cost(uncached_input_tokens(usage), pricing, "token.input")
-    output = component_cost(usage.output_tokens, pricing, "token.output")
+    output = component_cost(non_reasoning_output_tokens(usage), pricing, "token.output")
 
     cache_read =
       component_cost(usage.cache_read_input_tokens, pricing, ["token.cache_read", "token.input"])
@@ -59,7 +62,9 @@ defmodule Sycophant.Usage do
         "token.input"
       ])
 
-    reasoning = component_cost(usage.reasoning_tokens, pricing, "token.reasoning")
+    reasoning =
+      component_cost(usage.reasoning_tokens, pricing, ["token.reasoning", "token.output"])
+
     total = sum_costs([input, output, cache_read, cache_write, reasoning])
 
     %{
@@ -80,6 +85,11 @@ defmodule Sycophant.Usage do
     cached = (usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0)
     max(usage.input_tokens - cached, 0)
   end
+
+  defp non_reasoning_output_tokens(%{output_tokens: nil}), do: nil
+
+  defp non_reasoning_output_tokens(usage),
+    do: max(usage.output_tokens - (usage.reasoning_tokens || 0), 0)
 
   defp component_cost(nil, _pricing, _ids), do: nil
 
