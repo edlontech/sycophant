@@ -1,0 +1,200 @@
+{
+  "metadata": {
+    "model": "deepseek/deepseek-v4.1-flash",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-10-30T17:56:55.905729Z",
+    "sycophant_version": "0.8.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "My name is Sycophant. Remember it.",
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "We need answer. User says \"My name is Sycophant. Remember it.\" Need comply. We should remember? As AI no persistent memory unless memory enabled? We need respond. We can say \"Got it, Sycophant. I'll remember your name for this conversation.\" But if memory feature not available, don't promise across sessions. Need maybe acknowledge. We are not actually able to remember after conversation unless memory. But in this chat, can refer. We should be honest. Maybe \"Noted, Sycophant. I'll use that name in our conversation.\" Since they said remember it. Also \"Sycophant\" means flatterer, but likely chosen name. We shouldn't be sycophantic? We can be neutral. Need final answer concise. Could say \"Noted, Sycophant. I'll address you that way in this conversation.\" That is safe. But maybe they expect memory. We can mention \"I can't retain it across separate chats unless memory is enabled, but for this chat I'll remember.\" This is honest. Desired oververbosity 5. Final.",
+              "type": "reasoning_text"
+            }
+          ],
+          "id": "rs_tmp_r42dtkbyfn",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "text": "Noted, Sycophant. I’ll address you that way for this conversation. I can’t retain it across separate chats unless memory is enabled.",
+              "type": "output_text"
+            }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "content": "What is my name?",
+          "role": "user"
+        }
+      ],
+      "model": "deepseek/deepseek-v4.1-flash"
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": {
+      "safety_identifier": null,
+      "store": false,
+      "prompt_cache_options": null,
+      "error": null,
+      "created_at": 1793383014,
+      "presence_penalty": 0,
+      "status": "completed",
+      "max_tool_calls": null,
+      "instructions": null,
+      "completed_at": 1793383015,
+      "temperature": 1,
+      "text": {
+        "format": {
+          "type": "text"
+        }
+      },
+      "parallel_tool_calls": true,
+      "tool_choice": "auto",
+      "frequency_penalty": 0,
+      "top_logprobs": 0,
+      "reasoning": {
+        "effort": "high"
+      },
+      "usage": {
+        "cost": 7.3235e-5,
+        "cost_details": {
+          "upstream_inference_cost": 7.3235e-5,
+          "upstream_inference_input_cost": 3.735e-6,
+          "upstream_inference_output_cost": 6.95e-5
+        },
+        "input_tokens": 83,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "is_byok": false,
+        "output_tokens": 139,
+        "output_tokens_details": {
+          "reasoning_tokens": 117
+        },
+        "total_tokens": 222
+      },
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "deepseek/deepseek-v4.1-flash",
+      "truncation": "disabled",
+      "metadata": {},
+      "service_tier": "auto",
+      "id": "gen-1793383014-kQKut914AhUeg89HwHsD",
+      "top_p": 1,
+      "prompt_cache_key": null,
+      "object": "response",
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
+      "output": [
+        {
+          "content": [
+            {
+              "text": "We need answer. Need comply? User earlier said name Sycophant. Remember it. I responded noted, address that way for this conversation, can't retain across separate chats unless memory enabled. Now asks \"What is my name?\" We should answer based on conversation: Sycophant. But be careful: \"Sycophant\" means flatterer. We can say You told me your name is Sycophant. I'll refer to you as Sycophant in this conversation. Also note memory caveat if needed. Simple.",
+              "type": "reasoning_text"
+            }
+          ],
+          "format": "unknown",
+          "id": "rs_tmp_i67ulccheki",
+          "status": "completed",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Your name is **Sycophant** — that’s what you told me to call you in this conversation.",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_tmp_0h39nlivddwf",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "tools": []
+    },
+    "headers": [
+      [
+        "date",
+        "Fri, 30 Oct 2026 17:56:54 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=355"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1793383014-kQKut914AhUeg89HwHsD"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,X-Provider-Name,request-id,cf-ray"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "a52c4ca0c82f58b7-PRG"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}

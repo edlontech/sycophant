@@ -1,0 +1,95 @@
+{
+  "metadata": {
+    "model": "deepseek/deepseek-v4.1-flash",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-10-30T17:56:50.920544Z",
+    "streaming": true,
+    "sycophant_version": "0.8.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "Say 'hello' and nothing else.",
+          "role": "user"
+        }
+      ],
+      "model": "deepseek/deepseek-v4.1-flash",
+      "stream": true
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": "data: {\"type\":\"response.created\",\"response\":{\"id\":\"gen-1793383009-3QdafGgaClaMFh4a3oNe\",\"object\":\"response\",\"created_at\":1793383009,\"model\":\"deepseek/deepseek-v4.1-flash\",\"status\":\"in_progress\",\"completed_at\":null,\"output\":[],\"error\":null,\"incomplete_details\":null,\"access_programs\":null,\"tools\":[],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"auto\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":null,\"safety_identifier\":null,\"prompt_cache_key\":null,\"prompt_cache_options\":null,\"usage\":null},\"sequence_number\":0}\n\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"gen-1793383009-3QdafGgaClaMFh4a3oNe\",\"object\":\"response\",\"created_at\":1793383009,\"model\":\"deepseek/deepseek-v4.1-flash\",\"status\":\"in_progress\",\"completed_at\":null,\"output\":[],\"error\":null,\"incomplete_details\":null,\"access_programs\":null,\"tools\":[],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"auto\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":null,\"safety_identifier\":null,\"prompt_cache_key\":null,\"prompt_cache_options\":null,\"usage\":null},\"sequence_number\":1}\n\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"id\":\"rs_tmp_gs8z4e90frv\",\"type\":\"reasoning\",\"status\":\"in_progress\",\"summary\":[]},\"sequence_number\":2}\n\ndata: {\"type\":\"response.content_part.added\",\"output_index\":0,\"item_id\":\"rs_tmp_gs8z4e90frv\",\"content_index\":0,\"part\":{\"type\":\"reasoning_text\",\"text\":\"\"},\"sequence_number\":3}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_gs8z4e90frv\",\"content_index\":0,\"delta\":\"We\",\"sequence_number\":4}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_gs8z4e90frv\",\"content_index\":0,\"delta\":\" need answer user\",\"sequence_number\":5}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_gs8z4e90frv\",\"content_index\":0,\"delta\":\" asks \\\"Say '\",\"sequence_number\":6}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_gs8z4e90frv\",\"content_index\":0,\"delta\":\"hello' and nothing else.\",\"sequence_number\":7}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_gs8z4e90frv\",\"content_index\":0,\"delta\":\"\\\" So must output\",\"sequence_number\":8}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_gs8z4e90frv\",\"content_index\":0,\"delta\":\" hello\",\"sequence_number\":9}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_gs8z4e90frv\",\"content_index\":0,\"delta\":\" and\",\"sequence_number\":10}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_gs8z4e90frv\",\"content_index\":0,\"delta\":\" nothing else. Need comply.\",\"sequence_number\":11}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_gs8z4e90frv\",\"content_index\":0,\"delta\":\" Just\",\"sequence_number\":12}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_gs8z4e90frv\",\"content_index\":0,\"delta\":\" hello\",\"sequence_number\":13}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_gs8z4e90frv\",\"content_index\":0,\"delta\":\". Ensure\",\"sequence_number\":14}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_gs8z4e90frv\",\"content_index\":0,\"delta\":\" no punctuation\",\"sequence_number\":15}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_gs8z4e90frv\",\"content_index\":0,\"delta\":\"? They\",\"sequence_number\":16}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_gs8z4e90frv\",\"content_index\":0,\"delta\":\" said 'hello'\",\"sequence_number\":17}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_gs8z4e90frv\",\"content_index\":0,\"delta\":\" and nothing else. Output\",\"sequence_number\":18}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_gs8z4e90frv\",\"content_index\":0,\"delta\":\" hello\",\"sequence_number\":19}\n\ndata: {\"type\":\"response.reasoning_text.delta\",\"output_index\":0,\"item_id\":\"rs_tmp_gs8z4e90frv\",\"content_index\":0,\"delta\":\".\",\"sequence_number\":20}\n\ndata: {\"type\":\"response.reasoning_text.done\",\"output_index\":0,\"item_id\":\"rs_tmp_gs8z4e90frv\",\"content_index\":0,\"text\":\"We need answer user asks \\\"Say 'hello' and nothing else.\\\" So must output hello and nothing else. Need comply. Just hello. Ensure no punctuation? They said 'hello' and nothing else. Output hello.\",\"sequence_number\":21}\n\ndata: {\"type\":\"response.content_part.done\",\"output_index\":0,\"item_id\":\"rs_tmp_gs8z4e90frv\",\"content_index\":0,\"part\":{\"type\":\"reasoning_text\",\"text\":\"We need answer user asks \\\"Say 'hello' and nothing else.\\\" So must output hello and nothing else. Need comply. Just hello. Ensure no punctuation? They said 'hello' and nothing else. Output hello.\"},\"sequence_number\":22}\n\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"id\":\"rs_tmp_gs8z4e90frv\",\"type\":\"reasoning\",\"status\":\"completed\",\"content\":[{\"type\":\"reasoning_text\",\"text\":\"We need answer user asks \\\"Say 'hello' and nothing else.\\\" So must output hello and nothing else. Need comply. Just hello. Ensure no punctuation? They said 'hello' and nothing else. Output hello.\"}],\"summary\":[],\"format\":\"unknown\"},\"sequence_number\":23}\n\ndata: {\"type\":\"response.output_item.added\",\"output_index\":1,\"item\":{\"id\":\"msg_tmp_0wic3s0s4kin\",\"type\":\"message\",\"status\":\"in_progress\",\"role\":\"assistant\",\"content\":[]},\"sequence_number\":24}\n\ndata: {\"type\":\"response.content_part.added\",\"output_index\":1,\"item_id\":\"msg_tmp_0wic3s0s4kin\",\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"\",\"annotations\":[],\"logprobs\":[]},\"sequence_number\":25}\n\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":1,\"item_id\":\"msg_tmp_0wic3s0s4kin\",\"content_index\":0,\"delta\":\"hello\",\"logprobs\":[],\"sequence_number\":26}\n\ndata: {\"type\":\"response.output_text.done\",\"output_index\":1,\"item_id\":\"msg_tmp_0wic3s0s4kin\",\"content_index\":0,\"text\":\"hello\",\"logprobs\":[],\"sequence_number\":27}\n\ndata: {\"type\":\"response.content_part.done\",\"output_index\":1,\"item_id\":\"msg_tmp_0wic3s0s4kin\",\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"hello\",\"annotations\":[],\"logprobs\":[]},\"sequence_number\":28}\n\ndata: {\"type\":\"response.output_item.done\",\"output_index\":1,\"item\":{\"id\":\"msg_tmp_0wic3s0s4kin\",\"type\":\"message\",\"status\":\"completed\",\"role\":\"assistant\",\"content\":[{\"type\":\"output_text\",\"text\":\"hello\",\"annotations\":[],\"logprobs\":[]}]},\"sequence_number\":29}\n\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"gen-1793383009-3QdafGgaClaMFh4a3oNe\",\"object\":\"response\",\"created_at\":1793383009,\"model\":\"deepseek/deepseek-v4.1-flash\",\"status\":\"completed\",\"completed_at\":1793383010,\"output\":[{\"id\":\"rs_tmp_gs8z4e90frv\",\"type\":\"reasoning\",\"status\":\"completed\",\"content\":[{\"type\":\"reasoning_text\",\"text\":\"We need answer user asks \\\"Say 'hello' and nothing else.\\\" So must output hello and nothing else. Need comply. Just hello. Ensure no punctuation? They said 'hello' and nothing else. Output hello.\"}],\"summary\":[],\"format\":\"unknown\"},{\"id\":\"msg_tmp_0wic3s0s4kin\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"hello\",\"annotations\":[],\"logprobs\":[]}]}],\"error\":null,\"incomplete_details\":null,\"access_programs\":null,\"tools\":[],\"tool_choice\":\"auto\",\"parallel_tool_calls\":true,\"max_output_tokens\":null,\"temperature\":1,\"top_p\":1,\"presence_penalty\":0,\"frequency_penalty\":0,\"top_logprobs\":0,\"max_tool_calls\":null,\"metadata\":{},\"background\":false,\"previous_response_id\":null,\"service_tier\":\"default\",\"truncation\":\"disabled\",\"store\":false,\"instructions\":null,\"text\":{\"format\":{\"type\":\"text\"}},\"reasoning\":{\"effort\":\"high\"},\"safety_identifier\":null,\"prompt_cache_key\":null,\"prompt_cache_options\":null,\"usage\":{\"input_tokens\":38,\"input_tokens_details\":{\"cached_tokens\":0},\"output_tokens\":47,\"output_tokens_details\":{\"reasoning_tokens\":44},\"total_tokens\":85,\"cost\":0.00002506,\"is_byok\":false,\"cost_details\":{\"upstream_inference_cost\":0.00002506,\"upstream_inference_input_cost\":0.00000532,\"upstream_inference_output_cost\":0.00001974}}},\"sequence_number\":30}\n\ndata: [DONE]\n\n",
+    "headers": [
+      [
+        "date",
+        "Fri, 30 Oct 2026 17:56:50 GMT"
+      ],
+      [
+        "content-type",
+        "text/event-stream"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=953"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "cache-control",
+        "no-cache"
+      ],
+      [
+        "x-generation-id",
+        "gen-1793383009-3QdafGgaClaMFh4a3oNe"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,X-Provider-Name,request-id,cf-ray"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "a52c4c8178ab58b7-PRG"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}

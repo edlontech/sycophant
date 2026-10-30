@@ -1,0 +1,215 @@
+{
+  "metadata": {
+    "model": "deepseek/deepseek-v4.1-flash",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-10-30T17:56:51.840277Z",
+    "sycophant_version": "0.8.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "Hi! I'm planning a trip to London.",
+          "role": "user"
+        }
+      ],
+      "instructions": "You are a helpful assistant. Be concise.",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": {
+      "safety_identifier": null,
+      "store": false,
+      "prompt_cache_options": null,
+      "error": null,
+      "created_at": 1793383009,
+      "presence_penalty": 0,
+      "status": "completed",
+      "max_tool_calls": null,
+      "instructions": "You are a helpful assistant. Be concise.",
+      "completed_at": 1793383011,
+      "temperature": 1,
+      "text": {
+        "format": {
+          "type": "text"
+        }
+      },
+      "parallel_tool_calls": true,
+      "tool_choice": "auto",
+      "frequency_penalty": 0,
+      "top_logprobs": 0,
+      "reasoning": {
+        "effort": "high"
+      },
+      "usage": {
+        "cost": 1.70775e-4,
+        "cost_details": {
+          "upstream_inference_cost": 1.70775e-4,
+          "upstream_inference_input_cost": 5.2635e-5,
+          "upstream_inference_output_cost": 1.1814e-4
+        },
+        "input_tokens": 319,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "is_byok": false,
+        "output_tokens": 179,
+        "output_tokens_details": {
+          "reasoning_tokens": 118
+        },
+        "total_tokens": 498
+      },
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "deepseek/deepseek-v4.1-flash",
+      "truncation": "disabled",
+      "metadata": {},
+      "service_tier": "auto",
+      "id": "gen-1793383009-b7RDHg6GW18VO1lP4WVU",
+      "top_p": 1,
+      "prompt_cache_key": null,
+      "object": "response",
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
+      "output": [
+        {
+          "content": [
+            {
+              "text": "The user says they're planning a trip to London. This is a greeting/statement, not a specific question. I could offer to help or check weather. Let me be helpful and perhaps check the weather in London as a useful starting point, but I shouldn't overstep. Actually, they didn't ask for weather. Let me respond conversationally and offer help, maybe ask what they'd like to know. I could proactively get weather since it's the only tool. But better to ask first? A light touch: offer to check weather. Let me just greet and offer assistance.",
+              "type": "reasoning_text"
+            }
+          ],
+          "format": "unknown",
+          "id": "rs_tmp_7lpwz8d53kv",
+          "status": "completed",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Hi! That sounds exciting—London is a great city to visit. I'd be happy to help you plan.\n\nWhat would you like to know? I can check the current weather in London to help you pack and plan activities, or answer general questions about your trip. Just let me know!",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_tmp_phim96r1rij",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "date",
+        "Fri, 30 Oct 2026 17:56:50 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=1014"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1793383009-b7RDHg6GW18VO1lP4WVU"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,X-Provider-Name,request-id,cf-ray"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "a52c4c8178a558b7-PRG"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}

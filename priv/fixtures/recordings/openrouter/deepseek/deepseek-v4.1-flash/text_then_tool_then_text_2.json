@@ -1,0 +1,235 @@
+{
+  "metadata": {
+    "model": "deepseek/deepseek-v4.1-flash",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-10-30T17:56:52.731403Z",
+    "sycophant_version": "0.8.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "Hi! I'm planning a trip to London.",
+          "role": "user"
+        },
+        {
+          "content": [
+            {
+              "text": "The user says they're planning a trip to London. This is a greeting/statement, not a specific question. I could offer to help or check weather. Let me be helpful and perhaps check the weather in London as a useful starting point, but I shouldn't overstep. Actually, they didn't ask for weather. Let me respond conversationally and offer help, maybe ask what they'd like to know. I could proactively get weather since it's the only tool. But better to ask first? A light touch: offer to check weather. Let me just greet and offer assistance.",
+              "type": "reasoning_text"
+            }
+          ],
+          "id": "rs_tmp_7lpwz8d53kv",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "text": "Hi! That sounds exciting—London is a great city to visit. I'd be happy to help you plan.\n\nWhat would you like to know? I can check the current weather in London to help you pack and plan activities, or answer general questions about your trip. Just let me know!",
+              "type": "output_text"
+            }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "content": "What's the current weather in London? You must call the get_weather tool with city=\"London\" to answer.",
+          "role": "user"
+        }
+      ],
+      "instructions": "You are a helpful assistant. Be concise.",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": {
+      "safety_identifier": null,
+      "store": false,
+      "prompt_cache_options": null,
+      "error": null,
+      "created_at": 1793383011,
+      "presence_penalty": 0,
+      "status": "completed",
+      "max_tool_calls": null,
+      "instructions": "You are a helpful assistant. Be concise.",
+      "completed_at": 1793383012,
+      "temperature": 1,
+      "text": {
+        "format": {
+          "type": "text"
+        }
+      },
+      "parallel_tool_calls": true,
+      "tool_choice": "auto",
+      "frequency_penalty": 0,
+      "top_logprobs": 0,
+      "reasoning": {
+        "effort": "high"
+      },
+      "usage": {
+        "cost": 8.4249e-5,
+        "cost_details": {
+          "upstream_inference_cost": 8.4249e-5,
+          "upstream_inference_input_cost": 4.8609e-5,
+          "upstream_inference_output_cost": 3.564e-5
+        },
+        "input_tokens": 525,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 256
+        },
+        "is_byok": false,
+        "output_tokens": 54,
+        "output_tokens_details": {
+          "reasoning_tokens": 14
+        },
+        "total_tokens": 579
+      },
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "deepseek/deepseek-v4.1-flash",
+      "truncation": "disabled",
+      "metadata": {},
+      "service_tier": "auto",
+      "id": "gen-1793383011-sH920yelnhCJsBPMfwgZ",
+      "top_p": 1,
+      "prompt_cache_key": null,
+      "object": "response",
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
+      "output": [
+        {
+          "content": [
+            {
+              "text": "The user wants me to call get_weather with city=\"London\".",
+              "type": "reasoning_text"
+            }
+          ],
+          "format": "unknown",
+          "id": "rs_tmp_7f9g9dfuct",
+          "status": "completed",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "arguments": "{\"city\": \"London\"}",
+          "call_id": "call_1f97ef9bfcdb4f339a1a3ce9",
+          "id": "fc_tmp_dx2gpjnowo4",
+          "name": "get_weather",
+          "status": "completed",
+          "type": "function_call"
+        }
+      ],
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "date",
+        "Fri, 30 Oct 2026 17:56:52 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=586"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1793383011-sH920yelnhCJsBPMfwgZ"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,X-Provider-Name,request-id,cf-ray"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "a52c4c901e2458b7-PRG"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}

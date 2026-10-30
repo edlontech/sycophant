@@ -17,7 +17,7 @@ config :sycophant, :test_models, [
   },
   %{model: "openrouter:anthropic/claude-haiku-4.5", structured_output: true, prompt_cache: true},
   %{model: "openrouter:google/gemini-2.5-flash", structured_output: true},
-  %{model: "openrouter:deepseek/deepseek-r1", structured_output: false},
+  %{model: "openrouter:deepseek/deepseek-v4.1-flash", structured_output: false, reasoning: true},
   %{model: "wandb:openai/gpt-oss-120b", structured_output: false},
   %{
     model: "anthropic:claude-haiku-4-5-20251001",

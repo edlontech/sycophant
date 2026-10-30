@@ -1,0 +1,179 @@
+{
+  "metadata": {
+    "model": "deepseek/deepseek-v4.1-flash",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-10-30T17:56:56.576990Z",
+    "sycophant_version": "0.8.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "A farmer has 3 fields. The first field produces 2.5 times more wheat than the second. The third produces 40% less than the first. If the second field produces 120 tons, how many tons does the farmer produce in total? Show your reasoning.",
+          "role": "user"
+        }
+      ],
+      "model": "deepseek/deepseek-v4.1-flash",
+      "reasoning": {
+        "effort": "low",
+        "summary": "detailed"
+      }
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": {
+      "safety_identifier": null,
+      "store": false,
+      "prompt_cache_options": null,
+      "error": null,
+      "created_at": 1793383009,
+      "presence_penalty": 0,
+      "status": "completed",
+      "max_tool_calls": null,
+      "instructions": null,
+      "completed_at": 1793383016,
+      "temperature": 1,
+      "text": {
+        "format": {
+          "type": "text"
+        }
+      },
+      "parallel_tool_calls": true,
+      "tool_choice": "auto",
+      "frequency_penalty": 0,
+      "top_logprobs": 0,
+      "reasoning": {
+        "effort": "low",
+        "summary": "detailed"
+      },
+      "usage": {
+        "cost": 4.50948e-4,
+        "cost_details": {
+          "upstream_inference_cost": 4.50948e-4,
+          "upstream_inference_input_cost": 1.4964e-5,
+          "upstream_inference_output_cost": 4.35984e-4
+        },
+        "input_tokens": 86,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "is_byok": false,
+        "output_tokens": 744,
+        "output_tokens_details": {
+          "reasoning_tokens": 574
+        },
+        "total_tokens": 830
+      },
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "deepseek/deepseek-v4.1-flash",
+      "truncation": "disabled",
+      "metadata": {},
+      "service_tier": "auto",
+      "id": "gen-1793383009-oJPncuYz0njV1KcilQYP",
+      "top_p": 1,
+      "prompt_cache_key": null,
+      "object": "response",
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
+      "output": [
+        {
+          "content": [
+            {
+              "text": "We need answer. Need be careful ambiguity \"2.5 times more than\" could mean 3.5 times? Usually in math word problems maybe \"2.5 times as much\" vs \"2.5 times more\" ambiguous. Need decide. Problem says first field produces 2.5 times more wheat than second. Third 40% less than first. second=120. If interpret \"2.5 times more\" as 2.5 times as much? Many contest? Need maybe mention ambiguity. Let's parse: \"2.5 times more than\" literally first = second + 2.5*second = 3.5*second = 420. Third 40% less than first = 0.6*first = 252. Total=420+120+252=792. If \"2.5 times as much\" = 300, third=180, total=600. The phrase \"2.5 times more than\" often colloquially intended \"2.5 times as much\" but literal math is 3.5 times. The user likely expects simple: first = 2.5*120 = 300, third = 60% of first =180, total=600. But prompt says \"2.5 times more than the second\", not \"as much as\". We need maybe address ambiguity and choose conventional? Need final with reasoning. Desired overbrevity 5. Could state assuming \"2.5 times more\" means 2.5 times as much, total 600; if literal additional, 792. Need perhaps answer likely. Since they ask \"Show reasoning\" and includes \"40% less\" etc. Let's craft concise with note. We need decide final answer. The wording \"2.5 times more wheat than the second\" maybe many educational platforms treat as multiply by 2.5. Let's answer 600 and note ambiguity. But maybe they want exact literal? Hmm.\n\nLet's examine: \"first field produces 2.5 times more wheat than the second.\" In standard English, \"x times more\" means x times as much? There's debate. If I include caveat, safe. Final: Second=120. First = 2.5*120=300 (assuming \"2.5 times more\" means 2.5 times as much). Third = first - 40% of first = 0.6*300=180. Total = 300+120+180=600 tons. Note: if interpreting literally as \"2.5 times more\" = 3.5 times, total would be 792. But likely intended 600. Need maybe not overcomplicate? The prompt likely wants answer. We can include parenthetical note. Let's final with main 600.",
+              "type": "reasoning_text"
+            }
+          ],
+          "format": "unknown",
+          "id": "rs_tmp_z1m36kjpea",
+          "status": "completed",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Assuming “2.5 times more” means **2.5 times as much**:\n\n- Second field: \\(120\\) tons  \n- First field: \\(2.5 \\times 120 = 300\\) tons  \n- Third field: \\(40\\%\\) less than the first, so it produces \\(60\\%\\) of the first:  \n  \\[\n  0.60 \\times 300 = 180\n  \\]\n- Total:\n  \\[\n  300 + 120 + 180 = 600\n  \\]\n\n**The farmer produces 600 tons in total.**\n\nNote: If “2.5 times more” is interpreted literally as “120 plus 2.5 times 120,” the total would be 792 tons. But in most standard math-word-problem usage, the intended total is **600 tons**.",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_tmp_6ztnyb83a19",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "tools": []
+    },
+    "headers": [
+      [
+        "date",
+        "Fri, 30 Oct 2026 17:56:50 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=656"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1793383009-oJPncuYz0njV1KcilQYP"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,X-Provider-Name,request-id,cf-ray"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "a52c4c8178a158b7-PRG"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}

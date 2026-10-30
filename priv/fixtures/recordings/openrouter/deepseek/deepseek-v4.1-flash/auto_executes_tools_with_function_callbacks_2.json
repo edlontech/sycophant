@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "model": "deepseek/deepseek-r1",
+    "model": "deepseek/deepseek-v4.1-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-10-15T19:37:02.870700Z",
-    "sycophant_version": "0.7.0"
+    "recorded_at": "2026-10-30T17:56:51.572315Z",
+    "sycophant_version": "0.8.0"
   },
   "request": {
     "body": {
@@ -15,33 +15,38 @@
         {
           "content": [
             {
-              "text": "\nWe are given a clear instruction: we must call the get_weather tool with city=\"Paris\" to answer the user's question about the weather in Paris.\n The user's question: \"What's the weather in Paris? You must call the get_weather tool with city=\"Paris\" to answer.\"\n Since we are required to call the function, we will generate a function call message.\n According to the instructions, the message must start with \"!function_call:\" followed by a JSON object specifying the call and arguments.\n The function name is \"get_weather\", and the argument is \"city\" with value \"Paris\".\n We note that the function expects an object with a property \"city\" of type string, and it is required.\n Therefore, we output:\n !function_call:{\"call\": \"get_weather\", \"arguments\": {\"city\": \"Paris\"}}\n",
+              "text": "The user wants weather in Paris. Call the tool.",
               "type": "reasoning_text"
             }
           ],
-          "id": "rs_tmp_1qcu7akn04fh",
+          "id": "rs_tmp_ztkj4n2d58c",
           "summary": [],
           "type": "reasoning"
         },
         {
-          "content": [],
+          "content": [
+            {
+              "text": "I'll check the weather in Paris for you.\n\n",
+              "type": "output_text"
+            }
+          ],
           "role": "assistant",
           "status": "completed",
           "type": "message"
         },
         {
           "arguments": "{\"city\":\"Paris\"}",
-          "call_id": "call_jvyqvlRXxwoUa31meY6JLdlZ",
+          "call_id": "call_6f1765591e734775a32a91c07ec05a12",
           "name": "get_weather",
           "type": "function_call"
         },
         {
-          "call_id": "call_jvyqvlRXxwoUa31meY6JLdlZ",
+          "call_id": "call_6f1765591e734775a32a91c07ec05a12",
           "output": "Paris: 22C, sunny",
           "type": "function_call_output"
         }
       ],
-      "model": "deepseek/deepseek-r1",
+      "model": "deepseek/deepseek-v4.1-flash",
       "tools": [
         {
           "description": "Get current weather for a city. Returns temperature and conditions.",
@@ -78,29 +83,70 @@
   },
   "response": {
     "body": {
-      "background": false,
-      "completed_at": 1792093022,
-      "created_at": 1792093019,
+      "safety_identifier": null,
+      "store": false,
+      "prompt_cache_options": null,
       "error": null,
-      "frequency_penalty": 0,
-      "id": "gen-1792093019-vA4n02a6ObFuA6eNr1yX",
-      "incomplete_details": null,
-      "instructions": null,
-      "max_output_tokens": null,
+      "created_at": 1793383010,
+      "presence_penalty": 0,
+      "status": "completed",
       "max_tool_calls": null,
+      "instructions": null,
+      "completed_at": 1793383011,
+      "temperature": 1,
+      "text": {
+        "format": {
+          "type": "text"
+        }
+      },
+      "parallel_tool_calls": true,
+      "tool_choice": "auto",
+      "frequency_penalty": 0,
+      "top_logprobs": 0,
+      "reasoning": {
+        "effort": "high"
+      },
+      "usage": {
+        "cost": 2.5741e-5,
+        "cost_details": {
+          "upstream_inference_cost": 2.5741e-5,
+          "upstream_inference_input_cost": 8.241e-6,
+          "upstream_inference_output_cost": 1.75e-5
+        },
+        "input_tokens": 405,
+        "input_tokens_details": {
+          "cached_tokens": 256
+        },
+        "is_byok": false,
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 13
+        },
+        "total_tokens": 440
+      },
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "deepseek/deepseek-v4.1-flash",
+      "truncation": "disabled",
       "metadata": {},
-      "model": "deepseek/deepseek-r1",
+      "service_tier": "auto",
+      "id": "gen-1793383010-d3icBzc06qVbSLCbpR1s",
+      "top_p": 1,
+      "prompt_cache_key": null,
       "object": "response",
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
       "output": [
         {
           "content": [
             {
-              "text": "\nWe have the tool response for the weather in Paris: \"Paris: 22C, sunny\"\n Now, we need to convert this into a natural language response.\n",
+              "text": "The tool returned a result. Report it.",
               "type": "reasoning_text"
             }
           ],
           "format": "unknown",
-          "id": "rs_tmp_6bsiv435laf",
+          "id": "rs_tmp_9iw1pbhzhbe",
           "status": "completed",
           "summary": [],
           "type": "reasoning"
@@ -110,35 +156,16 @@
             {
               "annotations": [],
               "logprobs": [],
-              "text": "The current weather in Paris is 22°C and sunny.",
+              "text": "The weather in Paris is currently **22°C and sunny** — a pleasant day to be outside. ☀️",
               "type": "output_text"
             }
           ],
-          "id": "msg_tmp_l8eykjecnl",
+          "id": "msg_tmp_3700tzpv1y4",
           "role": "assistant",
           "status": "completed",
           "type": "message"
         }
       ],
-      "parallel_tool_calls": true,
-      "presence_penalty": 0,
-      "previous_response_id": null,
-      "prompt_cache_key": null,
-      "prompt_cache_options": null,
-      "reasoning": {
-        "effort": "medium"
-      },
-      "safety_identifier": null,
-      "service_tier": "auto",
-      "status": "completed",
-      "store": false,
-      "temperature": 1,
-      "text": {
-        "format": {
-          "type": "text"
-        }
-      },
-      "tool_choice": "auto",
       "tools": [
         {
           "description": "Get current weather for a city. Returns temperature and conditions.",
@@ -158,33 +185,12 @@
           "strict": true,
           "type": "function"
         }
-      ],
-      "top_logprobs": 0,
-      "top_p": 1,
-      "truncation": "disabled",
-      "usage": {
-        "cost": 2.328e-4,
-        "cost_details": {
-          "upstream_inference_cost": 2.328e-4,
-          "upstream_inference_input_cost": 1.078e-4,
-          "upstream_inference_output_cost": 1.25e-4
-        },
-        "input_tokens": 154,
-        "input_tokens_details": {
-          "cached_tokens": 0
-        },
-        "is_byok": false,
-        "output_tokens": 50,
-        "output_tokens_details": {
-          "reasoning_tokens": 36
-        },
-        "total_tokens": 204
-      }
+      ]
     },
     "headers": [
       [
         "date",
-        "Thu, 15 Oct 2026 19:37:00 GMT"
+        "Fri, 30 Oct 2026 17:56:51 GMT"
       ],
       [
         "content-type",
@@ -192,7 +198,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=4,cfOrigin;dur=0,cfWorker;dur=940"
+        "cfEdge;dur=12,cfOrigin;dur=0,cfWorker;dur=517"
       ],
       [
         "access-control-allow-origin",
@@ -200,7 +206,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1792093019-vA4n02a6ObFuA6eNr1yX"
+        "gen-1793383010-d3icBzc06qVbSLCbpR1s"
       ],
       [
         "access-control-expose-headers",
@@ -228,7 +234,11 @@
       ],
       [
         "cf-ray",
-        "a4b1469cdd09dc5c-FRA"
+        "a52c4c898df358b7-PRG"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
       ]
     ],
     "status": 200

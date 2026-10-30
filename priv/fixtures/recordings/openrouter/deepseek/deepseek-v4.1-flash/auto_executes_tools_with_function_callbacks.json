@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "model": "deepseek/deepseek-r1",
+    "model": "deepseek/deepseek-v4.1-flash",
     "provider": "openrouter.ai",
-    "recorded_at": "2026-10-15T19:36:59.594922Z",
-    "sycophant_version": "0.7.0"
+    "recorded_at": "2026-10-30T17:56:50.791177Z",
+    "sycophant_version": "0.8.0"
   },
   "request": {
     "body": {
@@ -13,7 +13,7 @@
           "role": "user"
         }
       ],
-      "model": "deepseek/deepseek-r1",
+      "model": "deepseek/deepseek-v4.1-flash",
       "tools": [
         {
           "description": "Get current weather for a city. Returns temperature and conditions.",
@@ -50,61 +50,97 @@
   },
   "response": {
     "body": {
-      "background": false,
-      "completed_at": 1792093019,
-      "created_at": 1792093014,
-      "error": null,
-      "frequency_penalty": 0,
-      "id": "gen-1792093014-wPZqR5qIReZ6rknpgX7I",
-      "incomplete_details": null,
-      "instructions": null,
-      "max_output_tokens": null,
-      "max_tool_calls": null,
-      "metadata": {},
-      "model": "deepseek/deepseek-r1",
-      "object": "response",
-      "output": [
-        {
-          "content": [
-            {
-              "text": "\nWe are given a clear instruction: we must call the get_weather tool with city=\"Paris\" to answer the user's question about the weather in Paris.\n The user's question: \"What's the weather in Paris? You must call the get_weather tool with city=\"Paris\" to answer.\"\n Since we are required to call the function, we will generate a function call message.\n According to the instructions, the message must start with \"!function_call:\" followed by a JSON object specifying the call and arguments.\n The function name is \"get_weather\", and the argument is \"city\" with value \"Paris\".\n We note that the function expects an object with a property \"city\" of type string, and it is required.\n Therefore, we output:\n !function_call:{\"call\": \"get_weather\", \"arguments\": {\"city\": \"Paris\"}}\n",
-              "type": "reasoning_text"
-            }
-          ],
-          "format": "unknown",
-          "id": "rs_tmp_1qcu7akn04fh",
-          "status": "completed",
-          "summary": [],
-          "type": "reasoning"
-        },
-        {
-          "arguments": "{\"city\": \"Paris\"}",
-          "call_id": "call_jvyqvlRXxwoUa31meY6JLdlZ",
-          "id": "fc_tmp_d8yximxvor",
-          "name": "get_weather",
-          "status": "completed",
-          "type": "function_call"
-        }
-      ],
-      "parallel_tool_calls": true,
-      "presence_penalty": 0,
-      "previous_response_id": null,
-      "prompt_cache_key": null,
-      "prompt_cache_options": null,
-      "reasoning": {
-        "effort": "medium"
-      },
       "safety_identifier": null,
-      "service_tier": "auto",
-      "status": "completed",
       "store": false,
+      "prompt_cache_options": null,
+      "error": null,
+      "created_at": 1793383010,
+      "presence_penalty": 0,
+      "status": "completed",
+      "max_tool_calls": null,
+      "instructions": null,
+      "completed_at": 1793383010,
       "temperature": 1,
       "text": {
         "format": {
           "type": "text"
         }
       },
+      "parallel_tool_calls": true,
       "tool_choice": "auto",
+      "frequency_penalty": 0,
+      "top_logprobs": 0,
+      "reasoning": {
+        "effort": "high"
+      },
+      "usage": {
+        "cost": 3.9723e-5,
+        "cost_details": {
+          "upstream_inference_cost": 3.9723e-5,
+          "upstream_inference_input_cost": 9.723e-6,
+          "upstream_inference_output_cost": 3.0e-5
+        },
+        "input_tokens": 327,
+        "input_tokens_details": {
+          "cached_tokens": 128
+        },
+        "is_byok": false,
+        "output_tokens": 60,
+        "output_tokens_details": {
+          "reasoning_tokens": 50
+        },
+        "total_tokens": 387
+      },
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "deepseek/deepseek-v4.1-flash",
+      "truncation": "disabled",
+      "metadata": {},
+      "service_tier": "auto",
+      "id": "gen-1793383010-qM591VUkdc7LyIFT9KwG",
+      "top_p": 1,
+      "prompt_cache_key": null,
+      "object": "response",
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
+      "output": [
+        {
+          "content": [
+            {
+              "text": "The user wants weather in Paris. Call the tool.",
+              "type": "reasoning_text"
+            }
+          ],
+          "format": "unknown",
+          "id": "rs_tmp_ztkj4n2d58c",
+          "status": "completed",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "I'll check the weather in Paris for you.\n\n",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_tmp_w5q7r1mv4i",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "arguments": "{\"city\": \"Paris\"}",
+          "call_id": "call_6f1765591e734775a32a91c07ec05a12",
+          "id": "fc_tmp_mk3abf2idvi",
+          "name": "get_weather",
+          "status": "completed",
+          "type": "function_call"
+        }
+      ],
       "tools": [
         {
           "description": "Get current weather for a city. Returns temperature and conditions.",
@@ -124,33 +160,12 @@
           "strict": true,
           "type": "function"
         }
-      ],
-      "top_logprobs": 0,
-      "top_p": 1,
-      "truncation": "disabled",
-      "usage": {
-        "cost": 7.304e-4,
-        "cost_details": {
-          "upstream_inference_cost": 7.304e-4,
-          "upstream_inference_input_cost": 2.254e-4,
-          "upstream_inference_output_cost": 5.05e-4
-        },
-        "input_tokens": 322,
-        "input_tokens_details": {
-          "cached_tokens": 0
-        },
-        "is_byok": false,
-        "output_tokens": 202,
-        "output_tokens_details": {
-          "reasoning_tokens": 196
-        },
-        "total_tokens": 524
-      }
+      ]
     },
     "headers": [
       [
         "date",
-        "Thu, 15 Oct 2026 19:36:55 GMT"
+        "Fri, 30 Oct 2026 17:56:50 GMT"
       ],
       [
         "content-type",
@@ -158,7 +173,7 @@
       ],
       [
         "server-timing",
-        "cfEdge;dur=6,cfOrigin;dur=0,cfWorker;dur=788"
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=372"
       ],
       [
         "access-control-allow-origin",
@@ -166,7 +181,7 @@
       ],
       [
         "x-generation-id",
-        "gen-1792093014-wPZqR5qIReZ6rknpgX7I"
+        "gen-1793383010-qM591VUkdc7LyIFT9KwG"
       ],
       [
         "access-control-expose-headers",
@@ -194,7 +209,11 @@
       ],
       [
         "cf-ray",
-        "a4b1467b587fdc5c-FRA"
+        "a52c4c861cdc58b7-PRG"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
       ]
     ],
     "status": 200

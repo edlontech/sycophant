@@ -1,0 +1,174 @@
+{
+  "metadata": {
+    "model": "deepseek/deepseek-v4.1-flash",
+    "provider": "openrouter.ai",
+    "recorded_at": "2026-10-30T17:56:54.515621Z",
+    "sycophant_version": "0.8.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "My name is Sycophant. Remember it.",
+          "role": "user"
+        }
+      ],
+      "model": "deepseek/deepseek-v4.1-flash"
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/responses"
+  },
+  "response": {
+    "body": {
+      "safety_identifier": null,
+      "store": false,
+      "prompt_cache_options": null,
+      "error": null,
+      "created_at": 1793383011,
+      "presence_penalty": 0,
+      "status": "completed",
+      "max_tool_calls": null,
+      "instructions": null,
+      "completed_at": 1793383014,
+      "temperature": 1,
+      "text": {
+        "format": {
+          "type": "text"
+        }
+      },
+      "parallel_tool_calls": true,
+      "tool_choice": "auto",
+      "frequency_penalty": 0,
+      "top_logprobs": 0,
+      "reasoning": {
+        "effort": "high"
+      },
+      "usage": {
+        "cost": 1.64182e-4,
+        "cost_details": {
+          "upstream_inference_cost": 1.64182e-4,
+          "upstream_inference_input_cost": 7.134e-6,
+          "upstream_inference_output_cost": 1.57048e-4
+        },
+        "input_tokens": 41,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "is_byok": false,
+        "output_tokens": 268,
+        "output_tokens_details": {
+          "reasoning_tokens": 233
+        },
+        "total_tokens": 309
+      },
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "deepseek/deepseek-v4.1-flash",
+      "truncation": "disabled",
+      "metadata": {},
+      "service_tier": "auto",
+      "id": "gen-1793383011-bYcVzV2B5g9Qn3PkIbWH",
+      "top_p": 1,
+      "prompt_cache_key": null,
+      "object": "response",
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
+      "output": [
+        {
+          "content": [
+            {
+              "text": "We need answer. User says \"My name is Sycophant. Remember it.\" Need comply. We should remember? As AI no persistent memory unless memory enabled? We need respond. We can say \"Got it, Sycophant. I'll remember your name for this conversation.\" But if memory feature not available, don't promise across sessions. Need maybe acknowledge. We are not actually able to remember after conversation unless memory. But in this chat, can refer. We should be honest. Maybe \"Noted, Sycophant. I'll use that name in our conversation.\" Since they said remember it. Also \"Sycophant\" means flatterer, but likely chosen name. We shouldn't be sycophantic? We can be neutral. Need final answer concise. Could say \"Noted, Sycophant. I'll address you that way in this conversation.\" That is safe. But maybe they expect memory. We can mention \"I can't retain it across separate chats unless memory is enabled, but for this chat I'll remember.\" This is honest. Desired oververbosity 5. Final.",
+              "type": "reasoning_text"
+            }
+          ],
+          "format": "unknown",
+          "id": "rs_tmp_r42dtkbyfn",
+          "status": "completed",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Noted, Sycophant. I’ll address you that way for this conversation. I can’t retain it across separate chats unless memory is enabled.",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_tmp_c7g0b9tf8yf",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "tools": []
+    },
+    "headers": [
+      [
+        "date",
+        "Fri, 30 Oct 2026 17:56:51 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "server-timing",
+        "cfEdge;dur=3,cfOrigin;dur=0,cfWorker;dur=365"
+      ],
+      [
+        "access-control-allow-origin",
+        "*"
+      ],
+      [
+        "x-generation-id",
+        "gen-1793383011-bYcVzV2B5g9Qn3PkIbWH"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Generation-Id,X-Provider-Name,request-id,cf-ray"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "permissions-policy",
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "a52c4c8dc85058b7-PRG"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}
