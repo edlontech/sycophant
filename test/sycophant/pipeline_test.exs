@@ -76,6 +76,50 @@ defmodule Sycophant.PipelineTest do
                Pipeline.call(default_messages(), default_opts())
     end
 
+    test "stamps origin on assistant message" do
+      stub_happy_path()
+
+      assert {:ok, %Response{context: context}} =
+               Pipeline.call(default_messages(), default_opts())
+
+      assert %Message{role: :assistant, provider: :openai, wire_protocol: :openai_responses} =
+               List.last(context.messages)
+    end
+
+    test "sends adapted history, keeps original in context" do
+      stub_happy_path()
+
+      tool_call = %Sycophant.ToolCall{id: "bad.id", name: "get_weather", arguments: %{}}
+
+      foreign_turn = %Message{
+        role: :assistant,
+        content: [%Message.Content.Thinking{text: "thinking", signature: "sig"}],
+        tool_calls: [tool_call],
+        provider: :anthropic,
+        wire_protocol: :anthropic_messages
+      }
+
+      history = [Message.user("Hi"), foreign_turn, Message.tool_result(tool_call, "18C")]
+
+      expect(Sycophant.Transport, :call, fn payload, _opts ->
+        refute Enum.any?(payload["input"], &(&1["type"] == "reasoning"))
+        assert Enum.any?(payload["input"], &(&1["call_id"] == "bad_id"))
+        refute Enum.any?(payload["input"], &(&1["call_id"] == "bad.id"))
+
+        {:ok,
+         %{
+           "id" => "resp-123",
+           "output" => [
+             %{"type" => "message", "content" => [%{"type" => "output_text", "text" => "Ok"}]}
+           ],
+           "usage" => %{"input_tokens" => 1, "output_tokens" => 1}
+         }}
+      end)
+
+      assert {:ok, %Response{context: context}} = Pipeline.call(history, default_opts())
+      assert Enum.take(context.messages, 3) == history
+    end
+
     test "response includes usage information" do
       stub_happy_path()
 
@@ -1061,6 +1105,16 @@ defmodule Sycophant.PipelineTest do
 
       assert_received {:chunk, %Sycophant.StreamChunk{type: :text_delta, data: "Hello "}}
       assert_received {:chunk, %Sycophant.StreamChunk{type: :text_delta, data: "World"}}
+    end
+
+    test "stamps origin on streamed assistant message" do
+      stub_stream_happy_path()
+      opts = default_opts() ++ [stream: fn _chunk -> :ok end]
+
+      assert {:ok, %Response{context: context}} = Pipeline.call(default_messages(), opts)
+
+      assert %Message{role: :assistant, provider: :openai, wire_protocol: :openai_responses} =
+               List.last(context.messages)
     end
 
     test "streaming composes with tool auto-execution" do

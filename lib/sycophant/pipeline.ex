@@ -25,6 +25,7 @@ defmodule Sycophant.Pipeline do
   alias Sycophant.Error.Invalid.InvalidParams
   alias Sycophant.Error.Provider.ResponseInvalid
   alias Sycophant.Message
+  alias Sycophant.MessageCompat
   alias Sycophant.ModelExtra
   alias Sycophant.ModelResolver
   alias Sycophant.Pricing
@@ -199,7 +200,7 @@ defmodule Sycophant.Pipeline do
 
       case result do
         {:ok, {:done, response}} ->
-          {:ok, attach_context(response, messages, params, opts)}
+          {:ok, attach_context(response, messages, params, opts, model_info)}
 
         {:ok, {:error, _} = error} ->
           error
@@ -392,7 +393,7 @@ defmodule Sycophant.Pipeline do
          {:ok, payload} <- adapter.encode_request(request),
          {:ok, body} <- Transport.call(payload, transport_opts(model_info, credentials, request)),
          {:ok, response} <- adapter.decode_response(body) do
-      {:ok, attach_context(response, messages, params, opts)}
+      {:ok, attach_context(response, messages, params, opts, model_info)}
     end
   end
 
@@ -492,11 +493,13 @@ defmodule Sycophant.Pipeline do
     %{response | usage: Usage.calculate_cost(response.usage, pricing_struct)}
   end
 
-  defp attach_context(response, messages, params, opts) do
+  defp attach_context(response, messages, params, opts, model_info) do
     assistant_msg = %Message{
       role: :assistant,
       content: build_assistant_content(response),
-      tool_calls: if(response.tool_calls in [nil, []], do: nil, else: response.tool_calls)
+      tool_calls: if(response.tool_calls in [nil, []], do: nil, else: response.tool_calls),
+      provider: model_info.provider,
+      wire_protocol: Map.get(model_info, :wire_protocol)
     }
 
     context = %Context{
@@ -635,7 +638,8 @@ defmodule Sycophant.Pipeline do
 
     {:ok,
      %Sycophant.Request{
-       messages: messages,
+       messages:
+         MessageCompat.adapt(messages, {model_info.provider, Map.get(model_info, :wire_protocol)}),
        model: model_id,
        resolved_model: model_info.model_struct,
        wire_protocol: model_info.wire_adapter,
