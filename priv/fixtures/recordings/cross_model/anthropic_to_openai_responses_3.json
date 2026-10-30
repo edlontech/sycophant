@@ -1,0 +1,309 @@
+{
+  "metadata": {
+    "model": "gpt-5-nano",
+    "provider": "api.openai.com",
+    "recorded_at": "2026-10-30T17:52:24.518396Z",
+    "sycophant_version": "0.8.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "What's the weather in Paris? You must call the get_weather tool with city=\"Paris\".",
+          "role": "user"
+        },
+        {
+          "content": [],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "arguments": "{\"city\":\"Paris\"}",
+          "call_id": "toolu_01GEeQTtEUj84haEc8LjfrrS",
+          "name": "get_weather",
+          "type": "function_call"
+        },
+        {
+          "call_id": "toolu_01GEeQTtEUj84haEc8LjfrrS",
+          "output": "Paris: 18C, cloudy",
+          "type": "function_call_output"
+        },
+        {
+          "content": [
+            {
+              "text": "The weather in Paris is currently **18°C and cloudy**.",
+              "type": "output_text"
+            }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        },
+        {
+          "content": "Should I bring an umbrella?",
+          "role": "user"
+        }
+      ],
+      "instructions": "You are a helpful assistant. Be concise.",
+      "model": "gpt-5-nano",
+      "reasoning": {
+        "effort": "low"
+      },
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "safety_identifier": null,
+      "store": true,
+      "error": null,
+      "created_at": 1793382742,
+      "presence_penalty": 0.0,
+      "status": "completed",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "max_tool_calls": null,
+      "instructions": "You are a helpful assistant. Be concise.",
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": "in_memory",
+      "completed_at": 1793382743,
+      "temperature": 1.0,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "parallel_tool_calls": true,
+      "tool_choice": "auto",
+      "frequency_penalty": 0.0,
+      "top_logprobs": 0,
+      "reasoning": {
+        "context": "current_turn",
+        "effort": "low",
+        "mode": "standard",
+        "summary": null
+      },
+      "usage": {
+        "input_tokens": 141,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 185,
+        "output_tokens_details": {
+          "reasoning_tokens": 64
+        },
+        "total_tokens": 326
+      },
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "gpt-5-nano-2025-08-07",
+      "truncation": "disabled",
+      "metadata": {},
+      "service_tier": "default",
+      "id": "resp_06ddd0e652c7c71d006ae4d9565a6887d2a88af545a25923cd",
+      "top_p": 1.0,
+      "user": null,
+      "prompt_cache_key": null,
+      "moderation": null,
+      "object": "response",
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
+      "output": [
+        {
+          "content": [],
+          "encrypted_content": "gAAAAABq5NlYHo_w7gsBkKU8aSqgZxKj-H5xL3D_2taKwGL2khOuw0cDFOXk25GQWIYQXcgR5oYgoqShJpvmagEn-Y4cBCAX7WlSKF0tltTE8hoD6AqUJjpVpOpck5h0_fxKlOx3_MXxGStgRLIa51FKCGM7IXuGCL7q12rLR5CFuo1tYKoujv3r_iPnLsAvZw-Lk-vq_qInyCM6HJMjsts6apqLYj2cjqmFIhpHc9YFJwn8SHUSOzz9qDWeGeeigicmJJv9PqdFXYa5qPD9OSrRXJa7zfBYLvsWOdn2jQ5AwcyYXRyAxcadYztcdHcTITIR4jmgGtdOIaYZ5iDxkSjNXFIr-in5X7PXCOOkNGvzb_VoIzoyC3TDrBYGXeqTVIJVZq0EHoCth5zGQaMPg8wEGmg3LhuGkb0EM1SzGNcwS8pfn4uyCZtasbBNmFDaMfbqFWsx9flD8RRZAcocfbVpT0nCrwR9iJlGUDhgvqM_rxyQHYp0ouOu38mj_sa74YBDt4rClKNVDpJhvQSmSAGGna5Teskdyfop_XaqhmoP02iIXsjVaIKg8jMSMbmFRkQd_KWOSdD0Qb62f7l1UXNH1Y8iJvDlxUAXl1iYz64y6uct-eU39R0J85opXnT80d774669yaI6et3oChvRYb8xSa1j03hOQ6fGajlVlD7VwlgHZJZLxwA3a6t2vlN_zKqIKD9SUuxrUGyAtnT_EiBeYEly-5irCCSsfE0ro1dY6RMh6K54iX97JXchyzjECVGbJZ05dkSvmF9keoQ2YLqTs-IraKmKgZACSulETj1l-dogWqFHF9geG2WAW6gYAMZNRp58QY7T9uqOZmvzej43OqIShXIdxz7mH1QLb_i0JD7x_Kn9Ix0FRqmKeHKP7PWs_XF9_EQKnqWFce_ikClgnhHjnXEZReVFmkrBw2RaVIHEd_Vhq7DIlLKAAHpsd9-bmW1k_mez48v-0W1bQpASqOzMXmq611kB84q1CEUsvF_MBOzBE888AJdVSBNxoJY6j_F4XI_r-xZtoKBI-0yo_Z01-tVu70s5v-Z-SHLfJKBAsZN5qBWmZTpxldt642-pI8R3Bm1vq6aNiyyDy6x4XIsOz3ZRds-8EPwyZdZi5IKIzeICXBkZ27lZ0q1J5jOO-HkFqCVF_db0sqqy5SxhPLmJoalm9wdp8sptcStTqi9Au7MXw1GrLPCukXWqrsE15l-vp5-RWk12XVGMFuzHbLYJ1WaaO7VuzK0dU7r02TJasLhXWhM4NjkVuD7ItqRc6C4PHzxwG-pJxjXlK49HycWXYPDGgM18_gt1wBN8eR6STaPlJPrKiKkXA0IpWbuXmz4nAL5TnRf_jscSng0nh8HLGI0cafAGW65H_xRzuNwu-1L8WbXYN-GGcrnijbu0ngfPvMtiB1Z4VCPLz1tXWMfmbuHIpEtH5NYcq6crlTrju2-2IEW_Z6y3ofFwAJUynHfG9Sce4PtWNFBW9VZ8iRYTh08zuHFHMva4TnAaxyu01cqhqff4p-8ou0Iu9ANvRRb_ZOesF8kULHS_pElVnRIyawLfwHHXhLLpVoGmpOZfbFAmuWo8QvKSV814aIsh_OtMjNhLsHkjMaTRKrW2GFyXQyV4uUywVt2250REm14f0XgGmT78sW2Pt-FVRfXl0ATvsRfABadXbxirvLJGGquw2IzgKe53N0Ayg1EElaW882ty2R5iAKsKzHAVxSvNlSb9m43VRcl7dFCwKwIYraXR0alfWKIffWrIWZWPhIpQO-CIn287W3CPZrFSAmnEanc3sDRfaxLnOjITDdUMUlvdASA7oD8XSXPf_SpgNtOsvbOCgm1akPNhYHAJbMd5ZwsiCYUSvtgwiSVqVq7OsnYksJB-siYAcxfk7H04s-EqQ4j2zOb6NYjgINRKQkmM9QBSosbOdv7e2TlVN5_1WQewxVRwF3YVRnq6Bb7LFRolBJF12yW-g0AlT6U12MSAV7xj4YB1khEGjAn-v2hX7QEXczRELqY8f2uXXI4z7HHW3qi2qxVjqHIQHxhN1rH6qYhXBVe-OMc_3IcHrqPUQ6HDcC2hKGwO5XEA4HKzwMKrGpp65vM-XzjOVFQOo0hINWVkXZOfqCqPUcyeOw_FmfjuzI9zLaBGiumQc9BmoHSjaFQkV0fIWH3Nv_a17eeL-eAWkHGRd3Vzzqs48g_6CeJ1LM3tECRN089R8us_6F5GfrGu5gXb9iChNxcw2IeQlmgN5ZntWyAbjKEjDfA8ZPk3DGr9_Ej2_4PXKf5geAKQKD0BfNp-xyaJoQD6F-QRfFR72WebOVrwM7W1GjvMjEVViagTI9GCspFmhikf-J8W9xfHPH3bLXWPYMRUeuUjiF8Or0IkO-h-EMvpVNpPZl0yn-BopNheQD94PBhA4cxSMAmfHPaAuQZw_L5DfM_1Jyjtv1x7NOpzB7toq1TY-uDNkiYuYJjxaRYOafSx5qbU8k4sAz9EHMqDl7NnbR7Ia9a5PJH2N80oUPuffKCjqp-wGXRpeehbgUsS812s4v_xDeCDxZoBsxVvJfT2_KPEItqkiaKMe10hrwhYpfhr57Ey0LRan4kzHHcKkmerOXwxjyi6V0fEZz8HIZECQhNHsP4wem9Fg49UPrQd7YdaXofLBfIPNFOQmRoP4dZPxj1Mpe04a6JNKyNXSLMJ-kECGDLpVm5WtKjjFuu6SMg4wAckzuLaXXKRwg1wnqG7iuvlR2JeqBcjujpPRTwBLhph9zUpSR05_IxydfhS28LWZh-ocZrgUioti2I0M9VQuZifGePsNT-i57WI1WW-lFXpFiunhYCvYNix9GpfHdll5y6VYtyyRBhSK9HOKUNA8oKud8QkkEjHlDVvgc9DAd-iU8oiQG5g-c-_v1MDtlbJ4A-cu-yhTjrgcLpHOT_PNGKjFX2JYYaSiN5yiipm_Vn4SOQ3Mm8-WU5YVBaidNVpDywN_rKNTtY7oWhotaSjDyumiQqEVIkMfDjgK7zk8sBvQ3I4b_bSbsPMv_jLzGUvk11SJq9YNfOa_zkej4MYzfTJ8yrDfJRIFbpzaRJxhYQNhLnBup-LwKlbZ7H8idct__bwFwRi6A==",
+          "id": "rs_06ddd0e652c7c71d006ae4d956c0d887d2ba2c1bf2a0cc1a28",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Currently in Paris: 18°C and cloudy. No rain indicated in the current data, so an umbrella isn’t required right now. If you expect showers later, a light umbrella or a rain jacket could be handy. Want me to check a rain forecast for the day?",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_06ddd0e652c7c71d006ae4d9577c6c87d2afe540fde9e0144d",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "output_schema": null,
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "date",
+        "Fri, 30 Oct 2026 17:52:24 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-length",
+        "6066"
+      ],
+      [
+        "cf-ray",
+        "a52c45fb4d58f32a-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Request-ID, Server-Timing-Total"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-processing-ms",
+        "2093"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
+      ],
+      [
+        "x-ratelimit-limit-requests",
+        "30000"
+      ],
+      [
+        "x-ratelimit-limit-tokens",
+        "180000000"
+      ],
+      [
+        "x-ratelimit-remaining-requests",
+        "29999"
+      ],
+      [
+        "x-ratelimit-remaining-tokens",
+        "180000000"
+      ],
+      [
+        "x-ratelimit-reset-requests",
+        "2ms"
+      ],
+      [
+        "x-ratelimit-reset-tokens",
+        "0s"
+      ],
+      [
+        "x-request-id",
+        "req_df9d5c8a2910439a8207206ce6bc303f"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}

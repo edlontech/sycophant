@@ -1,0 +1,271 @@
+{
+  "metadata": {
+    "model": "gpt-5-nano",
+    "provider": "api.openai.com",
+    "recorded_at": "2026-10-30T17:52:12.451835Z",
+    "sycophant_version": "0.8.0"
+  },
+  "request": {
+    "body": {
+      "input": [
+        {
+          "content": "What's the weather in Paris? You must call the get_weather tool with city=\"Paris\".",
+          "role": "user"
+        }
+      ],
+      "instructions": "You are a helpful assistant. Be concise.",
+      "model": "gpt-5-nano",
+      "reasoning": {
+        "effort": "low"
+      },
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "authorization",
+        "[REDACTED]"
+      ]
+    ],
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "safety_identifier": null,
+      "store": true,
+      "error": null,
+      "created_at": 1793382727,
+      "presence_penalty": 0.0,
+      "status": "completed",
+      "tool_usage": {
+        "image_gen": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 0
+          },
+          "total_tokens": 0
+        },
+        "web_search": {
+          "num_requests": 0
+        }
+      },
+      "max_tool_calls": null,
+      "instructions": "You are a helpful assistant. Be concise.",
+      "billing": {
+        "payer": "developer"
+      },
+      "prompt_cache_retention": "in_memory",
+      "completed_at": 1793382731,
+      "temperature": 1.0,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "parallel_tool_calls": true,
+      "tool_choice": "auto",
+      "frequency_penalty": 0.0,
+      "top_logprobs": 0,
+      "reasoning": {
+        "context": "current_turn",
+        "effort": "low",
+        "mode": "standard",
+        "summary": null
+      },
+      "usage": {
+        "input_tokens": 79,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 51,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 130
+      },
+      "access_programs": null,
+      "incomplete_details": null,
+      "model": "gpt-5-nano-2025-08-07",
+      "truncation": "disabled",
+      "metadata": {},
+      "service_tier": "default",
+      "id": "resp_091034fa90a296ae006ae4d9474c8887d2ba26889d6302b8f5",
+      "top_p": 1.0,
+      "user": null,
+      "prompt_cache_key": null,
+      "moderation": null,
+      "object": "response",
+      "background": false,
+      "previous_response_id": null,
+      "max_output_tokens": null,
+      "output": [
+        {
+          "content": [],
+          "encrypted_content": "gAAAAABq5NlMCzVM-_JOal2-zBdUPbiRFx20Bu8nljwij8tApe_y87LPO0z_ZEemOT8yM_A0bX3QAf0XEIYiH9oD3zN2ZV7_W9m-r7yyhD9aVqFlLeASA4QF3BqZBerW6emCn-95NgY-SCf1q3BnTj-DkGQ9KJcdqWb8Y-kamBYuF5021alFvR_mWxPWZ2YwWJ2NGo8jwbc7zg5C0E4zukUnacHnPLFxRPDutfyBCvAyIaVw2SylxfZSY82jOO0T4z0Vi_g9ETAzQDCC7Cpap6NEUcQ2rrT1ICc1nULNgK_7aXd5eX5iu0dAC6zlS21wMXWRw17LQzzaFR1jAOIhYeMk-J-ja4nlEl2GgplscHGkJc8NVn68r203c8ypbRwborgvVLrabPmwbeluLVISW0l4qATYyyhxyRJy8OCYumTizWvty9efEcXI2B2PYVLDryXwrXkzLvIstPHn8FbwuiNmN_fo4xRGRQNH8Cf_vby760uxe_b-u9qWStFkxgDf7mB6DnE32S1GMIKBeTkwK1GSqE3NCe2O938cgQxBkFqatImN0Uvi4iTqLb945fTnzeXiuB96zJFFV1krf7vcFRKpuGlxy6Qb4RoNXeBY1EjKfXuzH-X1aZBFpzknNeyMzU_V4H20oFF5hnd3WMa2u952KxO7m6QiM-WfTs9v7OGtS-UTJWpvSZirCL_fVcTo2rwLAw4mAVpw4qQdPUoT-UPfCoWrki2KEN95PxUR2Uy5tg8G54WuLyT6RqmqWM2dhJmRkayDTwM_bPBmNBBsRBoLj6tpZqe4y3W-eNIVNLqMdmCV394Rj6qFuXWAGCfS-SnxJh_6M0vrcDowcN8NFtPKrul_FTm5g-OxFY9rOIDyH-klyGJA3a_zjubvkxtQskEFlivpJmvtLnyywSECxWBZh0uVyV4f280OsTQHDYUuCPIEjwdPuovg_yxwygo70HeK9GQ5-q66n82CskS9oFPiYsiLEJG8-EJv3gRnLHO1pMJClZluag50yrbVLkEMojIo3WWjqJo9KsBqkypC8z8AxAUd2fKhYP_SbWsusBGWjNkpDYaf51HJpaume8YKyvRyCWGEX-Z9zPUtix2SFNRMx-DAkSSgWe7xw7gnnsOKo6AcCbYz9_7Xapp87Wwz9OlbTmZ4c-QQRwPTpscbJ7UFUkqV8gbVlrKoJzZU5GaQEPOhtoF2OXdmLrifN60vQ64FI7H1Joa1B1VS6Z-qViXb8xsXYqTQSK5wrGlf-v52PV2XJvyoPRS7NhkFCuiBL2NRHvfWjxflzZTy70iysvvegOYQgfjGc_FVak0Dax1oq38HWS09Zbpj-3jddEjoa3IDl8h21PhgYjz_d16AlTJ59_t8fKfoDgmzY_b0U5WrxGUDA4R0iOxKqcBxwJFEhEyhRZgOnLXLZSbCkKuxzaW62gy2ykhBYCMDck-622FoJ0AGSObtCg4vxBxAKGNOSMV2J317VgZFSWrrcXVKOJ0pe6S_XZZEVCUiND9Nim9sZQd4eJff512ykNQtQLTtLwBHROs4LthUbDqH_kHCjI0Wpyu7uPxG7YEJN6PPe7urRn-BrkkhFSiLOG2tDarIyXBTx0rIqSBViofVp4a1Gd_QsHHGIDzCT5YX9y8VWMzNeLP8IFBXgOpnS4RoZ1qMc-LOytp0zQZ-pCxrmI5CjQDgusLB6bQHl99CvB1pbXmeIjrUivPDsOB5q8jxjPBX5otomDb4GfWa4M01KEZ6fIeqgsyCz0ER9IndmBWS2G3vbLVqocLlURbhbNX4bKFK9d9e9OGCcWpZ2SkSwGRTRX3p1ruVfASkdONLNK0x9xl8ESdH_cJfEDndxuoGPX7dud3qHiQLcKx7QdP5nGZjbQFDlWfHGwhSiA==",
+          "id": "rs_091034fa90a296ae006ae4d94b956c87d28dba436a5c06809b",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "arguments": "{\"city\":\"Paris\"}",
+          "call_id": "call_khD1aUkHZLbSXvtgEuewlxek",
+          "id": "fc_091034fa90a296ae006ae4d94bd07087d28939b2a589a86282",
+          "name": "get_weather",
+          "status": "completed",
+          "type": "function_call"
+        }
+      ],
+      "tools": [
+        {
+          "description": "Get current weather for a city. Returns temperature and conditions.",
+          "name": "get_weather",
+          "output_schema": null,
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "city"
+            ],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ]
+    },
+    "headers": [
+      [
+        "date",
+        "Fri, 30 Oct 2026 17:52:12 GMT"
+      ],
+      [
+        "content-type",
+        "application/json"
+      ],
+      [
+        "content-length",
+        "4539"
+      ],
+      [
+        "cf-ray",
+        "a52c459c09abf32a-PRG"
+      ],
+      [
+        "cf-cache-status",
+        "DYNAMIC"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "access-control-expose-headers",
+        "X-Request-ID, Server-Timing-Total"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "access-control-expose-headers",
+        "CF-Ray"
+      ],
+      [
+        "openai-organization",
+        "[REDACTED]"
+      ],
+      [
+        "openai-processing-ms",
+        "5124"
+      ],
+      [
+        "openai-project",
+        "[REDACTED]"
+      ],
+      [
+        "openai-version",
+        "2020-10-01"
+      ],
+      [
+        "x-ratelimit-limit-requests",
+        "30000"
+      ],
+      [
+        "x-ratelimit-limit-tokens",
+        "180000000"
+      ],
+      [
+        "x-ratelimit-remaining-requests",
+        "29999"
+      ],
+      [
+        "x-ratelimit-remaining-tokens",
+        "180000000"
+      ],
+      [
+        "x-ratelimit-reset-requests",
+        "2ms"
+      ],
+      [
+        "x-ratelimit-reset-tokens",
+        "0s"
+      ],
+      [
+        "x-request-id",
+        "req_80f0edaeb62748dd9ca7bb50564cf479"
+      ],
+      [
+        "set-cookie",
+        "[REDACTED]"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "status": 200
+  }
+}
