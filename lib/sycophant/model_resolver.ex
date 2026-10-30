@@ -33,8 +33,8 @@ defmodule Sycophant.ModelResolver do
   Accepts a `"provider:model"` string, an `%LLMDB.Model{}` struct, or `nil`.
   Looks up the model and its provider in LLMDB, selects the appropriate wire
   protocol adapter, and returns a map with `:model_id`, `:provider`,
-  `:base_url`, `:wire_adapter`, `:env_vars`, and the raw LLMDB structs.
-  When a string spec contains a model ID that differs from the canonical one,
+  `:base_url`, `:wire_protocol` (protocol name atom), `:wire_adapter`,
+  `:env_vars`, and the raw LLMDB structs. When a string spec contains a model ID that differs from the canonical one,
   the requested ID takes precedence.
   """
   @spec resolve(nil | binary() | LLMDB.Model.t() | term()) ::
@@ -67,8 +67,8 @@ defmodule Sycophant.ModelResolver do
   defp do_resolve(model, kind) do
     with :ok <- validate_model_kind(model, kind),
          {:ok, provider} <- fetch_provider(model.provider),
-         {:ok, adapter} <- resolve_adapter(model, kind) do
-      {:ok, build_info(model, provider, adapter)}
+         {:ok, protocol, adapter} <- resolve_adapter(model, kind) do
+      {:ok, build_info(model, provider, protocol, adapter)}
     end
   end
 
@@ -132,7 +132,7 @@ defmodule Sycophant.ModelResolver do
       protocol ->
         case Sycophant.Registry.fetch_protocol(kind, protocol) do
           {:ok, adapter} ->
-            {:ok, adapter}
+            {:ok, protocol, adapter}
 
           :error ->
             {:error, Unknown.exception(error: "Unsupported #{kind} protocol: #{protocol}")}
@@ -171,11 +171,12 @@ defmodule Sycophant.ModelResolver do
     end
   end
 
-  defp build_info(model, provider, adapter) do
+  defp build_info(model, provider, protocol, adapter) do
     %{
       model_id: model.provider_model_id || model.id,
       provider: model.provider,
       base_url: model.base_url || provider.base_url,
+      wire_protocol: protocol,
       wire_adapter: adapter,
       env_vars: provider.env || [],
       model_struct: model,

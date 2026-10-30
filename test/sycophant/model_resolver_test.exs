@@ -186,6 +186,27 @@ defmodule Sycophant.ModelResolverTest do
       assert info.wire_adapter == Sycophant.WireProtocol.OpenAIResponses
     end
 
+    test "exposes the protocol name resolved from app config" do
+      model = build_model(%{extra: %{}, provider: :openrouter})
+      provider = build_provider(%{id: :openrouter, base_url: "https://openrouter.ai/api/v1"})
+
+      expect(Config, :wire_protocol_defaults, fn -> %{openrouter: %{chat: :openai_responses}} end)
+      expect(LLMDB, :provider, fn :openrouter -> {:ok, provider} end)
+
+      assert {:ok, info} = ModelResolver.resolve(model)
+      assert info.wire_protocol == :openai_responses
+    end
+
+    test "exposes the protocol name resolved from model extra" do
+      model = build_model(%{extra: %{wire: %{protocol: "openai_chat"}}})
+      provider = build_provider()
+
+      expect(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+
+      assert {:ok, info} = ModelResolver.resolve(model)
+      assert info.wire_protocol == :openai_chat
+    end
+
     test "falls back to app config when model extra is nil" do
       model = build_model(%{extra: nil, provider: :openrouter})
       provider = build_provider(%{id: :openrouter, base_url: "https://openrouter.ai/api/v1"})
