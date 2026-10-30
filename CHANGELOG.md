@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.9.0](https://github.com/edlontech/sycophant/compare/sycophant-v0.8.0...sycophant-v0.9.0) (2026-10-30)
+
+
+### Features
+
+* load full LLMDB catalog and gate support on wire protocol resolution ([3b8e121](https://github.com/edlontech/sycophant/commit/3b8e121f24a46e2306825fc9679de1bb93698cb4))
+* **message_compat:** adapt message history for a target provider ([ef662cb](https://github.com/edlontech/sycophant/commit/ef662cb9a39b43536694c46b9922f6decd502109))
+* **message:** add provider and wire_protocol origin fields ([720cfa1](https://github.com/edlontech/sycophant/commit/720cfa1f9b6d1e3f76b8482648934cfcbc9f4e4e))
+* **model_resolver:** expose resolved wire protocol name ([29d386a](https://github.com/edlontech/sycophant/commit/29d386af97fa3b5e305a670a4726abfed8e1feb6))
+* **pipeline:** adapt history for target model and stamp message origin ([d096acc](https://github.com/edlontech/sycophant/commit/d096acc07ed39fa6afb7a25ae91dd3d8eb78fb67))
+
 ## [0.8.0](https://github.com/edlontech/sycophant/compare/sycophant-v0.7.0...sycophant-v0.8.0) (2026-10-19)
 
 
