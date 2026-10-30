@@ -244,6 +244,42 @@ defmodule Sycophant.SerializableTest do
 
       assert original == original |> Decoder.encode() |> Decoder.decode()
     end
+
+    test "round-trips assistant message origin" do
+      original = %Sycophant.Message{
+        role: :assistant,
+        content: "hi",
+        provider: :anthropic,
+        wire_protocol: :anthropic_messages
+      }
+
+      assert original == original |> Decoder.encode() |> Decoder.decode()
+    end
+
+    test "decodes message without origin keys" do
+      decoded =
+        Sycophant.Message.assistant("hi")
+        |> Serializable.to_map()
+        |> Map.drop(["provider", "wire_protocol"])
+        |> Decoder.from_map()
+
+      assert decoded.provider == nil
+      assert decoded.wire_protocol == nil
+    end
+
+    test "decodes unknown origin atom as nil" do
+      decoded =
+        Sycophant.Message.assistant("hi")
+        |> Serializable.to_map()
+        |> Map.merge(%{
+          "provider" => "no_such_provider_xyz_123",
+          "wire_protocol" => "no_such_wire_xyz_123"
+        })
+        |> Decoder.from_map()
+
+      assert decoded.provider == nil
+      assert decoded.wire_protocol == nil
+    end
   end
 
   describe "Context" do

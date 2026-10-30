@@ -25,6 +25,14 @@ defmodule Sycophant.Message do
         %Sycophant.Message.Content.Text{text: "What's in this image?"},
         %Sycophant.Message.Content.Image{url: "https://example.com/photo.jpg"}
       ])
+
+  ## Origin
+
+  Assistant messages produced by the pipeline record the `:provider` and
+  `:wire_protocol` that generated them. When the conversation continues on a
+  different provider or wire protocol, provider-specific reasoning from those
+  turns (thinking signatures, encrypted reasoning) is left out of the request.
+  A `nil` origin means unknown, and the message is sent as-is.
   """
   alias Sycophant.Message.Content
   alias Sycophant.ToolCall
@@ -61,18 +69,8 @@ defmodule Sycophant.Message do
             tool_call_id: Zoi.optional(Zoi.string()),
             tool_calls: Zoi.list(Sycophant.ToolCall.t()) |> Zoi.optional(),
             metadata: Zoi.default(Zoi.any(), %{}),
-            wire_protocol:
-              Zoi.enum(
-                [
-                  anthropic_messages: "anthropic_messages",
-                  openai_completions: "openai_completions",
-                  openai_responses: "openai_responses",
-                  bedrock_converse: "bedrock_converse",
-                  google_gemini: "google_gemini"
-                ],
-                coerce: true
-              )
-              |> Zoi.optional()
+            provider: Zoi.optional(Zoi.atom()),
+            wire_protocol: Zoi.optional(Zoi.atom())
 
   @doc """
   Creates a user message with the given content.
@@ -129,8 +127,22 @@ defmodule Sycophant.Message do
   @doc false
   @spec decode(map(), keyword()) :: t()
   def decode(data, _opts) do
+    data = data |> decode_origin("provider") |> decode_origin("wire_protocol")
     msg = Zoi.parse!(__MODULE__.t(), data)
     %{msg | metadata: fix_metadata(msg.metadata)}
+  end
+
+  defp decode_origin(data, key) do
+    case data do
+      %{^key => value} when is_binary(value) -> Map.put(data, key, existing_atom(value))
+      _ -> data
+    end
+  end
+
+  defp existing_atom(value) do
+    String.to_existing_atom(value)
+  rescue
+    ArgumentError -> nil
   end
 
   defp fix_metadata(meta) when is_map(meta) do
