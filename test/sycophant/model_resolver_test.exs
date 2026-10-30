@@ -152,12 +152,27 @@ defmodule Sycophant.ModelResolverTest do
                ModelResolver.resolve(model)
     end
 
-    test "raises for wire protocol string that is not an existing atom" do
-      model = build_model(%{extra: %{wire: %{protocol: "totally_unknown_protocol"}}})
+    test "missing wire protocol error names the kind and model" do
+      model = build_model(%{extra: %{}})
+      provider = build_provider()
 
-      assert_raise ArgumentError, fn ->
-        ModelResolver.resolve(model)
-      end
+      expect(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+
+      assert {:error, %Sycophant.Error.Invalid.MissingModel{} = error} =
+               ModelResolver.resolve(model)
+
+      assert Exception.message(error) ==
+               "No chat wire protocol for model openai:#{model.id}"
+    end
+
+    test "returns error for wire protocol string that is not an existing atom" do
+      model = build_model(%{extra: %{wire: %{protocol: "totally_unknown_protocol"}}})
+      provider = build_provider()
+
+      expect(LLMDB, :provider, fn :openai -> {:ok, provider} end)
+
+      assert {:error, %Sycophant.Error.Unknown.Unknown{} = error} = ModelResolver.resolve(model)
+      assert Exception.message(error) =~ "Unsupported chat protocol: totally_unknown_protocol"
     end
 
     test "falls back to app config when model has no wire protocol" do

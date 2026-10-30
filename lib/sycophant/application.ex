@@ -3,18 +3,6 @@ defmodule Sycophant.Application do
 
   use Application
 
-  @llmdb_allow %{
-    openai: ["*"],
-    anthropic: ["*"],
-    google: ["*"],
-    amazon_bedrock: ["*"],
-    openrouter: ["*"],
-    wandb: ["*"],
-    typesafe: ["*"],
-    azure: ["*"],
-    github_copilot: ["*"]
-  }
-
   @doc false
   @impl true
   def start(_type, _args) do
@@ -30,8 +18,10 @@ defmodule Sycophant.Application do
     Supervisor.start_link(children, opts)
   end
 
+  # Loads the full catalog by default. Support is decided per model at
+  # resolution time, based on whether a registered wire protocol exists.
   defp load_llmdb do
-    LLMDB.load(allow: Application.get_env(:sycophant, :llmdb_allow, @llmdb_allow))
+    LLMDB.load(allow: Application.get_env(:sycophant, :llmdb_allow, :all))
   end
 
   defp quiver_children do

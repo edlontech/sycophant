@@ -25,6 +25,8 @@ defmodule Sycophant.ModelResolver do
   alias Sycophant.Error.Unknown.Unknown
   alias Sycophant.ModelExtra
 
+  import Sycophant.Utils, only: [safe_to_existing_atom: 1]
+
   @doc """
   Resolves a model specification into a normalized map for the pipeline.
 
@@ -122,7 +124,10 @@ defmodule Sycophant.ModelResolver do
 
     case protocol do
       nil ->
-        {:error, MissingModel.exception([])}
+        {:error,
+         MissingModel.exception(
+           message: "No #{kind} wire protocol for model #{model.provider}:#{model.id}"
+         )}
 
       protocol ->
         case Sycophant.Registry.fetch_protocol(kind, protocol) do
@@ -137,13 +142,13 @@ defmodule Sycophant.ModelResolver do
 
   defp protocol_from_model_extra(%{extra: extra}, :chat) when is_map(extra) do
     raw = ModelExtra.get_path(extra, [:wire, :protocol]) || ModelExtra.get(extra, :wire_protocol)
-    to_existing_atom(raw)
+    safe_to_existing_atom(raw)
   end
 
   defp protocol_from_model_extra(%{extra: extra}, :embedding) when is_map(extra) do
     extra
     |> ModelExtra.get_path([:wire, :embedding_protocol])
-    |> to_existing_atom()
+    |> safe_to_existing_atom()
   end
 
   defp protocol_from_model_extra(
@@ -157,22 +162,6 @@ defmodule Sycophant.ModelResolver do
 
   defp wire_protocol_default(provider, kind) do
     get_in(Sycophant.Config.wire_protocol_defaults(), [provider, kind])
-  end
-
-  defp to_existing_atom(nil), do: nil
-  defp to_existing_atom(value) when is_atom(value), do: value
-  defp to_existing_atom(value) when is_binary(value), do: String.to_existing_atom(value)
-
-  # Never raises, unlike `to_existing_atom/1`: an unmapped LLMDB protocol
-  # string must fall through to `Registry.fetch_protocol/2`'s error instead
-  # of crashing the resolver.
-  defp safe_to_existing_atom(nil), do: nil
-  defp safe_to_existing_atom(value) when is_atom(value), do: value
-
-  defp safe_to_existing_atom(value) when is_binary(value) do
-    String.to_existing_atom(value)
-  rescue
-    ArgumentError -> value
   end
 
   defp fetch_provider(provider_id) do
