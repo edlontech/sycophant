@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.1](https://github.com/edlontech/sycophant/compare/sycophant-v0.9.0...sycophant-v0.9.1) (2026-11-10)
+
+
+### Bug Fixes
+
+* **deps:** update deps, adapt to assent 0.4 and zoi 0.19 ([e1b4bdc](https://github.com/edlontech/sycophant/commit/e1b4bdc127e030d71547de44080605cac0d969b4))
+
 ## [0.9.0](https://github.com/edlontech/sycophant/compare/sycophant-v0.8.0...sycophant-v0.9.0) (2026-10-30)
 
 
