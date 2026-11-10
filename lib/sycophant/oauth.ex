@@ -10,11 +10,11 @@ defmodule Sycophant.OAuth do
   """
 
   alias Assent.HTTPAdapter.HTTPResponse
-  alias Assent.InvalidResponseError
-  alias Assent.RequestError
+  alias Assent.HTTPAdapter.InvalidResponseError
+  alias Assent.HTTPAdapter.RequestError
+  alias Assent.HTTPAdapter.UnexpectedResponseError
   alias Assent.Strategy.OAuth2
   alias Assent.Strategy.OIDC
-  alias Assent.UnexpectedResponseError
   alias Sycophant.Error.Invalid.OAuthFailed
   alias Sycophant.OAuth.Credential
   alias Sycophant.OAuth.Session
@@ -259,8 +259,7 @@ defmodule Sycophant.OAuth do
       authorize_url: config.authorize_url,
       token_url: config.token_url,
       client_id: client_id,
-      auth_method: nil,
-      client_authentication_method: "none",
+      client_authentication_method: nil,
       redirect_uri: config.redirect_uri,
       code_verifier: true,
       http_adapter: Sycophant.OAuth.HTTPAdapter,

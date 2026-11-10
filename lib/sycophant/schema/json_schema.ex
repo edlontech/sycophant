@@ -27,6 +27,7 @@ defmodule Sycophant.Schema.JsonSchema do
     |> Map.delete(:"$schema")
     |> Map.delete("$schema")
     |> Map.new(fn {k, v} -> {stringify_key(k), normalize(v)} end)
+    |> put_string_enum_type()
   end
 
   defp normalize(list) when is_list(list), do: Enum.map(list, &normalize/1)
@@ -36,6 +37,16 @@ defmodule Sycophant.Schema.JsonSchema do
   end
 
   defp normalize(value), do: value
+
+  # Zoi omits `type` for atom enums; once stringified they are string enums.
+  defp put_string_enum_type(%{"enum" => values} = map)
+       when is_list(values) and not is_map_key(map, "type") do
+    if values != [] and Enum.all?(values, &is_binary/1),
+      do: Map.put(map, "type", "string"),
+      else: map
+  end
+
+  defp put_string_enum_type(map), do: map
 
   defp stringify_key(key) when is_atom(key), do: Atom.to_string(key)
   defp stringify_key(key) when is_binary(key), do: key

@@ -2,6 +2,7 @@ defmodule Sycophant.OAuth.HTTPAdapter do
   @moduledoc "Assent HTTP adapter using Sycophant's Tesla configuration without body decoding."
   @behaviour Assent.HTTPAdapter
 
+  alias Assent.HTTPAdapter.HTTPRequest
   alias Assent.HTTPAdapter.HTTPResponse
 
   @doc "Sends a raw OAuth request; HTTP error statuses are returned to Assent unchanged."
@@ -18,14 +19,14 @@ defmodule Sycophant.OAuth.HTTPAdapter do
         :get -> Tesla.get(client, url, [])
       end
 
-    with {:ok, %Tesla.Env{status: status, headers: headers, body: body}} <- result do
+    with {:ok, %Tesla.Env{status: status, headers: resp_headers, body: resp_body}} <- result do
       {:ok,
        %HTTPResponse{
          status: status,
-         headers: headers,
-         body: body,
+         headers: resp_headers,
+         body: resp_body,
          http_adapter: __MODULE__,
-         request_url: url
+         request: %HTTPRequest{method: method, url: url, headers: headers, body: body}
        }}
     end
   end

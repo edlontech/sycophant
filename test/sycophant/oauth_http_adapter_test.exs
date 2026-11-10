@@ -2,6 +2,7 @@ defmodule Sycophant.OAuth.HTTPAdapterTest do
   use ExUnit.Case, async: true
   use Mimic
 
+  alias Assent.HTTPAdapter.HTTPRequest
   alias Assent.HTTPAdapter.HTTPResponse
   alias Sycophant.OAuth.HTTPAdapter
 
@@ -65,7 +66,7 @@ defmodule Sycophant.OAuth.HTTPAdapterTest do
                 headers: ^response_headers,
                 body: "{\"ok\":true}",
                 http_adapter: HTTPAdapter,
-                request_url: ^url
+                request: %HTTPRequest{url: ^url}
               }} = HTTPAdapter.request(:post, url, "a=b", headers, [])
     end
   end
