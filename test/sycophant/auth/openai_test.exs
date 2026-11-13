@@ -51,7 +51,9 @@ defmodule Sycophant.Auth.OpenAITest do
                :safety_identifier,
                :top_logprobs,
                :truncation,
-               :previous_response_id
+               :previous_response_id,
+               :conversation,
+               :prompt
              ]
 
       assert constraints.require_stream

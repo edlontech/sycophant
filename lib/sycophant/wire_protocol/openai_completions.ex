@@ -62,10 +62,12 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
                       Zoi.string(description: "Cache key for prompt caching")
                       |> Zoi.optional(),
                     cache_retention:
-                      Zoi.enum(["in-memory", "24h"],
-                        description: "Cache retention policy"
+                      Zoi.enum(["in_memory", "in-memory", "24h"],
+                        description:
+                          "Cache retention policy (deprecated by OpenAI, prefer cache_options.ttl)"
                       )
-                      |> Zoi.optional()
+                      |> Zoi.optional(),
+                    cache_options: ParamDefs.openai_cache_options()
                   })
                 )
 
@@ -366,10 +368,22 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
   defp encode_content(nil), do: {:ok, nil}
 
   defp encode_content(parts) when is_list(parts) do
-    with {:ok, encoded} <- reduce_ok(parts, &encode_content_part/1) do
+    with {:ok, encoded} <- reduce_ok(parts, &encode_part_with_breakpoint/1) do
       {:ok, Enum.reject(encoded, &is_nil/1)}
     end
   end
+
+  defp encode_part_with_breakpoint(part) do
+    case encode_content_part(part) do
+      {:ok, encoded} when is_map(encoded) -> {:ok, put_cache_breakpoint(encoded, part)}
+      other -> other
+    end
+  end
+
+  defp put_cache_breakpoint(encoded, %{cache_breakpoint: true}),
+    do: Map.put(encoded, "prompt_cache_breakpoint", %{"mode" => "explicit"})
+
+  defp put_cache_breakpoint(encoded, _part), do: encoded
 
   defp encode_content_part(%Content.Text{text: text}) do
     {:ok, %{"type" => "text", "text" => text}}
@@ -378,17 +392,20 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
   defp encode_content_part(%Content.Thinking{}), do: {:ok, nil}
   defp encode_content_part(%Content.RedactedThinking{}), do: {:ok, nil}
 
-  defp encode_content_part(%Content.Image{url: url}) when is_binary(url) do
-    {:ok, %{"type" => "image_url", "image_url" => %{"url" => url}}}
+  defp encode_content_part(%Content.Image{url: url} = image) when is_binary(url) do
+    {:ok, %{"type" => "image_url", "image_url" => image_url(url, image.detail)}}
   end
 
-  defp encode_content_part(%Content.Image{data: data, media_type: media_type})
+  defp encode_content_part(%Content.Image{data: data, media_type: media_type} = image)
        when is_binary(data) do
-    {:ok,
-     %{"type" => "image_url", "image_url" => %{"url" => "data:#{media_type};base64,#{data}"}}}
+    url = "data:#{media_type};base64,#{data}"
+    {:ok, %{"type" => "image_url", "image_url" => image_url(url, image.detail)}}
   end
 
   defp encode_content_part(%Content.Document{} = doc), do: encode_document(doc)
+
+  defp image_url(url, nil), do: %{"url" => url}
+  defp image_url(url, detail), do: %{"url" => url, "detail" => Atom.to_string(detail)}
 
   defp encode_document(%Content.Document{data: data, media_type: media_type, name: name})
        when is_binary(data) do
@@ -461,7 +478,14 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
     base
     |> maybe_put_reasoning_effort(params)
     |> maybe_put_reasoning_summary(params)
+    |> normalize_cache_retention()
   end
+
+  # The API value is "in_memory"; "in-memory" is kept for backwards compatibility.
+  defp normalize_cache_retention(%{"prompt_cache_retention" => "in-memory"} = payload),
+    do: %{payload | "prompt_cache_retention" => "in_memory"}
+
+  defp normalize_cache_retention(payload), do: payload
 
   defp maybe_put_reasoning_effort(payload, %{reasoning_effort: level}) when not is_nil(level),
     do: Map.put(payload, "reasoning_effort", stringify_atom(level))
@@ -472,6 +496,18 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
     do: Map.put(payload, "reasoning_summary", stringify_atom(value))
 
   defp maybe_put_reasoning_summary(payload, _), do: payload
+
+  defp maybe_put_cache_options(payload, %{cache_options: options}) when is_map(options) do
+    encoded = Map.new(options, fn {key, value} -> {to_string(key), encode_option(value)} end)
+    Map.put(payload, "prompt_cache_options", encoded)
+  end
+
+  defp maybe_put_cache_options(payload, _params), do: payload
+
+  defp encode_option(value) when is_atom(value) and not is_boolean(value),
+    do: Atom.to_string(value)
+
+  defp encode_option(value), do: value
 
   defp stringify_atom(value) when is_atom(value), do: Atom.to_string(value)
   defp stringify_atom(value), do: value
@@ -487,6 +523,7 @@ defmodule Sycophant.WireProtocol.OpenAICompletions do
        payload
        |> maybe_put_stream(request.stream)
        |> maybe_put_tool_choice(request.params)
+       |> maybe_put_cache_options(request.params)
        |> Map.merge(translate_params(request.params))}
     end
   end

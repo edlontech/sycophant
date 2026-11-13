@@ -498,6 +498,7 @@ defmodule Sycophant.Pipeline do
       role: :assistant,
       content: build_assistant_content(response),
       tool_calls: if(response.tool_calls in [nil, []], do: nil, else: response.tool_calls),
+      metadata: assistant_metadata(response),
       provider: model_info.provider,
       wire_protocol: Map.get(model_info, :wire_protocol)
     }
@@ -511,6 +512,11 @@ defmodule Sycophant.Pipeline do
 
     %{response | context: context}
   end
+
+  defp assistant_metadata(%{metadata: %{openai_responses: %{phase: phase}}}),
+    do: %{phase: phase}
+
+  defp assistant_metadata(_response), do: %{}
 
   defp build_assistant_content(%{reasoning: nil, text: text, citations: []}), do: text
 

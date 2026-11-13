@@ -56,7 +56,8 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
     low: 1024,
     medium: 4096,
     high: 16_384,
-    xhigh: 32_768
+    xhigh: 32_768,
+    max: 32_768
   }
 
   @type t :: unquote(Zoi.type_spec(@param_schema))
@@ -391,12 +392,13 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
   end
 
   defp system_content_blocks(%Message{content: parts}) when is_list(parts) do
-    parts
-    |> Enum.map(fn
-      %Content.Text{text: text} when text != "" -> %{"text" => text}
-      _ -> nil
+    Enum.flat_map(parts, fn
+      %Content.Text{text: text} = part when text != "" ->
+        with_cache_point({part, %{"text" => text}})
+
+      _ ->
+        []
     end)
-    |> Enum.reject(&is_nil/1)
   end
 
   defp system_content_blocks(_), do: []
@@ -460,9 +462,16 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
 
   defp encode_content(parts) when is_list(parts) do
     with {:ok, encoded} <- reduce_ok(parts, &encode_content_part/1) do
-      {:ok, Enum.reject(encoded, &is_nil/1)}
+      {:ok, parts |> Enum.zip(encoded) |> Enum.flat_map(&with_cache_point/1)}
     end
   end
+
+  defp with_cache_point({_part, nil}), do: []
+
+  defp with_cache_point({%{cache_breakpoint: true}, block}),
+    do: [block, %{"cachePoint" => %{"type" => "default"}}]
+
+  defp with_cache_point({_part, block}), do: [block]
 
   defp encode_content_part(%Content.Text{text: text}) do
     {:ok, %{"text" => text}}

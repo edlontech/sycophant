@@ -63,7 +63,9 @@ defmodule Sycophant.Auth.OpenAI do
         :safety_identifier,
         :top_logprobs,
         :truncation,
-        :previous_response_id
+        :previous_response_id,
+        :conversation,
+        :prompt
       ],
       forced_params: forced_params,
       require_stream: true

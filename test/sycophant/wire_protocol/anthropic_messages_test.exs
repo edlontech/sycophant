@@ -1419,4 +1419,30 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
       "usage" => usage
     }
   end
+
+  describe "encode_request/1 - cache breakpoints" do
+    test "puts cache_control on marked text, image and document blocks" do
+      parts = [
+        %Content.Text{text: "prefix", cache_breakpoint: true},
+        %Content.Image{url: "https://x/a.png", cache_breakpoint: true},
+        %Content.Document{file_id: "file_1", cache_breakpoint: true},
+        %Content.Text{text: "question"}
+      ]
+
+      request = build_request([Message.user(parts)])
+      assert {:ok, payload} = AnthropicMessages.encode_request(request)
+      [%{"content" => blocks}] = payload["messages"]
+
+      assert Enum.map(blocks, & &1["cache_control"]) ==
+               [%{"type" => "ephemeral"}, %{"type" => "ephemeral"}, %{"type" => "ephemeral"}, nil]
+    end
+
+    test "block breakpoints follow a 1h cache_retention" do
+      parts = [%Content.Text{text: "prefix", cache_breakpoint: true}]
+      request = build_request([Message.user(parts)], params: %{cache_retention: "1h"})
+      assert {:ok, payload} = AnthropicMessages.encode_request(request)
+      [%{"content" => [block]}] = payload["messages"]
+      assert block["cache_control"] == %{"type" => "ephemeral", "ttl" => "1h"}
+    end
+  end
 end

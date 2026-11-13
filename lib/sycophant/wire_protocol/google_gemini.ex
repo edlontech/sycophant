@@ -414,10 +414,31 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
   defp encode_parts(nil), do: {:ok, []}
 
   defp encode_parts(parts) when is_list(parts) do
-    with {:ok, encoded} <- reduce_ok(parts, &encode_content_part/1) do
+    with {:ok, encoded} <- reduce_ok(parts, &encode_part_with_resolution/1) do
       {:ok, Enum.reject(encoded, &is_nil/1)}
     end
   end
+
+  @media_resolutions %{
+    low: "MEDIA_RESOLUTION_LOW",
+    high: "MEDIA_RESOLUTION_HIGH",
+    original: "MEDIA_RESOLUTION_ULTRA_HIGH"
+  }
+
+  # Per-part media resolution is Gemini 3+; :auto (or no detail) sends nothing.
+  defp encode_part_with_resolution(part) do
+    case encode_content_part(part) do
+      {:ok, encoded} when is_map(encoded) -> {:ok, put_media_resolution(encoded, part)}
+      other -> other
+    end
+  end
+
+  defp put_media_resolution(encoded, %{detail: detail})
+       when is_map_key(@media_resolutions, detail) do
+    Map.put(encoded, "mediaResolution", %{"level" => Map.fetch!(@media_resolutions, detail)})
+  end
+
+  defp put_media_resolution(encoded, _part), do: encoded
 
   defp encode_content_part(%Content.Text{text: text}), do: {:ok, %{"text" => text}}
 
@@ -581,7 +602,8 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
     low: "LOW",
     medium: "MEDIUM",
     high: "HIGH",
-    xhigh: "HIGH"
+    xhigh: "HIGH",
+    max: "HIGH"
   }
 
   @thinking_budgets %{
@@ -589,7 +611,8 @@ defmodule Sycophant.WireProtocol.GoogleGemini do
     low: 1024,
     medium: 4096,
     high: 16_384,
-    xhigh: 32_768
+    xhigh: 32_768,
+    max: 32_768
   }
 
   # Models before gemini-3 use thinkingBudget; gemini-3+ use thinkingLevel

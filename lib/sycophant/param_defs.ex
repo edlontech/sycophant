@@ -38,7 +38,7 @@ defmodule Sycophant.ParamDefs do
         Zoi.list(Zoi.string(), description: "Stop sequences")
         |> Zoi.optional(),
       reasoning_effort:
-        Zoi.enum([:none, :minimal, :low, :medium, :high, :xhigh],
+        Zoi.enum([:none, :minimal, :low, :medium, :high, :xhigh, :max],
           description: "Extended thinking effort level"
         )
         |> Zoi.optional(),
@@ -61,5 +61,23 @@ defmodule Sycophant.ParamDefs do
         Zoi.boolean(description: "Allow parallel tool calls")
         |> Zoi.optional()
     }
+  end
+
+  @doc """
+  OpenAI `prompt_cache_options` schema, shared by the Responses and Chat
+  Completions wires.
+  """
+  @spec openai_cache_options() :: Zoi.schema()
+  def openai_cache_options do
+    Zoi.map(
+      %{
+        mode: Zoi.enum([:implicit, :explicit]) |> Zoi.optional(),
+        ttl: Zoi.enum(["30m", "12h"]) |> Zoi.optional(),
+        prewarm: Zoi.optional(Zoi.boolean()),
+        comparison_response_id: Zoi.optional(Zoi.string())
+      },
+      description: "Prompt caching options (prompt_cache_options)"
+    )
+    |> Zoi.optional()
   end
 end

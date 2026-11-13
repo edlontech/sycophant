@@ -9,6 +9,7 @@ defmodule Sycophant.PipelineTest do
   alias Sycophant.Response
   alias Sycophant.Schema.Normalizer
   alias Sycophant.Telemetry
+  alias Sycophant.WireProtocol.AnthropicMessages
 
   setup :set_mimic_global
   setup :verify_on_exit!
@@ -84,6 +85,29 @@ defmodule Sycophant.PipelineTest do
 
       assert %Message{role: :assistant, provider: :openai, wire_protocol: :openai_responses} =
                List.last(context.messages)
+    end
+
+    test "stores OpenAI Responses message phase on the assistant message" do
+      stub_happy_path()
+
+      stub(Sycophant.Transport, :call, fn _payload, _opts ->
+        {:ok,
+         %{
+           "id" => "resp-123",
+           "output" => [
+             %{
+               "type" => "message",
+               "phase" => "final_answer",
+               "content" => [%{"type" => "output_text", "text" => "Hello!"}]
+             }
+           ]
+         }}
+      end)
+
+      assert {:ok, %Response{context: context}} =
+               Pipeline.call(default_messages(), default_opts())
+
+      assert List.last(context.messages).metadata == %{phase: "final_answer"}
     end
 
     test "sends adapted history, keeps original in context" do
@@ -1478,7 +1502,7 @@ defmodule Sycophant.PipelineTest do
       }
 
       assert {:ok, %{"messages" => [_user, assistant]}} =
-               Sycophant.WireProtocol.AnthropicMessages.encode_request(request)
+               AnthropicMessages.encode_request(request)
 
       assert assistant["content"] == [
                %{"type" => "thinking", "thinking" => "", "signature" => "sig-0"},

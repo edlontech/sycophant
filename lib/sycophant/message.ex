@@ -33,6 +33,12 @@ defmodule Sycophant.Message do
   different provider or wire protocol, provider-specific reasoning from those
   turns (thinking signatures, encrypted reasoning) is left out of the request.
   A `nil` origin means unknown, and the message is sent as-is.
+
+  ## Phase
+
+  OpenAI Responses labels assistant messages as `"commentary"` or
+  `"final_answer"`. The pipeline stores it in `metadata[:phase]` and the
+  Responses wire sends it back on later turns; other wires ignore it.
   """
   alias Sycophant.Message.Content
   alias Sycophant.ToolCall
@@ -148,6 +154,7 @@ defmodule Sycophant.Message do
   defp fix_metadata(meta) when is_map(meta) do
     Map.new(meta, fn
       {"tool_name", v} -> {:tool_name, v}
+      {"phase", v} -> {:phase, v}
       {k, v} -> {k, v}
     end)
   end

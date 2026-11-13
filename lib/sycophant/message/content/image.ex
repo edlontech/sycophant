@@ -6,6 +6,14 @@ defmodule Sycophant.Message.Content.Image do
   content. When using `:data`, set `:media_type` to indicate the format
   (e.g. `"image/png"`, `"image/jpeg"`).
 
+  Optional hints (wires that do not support them ignore them):
+
+    * `:detail` - `:low`, `:high`, `:auto` or `:original`. Sent as `detail` on
+      OpenAI Responses and Chat Completions, and as per-part `mediaResolution`
+      on Gemini 3+ (`:original` maps to ultra high, `:auto` sends nothing).
+    * `:cache_breakpoint` - `true` marks the end of a reusable prompt prefix
+      (see `Sycophant.Message.Content.Text`).
+
   ## Examples
 
       # URL-based image
@@ -23,7 +31,13 @@ defmodule Sycophant.Message.Content.Image do
             type: Zoi.literal("image") |> Zoi.default("image"),
             url: Zoi.optional(Zoi.string()),
             data: Zoi.optional(Zoi.string()),
-            media_type: Zoi.optional(Zoi.string())
+            media_type: Zoi.optional(Zoi.string()),
+            detail:
+              Zoi.enum([low: "low", high: "high", auto: "auto", original: "original"],
+                coerce: true
+              )
+              |> Zoi.optional(),
+            cache_breakpoint: Zoi.optional(Zoi.boolean())
 end
 
 defimpl Inspect, for: Sycophant.Message.Content.Image do

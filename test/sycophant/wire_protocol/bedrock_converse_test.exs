@@ -911,4 +911,27 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
       stream: opts[:stream]
     }
   end
+
+  describe "encode_request/1 - cache breakpoints" do
+    test "adds a cachePoint block after marked parts" do
+      parts = [
+        %Content.Text{text: "prefix", cache_breakpoint: true},
+        %Content.Text{text: "question"}
+      ]
+
+      request =
+        build_request([
+          Message.system([%Content.Text{text: "sys", cache_breakpoint: true}]),
+          Message.user(parts)
+        ])
+
+      assert {:ok, payload} = BedrockConverse.encode_request(request)
+      cache_point = %{"cachePoint" => %{"type" => "default"}}
+
+      assert payload["system"] == [%{"text" => "sys"}, cache_point]
+
+      assert [%{"content" => [%{"text" => "prefix"}, ^cache_point, %{"text" => "question"}]}] =
+               payload["messages"]
+    end
+  end
 end

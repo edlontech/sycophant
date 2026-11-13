@@ -8,6 +8,8 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
   alias Sycophant.Message
   alias Sycophant.Message.Content
   alias Sycophant.Request
+  alias Sycophant.Serializable
+  alias Sycophant.Serializable.Decoder
   alias Sycophant.StreamChunk
   alias Sycophant.Tool
   alias Sycophant.ToolCall
@@ -1459,6 +1461,185 @@ defmodule Sycophant.WireProtocol.OpenAIResponsesTest do
 
       [item] = payload["input"]
       assert [%{"type" => "input_file", "file_id" => "file_123"}] = item["content"]
+    end
+  end
+
+  defp encode(messages, params \\ %{}, opts \\ []) do
+    request = %Request{
+      messages: messages,
+      model: "gpt-5",
+      params: Zoi.parse!(OpenAIResponses.param_schema(), params),
+      tools: [],
+      response_schema: opts[:response_schema]
+    }
+
+    {:ok, payload} = OpenAIResponses.encode_request(request)
+    payload
+  end
+
+  describe "prompt cache params" do
+    test "sends in_memory retention for both spellings" do
+      for retention <- ["in_memory", "in-memory"] do
+        payload = encode([Message.user("hi")], %{cache_retention: retention})
+        assert payload["prompt_cache_retention"] == "in_memory"
+      end
+    end
+
+    test "encodes cache_options as prompt_cache_options" do
+      options = %{mode: :explicit, ttl: "12h", prewarm: true, comparison_response_id: "resp_1"}
+      payload = encode([Message.user("hi")], %{cache_options: options})
+
+      assert payload["prompt_cache_options"] == %{
+               "mode" => "explicit",
+               "ttl" => "12h",
+               "prewarm" => true,
+               "comparison_response_id" => "resp_1"
+             }
+    end
+
+    test "rejects an unsupported cache ttl" do
+      assert {:error, _} =
+               Zoi.parse(OpenAIResponses.param_schema(), %{cache_options: %{ttl: "24h"}})
+    end
+  end
+
+  describe "reasoning params" do
+    test "encodes effort max, context and mode" do
+      payload =
+        encode([Message.user("hi")], %{
+          reasoning_effort: :max,
+          reasoning_summary: :detailed,
+          reasoning_context: :all_turns,
+          reasoning_mode: :pro
+        })
+
+      assert payload["reasoning"] == %{
+               "effort" => "max",
+               "summary" => "detailed",
+               "context" => "all_turns",
+               "mode" => "pro"
+             }
+    end
+
+    test "omits summary :none since the API does not accept it" do
+      payload = encode([Message.user("hi")], %{reasoning_effort: :low, reasoning_summary: :none})
+      assert payload["reasoning"] == %{"effort" => "low"}
+    end
+  end
+
+  describe "text format" do
+    test "json_mode sends json_object format" do
+      payload = encode([Message.user("hi")], %{json_mode: true, verbosity: :low})
+      assert payload["text"] == %{"format" => %{"type" => "json_object"}, "verbosity" => "low"}
+    end
+
+    test "response schema takes precedence over json_mode" do
+      schema = %{"type" => "object", "properties" => %{}}
+      payload = encode([Message.user("hi")], %{json_mode: true}, response_schema: schema)
+      assert payload["text"]["format"]["type"] == "json_schema"
+    end
+  end
+
+  describe "passthrough params" do
+    test "sends conversation, prompt and moderation as given" do
+      prompt = %{"id" => "pmpt_1", "version" => "2", "variables" => %{"name" => "Ada"}}
+      moderation = %{"model" => "omni-moderation-latest"}
+
+      payload =
+        encode([Message.user("hi")], %{
+          conversation: "conv_1",
+          prompt: prompt,
+          moderation: moderation
+        })
+
+      assert payload["conversation"] == "conv_1"
+      assert payload["prompt"] == prompt
+      assert payload["moderation"] == moderation
+    end
+  end
+
+  describe "content part options" do
+    test "encodes detail and cache breakpoints on input parts" do
+      parts = [
+        %Content.Text{text: "prefix", cache_breakpoint: true},
+        %Content.Image{url: "https://x/a.png", detail: :original},
+        %Content.Document{file_id: "file_1", detail: :low, cache_breakpoint: true}
+      ]
+
+      [item] = encode([Message.user(parts)])["input"]
+      breakpoint = %{"mode" => "explicit"}
+
+      assert item["content"] == [
+               %{
+                 "type" => "input_text",
+                 "text" => "prefix",
+                 "prompt_cache_breakpoint" => breakpoint
+               },
+               %{
+                 "type" => "input_image",
+                 "image_url" => "https://x/a.png",
+                 "detail" => "original"
+               },
+               %{
+                 "type" => "input_file",
+                 "file_id" => "file_1",
+                 "detail" => "low",
+                 "prompt_cache_breakpoint" => breakpoint
+               }
+             ]
+    end
+
+    test "detail survives serialization round trip" do
+      image = %Content.Image{url: "https://x/a.png", detail: :high, cache_breakpoint: true}
+      msg = Message.user([image])
+
+      restored =
+        msg
+        |> Serializable.to_map()
+        |> JSON.encode!()
+        |> JSON.decode!()
+        |> Decoder.from_map()
+
+      assert restored == msg
+    end
+  end
+
+  describe "assistant phase" do
+    test "decodes the last message phase into metadata" do
+      body = %{
+        "id" => "resp_1",
+        "status" => "completed",
+        "output" => [
+          %{
+            "type" => "message",
+            "phase" => "commentary",
+            "content" => [%{"type" => "output_text", "text" => "Checking."}]
+          },
+          %{"type" => "function_call", "call_id" => "c1", "name" => "f", "arguments" => "{}"}
+        ]
+      }
+
+      assert {:ok, response} = OpenAIResponses.decode_response(body)
+      assert response.metadata == %{openai_responses: %{id: "resp_1", phase: "commentary"}}
+    end
+
+    test "sends phase back on assistant messages" do
+      msg = %{Message.assistant("Done.") | metadata: %{phase: "final_answer"}}
+      [item] = encode([msg])["input"]
+      assert item["phase"] == "final_answer"
+    end
+
+    test "phase survives message serialization" do
+      msg = %{Message.assistant("Done.") | metadata: %{phase: "final_answer"}}
+
+      restored =
+        msg
+        |> Serializable.to_map()
+        |> JSON.encode!()
+        |> JSON.decode!()
+        |> Decoder.from_map()
+
+      assert restored.metadata == %{phase: "final_answer"}
     end
   end
 end

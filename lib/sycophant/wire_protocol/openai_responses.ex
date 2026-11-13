@@ -40,9 +40,34 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
                       Zoi.string(description: "Cache key for prompt caching")
                       |> Zoi.optional(),
                     cache_retention:
-                      Zoi.enum(["in-memory", "24h"],
-                        description: "Cache retention policy"
+                      Zoi.enum(["in_memory", "in-memory", "24h"],
+                        description:
+                          "Cache retention policy (deprecated by OpenAI, prefer cache_options.ttl)"
                       )
+                      |> Zoi.optional(),
+                    cache_options: ParamDefs.openai_cache_options(),
+                    reasoning_context:
+                      Zoi.enum([:auto, :current_turn, :all_turns],
+                        description: "Which reasoning items are rendered back on later turns"
+                      )
+                      |> Zoi.optional(),
+                    reasoning_mode:
+                      Zoi.enum([:standard, :pro], description: "Reasoning execution mode")
+                      |> Zoi.optional(),
+                    json_mode:
+                      Zoi.boolean(
+                        description:
+                          "Use the older JSON mode (text.format json_object) when no response schema is set"
+                      )
+                      |> Zoi.optional(),
+                    conversation:
+                      Zoi.string(description: "ID of the conversation this response belongs to")
+                      |> Zoi.optional(),
+                    prompt:
+                      Zoi.any(description: "Prompt template reference: %{id, version, variables}")
+                      |> Zoi.optional(),
+                    moderation:
+                      Zoi.any(description: "Moderation config: %{model, policy}")
                       |> Zoi.optional(),
                     safety_identifier:
                       Zoi.string(description: "Safety identifier for content filtering")
@@ -119,7 +144,10 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     top_logprobs: "top_logprobs",
     max_tool_calls: "max_tool_calls",
     metadata: "metadata",
-    previous_response_id: "previous_response_id"
+    previous_response_id: "previous_response_id",
+    conversation: "conversation",
+    prompt: "prompt",
+    moderation: "moderation"
   }
 
   @impl true
@@ -386,11 +414,24 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
 
   defp decode_usage(_), do: nil
 
-  defp decode_metadata(%{"id" => id}) when is_binary(id) do
-    %{openai_responses: %{id: id}}
+  defp decode_metadata(body) do
+    metadata =
+      for {key, value} <- [id: body["id"], phase: last_message_phase(body["output"])],
+          is_binary(value),
+          into: %{},
+          do: {key, value}
+
+    if metadata == %{}, do: %{}, else: %{openai_responses: metadata}
   end
 
-  defp decode_metadata(_), do: %{}
+  defp last_message_phase(output) do
+    output
+    |> Enum.reverse()
+    |> Enum.find_value(fn
+      %{"type" => "message", "phase" => phase} -> phase
+      _ -> nil
+    end)
+  end
 
   defp decode_api_error(error) do
     SubscriptionError.from_body(%{"error" => error}) || decode_standard_api_error(error)
@@ -488,10 +529,12 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     end
   end
 
-  defp encode_input_item(%Message{role: :assistant, content: content, tool_calls: tool_calls})
+  defp encode_input_item(
+         %Message{role: :assistant, content: content, tool_calls: tool_calls} = msg
+       )
        when is_list(tool_calls) and tool_calls != [] do
     {reasoning_items, message_content} = split_reasoning_content(content)
-    assistant_item = encode_assistant_item(message_content)
+    assistant_item = message_content |> encode_assistant_item() |> put_phase(msg)
 
     function_call_items =
       Enum.map(tool_calls, fn %ToolCall{id: id, name: name, arguments: args} ->
@@ -506,14 +549,19 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     {:ok, reasoning_items ++ [assistant_item | function_call_items]}
   end
 
-  defp encode_input_item(%Message{role: :assistant, content: content}) do
+  defp encode_input_item(%Message{role: :assistant, content: content} = msg) do
     {reasoning_items, message_content} = split_reasoning_content(content)
-    {:ok, reasoning_items ++ [encode_assistant_item(message_content)]}
+    {:ok, reasoning_items ++ [message_content |> encode_assistant_item() |> put_phase(msg)]}
   end
 
   defp encode_input_item(%Message{role: :tool_result, content: content, tool_call_id: id}) do
     {:ok, [%{"type" => "function_call_output", "call_id" => id, "output" => to_string(content)}]}
   end
+
+  defp put_phase(item, %Message{metadata: %{phase: phase}}) when is_binary(phase),
+    do: Map.put(item, "phase", phase)
+
+  defp put_phase(item, _msg), do: item
 
   defp encode_assistant_item(nil) do
     %{"type" => "message", "role" => "assistant", "status" => "completed", "content" => []}
@@ -542,20 +590,36 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     }
   end
 
-  defp encode_user_content_part(%Content.Text{text: text}) do
+  defp encode_user_content_part(part) do
+    with {:ok, encoded} <- encode_input_part(part) do
+      {:ok, encoded |> put_detail(part) |> put_cache_breakpoint(part)}
+    end
+  end
+
+  defp encode_input_part(%Content.Text{text: text}) do
     {:ok, %{"type" => "input_text", "text" => text}}
   end
 
-  defp encode_user_content_part(%Content.Image{url: url}) when is_binary(url) do
+  defp encode_input_part(%Content.Image{url: url}) when is_binary(url) do
     {:ok, %{"type" => "input_image", "image_url" => url}}
   end
 
-  defp encode_user_content_part(%Content.Image{data: data, media_type: media_type})
+  defp encode_input_part(%Content.Image{data: data, media_type: media_type})
        when is_binary(data) do
     {:ok, %{"type" => "input_image", "image_url" => "data:#{media_type};base64,#{data}"}}
   end
 
-  defp encode_user_content_part(%Content.Document{} = doc), do: encode_document(doc)
+  defp encode_input_part(%Content.Document{} = doc), do: encode_document(doc)
+
+  defp put_detail(encoded, %{detail: detail}) when is_atom(detail) and not is_nil(detail),
+    do: Map.put(encoded, "detail", Atom.to_string(detail))
+
+  defp put_detail(encoded, _part), do: encoded
+
+  defp put_cache_breakpoint(encoded, %{cache_breakpoint: true}),
+    do: Map.put(encoded, "prompt_cache_breakpoint", %{"mode" => "explicit"})
+
+  defp put_cache_breakpoint(encoded, _part), do: encoded
 
   defp encode_document(%Content.Document{data: data, media_type: media_type, name: name})
        when is_binary(data) do
@@ -685,7 +749,9 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     reasoning =
       %{}
       |> maybe_put("effort", Map.get(params, :reasoning_effort))
-      |> maybe_put("summary", Map.get(params, :reasoning_summary))
+      |> maybe_put("summary", reasoning_summary(params))
+      |> maybe_put("context", Map.get(params, :reasoning_context))
+      |> maybe_put("mode", Map.get(params, :reasoning_mode))
 
     if map_size(reasoning) > 0 do
       Map.put(payload, "reasoning", reasoning)
@@ -693,6 +759,27 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
       payload
     end
   end
+
+  # Responses has no "none" summary; omitting it means no summary.
+  defp reasoning_summary(%{reasoning_summary: :none}), do: nil
+  defp reasoning_summary(params), do: Map.get(params, :reasoning_summary)
+
+  defp normalize_cache_retention(%{"prompt_cache_retention" => "in-memory"} = payload),
+    do: %{payload | "prompt_cache_retention" => "in_memory"}
+
+  defp normalize_cache_retention(payload), do: payload
+
+  defp maybe_put_cache_options(payload, %{cache_options: options}) when is_map(options) do
+    encoded = Map.new(options, fn {key, value} -> {to_string(key), encode_option(value)} end)
+    Map.put(payload, "prompt_cache_options", encoded)
+  end
+
+  defp maybe_put_cache_options(payload, _params), do: payload
+
+  defp encode_option(value) when is_atom(value) and not is_boolean(value),
+    do: Atom.to_string(value)
+
+  defp encode_option(value), do: value
 
   defp maybe_put(map, _key, nil), do: map
 
@@ -716,7 +803,9 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
         |> maybe_put_truncation(request.params)
         |> maybe_put_stream_options(request.params)
         |> maybe_put_context_management(request.params)
+        |> maybe_put_cache_options(request.params)
         |> Map.merge(translate_params(request.params))
+        |> normalize_cache_retention()
         |> maybe_put_openrouter_cache_control(request)
 
       {:ok, payload}
@@ -770,17 +859,21 @@ defmodule Sycophant.WireProtocol.OpenAIResponses do
     {:ok, Map.put(payload, "tools", encoded)}
   end
 
-  defp maybe_put_text(payload, nil, %{verbosity: verbosity}) when not is_nil(verbosity) do
-    {:ok, Map.put(payload, "text", %{"verbosity" => Atom.to_string(verbosity)})}
+  defp maybe_put_text(payload, schema, params) do
+    text =
+      %{}
+      |> maybe_put("format", text_format(schema, params))
+      |> maybe_put("verbosity", Map.get(params, :verbosity))
+
+    if text == %{}, do: {:ok, payload}, else: {:ok, Map.put(payload, "text", text)}
   end
 
-  defp maybe_put_text(payload, nil, _params), do: {:ok, payload}
+  defp text_format(nil, %{json_mode: true}), do: %{"type" => "json_object"}
+  defp text_format(nil, _params), do: nil
 
-  defp maybe_put_text(payload, schema, params) do
+  defp text_format(schema, _params) do
     {:ok, format} = encode_response_schema(schema)
-    text = %{"format" => format}
-    text = maybe_put(text, "verbosity", Map.get(params, :verbosity))
-    {:ok, Map.put(payload, "text", text)}
+    format
   end
 
   defp maybe_put_truncation(payload, %{truncation: truncation}) when not is_nil(truncation),

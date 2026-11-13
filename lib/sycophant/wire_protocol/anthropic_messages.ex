@@ -86,7 +86,8 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
     low: 1024,
     medium: 4096,
     high: 16_384,
-    xhigh: 32_768
+    xhigh: 32_768,
+    max: 32_768
   }
 
   # --- encode_request ---
@@ -442,10 +443,22 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
   defp encode_content(nil), do: {:ok, nil}
 
   defp encode_content(parts) when is_list(parts) do
-    with {:ok, encoded} <- reduce_ok(parts, &encode_content_part/1) do
+    with {:ok, encoded} <- reduce_ok(parts, &encode_block/1) do
       {:ok, Enum.reject(encoded, &is_nil/1)}
     end
   end
+
+  defp encode_block(part) do
+    case encode_content_part(part) do
+      {:ok, block} when is_map(block) -> {:ok, put_block_cache_control(block, part)}
+      other -> other
+    end
+  end
+
+  defp put_block_cache_control(block, %{cache_breakpoint: true}),
+    do: Map.put(block, "cache_control", %{"type" => "ephemeral"})
+
+  defp put_block_cache_control(block, _part), do: block
 
   defp encode_content_part(%Content.Text{text: text}) do
     {:ok, %{"type" => "text", "text" => text}}
@@ -484,7 +497,7 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
     do: {:ok, [%{"type" => "text", "text" => text}]}
 
   defp encode_assistant_content_blocks(parts) when is_list(parts),
-    do: reduce_ok(parts, &encode_content_part/1)
+    do: reduce_ok(parts, &encode_block/1)
 
   defp encode_document(%Content.Document{data: data, media_type: "application/pdf"} = doc)
        when is_binary(data) do
@@ -734,10 +747,34 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
         |> ensure_max_tokens(request.params)
         |> maybe_put_thinking(request.params)
         |> put_cache_control(request.params)
+        |> put_breakpoint_ttl(request.params)
 
       {:ok, payload}
     end
   end
+
+  # A 1h breakpoint may not follow a 5m one, so block breakpoints use the same
+  # TTL as the automatic one.
+  defp put_breakpoint_ttl(%{"messages" => messages} = payload, %{cache_retention: "1h"}) do
+    %{payload | "messages" => Enum.map(messages, &put_message_breakpoint_ttl/1)}
+  end
+
+  defp put_breakpoint_ttl(payload, _params), do: payload
+
+  defp put_message_breakpoint_ttl(%{"content" => blocks} = message) when is_list(blocks) do
+    blocks =
+      Enum.map(blocks, fn
+        %{"cache_control" => control} = block ->
+          %{block | "cache_control" => Map.put(control, "ttl", "1h")}
+
+        block ->
+          block
+      end)
+
+    %{message | "content" => blocks}
+  end
+
+  defp put_message_breakpoint_ttl(message), do: message
 
   # Top-level cache_control enables Anthropic automatic prompt caching: the
   # breakpoint lands on the last cacheable block and advances each turn.

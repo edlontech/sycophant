@@ -1104,4 +1104,26 @@ defmodule Sycophant.WireProtocol.GoogleGeminiTest do
       "modelVersion" => "gemini-2.0-flash"
     }
   end
+
+  describe "encode_request/1 - media resolution" do
+    test "maps detail to per-part mediaResolution" do
+      parts = [
+        %Content.Image{data: "aW1n", media_type: "image/png", detail: :original},
+        %Content.Document{data: "cGRm", media_type: "application/pdf", detail: :low},
+        %Content.Image{data: "aW1n", media_type: "image/png", detail: :auto},
+        %Content.Text{text: "describe"}
+      ]
+
+      request = build_request([Message.user(parts)])
+      assert {:ok, payload} = GoogleGemini.encode_request(request)
+      [%{"parts" => encoded}] = payload["contents"]
+
+      assert Enum.map(encoded, & &1["mediaResolution"]) == [
+               %{"level" => "MEDIA_RESOLUTION_ULTRA_HIGH"},
+               %{"level" => "MEDIA_RESOLUTION_LOW"},
+               nil,
+               nil
+             ]
+    end
+  end
 end

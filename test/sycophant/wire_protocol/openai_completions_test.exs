@@ -148,6 +148,14 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
       assert payload["prompt_cache_retention"] == "24h"
     end
 
+    test "sends in_memory retention for both spellings" do
+      for retention <- ["in_memory", "in-memory"] do
+        request = build_request([Message.user("hi")], params: %{cache_retention: retention})
+        assert {:ok, payload} = OpenAICompletions.encode_request(request)
+        assert payload["prompt_cache_retention"] == "in_memory"
+      end
+    end
+
     test "param schema accepts prompt cache params" do
       params = %{cache_key: "conv-1", cache_retention: "in-memory"}
       assert {:ok, ^params} = Zoi.parse(OpenAICompletions.param_schema(), params)
@@ -1085,6 +1093,45 @@ defmodule Sycophant.WireProtocol.OpenAICompletionsTest do
       request = build_request([Message.user(parts)])
       assert {:error, error} = OpenAICompletions.encode_request(request)
       assert Exception.message(error) =~ ":url"
+    end
+  end
+
+  describe "encode_request/1 - content part options" do
+    test "encodes image detail and cache breakpoints" do
+      parts = [
+        %Content.Text{text: "prefix", cache_breakpoint: true},
+        %Content.Image{url: "https://x/a.png", detail: :high},
+        %Content.Document{file_id: "file_1", detail: :low, cache_breakpoint: true}
+      ]
+
+      request = build_request([Message.user(parts)])
+      assert {:ok, payload} = OpenAICompletions.encode_request(request)
+      [%{"content" => content}] = payload["messages"]
+      breakpoint = %{"mode" => "explicit"}
+
+      assert content == [
+               %{"type" => "text", "text" => "prefix", "prompt_cache_breakpoint" => breakpoint},
+               %{
+                 "type" => "image_url",
+                 "image_url" => %{"url" => "https://x/a.png", "detail" => "high"}
+               },
+               %{
+                 "type" => "file",
+                 "file" => %{"file_id" => "file_1"},
+                 "prompt_cache_breakpoint" => breakpoint
+               }
+             ]
+    end
+
+    test "encodes cache_options as prompt_cache_options" do
+      params =
+        Zoi.parse!(OpenAICompletions.param_schema(), %{
+          cache_options: %{mode: :explicit, ttl: "12h"}
+        })
+
+      request = build_request([Message.user("hi")], params: params)
+      assert {:ok, payload} = OpenAICompletions.encode_request(request)
+      assert payload["prompt_cache_options"] == %{"mode" => "explicit", "ttl" => "12h"}
     end
   end
 end
