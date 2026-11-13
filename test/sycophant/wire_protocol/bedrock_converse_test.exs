@@ -906,10 +906,55 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
     %Request{
       messages: messages,
       model: opts[:model] || "test-model",
+      resolved_model: opts[:resolved_model],
       params: opts[:params] || %{},
       tools: opts[:tools] || [],
       stream: opts[:stream]
     }
+  end
+
+  defp thinking_model(types), do: %{capabilities: %{reasoning: %{thinking: %{types: types}}}}
+
+  describe "encode_request/1 - thinking" do
+    test "models without thinking metadata get enabled thinking with a budget" do
+      request = build_request([Message.user("hi")], params: %{reasoning_effort: :high})
+      assert {:ok, payload} = BedrockConverse.encode_request(request)
+
+      assert payload["additionalModelRequestFields"] == %{
+               "thinking" => %{"type" => "enabled", "budget_tokens" => 16_384}
+             }
+    end
+
+    test "adaptive-only Claude models get adaptive thinking with output_config effort" do
+      request =
+        build_request([Message.user("hi")],
+          resolved_model: thinking_model(["disabled", "adaptive"]),
+          params: %{reasoning_effort: :xhigh, reasoning_summary: :auto}
+        )
+
+      assert {:ok, payload} = BedrockConverse.encode_request(request)
+
+      assert payload["additionalModelRequestFields"] == %{
+               "thinking" => %{"type" => "adaptive", "display" => "summarized"},
+               "output_config" => %{"effort" => "xhigh"}
+             }
+    end
+
+    test "reasoning_effort :none sends nothing when the model cannot disable thinking" do
+      request =
+        build_request([Message.user("hi")],
+          resolved_model: thinking_model(["adaptive"]),
+          params: %{reasoning_effort: :none}
+        )
+
+      assert {:ok, payload} = BedrockConverse.encode_request(request)
+      refute Map.has_key?(payload, "additionalModelRequestFields")
+    end
+
+    test "param_schema accepts reasoning_summary" do
+      assert {:ok, %{reasoning_summary: :none}} =
+               Zoi.parse(BedrockConverse.param_schema(), %{reasoning_summary: :none})
+    end
   end
 
   describe "encode_request/1 - cache breakpoints" do

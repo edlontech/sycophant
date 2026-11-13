@@ -326,6 +326,97 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
       assert payload["thinking"] == %{"type" => "enabled", "budget_tokens" => 16_384}
     end
 
+    test "reasoning_summary asks for summarized or omitted thinking display" do
+      for {summary, display} <- [auto: "summarized", detailed: "summarized", none: "omitted"] do
+        request =
+          build_request([Message.user("hi")],
+            params: %{reasoning_effort: :low, reasoning_summary: summary}
+          )
+
+        assert {:ok, payload} = AnthropicMessages.encode_request(request)
+
+        assert payload["thinking"] ==
+                 %{"type" => "enabled", "budget_tokens" => 1024, "display" => display}
+      end
+    end
+
+    test "reasoning_summary is ignored when thinking is disabled or unset" do
+      disabled =
+        build_request([Message.user("hi")],
+          params: %{reasoning_effort: :none, reasoning_summary: :auto}
+        )
+
+      assert {:ok, payload} = AnthropicMessages.encode_request(disabled)
+      assert payload["thinking"] == %{"type" => "disabled"}
+
+      unset = build_request([Message.user("hi")], params: %{reasoning_summary: :auto})
+      assert {:ok, payload} = AnthropicMessages.encode_request(unset)
+      refute Map.has_key?(payload, "thinking")
+    end
+
+    test "adaptive-only models get adaptive thinking with output_config effort" do
+      model = thinking_model(["disabled", "adaptive"])
+
+      for {level, effort} <- [minimal: "low", medium: "medium", xhigh: "xhigh", max: "max"] do
+        request =
+          build_request([Message.user("hi")],
+            resolved_model: model,
+            params: %{reasoning_effort: level, reasoning_summary: :auto}
+          )
+
+        assert {:ok, payload} = AnthropicMessages.encode_request(request)
+        assert payload["thinking"] == %{"type" => "adaptive", "display" => "summarized"}
+        assert payload["output_config"] == %{"effort" => effort}
+      end
+    end
+
+    test "adaptive effort is merged into an output_config carrying a response format" do
+      request =
+        build_request([Message.user("hi")],
+          resolved_model: thinking_model(["adaptive"]),
+          params: %{reasoning_effort: :high},
+          response_schema: %{"type" => "object", "properties" => %{}}
+        )
+
+      assert {:ok, payload} = AnthropicMessages.encode_request(request)
+      assert payload["output_config"]["effort"] == "high"
+      assert payload["output_config"]["format"]["type"] == "json_schema"
+    end
+
+    test "models that support enabled thinking keep budget_tokens" do
+      request =
+        build_request([Message.user("hi")],
+          resolved_model: thinking_model(["disabled", "enabled", "adaptive"]),
+          params: %{reasoning_effort: :low}
+        )
+
+      assert {:ok, payload} = AnthropicMessages.encode_request(request)
+      assert payload["thinking"] == %{"type" => "enabled", "budget_tokens" => 1024}
+      refute Map.has_key?(payload, "output_config")
+    end
+
+    test "reasoning_effort :none sends no thinking when the model cannot disable it" do
+      none = %{reasoning_effort: :none}
+
+      request =
+        build_request([Message.user("hi")],
+          resolved_model: thinking_model(["adaptive"]),
+          params: none
+        )
+
+      assert {:ok, payload} = AnthropicMessages.encode_request(request)
+      refute Map.has_key?(payload, "thinking")
+
+      request =
+        build_request([Message.user("hi")],
+          resolved_model: thinking_model(["disabled", "adaptive"]),
+          params: none
+        )
+
+      assert {:ok, payload} = AnthropicMessages.encode_request(request)
+      assert payload["thinking"] == %{"type" => "disabled"}
+    end
+
     test "no thinking field when reasoning_effort is nil" do
       request = build_request([Message.user("hi")])
       assert {:ok, payload} = AnthropicMessages.encode_request(request)
@@ -1398,12 +1489,15 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
     %Request{
       messages: messages,
       model: opts[:model] || "claude-sonnet-4-20250514",
+      resolved_model: opts[:resolved_model],
       params: opts[:params] || %{},
       tools: opts[:tools] || [],
       response_schema: opts[:response_schema],
       stream: opts[:stream]
     }
   end
+
+  defp thinking_model(types), do: %{capabilities: %{reasoning: %{thinking: %{types: types}}}}
 
   defp anthropic_response(opts) do
     content = Keyword.fetch!(opts, :content)

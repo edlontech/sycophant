@@ -30,6 +30,7 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
   alias Sycophant.Tool
   alias Sycophant.ToolCall
   alias Sycophant.Usage
+  alias Sycophant.WireProtocol.AnthropicThinking
 
   defmodule StreamState do
     @moduledoc false
@@ -79,15 +80,6 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
     top_k: "top_k",
     stop: "stop_sequences",
     service_tier: "service_tier"
-  }
-
-  @reasoning_budgets %{
-    minimal: 1024,
-    low: 1024,
-    medium: 4096,
-    high: 16_384,
-    xhigh: 32_768,
-    max: 32_768
   }
 
   # --- encode_request ---
@@ -745,7 +737,7 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
         |> maybe_put_tool_choice(request.params)
         |> Map.merge(translate_params(request.params))
         |> ensure_max_tokens(request.params)
-        |> maybe_put_thinking(request.params)
+        |> maybe_put_thinking(request)
         |> put_cache_control(request.params)
         |> put_breakpoint_ttl(request.params)
 
@@ -807,17 +799,14 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
 
   defp maybe_put_tool_choice(payload, _), do: payload
 
-  defp maybe_put_thinking(payload, %{reasoning_effort: :none}) do
-    Map.put(payload, "thinking", %{"type" => "disabled"})
+  # Merges into an `output_config` that may already carry a response format.
+  defp maybe_put_thinking(payload, request) do
+    request
+    |> AnthropicThinking.fields()
+    |> Enum.reduce(payload, fn {key, value}, acc ->
+      Map.update(acc, key, value, &Map.merge(&1, value))
+    end)
   end
-
-  defp maybe_put_thinking(payload, %{reasoning_effort: level})
-       when is_map_key(@reasoning_budgets, level) do
-    budget = Map.fetch!(@reasoning_budgets, level)
-    Map.put(payload, "thinking", %{"type" => "enabled", "budget_tokens" => budget})
-  end
-
-  defp maybe_put_thinking(payload, _), do: payload
 
   defp maybe_put_tools(payload, []), do: {:ok, payload}
 

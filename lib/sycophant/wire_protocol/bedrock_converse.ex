@@ -25,6 +25,7 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
   alias Sycophant.Tool
   alias Sycophant.ToolCall
   alias Sycophant.Usage
+  alias Sycophant.WireProtocol.AnthropicThinking
 
   defmodule StreamState do
     @moduledoc false
@@ -47,18 +48,10 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
                     :stop,
                     :tool_choice,
                     :parallel_tool_calls,
-                    :reasoning_effort
+                    :reasoning_effort,
+                    :reasoning_summary
                   ])
                 )
-
-  @reasoning_budgets %{
-    minimal: 1024,
-    low: 1024,
-    medium: 4096,
-    high: 16_384,
-    xhigh: 32_768,
-    max: 32_768
-  }
 
   @type t :: unquote(Zoi.type_spec(@param_schema))
 
@@ -639,7 +632,7 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
           payload
         end
 
-      payload = maybe_put_thinking(payload, request.params)
+      payload = maybe_put_thinking(payload, request)
 
       {:ok, payload}
     end
@@ -695,22 +688,12 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
 
   # --- Private: Thinking ---
 
-  defp maybe_put_thinking(payload, %{reasoning_effort: :none}) do
-    Map.put(payload, "additionalModelRequestFields", %{
-      "thinking" => %{"type" => "disabled"}
-    })
+  defp maybe_put_thinking(payload, request) do
+    case AnthropicThinking.fields(request) do
+      fields when map_size(fields) == 0 -> payload
+      fields -> Map.put(payload, "additionalModelRequestFields", fields)
+    end
   end
-
-  defp maybe_put_thinking(payload, %{reasoning_effort: level})
-       when is_map_key(@reasoning_budgets, level) do
-    budget = Map.fetch!(@reasoning_budgets, level)
-
-    Map.put(payload, "additionalModelRequestFields", %{
-      "thinking" => %{"type" => "enabled", "budget_tokens" => budget}
-    })
-  end
-
-  defp maybe_put_thinking(payload, _), do: payload
 
   # --- Finish Reason Mapping ---
 
