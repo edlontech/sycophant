@@ -564,6 +564,46 @@ defmodule Sycophant.WireProtocol.BedrockConverseTest do
       assert response.finish_reason == :stop
     end
 
+    test "streaming keeps each reasoning block with its signature and redacted content" do
+      delta = fn index, delta ->
+        %{
+          event_type: "contentBlockDelta",
+          payload: %{"contentBlockIndex" => index, "delta" => delta}
+        }
+      end
+
+      events = [
+        delta.(0, %{"reasoningContent" => %{"text" => "Plan"}}),
+        delta.(0, %{"reasoningContent" => %{"signature" => "sig-0"}}),
+        delta.(1, %{"reasoningContent" => %{"signature" => "sig-1"}}),
+        delta.(2, %{"reasoningContent" => %{"redactedContent" => "enc-2"}}),
+        delta.(3, %{"text" => "Hi"}),
+        %{event_type: "messageStop", payload: %{"stopReason" => "end_turn"}},
+        %{
+          event_type: "metadata",
+          payload: %{"usage" => %{"inputTokens" => 1, "outputTokens" => 1}}
+        }
+      ]
+
+      {:done, response} =
+        Enum.reduce(events, BedrockConverse.init_stream(), fn event, state ->
+          case BedrockConverse.decode_stream_chunk(state, event) do
+            {:ok, state, _chunks} -> state
+            {:done, response} -> {:done, response}
+          end
+        end)
+
+      assert response.reasoning == %Sycophant.Reasoning{
+               content: [
+                 %Content.Thinking{text: "Plan", signature: "sig-0"},
+                 %Content.Thinking{text: "", signature: "sig-1"}
+               ],
+               encrypted_content: "enc-2"
+             }
+
+      assert response.text == "Hi"
+    end
+
     test "tool use streaming sequence" do
       state = BedrockConverse.init_stream()
 

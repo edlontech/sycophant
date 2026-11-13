@@ -31,8 +31,7 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
     @type t :: %__MODULE__{}
     defstruct text: "",
               tool_calls: %{},
-              thinking: "",
-              thinking_signature: nil,
+              thinking_blocks: %{},
               encrypted_thinking: nil,
               usage: nil,
               model: nil,
@@ -167,17 +166,45 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
 
   def decode_stream_chunk(state, %{
         event_type: "contentBlockDelta",
-        payload: %{"delta" => %{"reasoningContent" => %{"text" => text}}}
+        payload: %{
+          "contentBlockIndex" => index,
+          "delta" => %{"reasoningContent" => %{"text" => text}}
+        }
       }) do
-    state = %{state | thinking: state.thinking <> text}
-    {:ok, state, [%StreamChunk{type: :reasoning_delta, data: text}]}
+    blocks =
+      Map.update(
+        state.thinking_blocks,
+        index,
+        %Content.Thinking{text: text},
+        &%{&1 | text: &1.text <> text}
+      )
+
+    {:ok, %{state | thinking_blocks: blocks}, [%StreamChunk{type: :reasoning_delta, data: text}]}
   end
 
   def decode_stream_chunk(state, %{
         event_type: "contentBlockDelta",
-        payload: %{"delta" => %{"reasoningContent" => %{"signature" => sig}}}
+        payload: %{
+          "contentBlockIndex" => index,
+          "delta" => %{"reasoningContent" => %{"signature" => sig}}
+        }
       }) do
-    {:ok, %{state | thinking_signature: sig}, []}
+    blocks =
+      Map.update(
+        state.thinking_blocks,
+        index,
+        %Content.Thinking{text: "", signature: sig},
+        &%{&1 | signature: (&1.signature || "") <> sig}
+      )
+
+    {:ok, %{state | thinking_blocks: blocks}, []}
+  end
+
+  def decode_stream_chunk(state, %{
+        event_type: "contentBlockDelta",
+        payload: %{"delta" => %{"reasoningContent" => %{"redactedContent" => data}}}
+      }) do
+    {:ok, %{state | encrypted_thinking: data}, []}
   end
 
   def decode_stream_chunk(state, %{
@@ -252,20 +279,16 @@ defmodule Sycophant.WireProtocol.BedrockConverse do
     tool_calls = assemble_tool_calls(state.tool_calls)
     text = if state.text == "", do: nil, else: state.text
 
-    reasoning =
-      case {state.thinking, state.encrypted_thinking} do
-        {"", nil} ->
-          nil
+    thinking =
+      state.thinking_blocks
+      |> Enum.sort_by(fn {index, _} -> index end)
+      |> Enum.map(fn {_index, block} -> block end)
+      |> Enum.reject(&(&1.text == "" and is_nil(&1.signature)))
 
-        {thinking, encrypted} ->
-          %Reasoning{
-            content:
-              if(thinking == "",
-                do: [],
-                else: [%Content.Thinking{text: thinking, signature: state.thinking_signature}]
-              ),
-            encrypted_content: encrypted
-          }
+    reasoning =
+      case {thinking, state.encrypted_thinking} do
+        {[], nil} -> nil
+        {content, encrypted} -> %Reasoning{content: content, encrypted_content: encrypted}
       end
 
     %Response{

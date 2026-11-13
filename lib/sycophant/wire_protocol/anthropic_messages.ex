@@ -36,7 +36,7 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
     @type t :: %__MODULE__{}
     defstruct text: "",
               tool_calls: %{},
-              thinking: "",
+              thinking_blocks: %{},
               encrypted_thinking: nil,
               usage: nil,
               model: nil,
@@ -185,9 +185,34 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
 
   def decode_stream_chunk(state, %{
         event: "content_block_start",
+        data: %{"index" => index, "content_block" => %{"type" => "thinking"} = block}
+      }) do
+    thinking = %Content.Thinking{text: block["thinking"] || ""}
+
+    state = %{
+      state
+      | current_block: {"thinking", index},
+        thinking_blocks: Map.put(state.thinking_blocks, index, thinking)
+    }
+
+    {:ok, state, []}
+  end
+
+  def decode_stream_chunk(state, %{
+        event: "content_block_start",
+        data: %{
+          "index" => index,
+          "content_block" => %{"type" => "redacted_thinking", "data" => data}
+        }
+      }) do
+    {:ok, %{state | current_block: {"redacted_thinking", index}, encrypted_thinking: data}, []}
+  end
+
+  def decode_stream_chunk(state, %{
+        event: "content_block_start",
         data: %{"index" => index, "content_block" => %{"type" => type}}
       }) do
-    {:ok, %{state | current_block: {String.to_existing_atom(type), index}}, []}
+    {:ok, %{state | current_block: {type, index}}, []}
   end
 
   def decode_stream_chunk(state, %{
@@ -220,10 +245,39 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
 
   def decode_stream_chunk(state, %{
         event: "content_block_delta",
-        data: %{"delta" => %{"type" => "thinking_delta", "thinking" => thinking}}
+        data: %{
+          "index" => index,
+          "delta" => %{"type" => "thinking_delta", "thinking" => thinking}
+        }
       }) do
-    state = %{state | thinking: state.thinking <> thinking}
-    {:ok, state, [%StreamChunk{type: :reasoning_delta, data: thinking}]}
+    blocks =
+      Map.update(
+        state.thinking_blocks,
+        index,
+        %Content.Thinking{text: thinking},
+        &%{&1 | text: &1.text <> thinking}
+      )
+
+    {:ok, %{state | thinking_blocks: blocks},
+     [%StreamChunk{type: :reasoning_delta, data: thinking}]}
+  end
+
+  def decode_stream_chunk(state, %{
+        event: "content_block_delta",
+        data: %{
+          "index" => index,
+          "delta" => %{"type" => "signature_delta", "signature" => signature}
+        }
+      }) do
+    blocks =
+      Map.update(
+        state.thinking_blocks,
+        index,
+        %Content.Thinking{text: "", signature: signature},
+        &%{&1 | signature: (&1.signature || "") <> signature}
+      )
+
+    {:ok, %{state | thinking_blocks: blocks}, []}
   end
 
   def decode_stream_chunk(state, %{event: "content_block_stop", data: _}) do
@@ -766,20 +820,16 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
     tool_calls = assemble_tool_calls(state.tool_calls)
     text = if state.text == "", do: nil, else: state.text
 
-    reasoning =
-      case {state.thinking, state.encrypted_thinking} do
-        {"", nil} ->
-          nil
+    thinking =
+      state.thinking_blocks
+      |> Enum.sort_by(fn {index, _} -> index end)
+      |> Enum.map(fn {_index, block} -> block end)
+      |> Enum.reject(&(&1.text == "" and is_nil(&1.signature)))
 
-        {thinking, encrypted} ->
-          %Reasoning{
-            content:
-              if(thinking == "",
-                do: [],
-                else: [%Content.Thinking{text: thinking}]
-              ),
-            encrypted_content: encrypted
-          }
+    reasoning =
+      case {thinking, state.encrypted_thinking} do
+        {[], nil} -> nil
+        {content, encrypted} -> %Reasoning{content: content, encrypted_content: encrypted}
       end
 
     %Response{

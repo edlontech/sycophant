@@ -636,7 +636,7 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
       assert %{
                text: "",
                tool_calls: %{},
-               thinking: "",
+               thinking_blocks: %{},
                encrypted_thinking: nil,
                usage: nil,
                model: nil,
@@ -864,7 +864,7 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
 
       assert {:ok, state, [chunk]} = AnthropicMessages.decode_stream_chunk(state, event3)
       assert %StreamChunk{type: :reasoning_delta, data: "Let me think..."} = chunk
-      assert state.thinking == "Let me think..."
+      assert %{0 => %Content.Thinking{text: "Let me think..."}} = state.thinking_blocks
 
       # content_block_stop for thinking
       event4 = %{event: "content_block_stop", data: %{"index" => 0}}
@@ -904,6 +904,86 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
                response.reasoning.content
 
       assert response.finish_reason == :stop
+    end
+
+    test "streaming keeps each thinking block with its signature and redacted data" do
+      events = [
+        %{
+          event: "message_start",
+          data: %{"message" => %{"model" => "claude-opus-5-5", "usage" => nil}}
+        },
+        %{
+          event: "content_block_start",
+          data: %{
+            "index" => 0,
+            "content_block" => %{"type" => "thinking", "thinking" => "", "signature" => ""}
+          }
+        },
+        %{
+          event: "content_block_delta",
+          data: %{"index" => 0, "delta" => %{"type" => "thinking_delta", "thinking" => "Plan"}}
+        },
+        %{
+          event: "content_block_delta",
+          data: %{"index" => 0, "delta" => %{"type" => "signature_delta", "signature" => "sig-0"}}
+        },
+        %{event: "content_block_stop", data: %{"index" => 0}},
+        %{
+          event: "content_block_start",
+          data: %{
+            "index" => 1,
+            "content_block" => %{"type" => "tool_use", "id" => "toolu_1", "name" => "weather"}
+          }
+        },
+        %{
+          event: "content_block_delta",
+          data: %{
+            "index" => 1,
+            "delta" => %{"type" => "input_json_delta", "partial_json" => "{}"}
+          }
+        },
+        %{event: "content_block_stop", data: %{"index" => 1}},
+        %{
+          event: "content_block_start",
+          data: %{
+            "index" => 2,
+            "content_block" => %{"type" => "thinking", "thinking" => "", "signature" => ""}
+          }
+        },
+        %{
+          event: "content_block_delta",
+          data: %{"index" => 2, "delta" => %{"type" => "signature_delta", "signature" => "sig-2"}}
+        },
+        %{event: "content_block_stop", data: %{"index" => 2}},
+        %{
+          event: "content_block_start",
+          data: %{
+            "index" => 3,
+            "content_block" => %{"type" => "redacted_thinking", "data" => "enc-3"}
+          }
+        },
+        %{event: "content_block_stop", data: %{"index" => 3}},
+        %{event: "message_delta", data: %{"delta" => %{"stop_reason" => "tool_use"}}},
+        %{event: "message_stop", data: %{}}
+      ]
+
+      {:done, response} =
+        Enum.reduce(events, AnthropicMessages.init_stream(), fn event, state ->
+          case AnthropicMessages.decode_stream_chunk(state, event) do
+            {:ok, state, _chunks} -> state
+            {:done, response} -> {:done, response}
+          end
+        end)
+
+      assert response.reasoning == %Reasoning{
+               content: [
+                 %Content.Thinking{text: "Plan", signature: "sig-0"},
+                 %Content.Thinking{text: "", signature: "sig-2"}
+               ],
+               encrypted_content: "enc-3"
+             }
+
+      assert [%ToolCall{id: "toolu_1"}] = response.tool_calls
     end
 
     test "skips ping events" do

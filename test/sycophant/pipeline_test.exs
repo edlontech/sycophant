@@ -1410,6 +1410,82 @@ defmodule Sycophant.PipelineTest do
       assert {:error, %Error.Provider.ResponseInvalid{}} =
                Pipeline.call(default_messages(), opts)
     end
+
+    test "anthropic streamed thinking signatures survive into re-encoded context" do
+      model =
+        build_model(%{
+          id: "claude-opus-5-5",
+          name: "Claude Opus",
+          provider: :anthropic,
+          extra: %{wire: %{protocol: "anthropic_messages"}}
+        })
+
+      provider =
+        build_provider(%{
+          id: :anthropic,
+          name: "Anthropic",
+          base_url: "https://api.anthropic.com/v1",
+          env: ["ANTHROPIC_API_KEY"]
+        })
+
+      stub(LLMDB, :model, fn "anthropic:claude-opus-5-5" -> {:ok, model} end)
+      stub(LLMDB, :provider, fn :anthropic -> {:ok, provider} end)
+
+      events =
+        Enum.map(
+          [
+            {"message_start", %{"message" => %{"model" => "claude-opus-5-5"}}},
+            {"content_block_start",
+             %{
+               "index" => 0,
+               "content_block" => %{"type" => "thinking", "thinking" => "", "signature" => ""}
+             }},
+            {"content_block_delta",
+             %{"index" => 0, "delta" => %{"type" => "signature_delta", "signature" => "sig-0"}}},
+            {"content_block_stop", %{"index" => 0}},
+            {"content_block_start",
+             %{
+               "index" => 1,
+               "content_block" => %{"type" => "redacted_thinking", "data" => "enc-1"}
+             }},
+            {"content_block_stop", %{"index" => 1}},
+            {"content_block_start",
+             %{"index" => 2, "content_block" => %{"type" => "text", "text" => ""}}},
+            {"content_block_delta",
+             %{"index" => 2, "delta" => %{"type" => "text_delta", "text" => "Hi"}}},
+            {"content_block_stop", %{"index" => 2}},
+            {"message_delta", %{"delta" => %{"stop_reason" => "end_turn"}}},
+            {"message_stop", %{}}
+          ],
+          fn {event, data} -> %{event: event, data: JSON.encode!(data)} end
+        )
+
+      stub(Sycophant.Transport, :stream, fn _payload, _opts, on_event ->
+        {:ok, on_event.(events)}
+      end)
+
+      opts = [
+        model: "anthropic:claude-opus-5-5",
+        credentials: %{api_key: "sk-ant-test"},
+        stream: fn _chunk -> :ok end
+      ]
+
+      assert {:ok, response} = Pipeline.call(default_messages(), opts)
+
+      request = %Sycophant.Request{
+        messages: response.context.messages,
+        model: "claude-opus-5-5"
+      }
+
+      assert {:ok, %{"messages" => [_user, assistant]}} =
+               Sycophant.WireProtocol.AnthropicMessages.encode_request(request)
+
+      assert assistant["content"] == [
+               %{"type" => "thinking", "thinking" => "", "signature" => "sig-0"},
+               %{"type" => "redacted_thinking", "data" => "enc-1"},
+               %{"type" => "text", "text" => "Hi"}
+             ]
+    end
   end
 
   describe "call/2 usage cost enrichment" do
