@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.10.0](https://github.com/edlontech/sycophant/compare/sycophant-v0.9.1...sycophant-v0.10.0) (2026-11-13)
+
+
+### Features
+
+* add OpenAI Responses params, prompt cache breakpoints and media detail across wires ([cdafe3f](https://github.com/edlontech/sycophant/commit/cdafe3ff0fc466b7c02abc63bd2c50b0219e8219))
+
+
+### Bug Fixes
+
+* **streaming:** keep thinking signatures and redacted reasoning for Anthropic and Bedrock ([2d77ad5](https://github.com/edlontech/sycophant/commit/2d77ad50b6a2f9e4c13f3a1f4aa46c12f0432848))
+
 ## [0.9.1](https://github.com/edlontech/sycophant/compare/sycophant-v0.9.0...sycophant-v0.9.1) (2026-11-10)
 
 
