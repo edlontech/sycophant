@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.1](https://github.com/edlontech/sycophant/compare/sycophant-v0.10.0...sycophant-v0.10.1) (2026-11-13)
+
+
+### Bug Fixes
+
+* **anthropic,bedrock:** adaptive thinking and summarized display for Claude 4.7+ ([6187c5d](https://github.com/edlontech/sycophant/commit/6187c5dcdf8244b59fc2584a6d5707e7cef8e187))
+
 ## [0.10.0](https://github.com/edlontech/sycophant/compare/sycophant-v0.9.1...sycophant-v0.10.0) (2026-11-13)
 
 
