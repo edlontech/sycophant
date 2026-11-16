@@ -13,6 +13,17 @@ defmodule Sycophant.Tool do
   (up to `:max_steps` iterations). When `function` is `nil`, tool calls are
   returned in `response.tool_calls` for manual handling.
 
+  ## Eager input streaming
+
+  Set `eager_input_streaming: true` to have Anthropic stream the tool input
+  as it is generated instead of buffering each parameter value first. Use it
+  for tools with large arguments (such as file contents) so the stream does not
+  go silent long enough to hit HTTP idle timeouts. The default `nil` omits the
+  field. Other wire protocols ignore it.
+
+  With eager streaming the accumulated input may not be valid JSON. When it
+  cannot be decoded, the tool call keeps the raw string as `arguments`.
+
   ## Examples
 
       # Zoi-defined tool (receives atom keys after validation)
@@ -49,6 +60,7 @@ defmodule Sycophant.Tool do
     :function,
     :schema_source,
     :resolved_schema,
+    :eager_input_streaming,
     strict: true
   ]
 
@@ -58,6 +70,7 @@ defmodule Sycophant.Tool do
           parameters: Zoi.schema() | map(),
           function: (map() -> String.t()) | nil,
           strict: boolean(),
+          eager_input_streaming: boolean() | nil,
           schema_source: :zoi | :json_schema | nil,
           resolved_schema: Sycophant.Schema.NormalizedSchema.t() | nil
         }
@@ -88,6 +101,7 @@ defmodule Sycophant.Tool do
       description: data["description"],
       parameters: params,
       strict: Map.get(data, "strict", true),
+      eager_input_streaming: data["eager_input_streaming"],
       function: Map.get(tool_registry, name),
       schema_source: source,
       resolved_schema: resolved

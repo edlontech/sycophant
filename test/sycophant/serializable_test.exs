@@ -181,6 +181,17 @@ defmodule Sycophant.SerializableTest do
       assert decoded.function == nil
     end
 
+    test "round-trips eager_input_streaming" do
+      original = %Sycophant.Tool{
+        name: "write",
+        description: "Writes",
+        parameters: Zoi.map(%{content: Zoi.string()}),
+        eager_input_streaming: true
+      }
+
+      assert (original |> Decoder.encode() |> Decoder.decode()).eager_input_streaming == true
+    end
+
     test "re-attaches function from tool registry" do
       original = %Sycophant.Tool{
         name: "search",

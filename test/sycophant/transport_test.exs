@@ -1,6 +1,7 @@
 defmodule Sycophant.TransportTest do
   use ExUnit.Case, async: true
 
+  alias Quiver.Error.StreamError
   alias Sycophant.Error.Provider.AuthenticationFailed
   alias Sycophant.Error.Provider.BadRequest
   alias Sycophant.Error.Provider.ModelNotFound
@@ -252,6 +253,35 @@ defmodule Sycophant.TransportTest do
     end
   end
 
+  describe "stream/3 mid-stream failures" do
+    defp raising_body(exception) do
+      Stream.concat(["data: {\"a\":1}\n\n"], Stream.map([:boom], fn _ -> raise exception end))
+    end
+
+    defp stream_with_body(body) do
+      adapter = fn env ->
+        {:ok, %{env | status: 200, body: body, headers: [{"content-type", "text/event-stream"}]}}
+      end
+
+      Transport.stream(%{}, Keyword.put(@base_opts, :adapter, adapter), &Enum.to_list/1)
+    end
+
+    test "maps an adapter timeout raised while consuming the body to Timeout" do
+      assert {:error, %Timeout{reason: :timeout}} =
+               stream_with_body(raising_body(%Tesla.Error{reason: :timeout}))
+    end
+
+    test "maps an idle timeout raised while consuming the body to Timeout" do
+      assert {:error, %Timeout{reason: :idle_timeout}} =
+               stream_with_body(raising_body(StreamError.exception(reason: :idle_timeout)))
+    end
+
+    test "maps other exceptions raised while consuming the body to Unknown" do
+      assert {:error, %Unknown{error: :closed}} =
+               stream_with_body(raising_body(%Tesla.Error{reason: :closed}))
+    end
+  end
+
   describe "stream_binary/3" do
     test "reads streamed error body before mapping" do
       adapter = fn env ->
@@ -265,6 +295,15 @@ defmodule Sycophant.TransportTest do
                Transport.stream_binary(%{}, opts, on_chunks)
 
       assert body =~ "upstream failed"
+    end
+
+    test "maps a timeout raised while consuming the body to Timeout" do
+      body = Stream.map([:boom], fn _ -> raise %Tesla.Error{reason: :timeout} end)
+      adapter = fn env -> {:ok, %{env | status: 200, body: body}} end
+      opts = Keyword.put(@base_opts, :adapter, adapter)
+
+      assert {:error, %Timeout{reason: :timeout}} =
+               Transport.stream_binary(%{}, opts, &Enum.to_list/1)
     end
   end
 end

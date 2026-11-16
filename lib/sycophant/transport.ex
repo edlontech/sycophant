@@ -63,7 +63,13 @@ defmodule Sycophant.Transport do
     end
   end
 
-  @doc "Sends a streaming HTTP POST using SSE and yields the event stream to `on_event`."
+  @doc """
+  Sends a streaming HTTP POST using SSE and yields the event stream to `on_event`.
+
+  Exceptions raised while `on_event` consumes the stream (for example an idle
+  timeout from the HTTP adapter) are returned as `{:error, Timeout}` or
+  `{:error, Unknown}` instead of propagating.
+  """
   @spec stream(map(), keyword(), (Enumerable.t() -> term())) ::
           {:ok, term()} | {:error, Splode.Error.t()}
   def stream(payload, opts, on_event) do
@@ -73,7 +79,7 @@ defmodule Sycophant.Transport do
 
     case Tesla.post(client, path, body, opts: request_opts(opts)) do
       {:ok, %Tesla.Env{status: status, body: event_stream}} when status in 200..299 ->
-        {:ok, on_event.(event_stream)}
+        consume_body(event_stream, on_event)
 
       {:ok, %Tesla.Env{} = env} ->
         env |> read_error_body() |> map_error()
@@ -93,7 +99,7 @@ defmodule Sycophant.Transport do
 
     case Tesla.post(client, path, body, opts: request_opts(opts)) do
       {:ok, %Tesla.Env{status: status, body: binary_stream}} when status in 200..299 ->
-        {:ok, on_chunks.(binary_stream)}
+        consume_body(binary_stream, on_chunks)
 
       {:ok, %Tesla.Env{} = env} ->
         env |> read_error_body() |> map_error()
@@ -101,6 +107,14 @@ defmodule Sycophant.Transport do
       {:error, reason} ->
         map_connection_error(reason)
     end
+  end
+
+  # Streaming adapters raise when the connection fails while the lazy body is
+  # enumerated (Tesla.Error for Mint/Finch, Quiver.Error.StreamError for Quiver).
+  defp consume_body(body, consumer) do
+    {:ok, consumer.(body)}
+  rescue
+    e -> map_connection_error(Map.get(e, :reason) || e)
   end
 
   defp request_opts(opts) do
@@ -256,7 +270,7 @@ defmodule Sycophant.Transport do
 
   defp timeout_middleware(_), do: []
 
-  @timeout_reasons [:timeout, :connect_timeout, :checkout_timeout]
+  @timeout_reasons [:timeout, :connect_timeout, :checkout_timeout, :idle_timeout]
 
   defp map_connection_error(reason) when reason in @timeout_reasons do
     {:error, Timeout.exception(reason: reason)}

@@ -58,7 +58,8 @@ defmodule Sycophant.Serializable do
       "name" => tool.name,
       "description" => tool.description,
       "parameters" => json_schema,
-      "strict" => tool.strict
+      "strict" => tool.strict,
+      "eager_input_streaming" => tool.eager_input_streaming
     }
 
     if tool.schema_source,

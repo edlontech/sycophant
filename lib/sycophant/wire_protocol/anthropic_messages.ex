@@ -408,11 +408,7 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
   defp encode_message(%Message{role: :assistant, content: content, tool_calls: tool_calls})
        when is_list(tool_calls) and tool_calls != [] do
     with {:ok, content_blocks} <- encode_assistant_content_blocks(content) do
-      tool_use_blocks =
-        Enum.map(tool_calls, fn %ToolCall{id: id, name: name, arguments: args} ->
-          %{"type" => "tool_use", "id" => id, "name" => name, "input" => args}
-        end)
-
+      tool_use_blocks = Enum.map(tool_calls, &encode_tool_use/1)
       {:ok, %{"role" => "assistant", "content" => content_blocks ++ tool_use_blocks}}
     end
   end
@@ -549,15 +545,22 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
   defp maybe_put_citations(block, _), do: block
 
   # --- Private: Tool Encoding ---
+  # Undecodable streamed input is kept as a string; the API requires an object.
+  defp encode_tool_use(%ToolCall{id: id, name: name, arguments: args}) do
+    input = if is_map(args), do: args, else: %{}
+    %{"type" => "tool_use", "id" => id, "name" => name, "input" => input}
+  end
 
   defp encode_tool(%Tool{
          name: name,
          description: description,
          parameters: parameters,
-         strict: strict
+         strict: strict,
+         eager_input_streaming: eager
        }) do
     tool = %{"name" => name, "description" => description, "input_schema" => parameters}
-    {:ok, if(strict, do: Map.put(tool, "strict", true), else: tool)}
+    tool = if strict, do: Map.put(tool, "strict", true), else: tool
+    {:ok, if(is_nil(eager), do: tool, else: Map.put(tool, "eager_input_streaming", eager))}
   end
 
   # --- Private: Response Decoding ---
@@ -875,11 +878,19 @@ defmodule Sycophant.WireProtocol.AnthropicMessages do
     tool_calls_map
     |> Enum.sort_by(fn {index, _} -> index end)
     |> Enum.map(fn {_index, tc} ->
-      case JSON.decode(tc.arguments) do
-        {:ok, args} -> %ToolCall{id: tc.id, name: tc.name, arguments: args}
-        {:error, _} -> %ToolCall{id: tc.id, name: tc.name, arguments: %{}}
-      end
+      %ToolCall{id: tc.id, name: tc.name, arguments: decode_tool_input(tc.arguments)}
     end)
+  end
+
+  # Eager input streaming does not guarantee valid JSON, so keep the raw string
+  # rather than calling the tool with empty arguments.
+  defp decode_tool_input(""), do: %{}
+
+  defp decode_tool_input(json) do
+    case JSON.decode(json) do
+      {:ok, args} -> args
+      {:error, _} -> json
+    end
   end
 
   # --- Private: Finish Reason Mapping ---

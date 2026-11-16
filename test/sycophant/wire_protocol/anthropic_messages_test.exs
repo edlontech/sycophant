@@ -151,6 +151,16 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
              ] = assistant_msg["content"]
     end
 
+    test "encodes tool_use input as an empty object when arguments are not a map" do
+      tc = %ToolCall{id: "toolu_1", name: "write", arguments: ~s({"path": "a.md", "conte)}
+      msg = %{Message.assistant(nil) | tool_calls: [tc]}
+      request = build_request([Message.user("write"), msg])
+      assert {:ok, payload} = AnthropicMessages.encode_request(request)
+
+      [_, %{"content" => [%{"type" => "tool_use", "input" => input}]}] = payload["messages"]
+      assert input == %{}
+    end
+
     test "encodes assistant with tool_calls and nil content" do
       tc = %ToolCall{id: "toolu_1", name: "search", arguments: %{"q" => "elixir"}}
       msg = %{Message.assistant(nil) | tool_calls: [tc]}
@@ -500,6 +510,24 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
 
       assert {:ok, [encoded]} = AnthropicMessages.encode_tools(tools)
       refute Map.has_key?(encoded, "strict")
+    end
+
+    test "encodes eager_input_streaming when set and omits it by default" do
+      params = %{"type" => "object", "properties" => %{"content" => %{"type" => "string"}}}
+
+      tools = [
+        %Tool{
+          name: "write",
+          description: "Write",
+          parameters: params,
+          eager_input_streaming: true
+        },
+        %Tool{name: "read", description: "Read", parameters: params}
+      ]
+
+      assert {:ok, [eager, default]} = AnthropicMessages.encode_tools(tools)
+      assert eager["eager_input_streaming"] == true
+      refute Map.has_key?(default, "eager_input_streaming")
     end
 
     test "encodes tools in request payload" do
@@ -1075,6 +1103,63 @@ defmodule Sycophant.WireProtocol.AnthropicMessagesTest do
              }
 
       assert [%ToolCall{id: "toolu_1"}] = response.tool_calls
+    end
+
+    test "keeps undecodable tool input as the raw string" do
+      events = [
+        %{
+          event: "content_block_start",
+          data: %{
+            "index" => 0,
+            "content_block" => %{"type" => "tool_use", "id" => "toolu_1", "name" => "write"}
+          }
+        },
+        %{
+          event: "content_block_delta",
+          data: %{
+            "index" => 0,
+            "delta" => %{"type" => "input_json_delta", "partial_json" => ~s({"content": "abc)}
+          }
+        },
+        %{event: "content_block_stop", data: %{"index" => 0}},
+        %{event: "message_delta", data: %{"delta" => %{"stop_reason" => "tool_use"}}},
+        %{event: "message_stop", data: %{}}
+      ]
+
+      {:done, response} =
+        Enum.reduce(events, AnthropicMessages.init_stream(), fn event, state ->
+          case AnthropicMessages.decode_stream_chunk(state, event) do
+            {:ok, state, _chunks} -> state
+            {:done, response} -> {:done, response}
+          end
+        end)
+
+      assert [%ToolCall{arguments: ~s({"content": "abc)}] = response.tool_calls
+    end
+
+    test "decodes tool call without input deltas as empty arguments" do
+      events = [
+        %{
+          event: "content_block_start",
+          data: %{
+            "index" => 0,
+            "content_block" => %{"type" => "tool_use", "id" => "toolu_1", "name" => "now"}
+          }
+        },
+        %{event: "content_block_stop", data: %{"index" => 0}},
+        %{event: "message_delta", data: %{"delta" => %{"stop_reason" => "tool_use"}}},
+        %{event: "message_stop", data: %{}}
+      ]
+
+      {:done, response} =
+        Enum.reduce(events, AnthropicMessages.init_stream(), fn event, state ->
+          case AnthropicMessages.decode_stream_chunk(state, event) do
+            {:ok, state, _chunks} -> state
+            {:done, response} -> {:done, response}
+          end
+        end)
+
+      assert [%ToolCall{arguments: %{}}] = response.tool_calls
     end
 
     test "skips ping events" do
