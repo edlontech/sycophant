@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.0](https://github.com/edlontech/sycophant/compare/sycophant-v0.10.1...sycophant-v0.11.0) (2026-11-16)
+
+
+### Features
+
+* **anthropic:** eager_input_streaming on tools, return mid-stream transport errors, keep invalid tool input ([36ea59c](https://github.com/edlontech/sycophant/commit/36ea59c0300400485de7b601c8268d1b67dca113))
+
 ## [0.10.1](https://github.com/edlontech/sycophant/compare/sycophant-v0.10.0...sycophant-v0.10.1) (2026-11-13)
 
 
